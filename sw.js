@@ -1,7 +1,7 @@
 // HanLingo · Service Worker
 // PWA offline support
 
-const CACHE_NAME = 'hanlingo-v1';
+const CACHE_NAME = 'hanlingo-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -47,6 +47,16 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', event => {
+  // 跳过非 GET 请求
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  // 跳过音频文件（太大，不缓存）
+  if (event.request.url.match(/\.(mp3|ogg|wav)$/)) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(cached => {
@@ -54,7 +64,7 @@ self.addEventListener('fetch', event => {
           return cached;
         }
         return fetch(event.request).then(response => {
-          // Cache the fetched response
+          // 只缓存成功的响应
           if (response && response.status === 200) {
             const clone = response.clone();
             caches.open(CACHE_NAME).then(cache => {
@@ -63,11 +73,17 @@ self.addEventListener('fetch', event => {
           }
           return response;
         }).catch(() => {
-          // Offline fallback
-          return new Response('Offline - HanLingo', {
-            status: 503,
-            statusText: 'Service Unavailable'
-          });
+          // Offline fallback - 返回一个简单的页面
+          return new Response(
+            '<html><body><h1>📚 HanLingo</h1><p>You are offline. Please connect to the internet.</p></body></html>',
+            {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: new Headers({
+                'Content-Type': 'text/html'
+              })
+            }
+          );
         });
       })
   );
