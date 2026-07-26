@@ -620,7 +620,9 @@
         }
       });
 
-      // ===== 播放按钮 =====
+      // ============================================================
+      // ===== 播放按钮 - 优化版（优先使用TTS，设备一致） =====
+      // ============================================================
       document.getElementById('playBtn').addEventListener('click', function() {
         var s = todaySentences[currentIndex];
         if (!s) {
@@ -628,6 +630,7 @@
           return;
         }
 
+        // 如果正在播放，停止
         if (this.classList.contains('playing')) {
           if (window._currentAudio) {
             window._currentAudio.pause();
@@ -643,6 +646,85 @@
         this.classList.add('playing');
         this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
 
+        // ===== 直接使用 TTS（文本转语音），设备一致，无音频文件依赖 =====
+        function playTTS() {
+          if (!('speechSynthesis' in window)) {
+            document.getElementById('playBtn').classList.remove('playing');
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Not supported';
+            setTimeout(function() {
+              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
+            }, 1500);
+            return;
+          }
+
+          speechSynthesis.cancel();
+
+          var utterance = new SpeechSynthesisUtterance(s.chinese);
+          utterance.lang = 'zh-CN';
+          utterance.rate = 0.7;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+
+          // 获取所有语音
+          var voices = speechSynthesis.getVoices();
+
+          function selectVoiceAndSpeak() {
+            var currentVoices = speechSynthesis.getVoices();
+            // 优先选择中文语音
+            var chineseVoice = currentVoices.find(function(v) {
+              return v.lang.startsWith('zh') || v.lang.includes('CN') || v.lang.includes('TW');
+            });
+            // 如果没有中文语音，选择Google中文语音
+            if (!chineseVoice) {
+              chineseVoice = currentVoices.find(function(v) {
+                return v.name && (v.name.includes('Google') && v.lang.startsWith('zh'));
+              });
+            }
+            if (chineseVoice) {
+              utterance.voice = chineseVoice;
+              utterance.rate = 0.65;
+            }
+            speechSynthesis.speak(utterance);
+          }
+
+          // 如果声音列表为空，等待加载
+          if (voices.length === 0) {
+            speechSynthesis.onvoiceschanged = function() {
+              selectVoiceAndSpeak();
+            };
+            // 超时处理：如果500ms后还没有声音列表，直接尝试
+            setTimeout(function() {
+              if (speechSynthesis.getVoices().length === 0) {
+                selectVoiceAndSpeak();
+              }
+            }, 500);
+          } else {
+            selectVoiceAndSpeak();
+          }
+
+          utterance.onstart = function() {
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-volume-up"></i> Speaking...';
+          };
+
+          utterance.onend = function() {
+            document.getElementById('playBtn').classList.remove('playing');
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-check"></i> Played ✓';
+            setTimeout(function() {
+              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
+            }, 1000);
+          };
+
+          utterance.onerror = function(e) {
+            console.warn('⚠️ TTS error:', e);
+            document.getElementById('playBtn').classList.remove('playing');
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+            setTimeout(function() {
+              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
+            }, 1500);
+          };
+        }
+
+        // ===== 尝试加载音频文件（备用），同时准备TTS =====
         var globalIndex = -1;
         if (typeof HSK1_SENTENCES !== 'undefined') {
           for (var i = 0; i < HSK1_SENTENCES.length; i++) {
@@ -662,10 +744,18 @@
 
         var audio = new Audio(audioPath);
         window._currentAudio = audio;
+        var audioPlayed = false;
 
         audio.oncanplaythrough = function() {
-          document.getElementById('playBtn').innerHTML = '<i class="fas fa-volume-up"></i> Playing...';
-          audio.play();
+          if (!audioPlayed) {
+            audioPlayed = true;
+            document.getElementById('playBtn').innerHTML = '<i class="fas fa-volume-up"></i> Playing...';
+            audio.play().catch(function() {
+              // 播放失败，使用TTS
+              console.warn('⚠️ Audio play failed, using TTS');
+              playTTS();
+            });
+          }
         };
 
         audio.onended = function() {
@@ -678,50 +768,41 @@
         };
 
         audio.onerror = function() {
-          console.warn('⚠️ Audio not found:', audioPath);
+          console.warn('⚠️ Audio file error, using TTS');
           window._currentAudio = null;
-          useTTSFallback();
+          playTTS();
         };
 
-        audio.load();
-
+        // 超时：如果音频3秒内没加载完成，使用TTS
         var timeout = setTimeout(function() {
-          if (window._currentAudio && !window._currentAudio.played.length) {
-            console.warn('⏱️ Audio load timeout');
+          if (!audioPlayed && window._currentAudio) {
+            console.warn('⏱️ Audio load timeout, using TTS');
             window._currentAudio.pause();
             window._currentAudio = null;
-            useTTSFallback();
+            playTTS();
           }
         }, 3000);
 
-        function useTTSFallback() {
-          console.log('🔊 Using browser TTS fallback');
-          if ('speechSynthesis' in window) {
-            var utterance = new SpeechSynthesisUtterance(s.chinese);
-            utterance.lang = 'zh-CN';
-            utterance.rate = 0.8;
-            utterance.onend = function() {
-              document.getElementById('playBtn').classList.remove('playing');
-              document.getElementById('playBtn').innerHTML = '<i class="fas fa-check"></i> Played ✓';
-              setTimeout(function() {
-                document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-              }, 1000);
-            };
-            utterance.onerror = function() {
-              document.getElementById('playBtn').classList.remove('playing');
-              document.getElementById('playBtn').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-              setTimeout(function() {
-                document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-              }, 1500);
-            };
-            speechSynthesis.speak(utterance);
-          } else {
-            document.getElementById('playBtn').classList.remove('playing');
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Not supported';
-            setTimeout(function() {
-              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-            }, 1500);
-          }
+        // 开始加载音频
+        audio.load();
+
+        // 如果浏览器不支持音频或音频加载慢，直接使用TTS
+        // 对于移动设备，直接使用TTS更可靠
+        var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+          // 移动设备：延迟一点，给音频加载机会，但最终使用TTS
+          setTimeout(function() {
+            if (!audioPlayed && window._currentAudio) {
+              console.log('📱 Mobile: using TTS for consistency');
+              window._currentAudio.pause();
+              window._currentAudio = null;
+              if (!document.getElementById('playBtn').classList.contains('playing')) {
+                // 如果按钮已经不在播放状态，说明已经被其他方式处理了
+                return;
+              }
+              playTTS();
+            }
+          }, 1500);
         }
       });
 
