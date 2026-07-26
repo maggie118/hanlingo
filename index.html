@@ -8,16 +8,17 @@
   <title>HanLingo · Learn Chinese - HSK 1-9, YCT, BCT, MCT & Themed Packs</title>
   
   <!-- ===== SEO Meta ===== -->
-  <meta name="description" content="Master Chinese with HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi sentence packs. One sentence = 5 skills: Vocabulary, Grammar, Pronunciation, Context, Culture. Start learning for free!">
+  <meta name="description" content="Master Chinese with HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Daily, Restaurant, Hotel, Shopping, and Taxi sentence packs. One sentence = 5 skills: Vocabulary, Grammar, Pronunciation, Context, Culture.">
   <meta name="keywords" content="learn chinese, hsk1, hsk2, hsk3, hsk4, hsk5, hsk6, hsk7, hsk8, hsk9, yct1, yct2, yct3, yct4, bct, mct, business chinese, travel chinese, chinese sentences, mandarin, language learning, hanlingo">
   <meta name="author" content="HanLingo">
   <meta name="robots" content="index, follow">
+  <meta name="language" content="English, Chinese">
   
   <!-- ===== Open Graph / Facebook ===== -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hanlingo.app/">
   <meta property="og:title" content="HanLingo · Learn Chinese - HSK 1-9, YCT, BCT, MCT & Themed Packs">
-  <meta property="og:description" content="Master Chinese with HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi sentence packs. One sentence = 5 skills. Start for free!">
+  <meta property="og:description" content="Master Chinese with HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Daily, Restaurant, Hotel, Shopping, and Taxi sentence packs. One sentence = 5 skills.">
   <meta property="og:image" content="https://hanlingo.app/icon-512.png">
   <meta property="og:site_name" content="HanLingo">
   <meta property="og:locale" content="en_US">
@@ -26,7 +27,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://hanlingo.app/">
   <meta name="twitter:title" content="HanLingo · Learn Chinese - HSK 1-9, YCT, BCT, MCT & Themed Packs">
-  <meta name="twitter:description" content="Master Chinese with HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi sentence packs. One sentence = 5 skills. Start for free!">
+  <meta name="twitter:description" content="Master Chinese with HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Daily, Restaurant, Hotel, Shopping, and Taxi sentence packs. One sentence = 5 skills.">
   <meta name="twitter:image" content="https://hanlingo.app/icon-512.png">
   
   <!-- ===== PWA ===== -->
@@ -45,7 +46,6 @@
   <script src="js/user-system.js"></script>
   
   <style>
-    /* ... 所有样式保持不变 ... */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #f7f5f2; color: #1e1e2a; line-height: 1.5; padding: 0 0 70px 0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
     .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0; overflow: hidden; }
@@ -586,6 +586,76 @@
       position: relative;
     }
 
+    /* ===== PWA Install Banner ===== */
+    .install-banner {
+      background: linear-gradient(135deg, #1e1e2a, #2a2a3a);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      color: #f0ede8;
+      border: 1px solid rgba(255,107,53,0.2);
+      animation: slideUp 0.4s ease-out;
+    }
+    @keyframes slideUp {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    .install-banner .app-icon {
+      width: 36px;
+      height: 36px;
+      background: #FF6B35;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .install-banner .info {
+      flex: 1;
+    }
+    .install-banner .info .title {
+      font-weight: 600;
+      font-size: 0.7rem;
+    }
+    .install-banner .info .desc {
+      font-size: 0.5rem;
+      color: #9b9390;
+    }
+    .install-banner .install-btn {
+      background: #FF6B35;
+      border: none;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.6rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+    .install-banner .install-btn:hover {
+      background: #e85a2a;
+      transform: scale(1.02);
+    }
+    .install-banner .close-btn {
+      background: transparent;
+      border: none;
+      color: #6a6a7a;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 2px 6px;
+      transition: 0.2s;
+    }
+    .install-banner .close-btn:hover {
+      color: #f0ede8;
+    }
+
     /* Bottom CTA */
     .bottom-cta { background: linear-gradient(145deg, #1e1e2a, #2a2a3a); border-radius: 14px; padding: 16px 16px; margin: 12px 0 8px 0; text-align: center; }
     .bottom-cta .title { font-size: 0.85rem; font-weight: 700; color: #f0ede8; margin-bottom: 2px; }
@@ -711,6 +781,7 @@
     .modal .calendar .day.checked { background: #FF6B35; color: white; font-weight: 700; }
     .modal .calendar .day.empty { background: transparent; }
     .modal .calendar .day.today { border: 2px solid #FF6B35; font-weight: 700; }
+
     .modal .calendar .day.future { opacity: 0.3; }
     .modal .legend { margin-top: 8px; text-align: center; font-size: 0.45rem; color: #9b9390; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
     .modal .legend .dot { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 3px; vertical-align: middle; text-align: center; line-height: 14px; color: white; font-size: 8px; }
@@ -729,7 +800,6 @@
     .modal .btn-subscribe { background: #FF6B35; border: none; color: white; padding: 8px; border-radius: 60px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s; width: 100%; }
     .modal .btn-subscribe:hover { background: #e85a2a; }
 
-
     @media (max-width: 400px) {
       .steps { gap: 5px; }
       .paths-grid { gap: 6px; }
@@ -742,6 +812,9 @@
       .modal-actions .btn-secondary { flex: 1; }
       .sticky-notification .notification-text { font-size: 0.55rem; }
       .sticky-notification .notification-cta { font-size: 0.5rem; padding: 3px 10px; }
+      .install-banner { padding: 10px 12px; }
+      .install-banner .info .title { font-size: 0.6rem; }
+      .install-banner .install-btn { font-size: 0.5rem; padding: 4px 12px; }
     }
   </style>
 </head>
@@ -785,6 +858,17 @@
   </div>
 
   <div class="home-container">
+
+    <!-- ===== PWA 安装引导 ===== -->
+    <div class="install-banner" id="installBanner">
+      <div class="app-icon">HL</div>
+      <div class="info">
+        <div class="title">📲 安装 HanLingo</div>
+        <div class="desc">添加到桌面，快速学习</div>
+      </div>
+      <button class="install-btn" id="installAppBtn">安装</button>
+      <button class="close-btn" id="closeInstallBanner">✕</button>
+    </div>
     
     <!-- Hero -->
     <div class="hero-card">
@@ -1523,6 +1607,70 @@
     }
 
     // ============================================================
+    // SERVICE WORKER 注册
+    // ============================================================
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(function(reg) {
+          console.log('✅ Service Worker registered successfully:', reg);
+        })
+        .catch(function(err) {
+          console.warn('⚠️ Service Worker registration failed:', err);
+        });
+    }
+
+    // ============================================================
+    // PWA 安装引导
+    // ============================================================
+    var deferredPrompt = null;
+    var installBanner = document.getElementById('installBanner');
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      var bannerClosed = localStorage.getItem('hanlingo_install_banner_closed');
+      if (!bannerClosed && installBanner) {
+        installBanner.style.display = 'flex';
+      }
+      console.log('📲 PWA install prompt available');
+    });
+
+    window.addEventListener('appinstalled', function() {
+      console.log('✅ HanLingo installed successfully');
+      showToast('🎉 HanLingo installed on your device!', 'fa-check-circle');
+      if (installBanner) installBanner.style.display = 'none';
+      localStorage.setItem('hanlingo_installed', 'true');
+    });
+
+    document.getElementById('installAppBtn').addEventListener('click', function() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choiceResult) {
+          if (choiceResult.outcome === 'accepted') {
+            showToast('🎉 HanLingo installed!', 'fa-check-circle');
+            if (installBanner) installBanner.style.display = 'none';
+          } else {
+            showToast('📲 You can install later from browser menu', 'fa-info-circle');
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        // 引导手动安装
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var msg = isIOS ? 
+          '📲 点击 Safari 底部分享按钮 → "添加到主屏幕"' :
+          '📲 点击浏览器菜单 → "添加到主屏幕" 或 "安装应用"';
+        alert(msg);
+      }
+    });
+
+    document.getElementById('closeInstallBanner').addEventListener('click', function() {
+      if (installBanner) installBanner.style.display = 'none';
+      localStorage.setItem('hanlingo_install_banner_closed', 'true');
+    });
+
+    // ============================================================
     // EARLY BIRD - 增强版
     // ============================================================
     function updateEarlyBirdCount() {
@@ -1966,7 +2114,6 @@
       var timerEl = document.getElementById('countdownTimer');
       if (!timerEl) return;
 
-      // 设置倒计时：2小时34分17秒
       var totalSeconds = 2 * 3600 + 34 * 60 + 17;
 
       function updateTimer() {
@@ -2000,11 +2147,9 @@
       // 关闭通知栏
       document.getElementById('closeNotification').addEventListener('click', function() {
         document.getElementById('stickyNotification').classList.add('hidden');
-        // 记住用户关闭了通知栏
         localStorage.setItem('hanlingo_notification_closed', 'true');
       });
 
-      // 如果用户之前关闭过，但超过24小时，重新显示
       var closed = localStorage.getItem('hanlingo_notification_closed');
       if (closed) {
         var closedTime = parseInt(closed);
@@ -2016,7 +2161,6 @@
         }
       }
 
-      // 滚动时改变通知栏样式
       var notification = document.getElementById('stickyNotification');
       window.addEventListener('scroll', function() {
         if (window.scrollY > 10) {
