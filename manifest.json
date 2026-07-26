@@ -1,7 +1,7 @@
 {
   "name": "HanLingo",
   "short_name": "HanLingo",
-  "description": "Learn Chinese through real sentences - HSK, YCT, BCT, MCT",
+  "description": "Learn Chinese through real sentences",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -21,13 +21,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-home.png",
-      "sizes": "1080x1920",
-      "type": "image/png"
     }
   ]
 }
