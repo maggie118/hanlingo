@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Secure Checkout · HanLingo</title>
+  <link rel="stylesheet" href="https://cloudflare.com">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f7f5f2; color: #1e1e2a; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.4; }
+    
+    /* 结账页专用大容器，支持PC端并排，移动端自动垂直堆叠 */
+    .checkout-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); padding-bottom: 40px; }
+    
+    /* 安全结账头部栏 */
+    .checkout-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; background: #ffffff; }
+    .back-btn { color: #898999; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+    .back-btn:hover { color: #FF6B35; }
+    .secure-title { font-size: 0.8rem; font-weight: 700; color: #2d6a4f; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .checkout-body { padding: 20px; }
+
+    /* ====== 右侧/上方：订单明细卡片 ====== */
+    .order-summary-card { background: #1e1e2a; color: #ffffff; border-radius: 14px; padding: 16px; margin-bottom: 24px; position: relative; }
+    .summary-title { font-size: 0.65rem; font-weight: 600; color: #8a8a9a; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    .product-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #2f2f3a; }
+    .product-info .p-name { font-size: 0.95rem; font-weight: 800; }
+    .product-info .p-badge { background: #FF6B35; color: white; font-size: 0.5rem; font-weight: 700; padding: 1px 6px; border-radius: 10px; margin-left: 4px; text-transform: uppercase; }
+    .product-info .p-desc { font-size: 0.65rem; color: #b0b0c0; margin-top: 2px; }
+    .product-price { font-size: 1.1rem; font-weight: 800; color: #FF6B35; }
+    
+    .total-row { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; font-size: 0.9rem; font-weight: 700; }
+    .total-row .saved-tag { color: #2d6a4f; background: #e8f5e9; font-size: 0.55rem; padding: 2px 8px; border-radius: 12px; margin-left: 6px; font-weight: 600; }
+
+    /* ====== 左侧/下方：支付表单区域 ====== */
+    .form-section-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.65rem; font-weight: 600; color: #666; margin-bottom: 4px; text-transform: uppercase; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid #efebe8; background: #fdfdfd; border-radius: 8px; font-size: 0.85rem; color: #1e1e2a; transition: all 0.2s; font-family: inherit; }
+    .form-group input:focus { outline: none; border-color: #FF6B35; background: #ffffff; box-shadow: 0 0 0 3px rgba(255,107,53,0.1); }
+    
+    /* 信用卡双列输入（有效期 + CVC） */
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .input-with-icon { position: relative; }
+    .input-with-icon i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #b0b0b0; font-size: 0.9rem; }
+
+    /* 欧美主流信用卡图标展示区 */
+    .card-brands { display: flex; gap: 6px; margin-top: 4px; font-size: 1.1rem; color: #b0b0b0; }
+    .card-brands i.active { color: #1a1a24; } /* 可以模拟激活高亮 */
+
+    /* 结账核心按钮 */
+    .pay-submit-btn { background: #FF6B35; border: none; color: white; padding: 14px; border-radius: 60px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 14px rgba(255,107,53,0.3); width: 100%; margin: 24px 0 16px 0; transition: all 0.2s; }
+    .pay-submit-btn:hover { background: #e85a2a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,53,0.45); }
+    .pay-submit-btn:active { transform: translateY(1px) scale(0.99); }
+
+    /* ====== 欧美用户信任背书组件 ====== */
+    .trust-badges { background: #fdfbf7; border: 1px dashed #e6dfd5; border-radius: 10px; padding: 12px; text-align: center; }
+    .trust-badges .guarantee-text { font-size: 0.65rem; font-weight: 600; color: #2d6a4f; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .trust-badges .guarantee-desc { font-size: 0.55rem; color: #777; line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-container">
+    <!-- 头部：声明这是安全结账，打消顾虑 -->
+    <div class="checkout-header">
+      <a href="index.html" class="back-btn"><i class="fas fa-chevron-left"></i> Back</a>
+      <div class="secure-title"><i class="fas fa-lock"></i> Secure Checkout</div>
+    </div>
+
+    <div class="checkout-body">
+      
+      <!-- 📦 1. 订单明细卡片（放在上方让用户再次确认买到了什么） -->
+      <div class="order-summary-card">
+        <div class="summary-title">Your Order</div>
+        <div class="product-row">
+          <div class="product-info">
+            <span class="p-name">HanLingo Lifetime Access</span><span class="p-badge">Early Bird</span>
+            <div class="p-desc">Unlock HSK 1-6 premium workbooks & all future updates.</div>
+          </div>
+          <div class="product-price">$149.99</div>
+        </div>
+        <div class="total-row">
+          <span>Total due today:</span>
+          <div>
+            <span class="saved-tag">Saved $50.00</span>
+            <span style="color: #FF6B35; font-size: 1.2rem; margin-left: 6px;">$149.99</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 💳 2. 支付表单 -->
+      <form id="checkout-form" onsubmit="handlePayment(event)">
+        
+        <!-- 账户信息（欧美习惯先填Email建档） -->
+        <div class="form-section-title"><i class="far fa-envelope"></i> 1. Account Details</div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+
+        <!-- 支付卡片信息 -->
+        <div class="form-section-title" style="margin-top: 20px;"><i class="far fa-credit-card"></i> 2. Payment Method</div>
+        
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <div class="input-with-icon">
+            <input type="text" id="card-number" placeholder="4242 •••• •••• ••••" inputmode="numeric" maxlength="19" required>
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <!-- 支持的卡品牌标志，给欧美用户安全感 -->
+          <div class="card-brands">
+            <i class="fab fa-cc-visa" title="Visa"></i>
+            <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+            <i class="fab fa-cc-amex" title="American Express"></i>
+            <i class="fab fa-cc-discover" title="Discover"></i>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="card-expiry">Expiry Date</label>
+            <input type="text" id="card-expiry" placeholder="MM / YY" inputmode="numeric" maxlength="5" required>
+          </div>
+          <div class="form-group">
+            <label for="card-cvc">CVC / CVV</label>
+            <div class="input-with-icon">
+              <input type="password" id="card-cvc" placeholder="123" inputmode="numeric" maxlength="4" required>
+              <i class="far fa-question-circle" title="3 or 4 digit security code"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 确认付款按钮 -->
+        <button type="submit" class="pay-submit-btn" id="submit-btn">
+          <i class="fas fa-shield-alt"></i> Pay $149.99 Securely
+        </button>
+      </form>
+
+      <!-- 🛡️ 3. 终极信任背书区（催化剂，直击痛点） -->
+      <div class="trust-badges">
+        <div class="guarantee-text">
+          <i class="fas fa-check-circle"></i> 30-Day Money-Back Guarantee
+        </div>
+        <div class="guarantee-desc">
+          If you're not 100% satisfied with HanLingo's premium Chinese workbooks, email us within 30 days for a full, hassle-free refund.
+        </div>
+        <div style="font-size: 0.5rem; color: #b0b0b0; margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
+          <span><i class="fas fa-lock"></i> 256-Bit SSL Encryption</span>
+          <span><i class="fas fa-check"></i> Stripe Verified</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // 卡号和有效期格式化小交互（提升输入时的细节体验）
+    document.getElementById('card-number').addEventListener('input', function (e) {
+      e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
+    });
+    document.getElementById('card-expiry').addEventListener('input', function (e) {
+      e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/^(\d{2})/, '$1/').trim();
+    });
+
+    // 提交付款模拟
+    function handlePayment(event) {
+      event.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      btn.disabled = true;
+
+      // 模拟 2.5 秒银行网关鉴权
+      setTimeout(() => {
+        alert("🎉 Thank you for your purchase! Welcome to HanLingo Lifetime Access.");
+        window.location.href = "index.html"; // 付款成功后跳回首页或下载页
+      }, 2500);
+    }
+  </script>
+
+</body>
+</html>
