@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>HanLingo · Learn Chinese</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF6B35">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="js/workbook-export.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/user-system.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f7f5f2; color: #1e1e2a; line-height: 1.5; padding: 0 0 70px 0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0; overflow: hidden; }
+    .status-bar { background: #1e1e2a; color: #e8e4df; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 0.5rem; letter-spacing: 0.4px; font-weight: 500; }
+    .header { padding: 12px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
+    
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 2px 6px; border-radius: 10px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
+    .logo-area:hover { background: #f5f2ef; }
+    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    .logo-icon { background: #FF6B35; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(255,107,53,0.2); transition: all 0.3s ease; }
+    .logo-area:hover .logo-icon { transform: rotate(-6deg) scale(1.05); box-shadow: 0 5px 16px rgba(255,107,53,0.3); }
+    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: -0.2px; transition: all 0.3s ease; }
+    .logo-area:hover .logo-text { transform: scale(1.02); }
+    .logo-text .han { color: #1e1e2a; }
+    .logo-text .lingo { color: #FF6B35; }
+    .header-actions { display: flex; gap: 14px; color: #898999; font-size: 1rem; align-items: center; }
+    .header-actions .bell-icon { cursor: pointer; transition: 0.2s; padding: 4px; border-radius: 8px; position: relative; }
+    .header-actions .bell-icon:hover { background: #f5f2ef; color: #FF6B35; }
+    .header-actions .bell-icon .badge-dot { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; background: #FF6B35; border-radius: 50%; border: 2px solid white; display: none; }
+    .header-actions .bell-icon .badge-dot.show { display: block; }
+    .header-actions .user-icon { cursor: pointer; transition: 0.2s; padding: 4px; border-radius: 8px; }
+    .header-actions .user-icon:hover { background: #f5f2ef; color: #FF6B35; }
+
+    /* ===== 全局紧急通知栏 ===== */
+    .sticky-notification {
+      background: linear-gradient(135deg, #1a0f0a, #2a1a12);
+      border-bottom: 2px solid #FF6B35;
+      padding: 8px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      animation: slideDown 0.5s ease-out;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.08);
+    }
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    .sticky-notification .notification-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 480px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sticky-notification .notification-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    .sticky-notification .notification-text {
+      font-size: 0.65rem;
+      color: #f0ede8;
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+    }
+    .sticky-notification .notification-text .highlight {
+      color: #FF6B35;
+      font-weight: 700;
+    }
+    .sticky-notification .notification-text .deal {
+      color: #ffd700;
+      font-weight: 700;
+    }
+    .sticky-notification .notification-text .countdown {
+      color: #ff6b6b;
+      font-weight: 700;
+      font-family: monospace;
+      font-size: 0.7rem;
+      background: rgba(255,107,53,0.12);
+      padding: 1px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .sticky-notification .notification-cta {
+      background: linear-gradient(135deg, #FF6B35, #e85a2a);
+      color: white;
+      border: none;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      animation: breathe 2.5s ease-in-out infinite;
+      box-shadow: 0 2px 12px rgba(255,107,53,0.15);
+    }
+    .sticky-notification .notification-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(255,107,53,0.3);
+      animation: none;
+    }
+    .sticky-notification .notification-close {
+      background: none;
+      border: none;
+      color: #6a6a7a;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      border-radius: 50%;
+      transition: 0.2s;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .sticky-notification .notification-close:hover {
+      color: #f0ede8;
+      background: rgba(255,255,255,0.05);
+    }
+    .sticky-notification.hidden {
+      display: none;
+    }
+    .sticky-notification.scrolled {
+      background: linear-gradient(135deg, #0d0a08, #1a0f0a);
+      border-bottom-color: #f7934b;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      padding: 6px 16px;
+    }
+    .sticky-notification.scrolled .notification-text {
+      font-size: 0.6rem;
+    }
+    .sticky-notification.scrolled .notification-icon {
+      font-size: 0.9rem;
+    }
+
+    .home-container { padding: 14px 18px 10px 18px; }
+
+    /* Hero */
+    .hero-card { background: #1e1e2a; color: #f0ede8; border-radius: 18px; padding: 20px 20px 16px 20px; margin-bottom: 16px; }
+    .hero-tag { font-size: 0.5rem; font-weight: 500; color: #8a8a9a; letter-spacing: 0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .hero-tag i { color: #FF6B35; font-size: 0.6rem; }
+    .hero-title-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 2px; flex-wrap: wrap; }
+    .gem-icon { color: #FF6B35; font-size: 0.95rem; }
+    .hero-main-title { font-size: 1.25rem; font-weight: 800; color: #ffffff; letter-spacing: -0.3px; }
+    .arrow-icon { color: #FF6B35; font-size: 0.8rem; opacity: 0.7; margin: 0 2px; }
+    .hero-sub-title { font-size: 1.25rem; font-weight: 800; color: #ffffff; letter-spacing: -0.3px; }
+    .hero-desc { font-size: 0.7rem; color: #b0b0c0; line-height: 1.6; margin: 6px 0 14px 0; }
+    .hero-btn { background: #FF6B35; border: none; color: white; padding: 10px 24px; border-radius: 60px; font-weight: 600; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 14px rgba(255,107,53,0.25); transition: all 0.2s ease; text-decoration: none; width: 100%; }
+    .hero-btn:hover { background: #e85a2a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,53,0.35); }
+
+    /* Steps */
+    .steps { display: flex; gap: 8px; margin: 0 0 16px 0; }
+    .step { flex: 1; background: #f8f6f3; border-radius: 12px; padding: 10px 6px 8px 6px; text-align: center; border: 1px solid #efebe8; transition: 0.2s; }
+    .step:hover { border-color: #FF6B35; transform: translateY(-2px); }
+    .step .num { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; color: #999; text-transform: uppercase; display: block; margin-bottom: 2px; }
+    .step .icon { font-size: 0.85rem; display: block; margin: 2px 0; color: #666; }
+    .step .label { font-size: 0.6rem; font-weight: 600; color: #1e1e2a; }
+    .step .desc { font-size: 0.45rem; color: #999; margin-top: 1px; }
+
+    /* Features */
+    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; margin: 0 0 14px 0; padding: 2px 0; }
+    .feature { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+    .feature .dot { color: #d5d0ca; font-size: 0.35rem; flex-shrink: 0; }
+    .feature .title { font-size: 0.65rem; font-weight: 500; color: #1e1e2a; }
+    .feature.full { grid-column: 1 / -1; border-top: 1px solid #efebe8; padding-top: 6px; margin-top: 2px; flex-wrap: wrap; }
+    .feature.full .title { font-weight: 600; }
+    .feature .tags { display: flex; gap: 4px; flex-wrap: wrap; margin-left: 4px; }
+    .feature .tags span { font-size: 0.45rem; color: #666; padding: 1px 8px; border-radius: 12px; border: 1px solid #efebe8; }
+
+    /* Daily Card */
+    .daily { background: #ffffff; border-radius: 14px; padding: 12px 16px 10px 16px; border: 1px solid #efebe8; margin-bottom: 12px; transition: all 0.2s ease; }
+    .daily:hover { border-color: #FF6B35; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.05); }
+    .daily .label { font-size: 0.5rem; font-weight: 600; color: #888; display: flex; align-items: center; gap: 6px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .daily .label i { color: #FF6B35; font-size: 0.6rem; }
+    .daily .chinese { font-size: 1.2rem; font-weight: 700; color: #1a1a28; cursor: pointer; }
+    .daily .chinese:hover { color: #FF6B35; }
+    .daily .pinyin { font-size: 0.6rem; color: #7b7b8a; margin: 1px 0 3px; }
+    .daily .translation { font-size: 0.6rem; color: #3d3d4a; background: #f4f1ee; padding: 1px 12px; border-radius: 40px; display: inline-block; }
+    .daily .actions { display: flex; gap: 6px; margin-top: 8px; }
+    .daily .actions button { background: #f4f1ee; border: none; padding: 3px 14px; border-radius: 30px; font-size: 0.55rem; font-weight: 500; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; color: #1e1e2a; }
+    .daily .actions button:hover { background: #e8e2dc; }
+    .daily .actions .primary { background: #1e1e2a; color: white; font-weight: 600; }
+    .daily .actions .primary:hover { background: #2f2f3a; }
+    .daily .actions .primary.playing { background: #FF6B35; }
+
+    /* Progress */
+    .progress { background: #fef9f5; border-radius: 14px; padding: 12px 16px 10px 16px; border: 1px solid #FF6B35; margin-bottom: 12px; transition: 0.2s; }
+    .progress:hover { background: #fdf5ef; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.05); }
+    .progress .name { font-weight: 600; font-size: 0.65rem; display: flex; align-items: center; gap: 6px; color: #1e1e2a; }
+    .progress .name i { color: #FF6B35; font-size: 0.65rem; }
+    .progress .inner { margin-top: 4px; }
+    .progress .row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2px; }
+    .progress .stats { display: flex; gap: 10px; }
+    .progress .stats span { font-size: 0.55rem; font-weight: 500; color: #4a4a5a; display: flex; align-items: center; gap: 3px; }
+    .progress .stats .fire { color: #b45309; }
+    .progress .stats .check { color: #2d6a4f; }
+    .progress .bar { width: 100%; height: 3px; background: #e6e0db; border-radius: 20px; margin-top: 6px; overflow: hidden; }
+    .progress .bar .fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 20px; transition: width 0.5s ease; }
+    .progress .checkin { display: flex; align-items: center; justify-content: space-between; padding-top: 6px; margin-top: 4px; border-top: 1px solid #efebe8; flex-wrap: wrap; gap: 4px; }
+    .progress .checkin .info { font-size: 0.5rem; color: #6a6a7a; display: flex; align-items: center; gap: 3px; }
+    .progress .checkin .info i { color: #FF6B35; }
+    .progress .checkin .btn { background: #FF6B35; border: none; color: white; padding: 2px 14px; border-radius: 30px; font-size: 0.5rem; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
+    .progress .checkin .btn:hover { background: #e85a2a; }
+    .progress .checkin .btn:disabled { background: #2d6a4f; cursor: default; }
+    .progress .checkin .btn-outline { background: transparent; color: #FF6B35; border: 1px solid #FF6B35; padding: 2px 10px; border-radius: 30px; font-size: 0.5rem; font-weight: 500; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
+    .progress .checkin .btn-outline:hover { background: #FF6B35; color: white; }
+
+    /* Section Titles */
+    .section-title { font-size: 0.7rem; font-weight: 600; margin: 14px 0 2px 0; color: #1e1e2a; display: flex; align-items: center; gap: 6px; }
+    .section-title i { color: #FF6B35; font-size: 0.7rem; }
+    .section-sub { font-size: 0.5rem; color: #6a6a7a; margin-top: -1px; margin-bottom: 8px; }
+
+    /* Collapse Sections */
+    .collapse { border: 1px solid #efebe8; border-radius: 12px; margin-bottom: 8px; overflow: hidden; background: #ffffff; }
+    .collapse-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; cursor: pointer; transition: 0.15s; user-select: none; }
+    .collapse-header:hover { background: #f8f5f2; }
+    .collapse-header .left { display: flex; align-items: center; gap: 8px; }
+    .collapse-header .left .icon { font-size: 0.8rem; color: #FF6B35; }
+    .collapse-header .left .title { font-size: 0.65rem; font-weight: 600; color: #1e1e2a; }
+    .collapse-header .left .badge { font-size: 0.4rem; font-weight: 600; color: #2d6a4f; background: #d4edda; padding: 1px 8px; border-radius: 30px; }
+    .collapse-header .toggle { font-size: 0.65rem; color: #b0a8a2; transition: transform 0.3s ease; }
+    .collapse-header .toggle.open { transform: rotate(180deg); color: #FF6B35; }
+    .collapse-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s ease, opacity 0.3s ease; opacity: 0; padding: 0 14px; }
+    .collapse-body.open { max-height: 2000px; opacity: 1; padding: 0 14px 12px 14px; }
+
+    /* Premium Paths */
+    .paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .path-card { background: #ffffff; border-radius: 12px; border: 1px solid #efebe8; transition: all 0.3s ease; display: flex; flex-direction: column; overflow: hidden; }
+    .path-card:hover { border-color: #FF6B35; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.05); }
+    .path-card .inner { padding: 10px 10px 2px 10px; }
+    .path-card .tag { font-size: 0.35rem; font-weight: 700; color: #2d6a4f; background: #d4edda; padding: 1px 8px; border-radius: 30px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; margin-bottom: 3px; }
+    .path-card .tag.coming { background: #f0ede8; color: #888; }
+    .path-card .head { display: flex; align-items: center; gap: 5px; margin-bottom: 1px; }
+    .path-card .head .icon { font-size: 0.85rem; flex-shrink: 0; color: #888; }
+    .path-card .head .title { font-size: 0.45rem; font-weight: 600; color: #FF6B35; letter-spacing: 0.4px; text-transform: uppercase; }
+    .path-card .head .expand { font-size: 0.5rem; color: #b0a8a2; margin-left: auto; transition: transform 0.3s ease; cursor: pointer; }
+    .path-card.expanded .head .expand { transform: rotate(180deg); color: #FF6B35; }
+    .path-card .name { font-size: 0.65rem; font-weight: 600; color: #1e1e2a; margin-bottom: 1px; }
+    .path-card .desc { font-size: 0.45rem; color: #6a6a7a; line-height: 1.4; }
+    .path-accordion { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease; opacity: 0; padding: 0 10px 0 10px; }
+    .path-card.expanded .path-accordion { max-height: 350px; opacity: 1; padding: 3px 10px 4px 10px; }
+    .path-accordion .inner { padding-top: 3px; border-top: 1px solid #f0ebe6; }
+    .path-accordion .level { display: flex; justify-content: space-between; align-items: center; padding: 2px 0; border-bottom: 0.5px solid #f5f2ef; font-size: 0.5rem; color: #4a4a5a; }
+    .path-accordion .level:last-child { border-bottom: none; }
+    .path-accordion .level .name { font-weight: 500; flex-shrink: 0; min-width: 36px; color: #1e1e2a; font-size: 0.5rem; }
+    .path-accordion .level .bar-wrap { flex: 1; margin: 0 6px; min-width: 16px; }
+    .path-accordion .level .bar { width: 100%; height: 2px; background: #efebe8; border-radius: 10px; overflow: hidden; }
+    .path-accordion .level .bar .fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 10px; width: 0%; transition: width 0.5s ease; }
+    .path-card.expanded .level .bar .fill { width: 15%; }
+    .path-accordion .level .bar .fill.done { width: 100%; background: #2d6a4f; }
+    .path-accordion .level .check { color: #2d6a4f; font-size: 0.45rem; flex-shrink: 0; }
+    .path-accordion .level .lock { color: #b0a8a2; font-size: 0.45rem; cursor: pointer; transition: 0.2s; padding: 1px 4px; border-radius: 4px; flex-shrink: 0; }
+    .path-accordion .level .lock:hover { color: #FF6B35; background: rgba(255,107,53,0.04); }
+    .path-card .action { display: flex; justify-content: space-between; align-items: center; padding: 3px 10px 8px 10px; border-top: 1px solid #f0ebe6; margin-top: 3px; }
+    .path-card .action .price { font-size: 0.45rem; font-weight: 600; color: #2d6a4f; }
+    .path-card .action .price-locked { color: #6a6a7a; }
+    .path-card .action .btn { background: #FF6B35; border: none; color: white; padding: 2px 12px; border-radius: 30px; font-size: 0.45rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .path-card .action .btn:hover { background: #e85a2a; }
+    .path-card .action .btn-locked { background: #f0ebe6; color: #6a6a7a; }
+    .path-card .action .btn-locked:hover { background: #e8e2dc; }
+
+    /* Packs */
+    .packs-grid-simple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-top: 4px; }
+    .pack-simple { background: #f8f6f3; border-radius: 8px; padding: 6px 4px; border: 1px solid #efebe8; cursor: pointer; transition: 0.2s; text-align: center; }
+    .pack-simple:hover { border-color: #FF6B35; transform: translateY(-1px); }
+    .pack-simple .emoji { font-size: 0.7rem; display: block; }
+    .pack-simple .name { font-size: 0.5rem; font-weight: 500; color: #1e1e2a; }
+    .pack-simple .price { font-size: 0.4rem; color: #FF6B35; font-weight: 600; }
+
+    /* Bundle items */
+    .bundle { background: #f8f6f3; border-radius: 10px; padding: 8px 12px; border: 1px solid #efebe8; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; margin-top: 4px; }
+    .bundle:hover { border-color: #FF6B35; transform: translateY(-1px); }
+    .bundle .info .name { font-weight: 600; font-size: 0.65rem; color: #1e1e2a; }
+    .bundle .info .desc { font-size: 0.5rem; color: #6a6a7a; }
+    .bundle .price { font-size: 0.55rem; font-weight: 600; color: #FF6B35; background: #fef9f5; padding: 1px 12px; border-radius: 30px; border: 1px solid #FF6B35; }
+
+    /* Premium Card */
+    .premium-card-inner { background: linear-gradient(135deg, #1e1e2a, #2a2a3a); color: #f0ede8; border-radius: 12px; padding: 14px 14px 10px 14px; border: 1px solid #3a3a4a; }
+    .premium-card-inner .label { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 0.5px; color: #FF6B35; font-weight: 600; }
+    .premium-card-inner .title { font-size: 0.8rem; font-weight: 700; margin: 1px 0; }
+    .premium-card-inner .desc { font-size: 0.5rem; opacity: 0.6; }
+    .premium-card-inner .free { background: rgba(45,106,79,0.12); border: 1px solid #2d6a4f; border-radius: 8px; padding: 4px 8px; margin: 6px 0 8px 0; text-align: center; }
+    .premium-card-inner .free .big { font-size: 0.6rem; font-weight: 700; color: #2d6a4f; }
+    .premium-card-inner .free .big span { font-size: 0.8rem; }
+    .premium-card-inner .free .sub { font-size: 0.4rem; color: rgba(45,106,79,0.6); }
+    .premium-card-inner .plans { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin: 4px 0 6px 0; }
+    .premium-card-inner .plan { background: rgba(255,255,255,0.04); border: 1px solid #3a3a4a; border-radius: 8px; padding: 6px 4px; text-align: center; transition: 0.2s; cursor: pointer; }
+    .premium-card-inner .plan:hover { border-color: #FF6B35; transform: translateY(-2px); }
+    .premium-card-inner .plan.popular { background: rgba(255,107,53,0.08); border-color: #FF6B35; position: relative; }
+    .premium-card-inner .plan.popular .tag { position: absolute; top: -5px; left: 50%; transform: translateX(-50%); background: #FF6B35; color: white; font-size: 0.3rem; font-weight: 700; padding: 0px 8px; border-radius: 30px; text-transform: uppercase; }
+    .premium-card-inner .plan .pname { font-size: 0.45rem; color: #8a8a9a; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .premium-card-inner .plan .pprice { font-size: 0.7rem; font-weight: 700; color: white; }
+    .premium-card-inner .plan .pprice small { font-size: 0.4rem; color: #8a8a9a; font-weight: 400; }
+    .premium-card-inner .plan .per { font-size: 0.35rem; color: #8a8a9a; }
+    .premium-card-inner .plan .select { background: rgba(255,255,255,0.06); border: none; color: #d4d0c8; padding: 2px 0; border-radius: 30px; font-size: 0.4rem; font-weight: 500; cursor: pointer; transition: 0.2s; width: 100%; margin-top: 2px; }
+    .premium-card-inner .plan .select:hover { background: rgba(255,255,255,0.10); }
+    .premium-card-inner .plan.popular .select { background: #FF6B35; color: white; font-weight: 600; }
+    .premium-card-inner .plan.popular .select:hover { background: #e85a2a; }
+    .premium-card-inner .features { display: flex; gap: 3px; margin: 3px 0 6px 0; flex-wrap: wrap; }
+    .premium-card-inner .features span { font-size: 0.35rem; display: flex; align-items: center; gap: 3px; opacity: 0.7; color: #aaa; }
+    .premium-card-inner .features span i { color: #FF6B35; font-size: 0.3rem; }
+    .premium-card-inner .btn-unlock { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); color: #f0ede8; padding: 6px 0; border-radius: 60px; font-weight: 500; font-size: 0.6rem; cursor: pointer; transition: 0.2s; width: 100%; }
+    .premium-card-inner .btn-unlock:hover { background: rgba(255,255,255,0.10); border-color: #FF6B35; }
+
+    /* ============================================================
+       EARLY BIRD - 增强版
+       ============================================================ */
+    .early { 
+      background: linear-gradient(135deg, #1a0f0a, #2a1a12); 
+      border: 2px solid #FF6B35; 
+      border-radius: 14px; 
+      padding: 14px 16px 12px 16px; 
+      margin: 10px 0; 
+      position: relative; 
+      overflow: hidden;
+    }
+    .early::before { 
+      content: '⚡'; 
+      position: absolute; 
+      top: -20px; 
+      right: -10px; 
+      font-size: 50px; 
+      opacity: 0.04; 
+    }
+    .early::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(255,107,53,0.03), transparent 60%);
+      animation: earlyGlow 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes earlyGlow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(10%, 5%) scale(1.1); }
+    }
+
+    .early .tag { 
+      display: inline-block; 
+      background: #FF6B35; 
+      color: white; 
+      font-size: 0.45rem; 
+      font-weight: 700; 
+      padding: 1px 12px; 
+      border-radius: 30px; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px; 
+      margin-bottom: 3px; 
+      position: relative;
+      z-index: 1;
+      animation: tagPulse 2s ease-in-out infinite;
+    }
+    @keyframes tagPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .early .main { 
+      font-size: 0.85rem; 
+      font-weight: 700; 
+      color: #f0ede8; 
+      line-height: 1.3; 
+      margin-bottom: 1px; 
+      position: relative;
+      z-index: 1;
+    }
+    .early .main .hl { color: #FF6B35; }
+    .early .sub { 
+      font-size: 0.55rem; 
+      color: #9b9390; 
+      margin-bottom: 6px; 
+      position: relative;
+      z-index: 1;
+    }
+    .early .prices { 
+      display: flex; 
+      align-items: baseline; 
+      gap: 8px; 
+      margin: 4px 0 2px 0; 
+      flex-wrap: wrap; 
+      position: relative;
+      z-index: 1;
+    }
+    .early .prices .regular { 
+      font-size: 0.6rem; 
+      color: #6a6a7a; 
+      text-decoration: line-through; 
+    }
+    .early .prices .sale { 
+      font-size: 1.1rem; 
+      font-weight: 800; 
+      color: #FF6B35; 
+    }
+
+    .early .counter { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: baseline; 
+      margin: 4px 0 2px 0; 
+      position: relative;
+      z-index: 1;
+    }
+    .early .counter .label { 
+      font-size: 0.5rem; 
+      color: #9b9390; 
+    }
+    .early .counter .label i { 
+      color: #FF6B35; 
+      margin-right: 3px; 
+    }
+    .early .counter .num { 
+      font-size: 0.9rem; 
+      font-weight: 700; 
+      color: #FF6B35; 
+    }
+
+    .early .bar-wrap {
+      position: relative;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 0 4px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .early .bar-wrap .fill {
+      height: 100%;
+      background: linear-gradient(
+        90deg, 
+        #FF6B35 0%, 
+        #f7934b 30%, 
+        #FF6B35 50%, 
+        #f7934b 70%, 
+        #FF6B35 100%
+      );
+      background-size: 200% 100%;
+      border-radius: 20px;
+      transition: width 0.8s ease;
+      animation: flowProgress 1.8s linear infinite;
+      position: relative;
+    }
+    .early .bar-wrap .fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.3) 50%,
+        transparent 100%
+      );
+      animation: shimmer 2s ease-in-out infinite;
+      border-radius: 20px;
+    }
+    @keyframes flowProgress {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .early .bar-wrap .fill::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -2px;
+      width: 8px;
+      height: 8px;
+      background: #FF6B35;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(255,107,53,0.6);
+      animation: dotPulse 1.2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.6; }
+    }
+
+    /* ===== 火箭按钮 - 使用 <a> 标签 ===== */
+    .early .btn-link { 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #FF6B35, #e85a2a); 
+      border: none; 
+      color: white; 
+      padding: 8px 16px; 
+      border-radius: 60px; 
+      font-weight: 700; 
+      font-size: 0.7rem; 
+      cursor: pointer; 
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+      width: 100%; 
+      box-shadow: 0 4px 16px rgba(255,107,53,0.15);
+      position: relative;
+      z-index: 1;
+      animation: breathe 2.5s ease-in-out infinite;
+      text-decoration: none;
+    }
+    .early .btn-link:hover { 
+      transform: scale(1.04) translateY(-2px); 
+      box-shadow: 0 8px 32px rgba(255,107,53,0.4);
+      animation: none;
+      color: white;
+      text-decoration: none;
+    }
+    .early .btn-link:active { 
+      transform: scale(0.94); 
+      box-shadow: 0 2px 8px rgba(255,107,53,0.2);
+    }
+    @keyframes breathe {
+      0%, 100% { 
+        box-shadow: 0 4px 16px rgba(255,107,53,0.15), 0 0 0 0 rgba(255,107,53,0);
+      }
+      50% { 
+        box-shadow: 0 4px 24px rgba(255,107,53,0.3), 0 0 30px 8px rgba(255,107,53,0.08);
+      }
+    }
+    .early .btn-link .rocket-icon {
+      display: inline-block;
+      transition: transform 0.4s ease;
+    }
+    .early .btn-link:hover .rocket-icon {
+      transform: translateY(-3px) rotate(-8deg) scale(1.1);
+    }
+    .early .btn-link .btn-text {
+      position: relative;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta { background: linear-gradient(145deg, #1e1e2a, #2a2a3a); border-radius: 14px; padding: 16px 16px; margin: 12px 0 8px 0; text-align: center; }
+    .bottom-cta .title { font-size: 0.85rem; font-weight: 700; color: #f0ede8; margin-bottom: 2px; }
+    .bottom-cta .title i { color: #FF6B35; margin-right: 6px; }
+    .bottom-cta .desc { font-size: 0.6rem; color: #9b9390; line-height: 1.4; margin-bottom: 10px; }
+    .bottom-cta .desc span { color: #f0ede8; font-weight: 500; }
+    .bottom-cta .btn { background: #FF6B35; border: none; color: white; padding: 8px 20px; border-radius: 60px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 16px rgba(255,107,53,0.2); display: inline-flex; align-items: center; gap: 8px; }
+    .bottom-cta .btn:hover { background: #e85a2a; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255,107,53,0.3); }
+
+    /* Export CTA */
+    .export-cta { background: linear-gradient(145deg, #2d6a4f, #1e4f3a); border-radius: 14px; padding: 16px 16px; margin: 12px 0 8px 0; text-align: center; border: 1px solid rgba(255,255,255,0.06); }
+    .export-cta .title { font-size: 0.85rem; font-weight: 700; color: #f0ede8; margin-bottom: 2px; }
+    .export-cta .title i { color: #8fdfb0; margin-right: 6px; }
+    .export-cta .desc { font-size: 0.6rem; color: #8aae9a; line-height: 1.4; margin-bottom: 10px; }
+    .export-cta .desc span { color: #ffffff; font-weight: 500; }
+    .export-cta .btn { background: #ffffff; border: none; color: #1e1e2a; padding: 8px 20px; border-radius: 60px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .export-cta .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+    .export-cta .btn i { color: #FF6B35; }
+
+    /* Bottom Nav */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 4px 0 8px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.4rem; font-weight: 500; gap: 0px; cursor: pointer; padding: 2px 10px; border-radius: 20px; transition: 0.1s; }
+    .nav-item i { font-size: 1rem; color: #6b6b7b; }
+    .nav-item.active i { color: #FF6B35; }
+    .nav-item.active { color: #1e1e2a; }
+    .nav-item:active { background: #f0edeb; }
+
+    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 8px 18px; border-radius: 60px; font-size: 0.7rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.15); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { margin-right: 6px; color: #f7934b; }
+
+    /* Modals */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 300; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: white; border-radius: 20px; padding: 20px; max-width: 400px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .modal-header h3 { font-size: 0.9rem; font-weight: 700; color: #1e1e2a; }
+    .modal-header h3 i { color: #FF6B35; }
+    .modal-header .close { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: #6a6a7a; padding: 4px 8px; border-radius: 6px; }
+    .modal-header .close:hover { color: #1e1e2a; background: #f5f2ef; }
+
+    .notification-status { background: #f8f6f3; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .notification-status .label { font-size: 0.6rem; font-weight: 500; color: #4a4a5a; }
+    .notification-status .status-badge { font-size: 0.6rem; font-weight: 600; padding: 2px 12px; border-radius: 20px; }
+    .notification-status .status-badge.allowed { background: #d4edda; color: #155724; }
+    .notification-status .status-badge.denied { background: #f8d7da; color: #721c24; }
+    .notification-status .status-badge.default { background: #fff3cd; color: #856404; }
+
+    .reminder-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #efebe8; margin-bottom: 10px; }
+    .reminder-row .label { font-size: 0.65rem; font-weight: 600; color: #1e1e2a; display: flex; align-items: center; gap: 8px; }
+    .reminder-row .label .toggle-icon { transition: 0.3s; }
+    .reminder-row .label .toggle-icon.on { color: #FF6B35; }
+    .reminder-row .label .toggle-icon.off { color: #6a6a7a; }
+
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .switch .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; transition: .3s; border-radius: 24px; }
+    .switch .slider::before { position: absolute; content: ''; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; transition: .3s; border-radius: 50%; }
+    .switch input:checked + .slider { background: #FF6B35; }
+    .switch input:checked + .slider::before { transform: translateX(20px); }
+
+    .time-select-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .time-select-row .label { font-size: 0.6rem; font-weight: 500; color: #4a4a5a; min-width: 60px; }
+    .time-select-row select { padding: 4px 8px; border-radius: 8px; border: 1px solid #efebe8; font-size: 0.6rem; background: white; flex: 1; min-width: 50px; }
+    .time-select-row .minute-display { font-size: 0.6rem; color: #6a6a7a; }
+
+    .reminder-info { background: #fef9f5; border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; border: 1px solid #FF6B35; font-size: 0.55rem; color: #6a6a7a; line-height: 1.6; }
+    .reminder-info strong { color: #1e1e2a; }
+
+    .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .modal-actions .btn-primary { flex: 2; background: #FF6B35; border: none; color: white; padding: 8px 16px; border-radius: 60px; font-weight: 600; font-size: 0.65rem; cursor: pointer; transition: 0.2s; }
+    .modal-actions .btn-primary:hover { background: #e85a2a; transform: translateY(-1px); }
+    .modal-actions .btn-secondary { flex: 1; background: transparent; border: 1.5px solid #d6cfc9; border-radius: 60px; padding: 8px 12px; font-size: 0.6rem; font-weight: 500; cursor: pointer; transition: 0.2s; color: #4a4a5a; }
+    .modal-actions .btn-secondary:hover { background: #f5f2ef; border-color: #FF6B35; }
+    .modal-footer-text { margin-top: 8px; text-align: center; font-size: 0.45rem; color: #9b9390; }
+    .modal-footer-text i { color: #FF6B35; }
+
+    .auth-profile { display: flex; align-items: center; gap: 12px; background: #f8f6f3; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; }
+    .auth-profile .avatar { width: 44px; height: 44px; border-radius: 50%; background: #FF6B35; color: white; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; flex-shrink: 0; }
+    .auth-profile .info { flex: 1; min-width: 0; }
+    .auth-profile .info .name { font-weight: 700; font-size: 0.8rem; color: #1e1e2a; }
+    .auth-profile .info .email { font-size: 0.55rem; color: #6a6a7a; word-break: break-all; }
+    .auth-profile .stats { text-align: right; }
+    .auth-profile .stats .stat { font-size: 0.5rem; color: #6a6a7a; }
+    .auth-profile .stats .stat strong { color: #FF6B35; }
+
+    .auth-form .form-group { margin-bottom: 10px; }
+    .auth-form .form-group label { font-size: 0.6rem; font-weight: 600; color: #4a4a5a; display: block; margin-bottom: 2px; }
+    .auth-form .form-group input { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #efebe8; font-size: 0.7rem; background: #f8f6f3; outline: none; transition: 0.2s; }
+    .auth-form .form-group input:focus { border-color: #FF6B35; background: white; }
+
+    .auth-btn { width: 100%; border: none; color: white; padding: 10px; border-radius: 60px; font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: 0.2s; }
+    .auth-btn.login { background: #FF6B35; }
+    .auth-btn.login:hover { background: #e85a2a; }
+    .auth-btn.register { background: #2d6a4f; }
+    .auth-btn.register:hover { background: #1e4f3a; }
+
+    .auth-switch { text-align: center; margin-top: 8px; font-size: 0.55rem; color: #6a6a7a; }
+    .auth-switch .link { color: #FF6B35; font-weight: 600; cursor: pointer; }
+    .auth-switch .link:hover { text-decoration: underline; }
+
+    .auth-message { margin-top: 10px; font-size: 0.6rem; text-align: center; display: none; padding: 8px 12px; border-radius: 8px; }
+
+    .auth-actions { margin-top: 12px; border-top: 1px solid #efebe8; padding-top: 12px; display: none; }
+    .auth-actions .action-btn { width: 100%; background: #f8f6f3; border: 1px solid #efebe8; color: #1e1e2a; padding: 8px; border-radius: 60px; font-weight: 600; font-size: 0.6rem; cursor: pointer; transition: 0.2s; margin-bottom: 6px; }
+    .auth-actions .action-btn:hover { background: #f0ede8; border-color: #FF6B35; }
+    .auth-actions .action-btn.danger { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+    .auth-actions .action-btn.danger:hover { background: #f5c6cb; }
+    .auth-actions .action-btn.delete { background: transparent; border: none; color: #d9534f; font-weight: 500; font-size: 0.5rem; margin-top: 4px; text-decoration: underline; }
+    .auth-actions .action-btn.delete:hover { color: #c9302c; }
+
+    .modal .stats { display: flex; gap: 12px; justify-content: center; margin-bottom: 8px; }
+    .modal .stats .stat { text-align: center; }
+    .modal .stats .stat .num { font-size: 1.1rem; font-weight: 700; color: #FF6B35; }
+    .modal .stats .stat .label { font-size: 0.45rem; color: #6a6a7a; }
+    .modal .streak-bar { margin-bottom: 10px; }
+    .modal .streak-bar .top { display: flex; justify-content: space-between; font-size: 0.45rem; color: #6a6a7a; }
+    .modal .streak-bar .track { width: 100%; height: 3px; background: #e6e0db; border-radius: 20px; overflow: hidden; margin-top: 3px; }
+    .modal .streak-bar .track .fill { height: 100%; width: 0%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 20px; transition: width 0.5s ease; }
+    .modal .streak-bar .milestones { display: flex; justify-content: space-between; font-size: 0.35rem; color: #9b9390; margin-top: 1px; }
+    .modal .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .modal .calendar .day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 500; border-radius: 4px; background: #f4f1ee; color: #4a4a5a; }
+    .modal .calendar .day.checked { background: #FF6B35; color: white; font-weight: 700; }
+    .modal .calendar .day.empty { background: transparent; }
+    .modal .calendar .day.today { border: 2px solid #FF6B35; font-weight: 700; }
+    .modal .calendar .day.future { opacity: 0.3; }
+    .modal .legend { margin-top: 8px; text-align: center; font-size: 0.45rem; color: #9b9390; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .modal .legend .dot { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 3px; vertical-align: middle; text-align: center; line-height: 14px; color: white; font-size: 8px; }
+    .modal .legend .dot.checked { background: #FF6B35; }
+    .modal .legend .dot.unchecked { background: #f4f1ee; }
+    .modal .legend .dot.today { background: transparent; border: 2px solid #FF6B35; }
+
+    .modal .price-table { background: #f8f5f2; border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; }
+    .modal .price-table .label { font-size: 0.45rem; font-weight: 600; color: #6a6a7a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .modal .price-table .row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 1px solid #efebe8; font-size: 0.55rem; }
+    .modal .price-table .row:last-child { border-bottom: none; }
+    .modal .price-table .row .name { font-weight: 500; color: #4a4a5a; }
+    .modal .price-table .row .price { font-weight: 600; color: #1e1e2a; }
+    .modal .price-table .row .price.free { color: #2d6a4f; }
+    .modal .price-table .row .tag { font-size: 0.35rem; font-weight: 600; padding: 0px 6px; border-radius: 30px; background: #d4edda; color: #155724; }
+    .modal .btn-subscribe { background: #FF6B35; border: none; color: white; padding: 8px; border-radius: 60px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s; width: 100%; }
+    .modal .btn-subscribe:hover { background: #e85a2a; }
+
+    @media (max-width: 400px) {
+      .steps { gap: 5px; }
+      .paths-grid { gap: 6px; }
+      .packs-grid-simple { grid-template-columns: 1fr 1fr 1fr; }
+      .hero-main-title { font-size: 1.1rem; }
+      .hero-sub-title { font-size: 1.1rem; }
+      .hero-desc { font-size: 0.65rem; }
+      .modal { padding: 16px; }
+      .modal-actions .btn-primary { flex: 1; }
+      .modal-actions .btn-secondary { flex: 1; }
+      .sticky-notification .notification-text { font-size: 0.55rem; }
+      .sticky-notification .notification-cta { font-size: 0.5rem; padding: 3px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span>HanLingo</span>
+    <span>100% Free</span>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <div class="logo-icon">HL</div>
+      <div class="logo-text">
+        <span class="han">Han</span><span class="lingo">Lingo</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <i class="far fa-bell bell-icon" id="notificationBtn">
+        <span class="badge-dot" id="notificationBadge"></span>
+      </i>
+      <i class="fas fa-user-circle user-icon" id="userBtn" title="Account"></i>
+    </div>
+  </header>
+
+  <!-- ===== 全局紧急通知栏 ===== -->
+  <div class="sticky-notification" id="stickyNotification">
+    <div class="notification-content">
+      <div class="notification-icon">🔥</div>
+      <div class="notification-text">
+        <span class="highlight">Limited Offer:</span> 
+        <span class="deal">Save $50</span> on Lifetime Access — 
+        <span class="countdown" id="countdownTimer">02:34:17</span> left!
+      </div>
+      <a href="checkout.html" class="notification-cta">Claim Now →</a>
+      <button class="notification-close" id="closeNotification">✕</button>
+    </div>
+  </div>
+
+  <div class="home-container">
+    
+    <!-- Hero -->
+    <div class="hero-card">
+      <div class="hero-tag">
+        <i class="fas fa-bolt"></i> LEARN USEFUL CHINESE THROUGH SENTENCES
+      </div>
+      <div class="hero-title-row">
+        <i class="fas fa-gem gem-icon"></i>
+        <span class="hero-main-title">HanLingo</span>
+        <i class="fas fa-arrow-right arrow-icon"></i>
+        <span class="hero-sub-title">Sense in Sentences</span>
+      </div>
+      <p class="hero-desc">
+        No more mindless rote memorization of isolated words.
+        Grasp authentic Chinese with 5 practical sentences daily. Reinforce what you learn through fun interactive games and advance to new heights.
+        Supporting HSK, BCT, YCT, MCT.
+      </p>
+      <button class="hero-btn" id="start-btn">
+        <i class="fas fa-play-circle"></i> Start HSK 1 for Free
+      </button>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <span class="icon"><i class="fas fa-book-open"></i></span>
+        <span class="label">Learn</span>
+        <span class="desc">5 real sentences</span>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <span class="icon"><i class="fas fa-flag"></i></span>
+        <span class="label">Quest</span>
+        <span class="desc">4 game types</span>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <span class="icon"><i class="fas fa-rocket"></i></span>
+        <span class="label">Level Up</span>
+        <span class="desc">Unlock next</span>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature">
+        <span class="dot"><i class="fas fa-circle"></i></span>
+        <span class="title">Context-First Learning</span>
+      </div>
+      <div class="feature">
+        <span class="dot"><i class="fas fa-circle"></i></span>
+        <span class="title">Native-Grade Matrix</span>
+      </div>
+      <div class="feature">
+        <span class="dot"><i class="fas fa-circle"></i></span>
+        <span class="title">Frictionless Quizzing</span>
+      </div>
+      <div class="feature">
+        <span class="dot"><i class="fas fa-circle"></i></span>
+        <span class="title">Raw Stroke Sheets</span>
+      </div>
+      <div class="feature full">
+        <span class="dot"><i class="fas fa-circle"></i></span>
+        <span class="title">One Sentence → 5 Skills</span>
+        <div class="tags">
+          <span>Vocabulary</span>
+          <span>Grammar</span>
+          <span>Pronunciation</span>
+          <span>Context</span>
+          <span>Culture</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Sentence -->
+    <div class="daily" id="dailyCard">
+      <div class="label">
+        <i class="far fa-calendar-alt"></i> Today's Sentence
+      </div>
+      <div class="chinese" id="dailyChinese">Loading...</div>
+      <div class="pinyin" id="dailyPinyin"></div>
+      <div class="translation" id="dailyTranslation"></div>
+      <div class="actions">
+        <button class="primary" id="dailyListenBtn"><i class="fas fa-play"></i> Listen</button>
+        <button id="dailyLearnBtn"><i class="fas fa-book-open"></i> Learn More</button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress" id="progressCard">
+      <div class="name">
+        <i class="fas fa-chart-simple"></i> Your Daily Progress
+      </div>
+      <div class="inner">
+        <div class="row">
+          <div class="stats">
+            <span class="fire"><i class="fas fa-fire"></i> <span id="streakCount">0</span>d</span>
+            <span class="check"><i class="fas fa-check-circle"></i> Level <span id="levelDisplay">1</span></span>
+            <span><i class="fas fa-bookmark"></i> <span id="savedCount">0</span></span>
+          </div>
+          <span style="font-size:0.55rem; font-weight:500; color:#6a6a7a;"><span id="progressCount">0</span>/<span id="progressTotal">5</span></span>
+        </div>
+        <div class="bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
+        <div class="checkin">
+          <span class="info"><i class="fas fa-calendar-check"></i> Last: <span id="lastCheckinTime">--</span></span>
+          <div>
+            <button class="btn" id="checkinBtn"><i class="fas fa-check"></i> Check In</button>
+            <button class="btn-outline" id="viewCalendarBtn"><i class="fas fa-calendar-alt"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Collapse: Premium Paths ===== -->
+    <div class="collapse" id="collapsePaths">
+      <div class="collapse-header" onclick="toggleCollapse('collapsePaths')">
+        <div class="left">
+          <span class="icon"><i class="fas fa-crown"></i></span>
+          <span class="title">Premium Learning Paths</span>
+          <span class="badge">HSK 1 FREE</span>
+        </div>
+        <span class="toggle"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-body">
+        <div class="section-sub" style="margin-bottom:6px;">Hover to expand · HSK 1 is 100% free</div>
+        <div class="paths-grid">
+          <!-- HSK -->
+          <div class="path-card" id="pathHSK" onmouseenter="expandCard('pathHSK')" onmouseleave="collapseCard('pathHSK')">
+            <div class="inner">
+              <div class="tag">POPULAR</div>
+              <div class="head">
+                <span class="icon">🌐</span>
+                <span class="title">GENERAL</span>
+                <span class="expand" onclick="event.stopPropagation(); toggleCard('pathHSK')"><i class="fas fa-chevron-down"></i></span>
+              </div>
+              <div class="name">HSK (Levels 1–9)</div>
+              <div class="desc">"Unlock fluent, authentic Chinese."</div>
+            </div>
+            <div class="path-accordion">
+              <div class="inner">
+                <div class="level"><span class="name">HSK 1</span><div class="bar-wrap"><div class="bar"><div class="fill done"></div></div></div><span class="check">✅</span></div>
+                <div class="level"><span class="name">HSK 2</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">HSK 3</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">HSK 4</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">HSK 5</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">HSK 6</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+              </div>
+            </div>
+            <div class="action">
+              <span class="price">HSK 1 FREE</span>
+              <button class="btn" onclick="event.stopPropagation(); goLearn()">Start →</button>
+            </div>
+          </div>
+
+          <!-- YCT -->
+          <div class="path-card" id="pathYCT" onmouseenter="expandCard('pathYCT')" onmouseleave="collapseCard('pathYCT')">
+            <div class="inner">
+              <div class="tag coming">COMING</div>
+              <div class="head">
+                <span class="icon">🧒</span>
+                <span class="title">YOUTH</span>
+                <span class="expand" onclick="event.stopPropagation(); toggleCard('pathYCT')"><i class="fas fa-chevron-down"></i></span>
+              </div>
+              <div class="name">YCT (Levels 1–4)</div>
+              <div class="desc">"Raise a global citizen through games."</div>
+            </div>
+            <div class="path-accordion">
+              <div class="inner">
+                <div class="level"><span class="name">YCT 1</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">YCT 2</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">YCT 3</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">YCT 4</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+              </div>
+            </div>
+            <div class="action">
+              <span class="price price-locked">🔒 Premium</span>
+              <button class="btn btn-locked" onclick="event.stopPropagation(); openPricing()">Unlock →</button>
+            </div>
+          </div>
+
+          <!-- BCT -->
+          <div class="path-card" id="pathBCT" onmouseenter="expandCard('pathBCT')" onmouseleave="collapseCard('pathBCT')">
+            <div class="inner">
+              <div class="tag coming">COMING</div>
+              <div class="head">
+                <span class="icon">💼</span>
+                <span class="title">BUSINESS</span>
+                <span class="expand" onclick="event.stopPropagation(); toggleCard('pathBCT')"><i class="fas fa-chevron-down"></i></span>
+              </div>
+              <div class="name">BCT (2 Written Levels)</div>
+              <div class="desc">"Bridge the cultural gap in business."</div>
+            </div>
+            <div class="path-accordion">
+              <div class="inner">
+                <div class="level"><span class="name">BCT (A)</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">BCT (B)</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+              </div>
+            </div>
+            <div class="action">
+              <span class="price price-locked">🔒 Premium</span>
+              <button class="btn btn-locked" onclick="event.stopPropagation(); openPricing()">Unlock →</button>
+            </div>
+          </div>
+
+          <!-- MCT -->
+          <div class="path-card" id="pathMCT" onmouseenter="expandCard('pathMCT')" onmouseleave="collapseCard('pathMCT')">
+            <div class="inner">
+              <div class="tag coming">COMING</div>
+              <div class="head">
+                <span class="icon">🩺</span>
+                <span class="title">MEDICAL</span>
+                <span class="expand" onclick="event.stopPropagation(); toggleCard('pathMCT')"><i class="fas fa-chevron-down"></i></span>
+              </div>
+              <div class="name">MCT (Levels 1–3)</div>
+              <div class="desc">"Master professional medical terminology."</div>
+            </div>
+            <div class="path-accordion">
+              <div class="inner">
+                <div class="level"><span class="name">MCT 1</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">MCT 2</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+                <div class="level"><span class="name">MCT 3</span><div class="bar-wrap"><div class="bar"><div class="fill"></div></div></div><span class="lock" onclick="scrollToEarlyBird(event)">🔒</span></div>
+              </div>
+            </div>
+            <div class="action">
+              <span class="price price-locked">🔒 Premium</span>
+              <button class="btn btn-locked" onclick="event.stopPropagation(); openPricing()">Unlock →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Collapse: Sentence Packs ===== -->
+    <div class="collapse" id="collapsePacks">
+      <div class="collapse-header" onclick="toggleCollapse('collapsePacks')">
+        <div class="left">
+          <span class="icon"><i class="fas fa-fire"></i></span>
+          <span class="title">Popular Sentence Packs</span>
+        </div>
+        <span class="toggle"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-body">
+        <div class="section-sub">Quick fixes for specific goals</div>
+        <div class="packs-grid-simple">
+          <div class="pack-simple" onclick="showToast('✈️ Business Trip - $9.99', 'fa-suitcase')">
+            <span class="emoji">✈️</span>
+            <span class="name">Business</span>
+            <span class="price">$9.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('🍜 Restaurant - $9.99', 'fa-utensils')">
+            <span class="emoji">🍜</span>
+            <span class="name">Restaurant</span>
+            <span class="price">$9.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('🏨 Hotel - $9.99', 'fa-hotel')">
+            <span class="emoji">🏨</span>
+            <span class="name">Hotel</span>
+            <span class="price">$9.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('🚖 Taxi - $9.99', 'fa-taxi')">
+            <span class="emoji">🚖</span>
+            <span class="name">Taxi</span>
+            <span class="price">$9.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('🛍️ Shopping - $9.99', 'fa-shopping-bag')">
+            <span class="emoji">🛍️</span>
+            <span class="name">Shopping</span>
+            <span class="price">$9.99</span>
+          </div>
+          <div class="pack-simple" style="border-color:#FF6B35; background:#fef9f5;" onclick="openPricing()">
+            <span class="emoji">⭐</span>
+            <span class="name" style="color:#FF6B35;">All Access</span>
+            <span class="price" style="color:#2d6a4f;">Save</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Collapse: Micro Packs ===== -->
+    <div class="collapse" id="collapseMicro">
+      <div class="collapse-header" onclick="toggleCollapse('collapseMicro')">
+        <div class="left">
+          <span class="icon"><i class="fas fa-microchip"></i></span>
+          <span class="title">Micro Sentence Packs</span>
+        </div>
+        <span class="toggle"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-body">
+        <div class="section-sub">Compact sets · <strong>$1.99 each</strong></div>
+        <div class="packs-grid-simple">
+          <div class="pack-simple" onclick="showToast('📱 Phone - $1.99', 'fa-phone')">
+            <span class="emoji">📱</span>
+            <span class="name">Phone</span>
+            <span class="price">$1.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('💬 WeChat - $1.99', 'fa-comment-dots')">
+            <span class="emoji">💬</span>
+            <span class="name">WeChat</span>
+            <span class="price">$1.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('☕ Coffee - $1.99', 'fa-mug-hot')">
+            <span class="emoji">☕</span>
+            <span class="name">Coffee</span>
+            <span class="price">$1.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('🚖 Taxi - $1.99', 'fa-taxi')">
+            <span class="emoji">🚖</span>
+            <span class="name">Taxi</span>
+            <span class="price">$1.99</span>
+          </div>
+          <div class="pack-simple" onclick="showToast('🧋 Boba - $1.99', 'fa-cup-straw')">
+            <span class="emoji">🧋</span>
+            <span class="name">Boba</span>
+            <span class="price">$1.99</span>
+          </div>
+          <div class="pack-simple" style="border-color:#FF6B35; background:#fef9f5;" onclick="openPricing()">
+            <span class="emoji">⭐</span>
+            <span class="name" style="color:#FF6B35;">All 5</span>
+            <span class="price" style="color:#2d6a4f;">Save</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Collapse: Bundles ===== -->
+    <div class="collapse" id="collapseBundles">
+      <div class="collapse-header" onclick="toggleCollapse('collapseBundles')">
+        <div class="left">
+          <span class="icon"><i class="fas fa-box"></i></span>
+          <span class="title">Bundles</span>
+        </div>
+        <span class="toggle"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-body">
+        <div class="bundle" onclick="showToast('🧳 Travel Bundle — US$19.99\n\n4 travel-themed packs', 'fa-suitcase')">
+          <div class="info">
+            <div class="name">🧳 Travel Bundle</div>
+            <div class="desc">4 travel packs · 400+ phrases</div>
+          </div>
+          <span class="price">US$19.99</span>
+        </div>
+        <div class="bundle" onclick="showToast('💼 Business Bundle — US$29.99\n\n4 business-themed packs', 'fa-briefcase')">
+          <div class="info">
+            <div class="name">💼 Business Bundle</div>
+            <div class="desc">4 business packs · 400+ phrases</div>
+          </div>
+          <span class="price">US$29.99</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Collapse: All Access Plans ===== -->
+    <div class="collapse" id="collapsePremium">
+      <div class="collapse-header" onclick="toggleCollapse('collapsePremium')">
+        <div class="left">
+          <span class="icon"><i class="fas fa-gem"></i></span>
+          <span class="title">All Access Plans</span>
+          <span class="badge">Best Deal</span>
+        </div>
+        <span class="toggle"><i class="fas fa-chevron-down"></i></span>
+      </div>
+      <div class="collapse-body">
+        <div class="premium-card-inner">
+          <div class="label">📚 Unlock All Content</div>
+          <div class="title">HSK · YCT · BCT · MCT</div>
+          <div class="desc">All courses. One price.</div>
+          <div class="free">
+            <div class="big">🎉 HSK 1 is <span>100% FREE</span> forever!</div>
+            <div class="sub">Start learning real sentences today.</div>
+          </div>
+          <div class="plans">
+            <div class="plan" onclick="selectPlan('monthly')">
+              <div class="pname">Monthly</div>
+              <div class="pprice">$9.99 <small>/mo</small></div>
+              <button class="select">Select</button>
+            </div>
+            <div class="plan popular" onclick="selectPlan('yearly')">
+              <div class="tag">⭐ Best</div>
+              <div class="pname" style="color:#FF6B35;">Yearly</div>
+              <div class="pprice" style="color:#FF6B35;">$69.99 <small style="color:#8a8a9a;">/yr</small></div>
+              <div class="per">Save 30%</div>
+              <button class="select">Select</button>
+            </div>
+            <div class="plan" onclick="selectPlan('lifetime')">
+              <div class="pname">Lifetime</div>
+              <div class="pprice">$199.99</div>
+              <button class="select">Select</button>
+            </div>
+          </div>
+          <button class="btn-unlock" onclick="openPricing()"><i class="fas fa-lock-open"></i> View All Plans</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         EARLY BIRD - 增强版（使用 <a> 标签，指向 checkout.html）
+         ============================================================ -->
+    <div class="early" id="earlyBirdCard">
+      <div class="tag">⚡ EARLY BIRD</div>
+      <div class="main">— LIMITED TO <span class="hl">100</span> MEMBERS</div>
+      <div class="sub">Secure lifetime full access at launch rate.</div>
+      <div class="prices">
+        <span class="regular">$199.99</span>
+        <span class="sale">$149.99</span>
+      </div>
+      
+      <!-- 动态进度条 -->
+      <div class="counter">
+        <span class="label"><i class="fas fa-clock"></i> Spots remaining</span>
+        <span class="num" id="earlyBirdCounter">47</span>
+      </div>
+      <div class="bar-wrap">
+        <div class="fill" id="counterFill" style="width:47%;"></div>
+      </div>
+      
+      <!-- 火箭按钮 - 使用 <a> 标签直接跳转到 checkout.html -->
+      <a href="checkout.html" class="btn-link" id="earlyBirdBtn">
+        <span class="rocket-icon">🚀</span>
+        <span class="btn-text">Grab My Spot</span>
+      </a>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta">
+      <div class="title"><i class="fas fa-rocket"></i> Start Free Now</div>
+      <div class="desc">From 5 sentences a day to confident speaking.<br><span>HSK 1 is 100% free.</span></div>
+      <button class="btn" onclick="goLearn()"><i class="fas fa-play-circle"></i> Start Learning Free</button>
+    </div>
+
+    <!-- Export CTA -->
+    <div class="export-cta">
+      <div class="title"><i class="fas fa-file-export"></i> Export Your Workbook</div>
+      <div class="desc">Download all your saved sentences as <span>TXT</span> or <span>PDF</span></div>
+      <button class="btn" onclick="if(typeof showExportOptions!=='undefined')showExportOptions();else alert('📤 Export function loading...');">
+        <i class="fas fa-download"></i> Export Now
+      </button>
+    </div>
+
+    <div style="text-align:center; padding: 6px 0 2px; font-size:0.4rem; color:#9b9390;">
+      One sentence = 5 skills. Learn smarter.
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
+    <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
+    <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
+    <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></div>
+    <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+  </div>
+
+  <!-- ===== Check-in Modal ===== -->
+  <div class="modal-overlay" id="checkinModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-calendar-check"></i> Calendar</h3>
+        <button class="close" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num" id="modalStreak">0</div><div class="label">🔥 Streak</div></div>
+        <div class="stat"><div class="num" id="modalTotal">0</div><div class="label">✅ Total</div></div>
+        <div class="stat"><div class="num" id="modalThisMonth">0</div><div class="label">📅 Month</div></div>
+      </div>
+      <div class="streak-bar">
+        <div class="top"><span>🔥 Streak progress</span><span id="streakProgressText">0 / 7</span></div>
+        <div class="track"><div class="fill" id="streakProgressBar"></div></div>
+        <div class="milestones"><span>Day 1</span><span>🔥 7</span><span>🌟 14</span><span>👑 30</span></div>
+      </div>
+      <div style="text-align:center; font-size:0.55rem; color:#6a6a7a; margin-bottom:4px;"><span id="calendarMonthLabel"></span></div>
+      <div class="calendar" id="calendarGrid"></div>
+      <div class="legend">
+        <span><span class="dot checked">✓</span> Checked</span>
+        <span><span class="dot unchecked"></span> Not checked</span>
+        <span><span class="dot today"></span> Today</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Pricing Modal ===== -->
+  <div class="modal-overlay" id="pricingModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-star"></i> All Plans</h3>
+        <button class="close" id="closePricingBtn">&times;</button>
+      </div>
+      <div class="section-sub" style="margin-bottom:10px;">Choose the plan that fits your goals.</div>
+      <div class="price-table">
+        <div class="label"><i class="fas fa-list"></i> All Courses</div>
+        <div class="row"><span class="name">Free</span><span class="price free">FREE · HSK1 + Daily</span></div>
+        <div class="row"><span class="name">Premium Monthly</span><span class="price">US$9.99 /mo</span></div>
+        <div class="row"><span class="name">Premium Annual</span><span class="price" style="color:#FF6B35;">US$69.99 /yr <span class="tag">Save 30%</span></span></div>
+        <div class="row"><span class="name">Lifetime</span><span class="price" style="color:#FF6B35;">US$199.00</span></div>
+      </div>
+      <button class="btn-subscribe" onclick="subscribe()"><i class="fas fa-lock-open"></i> Start Free — HSK 1</button>
+      <div class="footer-text"><i class="fas fa-shield-alt"></i> Cancel anytime · 100% guarantee</div>
+    </div>
+  </div>
+
+  <!-- ===== Notification Settings Modal ===== -->
+  <div class="modal-overlay" id="notificationModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-bell"></i> Daily Reminder</h3>
+        <button class="close" id="closeNotificationBtn">&times;</button>
+      </div>
+      <div style="margin-bottom:12px;">
+        <p style="font-size:0.7rem; color:#6a6a7a; line-height:1.6;">
+          Get a daily reminder to practice Chinese. 
+          You'll receive a browser notification at your chosen time.
+        </p>
+      </div>
+      
+      <div class="notification-status">
+        <span class="label"><i class="fas fa-shield-alt"></i> Permission Status</span>
+        <span class="status-badge" id="notificationStatus">Checking...</span>
+      </div>
+
+      <div class="reminder-row">
+        <span class="label">
+          <i class="fas fa-toggle-on toggle-icon" id="toggleIcon"></i> Enable Daily Reminder
+        </span>
+        <label class="switch">
+          <input type="checkbox" id="reminderToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="time-select-row">
+        <span class="label">Remind me at</span>
+        <select id="reminderHour">
+          <option value="6">06:00</option>
+          <option value="7">07:00</option>
+          <option value="8">08:00</option>
+          <option value="9">09:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+          <option value="12">12:00</option>
+          <option value="13">13:00</option>
+          <option value="14">14:00</option>
+          <option value="15">15:00</option>
+          <option value="16">16:00</option>
+          <option value="17">17:00</option>
+          <option value="18">18:00</option>
+          <option value="19">19:00</option>
+          <option value="20" selected>20:00</option>
+          <option value="21">21:00</option>
+          <option value="22">22:00</option>
+          <option value="23">23:00</option>
+        </select>
+        <span class="minute-display">: <span id="reminderMinuteDisplay">00</span></span>
+      </div>
+
+      <div class="reminder-info">
+        <div><strong>📅 Next reminder:</strong> <span id="nextReminderTime">Not set</span></div>
+        <div><strong>📊 Today's progress:</strong> <span id="todayProgress">Loading...</span></div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-primary" id="saveReminderBtn">
+          <i class="fas fa-save"></i> Save Settings
+        </button>
+        <button class="btn-secondary" id="testNotificationBtn">
+          <i class="fas fa-play"></i> Test
+        </button>
+      </div>
+      <div class="modal-footer-text">
+        <i class="fas fa-info-circle"></i> Notifications work even when the page is closed (if browser allows).
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Auth Modal ===== -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal" style="max-width:380px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-user"></i> <span id="authTitle">Account</span></h3>
+        <button class="close" id="closeAuthBtn">&times;</button>
+      </div>
+      
+      <div id="userProfile" style="display:none;">
+        <div class="auth-profile">
+          <div class="avatar" id="userAvatar">U</div>
+          <div class="info">
+            <div class="name" id="userDisplayName">User</div>
+            <div class="email" id="userEmail">user@example.com</div>
+          </div>
+          <div class="stats">
+            <div class="stat">🔥 <strong id="userStreak">0</strong>d</div>
+            <div class="stat">✅ <strong id="userLearned">0</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+        <button class="auth-btn login" id="loginBtn">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <div class="auth-switch">
+          Don't have an account? <span class="link" id="switchToRegister">Sign Up</span>
+        </div>
+      </div>
+
+      <div id="registerForm" class="auth-form" style="display:none;">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="registerEmail" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Display Name (optional)</label>
+          <input type="text" id="registerName" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Password (min 6 characters)</label>
+          <input type="password" id="registerPassword" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="registerConfirm" placeholder="••••••••">
+        </div>
+        <button class="auth-btn register" id="registerBtn">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <div class="auth-switch">
+          Already have an account? <span class="link" id="switchToLogin">Sign In</span>
+        </div>
+      </div>
+
+      <div class="auth-message" id="authMessage"></div>
+
+      <div class="auth-actions" id="userActions">
+        <button class="action-btn" id="syncDataBtn">
+          <i class="fas fa-sync"></i> Sync Data
+        </button>
+        <button class="action-btn" id="exportDataBtn">
+          <i class="fas fa-file-export"></i> Export Backup
+        </button>
+        <button class="action-btn" id="importDataBtn">
+          <i class="fas fa-file-import"></i> Import Backup
+        </button>
+        <button class="action-btn danger" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Sign Out
+        </button>
+        <button class="action-btn delete" id="deleteAccountBtn">
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data/sentences.js"></script>
+  <script>
+    // ============================================================
+    // COLLAPSE FUNCTIONS
+    // ============================================================
+    function toggleCollapse(sectionId) {
+      var section = document.getElementById(sectionId);
+      if (!section) return;
+      var body = section.querySelector('.collapse-body');
+      var toggle = section.querySelector('.toggle');
+      if (body) {
+        body.classList.toggle('open');
+        if (toggle) toggle.classList.toggle('open');
+      }
+    }
+
+    function toggleCard(cardId) {
+      var card = document.getElementById(cardId);
+      if (card) card.classList.toggle('expanded');
+    }
+
+    function expandCard(cardId) {
+      var card = document.getElementById(cardId);
+      if (!card) return;
+      document.querySelectorAll('.path-card').forEach(function(c) {
+        if (c.id !== cardId) c.classList.remove('expanded');
+      });
+      card.classList.add('expanded');
+    }
+
+    function collapseCard(cardId) {
+      var card = document.getElementById(cardId);
+      if (!card) return;
+      card._timer = setTimeout(function() {
+        if (!card.matches(':hover')) card.classList.remove('expanded');
+      }, 200);
+    }
+
+    document.querySelectorAll('.path-card').forEach(function(card) {
+      card.addEventListener('mouseleave', function(e) {
+        var related = e.relatedTarget;
+        if (related && card.contains(related)) {
+          if (card._timer) clearTimeout(card._timer);
+          return;
+        }
+        if (card._timer) clearTimeout(card._timer);
+        card._timer = setTimeout(function() {
+          if (!card.matches(':hover')) card.classList.remove('expanded');
+        }, 250);
+      });
+    });
+
+    function scrollToEarlyBird(e) {
+      e.stopPropagation();
+      var target = document.getElementById('earlyBirdCard');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.style.transition = 'box-shadow 0.4s ease, border-color 0.4s ease';
+        target.style.boxShadow = '0 0 0 3px #FF6B35, 0 8px 40px rgba(255,107,53,0.15)';
+        setTimeout(function() { target.style.boxShadow = 'none'; }, 1200);
+        showToast('🔓 Unlock all levels with Early Bird — $149.99 lifetime!', 'fa-rocket');
+      }
+    }
+
+    // ============================================================
+    // DATA
+    // ============================================================
+    var JULI_SENTENCES = (typeof HSK1_SENTENCES !== 'undefined') ? HSK1_SENTENCES : [];
+    if (JULI_SENTENCES.length === 0) {
+      JULI_SENTENCES = [
+        { id: 'hsk1_001', chinese: '你好。', pinyin: 'Nǐ hǎo.', translation: 'Hello.' },
+        { id: 'hsk1_002', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?' },
+        { id: 'hsk1_003', chinese: '我很好。', pinyin: 'Wǒ hěn hǎo.', translation: 'I am fine.' }
+      ];
+    }
+
+    // ============================================================
+    // EARLY BIRD - 增强版
+    // ============================================================
+    function updateEarlyBirdCount() {
+      var days = Math.floor((Date.now() - new Date('2026-07-20').getTime()) / (1000*60*60*24));
+      var remaining = Math.max(0, 47 - days * 2);
+      var el = document.getElementById('earlyBirdCounter');
+      var fill = document.getElementById('counterFill');
+      if (el) el.textContent = remaining;
+      if (fill) {
+        var pct = (remaining / 100) * 100;
+        fill.style.width = pct + '%';
+        if (remaining <= 20) {
+          fill.style.background = 'linear-gradient(90deg, #dc3545, #ff6b6b)';
+        } else if (remaining <= 40) {
+          fill.style.background = 'linear-gradient(90deg, #FF6B35, #f7934b)';
+        } else {
+          fill.style.background = 'linear-gradient(90deg, #FF6B35, #f7934b)';
+        }
+      }
+    }
+
+    // ============================================================
+    // PRICING MODAL
+    // ============================================================
+    function openPricing() {
+      document.getElementById('pricingModal').classList.add('show');
+    }
+
+    function closePricing() {
+      document.getElementById('pricingModal').classList.remove('show');
+    }
+
+    function selectPlan(plan) {
+      var names = {
+        monthly: '📆 Monthly — $9.99/month',
+        yearly: '📅 Yearly — $69.99/year (Save 30%)',
+        lifetime: '👑 Lifetime — $199.99 one-time'
+      };
+      showToast('📌 ' + (names[plan] || plan), 'fa-check');
+    }
+
+    function subscribe() {
+      showToast('🎉 Welcome to HanLingo! Start with HSK 1 — FREE.', 'fa-trophy');
+      closePricing();
+    }
+
+    document.getElementById('closePricingBtn').addEventListener('click', closePricing);
+    document.getElementById('pricingModal').addEventListener('click', function(e) {
+      if (e.target === this) closePricing();
+    });
+
+    // ============================================================
+    // CHECK-IN
+    // ============================================================
+    var CHECKIN_KEY = 'hanlingo_checkin_data';
+
+    function getCheckinData() {
+      try { return JSON.parse(localStorage.getItem(CHECKIN_KEY) || '{}'); } catch(e) { return {}; }
+    }
+    function saveCheckinData(data) { localStorage.setItem(CHECKIN_KEY, JSON.stringify(data)); }
+    function getToday() { return new Date().toDateString(); }
+    function getMonth() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+    function getDay() { return new Date().getDate(); }
+    function getMonthDays(y,m) { return new Date(y,m,0).getDate(); }
+    function getFirstDayOfMonth(y,m) { return new Date(y,m-1,1).getDay(); }
+
+    function doCheckin() {
+      var data = getCheckinData();
+      var today = getToday();
+      var month = getMonth();
+      var day = getDay();
+
+      if (data.lastCheckin === today) {
+        showToast('✅ Already checked in today!', 'fa-calendar-check');
+        return;
+      }
+
+      var yesterday = new Date(Date.now() - 86400000).toDateString();
+      var newStreak = (data.lastCheckin === yesterday) ? (data.streak||0) + 1 : 1;
+
+      data.lastCheckin = today;
+      data.streak = newStreak;
+      data.totalCheckins = (data.totalCheckins||0) + 1;
+      if (!data.months) data.months = {};
+      if (!data.months[month]) data.months[month] = [];
+      if (!data.months[month].includes(day)) data.months[month].push(day);
+
+      saveCheckinData(data);
+      updateCheckinUI();
+
+      var msg = '🎉 Checked in! ' + newStreak + ' day streak!';
+      if (newStreak >= 7) msg = '🔥 ' + newStreak + ' day streak! Keep it going!';
+      if (newStreak >= 14) msg = '🌟 ' + newStreak + ' day streak! Amazing!';
+      if (newStreak >= 30) msg = '👑 ' + newStreak + ' day streak! Legend!';
+      showToast(msg, 'fa-trophy');
+    }
+
+    function updateCheckinUI() {
+      var data = getCheckinData();
+      var today = getToday();
+      document.getElementById('streakCount').textContent = data.streak || 0;
+      var timeEl = document.getElementById('lastCheckinTime');
+      var btn = document.getElementById('checkinBtn');
+      if (data.lastCheckin === today) {
+        timeEl.textContent = 'Today ✅';
+        btn.innerHTML = '<i class="fas fa-check-circle"></i> Done';
+        btn.style.background = '#2d6a4f';
+        btn.disabled = true;
+      } else if (data.lastCheckin) {
+        timeEl.textContent = new Date(data.lastCheckin).toLocaleDateString();
+        btn.innerHTML = '<i class="fas fa-check"></i> Check In';
+        btn.style.background = '#FF6B35';
+        btn.disabled = false;
+      } else {
+        timeEl.textContent = '--';
+        btn.innerHTML = '<i class="fas fa-check"></i> Check In';
+        btn.style.background = '#FF6B35';
+        btn.disabled = false;
+      }
+    }
+
+    function renderCalendar() {
+      var data = getCheckinData();
+      var today = new Date();
+      var year = today.getFullYear(), month = today.getMonth()+1;
+      var monthStr = year + '-' + String(month).padStart(2,'0');
+      var daysInMonth = getMonthDays(year, month);
+      var firstDay = getFirstDayOfMonth(year, month);
+      var currentDay = today.getDate();
+
+      document.getElementById('calendarMonthLabel').textContent = today.toLocaleDateString('en-US', {month:'long', year:'numeric'});
+      document.getElementById('modalStreak').textContent = data.streak||0;
+      document.getElementById('modalTotal').textContent = data.totalCheckins||0;
+      document.getElementById('modalThisMonth').textContent = (data.months && data.months[monthStr]) ? data.months[monthStr].length : 0;
+
+      var streak = data.streak || 0;
+      document.getElementById('streakProgressBar').style.width = Math.min((streak / 7) * 100, 100) + '%';
+      document.getElementById('streakProgressText').textContent = streak + ' / 7';
+
+      var grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+      var weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+      for (var i=0; i<7; i++) {
+        var d=document.createElement('div');
+        d.className='day empty';
+        d.style.fontSize='0.4rem';
+        d.style.fontWeight='700';
+        d.style.color='#b0a8a2';
+        d.textContent=weekdays[i];
+        grid.appendChild(d);
+      }
+      for (var i=0; i<firstDay; i++) {
+        var d=document.createElement('div');
+        d.className='day empty';
+        grid.appendChild(d);
+      }
+      var checked = (data.months && data.months[monthStr]) || [];
+      for (var d=1; d<=daysInMonth; d++) {
+        var el=document.createElement('div');
+        el.className='day';
+        var isChecked = checked.includes(d);
+        var isToday = (d === currentDay);
+        var isFuture = (d > currentDay);
+        if (isChecked) {
+          el.classList.add('checked');
+          el.innerHTML = '✓';
+          el.style.fontWeight = '700';
+          el.style.fontSize = '0.6rem';
+        } else {
+          el.textContent = d;
+        }
+        if (isToday) el.classList.add('today');
+        if (isFuture) el.classList.add('future');
+        grid.appendChild(el);
+      }
+    }
+
+    // ============================================================
+    // MAIN APP STATE
+    // ============================================================
+    var sentenceData = JULI_SENTENCES || [];
+    var dailyGoal = parseInt(localStorage.getItem('hanlingo_daily_goal')) || 5;
+    var learnedSentences = JSON.parse(localStorage.getItem('hanlingo_learned') || '[]');
+    var savedSentences = JSON.parse(localStorage.getItem('hanlingo_saved') || '[]');
+    var currentLevel = parseInt(localStorage.getItem('hanlingo_level')) || 1;
+    var streak = parseInt(localStorage.getItem('hanlingo_streak')) || 0;
+    var lastStudyDate = localStorage.getItem('hanlingo_last_date') || '';
+
+    function getDailySentence() {
+      if (!sentenceData || sentenceData.length === 0) return null;
+      var startDate = new Date(2026, 0, 1);
+      var today = new Date();
+      var diffDays = Math.floor(Math.abs(today - startDate) / (1000*60*60*24));
+      return sentenceData[diffDays % sentenceData.length];
+    }
+
+    function renderDailySentence() {
+      var s = getDailySentence();
+      if (!s) { document.getElementById('dailyChinese').textContent = 'Failed to load'; return; }
+      document.getElementById('dailyChinese').textContent = s.chinese;
+      document.getElementById('dailyPinyin').textContent = s.pinyin || '';
+      document.getElementById('dailyTranslation').textContent = s.translation || '';
+    }
+
+    function updateUI() {
+      var today = new Date().toDateString();
+      if (lastStudyDate !== today) {
+        if (lastStudyDate === new Date(Date.now()-86400000).toDateString()) streak += 1;
+        else streak = 0;
+        lastStudyDate = today;
+        localStorage.setItem('hanlingo_last_date', lastStudyDate);
+        localStorage.setItem('hanlingo_streak', streak);
+        learnedSentences = [];
+        localStorage.setItem('hanlingo_learned', JSON.stringify(learnedSentences));
+      }
+
+      var startIdx = (currentLevel - 1) * dailyGoal;
+      var endIdx = Math.min(startIdx + dailyGoal, sentenceData.length);
+      var todaySentences = sentenceData.slice(startIdx, endIdx);
+      var done = todaySentences.filter(function(s) { return learnedSentences.indexOf(s.id) !== -1; }).length;
+      var total = todaySentences.length || dailyGoal;
+
+      document.getElementById('progressCount').textContent = done;
+      document.getElementById('progressTotal').textContent = total;
+      document.getElementById('levelDisplay').textContent = currentLevel;
+      document.getElementById('savedCount').textContent = savedSentences.length;
+      document.getElementById('progressFill').style.width = (total > 0 ? (done/total)*100 : 0) + '%';
+      updateCheckinUI();
+
+      var badge = document.getElementById('notificationBadge');
+      if (done < total && total > 0) {
+        badge.classList.add('show');
+      } else {
+        badge.classList.remove('show');
+      }
+    }
+
+    function showToast(message, icon) {
+      icon = icon || 'fa-info-circle';
+      var toast = document.getElementById('toast');
+      toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
+      toast.classList.add('show');
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2800);
+    }
+
+    function goLearn() { window.location.href = 'learn.html'; }
+    function goQuest() {
+      var startIdx = (currentLevel - 1) * dailyGoal;
+      var endIdx = Math.min(startIdx + dailyGoal, sentenceData.length);
+      var todaySentences = sentenceData.slice(startIdx, endIdx);
+      var done = todaySentences.filter(function(s) { return learnedSentences.indexOf(s.id) !== -1; }).length;
+      var total = todaySentences.length;
+      if (done >= total && total > 0) {
+        localStorage.setItem('hanlingo_quest_sentences', JSON.stringify(todaySentences));
+        window.location.href = 'quest.html';
+      } else {
+        showToast('📚 Learn all ' + total + ' sentences first!', 'fa-info-circle');
+      }
+    }
+
+    // ============================================================
+    // USER SYSTEM FUNCTIONS
+    // ============================================================
+    function updateUserUI() {
+      if (typeof HanLingoUser === 'undefined') {
+        console.log('⚠️ User system not loaded');
+        return;
+      }
+      
+      var user = HanLingoUser.getCurrentUser();
+      var profile = document.getElementById('userProfile');
+      var loginForm = document.getElementById('loginForm');
+      var registerForm = document.getElementById('registerForm');
+      var actions = document.getElementById('userActions');
+      var authTitle = document.getElementById('authTitle');
+
+      if (user) {
+        profile.style.display = 'block';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        actions.style.display = 'block';
+        authTitle.textContent = '👤 Account';
+
+        document.getElementById('userDisplayName').textContent = user.displayName || 'User';
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = (user.displayName || user.email)[0].toUpperCase();
+
+        var stats = HanLingoUser.getUserStats();
+        if (stats) {
+          document.getElementById('userStreak').textContent = stats.streak || 0;
+          document.getElementById('userLearned').textContent = stats.learnedCount || 0;
+        }
+      } else {
+        profile.style.display = 'none';
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        actions.style.display = 'none';
+        authTitle.textContent = '🔐 Sign In';
+      }
+    }
+
+    function openAuthModal() {
+      document.getElementById('authModal').classList.add('show');
+      updateUserUI();
+      document.getElementById('authMessage').style.display = 'none';
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.remove('show');
+    }
+
+    function showLogin() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('authTitle').textContent = '🔐 Sign In';
+      document.getElementById('authMessage').style.display = 'none';
+    }
+
+    function showRegister() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').style.display = 'block';
+      document.getElementById('authTitle').textContent = '📝 Create Account';
+      document.getElementById('authMessage').style.display = 'none';
+    }
+
+    function showAuthMessage(message, isError) {
+      var el = document.getElementById('authMessage');
+      el.textContent = message;
+      el.style.display = 'block';
+      el.style.color = isError ? '#721c24' : '#155724';
+      el.style.background = isError ? '#f8d7da' : '#d4edda';
+      el.style.padding = '8px 12px';
+      el.style.borderRadius = '8px';
+    }
+
+    // ============================================================
+    // NOTIFICATION FUNCTIONS
+    // ============================================================
+    function updateNotificationUI() {
+      if (typeof getReminderStatus === 'undefined') {
+        console.log('⚠️ Notification module not loaded');
+        return;
+      }
+      
+      var status = getReminderStatus();
+      var statusEl = document.getElementById('notificationStatus');
+      var toggle = document.getElementById('reminderToggle');
+      var nextTimeEl = document.getElementById('nextReminderTime');
+      var progressEl = document.getElementById('todayProgress');
+      var toggleIcon = document.getElementById('toggleIcon');
+
+      if (status.permission === 'granted') {
+        statusEl.textContent = '✅ Allowed';
+        statusEl.className = 'status-badge allowed';
+      } else if (status.permission === 'denied') {
+        statusEl.textContent = '❌ Denied';
+        statusEl.className = 'status-badge denied';
+      } else {
+        statusEl.textContent = '⏳ Not set';
+        statusEl.className = 'status-badge default';
+      }
+
+      if (status.enabled) {
+        toggle.checked = true;
+        toggleIcon.className = 'fas fa-toggle-on toggle-icon on';
+      } else {
+        toggle.checked = false;
+        toggleIcon.className = 'fas fa-toggle-off toggle-icon off';
+      }
+
+      var hourSelect = document.getElementById('reminderHour');
+      if (hourSelect) {
+        hourSelect.value = status.hour || 20;
+      }
+      document.getElementById('reminderMinuteDisplay').textContent = String(status.minute || 0).padStart(2, '0');
+
+      if (status.nextTime) {
+        var nextDate = new Date(status.nextTime);
+        nextTimeEl.textContent = nextDate.toLocaleString();
+      } else if (status.enabled) {
+        var now = new Date();
+        var target = new Date();
+        target.setHours(status.hour || 20, status.minute || 0, 0, 0);
+        if (target <= now) target.setDate(target.getDate() + 1);
+        nextTimeEl.textContent = target.toLocaleString() + ' (scheduled)';
+      } else {
+        nextTimeEl.textContent = 'Not enabled';
+      }
+
+      var learned = JSON.parse(localStorage.getItem('juli_learned') || '[]');
+      var total = 0;
+      if (typeof HSK1_SENTENCES !== 'undefined') total = HSK1_SENTENCES.length;
+      if (total === 0) total = 30;
+      progressEl.textContent = learned.length + ' / ' + total + ' sentences learned';
+    }
+
+    function openNotificationSettings() {
+      document.getElementById('notificationModal').classList.add('show');
+      updateNotificationUI();
+    }
+
+    function closeNotificationSettings() {
+      document.getElementById('notificationModal').classList.remove('show');
+    }
+
+    function saveReminderSettings() {
+      if (typeof enableReminder === 'undefined' || typeof disableReminder === 'undefined') {
+        showToast('⚠️ Notification module not loaded', 'fa-exclamation-triangle');
+        return;
+      }
+
+      var hourSelect = document.getElementById('reminderHour');
+      var hour = parseInt(hourSelect.value) || 20;
+      var minute = 0;
+      var enabled = document.getElementById('reminderToggle').checked;
+
+      if (enabled) {
+        enableReminder(hour, minute).then(function(success) {
+          if (success) {
+            showToast('✅ Daily reminder enabled at ' + String(hour).padStart(2, '0') + ':00!', 'fa-bell');
+            updateNotificationUI();
+            closeNotificationSettings();
+          } else {
+            showToast('⚠️ Please allow notification permission first.', 'fa-exclamation-triangle');
+            updateNotificationUI();
+          }
+        });
+      } else {
+        disableReminder();
+        showToast('🔕 Daily reminder disabled.', 'fa-bell-slash');
+        updateNotificationUI();
+        closeNotificationSettings();
+      }
+    }
+
+    // ============================================================
+    // STICKY NOTIFICATION - 倒计时 + 关闭
+    // ============================================================
+    function startCountdown() {
+      var timerEl = document.getElementById('countdownTimer');
+      if (!timerEl) return;
+
+      // 设置倒计时：2小时34分17秒
+      var totalSeconds = 2 * 3600 + 34 * 60 + 17;
+
+      function updateTimer() {
+        if (totalSeconds <= 0) {
+          timerEl.textContent = '00:00:00';
+          return;
+        }
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+        timerEl.textContent = 
+          String(hours).padStart(2, '0') + ':' +
+          String(minutes).padStart(2, '0') + ':' +
+          String(seconds).padStart(2, '0');
+        totalSeconds--;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    // ============================================================
+    // DOMContentLoaded
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      renderDailySentence();
+      updateUI();
+      updateEarlyBirdCount();
+      startCountdown();
+
+      // 关闭通知栏
+      document.getElementById('closeNotification').addEventListener('click', function() {
+        document.getElementById('stickyNotification').classList.add('hidden');
+        // 记住用户关闭了通知栏
+        localStorage.setItem('hanlingo_notification_closed', 'true');
+      });
+
+      // 如果用户之前关闭过，但超过24小时，重新显示
+      var closed = localStorage.getItem('hanlingo_notification_closed');
+      if (closed) {
+        var closedTime = parseInt(closed);
+        if (Date.now() - closedTime > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('hanlingo_notification_closed');
+          document.getElementById('stickyNotification').classList.remove('hidden');
+        } else {
+          document.getElementById('stickyNotification').classList.add('hidden');
+        }
+      }
+
+      // 滚动时改变通知栏样式
+      var notification = document.getElementById('stickyNotification');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 10) {
+          notification.classList.add('scrolled');
+        } else {
+          notification.classList.remove('scrolled');
+        }
+      });
+
+      // Hero buttons
+      document.getElementById('start-btn').addEventListener('click', goLearn);
+      document.getElementById('dailyLearnBtn').addEventListener('click', goLearn);
+
+      // Daily listen button
+      document.getElementById('dailyListenBtn').addEventListener('click', function() {
+        var s = getDailySentence();
+        if (!s) { showToast('⚠️ No sentence loaded', 'fa-exclamation-triangle'); return; }
+
+        var btn = this;
+        if (btn.classList.contains('playing')) {
+          if (window._dailyAudio) { window._dailyAudio.pause(); window._dailyAudio.currentTime = 0; window._dailyAudio = null; }
+          if ('speechSynthesis' in window) speechSynthesis.cancel();
+          btn.classList.remove('playing');
+          btn.innerHTML = '<i class="fas fa-play"></i> Listen';
+          return;
+        }
+
+        btn.classList.add('playing');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        var globalIndex = -1;
+        for (var i = 0; i < JULI_SENTENCES.length; i++) {
+          if (JULI_SENTENCES[i].id === s.id) { globalIndex = i; break; }
+        }
+        if (globalIndex === -1) {
+          var startDate = new Date(2026, 0, 1);
+          var today = new Date();
+          globalIndex = Math.floor(Math.abs(today - startDate) / (1000*60*60*24)) % sentenceData.length;
+        }
+
+        var fileNum = globalIndex + 1;
+        var idNum = String(fileNum).padStart(3, '0');
+        var audioPath = 'audio/hsk1_' + idNum + '.mp3';
+
+        var audio = new Audio(audioPath);
+        window._dailyAudio = audio;
+
+        audio.oncanplaythrough = function() {
+          btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+          audio.play();
+        };
+
+        audio.onended = function() {
+          btn.classList.remove('playing');
+          btn.innerHTML = '<i class="fas fa-check"></i>';
+          window._dailyAudio = null;
+          setTimeout(function() { btn.innerHTML = '<i class="fas fa-play"></i> Listen'; }, 1500);
+        };
+
+        audio.onerror = function() {
+          window._dailyAudio = null;
+          if ('speechSynthesis' in window) {
+            var utterance = new SpeechSynthesisUtterance(s.chinese);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            utterance.onend = function() {
+              btn.classList.remove('playing');
+              btn.innerHTML = '<i class="fas fa-check"></i>';
+              setTimeout(function() { btn.innerHTML = '<i class="fas fa-play"></i> Listen'; }, 1500);
+            };
+            utterance.onerror = function() {
+              btn.classList.remove('playing');
+              btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+              setTimeout(function() { btn.innerHTML = '<i class="fas fa-play"></i> Listen'; }, 1500);
+            };
+            speechSynthesis.speak(utterance);
+          } else {
+            btn.classList.remove('playing');
+            btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            setTimeout(function() { btn.innerHTML = '<i class="fas fa-play"></i> Listen'; }, 1500);
+          }
+        };
+
+        audio.load();
+      });
+
+      // Check-in
+      document.getElementById('checkinBtn').addEventListener('click', doCheckin);
+      document.getElementById('viewCalendarBtn').addEventListener('click', function() {
+        renderCalendar();
+        document.getElementById('checkinModal').classList.add('show');
+      });
+      document.getElementById('closeModalBtn').addEventListener('click', function() {
+        document.getElementById('checkinModal').classList.remove('show');
+      });
+      document.getElementById('checkinModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('show');
+      });
+
+      // ===== NOTIFICATION EVENTS =====
+      var notificationBtn = document.getElementById('notificationBtn');
+      if (notificationBtn) {
+        notificationBtn.addEventListener('click', openNotificationSettings);
+      }
+
+      document.getElementById('closeNotificationBtn').addEventListener('click', closeNotificationSettings);
+      document.getElementById('notificationModal').addEventListener('click', function(e) {
+        if (e.target === this) closeNotificationSettings();
+      });
+
+      document.getElementById('saveReminderBtn').addEventListener('click', saveReminderSettings);
+
+      document.getElementById('testNotificationBtn').addEventListener('click', function() {
+        if (typeof testNotification === 'undefined') {
+          showToast('⚠️ Notification module not loaded', 'fa-exclamation-triangle');
+          return;
+        }
+        testNotification().then(function(success) {
+          if (success) {
+            showToast('✅ Test notification sent! Check your screen.', 'fa-bell');
+          } else {
+            showToast('⚠️ Please allow notification permission first.', 'fa-exclamation-triangle');
+          }
+        });
+      });
+
+      document.getElementById('reminderToggle').addEventListener('change', function() {
+        var icon = document.getElementById('toggleIcon');
+        if (this.checked) {
+          icon.className = 'fas fa-toggle-on toggle-icon on';
+        } else {
+          icon.className = 'fas fa-toggle-off toggle-icon off';
+        }
+      });
+
+      document.getElementById('reminderHour').addEventListener('change', function() {
+        document.getElementById('reminderMinuteDisplay').textContent = '00';
+      });
+
+      // ===== USER SYSTEM EVENTS =====
+      document.getElementById('userBtn').addEventListener('click', openAuthModal);
+      document.getElementById('closeAuthBtn').addEventListener('click', closeAuthModal);
+      document.getElementById('authModal').addEventListener('click', function(e) {
+        if (e.target === this) closeAuthModal();
+      });
+
+      document.getElementById('switchToRegister').addEventListener('click', showRegister);
+      document.getElementById('switchToLogin').addEventListener('click', showLogin);
+
+      document.getElementById('loginBtn').addEventListener('click', async function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        var email = document.getElementById('loginEmail').value.trim();
+        var password = document.getElementById('loginPassword').value;
+
+        var result = await HanLingoUser.login(email, password);
+        if (result.success) {
+          showAuthMessage('✅ ' + result.message, false);
+          setTimeout(function() {
+            closeAuthModal();
+            location.reload();
+          }, 1000);
+        } else {
+          showAuthMessage('❌ ' + result.message, true);
+        }
+      });
+
+      document.getElementById('registerBtn').addEventListener('click', async function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        var email = document.getElementById('registerEmail').value.trim();
+        var name = document.getElementById('registerName').value.trim();
+        var password = document.getElementById('registerPassword').value;
+        var confirm = document.getElementById('registerConfirm').value;
+
+        if (password !== confirm) {
+          showAuthMessage('❌ Passwords do not match.', true);
+          return;
+        }
+
+        var result = await HanLingoUser.register(email, password, name);
+        if (result.success) {
+          showAuthMessage('✅ ' + result.message, false);
+          setTimeout(function() {
+            closeAuthModal();
+            location.reload();
+          }, 1000);
+        } else {
+          showAuthMessage('❌ ' + result.message, true);
+        }
+      });
+
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        if (confirm('Are you sure you want to sign out?')) {
+          HanLingoUser.logout();
+          closeAuthModal();
+          location.reload();
+        }
+      });
+
+      document.getElementById('syncDataBtn').addEventListener('click', function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        var result = HanLingoUser.syncLocalToUser();
+        if (result.success) {
+          showAuthMessage('✅ ' + result.message, false);
+          updateUserUI();
+        } else {
+          showAuthMessage('❌ ' + result.message, true);
+        }
+      });
+
+      document.getElementById('exportDataBtn').addEventListener('click', function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        var result = HanLingoUser.exportUserData();
+        if (result.success) {
+          var blob = new Blob([result.data], { type: 'text/plain;charset=utf-8' });
+          var link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = result.filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(link.href);
+          showAuthMessage('✅ Backup downloaded!', false);
+        } else {
+          showAuthMessage('❌ ' + result.message, true);
+        }
+      });
+
+      document.getElementById('importDataBtn').addEventListener('click', function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.txt';
+        input.onchange = function(e) {
+          var file = e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = async function(event) {
+            var content = event.target.result;
+            var result = await HanLingoUser.importUserData(content);
+            if (result.success) {
+              showAuthMessage('✅ ' + result.message, false);
+              updateUserUI();
+              setTimeout(function() { location.reload(); }, 1500);
+            } else {
+              showAuthMessage('❌ ' + result.message, true);
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      });
+
+      document.getElementById('deleteAccountBtn').addEventListener('click', function() {
+        if (typeof HanLingoUser === 'undefined') {
+          showAuthMessage('❌ User system not loaded', true);
+          return;
+        }
+        var result = HanLingoUser.deleteAccount();
+        if (result.success) {
+          showAuthMessage('✅ ' + result.message, false);
+          setTimeout(function() {
+            closeAuthModal();
+            location.reload();
+          }, 1500);
+        } else {
+          showAuthMessage('❌ ' + result.message, true);
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          var modal = document.getElementById('authModal');
+          if (modal.classList.contains('show')) {
+            var loginForm = document.getElementById('loginForm');
+            var registerForm = document.getElementById('registerForm');
+            if (loginForm.style.display !== 'none') {
+              document.getElementById('loginBtn').click();
+            } else if (registerForm.style.display !== 'none') {
+              document.getElementById('registerBtn').click();
+            }
+          }
+        }
+      });
+
+      // ===== NAV =====
+      document.querySelectorAll('.nav-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          var page = this.dataset.page;
+          if (page === 'home') { /* already here */ }
+          else if (page === 'learn') goLearn();
+          else if (page === 'quest') goQuest();
+          else if (page === 'saved') {
+            if (savedSentences.length === 0) showToast('⭐ No saved sentences yet.', 'fa-bookmark');
+            else alert('⭐ Saved Sentences: ' + savedSentences.length);
+          } else if (page === 'profile') {
+            var data = getCheckinData();
+            alert('👤 Profile\n\n🔥 ' + (data.streak||0) + ' day streak\n✅ ' + learnedSentences.length + ' learned\n⭐ ' + savedSentences.length + ' saved\n📈 Level ' + currentLevel);
+          }
+        });
+      });
+
+      if (typeof HanLingoUser !== 'undefined') {
+        updateUserUI();
+        console.log('👤 User System ready | Logged in: ' + (HanLingoUser.isLoggedIn() ? 'Yes' : 'No'));
+      } else {
+        console.log('⚠️ User system not loaded');
+      }
+
+      console.log('✅ HanLingo Home ready | ' + sentenceData.length + ' sentences');
+      
+      if (typeof getReminderStatus !== 'undefined') {
+        var status = getReminderStatus();
+        console.log('🔔 Notification: ' + (status.enabled ? 'enabled at ' + status.hour + ':00' : 'disabled'));
+      }
+    });
+  </script>
+</body>
+</html>

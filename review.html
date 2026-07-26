@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>HanLingo · Review</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF6B35">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background: #f9f7f5; color: #1e1e2a; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
+    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0 0 24px 24px; overflow: hidden; position: relative; }
+    .status-bar { background: #1e1e2a; color: #f0ede8; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 0.55rem; letter-spacing: 0.4px; font-weight: 500; }
+    .header { padding: 12px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
+    
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 2px 6px; border-radius: 10px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
+    .logo-area:hover { background: #f5f2ef; }
+    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    .logo-icon { background: #FF6B35; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(255,107,53,0.2); transition: all 0.3s ease; }
+    .logo-area:hover .logo-icon { transform: rotate(-6deg) scale(1.05); box-shadow: 0 5px 16px rgba(255,107,53,0.3); }
+    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: -0.2px; transition: all 0.3s ease; }
+    .logo-area:hover .logo-text { transform: scale(1.02); }
+    .logo-text .han { color: #1e1e2a; }
+    .logo-text .lingo { color: #FF6B35; }
+    .header-actions { display: flex; gap: 14px; color: #898999; font-size: 1rem; }
+    .review-container { padding: 14px 18px 10px 18px; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; margin-bottom: 16px; background: #f4f1ee; border-radius: 14px; padding: 4px; }
+    .tab { flex: 1; padding: 10px 14px; border: none; border-radius: 12px; font-size: 0.7rem; font-weight: 600; cursor: pointer; transition: 0.2s; background: transparent; color: #6a6a7a; }
+    .tab.active { background: #ffffff; color: #1e1e2a; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .tab:hover:not(.active) { background: rgba(255,255,255,0.3); }
+    .tab .count { display: inline-block; background: #FF6B35; color: white; font-size: 0.5rem; padding: 0px 6px; border-radius: 20px; margin-left: 4px; font-weight: 700; min-width: 18px; text-align: center; }
+    .tab .count.zero { background: #d4cfc8; }
+
+    /* Stats Row */
+    .stats-row { display: flex; gap: 10px; margin-bottom: 16px; }
+    .stat-card { flex: 1; background: #ffffff; border-radius: 12px; padding: 10px 12px; text-align: center; border: 1px solid #efebe8; }
+    .stat-card .num { font-size: 1.1rem; font-weight: 700; color: #1e1e2a; }
+    .stat-card .num.orange { color: #FF6B35; }
+    .stat-card .num.green { color: #2d6a4f; }
+    .stat-card .label { font-size: 0.5rem; color: #6a6a7a; margin-top: 1px; }
+
+    /* Review Mode Selector */
+    .mode-selector { display: flex; gap: 8px; margin-bottom: 14px; }
+    .mode-btn { flex: 1; padding: 8px 12px; border: 1.5px solid #efebe8; border-radius: 10px; background: #ffffff; font-size: 0.6rem; font-weight: 600; color: #6a6a7a; cursor: pointer; transition: 0.2s; text-align: center; }
+    .mode-btn.active { border-color: #FF6B35; background: #fef9f5; color: #FF6B35; }
+    .mode-btn:hover:not(.active) { border-color: #d4cfc8; }
+    .mode-btn .sub { font-weight: 400; font-size: 0.45rem; color: #9b9390; display: block; margin-top: 1px; }
+    .mode-btn.active .sub { color: #b0a8a2; }
+
+    /* Card */
+    .review-card { background: #ffffff; border-radius: 20px; border: 1.5px solid #f0ebe6; padding: 24px 20px 20px 20px; min-height: 300px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .review-card .empty-state { color: #9b9390; }
+    .review-card .empty-state .icon { font-size: 2.5rem; color: #d4cfc8; margin-bottom: 10px; }
+    .review-card .empty-state .title { font-size: 0.9rem; font-weight: 600; color: #1e1e2a; margin-bottom: 4px; }
+    .review-card .empty-state .desc { font-size: 0.7rem; }
+
+    /* Card Content */
+    .card-content { width: 100%; display: none; }
+    .card-content.show { display: block; }
+    .card-number { font-size: 0.65rem; color: #b0a8a2; font-weight: 600; margin-bottom: 6px; }
+    .card-pinyin { font-size: 1rem; color: #7b7b8a; letter-spacing: 0.3px; margin-bottom: 4px; font-weight: 400; cursor: pointer; padding: 4px 0; border-radius: 4px; transition: 0.2s; }
+    .card-pinyin:hover { color: #1e1e2a; background: #f8f5f2; }
+    .card-chinese { font-size: 2.2rem; font-weight: 700; color: #1a1a28; letter-spacing: 0.5px; cursor: pointer; padding: 4px 0; border-radius: 8px; transition: 0.2s; }
+    .card-chinese:hover { color: #FF6B35; background: #f8f5f2; }
+    .card-translation { font-size: 0.95rem; color: #3d3d4a; background: #f4f1ee; padding: 6px 18px; border-radius: 40px; display: inline-block; margin: 10px 0 14px 0; cursor: pointer; transition: 0.2s; }
+    .card-translation:hover { background: #e8e2dc; }
+
+    /* Reveal Button */
+    .reveal-btn { background: #1e1e2a; border: none; color: white; padding: 8px 24px; border-radius: 60px; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+    .reveal-btn:hover { background: #2f2f3a; transform: scale(1.02); }
+    .reveal-btn.revealed { background: #2d6a4f; }
+    .reveal-btn.revealed:hover { background: #1e4f3a; }
+
+    /* Result Buttons */
+    .result-buttons { display: flex; gap: 8px; margin-top: 12px; width: 100%; justify-content: center; }
+    .result-btn { padding: 8px 20px; border-radius: 60px; font-weight: 600; font-size: 0.65rem; cursor: pointer; transition: 0.2s; border: none; display: inline-flex; align-items: center; gap: 4px; }
+    .result-btn.correct { background: #d4edda; color: #155724; }
+    .result-btn.correct:hover { background: #b7e0c4; transform: scale(1.02); }
+    .result-btn.wrong { background: #f8d7da; color: #721c24; }
+    .result-btn.wrong:hover { background: #f5c6cb; transform: scale(1.02); }
+    .result-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; }
+
+    /* Progress inside card */
+    .card-progress { width: 100%; margin-top: 10px; }
+    .card-progress .bar { width: 100%; height: 2px; background: #e6e0db; border-radius: 20px; overflow: hidden; }
+    .card-progress .bar .fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 20px; transition: width 0.4s ease; }
+    .card-progress .text { font-size: 0.5rem; color: #9b9390; margin-top: 4px; display: flex; justify-content: space-between; }
+
+    /* Wrong List */
+    .wrong-list { width: 100%; max-height: 350px; overflow-y: auto; text-align: left; }
+    .wrong-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f5f2ef; }
+    .wrong-item:last-child { border-bottom: none; }
+    .wrong-item .chinese { font-weight: 600; font-size: 0.8rem; color: #1a1a28; }
+    .wrong-item .translation { font-size: 0.65rem; color: #6a6a7a; }
+    .wrong-item .actions { display: flex; gap: 6px; }
+    .wrong-item .actions button { background: none; border: none; cursor: pointer; font-size: 0.7rem; color: #9b9390; transition: 0.2s; padding: 2px 6px; border-radius: 4px; }
+    .wrong-item .actions button:hover { background: #f4f1ee; color: #FF6B35; }
+    .wrong-item .actions .remove { color: #d9534f; }
+    .wrong-item .actions .remove:hover { background: #f8d7da; color: #721c24; }
+
+    /* Bottom Nav */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 4px 0 8px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.4rem; font-weight: 500; gap: 0px; cursor: pointer; padding: 2px 10px; border-radius: 20px; transition: 0.1s; }
+    .nav-item i { font-size: 1rem; color: #6b6b7b; }
+    .nav-item.active i { color: #FF6B35; }
+    .nav-item.active { color: #1e1e2a; }
+    .nav-item:active { background: #f0edeb; }
+
+    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 8px 18px; border-radius: 60px; font-size: 0.7rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.15); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { margin-right: 6px; color: #f7934b; }
+
+    @media (max-width: 400px) {
+      .card-chinese { font-size: 1.8rem; }
+      .review-card { padding: 18px 14px 16px 14px; min-height: 250px; }
+      .stat-card .num { font-size: 0.9rem; }
+      .result-buttons { gap: 6px; }
+      .result-btn { padding: 6px 14px; font-size: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="status-bar">
+      <span>HanLingo</span>
+      <span>Review</span>
+    </div>
+
+    <header class="header">
+      <div class="logo-area" id="goHomeBtn">
+        <div class="logo-icon">HL</div>
+        <div class="logo-text">
+          <span class="han">Han</span><span class="lingo">Lingo</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <i class="far fa-bell"></i>
+        <i class="far fa-user-circle"></i>
+      </div>
+    </header>
+
+    <div class="review-container">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="review">
+          <i class="fas fa-sync-alt"></i> Review <span class="count" id="reviewCount">0</span>
+        </button>
+        <button class="tab" data-tab="wrong">
+          <i class="fas fa-times-circle"></i> Wrong <span class="count zero" id="wrongCount">0</span>
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="num orange" id="totalLearned">0</div>
+          <div class="label">✅ Learned</div>
+        </div>
+        <div class="stat-card">
+          <div class="num green" id="totalCorrect">0</div>
+          <div class="label">🎯 Correct</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="totalWrong">0</div>
+          <div class="label">❌ Wrong</div>
+        </div>
+      </div>
+
+      <!-- Mode Selector -->
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="flashcard">
+          📇 Flashcards
+          <span class="sub">See &amp; recall</span>
+        </button>
+        <button class="mode-btn" data-mode="quiz">
+          🎯 Quiz
+          <span class="sub">Pick translation</span>
+        </button>
+      </div>
+
+      <!-- Review Card -->
+      <div class="review-card" id="reviewCard">
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+          <div class="icon"><i class="far fa-smile"></i></div>
+          <div class="title">Nothing to review</div>
+          <div class="desc">Learn some sentences first, then come back to review!</div>
+        </div>
+
+        <!-- Card Content -->
+        <div class="card-content" id="cardContent">
+          <div class="card-number" id="cardNum">1 / 5</div>
+          <div class="card-pinyin" id="cardPinyin">Nǐ hǎo</div>
+          <div class="card-chinese" id="cardChinese">你好</div>
+          <div class="card-translation" id="cardTranslation">Hello</div>
+          
+          <button class="reveal-btn" id="revealBtn">
+            <i class="fas fa-eye"></i> Reveal Answer
+          </button>
+
+          <div class="result-buttons" id="resultBtns">
+            <button class="result-btn correct" id="correctBtn"><i class="fas fa-check"></i> Got it</button>
+            <button class="result-btn wrong" id="wrongBtn"><i class="fas fa-times"></i> Missed</button>
+          </div>
+
+          <div class="card-progress">
+            <div class="bar"><div class="fill" id="reviewProgress" style="width:0%;"></div></div>
+            <div class="text">
+              <span id="progressLabel">0%</span>
+              <span id="progressCount">0 / 0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="bottom-nav">
+      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
+      <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
+      <div class="nav-item active" data-page="review"><i class="fas fa-sync-alt"></i><span>Review</span></div>
+      <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
+      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <script src="data/sentences.js"></script>
+  <script>
+    // ============ DATA ============
+    var allSentences = (typeof HSK1_SENTENCES !== 'undefined') ? HSK1_SENTENCES : [];
+    var learnedIds = JSON.parse(localStorage.getItem('juli_learned') || '[]');
+    var wrongIds = JSON.parse(localStorage.getItem('juli_wrong_ids') || '[]');
+    var correctCount = JSON.parse(localStorage.getItem('juli_correct_count') || '{}');
+    var wrongCount = JSON.parse(localStorage.getItem('juli_wrong_count') || '{}');
+
+    var learnedSentences = allSentences.filter(function(s) { return learnedIds.indexOf(s.id) !== -1; });
+    var wrongSentences = allSentences.filter(function(s) { return wrongIds.indexOf(s.id) !== -1; });
+
+    // ============ STATE ============
+    var currentTab = 'review';
+    var currentMode = 'flashcard';
+    var currentIndex = 0;
+    var reviewQueue = [];
+    var isRevealed = false;
+    var isAnswered = false;
+
+    // ============ DOM ============
+    var tabs = document.querySelectorAll('.tab');
+    var modeBtns = document.querySelectorAll('.mode-btn');
+    var reviewCard = document.getElementById('reviewCard');
+    var emptyState = document.getElementById('emptyState');
+    var cardContent = document.getElementById('cardContent');
+    var cardNum = document.getElementById('cardNum');
+    var cardPinyin = document.getElementById('cardPinyin');
+    var cardChinese = document.getElementById('cardChinese');
+    var cardTranslation = document.getElementById('cardTranslation');
+    var revealBtn = document.getElementById('revealBtn');
+    var resultBtns = document.getElementById('resultBtns');
+    var correctBtn = document.getElementById('correctBtn');
+    var wrongBtn = document.getElementById('wrongBtn');
+    var reviewProgress = document.getElementById('reviewProgress');
+    var progressLabel = document.getElementById('progressLabel');
+    var progressCount = document.getElementById('progressCount');
+    var reviewCountEl = document.getElementById('reviewCount');
+    var wrongCountEl = document.getElementById('wrongCount');
+    var totalLearnedEl = document.getElementById('totalLearned');
+    var totalCorrectEl = document.getElementById('totalCorrect');
+    var totalWrongEl = document.getElementById('totalWrong');
+
+    // ============ TOAST ============
+    function showToast(msg, icon) {
+      icon = icon || 'fa-info-circle';
+      var toast = document.getElementById('toast');
+      toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + msg;
+      toast.classList.add('show');
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2500);
+    }
+
+    // ============ UPDATE STATS ============
+    function updateStats() {
+      var totalLearned = learnedIds.length;
+      var totalCorrect = 0;
+      var totalWrong = 0;
+      for (var key in correctCount) { totalCorrect += correctCount[key]; }
+      for (var key in wrongCount) { totalWrong += wrongCount[key]; }
+
+      totalLearnedEl.textContent = totalLearned;
+      totalCorrectEl.textContent = totalCorrect;
+      totalWrongEl.textContent = totalWrong;
+
+      var reviewCount = learnedIds.length;
+      reviewCountEl.textContent = reviewCount;
+      reviewCountEl.className = 'count' + (reviewCount === 0 ? ' zero' : '');
+
+      var wrongCountNum = wrongIds.length;
+      wrongCountEl.textContent = wrongCountNum;
+      wrongCountEl.className = 'count' + (wrongCountNum === 0 ? ' zero' : '');
+    }
+
+    // ============ BUILD QUEUE ============
+    function buildQueue() {
+      if (currentTab === 'review') {
+        reviewQueue = learnedSentences.slice();
+      } else {
+        reviewQueue = wrongSentences.slice();
+      }
+      // Shuffle
+      for (var i = reviewQueue.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = reviewQueue[i];
+        reviewQueue[i] = reviewQueue[j];
+        reviewQueue[j] = temp;
+      }
+      currentIndex = 0;
+      isRevealed = false;
+      isAnswered = false;
+    }
+
+    // ============ RENDER CARD ============
+    function renderCard() {
+      updateStats();
+
+      var total = reviewQueue.length;
+
+      if (total === 0) {
+        emptyState.style.display = 'block';
+        cardContent.classList.remove('show');
+        if (currentTab === 'review') {
+          document.querySelector('#emptyState .title').textContent = '🎉 All caught up!';
+          document.querySelector('#emptyState .desc').textContent = 'You\'ve reviewed all learned sentences. Come back after learning more!';
+        } else {
+          document.querySelector('#emptyState .title').textContent = '🎉 No wrong answers!';
+          document.querySelector('#emptyState .desc').textContent = 'You haven\'t missed any sentences yet. Keep it up!';
+        }
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      cardContent.classList.add('show');
+
+      var s = reviewQueue[currentIndex];
+      cardNum.textContent = (currentIndex + 1) + ' / ' + total;
+      cardPinyin.textContent = s.pinyin || '';
+      cardChinese.textContent = s.chinese;
+      cardTranslation.textContent = s.translation || '';
+
+      // Hide translation by default (flashcard mode)
+      if (currentMode === 'flashcard') {
+        cardTranslation.style.display = 'none';
+        revealBtn.style.display = 'inline-flex';
+        resultBtns.style.display = 'none';
+      } else {
+        // Quiz mode - show 4 options
+        cardTranslation.style.display = 'inline-block';
+        revealBtn.style.display = 'none';
+        resultBtns.style.display = 'flex';
+        generateQuizOptions();
+      }
+
+      // Progress
+      var pct = ((currentIndex + 1) / total) * 100;
+      reviewProgress.style.width = pct + '%';
+      progressLabel.textContent = Math.round(pct) + '%';
+      progressCount.textContent = (currentIndex + 1) + ' / ' + total;
+
+      isRevealed = false;
+      isAnswered = false;
+
+      // Reset buttons
+      revealBtn.className = 'reveal-btn';
+      revealBtn.innerHTML = '<i class="fas fa-eye"></i> Reveal Answer';
+      correctBtn.disabled = false;
+      wrongBtn.disabled = false;
+      resultBtns.style.display = 'none';
+    }
+
+    // ============ GENERATE QUIZ OPTIONS ============
+    function generateQuizOptions() {
+      var s = reviewQueue[currentIndex];
+      if (!s) return;
+
+      var options = [s.translation];
+      var pool = allSentences.filter(function(item) {
+        return item.id !== s.id && item.translation && item.translation !== s.translation;
+      });
+
+      // Shuffle pool and pick 3
+      for (var i = pool.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = pool[i];
+        pool[i] = pool[j];
+        pool[j] = temp;
+      }
+      for (var k = 0; k < Math.min(3, pool.length); k++) {
+        options.push(pool[k].translation);
+      }
+
+      // Shuffle options
+      for (var i2 = options.length - 1; i2 > 0; i2--) {
+        var j2 = Math.floor(Math.random() * (i2 + 1));
+        var temp2 = options[i2];
+        options[i2] = options[j2];
+        options[j2] = temp2;
+      }
+
+      // Clear existing buttons and create new ones
+      resultBtns.innerHTML = '';
+      for (var o = 0; o < options.length; o++) {
+        var btn = document.createElement('button');
+        btn.className = 'result-btn';
+        btn.textContent = options[o];
+        btn.dataset.value = options[o];
+        btn.addEventListener('click', function(e) {
+          if (isAnswered) return;
+          var selected = this.textContent;
+          var correct = s.translation;
+          if (selected === correct) {
+            this.style.background = '#d4edda';
+            this.style.color = '#155724';
+            recordResult(true);
+          } else {
+            this.style.background = '#f8d7da';
+            this.style.color = '#721c24';
+            // Highlight correct answer
+            var btns = resultBtns.querySelectorAll('.result-btn');
+            for (var b = 0; b < btns.length; b++) {
+              if (btns[b].textContent === correct) {
+                btns[b].style.background = '#d4edda';
+                btns[b].style.color = '#155724';
+              }
+            }
+            recordResult(false);
+          }
+          resultBtns.querySelectorAll('.result-btn').forEach(function(b) { b.disabled = true; });
+        });
+        resultBtns.appendChild(btn);
+      }
+
+      // Show translation (already shown)
+      cardTranslation.style.display = 'inline-block';
+    }
+
+    // ============ RECORD RESULT ============
+    function recordResult(isCorrect) {
+      if (isAnswered) return;
+      isAnswered = true;
+
+      var s = reviewQueue[currentIndex];
+      if (!s) return;
+
+      if (isCorrect) {
+        correctCount[s.id] = (correctCount[s.id] || 0) + 1;
+        // Remove from wrong if it was there
+        var idx = wrongIds.indexOf(s.id);
+        if (idx > -1) {
+          wrongIds.splice(idx, 1);
+          localStorage.setItem('juli_wrong_ids', JSON.stringify(wrongIds));
+        }
+      } else {
+        wrongCount[s.id] = (wrongCount[s.id] || 0) + 1;
+        if (wrongIds.indexOf(s.id) === -1) {
+          wrongIds.push(s.id);
+          localStorage.setItem('juli_wrong_ids', JSON.stringify(wrongIds));
+        }
+        // Reset wrong sentences list
+        wrongSentences = allSentences.filter(function(item) { return wrongIds.indexOf(item.id) !== -1; });
+      }
+
+      localStorage.setItem('juli_correct_count', JSON.stringify(correctCount));
+      localStorage.setItem('juli_wrong_count', JSON.stringify(wrongCount));
+
+      // Move to next after delay
+      setTimeout(function() {
+        currentIndex++;
+        if (currentIndex >= reviewQueue.length) {
+          // Rebuild queue if there are more sentences
+          buildQueue();
+          if (reviewQueue.length === 0) {
+            renderCard();
+            showToast('🎉 Review complete!', 'fa-trophy');
+          } else {
+            renderCard();
+          }
+        } else {
+          renderCard();
+        }
+      }, 1000);
+    }
+
+    // ============ REVEAL ============
+    revealBtn.addEventListener('click', function() {
+      if (isRevealed) return;
+      isRevealed = true;
+      var s = reviewQueue[currentIndex];
+      if (!s) return;
+      cardTranslation.style.display = 'inline-block';
+      this.className = 'reveal-btn revealed';
+      this.innerHTML = '<i class="fas fa-check"></i> Revealed';
+      resultBtns.style.display = 'flex';
+      correctBtn.disabled = false;
+      wrongBtn.disabled = false;
+    });
+
+    // ============ CORRECT / WRONG (Flashcard mode) ============
+    correctBtn.addEventListener('click', function() {
+      if (isAnswered) return;
+      recordResult(true);
+    });
+
+    wrongBtn.addEventListener('click', function() {
+      if (isAnswered) return;
+      recordResult(false);
+    });
+
+    // ============ TABS ============
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        tabs.forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        currentTab = this.dataset.tab;
+        buildQueue();
+        renderCard();
+      });
+    });
+
+    // ============ MODE ============
+    modeBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        modeBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        currentMode = this.dataset.mode;
+        // Reset card
+        buildQueue();
+        renderCard();
+        showToast('🔄 Switched to ' + (currentMode === 'flashcard' ? 'Flashcard' : 'Quiz') + ' mode', 'fa-arrows-rotate');
+      });
+    });
+
+    // ============ NAV ============
+    document.getElementById('goHomeBtn').addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+
+    document.querySelectorAll('.nav-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        var page = this.dataset.page;
+        if (page === 'home') window.location.href = 'index.html';
+        else if (page === 'learn') window.location.href = 'learn.html';
+        else if (page === 'review') { /* already here */ }
+        else if (page === 'quest') window.location.href = 'quest.html';
+        else if (page === 'profile') {
+          alert('👤 HanLingo Profile\n\n' +
+            '✅ Learned: ' + learnedIds.length + ' sentences\n' +
+            '❌ Wrong: ' + wrongIds.length + ' sentences\n' +
+            '📈 Total correct: ' + Object.values(correctCount).reduce(function(a,b){return a+b}, 0) + '\n' +
+            '📉 Total wrong: ' + Object.values(wrongCount).reduce(function(a,b){return a+b}, 0));
+        }
+      });
+    });
+
+    // ============ KEYBOARD ============
+    document.addEventListener('keydown', function(e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        if (!isRevealed && currentMode === 'flashcard') {
+          revealBtn.click();
+        }
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (isRevealed && !isAnswered) {
+          correctBtn.click();
+        } else if (!isRevealed && currentMode === 'flashcard') {
+          revealBtn.click();
+        }
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (isRevealed && !isAnswered) {
+          wrongBtn.click();
+        }
+      }
+    });
+
+    // ============ INIT ============
+    buildQueue();
+    renderCard();
+    console.log('✅ HanLingo Review ready | ' + learnedIds.length + ' learned, ' + wrongIds.length + ' wrong');
+  </script>
+</body>
+</html>

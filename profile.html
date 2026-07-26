@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>HanLingo · Profile</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF6B35">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="js/workbook-export.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/user-system.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f9f7f5; color: #1e1e2a; line-height: 1.5; padding: 0 0 80px 0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0 0 24px 24px; overflow: hidden; }
+    .status-bar { background: #1e1e2a; color: #e8e4df; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 0.5rem; letter-spacing: 0.4px; font-weight: 500; }
+    .header { padding: 12px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
+    
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 2px 6px; border-radius: 10px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
+    .logo-area:hover { background: #f5f2ef; }
+    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    .logo-icon { background: #FF6B35; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(255,107,53,0.2); transition: all 0.3s ease; }
+    .logo-area:hover .logo-icon { transform: rotate(-6deg) scale(1.05); box-shadow: 0 5px 16px rgba(255,107,53,0.3); }
+    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: -0.2px; transition: all 0.3s ease; }
+    .logo-area:hover .logo-text { transform: scale(1.02); }
+    .logo-text .han { color: #1e1e2a; }
+    .logo-text .lingo { color: #FF6B35; }
+    .header-actions { display: flex; gap: 14px; color: #898999; font-size: 1rem; align-items: center; }
+    .header-actions .bell-icon { cursor: pointer; transition: 0.2s; padding: 4px; border-radius: 8px; position: relative; }
+    .header-actions .bell-icon:hover { background: #f5f2ef; color: #FF6B35; }
+    .header-actions .bell-icon .badge-dot { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; background: #FF6B35; border-radius: 50%; border: 2px solid white; display: none; }
+    .header-actions .bell-icon .badge-dot.show { display: block; }
+    .header-actions .user-icon { cursor: pointer; transition: 0.2s; padding: 4px; border-radius: 8px; }
+    .header-actions .user-icon:hover { background: #f5f2ef; color: #FF6B35; }
+    .header-actions .user-icon .avatar-badge { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; background: #2d6a4f; border-radius: 50%; border: 2px solid white; display: none; }
+    .header-actions .user-icon .avatar-badge.show { display: block; }
+
+    .profile-container { padding: 14px 18px 10px 18px; }
+
+    /* Profile Header */
+    .profile-header { background: linear-gradient(135deg, #1e1e2a, #2a2a3a); border-radius: 18px; padding: 24px 20px; margin-bottom: 16px; text-align: center; color: #f0ede8; }
+    .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: #FF6B35; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: white; border: 3px solid rgba(255,255,255,0.15); box-shadow: 0 4px 20px rgba(255,107,53,0.2); }
+    .profile-name { font-size: 1.1rem; font-weight: 700; }
+    .profile-email { font-size: 0.65rem; color: #9b9390; margin-top: 2px; }
+    .profile-status { display: inline-block; margin-top: 8px; font-size: 0.5rem; font-weight: 600; padding: 2px 14px; border-radius: 30px; background: rgba(45,106,79,0.2); color: #8fdfb0; border: 1px solid rgba(45,106,79,0.2); }
+    .profile-status.guest { background: rgba(255,107,53,0.12); color: #FF6B35; border-color: rgba(255,107,53,0.15); }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+    .stat-card { background: #ffffff; border-radius: 12px; padding: 12px 4px; text-align: center; border: 1px solid #efebe8; transition: 0.2s; }
+    .stat-card:hover { border-color: #FF6B35; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.04); }
+    .stat-card .num { font-size: 1.2rem; font-weight: 700; color: #1e1e2a; }
+    .stat-card .num.orange { color: #FF6B35; }
+    .stat-card .num.green { color: #2d6a4f; }
+    .stat-card .num.red { color: #d9534f; }
+    .stat-card .label { font-size: 0.45rem; color: #6a6a7a; margin-top: 2px; }
+
+    /* Section Cards */
+    .section-card { background: #ffffff; border-radius: 14px; padding: 14px 16px; border: 1px solid #efebe8; margin-bottom: 10px; transition: 0.2s; }
+    .section-card:hover { border-color: #FF6B35; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(255,107,53,0.04); }
+    .section-title { font-size: 0.7rem; font-weight: 600; color: #1e1e2a; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .section-title i { color: #FF6B35; font-size: 0.75rem; }
+    .section-title .badge { font-size: 0.45rem; font-weight: 600; background: #f0ede8; color: #4a4a5a; padding: 0px 8px; border-radius: 30px; margin-left: auto; }
+
+    /* Progress Bar in card */
+    .progress-item { margin-bottom: 8px; }
+    .progress-item:last-child { margin-bottom: 0; }
+    .progress-item .row { display: flex; justify-content: space-between; font-size: 0.55rem; color: #4a4a5a; margin-bottom: 2px; }
+    .progress-item .row .label { font-weight: 500; }
+    .progress-item .row .value { font-weight: 600; }
+    .progress-item .track { width: 100%; height: 4px; background: #e6e0db; border-radius: 20px; overflow: hidden; }
+    .progress-item .track .fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 20px; transition: width 0.8s ease; }
+    .progress-item .track .fill.green { background: linear-gradient(90deg, #2d6a4f, #4a9e6e); }
+    .progress-item .track .fill.blue { background: linear-gradient(90deg, #2b6c94, #4a9ec4); }
+    .progress-item .track .fill.purple { background: linear-gradient(90deg, #6c3b8a, #a86cc4); }
+
+    /* Level List */
+    .level-list { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+    .level-dot { width: 100%; aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.45rem; font-weight: 700; color: white; background: #e6e0db; transition: 0.2s; }
+    .level-dot.done { background: #2d6a4f; }
+    .level-dot.current { background: #FF6B35; box-shadow: 0 0 0 2px #FF6B35, 0 4px 12px rgba(255,107,53,0.2); animation: pulse 2s ease-in-out infinite; }
+    .level-dot.locked { background: #e6e0db; color: #b0a8a2; }
+    .level-dot:hover { transform: scale(1.1); }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 2px #FF6B35, 0 4px 12px rgba(255,107,53,0.2); } 50% { box-shadow: 0 0 0 4px #FF6B35, 0 4px 20px rgba(255,107,53,0.3); } }
+
+    /* Activity Timeline */
+    .activity-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 0.5px solid #f5f2ef; }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-item .icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; flex-shrink: 0; }
+    .activity-item .icon.orange { background: #fef4ee; color: #FF6B35; }
+    .activity-item .icon.green { background: #e7f3ed; color: #2d6a4f; }
+    .activity-item .icon.blue { background: #e7f0f5; color: #2b6c94; }
+    .activity-item .icon.purple { background: #f0e7f5; color: #6c3b8a; }
+    .activity-item .info { flex: 1; min-width: 0; }
+    .activity-item .info .title { font-size: 0.6rem; font-weight: 500; color: #1e1e2a; }
+    .activity-item .info .desc { font-size: 0.5rem; color: #6a6a7a; }
+    .activity-item .time { font-size: 0.45rem; color: #9b9390; white-space: nowrap; }
+
+    /* Action Buttons */
+    .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .action-btn { background: #f8f6f3; border: 1px solid #efebe8; border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer; transition: 0.2s; }
+    .action-btn:hover { border-color: #FF6B35; background: #fef9f5; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.05); }
+    .action-btn:active { transform: scale(0.96); }
+    .action-btn .icon { font-size: 1.1rem; color: #FF6B35; display: block; margin-bottom: 2px; }
+    .action-btn .label { font-size: 0.5rem; font-weight: 500; color: #4a4a5a; }
+    .action-btn .label.green { color: #2d6a4f; }
+    .action-btn .label.red { color: #d9534f; }
+    .action-btn.full { grid-column: 1 / -1; }
+
+    /* Bottom Nav */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 4px 0 8px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.4rem; font-weight: 500; gap: 0px; cursor: pointer; padding: 2px 10px; border-radius: 20px; transition: 0.1s; }
+    .nav-item i { font-size: 1rem; color: #6b6b7b; }
+    .nav-item.active i { color: #FF6B35; }
+    .nav-item.active { color: #1e1e2a; }
+    .nav-item:active { background: #f0edeb; }
+
+    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 8px 18px; border-radius: 60px; font-size: 0.7rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.15); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { margin-right: 6px; color: #f7934b; }
+
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 300; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: white; border-radius: 20px; padding: 20px; max-width: 400px; width: 90%; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .modal-header h3 { font-size: 0.9rem; font-weight: 700; color: #1e1e2a; }
+    .modal-header h3 i { color: #FF6B35; }
+    .modal-header .close { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: #6a6a7a; padding: 4px 8px; border-radius: 6px; }
+    .modal-header .close:hover { color: #1e1e2a; background: #f5f2ef; }
+
+    @media (max-width: 400px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+      .stat-card .num { font-size: 0.9rem; }
+      .stat-card { padding: 8px 2px; }
+      .level-list { grid-template-columns: repeat(6, 1fr); gap: 3px; }
+      .action-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span>HanLingo</span>
+    <span>Profile</span>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area" id="goHomeBtn">
+      <div class="logo-icon">HL</div>
+      <div class="logo-text">
+        <span class="han">Han</span><span class="lingo">Lingo</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <i class="far fa-bell bell-icon" id="notificationBtn">
+        <span class="badge-dot" id="notificationBadge"></span>
+      </i>
+      <i class="fas fa-user-circle user-icon" id="userBtn">
+        <span class="avatar-badge" id="avatarBadge"></span>
+      </i>
+    </div>
+  </header>
+
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header" id="profileHeader">
+      <div class="profile-avatar" id="profileAvatar">U</div>
+      <div class="profile-name" id="profileName">Guest</div>
+      <div class="profile-email" id="profileEmail">Not signed in</div>
+      <div class="profile-status guest" id="profileStatus">👤 Guest</div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="num orange" id="statLearned">0</div>
+        <div class="label">✅ Learned</div>
+      </div>
+      <div class="stat-card">
+        <div class="num green" id="statStreak">0</div>
+        <div class="label">🔥 Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="statSaved">0</div>
+        <div class="label">⭐ Saved</div>
+      </div>
+      <div class="stat-card">
+        <div class="num red" id="statWrong">0</div>
+        <div class="label">❌ Wrong</div>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="section-card">
+      <div class="section-title">
+        <i class="fas fa-chart-line"></i> Learning Progress
+        <span class="badge" id="progressBadge">0%</span>
+      </div>
+      <div class="progress-item">
+        <div class="row">
+          <span class="label">📚 Overall Progress</span>
+          <span class="value" id="overallProgressText">0%</span>
+        </div>
+        <div class="track"><div class="fill" id="overallProgressFill" style="width:0%;"></div></div>
+      </div>
+      <div class="progress-item" style="margin-top:6px;">
+        <div class="row">
+          <span class="label">🎯 Accuracy</span>
+          <span class="value" id="accuracyText">0%</span>
+        </div>
+        <div class="track"><div class="fill blue" id="accuracyFill" style="width:0%;"></div></div>
+      </div>
+      <div class="progress-item" style="margin-top:6px;">
+        <div class="row">
+          <span class="label">📖 Level Progress</span>
+          <span class="value" id="levelProgressText">0%</span>
+        </div>
+        <div class="track"><div class="fill purple" id="levelProgressFill" style="width:0%;"></div></div>
+      </div>
+    </div>
+
+    <!-- Levels -->
+    <div class="section-card">
+      <div class="section-title">
+        <i class="fas fa-layer-group"></i> Levels
+        <span class="badge" id="levelBadge">Lv.1</span>
+      </div>
+      <div class="level-list" id="levelList"></div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="section-card">
+      <div class="section-title">
+        <i class="fas fa-clock"></i> Recent Activity
+        <span class="badge" id="activityBadge">Today</span>
+      </div>
+      <div id="activityList">
+        <div class="activity-item">
+          <div class="icon orange"><i class="fas fa-check"></i></div>
+          <div class="info">
+            <div class="title">Start learning to see activity</div>
+            <div class="desc">Your progress will appear here</div>
+          </div>
+          <div class="time">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="section-card">
+      <div class="section-title">
+        <i class="fas fa-cog"></i> Actions
+      </div>
+      <div class="action-grid">
+        <div class="action-btn" id="goLearnBtn">
+          <span class="icon"><i class="fas fa-book-open"></i></span>
+          <span class="label">📖 Learn</span>
+        </div>
+        <div class="action-btn" id="goQuestBtn">
+          <span class="icon"><i class="fas fa-flag"></i></span>
+          <span class="label">🎯 Quest</span>
+        </div>
+        <div class="action-btn" id="goReviewBtn">
+          <span class="icon"><i class="fas fa-sync-alt"></i></span>
+          <span class="label">🔄 Review</span>
+        </div>
+        <div class="action-btn" id="exportBtn">
+          <span class="icon"><i class="fas fa-file-export"></i></span>
+          <span class="label">📤 Export</span>
+        </div>
+        <div class="action-btn full" id="settingsBtn">
+          <span class="icon"><i class="fas fa-user-cog"></i></span>
+          <span class="label">⚙️ Account Settings</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding: 6px 0 2px; font-size:0.4rem; color:#9b9390;">
+      HanLingo · Learn Chinese Smarter
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
+    <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
+    <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
+    <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></div>
+    <div class="nav-item active" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== Auth Modal ===== -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal" style="max-width:380px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-user"></i> <span id="authTitle">Account</span></h3>
+        <button class="close" id="closeAuthBtn">&times;</button>
+      </div>
+      
+      <div id="userProfile" style="display:none;">
+        <div class="auth-profile" style="display:flex; align-items:center; gap:12px; background:#f8f6f3; border-radius:12px; padding:12px 16px; margin-bottom:12px;">
+          <div style="width:44px; height:44px; border-radius:50%; background:#FF6B35; color:white; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; flex-shrink:0;" id="modalAvatar">U</div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-weight:700; font-size:0.8rem; color:#1e1e2a;" id="modalDisplayName">User</div>
+            <div style="font-size:0.55rem; color:#6a6a7a;" id="modalEmail">user@example.com</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="loginForm" class="auth-form">
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.6rem; font-weight:600; color:#4a4a5a; display:block; margin-bottom:2px;">Email</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid #efebe8; font-size:0.7rem; background:#f8f6f3; outline:none; transition:0.2s;">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.6rem; font-weight:600; color:#4a4a5a; display:block; margin-bottom:2px;">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid #efebe8; font-size:0.7rem; background:#f8f6f3; outline:none; transition:0.2s;">
+        </div>
+        <button id="loginBtn" style="width:100%; background:#FF6B35; border:none; color:white; padding:10px; border-radius:60px; font-weight:700; font-size:0.75rem; cursor:pointer; transition:0.2s;">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <div style="text-align:center; margin-top:8px; font-size:0.55rem; color:#6a6a7a;">
+          Don't have an account? <span id="switchToRegister" style="color:#FF6B35; font-weight:600; cursor:pointer;">Sign Up</span>
+        </div>
+      </div>
+
+      <div id="registerForm" class="auth-form" style="display:none;">
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.6rem; font-weight:600; color:#4a4a5a; display:block; margin-bottom:2px;">Email</label>
+          <input type="email" id="registerEmail" placeholder="your@email.com" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid #efebe8; font-size:0.7rem; background:#f8f6f3; outline:none; transition:0.2s;">
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.6rem; font-weight:600; color:#4a4a5a; display:block; margin-bottom:2px;">Display Name (optional)</label>
+          <input type="text" id="registerName" placeholder="Your name" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid #efebe8; font-size:0.7rem; background:#f8f6f3; outline:none; transition:0.2s;">
+        </div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:0.6rem; font-weight:600; color:#4a4a5a; display:block; margin-bottom:2px;">Password (min 6 characters)</label>
+          <input type="password" id="registerPassword" placeholder="••••••••" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid #efebe8; font-size:0.7rem; background:#f8f6f3; outline:none; transition:0.2s;">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:0.6rem; font-weight:600; color:#4a4a5a; display:block; margin-bottom:2px;">Confirm Password</label>
+          <input type="password" id="registerConfirm" placeholder="••••••••" style="width:100%; padding:8px 12px; border-radius:8px; border:1px solid #efebe8; font-size:0.7rem; background:#f8f6f3; outline:none; transition:0.2s;">
+        </div>
+        <button id="registerBtn" style="width:100%; background:#2d6a4f; border:none; color:white; padding:10px; border-radius:60px; font-weight:700; font-size:0.75rem; cursor:pointer; transition:0.2s;">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <div style="text-align:center; margin-top:8px; font-size:0.55rem; color:#6a6a7a;">
+          Already have an account? <span id="switchToLogin" style="color:#FF6B35; font-weight:600; cursor:pointer;">Sign In</span>
+        </div>
+      </div>
+
+      <div id="authMessage" style="margin-top:10px; font-size:0.6rem; text-align:center; display:none; padding:8px 12px; border-radius:8px;"></div>
+
+      <div id="userActions" style="margin-top:12px; border-top:1px solid #efebe8; padding-top:12px; display:none;">
+        <button id="syncDataBtn" style="width:100%; background:#f8f6f3; border:1px solid #efebe8; color:#1e1e2a; padding:8px; border-radius:60px; font-weight:600; font-size:0.6rem; cursor:pointer; transition:0.2s; margin-bottom:6px;">
+          <i class="fas fa-sync"></i> Sync Data
+        </button>
+        <button id="exportDataBtn" style="width:100%; background:#f8f6f3; border:1px solid #efebe8; color:#1e1e2a; padding:8px; border-radius:60px; font-weight:600; font-size:0.6rem; cursor:pointer; transition:0.2s; margin-bottom:6px;">
+          <i class="fas fa-file-export"></i> Export Backup
+        </button>
+        <button id="importDataBtn" style="width:100%; background:#f8f6f3; border:1px solid #efebe8; color:#1e1e2a; padding:8px; border-radius:60px; font-weight:600; font-size:0.6rem; cursor:pointer; transition:0.2s; margin-bottom:6px;">
+          <i class="fas fa-file-import"></i> Import Backup
+        </button>
+        <button id="logoutBtn" style="width:100%; background:#f8d7da; border:1px solid #f5c6cb; color:#721c24; padding:8px; border-radius:60px; font-weight:600; font-size:0.6rem; cursor:pointer; transition:0.2s;">
+          <i class="fas fa-sign-out-alt"></i> Sign Out
+        </button>
+        <button id="deleteAccountBtn" style="width:100%; background:transparent; border:none; color:#d9534f; padding:6px; border-radius:60px; font-weight:500; font-size:0.5rem; cursor:pointer; transition:0.2s; margin-top:4px; text-decoration:underline;">
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/sentences.js"></script>
+  <script>
+    // ============================================================
+    // DATA
+    // ============================================================
+    var allSentences = (typeof HSK1_SENTENCES !== 'undefined') ? HSK1_SENTENCES : [];
+    var learnedIds = JSON.parse(localStorage.getItem('juli_learned') || '[]');
+    var savedIds = JSON.parse(localStorage.getItem('juli_saved') || '[]');
+    var wrongIds = JSON.parse(localStorage.getItem('juli_wrong_ids') || '[]');
+    var correctCount = JSON.parse(localStorage.getItem('juli_correct_count') || '{}');
+    var wrongCount = JSON.parse(localStorage.getItem('juli_wrong_count') || '{}');
+    var currentLevel = parseInt(localStorage.getItem('juli_level')) || 1;
+    var dailyGoal = parseInt(localStorage.getItem('juli_daily_goal')) || 5;
+    var streak = parseInt(localStorage.getItem('juli_streak')) || 0;
+    var checkinData = JSON.parse(localStorage.getItem('hanlingo_checkin_data') || '{}');
+
+    // ============================================================
+    // DOM
+    // ============================================================
+    var profileAvatar = document.getElementById('profileAvatar');
+    var profileName = document.getElementById('profileName');
+    var profileEmail = document.getElementById('profileEmail');
+    var profileStatus = document.getElementById('profileStatus');
+
+    var statLearned = document.getElementById('statLearned');
+    var statStreak = document.getElementById('statStreak');
+    var statSaved = document.getElementById('statSaved');
+    var statWrong = document.getElementById('statWrong');
+
+    var overallProgressFill = document.getElementById('overallProgressFill');
+    var overallProgressText = document.getElementById('overallProgressText');
+    var accuracyFill = document.getElementById('accuracyFill');
+    var accuracyText = document.getElementById('accuracyText');
+    var levelProgressFill = document.getElementById('levelProgressFill');
+    var levelProgressText = document.getElementById('levelProgressText');
+    var progressBadge = document.getElementById('progressBadge');
+    var levelBadge = document.getElementById('levelBadge');
+    var levelList = document.getElementById('levelList');
+
+    // ============================================================
+    // TOAST
+    // ============================================================
+    function showToast(message, icon) {
+      icon = icon || 'fa-info-circle';
+      var toast = document.getElementById('toast');
+      toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
+      toast.classList.add('show');
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2800);
+    }
+
+    // ============================================================
+    // RENDER PROFILE
+    // ============================================================
+    function renderProfile() {
+      var total = allSentences.length || 30;
+      var learned = learnedIds.length;
+      var saved = savedIds.length;
+      var wrong = wrongIds.length;
+      var totalCorrect = 0;
+      var totalWrong = 0;
+      for (var key in correctCount) { totalCorrect += correctCount[key]; }
+      for (var key in wrongCount) { totalWrong += wrongCount[key]; }
+      var accuracy = (totalCorrect + totalWrong > 0) ? Math.round((totalCorrect / (totalCorrect + totalWrong)) * 100) : 0;
+
+      // Overall progress
+      var pct = total > 0 ? Math.round((learned / total) * 100) : 0;
+      overallProgressFill.style.width = pct + '%';
+      overallProgressText.textContent = pct + '%';
+      progressBadge.textContent = pct + '%';
+
+      // Accuracy
+      accuracyFill.style.width = accuracy + '%';
+      accuracyText.textContent = accuracy + '%';
+
+      // Level progress
+      var startIdx = (currentLevel - 1) * dailyGoal;
+      var endIdx = Math.min(startIdx + dailyGoal, total);
+      var levelSentences = allSentences.slice(startIdx, endIdx);
+      var learnedInLevel = levelSentences.filter(function(s) { return learnedIds.indexOf(s.id) !== -1; }).length;
+      var levelPct = levelSentences.length > 0 ? Math.round((learnedInLevel / levelSentences.length) * 100) : 0;
+      levelProgressFill.style.width = levelPct + '%';
+      levelProgressText.textContent = levelPct + '%';
+
+      // Stats
+      statLearned.textContent = learned;
+      statStreak.textContent = streak || checkinData.streak || 0;
+      statSaved.textContent = saved;
+      statWrong.textContent = wrong;
+
+      // Level badge
+      levelBadge.textContent = 'Lv.' + currentLevel;
+
+      // Profile header
+      var user = typeof HanLingoUser !== 'undefined' ? HanLingoUser.getCurrentUser() : null;
+      if (user) {
+        profileName.textContent = user.displayName || 'User';
+        profileEmail.textContent = user.email;
+        profileAvatar.textContent = (user.displayName || user.email)[0].toUpperCase();
+        profileStatus.textContent = '✅ Signed in';
+        profileStatus.className = 'profile-status';
+      } else {
+        profileName.textContent = 'Guest';
+        profileEmail.textContent = 'Not signed in';
+        profileAvatar.textContent = '👤';
+        profileStatus.textContent = '👤 Guest';
+        profileStatus.className = 'profile-status guest';
+      }
+
+      // Render levels
+      renderLevels();
+
+      // Render activity
+      renderActivity();
+
+      // Update notification badge
+      var badge = document.getElementById('notificationBadge');
+      var dailyDone = learnedInLevel;
+      var dailyTotal = levelSentences.length || dailyGoal;
+      if (dailyDone < dailyTotal && dailyTotal > 0) {
+        badge.classList.add('show');
+      } else {
+        badge.classList.remove('show');
+      }
+    }
+
+    // ============================================================
+    // RENDER LEVELS
+    // ============================================================
+    function renderLevels() {
+      var total = allSentences.length || 30;
+      var totalLevels = Math.ceil(total / dailyGoal);
+      var maxLevels = Math.min(totalLevels, 12);
+      levelList.innerHTML = '';
+
+      for (var i = 1; i <= maxLevels; i++) {
+        var dot = document.createElement('div');
+        dot.className = 'level-dot';
+
+        var startIdx = (i - 1) * dailyGoal;
+        var endIdx = Math.min(startIdx + dailyGoal, total);
+        var levelSentences = allSentences.slice(startIdx, endIdx);
+        var learnedInLevel = levelSentences.filter(function(s) { return learnedIds.indexOf(s.id) !== -1; }).length;
+        var isComplete = learnedInLevel >= levelSentences.length && levelSentences.length > 0;
+        var isCurrent = i === currentLevel;
+
+        if (isComplete) {
+          dot.className = 'level-dot done';
+          dot.textContent = '✓';
+        } else if (isCurrent) {
+          dot.className = 'level-dot current';
+          dot.textContent = i;
+        } else if (i < currentLevel) {
+          dot.className = 'level-dot done';
+          dot.textContent = '✓';
+        } else {
+          dot.className = 'level-dot locked';
+          dot.textContent = i;
+        }
+
+        dot.title = 'Level ' + i + ' (' + learnedInLevel + '/' + levelSentences.length + ')';
+        levelList.appendChild(dot);
+      }
+    }
+
+    // ============================================================
+    // RENDER ACTIVITY
+    // ============================================================
+    function renderActivity() {
+      var list = document.getElementById('activityList');
+      var activities = [];
+
+      // Check if user has any activity
+      var hasActivity = learnedIds.length > 0 || savedIds.length > 0 || wrongIds.length > 0;
+
+      if (!hasActivity) {
+        list.innerHTML = '<div class="activity-item">' +
+          '<div class="icon orange"><i class="fas fa-check"></i></div>' +
+          '<div class="info">' +
+          '<div class="title">Start learning to see activity</div>' +
+          '<div class="desc">Your progress will appear here</div>' +
+          '</div>' +
+          '<div class="time">--</div>' +
+          '</div>';
+        return;
+      }
+
+      // Build activity items
+      if (learnedIds.length > 0) {
+        activities.push({
+          icon: 'green',
+          iconClass: 'fas fa-check',
+          title: 'Learned ' + learnedIds.length + ' sentences',
+          desc: 'Total learned so far',
+          time: '✅'
+        });
+      }
+
+      if (savedIds.length > 0) {
+        activities.push({
+          icon: 'orange',
+          iconClass: 'fas fa-bookmark',
+          title: 'Saved ' + savedIds.length + ' sentences',
+          desc: 'Your favorite sentences',
+          time: '⭐'
+        });
+      }
+
+      if (wrongIds.length > 0) {
+        activities.push({
+          icon: 'red',
+          iconClass: 'fas fa-times-circle',
+          title: wrongIds.length + ' sentences need review',
+          desc: 'Review them to improve',
+          time: '📝'
+        });
+      }
+
+      if (streak > 0) {
+        activities.push({
+          icon: 'purple',
+          iconClass: 'fas fa-fire',
+          title: streak + ' day streak!',
+          desc: 'Keep going! 🔥',
+          time: '🔥'
+        });
+      }
+
+      // Limit to 4 items
+      activities = activities.slice(0, 4);
+
+      var html = '';
+      for (var i = 0; i < activities.length; i++) {
+        var a = activities[i];
+        var iconColors = {
+          green: 'green',
+          orange: 'orange',
+          red: 'red',
+          purple: 'purple',
+          blue: 'blue'
+        };
+        html += '<div class="activity-item">' +
+          '<div class="icon ' + (iconColors[a.icon] || 'orange') + '"><i class="' + a.iconClass + '"></i></div>' +
+          '<div class="info">' +
+          '<div class="title">' + a.title + '</div>' +
+          '<div class="desc">' + a.desc + '</div>' +
+          '</div>' +
+          '<div class="time">' + a.time + '</div>' +
+          '</div>';
+      }
+      list.innerHTML = html;
+    }
+
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    document.getElementById('goHomeBtn').addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+
+    document.querySelectorAll('.nav-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        var page = this.dataset.page;
+        if (page === 'home') window.location.href = 'index.html';
+        else if (page === 'learn') window.location.href = 'learn.html';
+        else if (page === 'quest') window.location.href = 'quest.html';
+        else if (page === 'saved') {
+          if (savedIds.length === 0) {
+            showToast('⭐ No saved sentences yet.', 'fa-bookmark');
+          } else {
+            alert('⭐ Saved Sentences (' + savedIds.length + '):\n\n' + savedIds.join('\n'));
+          }
+        } else if (page === 'profile') { /* already here */ }
+      });
+    });
+
+    document.getElementById('goLearnBtn').addEventListener('click', function() {
+      window.location.href = 'learn.html';
+    });
+
+    document.getElementById('goQuestBtn').addEventListener('click', function() {
+      window.location.href = 'quest.html';
+    });
+
+    document.getElementById('goReviewBtn').addEventListener('click', function() {
+      window.location.href = 'review.html';
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', function() {
+      if (typeof showExportOptions !== 'undefined') {
+        showExportOptions();
+      } else {
+        showToast('📤 Export function loading...', 'fa-info-circle');
+      }
+    });
+
+    // ============================================================
+    // SETTINGS / AUTH MODAL
+    // ============================================================
+    document.getElementById('settingsBtn').addEventListener('click', openAuthModal);
+
+    function openAuthModal() {
+      document.getElementById('authModal').classList.add('show');
+      updateAuthUI();
+      document.getElementById('authMessage').style.display = 'none';
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.remove('show');
+    }
+
+    function updateAuthUI() {
+      var user = typeof HanLingoUser !== 'undefined' ? HanLingoUser.getCurrentUser() : null;
+      var profile = document.getElementById('userProfile');
+      var loginForm = document.getElementById('loginForm');
+      var registerForm = document.getElementById('registerForm');
+      var actions = document.getElementById('userActions');
+      var authTitle = document.getElementById('authTitle');
+
+      if (user) {
+        profile.style.display = 'block';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        actions.style.display = 'block';
+        authTitle.textContent = '👤 Account';
+        document.getElementById('modalDisplayName').textContent = user.displayName || 'User';
+        document.getElementById('modalEmail').textContent = user.email;
+        document.getElementById('modalAvatar').textContent = (user.displayName || user.email)[0].toUpperCase();
+      } else {
+        profile.style.display = 'none';
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        actions.style.display = 'none';
+        authTitle.textContent = '🔐 Sign In';
+      }
+    }
+
+    document.getElementById('closeAuthBtn').addEventListener('click', closeAuthModal);
+    document.getElementById('authModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAuthModal();
+    });
+
+    document.getElementById('switchToRegister').addEventListener('click', function() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('registerForm').style.display = 'block';
+      document.getElementById('authTitle').textContent = '📝 Create Account';
+      document.getElementById('authMessage').style.display = 'none';
+    });
+
+    document.getElementById('switchToLogin').addEventListener('click', function() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('authTitle').textContent = '🔐 Sign In';
+      document.getElementById('authMessage').style.display = 'none';
+    });
+
+    function showAuthMessage(message, isError) {
+      var el = document.getElementById('authMessage');
+      el.textContent = message;
+      el.style.display = 'block';
+      el.style.color = isError ? '#721c24' : '#155724';
+      el.style.background = isError ? '#f8d7da' : '#d4edda';
+      el.style.padding = '8px 12px';
+      el.style.borderRadius = '8px';
+    }
+
+    // ===== LOGIN =====
+    document.getElementById('loginBtn').addEventListener('click', async function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      var email = document.getElementById('loginEmail').value.trim();
+      var password = document.getElementById('loginPassword').value;
+      var result = await HanLingoUser.login(email, password);
+      if (result.success) {
+        showAuthMessage('✅ ' + result.message, false);
+        setTimeout(function() { closeAuthModal(); location.reload(); }, 1000);
+      } else {
+        showAuthMessage('❌ ' + result.message, true);
+      }
+    });
+
+    // ===== REGISTER =====
+    document.getElementById('registerBtn').addEventListener('click', async function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      var email = document.getElementById('registerEmail').value.trim();
+      var name = document.getElementById('registerName').value.trim();
+      var password = document.getElementById('registerPassword').value;
+      var confirm = document.getElementById('registerConfirm').value;
+      if (password !== confirm) {
+        showAuthMessage('❌ Passwords do not match.', true);
+        return;
+      }
+      var result = await HanLingoUser.register(email, password, name);
+      if (result.success) {
+        showAuthMessage('✅ ' + result.message, false);
+        setTimeout(function() { closeAuthModal(); location.reload(); }, 1000);
+      } else {
+        showAuthMessage('❌ ' + result.message, true);
+      }
+    });
+
+    // ===== LOGOUT =====
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      if (confirm('Are you sure you want to sign out?')) {
+        HanLingoUser.logout();
+        closeAuthModal();
+        location.reload();
+      }
+    });
+
+    // ===== SYNC =====
+    document.getElementById('syncDataBtn').addEventListener('click', function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      var result = HanLingoUser.syncLocalToUser();
+      if (result.success) {
+        showAuthMessage('✅ ' + result.message, false);
+        setTimeout(function() { location.reload(); }, 500);
+      } else {
+        showAuthMessage('❌ ' + result.message, true);
+      }
+    });
+
+    // ===== EXPORT BACKUP =====
+    document.getElementById('exportDataBtn').addEventListener('click', function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      var result = HanLingoUser.exportUserData();
+      if (result.success) {
+        var blob = new Blob([result.data], { type: 'text/plain;charset=utf-8' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = result.filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+        showAuthMessage('✅ Backup downloaded!', false);
+      } else {
+        showAuthMessage('❌ ' + result.message, true);
+      }
+    });
+
+    // ===== IMPORT BACKUP =====
+    document.getElementById('importDataBtn').addEventListener('click', function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.txt';
+      input.onchange = function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = async function(event) {
+          var content = event.target.result;
+          var result = await HanLingoUser.importUserData(content);
+          if (result.success) {
+            showAuthMessage('✅ ' + result.message, false);
+            setTimeout(function() { location.reload(); }, 1500);
+          } else {
+            showAuthMessage('❌ ' + result.message, true);
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+
+    // ===== DELETE ACCOUNT =====
+    document.getElementById('deleteAccountBtn').addEventListener('click', function() {
+      if (typeof HanLingoUser === 'undefined') {
+        showAuthMessage('❌ User system not loaded', true);
+        return;
+      }
+      var result = HanLingoUser.deleteAccount();
+      if (result.success) {
+        showAuthMessage('✅ ' + result.message, false);
+        setTimeout(function() { closeAuthModal(); location.reload(); }, 1500);
+      } else {
+        showAuthMessage('❌ ' + result.message, true);
+      }
+    });
+
+    // Enter key support
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        var modal = document.getElementById('authModal');
+        if (modal.classList.contains('show')) {
+          var loginForm = document.getElementById('loginForm');
+          var registerForm = document.getElementById('registerForm');
+          if (loginForm.style.display !== 'none') {
+            document.getElementById('loginBtn').click();
+          } else if (registerForm.style.display !== 'none') {
+            document.getElementById('registerBtn').click();
+          }
+        }
+      }
+    });
+
+    // ============================================================
+    // NOTIFICATION BUTTON
+    // ============================================================
+    document.getElementById('notificationBtn').addEventListener('click', function() {
+      if (typeof openNotificationSettings !== 'undefined') {
+        openNotificationSettings();
+      } else {
+        showToast('🔔 Notification settings', 'fa-bell');
+      }
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    renderProfile();
+    console.log('✅ HanLingo Profile ready | ' + learnedIds.length + ' learned, ' + savedIds.length + ' saved');
+
+    // Auto-update on data changes
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'juli_learned' || e.key === 'juli_saved' || e.key === 'juli_level' || e.key === 'juli_streak') {
+        learnedIds = JSON.parse(localStorage.getItem('juli_learned') || '[]');
+        savedIds = JSON.parse(localStorage.getItem('juli_saved') || '[]');
+        wrongIds = JSON.parse(localStorage.getItem('juli_wrong_ids') || '[]');
+        currentLevel = parseInt(localStorage.getItem('juli_level')) || 1;
+        streak = parseInt(localStorage.getItem('juli_streak')) || 0;
+        renderProfile();
+      }
+    });
+  </script>
+</body>
+</html>
