@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate HanLingo Icons</title>
+  <style>
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #f9f7f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+    .container { text-align: center; background: white; padding: 40px; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.06); max-width: 500px; }
+    h2 { margin-bottom: 8px; color: #1e1e2a; }
+    p { color: #6a6a7a; margin-bottom: 24px; }
+    .preview { display: flex; gap: 24px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+    .preview canvas { border-radius: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border: 1px solid #f0ebe6; }
+    .btn { background: #FF6B35; border: none; color: white; padding: 14px 32px; border-radius: 60px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+    .btn:hover { background: #e85a2a; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255,107,53,0.3); }
+    .btn:active { transform: scale(0.96); }
+    .status { margin-top: 16px; font-size: 0.85rem; color: #2d6a4f; background: #e7f3ed; padding: 8px 16px; border-radius: 40px; display: none; }
+    .status.show { display: inline-block; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>?? Generate HanLingo Icons</h2>
+  <p>Click the button below to generate and download <strong>HL</strong> icons for PWA.</p>
+
+  <div class="preview">
+    <canvas id="preview192" width="192" height="192"></canvas>
+    <canvas id="preview512" width="192" height="192"></canvas>
+  </div>
+
+  <button class="btn" onclick="generateAndDownload()">
+    <i class="fas fa-download"></i> Download Icons
+  </button>
+  <div class="status" id="status">? Icons downloaded successfully!</div>
+
+  <div style="margin-top:16px; font-size:0.7rem; color:#9b9390;">
+    <i class="fas fa-info-circle"></i> Downloads: <strong>icon-192.png</strong> and <strong>icon-512.png</strong>
+  </div>
+</div>
+
+<script>
+  function drawIcon(ctx, size) {
+    const pad = size * 0.078;
+    const iconSize = size - pad * 2;
+
+    // Gradient background
+    const gradient = ctx.createRadialGradient(
+      size * 0.35, size * 0.35, size * 0.05,
+      size * 0.5, size * 0.5, size * 0.65
+    );
+    gradient.addColorStop(0, '#FF8A5C');
+    gradient.addColorStop(0.6, '#FF6B35');
+    gradient.addColorStop(1, '#E85520');
+
+    ctx.shadowColor = 'rgba(255,107,53,0.25)';
+    ctx.shadowBlur = size * 0.04;
+    ctx.shadowOffsetY = size * 0.02;
+
+    // Rounded rectangle
+    const x = pad;
+    const y = pad;
+    const w = iconSize;
+    const h = iconSize;
+    const radius = size * 0.18;
+
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Clear shadow
+    ctx.shadowColor = 'transparent';
+
+    // Border highlight
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = size * 0.008;
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Inner highlight
+    const hlGrad = ctx.createLinearGradient(0, 0, 0, size * 0.3);
+    hlGrad.addColorStop(0, 'rgba(255,255,255,0.12)');
+    hlGrad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = hlGrad;
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + size * 0.35);
+    ctx.lineTo(x, y + size * 0.35);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+    ctx.fill();
+
+    // "HL" text - ¸Ä³ÉÁË HL
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'white';
+
+    ctx.shadowColor = 'rgba(0,0,0,0.08)';
+    ctx.shadowBlur = size * 0.02;
+    ctx.shadowOffsetY = size * 0.015;
+
+    const fontSize = size * 0.48;
+    ctx.font = `700 ${fontSize}px "Inter", -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif`;
+    ctx.fillText('HL', size * 0.5, size * 0.51);
+
+    // Bottom dots decoration
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    const dotSize = size * 0.028;
+    const dotY = size * 0.82;
+    ctx.beginPath();
+    ctx.arc(size * 0.42, dotY, dotSize, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(size * 0.5, dotY, dotSize, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(size * 0.58, dotY, dotSize, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function renderPreviews() {
+    const canvas192 = document.getElementById('preview192');
+    const ctx192 = canvas192.getContext('2d');
+    drawIcon(ctx192, 192);
+
+    const canvas512 = document.getElementById('preview512');
+    const ctx512 = canvas512.getContext('2d');
+    drawIcon(ctx512, 512);
+
+    [192, 512].forEach((size, idx) => {
+      const canvas = idx === 0 ? canvas192 : canvas512;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.font = '11px "Inter", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText(size + 'px', canvas.width / 2, canvas.height - 8);
+    });
+  }
+
+  function generateAndDownload() {
+    // Generate 192x192
+    const canvas192 = document.createElement('canvas');
+    canvas192.width = 192;
+    canvas192.height = 192;
+    const ctx192 = canvas192.getContext('2d');
+    drawIcon(ctx192, 192);
+
+    const link192 = document.createElement('a');
+    link192.download = 'icon-192.png';
+    link192.href = canvas192.toDataURL('image/png');
+    link192.click();
+
+    // Generate 512x512
+    const canvas512 = document.createElement('canvas');
+    canvas512.width = 512;
+    canvas512.height = 512;
+    const ctx512 = canvas512.getContext('2d');
+    drawIcon(ctx512, 512);
+
+    const link512 = document.createElement('a');
+    link512.download = 'icon-512.png';
+    link512.href = canvas512.toDataURL('image/png');
+    link512.click();
+
+    // Show success status
+    const status = document.getElementById('status');
+    status.classList.add('show');
+    setTimeout(() => status.classList.remove('show'), 3000);
+  }
+
+  // Show preview on page load
+  renderPreviews();
+</script>
+</body>
+</html>
