@@ -1,13 +1,13 @@
-// HanLingo °§ Service Worker
+// HanLingo ¬∑ Service Worker
 const CACHE_NAME = 'hanlingo-v1';
 
-// ∞≤◊∞ ¬º˛
+// ÂÆâË£Ö‰∫ã‰ª∂
 self.addEventListener('install', event => {
-  console.log('?? Service Worker ∞≤◊∞÷–...');
+  console.log('?? Service Worker ÂÆâË£Ö‰∏≠...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('?? ª∫¥Ê◊ ‘¥÷–...');
+        console.log('?? ÁºìÂ≠òËµÑÊ∫ê‰∏≠...');
         return cache.addAll([
           '/',
           '/index.html',
@@ -21,37 +21,37 @@ self.addEventListener('install', event => {
         ]);
       })
       .then(() => {
-        console.log('? ∞≤◊∞ÕÍ≥…£°');
+        console.log('? ÂÆâË£ÖÂÆåÊàêÔºÅ');
         return self.skipWaiting();
       })
       .catch(err => {
-        console.error('? ª∫¥Ê ß∞‹:', err);
+        console.error('? ÁºìÂ≠òÂ§±Ë¥•:', err);
       })
   );
 });
 
-// º§ªÓ ¬º˛
+// ÊøÄÊ¥ª‰∫ã‰ª∂
 self.addEventListener('activate', event => {
-  console.log('?? Service Worker º§ªÓ÷–...');
+  console.log('?? Service Worker ÊøÄÊ¥ª‰∏≠...');
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
-            console.log('??? …æ≥˝æ…ª∫¥Ê:', cacheName);
+            console.log('??? Âà†Èô§ÊóßÁºìÂ≠ò:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
     .then(() => {
-      console.log('? º§ªÓÕÍ≥…£°');
+      console.log('? ÊøÄÊ¥ªÂÆåÊàêÔºÅ');
       return self.clients.claim();
     })
   );
 });
 
-// «Î«Û¿πΩÿ
+// ËØ∑Ê±ÇÊã¶Êà™
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
@@ -60,7 +60,7 @@ self.addEventListener('fetch', event => {
           return response;
         }
         return fetch(event.request).catch(() => {
-          return new Response('¿Îœﬂ◊¥Ã¨ - «Î¡¨Ω”Õ¯¬Á', {
+          return new Response('Á¶ªÁ∫øÁä∂ÊÄÅ - ËØ∑ËøûÊé•ÁΩëÁªú', {
             status: 503,
             statusText: 'Service Unavailable'
           });
@@ -69,4 +69,4 @@ self.addEventListener('fetch', event => {
   );
 });
 
-console.log('? HanLingo Service Worker “—º”‘ÿ');
+console.log('? HanLingo Service Worker Â∑≤Âä†ËΩΩ');
