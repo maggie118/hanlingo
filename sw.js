@@ -1,33 +1,50 @@
-// HanLingo ¬∑ Service Worker
+// HanLingo °§ Service Worker
 // PWA offline support
 
-const CACHE_NAME = 'hanlingo-v2';
+const CACHE_NAME = 'hanlingo-v3';
 const ASSETS = [
   '/',
   '/index.html',
   '/learn.html',
   '/quest.html',
   '/review.html',
-  '/progress.html',
+  '/progress.html', 
   '/profile.html',
+  '/checkout.html',    // ? ÃÌº” checkout.html
   '/manifest.json',
+  '/favicon.ico',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/apple-touch-icon.png',
   '/icon-192.png',
   '/icon-512.png',
   '/data/sentences.js',
   '/js/workbook-export.js',
   '/js/notification.js',
-  '/js/user-system.js'
+  '/js/user-system.js',
+  // ? ª∫¥ÊÕ‚≤ø CSS£®Font Awesome£©
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css'
 ];
+
+// –Ë“™Ã¯π˝µƒŒƒº˛¿‡–Õ£®≤ªª∫¥Ê£©
+const SKIP_TYPES = /\.(mp3|ogg|wav|mp4|webm|m4a)$/;
 
 // Install event - cache assets
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('üì¶ HanLingo: Caching assets');
-        return cache.addAll(ASSETS);
+      .then(async cache => {
+        console.log('?? HanLingo: Caching assets');
+        try {
+          // ≥¢ ‘ª∫¥ÊÀ˘”–◊ ‘¥
+          await cache.addAll(ASSETS);
+          console.log('? All assets cached successfully');
+        } catch (err) {
+          console.warn('?? Some assets failed to cache:', err);
+          // ºÃ–¯∞≤◊∞£¨º¥ π≤ø∑÷◊ ‘¥ ß∞‹
+        }
+        return cache;
       })
-      .catch(err => console.warn('‚ö†Ô∏è Cache error:', err))
   );
   self.skipWaiting();
 });
@@ -38,7 +55,10 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+          .map(key => {
+            console.log('??? Removing old cache:', key);
+            return caches.delete(key);
+          })
       );
     })
   );
@@ -47,13 +67,20 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', event => {
-  // Ë∑≥ËøáÈùû GET ËØ∑Ê±Ç
+  // Ã¯π˝∑« GET «Î«Û
   if (event.request.method !== 'GET') {
     return;
   }
 
-  // Ë∑≥ËøáÈü≥È¢ëÊñá‰ª∂ÔºàÂ§™Â§ßÔºå‰∏çÁºìÂ≠òÔºâ
-  if (event.request.url.match(/\.(mp3|ogg|wav)$/)) {
+  const url = new URL(event.request.url);
+  
+  // Ã¯π˝“Ù∆µŒƒº˛£®Ã´¥Û£¨≤ªª∫¥Ê£©
+  if (SKIP_TYPES.test(url.pathname)) {
+    return;
+  }
+
+  // Ã¯π˝Õ‚≤ø API «Î«Û£®»Áπ˚”–£©
+  if (url.hostname.includes('api.') || url.hostname.includes('analytics')) {
     return;
   }
 
@@ -61,32 +88,114 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(cached => {
         if (cached) {
+          // ∑µªÿª∫¥Êµƒ◊ ‘¥
           return cached;
         }
-        return fetch(event.request).then(response => {
-          // Âè™ÁºìÂ≠òÊàêÂäüÁöÑÂìçÂ∫î
-          if (response && response.status === 200) {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, clone);
-            });
-          }
-          return response;
-        }).catch(() => {
-          // Offline fallback - ËøîÂõû‰∏Ä‰∏™ÁÆÄÂçïÁöÑÈ°µÈù¢
-          return new Response(
-            '<html><body><h1>üìö HanLingo</h1><p>You are offline. Please connect to the internet.</p></body></html>',
-            {
-              status: 503,
-              statusText: 'Service Unavailable',
-              headers: new Headers({
-                'Content-Type': 'text/html'
-              })
+
+        // ¥”Õ¯¬ÁªÒ»°
+        return fetch(event.request)
+          .then(response => {
+            // ÷ªª∫¥Ê≥…π¶µƒœÏ”¶
+            if (response && response.status === 200) {
+              const responseClone = response.clone();
+              caches.open(CACHE_NAME).then(cache => {
+                try {
+                  cache.put(event.request, responseClone);
+                } catch (err) {
+                  // ƒ≥–©◊ ‘¥ø…ƒ‹Œﬁ∑®ª∫¥Ê£®»ÁøÁ”Ú◊ ‘¥£©
+                  console.debug('Cannot cache:', event.request.url);
+                }
+              });
             }
-          );
-        });
+            return response;
+          })
+          .catch(() => {
+            // ¿ÎœﬂΩµº∂∑Ω∞∏
+            return new Response(
+              `<!DOCTYPE html>
+              <html>
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>HanLingo °§ Offline</title>
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                  <style>
+                    body {
+                      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                      background: #f7f5f2;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      height: 100vh;
+                      margin: 0;
+                      padding: 20px;
+                    }
+                    .offline-card {
+                      background: white;
+                      border-radius: 20px;
+                      padding: 40px 30px;
+                      text-align: center;
+                      max-width: 400px;
+                      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+                    }
+                    .offline-icon {
+                      font-size: 48px;
+                      color: #FF6B35;
+                      margin-bottom: 16px;
+                    }
+                    h1 {
+                      font-size: 24px;
+                      color: #1e1e2a;
+                      margin: 0 0 8px 0;
+                    }
+                    p {
+                      font-size: 14px;
+                      color: #6a6a7a;
+                      line-height: 1.6;
+                      margin: 0 0 20px 0;
+                    }
+                    .retry-btn {
+                      background: #FF6B35;
+                      color: white;
+                      border: none;
+                      padding: 12px 32px;
+                      border-radius: 60px;
+                      font-size: 16px;
+                      font-weight: 600;
+                      cursor: pointer;
+                      transition: 0.2s;
+                    }
+                    .retry-btn:hover {
+                      background: #e85a2a;
+                      transform: translateY(-1px);
+                    }
+                  </style>
+                </head>
+                <body>
+                  <div class="offline-card">
+                    <div class="offline-icon">??</div>
+                    <h1>Offline Mode</h1>
+                    <p>
+                      <i class="fas fa-wifi" style="color:#FF6B35;"></i>
+                      You're offline. Please check your internet connection.
+                    </p>
+                    <button class="retry-btn" onclick="location.reload()">
+                      <i class="fas fa-sync-alt"></i> Retry
+                    </button>
+                  </div>
+                </body>
+              </html>`,
+              {
+                status: 503,
+                statusText: 'Service Unavailable',
+                headers: new Headers({
+                  'Content-Type': 'text/html'
+                })
+              }
+            );
+          });
       })
   );
 });
 
-console.log('‚úÖ HanLingo Service Worker loaded');
+console.log('? HanLingo Service Worker loaded');

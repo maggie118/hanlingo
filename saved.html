@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  <!-- ===== Title ===== -->
+  <title>HanLingo · Saved - Your Saved Chinese Sentences</title>
+  
+  <!-- ===== SEO Meta ===== -->
+  <meta name="description" content="View and manage your saved Chinese sentences. Review your favorite sentences from HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, and themed sentence packs.">
+  <meta name="keywords" content="saved sentences, chinese sentences, hanlingo, hsk, yct, bct, mct, favorite sentences">
+  <meta name="author" content="HanLingo">
+  <meta name="robots" content="index, follow">
+  
+  <!-- ===== Open Graph ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hanlingo.app/saved.html">
+  <meta property="og:title" content="HanLingo · Saved - Your Saved Chinese Sentences">
+  <meta property="og:description" content="View and manage your saved Chinese sentences.">
+  <meta property="og:image" content="https://hanlingo.app/icon-512.png">
+  <meta property="og:site_name" content="HanLingo">
+  
+  <!-- ===== Twitter Card ===== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HanLingo · Saved - Your Saved Chinese Sentences">
+  <meta name="twitter:description" content="View and manage your saved Chinese sentences.">
+  <meta name="twitter:image" content="https://hanlingo.app/icon-512.png">
+  
+  <!-- ===== PWA ===== -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FF6B35">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  
+  <!-- ===== Font Awesome ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- ===== Scripts ===== -->
+  <script src="js/workbook-export.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/user-system.js"></script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f9f7f5; color: #1e1e2a; line-height: 1.5; padding: 0 0 80px 0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0 0 24px 24px; overflow: hidden; }
+    .status-bar { background: #1e1e2a; color: #e8e4df; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 0.5rem; letter-spacing: 0.4px; font-weight: 500; }
+    .header { padding: 12px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
+    
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 2px 6px; border-radius: 10px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
+    .logo-area:hover { background: #f5f2ef; }
+    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    .logo-icon { background: #FF6B35; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(255,107,53,0.2); transition: all 0.3s ease; }
+    .logo-area:hover .logo-icon { transform: rotate(-6deg) scale(1.05); box-shadow: 0 5px 16px rgba(255,107,53,0.3); }
+    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: -0.2px; transition: all 0.3s ease; }
+    .logo-area:hover .logo-text { transform: scale(1.02); }
+    .logo-text .han { color: #1e1e2a; }
+    .logo-text .lingo { color: #FF6B35; }
+    .header-actions { display: flex; gap: 14px; color: #898999; font-size: 1rem; align-items: center; }
+    .header-actions .back-icon { cursor: pointer; transition: 0.2s; padding: 4px 8px; border-radius: 8px; }
+    .header-actions .back-icon:hover { background: #f5f2ef; color: #FF6B35; }
+
+    .saved-container { padding: 14px 18px 10px 18px; }
+
+    /* Header Stats */
+    .stats-row { display: flex; gap: 10px; margin-bottom: 16px; }
+    .stat-card { flex: 1; background: #ffffff; border-radius: 12px; padding: 10px 12px; text-align: center; border: 1px solid #efebe8; }
+    .stat-card .num { font-size: 1.1rem; font-weight: 700; color: #1e1e2a; }
+    .stat-card .num.orange { color: #FF6B35; }
+    .stat-card .label { font-size: 0.5rem; color: #6a6a7a; margin-top: 1px; }
+
+    /* Search & Filter */
+    .search-bar { display: flex; gap: 8px; margin-bottom: 14px; }
+    .search-bar input { flex: 1; padding: 8px 14px; border-radius: 10px; border: 1.5px solid #efebe8; font-size: 0.7rem; background: #f8f6f3; outline: none; transition: 0.2s; }
+    .search-bar input:focus { border-color: #FF6B35; background: white; }
+    .search-bar .filter-btn { padding: 8px 14px; border-radius: 10px; border: 1.5px solid #efebe8; background: #f8f6f3; cursor: pointer; transition: 0.2s; color: #4a4a5a; font-size: 0.7rem; }
+    .search-bar .filter-btn:hover { border-color: #FF6B35; background: #fef9f5; }
+    .search-bar .filter-btn.active { border-color: #FF6B35; background: #fef9f5; color: #FF6B35; }
+
+    /* Saved List */
+    .saved-list { display: flex; flex-direction: column; gap: 8px; }
+    .saved-item { background: #ffffff; border-radius: 14px; padding: 14px 16px; border: 1px solid #efebe8; transition: all 0.2s ease; }
+    .saved-item:hover { border-color: #FF6B35; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.04); }
+    .saved-item .chinese { font-size: 1.2rem; font-weight: 700; color: #1a1a28; }
+    .saved-item .pinyin { font-size: 0.6rem; color: #7b7b8a; margin: 1px 0; }
+    .saved-item .translation { font-size: 0.6rem; color: #3d3d4a; background: #f4f1ee; padding: 1px 12px; border-radius: 40px; display: inline-block; margin: 3px 0; }
+    .saved-item .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+    .saved-item .meta .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .saved-item .meta .tag { font-size: 0.4rem; font-weight: 600; color: #6a6a7a; background: #f4f1ee; padding: 1px 8px; border-radius: 30px; }
+    .saved-item .meta .actions { display: flex; gap: 6px; }
+    .saved-item .meta .actions button { background: none; border: none; cursor: pointer; color: #9b9390; transition: 0.2s; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; }
+    .saved-item .meta .actions button:hover { background: #f4f1ee; color: #FF6B35; }
+    .saved-item .meta .actions .remove-btn:hover { color: #d9534f; background: #fce8ed; }
+    .saved-item .learned-badge { font-size: 0.4rem; font-weight: 600; color: #2d6a4f; background: #e7f3ed; padding: 1px 8px; border-radius: 30px; }
+
+    /* Empty State */
+    .empty-state { text-align: center; padding: 40px 20px; }
+    .empty-state .icon { font-size: 3rem; color: #d4cfc8; margin-bottom: 10px; }
+    .empty-state .title { font-size: 0.9rem; font-weight: 600; color: #1e1e2a; }
+    .empty-state .desc { font-size: 0.7rem; color: #9b9390; margin-top: 4px; }
+    .empty-state .btn { background: #FF6B35; border: none; color: white; padding: 10px 24px; border-radius: 60px; font-weight: 600; font-size: 0.75rem; cursor: pointer; transition: 0.2s; margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; }
+    .empty-state .btn:hover { background: #e85a2a; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255,107,53,0.2); }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 8px 18px; border-radius: 60px; font-size: 0.7rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.15); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { margin-right: 6px; color: #f7934b; }
+
+    /* Bottom Nav */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 4px 0 8px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.4rem; font-weight: 500; gap: 0px; cursor: pointer; padding: 2px 10px; border-radius: 20px; transition: 0.1s; }
+    .nav-item i { font-size: 1rem; color: #6b6b7b; }
+    .nav-item.active i { color: #FF6B35; }
+    .nav-item.active { color: #1e1e2a; }
+    .nav-item:active { background: #f0edeb; }
+
+    @media (max-width: 400px) {
+      .stats-row { gap: 6px; }
+      .stat-card { padding: 8px 6px; }
+      .stat-card .num { font-size: 0.9rem; }
+      .saved-item { padding: 12px 14px; }
+      .saved-item .chinese { font-size: 1rem; }
+      .search-bar { flex-wrap: wrap; }
+      .search-bar input { min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <div class="status-bar">
+    <span>HanLingo</span>
+    <span>Saved</span>
+  </div>
+
+  <header class="header">
+    <div class="logo-area" id="goHomeBtn">
+      <div class="logo-icon">HL</div>
+      <div class="logo-text">
+        <span class="han">Han</span><span class="lingo">Lingo</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <i class="fas fa-arrow-left back-icon" id="backBtn" title="Go Back"></i>
+    </div>
+  </header>
+
+  <div class="saved-container">
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num orange" id="totalSaved">0</div>
+        <div class="label">⭐ Saved</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="totalLearned">0</div>
+        <div class="label">✅ Learned</div>
+      </div>
+      <div class="stat-card">
+        <div class="num green" id="totalAll">0</div>
+        <div class="label">📚 Total</div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search saved sentences...">
+      <button class="filter-btn active" id="filterAll">All</button>
+      <button class="filter-btn" id="filterLearned">✅</button>
+    </div>
+
+    <!-- Saved List -->
+    <div class="saved-list" id="savedList"></div>
+
+    <div style="text-align:center; padding:12px 0 6px; font-size:0.5rem; color:#9b9390;">
+      <i class="fas fa-bookmark"></i> Your favorite sentences
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
+    <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
+    <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
+    <div class="nav-item active" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></div>
+    <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data/sentences.js"></script>
+  <script>
+    // ============================================================
+    // DATA
+    // ============================================================
+    var allSentences = (typeof HSK1_SENTENCES !== 'undefined') ? HSK1_SENTENCES : [];
+    var savedIds = JSON.parse(localStorage.getItem('juli_saved') || '[]');
+    var learnedIds = JSON.parse(localStorage.getItem('juli_learned') || '[]');
+
+    var filterMode = 'all'; // 'all' | 'learned'
+    var searchQuery = '';
+
+    // ============================================================
+    // DOM
+    // ============================================================
+    var savedList = document.getElementById('savedList');
+    var totalSavedEl = document.getElementById('totalSaved');
+    var totalLearnedEl = document.getElementById('totalLearned');
+    var totalAllEl = document.getElementById('totalAll');
+    var searchInput = document.getElementById('searchInput');
+
+    // ============================================================
+    // TOAST
+    // ============================================================
+    function showToast(message, icon) {
+      icon = icon || 'fa-info-circle';
+      var toast = document.getElementById('toast');
+      toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
+      toast.classList.add('show');
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2800);
+    }
+
+    // ============================================================
+    // RENDER
+    // ============================================================
+    function render() {
+      // Get saved sentences
+      var savedSentences = allSentences.filter(function(s) {
+        return savedIds.indexOf(s.id) !== -1;
+      });
+
+      // Apply filters
+      var filtered = savedSentences.filter(function(s) {
+        // Filter by search
+        if (searchQuery) {
+          var q = searchQuery.toLowerCase();
+          var match = s.chinese.includes(q) || 
+                      (s.pinyin && s.pinyin.toLowerCase().includes(q)) ||
+                      (s.translation && s.translation.toLowerCase().includes(q));
+          if (!match) return false;
+        }
+        // Filter by learned status
+        if (filterMode === 'learned') {
+          return learnedIds.indexOf(s.id) !== -1;
+        }
+        return true;
+      });
+
+      // Update stats
+      totalSavedEl.textContent = savedSentences.length;
+      totalLearnedEl.textContent = learnedIds.length;
+      totalAllEl.textContent = allSentences.length;
+
+      // Render list
+      if (filtered.length === 0) {
+        savedList.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">📖</div>
+            <div class="title">No saved sentences</div>
+            <div class="desc">${searchQuery ? 'Try a different search term.' : 'Start learning and save sentences you want to remember!'}</div>
+            <button class="btn" onclick="location.href='learn.html'">
+              <i class="fas fa-book-open"></i> Start Learning
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      var html = '';
+      for (var i = 0; i < filtered.length; i++) {
+        var s = filtered[i];
+        var isLearned = learnedIds.indexOf(s.id) !== -1;
+        var num = i + 1;
+
+        html += `
+          <div class="saved-item" data-id="${s.id}">
+            <div class="chinese">${s.chinese}</div>
+            <div class="pinyin">${s.pinyin || ''}</div>
+            <div class="translation">${s.translation || ''}</div>
+            <div class="meta">
+              <div class="tags">
+                ${isLearned ? '<span class="learned-badge">✅ Learned</span>' : ''}
+                ${s.vocab ? '<span class="tag">📖 ' + s.vocab.substring(0, 20) + (s.vocab.length > 20 ? '...' : '') + '</span>' : ''}
+              </div>
+              <div class="actions">
+                <button class="learn-toggle-btn" title="${isLearned ? 'Mark as unlearned' : 'Mark as learned'}" data-id="${s.id}">
+                  <i class="fas ${isLearned ? 'fa-check-circle' : 'fa-circle'}"></i>
+                </button>
+                <button class="remove-btn" title="Remove from saved" data-id="${s.id}">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      savedList.innerHTML = html;
+
+      // Bind events
+      document.querySelectorAll('.remove-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var id = this.dataset.id;
+          removeSaved(id);
+        });
+      });
+
+      document.querySelectorAll('.learn-toggle-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var id = this.dataset.id;
+          toggleLearned(id);
+        });
+      });
+
+      // Click on item to go to learn page with that sentence
+      document.querySelectorAll('.saved-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          var id = this.dataset.id;
+          var idx = allSentences.findIndex(function(s) { return s.id === id; });
+          if (idx > -1) {
+            localStorage.setItem('juli_learn_index', idx);
+            window.location.href = 'learn.html';
+          }
+        });
+      });
+    }
+
+    // ============================================================
+    // ACTIONS
+    // ============================================================
+    function removeSaved(id) {
+      var idx = savedIds.indexOf(id);
+      if (idx > -1) {
+        savedIds.splice(idx, 1);
+        localStorage.setItem('juli_saved', JSON.stringify(savedIds));
+        showToast('🗑️ Removed from saved', 'fa-trash-alt');
+        render();
+      }
+    }
+
+    function toggleLearned(id) {
+      var idx = learnedIds.indexOf(id);
+      if (idx > -1) {
+        learnedIds.splice(idx, 1);
+        showToast('📖 Marked as unlearned', 'fa-undo');
+      } else {
+        learnedIds.push(id);
+        showToast('✅ Marked as learned!', 'fa-check-circle');
+      }
+      localStorage.setItem('juli_learned', JSON.stringify(learnedIds));
+      render();
+    }
+
+    // ============================================================
+    // SEARCH & FILTER
+    // ============================================================
+    searchInput.addEventListener('input', function() {
+      searchQuery = this.value.trim();
+      render();
+    });
+
+    document.getElementById('filterAll').addEventListener('click', function() {
+      filterMode = 'all';
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      render();
+    });
+
+    document.getElementById('filterLearned').addEventListener('click', function() {
+      filterMode = 'learned';
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      render();
+    });
+
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    document.getElementById('goHomeBtn').addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('backBtn').addEventListener('click', function() {
+      window.history.back();
+    });
+
+    document.querySelectorAll('.nav-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        var page = this.dataset.page;
+        if (page === 'home') window.location.href = 'index.html';
+        else if (page === 'learn') window.location.href = 'learn.html';
+        else if (page === 'quest') window.location.href = 'quest.html';
+        else if (page === 'saved') { /* already here */ }
+        else if (page === 'profile') window.location.href = 'profile.html';
+      });
+    });
+
+    // ============================================================
+    // SYNC WITH STORAGE CHANGES
+    // ============================================================
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'juli_saved' || e.key === 'juli_learned') {
+        savedIds = JSON.parse(localStorage.getItem('juli_saved') || '[]');
+        learnedIds = JSON.parse(localStorage.getItem('juli_learned') || '[]');
+        render();
+      }
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    render();
+    console.log('✅ HanLingo Saved ready | ' + savedIds.length + ' saved sentences');
+  </script>
+</body>
+</html>

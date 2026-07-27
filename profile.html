@@ -44,12 +44,6 @@
   <script src="js/workbook-export.js"></script>
   <script src="js/notification.js"></script>
   <script src="js/user-system.js"></script>
-	
-	<!-- ===== Favicon ===== -->
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -140,6 +134,32 @@
     .activity-item .info .desc { font-size: 0.5rem; color: #6a6a7a; }
     .activity-item .time { font-size: 0.45rem; color: #9b9390; white-space: nowrap; }
 
+    /* Settings Styles */
+    .settings-group { display: flex; flex-direction: column; gap: 2px; }
+    .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f2ef; }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-row .label { font-size: 0.6rem; font-weight: 500; color: #1e1e2a; display: flex; align-items: center; gap: 8px; }
+    .settings-row .label .icon { font-size: 0.75rem; }
+    .settings-row .label .desc { font-size: 0.45rem; font-weight: 400; color: #6a6a7a; display: block; }
+
+    /* Number Input */
+    .number-input { display: flex; align-items: center; gap: 8px; }
+    .number-input button { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #efebe8; background: #f8f6f3; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #4a4a5a; }
+    .number-input button:hover { border-color: #FF6B35; background: #fef9f5; }
+    .number-input span { font-size: 0.9rem; font-weight: 600; min-width: 32px; text-align: center; }
+
+    /* Toggle Switch */
+    .toggle { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; transition: .3s; border-radius: 22px; }
+    .toggle .slider::before { position: absolute; content: ''; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; transition: .3s; border-radius: 50%; }
+    .toggle input:checked + .slider { background: #FF6B35; }
+    .toggle input:checked + .slider::before { transform: translateX(18px); }
+
+    /* Language Select */
+    .lang-select { padding: 4px 10px; border-radius: 8px; border: 1.5px solid #efebe8; font-size: 0.55rem; background: #f8f6f3; outline: none; cursor: pointer; }
+    .lang-select:focus { border-color: #FF6B35; }
+
     /* Action Buttons */
     .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
     .action-btn { background: #f8f6f3; border: 1px solid #efebe8; border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer; transition: 0.2s; }
@@ -179,6 +199,8 @@
       .stat-card { padding: 8px 2px; }
       .level-list { grid-template-columns: repeat(6, 1fr); gap: 3px; }
       .action-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+      .settings-row { padding: 8px 0; }
+      .settings-row .label { font-size: 0.55rem; }
     }
   </style>
 </head>
@@ -290,6 +312,86 @@
             <div class="desc">Your progress will appear here</div>
           </div>
           <div class="time">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Settings Section ===== -->
+    <div class="section-card">
+      <div class="section-title">
+        <i class="fas fa-sliders-h"></i> Settings
+        <span class="badge">⚙️</span>
+      </div>
+      <div class="settings-group">
+        <!-- Daily Goal -->
+        <div class="settings-row">
+          <div class="label">
+            <span class="icon">📚</span>
+            Daily Goal
+            <span class="desc">Sentences per day</span>
+          </div>
+          <div class="number-input">
+            <button id="goalDecrease">−</button>
+            <span id="goalDisplay">5</span>
+            <button id="goalIncrease">+</button>
+          </div>
+        </div>
+
+        <!-- Notification Toggle -->
+        <div class="settings-row">
+          <div class="label">
+            <span class="icon">🔔</span>
+            Daily Reminder
+            <span class="desc">Get notified to practice</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="notificationToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Dark Mode -->
+        <div class="settings-row">
+          <div class="label">
+            <span class="icon">🌙</span>
+            Dark Mode
+            <span class="desc">Use dark theme</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Sound Effects -->
+        <div class="settings-row">
+          <div class="label">
+            <span class="icon">🔊</span>
+            Sound Effects
+            <span class="desc">Play sounds on actions</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="soundToggle" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Language -->
+        <div class="settings-row">
+          <div class="label">
+            <span class="icon">🌐</span>
+            App Language
+            <span class="desc">Interface language</span>
+          </div>
+          <select class="lang-select" id="langSelect">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+          </select>
         </div>
       </div>
     </div>
@@ -545,6 +647,9 @@
       } else {
         badge.classList.remove('show');
       }
+
+      // Update settings UI
+      updateSettingsUI();
     }
 
     // ============================================================
@@ -675,6 +780,173 @@
     }
 
     // ============================================================
+    // SETTINGS FUNCTIONS
+    // ============================================================
+    function updateSettingsUI() {
+      // Daily Goal
+      document.getElementById('goalDisplay').textContent = dailyGoal;
+
+      // Notification Toggle
+      var notificationEnabled = localStorage.getItem('hanlingo_notification_enabled') !== 'false';
+      document.getElementById('notificationToggle').checked = notificationEnabled;
+
+      // Dark Mode
+      var darkModeEnabled = localStorage.getItem('hanlingo_dark_mode') === 'true';
+      document.getElementById('darkModeToggle').checked = darkModeEnabled;
+      applyDarkMode(darkModeEnabled);
+
+      // Sound Effects
+      var soundEnabled = localStorage.getItem('hanlingo_sound_enabled') !== 'false';
+      document.getElementById('soundToggle').checked = soundEnabled;
+
+      // Language
+      var lang = localStorage.getItem('hanlingo_language') || 'en';
+      document.getElementById('langSelect').value = lang;
+    }
+
+    // ============================================================
+    // DARK MODE
+    // ============================================================
+    function applyDarkMode(enabled) {
+      if (enabled) {
+        document.body.style.background = '#1a1a2a';
+        document.body.style.color = '#f0ede8';
+        document.querySelector('.app-container').style.background = '#1e1e2e';
+        document.querySelectorAll('.section-card, .settings-row, .stat-card, .saved-item, .action-btn').forEach(function(el) {
+          el.style.background = '#2a2a3a';
+          el.style.borderColor = '#3a3a4a';
+          el.style.color = '#f0ede8';
+        });
+        document.querySelectorAll('.settings-row .label, .settings-row .label .desc').forEach(function(el) {
+          el.style.color = el.classList.contains('desc') ? '#9b9390' : '#f0ede8';
+        });
+        document.querySelectorAll('.section-title, .section-title .badge, .progress-item .row .label, .progress-item .row .value').forEach(function(el) {
+          el.style.color = '#f0ede8';
+        });
+        document.querySelectorAll('.number-input button, .lang-select').forEach(function(el) {
+          el.style.background = '#2a2a3a';
+          el.style.borderColor = '#3a3a4a';
+          el.style.color = '#f0ede8';
+        });
+        document.querySelector('.status-bar').style.background = '#0d0a08';
+        document.querySelector('.header').style.borderBottomColor = '#3a3a4a';
+        document.querySelector('.header').style.background = '#1e1e2e';
+        document.querySelectorAll('.bottom-nav, .bottom-nav .nav-item').forEach(function(el) {
+          el.style.background = '#1e1e2e';
+          el.style.borderTopColor = '#3a3a4a';
+        });
+        document.querySelectorAll('.nav-item i').forEach(function(el) {
+          el.style.color = '#6b6b7b';
+        });
+        document.querySelectorAll('.nav-item.active i').forEach(function(el) {
+          el.style.color = '#FF6B35';
+        });
+      } else {
+        document.body.style.background = '#f9f7f5';
+        document.body.style.color = '#1e1e2a';
+        document.querySelector('.app-container').style.background = '#ffffff';
+        document.querySelectorAll('.section-card, .settings-row, .stat-card, .saved-item, .action-btn').forEach(function(el) {
+          el.style.background = '#ffffff';
+          el.style.borderColor = '#efebe8';
+          el.style.color = '#1e1e2a';
+        });
+        document.querySelectorAll('.settings-row .label, .settings-row .label .desc').forEach(function(el) {
+          el.style.color = el.classList.contains('desc') ? '#6a6a7a' : '#1e1e2a';
+        });
+        document.querySelectorAll('.section-title, .section-title .badge, .progress-item .row .label, .progress-item .row .value').forEach(function(el) {
+          el.style.color = '#1e1e2a';
+        });
+        document.querySelectorAll('.number-input button, .lang-select').forEach(function(el) {
+          el.style.background = '#f8f6f3';
+          el.style.borderColor = '#efebe8';
+          el.style.color = '#4a4a5a';
+        });
+        document.querySelector('.status-bar').style.background = '#1e1e2a';
+        document.querySelector('.header').style.borderBottomColor = '#efebe8';
+        document.querySelector('.header').style.background = '#ffffff';
+        document.querySelectorAll('.bottom-nav, .bottom-nav .nav-item').forEach(function(el) {
+          el.style.background = '#ffffff';
+          el.style.borderTopColor = '#e8e2dc';
+        });
+        document.querySelectorAll('.nav-item i').forEach(function(el) {
+          el.style.color = '#6b6b7b';
+        });
+        document.querySelectorAll('.nav-item.active i').forEach(function(el) {
+          el.style.color = '#FF6B35';
+        });
+      }
+    }
+
+    // ============================================================
+    // SETTINGS EVENTS
+    // ============================================================
+    // Daily Goal
+    document.getElementById('goalDecrease').addEventListener('click', function() {
+      if (dailyGoal > 1) {
+        dailyGoal--;
+        document.getElementById('goalDisplay').textContent = dailyGoal;
+        localStorage.setItem('juli_daily_goal', dailyGoal);
+        showToast('📚 Daily goal set to ' + dailyGoal + ' sentences', 'fa-bullseye');
+        renderProfile();
+      }
+    });
+
+    document.getElementById('goalIncrease').addEventListener('click', function() {
+      if (dailyGoal < 20) {
+        dailyGoal++;
+        document.getElementById('goalDisplay').textContent = dailyGoal;
+        localStorage.setItem('juli_daily_goal', dailyGoal);
+        showToast('📚 Daily goal set to ' + dailyGoal + ' sentences', 'fa-bullseye');
+        renderProfile();
+      }
+    });
+
+    // Notification Toggle
+    document.getElementById('notificationToggle').addEventListener('change', function() {
+      if (this.checked) {
+        localStorage.setItem('hanlingo_notification_enabled', 'true');
+        if (typeof requestNotificationPermission !== 'undefined') {
+          requestNotificationPermission();
+        }
+        showToast('🔔 Daily reminders enabled', 'fa-bell');
+      } else {
+        localStorage.setItem('hanlingo_notification_enabled', 'false');
+        if (typeof disableReminder !== 'undefined') {
+          disableReminder();
+        }
+        showToast('🔕 Daily reminders disabled', 'fa-bell-slash');
+      }
+    });
+
+    // Dark Mode Toggle
+    document.getElementById('darkModeToggle').addEventListener('change', function() {
+      localStorage.setItem('hanlingo_dark_mode', this.checked);
+      applyDarkMode(this.checked);
+      showToast(this.checked ? '🌙 Dark mode enabled' : '☀️ Light mode enabled', 'fa-moon');
+    });
+
+    // Sound Toggle
+    document.getElementById('soundToggle').addEventListener('change', function() {
+      localStorage.setItem('hanlingo_sound_enabled', this.checked);
+      showToast(this.checked ? '🔊 Sound effects enabled' : '🔇 Sound effects disabled', 'fa-volume-up');
+    });
+
+    // Language Select
+    document.getElementById('langSelect').addEventListener('change', function() {
+      localStorage.setItem('hanlingo_language', this.value);
+      var langNames = {
+        'en': 'English',
+        'zh': '中文',
+        'es': 'Español',
+        'fr': 'Français',
+        'de': 'Deutsch',
+        'ja': '日本語',
+        'ko': '한국어'
+      };
+      showToast('🌐 Language set to ' + (langNames[this.value] || this.value), 'fa-globe');
+    });
+
+    // ============================================================
     // NAVIGATION
     // ============================================================
     document.getElementById('goHomeBtn').addEventListener('click', function() {
@@ -687,13 +959,8 @@
         if (page === 'home') window.location.href = 'index.html';
         else if (page === 'learn') window.location.href = 'learn.html';
         else if (page === 'quest') window.location.href = 'quest.html';
-        else if (page === 'saved') {
-          if (savedIds.length === 0) {
-            showToast('⭐ No saved sentences yet.', 'fa-bookmark');
-          } else {
-            alert('⭐ Saved Sentences (' + savedIds.length + '):\n\n' + savedIds.join('\n'));
-          }
-        } else if (page === 'profile') { /* already here */ }
+        else if (page === 'saved') window.location.href = 'saved.html';
+        else if (page === 'profile') { /* already here */ }
       });
     });
 
