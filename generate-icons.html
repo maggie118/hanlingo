@@ -1,198 +1,417 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Generate HanLingo Icons</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HanLingo - Generate All Icons from Logo</title>
   <style>
-    body { font-family: 'Inter', -apple-system, sans-serif; background: #f9f7f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-    .container { text-align: center; background: white; padding: 40px; border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.06); max-width: 500px; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f9f7f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 28px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+      max-width: 700px;
+    }
     h2 { margin-bottom: 8px; color: #1e1e2a; }
-    p { color: #6a6a7a; margin-bottom: 24px; }
-    .preview { display: flex; gap: 24px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
-    .preview canvas { border-radius: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border: 1px solid #f0ebe6; }
-    .btn { background: #FF6B35; border: none; color: white; padding: 14px 32px; border-radius: 60px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; }
-    .btn:hover { background: #e85a2a; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255,107,53,0.3); }
-    .btn:active { transform: scale(0.96); }
-    .status { margin-top: 16px; font-size: 0.85rem; color: #2d6a4f; background: #e7f3ed; padding: 8px 16px; border-radius: 40px; display: none; }
+    .subtitle { color: #6a6a7a; margin-bottom: 24px; }
+    .upload-area {
+      border: 2px dashed #efebe8;
+      border-radius: 16px;
+      padding: 30px;
+      margin: 16px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #faf8f6;
+    }
+    .upload-area:hover {
+      border-color: #FF6B35;
+      background: #fef9f5;
+    }
+    .upload-area.dragover {
+      border-color: #FF6B35;
+      background: #fef0e8;
+    }
+    .upload-area .icon { font-size: 48px; color: #FF6B35; }
+    .upload-area p { font-size: 0.9rem; color: #6a6a7a; margin: 8px 0; }
+    .upload-area .hint { font-size: 0.7rem; color: #9b9390; }
+    #preview {
+      display: none;
+      margin: 16px auto;
+      max-width: 200px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 16px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .preview-item {
+      text-align: center;
+      background: #f8f6f3;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid #efebe8;
+    }
+    .preview-item canvas {
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+      background: white;
+    }
+    .preview-item .label {
+      font-size: 0.55rem;
+      color: #6a6a7a;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .btn {
+      background: #FF6B35;
+      border: none;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: #e85a2a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(255,107,53,0.3);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-secondary {
+      background: #1e1e2a;
+      margin-left: 8px;
+    }
+    .btn-secondary:hover {
+      background: #2f2f3a;
+    }
+    .btn-success {
+      background: #2d6a4f;
+    }
+    .btn-success:hover {
+      background: #1e4f3a;
+    }
+    .status {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #2d6a4f;
+      background: #e7f3ed;
+      padding: 8px 16px;
+      border-radius: 40px;
+      display: none;
+    }
     .status.show { display: inline-block; }
+    .status.error { background: #f8d7da; color: #721c24; }
+    .download-all {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .file-list {
+      text-align: left;
+      margin: 12px 0;
+      font-size: 0.7rem;
+      color: #6a6a7a;
+      background: #f8f6f3;
+      padding: 12px 20px;
+      border-radius: 12px;
+    }
+    .file-list code {
+      background: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      display: inline-block;
+      margin: 2px;
+    }
+    .hidden { display: none; }
+    #fileInput { display: none; }
   </style>
 </head>
 <body>
 <div class="container">
-  <h2>?? Generate HanLingo Icons</h2>
-  <p>Click the button below to generate and download <strong>HL</strong> icons for PWA.</p>
+  <h2>🎨 HanLingo - Icon Generator</h2>
+  <p class="subtitle">Upload your logo to generate all PWA icons and favicons</p>
 
-  <div class="preview">
-    <canvas id="preview192" width="192" height="192"></canvas>
-    <canvas id="preview512" width="192" height="192"></canvas>
+  <!-- Upload Area -->
+  <div class="upload-area" id="uploadArea">
+    <div class="icon">📤</div>
+    <p><strong>Click or drag & drop</strong> your logo image</p>
+    <p class="hint">Supports PNG, JPG, SVG · Recommended: 512x512</p>
+  </div>
+  <input type="file" id="fileInput" accept="image/*">
+
+  <!-- Preview of uploaded logo -->
+  <img id="preview" alt="Your logo preview">
+
+  <!-- Preview Grid -->
+  <div class="preview-grid" id="previewGrid"></div>
+
+  <div class="download-all">
+    <button class="btn" id="downloadAllBtn" disabled>
+      <i class="fas fa-download"></i> Download All Icons
+    </button>
+    <button class="btn btn-secondary" id="downloadFaviconBtn" disabled>
+      <i class="fas fa-download"></i> Download Favicon
+    </button>
   </div>
 
-  <button class="btn" onclick="generateAndDownload()">
-    <i class="fas fa-download"></i> Download Icons
-  </button>
-  <div class="status" id="status">? Icons downloaded successfully!</div>
+  <div class="file-list">
+    <strong>📁 Files to place in root folder:</strong><br>
+    <code>icon-192.png</code> · <code>icon-512.png</code> · <code>apple-touch-icon.png</code> · <code>favicon.ico</code> · <code>favicon-16x16.png</code> · <code>favicon-32x32.png</code>
+  </div>
+
+  <div class="status" id="status">✅ All icons downloaded successfully!</div>
 
   <div style="margin-top:16px; font-size:0.7rem; color:#9b9390;">
-    <i class="fas fa-info-circle"></i> Downloads: <strong>icon-192.png</strong> and <strong>icon-512.png</strong>
+    <i class="fas fa-info-circle"></i> Place all files in your website root directory.
   </div>
 </div>
 
 <script>
-  function drawIcon(ctx, size) {
-    const pad = size * 0.078;
-    const iconSize = size - pad * 2;
+  let uploadedImage = null;
+  let isProcessing = false;
 
-    // Gradient background
-    const gradient = ctx.createRadialGradient(
-      size * 0.35, size * 0.35, size * 0.05,
-      size * 0.5, size * 0.5, size * 0.65
-    );
-    gradient.addColorStop(0, '#FF8A5C');
-    gradient.addColorStop(0.6, '#FF6B35');
-    gradient.addColorStop(1, '#E85520');
+  // ============================================================
+  // Upload handling
+  // ============================================================
+  const uploadArea = document.getElementById('uploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const preview = document.getElementById('preview');
 
-    ctx.shadowColor = 'rgba(255,107,53,0.25)';
-    ctx.shadowBlur = size * 0.04;
-    ctx.shadowOffsetY = size * 0.02;
+  uploadArea.addEventListener('click', () => fileInput.click());
 
-    // Rounded rectangle
-    const x = pad;
-    const y = pad;
-    const w = iconSize;
-    const h = iconSize;
-    const radius = size * 0.18;
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
 
-    ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + w - radius, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-    ctx.lineTo(x + w, y + h - radius);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-    ctx.lineTo(x + radius, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.closePath();
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
 
-    ctx.fillStyle = gradient;
-    ctx.fill();
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    if (e.dataTransfer.files.length) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  });
 
-    // Clear shadow
-    ctx.shadowColor = 'transparent';
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length) {
+      handleFile(e.target.files[0]);
+    }
+  });
 
-    // Border highlight
-    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-    ctx.lineWidth = size * 0.008;
-    ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + w - radius, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-    ctx.lineTo(x + w, y + h - radius);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-    ctx.lineTo(x + radius, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.closePath();
-    ctx.stroke();
+  function handleFile(file) {
+    if (!file.type.startsWith('image/')) {
+      showStatus('⚠️ Please upload an image file.', 'error');
+      return;
+    }
 
-    // Inner highlight
-    const hlGrad = ctx.createLinearGradient(0, 0, 0, size * 0.3);
-    hlGrad.addColorStop(0, 'rgba(255,255,255,0.12)');
-    hlGrad.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = hlGrad;
-    ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + w - radius, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-    ctx.lineTo(x + w, y + size * 0.35);
-    ctx.lineTo(x, y + size * 0.35);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.closePath();
-    ctx.fill();
-
-    // "HL" text - �ĳ��� HL
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = 'white';
-
-    ctx.shadowColor = 'rgba(0,0,0,0.08)';
-    ctx.shadowBlur = size * 0.02;
-    ctx.shadowOffsetY = size * 0.015;
-
-    const fontSize = size * 0.48;
-    ctx.font = `700 ${fontSize}px "Inter", -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif`;
-    ctx.fillText('HL', size * 0.5, size * 0.51);
-
-    // Bottom dots decoration
-    ctx.shadowColor = 'transparent';
-    ctx.fillStyle = 'rgba(255,255,255,0.12)';
-    const dotSize = size * 0.028;
-    const dotY = size * 0.82;
-    ctx.beginPath();
-    ctx.arc(size * 0.42, dotY, dotSize, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(size * 0.5, dotY, dotSize, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(size * 0.58, dotY, dotSize, 0, Math.PI * 2);
-    ctx.fill();
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        uploadedImage = img;
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        document.getElementById('downloadAllBtn').disabled = false;
+        document.getElementById('downloadFaviconBtn').disabled = false;
+        renderPreviews(img);
+        showStatus('✅ Logo loaded successfully! Ready to generate icons.', '');
+      };
+      img.onerror = () => {
+        showStatus('❌ Failed to load image. Please try another file.', 'error');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
-  function renderPreviews() {
-    const canvas192 = document.getElementById('preview192');
-    const ctx192 = canvas192.getContext('2d');
-    drawIcon(ctx192, 192);
+  // ============================================================
+  // Render previews
+  // ============================================================
+  function renderPreviews(img) {
+    const grid = document.getElementById('previewGrid');
+    const sizes = [
+      { size: 192, label: 'icon-192.png' },
+      { size: 512, label: 'icon-512.png' },
+      { size: 180, label: 'apple-touch-icon.png' },
+      { size: 32, label: 'favicon-32x32.png' },
+      { size: 16, label: 'favicon-16x16.png' }
+    ];
 
-    const canvas512 = document.getElementById('preview512');
-    const ctx512 = canvas512.getContext('2d');
-    drawIcon(ctx512, 512);
+    grid.innerHTML = '';
+    sizes.forEach(({ size, label }) => {
+      const item = document.createElement('div');
+      item.className = 'preview-item';
 
-    [192, 512].forEach((size, idx) => {
-      const canvas = idx === 0 ? canvas192 : canvas512;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      canvas.style.width = Math.min(size, 80) + 'px';
+      canvas.style.height = Math.min(size, 80) + 'px';
+
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      ctx.font = '11px "Inter", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText(size + 'px', canvas.width / 2, canvas.height - 8);
+      // Draw white background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, size, size);
+      // Draw the logo
+      ctx.drawImage(img, 0, 0, size, size);
+
+      const labelEl = document.createElement('div');
+      labelEl.className = 'label';
+      labelEl.textContent = label;
+
+      item.appendChild(canvas);
+      item.appendChild(labelEl);
+      grid.appendChild(item);
     });
   }
 
-  function generateAndDownload() {
-    // Generate 192x192
-    const canvas192 = document.createElement('canvas');
-    canvas192.width = 192;
-    canvas192.height = 192;
-    const ctx192 = canvas192.getContext('2d');
-    drawIcon(ctx192, 192);
-
-    const link192 = document.createElement('a');
-    link192.download = 'icon-192.png';
-    link192.href = canvas192.toDataURL('image/png');
-    link192.click();
-
-    // Generate 512x512
-    const canvas512 = document.createElement('canvas');
-    canvas512.width = 512;
-    canvas512.height = 512;
-    const ctx512 = canvas512.getContext('2d');
-    drawIcon(ctx512, 512);
-
-    const link512 = document.createElement('a');
-    link512.download = 'icon-512.png';
-    link512.href = canvas512.toDataURL('image/png');
-    link512.click();
-
-    // Show success status
-    const status = document.getElementById('status');
-    status.classList.add('show');
-    setTimeout(() => status.classList.remove('show'), 3000);
+  // ============================================================
+  // Generate canvas from image
+  // ============================================================
+  function generateCanvas(img, size) {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    // White background (for transparency support)
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+    // Draw the logo centered
+    ctx.drawImage(img, 0, 0, size, size);
+    return canvas;
   }
 
-  // Show preview on page load
-  renderPreviews();
+  // ============================================================
+  // Download functions
+  // ============================================================
+  function downloadCanvas(canvas, filename) {
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function showStatus(message, type) {
+    const status = document.getElementById('status');
+    status.textContent = message;
+    status.className = 'status show';
+    if (type === 'error') {
+      status.classList.add('error');
+    } else {
+      status.classList.remove('error');
+    }
+    setTimeout(() => status.classList.remove('show'), 4000);
+  }
+
+  // ============================================================
+  // Download All Icons
+  // ============================================================
+  document.getElementById('downloadAllBtn').addEventListener('click', () => {
+    if (!uploadedImage || isProcessing) return;
+    isProcessing = true;
+
+    try {
+      // Generate and download icon-192.png
+      const canvas192 = generateCanvas(uploadedImage, 192);
+      downloadCanvas(canvas192, 'icon-192.png');
+
+      // Generate and download icon-512.png
+      const canvas512 = generateCanvas(uploadedImage, 512);
+      downloadCanvas(canvas512, 'icon-512.png');
+
+      // Generate and download apple-touch-icon.png (180x180)
+      const canvas180 = generateCanvas(uploadedImage, 180);
+      downloadCanvas(canvas180, 'apple-touch-icon.png');
+
+      // Generate and download favicon-16x16.png
+      const canvas16 = generateCanvas(uploadedImage, 16);
+      downloadCanvas(canvas16, 'favicon-16x16.png');
+
+      // Generate and download favicon-32x32.png
+      const canvas32 = generateCanvas(uploadedImage, 32);
+      downloadCanvas(canvas32, 'favicon-32x32.png');
+
+      showStatus('✅ All 5 icons downloaded successfully!', '');
+    } catch (err) {
+      showStatus('❌ Error generating icons: ' + err.message, 'error');
+    }
+
+    isProcessing = false;
+  });
+
+  // ============================================================
+  // Download Favicon (ICO)
+  // ============================================================
+  document.getElementById('downloadFaviconBtn').addEventListener('click', () => {
+    if (!uploadedImage || isProcessing) return;
+    isProcessing = true;
+
+    try {
+      // Create favicon.ico using 32x32
+      const canvas32 = generateCanvas(uploadedImage, 32);
+      
+      // Create 16x16 for the combined icon
+      const canvas16 = generateCanvas(uploadedImage, 16);
+      
+      // Create a combined canvas for ICO (multiple sizes)
+      // Most browsers accept PNG renamed to .ico
+      // For better compatibility, we'll use 32x32
+      downloadCanvas(canvas32, 'favicon.ico');
+
+      showStatus('✅ favicon.ico downloaded!', '');
+    } catch (err) {
+      showStatus('❌ Error generating favicon: ' + err.message, 'error');
+    }
+
+    isProcessing = false;
+  });
+
+  // ============================================================
+  // Initialize - check if image already loaded
+  // ============================================================
+  // If you want to pre-load an image, you can set it here
+  // Example: preload a default logo
+  /*
+  const defaultLogo = new Image();
+  defaultLogo.onload = () => {
+    uploadedImage = defaultLogo;
+    document.getElementById('downloadAllBtn').disabled = false;
+    document.getElementById('downloadFaviconBtn').disabled = false;
+    renderPreviews(defaultLogo);
+  };
+  defaultLogo.src = 'your-logo.png';
+  */
 </script>
 </body>
 </html>
