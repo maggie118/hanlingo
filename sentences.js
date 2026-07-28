@@ -738,4 +738,7 @@ const HSK1_SENTENCES = [
     words: ['这个', '杯子', '很', '小'],
     fillAnswer: '小',
     choices: [
-      { text: 'This cup is very
+       { text: 'This cup is very small', isCorrect: true }
+    ]
+  }
+];  
