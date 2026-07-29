@@ -1,9 +1,10 @@
 {
   "name": "HanLingo",
   "short_name": "HanLingo",
+  "description": "Learn Chinese through real sentences",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f5f2",
+  "background_color": "#ffffff",
   "theme_color": "#FF6B35",
   "icons": [
     {
