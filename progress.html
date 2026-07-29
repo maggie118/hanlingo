@@ -1,141 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   <!-- ===== Title ===== -->
-  <title>HanLingo · Progress - Track Your Chinese Learning Across HSK, YCT, BCT, MCT</title>
+  <title>HanLingo · 学习进度</title>
   
   <!-- ===== SEO Meta ===== -->
-  <meta name="description" content="Track your learning progress across HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi sentence packs. View levels, accuracy, learning streaks, and wrong answers.">
-  <meta name="keywords" content="chinese learning progress, hsk progress, yct progress, bct progress, mct progress, track learning, hanlingo, learn chinese, chinese levels">
+  <meta name="description" content="追踪您在 HSK, YCT, BCT, MCT 等学习路径中的中文学习进度。">
   <meta name="author" content="HanLingo">
   <meta name="robots" content="index, follow">
-  <meta name="language" content="English, Chinese">
   
   <!-- ===== Open Graph / Facebook ===== -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hanlingo.app/progress.html">
-  <meta property="og:title" content="HanLingo · Progress - Track Your Chinese Learning Across HSK, YCT, BCT, MCT">
-  <meta property="og:description" content="Track your learning progress across HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, and themed sentence packs. View levels, accuracy, learning streaks, and wrong answers.">
+  <meta property="og:title" content="HanLingo · 学习进度">
   <meta property="og:image" content="https://hanlingo.app/icon-512.png">
   <meta property="og:site_name" content="HanLingo">
-  <meta property="og:locale" content="en_US">
-  
-  <!-- ===== Twitter Card ===== -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://hanlingo.app/progress.html">
-  <meta name="twitter:title" content="HanLingo · Progress - Track Your Chinese Learning">
-  <meta name="twitter:description" content="Track your learning progress across HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, and themed sentence packs. View levels, accuracy, learning streaks, and wrong answers.">
-  <meta name="twitter:image" content="https://hanlingo.app/icon-512.png">
   
   <!-- ===== PWA ===== -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#FF6B35">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#F5F5F7">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" href="/favicon.ico">
   
   <!-- ===== Font Awesome ===== -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
-	<!-- ===== Favicon ===== -->
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    body { background: #f9f7f5; color: #1e1e2a; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
-    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0 0 24px 24px; overflow: hidden; position: relative; }
-    .status-bar { background: #1e1e2a; color: #f0ede8; padding: 6px 20px; display: flex; justify-content: space-between; font-size: 0.55rem; letter-spacing: 0.4px; font-weight: 500; }
-    .header { padding: 12px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
+    /* ===== 全局变量 ===== */
+    :root {
+      --bg: #F5F5F7;
+      --surface: #FFFFFF;
+      --border: #E5E5EA;
+      --text: #1D1D1F;
+      --text-secondary: #86868B;
+      --blue: #007AFF;
+      --blue-dark: #0066CC;
+      --green: #34C759;
+      --orange: #FF9500;
+      --red: #FF3B30;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --radius: 14px;
+      --radius-full: 60px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
     
-    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 2px 6px; border-radius: 10px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
-    .logo-area:hover { background: #f5f2ef; }
-    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
-    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
-    .logo-icon { background: #FF6B35; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(255,107,53,0.2); transition: all 0.3s ease; }
-    .logo-area:hover .logo-icon { transform: rotate(-6deg) scale(1.05); box-shadow: 0 5px 16px rgba(255,107,53,0.3); }
-    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: -0.2px; transition: all 0.3s ease; }
-    .logo-area:hover .logo-text { transform: scale(1.02); }
-    .logo-text .han { color: #1e1e2a; }
-    .logo-text .lingo { color: #FF6B35; }
-    .header-actions { display: flex; gap: 14px; color: #898999; font-size: 1rem; }
-    .progress-container { padding: 14px 18px 10px 18px; }
+    .app-container { max-width: 480px; margin: 0 auto; background: var(--surface); min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.02); }
+    
+    /* ===== 状态栏 ===== */
+    .status-bar { background: var(--surface); padding: 8px 20px; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    
+    /* ===== 头部 ===== */
+    .header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s; }
+    .logo-area:hover { opacity: 0.8; }
+    .logo-icon { background: var(--blue); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 700; }
+    .logo-text { font-weight: 700; font-size: 1rem; }
+    .logo-text .han { color: var(--text); }
+    .logo-text .lingo { color: var(--blue); }
+    .header-actions { display: flex; gap: 14px; color: var(--text-secondary); font-size: 1rem; align-items: center; }
+    .header-actions i { cursor: pointer; transition: 0.2s; }
+    .header-actions i:hover { color: var(--blue); }
 
-    /* Stats Grid */
+    /* ===== 内容区 ===== */
+    .progress-container { padding: 16px 20px 10px 20px; }
+
+    /* 统计网格 */
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-    .stat-box { background: #ffffff; border-radius: 12px; padding: 12px 8px; text-align: center; border: 1px solid #efebe8; }
-    .stat-box .num { font-size: 1.3rem; font-weight: 700; color: #1e1e2a; }
-    .stat-box .num.orange { color: #FF6B35; }
-    .stat-box .num.green { color: #2d6a4f; }
-    .stat-box .label { font-size: 0.5rem; color: #6a6a7a; margin-top: 2px; }
+    .stat-box { background: var(--bg); border-radius: var(--radius); padding: 12px 8px; text-align: center; }
+    .stat-box .num { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+    .stat-box .num.blue { color: var(--blue); }
+    .stat-box .num.green { color: var(--green); }
+    .stat-box .label { font-size: 0.5rem; color: var(--text-secondary); margin-top: 2px; }
 
-    /* Progress Bar Section */
-    .progress-section { background: #ffffff; border-radius: 14px; padding: 16px 18px; border: 1px solid #efebe8; margin-bottom: 14px; }
-    .progress-section .title { font-size: 0.7rem; font-weight: 600; color: #1e1e2a; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .progress-section .title i { color: #FF6B35; }
+    /* 进度条卡片 */
+    .progress-section { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; border: 1px solid var(--border); margin-bottom: 14px; }
+    .progress-section .title { font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .progress-section .title i { color: var(--blue); }
     .progress-section .bar-wrap { display: flex; align-items: center; gap: 12px; }
-    .progress-section .bar-track { flex: 1; height: 6px; background: #e6e0db; border-radius: 20px; overflow: hidden; }
-    .progress-section .bar-track .fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 20px; transition: width 0.8s ease; }
-    .progress-section .bar-label { font-size: 0.7rem; font-weight: 600; color: #4a4a5a; min-width: 44px; text-align: right; }
+    .progress-section .bar-track { flex: 1; height: 4px; background: var(--border); border-radius: 20px; overflow: hidden; }
+    .progress-section .bar-track .fill { height: 100%; background: var(--blue); border-radius: 20px; transition: width 0.8s ease; }
+    .progress-section .bar-label { font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); min-width: 44px; text-align: right; }
 
-    /* Level Grid */
+    /* 等级网格 */
     .level-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 4px 0; }
-    .level-box { background: #f8f6f3; border-radius: 10px; padding: 10px 4px; text-align: center; border: 1px solid #efebe8; transition: 0.2s; position: relative; }
-    .level-box.unlocked { border-color: #FF6B35; background: #fef9f5; }
-    .level-box.completed { border-color: #2d6a4f; background: #d4edda; }
+    .level-box { background: var(--bg); border-radius: var(--radius-sm); padding: 10px 4px; text-align: center; border: 1px solid transparent; transition: 0.2s; position: relative; cursor: pointer; }
+    .level-box.unlocked { border-color: var(--blue); background: #F0F7FF; }
+    .level-box.completed { border-color: var(--green); background: #E8F8ED; }
     .level-box.locked { opacity: 0.5; }
-    .level-box .level-num { font-size: 0.6rem; font-weight: 700; color: #1e1e2a; }
+    .level-box .level-num { font-size: 0.6rem; font-weight: 700; color: var(--text); }
     .level-box .level-icon { font-size: 0.8rem; display: block; margin: 2px 0; }
-    .level-box .level-label { font-size: 0.45rem; color: #6a6a7a; }
-    .level-box .check { position: absolute; top: -4px; right: -4px; background: #2d6a4f; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 8px; display: flex; align-items: center; justify-content: center; }
-    .level-box .lock-icon { font-size: 0.6rem; color: #b0a8a2; }
+    .level-box .level-label { font-size: 0.45rem; color: var(--text-secondary); }
+    .level-box .check { position: absolute; top: -4px; right: -4px; background: var(--green); color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 8px; display: flex; align-items: center; justify-content: center; }
 
-    /* Chart Section */
-    .chart-section { background: #ffffff; border-radius: 14px; padding: 16px 18px; border: 1px solid #efebe8; margin-bottom: 14px; }
-    .chart-section .title { font-size: 0.7rem; font-weight: 600; color: #1e1e2a; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-    .chart-section .title i { color: #FF6B35; }
+    /* 图表 */
+    .chart-section { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; border: 1px solid var(--border); margin-bottom: 14px; }
+    .chart-section .title { font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .chart-section .title i { color: var(--blue); }
     .chart-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 80px; gap: 4px; padding-top: 4px; }
     .chart-bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
-    .chart-bar { width: 100%; max-width: 28px; border-radius: 4px 4px 0 0; transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); min-height: 2px; background: #e6e0db; }
-    .chart-bar.done { background: linear-gradient(180deg, #FF6B35, #f7934b); }
-    .chart-bar-label { font-size: 0.4rem; color: #6a6a7a; margin-top: 4px; text-align: center; }
+    .chart-bar { width: 100%; max-width: 24px; border-radius: 4px 4px 0 0; transition: height 0.8s ease; min-height: 2px; background: var(--border); }
+    .chart-bar.done { background: var(--blue); }
+    .chart-bar-label { font-size: 0.4rem; color: var(--text-secondary); margin-top: 4px; text-align: center; }
 
-    /* Wrong List (compact) */
-    .wrong-section { background: #ffffff; border-radius: 14px; padding: 14px 16px; border: 1px solid #efebe8; margin-bottom: 14px; }
-    .wrong-section .title { font-size: 0.7rem; font-weight: 600; color: #1e1e2a; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-    .wrong-section .title i { color: #d9534f; }
-    .wrong-section .title .badge { font-size: 0.45rem; font-weight: 600; background: #f8d7da; color: #721c24; padding: 0px 8px; border-radius: 30px; }
+    /* 错题列表 */
+    .wrong-section { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; border: 1px solid var(--border); margin-bottom: 14px; }
+    .wrong-section .title { font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .wrong-section .title i { color: var(--orange); }
+    .wrong-section .title .badge { font-size: 0.45rem; font-weight: 600; background: #FFF0EF; color: var(--red); padding: 0px 8px; border-radius: 30px; }
     .wrong-list { max-height: 120px; overflow-y: auto; }
-    .wrong-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 0.5px solid #f5f2ef; font-size: 0.6rem; }
+    .wrong-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 0.5px solid var(--border); font-size: 0.6rem; }
     .wrong-item:last-child { border-bottom: none; }
-    .wrong-item .chinese { font-weight: 500; color: #1e1e2a; }
-    .wrong-item .trans { color: #6a6a7a; }
-    .wrong-item .count { font-size: 0.5rem; color: #d9534f; font-weight: 600; }
-    .wrong-empty { font-size: 0.6rem; color: #9b9390; text-align: center; padding: 8px 0; }
+    .wrong-item .chinese { font-weight: 500; color: var(--text); }
+    .wrong-item .trans { color: var(--text-secondary); }
+    .wrong-item .count { font-size: 0.5rem; color: var(--red); font-weight: 600; }
+    .wrong-empty { font-size: 0.6rem; color: var(--text-secondary); text-align: center; padding: 8px 0; }
 
-    /* Bottom Nav */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 4px 0 8px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); }
-    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.4rem; font-weight: 500; gap: 0px; cursor: pointer; padding: 2px 10px; border-radius: 20px; transition: 0.1s; }
-    .nav-item i { font-size: 1rem; color: #6b6b7b; }
-    .nav-item.active i { color: #FF6B35; }
-    .nav-item.active { color: #1e1e2a; }
-    .nav-item:active { background: #f0edeb; }
+    /* 学习提示 */
+    .tip-box { background: var(--bg); border-radius: var(--radius); padding: 12px 14px; border: 1px solid var(--border); margin-bottom: 10px; }
+    .tip-box .content { display: flex; align-items: center; gap: 8px; }
+    .tip-box .icon { font-size: 1.1rem; }
+    .tip-box .info .title { font-size: 0.65rem; font-weight: 600; color: var(--text); }
+    .tip-box .info .desc { font-size: 0.55rem; color: var(--text-secondary); }
 
-    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 8px 18px; border-radius: 60px; font-size: 0.7rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.15); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
+    /* ===== 底部导航 ===== */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-top: 0.5px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0 12px 0; max-width: 480px; margin: 0 auto; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); font-size: 0.55rem; font-weight: 500; gap: 1px; cursor: pointer; padding: 4px 12px; border-radius: 20px; transition: 0.1s; }
+    .nav-item i { font-size: 1.3rem; color: var(--text-secondary); }
+    .nav-item.active i { color: var(--blue); }
+    .nav-item.active { color: var(--text); }
+    .nav-item:active { background: var(--bg); }
+
+    /* ===== Toast ===== */
+    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(29,29,31,0.9); backdrop-filter: blur(12px); color: white; padding: 12px 24px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.2); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .toast i { margin-right: 6px; color: #f7934b; }
+    .toast i { margin-right: 8px; color: #5AC8FA; }
 
     @media (max-width: 400px) {
-      .stats-grid { grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+      .stats-grid { gap: 4px; }
       .stat-box { padding: 8px 4px; }
       .stat-box .num { font-size: 1rem; }
       .level-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; }
-      .level-box { padding: 6px 2px; }
     }
   </style>
 </head>
@@ -143,7 +154,7 @@
   <div class="app-container">
     <div class="status-bar">
       <span>HanLingo</span>
-      <span>Progress</span>
+      <span>学习进度</span>
     </div>
 
     <header class="header">
@@ -160,73 +171,73 @@
     </header>
 
     <div class="progress-container">
-      <!-- Stats Grid -->
+      <!-- 统计卡片 -->
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="num orange" id="totalLearned">0</div>
-          <div class="label">✅ Learned</div>
+          <div class="num blue" id="totalLearned">0</div>
+          <div class="label">✅ 已学</div>
         </div>
         <div class="stat-box">
           <div class="num" id="totalSentences">0</div>
-          <div class="label">📚 Total</div>
+          <div class="label">📚 总数</div>
         </div>
         <div class="stat-box">
           <div class="num green" id="progressPercent">0%</div>
-          <div class="label">📈 Progress</div>
+          <div class="label">📈 进度</div>
         </div>
       </div>
 
-      <!-- Progress Bar -->
+      <!-- 总进度 -->
       <div class="progress-section">
-        <div class="title"><i class="fas fa-chart-line"></i> Overall Progress</div>
+        <div class="title"><i class="fas fa-chart-line"></i> 总进度</div>
         <div class="bar-wrap">
           <div class="bar-track"><div class="fill" id="overallFill" style="width:0%;"></div></div>
           <span class="bar-label" id="overallLabel">0%</span>
         </div>
       </div>
 
-      <!-- Level Grid -->
+      <!-- 等级概览 -->
       <div class="progress-section">
-        <div class="title"><i class="fas fa-layer-group"></i> Levels</div>
+        <div class="title"><i class="fas fa-layer-group"></i> 等级概览</div>
         <div class="level-grid" id="levelGrid"></div>
       </div>
 
-      <!-- Chart -->
+      <!-- 学习活跃度 -->
       <div class="chart-section">
-        <div class="title"><i class="fas fa-chart-bar"></i> Learning Activity</div>
+        <div class="title"><i class="fas fa-chart-bar"></i> 等级完成度</div>
         <div class="chart-bars" id="chartBars"></div>
       </div>
 
-      <!-- Wrong List -->
+      <!-- 待复习列表 -->
       <div class="wrong-section" id="wrongSection">
         <div class="title">
-          <i class="fas fa-times-circle"></i> Needs Review
+          <i class="fas fa-times-circle"></i> 待复习
           <span class="badge" id="wrongBadge">0</span>
         </div>
         <div class="wrong-list" id="wrongList">
-          <div class="wrong-empty">🎉 No wrong answers! Keep it up!</div>
+          <div class="wrong-empty">🎉 没有错题！继续保持！</div>
         </div>
       </div>
 
-      <!-- Study Tips -->
-      <div style="background:#fef9f5; border-radius:12px; padding:12px 14px; border:1px solid #FF6B35; margin-bottom:10px;">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:1.1rem;">💡</span>
-          <div>
-            <div style="font-size:0.65rem; font-weight:600; color:#1e1e2a;">Study Tip</div>
-            <div style="font-size:0.55rem; color:#6a6a7a;" id="tipText">Review your wrong answers to improve faster!</div>
+      <!-- 学习小贴士 -->
+      <div class="tip-box">
+        <div class="content">
+          <span class="icon">💡</span>
+          <div class="info">
+            <div class="title">学习小贴士</div>
+            <div class="desc" id="tipText">复习错题是提升最快的方式！</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Bottom Nav -->
+    <!-- 底部导航 -->
     <div class="bottom-nav">
-      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
-      <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
-      <div class="nav-item" data-page="review"><i class="fas fa-sync-alt"></i><span>Review</span></div>
-      <div class="nav-item active" data-page="progress"><i class="fas fa-chart-simple"></i><span>Progress</span></div>
-      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>主页</span></div>
+      <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>课程</span></div>
+      <div class="nav-item" data-page="review"><i class="fas fa-sync-alt"></i><span>复习</span></div>
+      <div class="nav-item active" data-page="progress"><i class="fas fa-chart-simple"></i><span>进度</span></div>
+      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>个人</span></div>
     </div>
 
     <div class="toast" id="toast"></div>
@@ -306,9 +317,9 @@
         box.addEventListener('click', function(level) {
           return function() {
             if (level <= currentLevel) {
-              showToast('📚 Level ' + level + ' — ' + (levelSentences.length) + ' sentences', 'fa-book-open');
+              showToast('📚 等级 ' + level + ' — ' + (levelSentences.length) + ' 个句子', 'fa-book-open');
             } else {
-              showToast('🔒 Complete Level ' + (level - 1) + ' to unlock', 'fa-lock');
+              showToast('🔒 需要先完成等级 ' + (level - 1), 'fa-lock');
             }
           };
         }(i));
@@ -322,11 +333,7 @@
       var container = document.getElementById('chartBars');
       container.innerHTML = '';
 
-      // Show last 7 days of activity (simulated from learned data)
-      var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
       var maxHeight = 70;
-
-      // Calculate per-level progress for chart
       var totalLevels = Math.ceil(allSentences.length / dailyGoal);
       var levels = Math.min(totalLevels, 7);
 
@@ -364,7 +371,7 @@
       badge.textContent = wrongSentences.length;
 
       if (wrongSentences.length === 0) {
-        list.innerHTML = '<div class="wrong-empty">🎉 No wrong answers! Keep it up!</div>';
+        list.innerHTML = '<div class="wrong-empty">🎉 没有错题！继续保持！</div>';
         return;
       }
 
@@ -385,9 +392,9 @@
         var more = document.createElement('div');
         more.className = 'wrong-item';
         more.style.justifyContent = 'center';
-        more.style.color = '#9b9390';
+        more.style.color = 'var(--text-secondary)';
         more.style.fontSize = '0.5rem';
-        more.textContent = '+' + (wrongSentences.length - 5) + ' more';
+        more.textContent = '+' + (wrongSentences.length - 5) + ' 更多';
         list.appendChild(more);
       }
     }
@@ -395,13 +402,13 @@
     // ============ TIP ============
     function renderTip() {
       var tips = [
-        'Review your wrong answers to improve faster!',
-        'Consistency beats intensity — study a little every day.',
-        'Try to use new sentences in real conversations.',
-        'Listening to pronunciation helps with memory.',
-        'Writing characters by hand reinforces learning.',
-        'Take breaks — your brain needs time to absorb.',
-        'Connect new words to things you already know.'
+        '复习错题是提升最快的方式！',
+        '坚持比强度更重要 —— 每天学一点点。',
+        '尝试在日常生活中使用新学的句子。',
+        '多听发音可以帮助记忆。',
+        '手写汉字能加深印象。',
+        '适当休息，大脑需要时间消化知识。',
+        '把新词与已知的事物联系起来。'
       ];
       var tipEl = document.getElementById('tipText');
       var idx = Math.floor(Math.random() * tips.length);
@@ -420,15 +427,7 @@
         else if (page === 'learn') window.location.href = 'learn.html';
         else if (page === 'review') window.location.href = 'review.html';
         else if (page === 'progress') { /* already here */ }
-        else if (page === 'profile') {
-          alert('👤 HanLingo Profile\n\n' +
-            '✅ Learned: ' + learnedIds.length + ' sentences\n' +
-            '❌ Wrong: ' + wrongIds.length + ' sentences\n' +
-            '📈 Level: ' + currentLevel + '\n' +
-            '🔥 Streak: ' + (localStorage.getItem('juli_streak') || 0) + ' days\n' +
-            '📊 Total correct: ' + Object.values(correctCount).reduce(function(a,b){return a+b}, 0) + '\n' +
-            '📉 Total wrong: ' + Object.values(wrongCount).reduce(function(a,b){return a+b}, 0));
-        }
+        else if (page === 'profile') window.location.href = 'profile.html';
       });
     });
 
