@@ -51,8 +51,15 @@
     .status-bar { padding: 8px 20px 4px; display: flex; justify-content: space-between; font-size: 0.45rem; color: #86868B; background: #FFFFFF; border-bottom: 1px solid #E5E5EA; }
     .status-bar .hl { color: #007AFF; font-weight: 600; }
     .header { padding: 4px 18px 12px; display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border-bottom: 1px solid #E5E5EA; }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo-icon { background: #007AFF; width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-img {
+      width: 64px !important;
+      height: 64px !important;
+      border-radius: 14px;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
     .logo-text { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.3px; }
     .logo-text .han { color: #1D1D1F; }
     .logo-text .lingo { color: #007AFF; }
@@ -275,9 +282,9 @@
   <!-- ===== 头部 ===== -->
   <header class="header">
     <div class="logo">
-  <img src="/icon-512.png" alt="HanLingo" style="width:48px; height:48px; border-radius:12px;">
-  <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
-</div>
+      <img src="/icon-512.png" alt="HanLingo" class="logo-img">
+      <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
+    </div>
     <div class="header-actions">
       <i class="far fa-bell" id="notifBtn"></i>
       <i class="fas fa-user-circle" id="userBtn"></i>
