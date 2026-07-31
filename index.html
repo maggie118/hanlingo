@@ -48,7 +48,6 @@
   <style>
     /* ============================================================
        页面特有样式 - 干净清新 Apple 风格
-       注意：修改样式请直接在这里修改，不要再改外部的 style.css 了！
        ============================================================ */
     
     /* ===== 动画定义（方案一：丝滑浮现） ===== */
@@ -327,7 +326,8 @@
 
   <!-- ===== 头部 ===== -->
   <header class="header">
-    <div class="logo">
+    <!-- ✅ 这里加了一个 id="logoTrigger"，这是强制浏览器播放动画的关键！ -->
+    <div class="logo" id="logoTrigger">
       <img src="/icon-512.png" alt="HanLingo" class="logo-img">
       <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
     </div>
@@ -619,6 +619,7 @@
   document.getElementById('startBtn').addEventListener('click', goLearn);
   document.getElementById('learnMoreBtn').addEventListener('click', goLearn);
   document.getElementById('checkinBtn').addEventListener('click', doCheckin);
+
   document.getElementById('calBtn').addEventListener('click', function() { toast('📅 Calendar coming soon!'); });
 
   document.getElementById('listenBtn').addEventListener('click', function() {
