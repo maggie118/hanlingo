@@ -50,7 +50,7 @@
        页面特有样式 - 干净清新 Apple 风格
        ============================================================ */
     
-    /* ===== 动画定义（方案一：丝滑浮现） ===== */
+    /* ===== 动画定义（方案一：加载时丝滑浮现） ===== */
     @keyframes fadeSlideUp {
       0% {
         opacity: 0;
@@ -76,12 +76,23 @@
       border-bottom: 1px solid #E5E5EA; 
     }
     
-    /* ===== LOGO 修改 ===== */
+    /* ===== LOGO 修改（方案一 + 方案二结合） ===== */
     .logo { 
       display: flex; 
       align-items: center; 
-      gap: 4px; /* ✅ 将 12px 改成了 4px，缩小了间距 */
-      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; /* ✅ 完美方案一动画 */
+      gap: 4px; /* ✅ 缩小了间距 */
+      cursor: pointer; /* ✅ 方案二：鼠标移上去变小手 */
+      
+      /* ✅ 方案一：加载时丝滑浮现动画 */
+      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; 
+      
+      /* ✅ 方案二：鼠标悬停时的平滑过渡 */
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    }
+
+    /* ✅ 方案二：鼠标悬停时 LOGO 整体放大 */
+    .logo:hover {
+      transform: scale(1.05);
     }
 
     .logo-img {
@@ -92,14 +103,29 @@
       flex-shrink: 0;
       display: block;
     }
+
     .logo-text { 
       font-weight: 700; 
       font-size: 1.05rem; 
       letter-spacing: -0.3px;
-      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; /* ✅ 文字比熊猫晚0.15秒浮现 */
+      
+      /* ✅ 方案一：文字加载动画（比熊猫晚一点点出来） */
+      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; 
+      
+      /* ✅ 方案二：文字颜色变色的过渡 */
+      transition: color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+
     .logo-text .han { color: #1D1D1F; }
     .logo-text .lingo { color: #007AFF; }
+
+    /* ✅ 方案二：鼠标悬停时，文字变色（Han 变蓝，Lingo 变深蓝） */
+    .logo:hover .logo-text .han {
+      color: #007AFF;
+    }
+    .logo:hover .logo-text .lingo {
+      color: #0066CC;
+    }
     
     /* ===== 头部右侧图标 ===== */
     .header-actions { 
@@ -326,8 +352,7 @@
 
   <!-- ===== 头部 ===== -->
   <header class="header">
-    <!-- ✅ 给容器加一个 id，强制浏览器解析动画 -->
-    <div class="logo" id="logoContainer">
+    <div class="logo">
       <img src="/icon-512.png" alt="HanLingo" class="logo-img">
       <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
     </div>
