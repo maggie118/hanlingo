@@ -62,6 +62,16 @@
       }
     }
 
+    /* ===== 动画定义（悬停点头/摇摆） ===== */
+    @keyframes nod {
+      0% { transform: rotate(0deg) translateY(0); }
+      20% { transform: rotate(-2deg) translateY(-3px); }
+      40% { transform: rotate(2deg) translateY(-3px); }
+      60% { transform: rotate(-2deg) translateY(-3px); }
+      80% { transform: rotate(1deg) translateY(-1px); }
+      100% { transform: rotate(0deg) translateY(0); }
+    }
+
     .app { max-width: 480px; margin: 0 auto; background: #FFFFFF; min-height: 95vh; overflow: hidden; }
     .status-bar { padding: 8px 20px 4px; display: flex; justify-content: space-between; font-size: 0.45rem; color: #86868B; background: #FFFFFF; border-bottom: 1px solid #E5E5EA; }
     .status-bar .hl { color: #007AFF; font-weight: 600; }
@@ -70,29 +80,27 @@
     .header { 
       padding: 4px 18px 12px; 
       display: flex; 
-      justify-content: flex-start; /* ✅ 改为 flex-start，让 LOGO 靠左 */
+      justify-content: flex-start; 
       align-items: center; 
       background: #FFFFFF; 
       border-bottom: 1px solid #E5E5EA; 
     }
     
-    /* ===== LOGO 修改（加载上浮现 + 悬停上浮动） ===== */
+    /* ===== LOGO 修改（加载浮现 + 悬停点头） ===== */
     .logo { 
       display: flex; 
       align-items: center; 
-      gap: 4px; /* ✅ 缩小了间距 */
-      cursor: pointer; /* ✅ 鼠标移上去变小手 */
+      gap: 4px; 
+      cursor: pointer; 
       
-      /* ✅ 方案一：加载时丝滑浮现动画 */
+      /* ✅ 方案一：加载时丝滑浮现动画（初始状态） */
       animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; 
-      
-      /* ✅ 方案二（修改版）：鼠标悬停时的平滑过渡（无颜色变化） */
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
     }
 
-    /* ✅ 方案二（修改版）：鼠标悬停时 LOGO 和文字整体向上浮动 */
+    /* ✅ 鼠标悬停时触发：点头/摇摆动画 */
     .logo:hover {
-      transform: translateY(-3px); /* 轻轻向上浮动 3px */
+      /* 播放点头动画 0.5秒，播放一次，带加速/减速缓动 */
+      animation: nod 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1; 
     }
 
     .logo-img {
@@ -109,7 +117,7 @@
       font-size: 1.05rem; 
       letter-spacing: -0.3px;
       
-      /* ✅ 方案一：文字加载动画（比熊猫晚一点点出来） */
+      /* ✅ 方案一：文字加载动画（比熊猫晚 0.15 秒出来） */
       animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; 
     }
 
@@ -341,7 +349,8 @@
 
   <!-- ===== 头部 ===== -->
   <header class="header">
-    <div class="logo">
+    <!-- ✅ 加入了 class="logo-trigger" 确保浏览器强制解析动画 -->
+    <div class="logo logo-trigger">
       <img src="/icon-512.png" alt="HanLingo" class="logo-img">
       <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
     </div>
@@ -524,6 +533,7 @@
 
   // ===== 工具 =====
   function goLearn() { window.location.href = 'learn.html'; }
+
   function toast(msg) {
     var t = document.getElementById('toast');
     t.innerHTML = '<i class="fas fa-info-circle"></i> ' + msg;
