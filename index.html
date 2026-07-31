@@ -81,7 +81,7 @@
       display: flex; 
       align-items: center; 
       gap: 4px; /* ✅ 将 12px 改成了 4px，缩小了间距 */
-      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; /* ✅ 熊猫和图标先浮现 */
+      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; /* ✅ 完美方案一动画 */
     }
 
     .logo-img {
@@ -96,7 +96,7 @@
       font-weight: 700; 
       font-size: 1.05rem; 
       letter-spacing: -0.3px;
-      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both; /* ✅ 加上了！文字晚0.1秒浮现 */
+      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; /* ✅ 文字比熊猫晚0.15秒浮现 */
     }
     .logo-text .han { color: #1D1D1F; }
     .logo-text .lingo { color: #007AFF; }
@@ -326,8 +326,8 @@
 
   <!-- ===== 头部 ===== -->
   <header class="header">
-    <!-- ✅ 这里加了一个 id="logoTrigger"，这是强制浏览器播放动画的关键！ -->
-    <div class="logo" id="logoTrigger">
+    <!-- ✅ 给容器加一个 id，强制浏览器解析动画 -->
+    <div class="logo" id="logoContainer">
       <img src="/icon-512.png" alt="HanLingo" class="logo-img">
       <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
     </div>
@@ -498,6 +498,9 @@
 
 <script src="data/sentences.js"></script>
 <script>
+  // ===== 防止浏览器缓存旧文件 =====
+  console.log('✅ HanLingo 已加载 (版本: ' + Date.now() + ')');
+
   // ===== 数据 =====
   var data = typeof HSK1_SENTENCES !== 'undefined' ? HSK1_SENTENCES : [
     { id: 'hsk1_001', chinese: '你好。', pinyin: 'Nǐ hǎo.', translation: 'Hello.' },
@@ -619,7 +622,6 @@
   document.getElementById('startBtn').addEventListener('click', goLearn);
   document.getElementById('learnMoreBtn').addEventListener('click', goLearn);
   document.getElementById('checkinBtn').addEventListener('click', doCheckin);
-
   document.getElementById('calBtn').addEventListener('click', function() { toast('📅 Calendar coming soon!'); });
 
   document.getElementById('listenBtn').addEventListener('click', function() {
