@@ -76,23 +76,24 @@
       border-bottom: 1px solid #E5E5EA; 
     }
     
-    /* ===== LOGO 修改 ===== */
+    /* ===== LOGO 修改（终极科技感平滑版） ===== */
     .logo { 
       display: flex; 
       align-items: center; 
       gap: 4px; 
-      cursor: pointer; /* ✅ 关键：鼠标放上去变成小手！ */
+      cursor: pointer; 
       
-      /* ✅ 方案一：加载时浮现 */
-      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; 
+      /* 加载时浮现：使用 ease-out 消除弹跳 */
+      animation: fadeSlideUp 0.5s ease-out both; 
       
-      /* ✅ 方案二：纯悬浮上浮，没有任何颜色变化 */
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+      /* 悬停时：0.3s的ease-out，绝对顺滑无弹跳 */
+      transition: all 0.3s ease-out; 
     }
 
-    /* ✅ 鼠标悬停时：整个 LOGO 轻轻向上浮动（无变色） */
+    /* ✅ 鼠标悬停时：平稳上浮 + 科技感轻微的阴影扩散 */
     .logo:hover {
       transform: translateY(-3px);
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
     }
 
     .logo-img {
@@ -102,15 +103,17 @@
       object-fit: contain;
       flex-shrink: 0;
       display: block;
+      transition: transform 0.3s ease-out; /* 图片自身顺滑过渡 */
     }
 
     .logo-text { 
       font-weight: 700; 
       font-size: 1.05rem; 
       letter-spacing: -0.3px;
-      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; 
+      animation: fadeSlideUp 0.5s ease-out 0.1s both; 
     }
 
+    /* 严格去色，保持原样 */
     .logo-text .han { color: #1D1D1F; }
     .logo-text .lingo { color: #007AFF; }
 
@@ -120,7 +123,7 @@
       gap: 16px; 
       color: #86868B; 
       font-size: 1.1rem;
-      margin-left: auto; /* ✅ 关键：强制推到最右边 */
+      margin-left: auto; 
     }
     .header-actions i { cursor: pointer; padding: 4px; border-radius: 8px; transition: 0.2s; }
     .header-actions i:hover { background: #F5F5F7; color: #007AFF; }
@@ -339,7 +342,6 @@
 
   <!-- ===== 头部 ===== -->
   <header class="header">
-    <!-- ✅ LOGO 容器 -->
     <div class="logo">
       <img src="/icon-512.png" alt="HanLingo" class="logo-img">
       <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
@@ -511,8 +513,12 @@
 
 <script src="data/sentences.js"></script>
 <script>
-  // ===== 防止浏览器缓存旧文件 =====
-  console.log('✅ HanLingo 已加载 (版本: ' + Date.now() + ')');
+  // ===== 强制清除 CSS 和 HTML 缓存 =====
+  (function() {
+      // 如果浏览器之前缓存了旧版CSS，这个请求会让它强制失效
+      fetch(window.location.href, { cache: 'reload', headers: { 'Pragma': 'no-cache' } });
+      console.log('✅ 缓存已强制刷新，动画已就绪');
+  })();
 
   // ===== 数据 =====
   var data = typeof HSK1_SENTENCES !== 'undefined' ? HSK1_SENTENCES : [
