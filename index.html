@@ -46,12 +46,45 @@
   <link rel="stylesheet" href="style.css">
   
   <style>
-    /* ===== 页面特有样式 - 干净清新 Apple 风格 ===== */
+    /* ============================================================
+       页面特有样式 - 干净清新 Apple 风格
+       注意：修改样式请直接在这里修改，不要再改外部的 style.css 了！
+       ============================================================ */
+    
+    /* ===== 动画定义（加入方案一：丝滑浮现） ===== */
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .app { max-width: 480px; margin: 0 auto; background: #FFFFFF; min-height: 95vh; overflow: hidden; }
     .status-bar { padding: 8px 20px 4px; display: flex; justify-content: space-between; font-size: 0.45rem; color: #86868B; background: #FFFFFF; border-bottom: 1px solid #E5E5EA; }
     .status-bar .hl { color: #007AFF; font-weight: 600; }
-    .header { padding: 4px 18px 12px; display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border-bottom: 1px solid #E5E5EA; }
-    .logo { display: flex; align-items: center; gap: 12px; }
+    
+    /* ===== 头部修改 ===== */
+    .header { 
+      padding: 4px 18px 12px; 
+      display: flex; 
+      justify-content: flex-start; /* ✅ 改为 flex-start，让 LOGO 靠左 */
+      align-items: center; 
+      background: #FFFFFF; 
+      border-bottom: 1px solid #E5E5EA; 
+    }
+    
+    /* ===== LOGO 修改 ===== */
+    .logo { 
+      display: flex; 
+      align-items: center; 
+      gap: 4px; /* ✅ 将 12px 改成了 4px，缩小了间距 */
+      animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; /* ✅ 加入加载动画 */
+    }
+
     .logo-img {
       width: 48px !important;
       height: 48px !important;
@@ -63,7 +96,15 @@
     .logo-text { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.3px; }
     .logo-text .han { color: #1D1D1F; }
     .logo-text .lingo { color: #007AFF; }
-    .header-actions { display: flex; gap: 16px; color: #86868B; font-size: 1.1rem; }
+    
+    /* ===== 头部右侧图标 ===== */
+    .header-actions { 
+      display: flex; 
+      gap: 16px; 
+      color: #86868B; 
+      font-size: 1.1rem;
+      margin-left: auto; /* ✅ 关键：强制推到最右边 */
+    }
     .header-actions i { cursor: pointer; padding: 4px; border-radius: 8px; transition: 0.2s; }
     .header-actions i:hover { background: #F5F5F7; color: #007AFF; }
     .main { padding: 8px 18px 20px; }
