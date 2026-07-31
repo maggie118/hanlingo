@@ -4,6 +4,18 @@
    参考：DeepSeek 字体系统
    ============================================================ */
 
+/* ===== 自定义动画（加入的入场动画） ===== */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ===== 颜色变量 ===== */
 :root {
   --bg: #F5F5F7;
@@ -92,7 +104,6 @@ body {
 }
 
 /* ===== 头部 ===== */
-/* 1. 修改 .header */
 .header {
   padding: 4px 18px 12px;
   display: flex;
@@ -102,7 +113,7 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
-/* 2. 新增针对 .header-actions 的规则 */
+/* 新增针对 .header-actions 的规则 */
 .header-actions {
   display: flex;
   gap: 16px;
@@ -111,11 +122,28 @@ body {
   margin-left: auto; /* 关键：这会让右侧图标自动推到最右边，保持双端对齐 */
 }
 
+/* ===== LOGO 修改（科技感平稳悬停动画） ===== */
 .logo {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 4px; /* ✅ 间距缩小 */
+  cursor: pointer;
+  text-decoration: none; /* ✅ 移除 a 标签默认下划线 */
+  color: inherit; /* ✅ 继承父级文字颜色 */
+  
+  /* 入场动画：ease-out 使其顺滑不弹跳 */
+  animation: fadeSlideUp 0.5s ease-out both; 
+  
+  /* 悬停过渡：极其平稳，无变色 */
+  transition: transform 0.3s ease-out, filter 0.3s ease-out; 
 }
+
+/* 鼠标悬停时：平稳上浮 + 淡入阴影（科技感） */
+.logo:hover {
+  transform: translateY(-4px);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
+}
+
 .logo-icon {
   background: var(--blue);
   width: 34px;
