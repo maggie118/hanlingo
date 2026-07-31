@@ -76,23 +76,23 @@
       border-bottom: 1px solid #E5E5EA; 
     }
     
-    /* ===== LOGO 修改（方案一 + 方案二结合） ===== */
+    /* ===== LOGO 修改（加载上浮现 + 悬停上浮动） ===== */
     .logo { 
       display: flex; 
       align-items: center; 
       gap: 4px; /* ✅ 缩小了间距 */
-      cursor: pointer; /* ✅ 方案二：鼠标移上去变小手 */
+      cursor: pointer; /* ✅ 鼠标移上去变小手 */
       
       /* ✅ 方案一：加载时丝滑浮现动画 */
       animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; 
       
-      /* ✅ 方案二：鼠标悬停时的平滑过渡 */
+      /* ✅ 方案二（修改版）：鼠标悬停时的平滑过渡（无颜色变化） */
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
     }
 
-    /* ✅ 方案二：鼠标悬停时 LOGO 整体放大 */
+    /* ✅ 方案二（修改版）：鼠标悬停时 LOGO 和文字整体向上浮动 */
     .logo:hover {
-      transform: scale(1.05);
+      transform: translateY(-3px); /* 轻轻向上浮动 3px */
     }
 
     .logo-img {
@@ -111,22 +111,11 @@
       
       /* ✅ 方案一：文字加载动画（比熊猫晚一点点出来） */
       animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both; 
-      
-      /* ✅ 方案二：文字颜色变色的过渡 */
-      transition: color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .logo-text .han { color: #1D1D1F; }
     .logo-text .lingo { color: #007AFF; }
 
-    /* ✅ 方案二：鼠标悬停时，文字变色（Han 变蓝，Lingo 变深蓝） */
-    .logo:hover .logo-text .han {
-      color: #007AFF;
-    }
-    .logo:hover .logo-text .lingo {
-      color: #0066CC;
-    }
-    
     /* ===== 头部右侧图标 ===== */
     .header-actions { 
       display: flex; 
