@@ -92,19 +92,29 @@ body {
 }
 
 /* ===== 头部 ===== */
+/* 1. 修改 .header */
 .header {
   padding: 4px 18px 12px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* 改为 flex-start */
   align-items: center;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
+/* 2. 新增针对 .header-actions 的规则 */
+.header-actions {
+  display: flex;
+  gap: 16px;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-left: auto; /* 关键：这会让右侧图标自动推到最右边，保持双端对齐 */
+}
+
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
 }
 .logo-icon {
   background: var(--blue);
