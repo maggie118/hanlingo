@@ -4,199 +4,173 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
-  <!-- ===== Title ===== -->
-  <title>HanLingo · Learn - HSK, YCT, BCT, MCT & Sentence Packs</title>
+  <title>HanLingo · Course</title>
   
-  <!-- ===== SEO Meta ===== -->
-  <meta name="description" content="Start learning Chinese with real sentences. Choose your path: HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, or Taxi. One sentence = 5 skills: Vocabulary, Grammar, Pronunciation, Context, Culture.">
-  <meta name="keywords" content="learn chinese, hsk, hsk1, hsk2, hsk3, hsk4, hsk5, hsk6, hsk7, hsk8, hsk9, yct1, yct2, yct3, yct4, bct, mct, business chinese, travel chinese, chinese sentences, mandarin, hanlingo">
+  <meta name="description" content="Learn Chinese through real sentences. Supporting HSK 1-9, YCT, BCT, MCT.">
   <meta name="author" content="HanLingo">
-  <meta name="robots" content="index, follow">
-  <meta name="language" content="English, Chinese">
   
-  <!-- ===== Open Graph / Facebook ===== -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hanlingo.app/learn.html">
-  <meta property="og:title" content="HanLingo · Learn - HSK, YCT, BCT, MCT & Sentence Packs">
-  <meta property="og:description" content="Learn Chinese through real sentences. HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi. One sentence = 5 skills.">
-  <meta property="og:image" content="https://hanlingo.app/icon-512.png">
-  <meta property="og:site_name" content="HanLingo">
-  <meta property="og:locale" content="en_US">
-  
-  <!-- ===== Twitter Card ===== -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://hanlingo.app/learn.html">
-  <meta name="twitter:title" content="HanLingo · Learn - HSK, YCT, BCT, MCT & Sentence Packs">
-  <meta name="twitter:description" content="Learn Chinese through real sentences. HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi. One sentence = 5 skills.">
-  <meta name="twitter:image" content="https://hanlingo.app/icon-512.png">
-  
-  <!-- ===== PWA ===== -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#FF6B35">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#F5F5F7">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" href="/favicon.ico?v=2">
   
-  <!-- ===== Font Awesome ===== -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
-  <!-- ===== Scripts ===== -->
-  <script src="js/workbook-export.js"></script>
-	<!-- ===== Favicon ===== -->
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
-  
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    body { background: #f9f7f5; color: #1e1e2a; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
-    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0 0 24px 24px; overflow: hidden; position: relative; }
-    .status-bar { background: #1e1e2a; color: #f0ede8; padding: 8px 16px; display: flex; justify-content: space-between; font-size: 0.75rem; letter-spacing: 0.3px; }
-    .header { padding: 16px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
+    :root {
+      --bg: #F5F5F7;
+      --surface: #FFFFFF;
+      --border: #E5E5EA;
+      --text: #1D1D1F;
+      --text-secondary: #86868B;
+      --blue: #007AFF;
+      --blue-dark: #0066CC;
+      --green: #34C759;
+      --orange: #FF9500;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --radius: 14px;
+      --radius-full: 60px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
+    .app-container { max-width: 480px; margin: 0 auto; background: var(--surface); min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.02); }
+
+    /* ===== 状态栏 ===== */
+    .status-bar { background: var(--surface); padding: 8px 20px; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
     
-    /* ===== Logo 动画 ===== */
-    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 2px 6px; border-radius: 10px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
-    .logo-area:hover { background: #f5f2ef; }
-    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
-    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    /* ===== 头部 ===== */
+    .header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .logo-icon { background: var(--blue); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 700; }
+    .logo-text { font-weight: 700; font-size: 1rem; }
+    .logo-text .han { color: var(--text); }
+    .logo-text .lingo { color: var(--blue); }
+    .header-actions { display: flex; gap: 14px; color: var(--text-secondary); font-size: 1rem; align-items: center; }
+    .header-actions i { cursor: pointer; transition: 0.2s; }
+    .header-actions i:hover { color: var(--blue); }
+
+    /* ===== 学习内容 ===== */
+    .learn-container { padding: 16px 20px 10px 20px; }
     
-    .logo-icon { background: #FF6B35; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(255,107,53,0.2); transition: all 0.3s ease; }
-    .logo-area:hover .logo-icon { transform: rotate(-6deg) scale(1.05); box-shadow: 0 5px 16px rgba(255,107,53,0.3); }
-    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: -0.2px; transition: all 0.3s ease; }
-    .logo-area:hover .logo-text { transform: scale(1.02); }
-    .logo-text .han { color: #1e1e2a; }
-    .logo-text .lingo { color: #FF6B35; }
+    .learn-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; background: var(--bg); padding: 10px; border-radius: var(--radius); }
+    .learn-progress .bar { flex: 1; height: 4px; background: var(--border); border-radius: 20px; overflow: hidden; }
+    .learn-progress .bar .fill { height: 100%; background: var(--blue); border-radius: 20px; transition: width 0.4s ease; }
+    .learn-progress .count { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
+
+    .sentence-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 32px 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); min-height: 400px; display: flex; flex-direction: column; }
     
-    .header-actions { display: flex; gap: 14px; color: #898999; font-size: 1rem; align-items: center; }
-    .header-actions .export-icon { cursor: pointer; transition: 0.2s; padding: 4px; border-radius: 8px; }
-    .header-actions .export-icon:hover { background: #f5f2ef; color: #FF6B35; }
+    .card-number { font-size: 0.7rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 8px; }
+    .pinyin-top { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 4px; cursor: pointer; padding: 4px 0; border-radius: 4px; transition: 0.2s; }
+    .pinyin-top:hover { color: var(--text); background: var(--bg); }
     
-    .learn-container { padding: 16px 20px 10px 20px; max-width: 480px; margin: 0 auto; }
-    .learn-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .learn-progress .bar { flex: 1; height: 4px; background: #e6e0db; border-radius: 20px; overflow: hidden; }
-    .learn-progress .bar .fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #f7934b); border-radius: 20px; transition: width 0.4s ease; }
-    .learn-progress .count { font-size: 0.75rem; font-weight: 600; color: #4a4a5a; white-space: nowrap; }
-    .sentence-card { background: #ffffff; border-radius: 28px; border: 1.5px solid #f0ebe6; padding: 32px 24px 24px 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.04); min-height: 400px; display: flex; flex-direction: column; position: relative; transition: all 0.3s ease; }
-    .card-number { font-size: 0.7rem; color: #b0a8a2; font-weight: 600; margin-bottom: 8px; }
-    .pinyin-top { font-size: 1.1rem; color: #7b7b8a; letter-spacing: 0.3px; margin-bottom: 4px; cursor: pointer; padding: 4px 0; border-radius: 4px; transition: 0.2s; font-weight: 400; }
-    .pinyin-top:hover { color: #1e1e2a; background: #f8f5f2; }
-    .chinese { font-size: 2.4rem; font-weight: 700; color: #1a1a28; letter-spacing: 0.5px; cursor: pointer; padding: 4px 0; border-radius: 8px; transition: 0.2s; }
-    .chinese:hover { color: #FF6B35; background: #f8f5f2; }
-    .translation { font-size: 1rem; color: #3d3d4a; background: #f4f1ee; padding: 8px 18px; border-radius: 40px; display: inline-block; margin: 12px 0 14px 0; cursor: pointer; transition: 0.2s; align-self: flex-start; }
-    .translation:hover { background: #e8e2dc; }
+    .chinese { font-size: 2.4rem; font-weight: 700; color: var(--text); letter-spacing: 0.5px; cursor: pointer; padding: 4px 0; border-radius: 8px; transition: 0.2s; }
+    .chinese:hover { color: var(--blue); background: var(--bg); }
+    
+    .translation { font-size: 1rem; color: var(--text); background: var(--bg); padding: 8px 18px; border-radius: var(--radius-full); display: inline-block; margin: 12px 0 14px 0; cursor: pointer; transition: 0.2s; align-self: flex-start; }
+    .translation:hover { background: var(--border); }
+    
     .audio-row { display: flex; align-items: center; gap: 12px; margin: 6px 0 14px 0; flex-wrap: wrap; }
-    .play-btn { background: #1e1e2a; border: none; color: white; padding: 10px 24px; border-radius: 60px; font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; }
-    .play-btn:hover { background: #2f2f3a; transform: scale(1.02); }
-    .play-btn:active { transform: scale(0.95); }
-    .play-btn i { color: #f7934b; }
-    .play-btn.playing { background: #FF6B35; }
-    .play-btn.playing i { color: white; }
-    .word-tooltip { display: none; background: #1e1e2a; color: #f0ede8; padding: 16px 20px; border-radius: 16px; font-size: 0.85rem; margin: 8px 0 14px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.25); animation: tooltipIn 0.25s ease; position: relative; line-height: 1.8; }
+    .play-btn { background: var(--bg); border: none; color: var(--text); padding: 10px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; }
+    .play-btn:hover { background: var(--border); }
+    .play-btn.playing { background: var(--blue); color: white; }
+
+    .word-tooltip { display: none; background: var(--bg); color: var(--text); padding: 16px 20px; border-radius: var(--radius); font-size: 0.85rem; margin: 8px 0 14px 0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); animation: tooltipIn 0.25s ease; position: relative; line-height: 1.8; }
     .word-tooltip.show { display: block; }
-    .word-tooltip .close-tip { position: absolute; top: 6px; right: 12px; background: none; border: none; color: #9b9390; font-size: 1.1rem; cursor: pointer; }
-    .word-tooltip .close-tip:hover { color: white; }
-    .word-tooltip .highlight { color: #f7934b; font-weight: 600; }
-    .word-tooltip .pinyin-tip { color: #a8d8ea; font-size: 0.9rem; }
+    .word-tooltip .close-tip { position: absolute; top: 6px; right: 12px; background: none; border: none; color: var(--text-secondary); font-size: 1.1rem; cursor: pointer; }
+    .word-tooltip .highlight { color: var(--blue); font-weight: 600; }
     @keyframes tooltipIn { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
-    .pillars-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 16px 0; padding-top: 12px; border-top: 1px dashed #e2dbd6; }
-    .pillar-tag { background: #f4f1ee; padding: 5px 14px 5px 10px; border-radius: 40px; font-size: 0.7rem; font-weight: 500; color: #2f2f3a; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 4px; border: 1.5px solid transparent; }
-    .pillar-tag i { color: #FF6B35; font-size: 0.75rem; }
-    .pillar-tag:hover { background: #e8e2dc; border-color: #FF6B35; transform: translateY(-1px); }
-    .pillar-tag:active { transform: scale(0.95); }
+
+    .pillars-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 16px 0; padding-top: 12px; border-top: 1px dashed var(--border); }
+    .pillar-tag { background: var(--bg); padding: 5px 14px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 500; color: var(--text); cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 4px; border: 1px solid transparent; }
+    .pillar-tag i { color: var(--blue); font-size: 0.75rem; }
+    .pillar-tag:hover { border-color: var(--blue); transform: translateY(-1px); }
+
     .action-row { display: flex; gap: 10px; margin-top: 6px; }
-    .learn-btn { flex: 2; background: #FF6B35; border: none; color: white; padding: 12px; border-radius: 60px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .learn-btn:hover { background: #e85a2a; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,53,0.3); }
-    .learn-btn:active { transform: scale(0.96); }
-    .learn-btn.done { background: #2d6a4f; }
-    .learn-btn.done:hover { background: #1e4f3a; }
+    .learn-btn { flex: 2; background: var(--blue); border: none; color: white; padding: 12px; border-radius: var(--radius-full); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .learn-btn:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,122,255,0.2); }
+    .learn-btn.done { background: var(--green); }
+    .learn-btn.done:hover { background: #2c9e47; }
     .learn-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
-    .save-btn { flex: 0.5; background: transparent; border: 1.5px solid #d6cfc9; border-radius: 60px; font-size: 1.2rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; min-width: 48px; }
-    .save-btn:hover { background: #f5f2ef; border-color: #FF6B35; }
-    .save-btn:active { transform: scale(0.95); }
-    .save-btn.saved { border-color: #FF6B35; color: #FF6B35; }
+    
+    .save-btn { flex: 0.5; background: transparent; border: 1.5px solid var(--border); border-radius: var(--radius-full); font-size: 1.2rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; min-width: 48px; }
+    .save-btn:hover { background: var(--bg); border-color: var(--blue); }
+    .save-btn.saved { border-color: var(--blue); color: var(--blue); }
+
     .nav-buttons { display: flex; gap: 10px; margin-top: 12px; }
-    .nav-btn { flex: 1; padding: 14px; border: 1.5px solid #d6cfc9; background: transparent; border-radius: 60px; font-weight: 600; font-size: 0.85rem; color: #2f2f3a; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .nav-btn:hover { background: #f5f2ef; border-color: #FF6B35; }
-    .nav-btn:active { transform: scale(0.96); }
-    .nav-btn.primary { background: #1e1e2a; color: white; border-color: #1e1e2a; }
-    .nav-btn.primary:hover { background: #2f2f3a; }
-    .nav-btn.primary:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; }
-    .completed-section { display: none; text-align: center; padding: 30px 20px; background: linear-gradient(145deg, #1e1e2a, #2a2a3a); border-radius: 28px; color: #f0ede8; }
-    .completed-section.show { display: block; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
-    .completed-section .big-icon { font-size: 4rem; color: #FF6B35; margin-bottom: 12px; }
-    .completed-section h2 { font-size: 1.5rem; margin-bottom: 6px; }
-    .completed-section p { opacity: 0.8; font-size: 0.9rem; margin-bottom: 20px; }
-    .completed-section .quest-btn { background: #FF6B35; border: none; color: white; padding: 14px 32px; border-radius: 60px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 6px 16px rgba(255,107,53,0.3); text-decoration: none; }
-    .completed-section .quest-btn:hover { background: #e85a2a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.4); }
-    .completed-section .quest-btn:active { transform: scale(0.96); }
-    .completed-section .quest-btn.done { background: #2d6a4f; }
-    .completed-section .quest-btn.done:hover { background: #1e4f3a; }
-    .completed-section .next-level-btn { background: transparent; border: 1.5px solid #f0ede8; color: #f0ede8; padding: 14px 32px; border-radius: 60px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: 0.2s; margin-left: 10px; display: inline-flex; align-items: center; gap: 8px; }
-    .completed-section .next-level-btn:hover { background: rgba(255,255,255,0.1); }
-    .completed-section .stats { display: flex; justify-content: center; gap: 24px; margin: 16px 0; font-size: 0.85rem; }
-    .completed-section .stats span { opacity: 0.7; }
-    .completed-section .stats strong { color: #FF6B35; font-size: 1.2rem; }
-    .completed-section .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .btn-group .export-workbook-btn { background: #2d6a4f; border: none; color: white; padding: 14px 32px; border-radius: 60px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; flex: 1; min-width: 140px; justify-content: center; }
-    .btn-group .export-workbook-btn:hover { background: #1e4f3a; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(45,106,79,0.3); }
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 8px 0 12px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); z-index: 100; }
-    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.55rem; font-weight: 500; gap: 1px; cursor: pointer; padding: 4px 12px; border-radius: 20px; transition: 0.1s; position: relative; }
-    .nav-item i { font-size: 1.3rem; color: #6b6b7b; }
-    .nav-item.active i { color: #FF6B35; }
-    .nav-item.active { color: #1e1e2a; }
-    .nav-item:active { background: #f0edeb; }
-    .nav-item .badge-dot { position: absolute; top: 0; right: 4px; width: 8px; height: 8px; background: #FF6B35; border-radius: 50%; border: 2px solid white; }
-    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 12px 24px; border-radius: 60px; font-size: 0.85rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.2); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
+    .nav-btn { flex: 1; padding: 14px; border: 1.5px solid var(--border); background: transparent; border-radius: var(--radius-full); font-weight: 600; font-size: 0.85rem; color: var(--text); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .nav-btn:hover { background: var(--bg); border-color: var(--blue); }
+    .nav-btn.primary { background: var(--text); color: white; border-color: var(--text); }
+    .nav-btn.primary:hover { background: #2c2c2e; }
+    .nav-btn.primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ===== 跨级按钮 ===== */
+    .level-up-row { display: none; margin-top: 12px; }
+    .level-up-row.show { display: flex; animation: fadeIn 0.4s ease; }
+    .btn-level-up { flex: 1; background: var(--blue); color: white; border: none; padding: 14px; border-radius: var(--radius-full); font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-level-up:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,122,255,0.2); }
+
+    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(29,29,31,0.9); backdrop-filter: blur(12px); color: white; padding: 12px 24px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.2); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .toast i { margin-right: 8px; color: #f7934b; }
-    @media (max-width: 400px) { .chinese { font-size: 2rem; } .sentence-card { padding: 24px 16px 20px 16px; } .completed-section .next-level-btn { margin-left: 0; width: 100%; justify-content: center; } .completed-section .quest-btn { width: 100%; justify-content: center; } }
+    .toast i { margin-right: 8px; color: #5AC8FA; }
+
+    /* ===== 底部导航 ===== */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-top: 0.5px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0 12px 0; max-width: 480px; margin: 0 auto; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); font-size: 0.55rem; font-weight: 500; gap: 1px; cursor: pointer; padding: 4px 12px; border-radius: 20px; transition: 0.1s; position: relative; }
+    .nav-item i { font-size: 1.3rem; color: var(--text-secondary); }
+    .nav-item.active i { color: var(--blue); }
+    .nav-item.active { color: var(--text); }
+
+    @media (max-width: 400px) { .chinese { font-size: 2rem; } .sentence-card { padding: 24px 16px; } }
   </style>
 </head>
 <body>
   <div class="app-container">
+    <!-- ===== 状态栏 ===== -->
     <div class="status-bar">
       <span>HanLingo</span>
-      <span>100% Free</span>
+      <span>Free Course</span>
     </div>
 
+    <!-- ===== 头部 ===== -->
     <header class="header">
-      <div class="logo-area" id="goHomeBtn" title="Go to Home">
+      <div class="logo-area" id="goHomeBtn" title="Back to Home">
         <div class="logo-icon">HL</div>
         <div class="logo-text">
           <span class="han">Han</span><span class="lingo">Lingo</span>
         </div>
       </div>
       <div class="header-actions">
-        <i class="far fa-bell"></i>
-        <i class="fas fa-download export-icon" id="exportBtn" title="Export Workbook"></i>
-        <i class="far fa-user-circle"></i>
+        <i class="far fa-bell" title="Notifications"></i>
+        <i class="far fa-user-circle" title="Profile"></i>
       </div>
     </header>
 
+    <!-- ===== 学习内容 ===== -->
     <div class="learn-container">
       <div class="learn-progress">
-        <span style="font-size:0.7rem; font-weight:600; color:#4a4a5a;" id="levelLabel">HSK1</span>
+        <span style="font-size:0.7rem; font-weight:600; color:var(--text-secondary);" id="levelLabel">HSK 1</span>
         <div class="bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
         <span class="count"><span id="currentIdx">1</span>/<span id="totalCount">5</span></span>
       </div>
 
       <div class="sentence-card" id="sentenceCard">
-        <div class="card-number" id="cardNumber">#1 of 5</div>
-        <div class="pinyin-top" id="pinyinTop">Nǐ hǎo ma?</div>
-        <div class="chinese" id="chineseText">你好吗？</div>
-        <div class="translation" id="translationText">How are you?</div>
+        <div class="card-number" id="cardNumber">#1 / 5</div>
+        <div class="pinyin-top" id="pinyinTop">Nǐ hǎo.</div>
+        <div class="chinese" id="chineseText">你好。</div>
+        <div class="translation" id="translationText">Hello.</div>
 
         <div class="audio-row">
           <button class="play-btn" id="playBtn"><i class="fas fa-play"></i> Listen</button>
-          <span style="font-size:0.7rem; color:#9b9390;">Click any text for details</span>
+          <span style="font-size:0.7rem; color:var(--text-secondary);">Tap text to explore</span>
         </div>
 
         <div class="word-tooltip" id="tooltip">
           <button class="close-tip" id="closeTip">✕</button>
-          <div id="tooltipContent">Click on a word to learn more.</div>
+          <div id="tooltipContent">Click on text to see details.</div>
         </div>
 
         <div class="pillars-row" id="pillarsRow"></div>
@@ -207,767 +181,189 @@
         </div>
 
         <div class="nav-buttons">
-          <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> Back</button>
+          <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> Previous</button>
           <button class="nav-btn primary" id="nextBtn">Next <i class="fas fa-chevron-right"></i></button>
         </div>
-      </div>
 
-      <div class="completed-section" id="completedSection">
-        <div class="big-icon">🎉</div>
-        <h2 id="completeTitle">All Done!</h2>
-        <p id="completeDesc">You've learned all <strong id="completedCount">5</strong> sentences in this set!</p>
-        <div class="stats">
-          <span>🔥 <strong id="streakDisplay">0</strong> day streak</span>
-          <span>⭐ <strong id="savedDisplay">0</strong> saved</span>
-          <span>✅ <strong id="totalLearnedDisplay">0</strong> total</span>
+        <!-- 【核心新增】完成5句后出现的下一级按钮 -->
+        <div class="level-up-row" id="levelUpRow">
+          <button class="btn-level-up" id="levelUpBtn"><i class="fas fa-rocket"></i> Next Level →</button>
         </div>
-        <div class="btn-group">
-          <button class="quest-btn" id="goQuestBtn">
-            <i class="fas fa-flag"></i> Go to Quest Game
-          </button>
-          <button class="next-level-btn" id="nextLevelBtn">
-            <i class="fas fa-arrow-right"></i> Next Level
-          </button>
-          <button class="export-workbook-btn" id="exportWorkbookBtn">
-            <i class="fas fa-file-export"></i> Export Workbook
-          </button>
-        </div>
-        <div style="margin-top:12px; font-size:0.75rem; opacity:0.5;">
-          <i class="fas fa-info-circle"></i> Complete the quest game to unlock the next level
-        </div>
-      </div>
-
-      <div style="text-align:center; padding:12px 0 6px; font-size:0.6rem; color:#9b9390;">
-        <i class="fas fa-quote-left"></i> One sentence = 5 skills
       </div>
     </div>
 
     <div class="toast" id="toast"></div>
 
+    <!-- ===== 底部导航 ===== -->
     <div class="bottom-nav">
       <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
       <div class="nav-item active" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
-      <div class="nav-item" data-page="quest" id="navQuest"><i class="fas fa-flag"></i><span>Quest</span></div>
+      <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
       <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></div>
       <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
   </div>
 
-  <script src="data/sentences.js"></script>
   <script>
-    // ============ 从全局数据获取指定级别的句子 ============
-    function getSentencesByLevel(level, dailyGoal) {
-      var allData = [];
-      if (typeof HSK1_SENTENCES !== 'undefined' && HSK1_SENTENCES.length > 0) {
-        allData = HSK1_SENTENCES;
-      } else {
-        var fallback = [];
-        var phrases = [
-          { chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?' },
-          { chinese: '你叫什么名字？', pinyin: 'Nǐ jiào shénme míngzi?', translation: 'What is your name?' },
-          { chinese: '我想吃米饭。', pinyin: 'Wǒ xiǎng chī mǐfàn.', translation: 'I want to eat rice.' },
-          { chinese: '你在干什么？', pinyin: 'Nǐ zài gàn shénme?', translation: 'What are you doing?' },
-          { chinese: '今天天气很好。', pinyin: 'Jīntiān tiānqì hěn hǎo.', translation: 'The weather is very nice today.' },
-          { chinese: '你吃了吗？', pinyin: 'Nǐ chī le ma?', translation: 'Have you eaten?' },
-          { chinese: '我去商店买东西。', pinyin: 'Wǒ qù shāngdiàn mǎi dōngxi.', translation: 'I go to the store to buy things.' },
-          { chinese: '这个多少钱？', pinyin: 'Zhège duōshao qián?', translation: 'How much is this?' },
-          { chinese: '你会说汉语吗？', pinyin: 'Nǐ huì shuō Hànyǔ ma?', translation: 'Can you speak Chinese?' },
-          { chinese: '很高兴认识你。', pinyin: 'Hěn gāoxìng rènshi nǐ.', translation: 'Nice to meet you.' }
-        ];
-        for (var i = 0; i < 30; i++) {
-          var p = phrases[i % phrases.length];
-          fallback.push({
-            id: 'hsk1_' + String(i + 1).padStart(3, '0'),
-            chinese: p.chinese,
-            pinyin: p.pinyin,
-            translation: p.translation,
-            vocab: 'Vocabulary for this sentence',
-            pattern: 'Grammar pattern',
-            context: 'When to use this',
-            culture: 'Cultural insight'
-          });
-        }
-        allData = fallback;
-      }
+    // ============================================================
+    // 模拟大量数据 (假设这是 HSK 1 到 HSK 2 的 15 个句子)
+    // 自动把数据按每 5 句分为一个 Level
+    // ============================================================
+    var allData = [
+      { id: 'hsk1_001', chinese: '你好。', pinyin: 'Nǐ hǎo.', translation: 'Hello.' },
+      { id: 'hsk1_002', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?' },
+      { id: 'hsk1_003', chinese: '我很好。', pinyin: 'Wǒ hěn hǎo.', translation: 'I am fine.' },
+      { id: 'hsk1_004', chinese: '谢谢。', pinyin: 'Xièxiè.', translation: 'Thank you.' },
+      { id: 'hsk1_005', chinese: '再见。', pinyin: 'Zàijiàn.', translation: 'Goodbye.' },
 
-      var startIdx = (level - 1) * dailyGoal;
-      var endIdx = Math.min(startIdx + dailyGoal, allData.length);
-      var result = allData.slice(startIdx, endIdx);
+      { id: 'hsk1_006', chinese: '请坐。', pinyin: 'Qǐng zuò.', translation: 'Please sit down.' },
+      { id: 'hsk1_007', chinese: '对不起。', pinyin: 'Duìbuqǐ.', translation: 'Sorry.' },
+      { id: 'hsk1_008', chinese: '没关系。', pinyin: 'Méi guānxi.', translation: 'It\'s okay.' },
+      { id: 'hsk1_009', chinese: '你叫什么名字？', pinyin: 'Nǐ jiào shénme míngzi?', translation: 'What is your name?' },
+      { id: 'hsk1_010', chinese: '我叫小明。', pinyin: 'Wǒ jiào Xiǎomíng.', translation: 'My name is Xiaoming.' },
 
-      if (result.length === 0) {
-        result = allData.slice(0, dailyGoal);
-      }
+      { id: 'hsk1_011', chinese: '你是哪国人？', pinyin: 'Nǐ shì nǎ guó rén?', translation: 'Where are you from?' },
+      { id: 'hsk1_012', chinese: '我是中国人。', pinyin: 'Wǒ shì Zhōngguórén.', translation: 'I am Chinese.' },
+      { id: 'hsk1_013', chinese: '他好。', pinyin: 'Tā hǎo.', translation: 'He is fine.' },
+      { id: 'hsk1_014', chinese: '妈妈好。', pinyin: 'Māma hǎo.', translation: 'Mom is fine.' },
+      { id: 'hsk1_015', chinese: '爸爸好。', pinyin: 'Bàba hǎo.', translation: 'Dad is fine.' }
+    ];
 
-      return result;
+    var levelSize = 5;  // 每级 5 个句子
+    var currentLevel = 0; // 当前层级 (从 0 开始)
+    var currentIndex = 0; // 当前在数组中的绝对索引
+    var learned = []; // 已学句子的 id 数组
+
+    // ===== 核心数据计算 =====
+    function getLevelData(level) {
+      var start = level * levelSize;
+      var end = Math.min(start + levelSize, allData.length);
+      return allData.slice(start, end);
     }
 
-    // ============ DATA ============
-    var dailyGoal = parseInt(localStorage.getItem('juli_daily_goal')) || 5;
-    var currentLevel = parseInt(localStorage.getItem('juli_level')) || 1;
-    var sentenceData = [];
-    var todaySentences = [];
-
-    sentenceData = getSentencesByLevel(currentLevel, dailyGoal);
-    todaySentences = sentenceData;
-
-    // ============ STATE ============
-    var currentIndex = 0;
-    var learnedSentences = JSON.parse(localStorage.getItem('juli_learned') || '[]');
-    var savedSentences = JSON.parse(localStorage.getItem('juli_saved') || '[]');
-    var streak = parseInt(localStorage.getItem('juli_streak')) || 0;
-    var lastStudyDate = localStorage.getItem('juli_last_date') || '';
-    var questCompleted = JSON.parse(localStorage.getItem('juli_quest_completed') || '{}');
-
-    var today = new Date().toDateString();
-
-    // ============ TOAST ============
-    function showToast(message, icon) {
-      icon = icon || 'fa-info-circle';
-      var toast = document.getElementById('toast');
-      toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
-      toast.classList.add('show');
-      clearTimeout(toast._timeout);
-      toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2500);
-    }
-
-    // ============ GO TO QUEST ============
-
-    function goToQuest() {
-      var allLearned = todaySentences.every(function(s) { return learnedSentences.indexOf(s.id) !== -1; });
-      if (allLearned && todaySentences.length > 0) {
-        localStorage.setItem('juli_quest_sentences', JSON.stringify(todaySentences));
-        localStorage.setItem('juli_quest_level', currentLevel);
-        window.location.href = 'quest.html';
-      } else {
-        showToast('📚 Learn all sentences first!', 'fa-info-circle');
-      }
-    }
-
-    // ============ GO TO NEXT LEVEL ============
-    function goToNextLevel() {
-      var totalSentences = 0;
-      if (typeof HSK1_SENTENCES !== 'undefined') {
-        totalSentences = HSK1_SENTENCES.length;
-      } else {
-        totalSentences = 30;
-      }
-      var nextStart = currentLevel * dailyGoal;
-
-      if (nextStart >= totalSentences) {
-        showToast('🎉 You\'ve completed all HSK1 sentences!', 'fa-trophy');
-        document.getElementById('completeTitle').textContent = '🎊 All HSK1 Complete!';
-        document.getElementById('completeDesc').textContent = 'You\'ve mastered all ' + totalSentences + ' sentences!';
-        var questBtn = document.getElementById('goQuestBtn');
-        questBtn.style.display = 'none';
-        var nextBtn = document.getElementById('nextLevelBtn');
-        nextBtn.textContent = '🏆 Return Home';
-        nextBtn.onclick = function() {
-          window.location.href = 'index.html';
-        };
-        return;
-      }
-
-      currentLevel += 1;
-      localStorage.setItem('juli_level', currentLevel);
-
-      learnedSentences = [];
-      localStorage.setItem('juli_learned', JSON.stringify(learnedSentences));
-
-      var newSentences = getSentencesByLevel(currentLevel, dailyGoal);
-      if (newSentences.length === 0) {
-        showToast('🎉 All levels complete!', 'fa-trophy');
-        window.location.href = 'index.html';
-        return;
-      }
-
-      sentenceData = newSentences;
-      todaySentences = newSentences;
-      currentIndex = 0;
-
-      document.getElementById('completedSection').classList.remove('show');
-      document.getElementById('sentenceCard').style.display = 'flex';
-
-      renderCard();
-      showToast('🚀 Level ' + currentLevel + ' started!', 'fa-rocket');
-    }
-
-    // ============ RENDER ============
+    // ===== 渲染当前卡片 =====
     function renderCard() {
-      var storedLevel = parseInt(localStorage.getItem('juli_level')) || 1;
-      if (storedLevel !== currentLevel) {
-        currentLevel = storedLevel;
-        sentenceData = getSentencesByLevel(currentLevel, dailyGoal);
-        todaySentences = sentenceData;
-        learnedSentences = JSON.parse(localStorage.getItem('juli_learned') || '[]');
-      }
+      var levelData = getLevelData(currentLevel);
+      var s = levelData[currentIndex];
 
-      if (lastStudyDate !== today) {
-        if (lastStudyDate === new Date(Date.now() - 86400000).toDateString()) {
-          streak += 1;
-        } else {
-          streak = 0;
-        }
-        lastStudyDate = today;
-        localStorage.setItem('juli_last_date', lastStudyDate);
-        localStorage.setItem('juli_streak', streak);
-      }
-
-      var allLearned = todaySentences.every(function(s) { return learnedSentences.indexOf(s.id) !== -1; });
-      var total = todaySentences.length;
-
-      if (allLearned && total > 0) {
-        document.getElementById('sentenceCard').style.display = 'none';
-        var section = document.getElementById('completedSection');
-        section.classList.add('show');
-        document.getElementById('completedCount').textContent = total;
-        document.getElementById('streakDisplay').textContent = streak;
-        document.getElementById('savedDisplay').textContent = savedSentences.length;
-        document.getElementById('totalLearnedDisplay').textContent = learnedSentences.length;
-
-        var levelKey = 'level_' + currentLevel;
-        var questBtn = document.getElementById('goQuestBtn');
-
-        var totalSentencesAll = 0;
-        if (typeof HSK1_SENTENCES !== 'undefined') {
-          totalSentencesAll = HSK1_SENTENCES.length;
-        } else {
-          totalSentencesAll = 30;
-        }
-
-        var hasMore = (currentLevel * dailyGoal) < totalSentencesAll;
-
-        if (questCompleted[levelKey]) {
-          questBtn.textContent = '✅ Quest Done!';
-          questBtn.className = 'quest-btn done';
-          questBtn.onclick = function() {
-            if (hasMore) {
-              goToNextLevel();
-            } else {
-              showToast('🎉 All levels complete!', 'fa-trophy');
-            }
-          };
-
-          var nextBtn = document.getElementById('nextLevelBtn');
-          nextBtn.textContent = hasMore ? '🚀 Next Level' : '🏁 All Done!';
-          nextBtn.onclick = function() {
-            if (hasMore) {
-              goToNextLevel();
-            } else {
-              showToast('🎉 You\'ve completed all HSK1 sentences!', 'fa-trophy');
-              window.location.href = 'index.html';
-            }
-          };
-        } else {
-          questBtn.textContent = '🎯 Go to Quest Game';
-          questBtn.className = 'quest-btn';
-          questBtn.onclick = goToQuest;
-
-          var nextBtn2 = document.getElementById('nextLevelBtn');
-          nextBtn2.textContent = '🔒 Complete Quest First';
-          nextBtn2.onclick = function() {
-            showToast('⚠️ Complete the Quest game first!', 'fa-exclamation-triangle');
-          };
-        }
-
-        updateNavBadge();
-        return;
-      }
-
-      document.getElementById('sentenceCard').style.display = 'flex';
-      document.getElementById('completedSection').classList.remove('show');
-
-      if (todaySentences.length === 0 || currentIndex >= todaySentences.length) {
-        currentIndex = 0;
-      }
-
-      var s = todaySentences[currentIndex];
-      var isLearned = learnedSentences.indexOf(s.id) !== -1;
-      var isSaved = savedSentences.indexOf(s.id) !== -1;
-
-      document.getElementById('cardNumber').textContent = '#' + (currentIndex + 1) + ' of ' + total;
-      document.getElementById('pinyinTop').textContent = s.pinyin || '';
+      // 更新界面
+      document.getElementById('pinyinTop').textContent = s.pinyin;
       document.getElementById('chineseText').textContent = s.chinese;
-      document.getElementById('translationText').textContent = s.translation || '';
+      document.getElementById('translationText').textContent = s.translation;
       document.getElementById('currentIdx').textContent = currentIndex + 1;
-      document.getElementById('totalCount').textContent = total;
-      document.getElementById('levelLabel').textContent = 'HSK1 · Level ' + currentLevel;
-
-      var pct = ((currentIndex + 1) / total) * 100;
+      document.getElementById('totalCount').textContent = levelData.length;
+      
+      // 更新进度条 (基于本级内已学数量)
+      var doneInThisLevel = levelData.filter(function(item) { 
+        return learned.indexOf(item.id) !== -1; 
+      }).length;
+      var pct = (doneInThisLevel / levelData.length) * 100;
       document.getElementById('progressFill').style.width = pct + '%';
 
+      // 切换导航按钮状态
+      document.getElementById('prevBtn').disabled = currentIndex === 0;
+      document.getElementById('nextBtn').disabled = currentIndex === levelData.length - 1;
+
+      // 检查是否本级全部学完
+      if (doneInThisLevel === levelData.length) {
+        document.getElementById('levelUpRow').classList.add('show');
+      } else {
+        document.getElementById('levelUpRow').classList.remove('show');
+      }
+
+      // 更新 "Mark as Learned" 按钮的状态 (如果已学)
       var learnBtn = document.getElementById('learnBtn');
-      if (isLearned) {
-        learnBtn.className = 'learn-btn done';
-        learnBtn.innerHTML = '<i class="fas fa-check"></i> Learned ✓';
+      if (learned.indexOf(s.id) !== -1) {
+        learnBtn.innerHTML = '<i class="fas fa-check-circle"></i> Learned';
+        learnBtn.classList.add('done');
         learnBtn.disabled = true;
       } else {
-        learnBtn.className = 'learn-btn';
         learnBtn.innerHTML = '<i class="fas fa-check"></i> Mark as Learned';
+        learnBtn.classList.remove('done');
         learnBtn.disabled = false;
       }
-
-      var saveBtn = document.getElementById('saveBtn');
-      if (isSaved) {
-        saveBtn.className = 'save-btn saved';
-        saveBtn.innerHTML = '<i class="fas fa-bookmark"></i>';
-      } else {
-        saveBtn.className = 'save-btn';
-        saveBtn.innerHTML = '<i class="far fa-bookmark"></i>';
-      }
-
-      var pillarsRow = document.getElementById('pillarsRow');
-      pillarsRow.innerHTML = '';
-      var pillars = [
-        { icon: 'fa-book', label: s.vocab || 'Key vocabulary', key: 'vocab' },
-        { icon: 'fa-puzzle-piece', label: s.pattern || 'Grammar pattern', key: 'pattern' },
-        { icon: 'fa-microphone', label: '🎵 Tones & Pronunciation', key: 'tones' },
-        { icon: 'fa-store', label: s.context || 'When to use this', key: 'context' },
-        { icon: 'fa-handshake', label: s.culture || 'Cultural insight', key: 'culture' }
-      ];
-      for (var p = 0; p < pillars.length; p++) {
-        if (pillars[p].label && pillars[p].label !== 'undefined') {
-          var tag = document.createElement('span');
-          tag.className = 'pillar-tag';
-          tag.dataset.pillar = pillars[p].key;
-          tag.innerHTML = '<i class="fas ' + pillars[p].icon + '"></i> ' + pillars[p].label;
-          pillarsRow.appendChild(tag);
-        }
-      }
-
-      document.getElementById('prevBtn').disabled = currentIndex === 0;
-      document.getElementById('nextBtn').disabled = currentIndex >= total - 1;
-      document.getElementById('tooltip').classList.remove('show');
-      updateNavBadge();
     }
 
-    function updateNavBadge() {
-      var allLearned = todaySentences.every(function(s) { return learnedSentences.indexOf(s.id) !== -1; });
-      var navQuest = document.getElementById('navQuest');
-      var dot = navQuest.querySelector('.badge-dot');
-      if (allLearned && todaySentences.length > 0) {
-        if (!dot) {
-          dot = document.createElement('span');
-          dot.className = 'badge-dot';
-          navQuest.appendChild(dot);
-        }
-      } else {
-        if (dot) dot.remove();
+    // ===== 跳到下一级 (闯关成功) =====
+    function goToNextLevel() {
+      var nextLevel = currentLevel + 1;
+      var nextLevelData = getLevelData(nextLevel);
+      
+      if (nextLevelData.length === 0) {
+        toast('🎉 You have finished all courses!');
+        return;
       }
-    }
-
-    // ============ EVENTS ============
-    document.addEventListener('DOMContentLoaded', function() {
+      
+      currentLevel = nextLevel;
+      currentIndex = 0; // 重置到新一级的第一句
+      document.getElementById('levelLabel').textContent = 'HSK ' + (currentLevel + 1);
       renderCard();
+      
+      toast('🚀 Level Up! Starting next set!');
+    }
 
-      document.getElementById('goHomeBtn').addEventListener('click', function() {
-        window.location.href = 'index.html';
-      });
-
-      document.getElementById('learnBtn').addEventListener('click', function() {
-        var s = todaySentences[currentIndex];
-        if (s && learnedSentences.indexOf(s.id) === -1) {
-          learnedSentences.push(s.id);
-          localStorage.setItem('juli_learned', JSON.stringify(learnedSentences));
-          showToast('✅ Learned: ' + s.chinese, 'fa-check-circle');
-          renderCard();
-          var allDone = todaySentences.every(function(s) { return learnedSentences.indexOf(s.id) !== -1; });
-          if (allDone && todaySentences.length > 0) {
-            setTimeout(function() {
-              showToast('🎉 All ' + todaySentences.length + ' sentences learned! Ready for quest!', 'fa-trophy');
-              renderCard();
-            }, 300);
-          }
-        }
-      });
-
-      document.getElementById('saveBtn').addEventListener('click', function() {
-        var s = todaySentences[currentIndex];
-        if (!s) return;
-        var idx = savedSentences.indexOf(s.id);
-        if (idx > -1) {
-          savedSentences.splice(idx, 1);
-          showToast('Removed from saved', 'fa-bookmark');
-        } else {
-          savedSentences.push(s.id);
-          showToast('⭐ Saved: ' + s.chinese, 'fa-bookmark');
-        }
-        localStorage.setItem('juli_saved', JSON.stringify(savedSentences));
-        renderCard();
-      });
-
-      document.getElementById('nextBtn').addEventListener('click', function() {
-        if (currentIndex < todaySentences.length - 1) {
-          currentIndex++;
-          renderCard();
-        }
-      });
-      document.getElementById('prevBtn').addEventListener('click', function() {
-        if (currentIndex > 0) {
-          currentIndex--;
-          renderCard();
-        }
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight' || e.key === ' ') {
-          e.preventDefault();
-          if (currentIndex < todaySentences.length - 1) {
-            currentIndex++;
-            renderCard();
-          }
-        }
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          if (currentIndex > 0) {
-            currentIndex--;
-            renderCard();
-          }
-        }
-      });
-
-      // ============================================================
-      // ===== 播放按钮 - 优化版（优先使用TTS，设备一致） =====
-      // ============================================================
-      document.getElementById('playBtn').addEventListener('click', function() {
-        var s = todaySentences[currentIndex];
-        if (!s) {
-          showToast('⚠️ No sentence loaded', 'fa-exclamation-triangle');
-          return;
-        }
-
-        // 如果正在播放，停止
-        if (this.classList.contains('playing')) {
-          if (window._currentAudio) {
-            window._currentAudio.pause();
-            window._currentAudio.currentTime = 0;
-            window._currentAudio = null;
-          }
-          if ('speechSynthesis' in window) speechSynthesis.cancel();
-          this.classList.remove('playing');
-          this.innerHTML = '<i class="fas fa-play"></i> Listen';
-          return;
-        }
-
-        this.classList.add('playing');
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-
-        // ===== 直接使用 TTS（文本转语音），设备一致，无音频文件依赖 =====
-        function playTTS() {
-          if (!('speechSynthesis' in window)) {
-            document.getElementById('playBtn').classList.remove('playing');
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Not supported';
-            setTimeout(function() {
-              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-            }, 1500);
-            return;
-          }
-
-          speechSynthesis.cancel();
-
-          var utterance = new SpeechSynthesisUtterance(s.chinese);
-          utterance.lang = 'zh-CN';
-          utterance.rate = 0.7;
-          utterance.pitch = 1.0;
-          utterance.volume = 1.0;
-
-          // 获取所有语音
-          var voices = speechSynthesis.getVoices();
-
-          function selectVoiceAndSpeak() {
-            var currentVoices = speechSynthesis.getVoices();
-            // 优先选择中文语音
-            var chineseVoice = currentVoices.find(function(v) {
-              return v.lang.startsWith('zh') || v.lang.includes('CN') || v.lang.includes('TW');
-            });
-            // 如果没有中文语音，选择Google中文语音
-            if (!chineseVoice) {
-              chineseVoice = currentVoices.find(function(v) {
-                return v.name && (v.name.includes('Google') && v.lang.startsWith('zh'));
-              });
-            }
-            if (chineseVoice) {
-              utterance.voice = chineseVoice;
-              utterance.rate = 0.65;
-            }
-            speechSynthesis.speak(utterance);
-          }
-
-          // 如果声音列表为空，等待加载
-          if (voices.length === 0) {
-            speechSynthesis.onvoiceschanged = function() {
-              selectVoiceAndSpeak();
-            };
-            // 超时处理：如果500ms后还没有声音列表，直接尝试
-            setTimeout(function() {
-              if (speechSynthesis.getVoices().length === 0) {
-                selectVoiceAndSpeak();
-              }
-            }, 500);
-          } else {
-            selectVoiceAndSpeak();
-          }
-
-          utterance.onstart = function() {
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-volume-up"></i> Speaking...';
-          };
-
-          utterance.onend = function() {
-            document.getElementById('playBtn').classList.remove('playing');
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-check"></i> Played ✓';
-            setTimeout(function() {
-              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-            }, 1000);
-          };
-
-          utterance.onerror = function(e) {
-            console.warn('⚠️ TTS error:', e);
-            document.getElementById('playBtn').classList.remove('playing');
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-            setTimeout(function() {
-              document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-            }, 1500);
-          };
-        }
-
-        // ===== 尝试加载音频文件（备用），同时准备TTS =====
-        var globalIndex = -1;
-        if (typeof HSK1_SENTENCES !== 'undefined') {
-          for (var i = 0; i < HSK1_SENTENCES.length; i++) {
-            if (HSK1_SENTENCES[i].id === s.id) {
-              globalIndex = i;
-              break;
-            }
-          }
-        }
-        if (globalIndex === -1) {
-          globalIndex = (currentLevel - 1) * dailyGoal + currentIndex;
-        }
-
-        var idx = globalIndex + 1;
-        var idNum = String(idx).padStart(3, '0');
-        var audioPath = 'audio/hsk1_' + idNum + '.mp3';
-
-        var audio = new Audio(audioPath);
-        window._currentAudio = audio;
-        var audioPlayed = false;
-
-        audio.oncanplaythrough = function() {
-          if (!audioPlayed) {
-            audioPlayed = true;
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-volume-up"></i> Playing...';
-            audio.play().catch(function() {
-              // 播放失败，使用TTS
-              console.warn('⚠️ Audio play failed, using TTS');
-              playTTS();
-            });
-          }
-        };
-
-        audio.onended = function() {
-          document.getElementById('playBtn').classList.remove('playing');
-          document.getElementById('playBtn').innerHTML = '<i class="fas fa-check"></i> Played ✓';
-          window._currentAudio = null;
-          setTimeout(function() {
-            document.getElementById('playBtn').innerHTML = '<i class="fas fa-play"></i> Listen';
-          }, 1000);
-        };
-
-        audio.onerror = function() {
-          console.warn('⚠️ Audio file error, using TTS');
-          window._currentAudio = null;
-          playTTS();
-        };
-
-        // 超时：如果音频3秒内没加载完成，使用TTS
-        var timeout = setTimeout(function() {
-          if (!audioPlayed && window._currentAudio) {
-            console.warn('⏱️ Audio load timeout, using TTS');
-            window._currentAudio.pause();
-            window._currentAudio = null;
-            playTTS();
-          }
-        }, 3000);
-
-        // 开始加载音频
-        audio.load();
-
-        // 如果浏览器不支持音频或音频加载慢，直接使用TTS
-        // 对于移动设备，直接使用TTS更可靠
-        var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        if (isMobile) {
-          // 移动设备：延迟一点，给音频加载机会，但最终使用TTS
-          setTimeout(function() {
-            if (!audioPlayed && window._currentAudio) {
-              console.log('📱 Mobile: using TTS for consistency');
-              window._currentAudio.pause();
-              window._currentAudio = null;
-              if (!document.getElementById('playBtn').classList.contains('playing')) {
-                // 如果按钮已经不在播放状态，说明已经被其他方式处理了
-                return;
-              }
-              playTTS();
-            }
-          }, 1500);
-        }
-      });
-
-      document.getElementById('chineseText').addEventListener('click', function() {
-        var s = todaySentences[currentIndex];
-        if (!s) return;
-        var tip = document.getElementById('tooltip');
-        var content = document.getElementById('tooltipContent');
-        content.innerHTML =
-          '<strong>📝 ' + s.chinese + '</strong> <span class="pinyin-tip">' + (s.pinyin || '') +
-          '</span><br><br><span class="highlight">Vocabulary:</span> ' + (s.vocab || 'N/A') +
-          '<br><span class="highlight">Pattern:</span> ' + (s.pattern || 'N/A') +
-          '<br><br>💡 Click the <span class="highlight">5 tags</span> below for more details.';
-        tip.classList.add('show');
-      });
-
-      document.getElementById('pinyinTop').addEventListener('click', function() {
-        var s = todaySentences[currentIndex];
-        if (!s) return;
-        var tip = document.getElementById('tooltip');
-        var content = document.getElementById('tooltipContent');
-        content.innerHTML =
-          '<strong>🔊 ' + (s.pinyin || '') +
-          '</strong><br><br><span class="highlight">Pronunciation tips:</span><br>• Chinese has 4 tones + neutral tone<br>• Click "Listen" to hear it<br>• Practice repeating out loud<br><br>🎵 <span class="pinyin-tip">Tone marks: ā á ǎ à</span>';
-        tip.classList.add('show');
-      });
-
-      document.getElementById('translationText').addEventListener('click', function() {
-        var s = todaySentences[currentIndex];
-        if (!s) return;
-        var tip = document.getElementById('tooltip');
-        var content = document.getElementById('tooltipContent');
-        content.innerHTML =
-          '<strong>🌍 ' + (s.translation || '') +
-          '</strong><br><br><span class="highlight">Context:</span> ' + (s.context || 'N/A') +
-          '<br><span class="highlight">Culture:</span> ' + (s.culture || 'N/A') +
-          '<br><br>💡 This sentence is used in ' + (s.context || 'daily') + ' situations.';
-        tip.classList.add('show');
-      });
-
-      document.getElementById('pillarsRow').addEventListener('click', function(e) {
-        var tag = e.target.closest('.pillar-tag');
-        if (!tag) return;
-        var s = todaySentences[currentIndex];
-        if (!s) return;
-        var tip = document.getElementById('tooltip');
-        var content = document.getElementById('tooltipContent');
-        var pillar = tag.dataset.pillar;
-
-        var labels = {
-          vocab: '<strong>📚 Vocabulary</strong><br><br>' + (s.vocab || 'Key words in this sentence.') +
-            '<br><br>💡 Learn these words to understand the sentence.',
-          pattern: '<strong>🧩 Grammar Pattern</strong><br><br>' + (s.pattern || 'How this sentence is built.') +
-            '<br><br>💡 Understanding the pattern helps you create new sentences.',
-          tones: '<strong>🎵 Pronunciation & Tones</strong><br><br>• Chinese has 4 tones: ā á ǎ à<br>• The tone changes the meaning!<br>• Listen carefully and repeat<br><br>💡 Practice makes perfect!',
-          context: '<strong>🌍 Context</strong><br><br>' + (s.context || 'When and where to use this.') +
-            '<br><br>💡 Knowing the context helps you use it naturally.',
-          culture: '<strong>🤝 Culture</strong><br><br>' + (s.culture || 'Why Chinese say it this way.') +
-            '<br><br>💡 Understanding culture helps you communicate better.'
-        };
-        content.innerHTML = labels[pillar] || 'Learn more about this sentence.';
-        tip.classList.add('show');
-      });
-
-      document.getElementById('closeTip').addEventListener('click', function() {
-        document.getElementById('tooltip').classList.remove('show');
-      });
-
-      document.getElementById('nextLevelBtn').addEventListener('click', function() {
-        var levelKey = 'level_' + currentLevel;
-        if (!questCompleted[levelKey]) {
-          showToast('⚠️ Complete the Quest game first!', 'fa-exclamation-triangle');
-          return;
-        }
-        goToNextLevel();
-      });
-
-      // ============ EXPORT BUTTONS ============
-      document.getElementById('exportBtn').addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (typeof showExportOptions !== 'undefined') {
-          showExportOptions();
-        } else {
-          showToast('📤 Export function loading...', 'fa-info-circle');
-        }
-      });
-
-      document.getElementById('exportWorkbookBtn').addEventListener('click', function() {
-        if (typeof exportWorkbook !== 'undefined') {
-          exportWorkbook('txt');
-        } else {
-          showToast('📤 Export function loading...', 'fa-info-circle');
-        }
-      });
-
-      // ============ NAV ============
-      var navItems = document.querySelectorAll('.nav-item');
-      for (var i = 0; i < navItems.length; i++) {
-        navItems[i].addEventListener('click', function() {
-          var page = this.dataset.page;
-          if (page === 'home') window.location.href = 'index.html';
-          else if (page === 'learn') { /* already here */ } else if (page === 'quest') {
-            goToQuest();
-          } else if (page === 'saved') {
-            if (savedSentences.length === 0) {
-              showToast('⭐ No saved sentences yet. Click the bookmark icon to save!', 'fa-bookmark');
-            } else {
-              var savedList = '';
-              for (var j = 0; j < savedSentences.length; j++) {
-                var s = null;
-                for (var k = 0; k < sentenceData.length; k++) {
-                  if (sentenceData[k].id === savedSentences[j]) {
-                    s = sentenceData[k];
-                    break;
-                  }
-                }
-                if (s) savedList += s.chinese + ' - ' + s.translation + '\n';
-              }
-              alert('⭐ Your Saved Sentences (' + savedSentences.length + '):\n\n' + savedList);
-            }
-          } else if (page === 'profile') {
-            var savedList = '';
-            for (var j = 0; j < savedSentences.length; j++) {
-              var s = null;
-              for (var k = 0; k < sentenceData.length; k++) {
-                if (sentenceData[k].id === savedSentences[j]) {
-                  s = sentenceData[k];
-                  break;
-                }
-              }
-              if (s) savedList += s.chinese + '\n' + s.pinyin + '\n' + s.translation + '\n---\n';
-            }
-            alert('👤 Your Profile\n\n' +
-              '🔥 ' + streak + ' day streak\n' +
-              '✅ ' + learnedSentences.length + ' learned\n' +
-              '⭐ ' + savedSentences.length + ' saved\n' +
-              '📈 Level ' + currentLevel + '\n\n' +
-              (savedSentences.length > 0 ? '📝 Workbook ready! Click OK to copy.' :
-                '💡 Save sentences to build your workbook!'));
-            if (savedSentences.length > 0 && savedList) {
-              navigator.clipboard.writeText(savedList).then(function() {
-                showToast('📋 Workbook copied to clipboard!', 'fa-copy');
-              }).catch(function() {
-                alert('📝 Your Workbook:\n\n' + savedList);
-              });
-            }
-          }
-        });
-      }
-
-      console.log('✅ HanLingo Learn ready | Level ' + currentLevel + ' | ' + sentenceData.length + ' sentences');
+    // ===== 事件监听 =====
+    document.getElementById('goHomeBtn').addEventListener('click', function() { window.location.href = 'index.html'; });
+    
+    document.getElementById('prevBtn').addEventListener('click', function() {
+      if (currentIndex > 0) { currentIndex--; renderCard(); }
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      var levelData = getLevelData(currentLevel);
+      if (currentIndex < levelData.length - 1) { currentIndex++; renderCard(); }
     });
 
-    window.markQuestComplete = function() {
-      var levelKey = 'level_' + currentLevel;
-      questCompleted[levelKey] = true;
-      localStorage.setItem('juli_quest_completed', JSON.stringify(questCompleted));
-      showToast('🎉 Quest Complete! Level ' + currentLevel + ' done!', 'fa-trophy');
-      renderCard();
-    };
+    // 标记为已学
+    document.getElementById('learnBtn').addEventListener('click', function() {
+      var levelData = getLevelData(currentLevel);
+      var s = levelData[currentIndex];
+      if (learned.indexOf(s.id) === -1) {
+        learned.push(s.id);
+        toast('✅ Learned: ' + s.chinese);
+        renderCard(); // 重新渲染更新进度
+      }
+    });
+
+    // 升级到下一级
+    document.getElementById('levelUpBtn').addEventListener('click', goToNextLevel);
+
+    // ===== Listen 按钮 (动态读取音频) =====
+       // ===== Listen 按钮（增加智能文件夹路径解析） =====
+    document.getElementById('playBtn').addEventListener('click', function() {
+      var levelData = getLevelData(currentLevel);
+      var s = levelData[currentIndex];
+      if (!s) return;
+
+      // ✅ 1. 获取当前句子的 id (例如: 'hsk1_001')
+      var id = s.id;
+      
+      // ✅ 2. 自动解析前缀 (提取 'hsk1')
+      // 找到第一个下划线 '_' 的位置，截取前面的部分
+      var underscoreIndex = id.indexOf('_');
+      var folderPrefix = underscoreIndex !== -1 ? id.substring(0, underscoreIndex) : id;
+      
+      // ✅ 3. 拼装路径：audio/前缀/完整文件名.mp3
+      // 如果是 hsk1_001，路径就会变成：audio/hsk1/hsk1_001.mp3
+      var audioPath = 'audio/' + folderPrefix + '/' + id + '.mp3';
+      
+      var audio = new Audio(audioPath);
+      audio.play().catch(function() {
+        console.log('⚠️ MP3 not found: ' + audioPath);
+        toast('⚠️ Audio missing in folder: ' + folderPrefix);
+      });
+    });
+    // ===== Toast 提示 =====
+    function toast(msg) {
+      var t = document.getElementById('toast');
+      t.innerHTML = msg;
+      t.classList.add('show');
+      clearTimeout(t._t);
+      t._t = setTimeout(function() { t.classList.remove('show'); }, 2000);
+    }
+
+    // ===== 初始化 =====
+    renderCard();
   </script>
 </body>
 </html>
