@@ -1,167 +1,113 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  
-  <!-- ===== Title ===== -->
-  <title>HanLingo · Quest - Chinese Sentence Games for HSK, YCT, BCT, MCT</title>
-  
-  <!-- ===== SEO Meta ===== -->
-  <meta name="description" content="Play interactive Chinese sentence games. Practice vocabulary, grammar, listening, and sentence structure across HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, Business, Travel, Restaurant, Hotel, Shopping, and Taxi sentence packs.">
-  <meta name="keywords" content="chinese games, hsk games, yct games, bct games, mct games, learn chinese through games, sentence quest, hanlingo, chinese practice, interactive chinese">
-  <meta name="author" content="HanLingo">
-  <meta name="robots" content="index, follow">
-  <meta name="language" content="English, Chinese">
-  
-  <!-- ===== Open Graph / Facebook ===== -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hanlingo.app/quest.html">
-  <meta property="og:title" content="HanLingo · Quest - Chinese Sentence Games for HSK, YCT, BCT, MCT">
-  <meta property="og:description" content="Play interactive Chinese sentence games. Practice vocabulary, grammar, listening, and sentence structure across HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, and themed sentence packs.">
-  <meta property="og:image" content="https://hanlingo.app/icon-512.png">
-  <meta property="og:site_name" content="HanLingo">
-  <meta property="og:locale" content="en_US">
-  
-  <!-- ===== Twitter Card ===== -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://hanlingo.app/quest.html">
-  <meta name="twitter:title" content="HanLingo · Quest - Chinese Sentence Games">
-  <meta name="twitter:description" content="Play interactive Chinese sentence games. Practice vocabulary, grammar, listening, and sentence structure across HSK 1-9, YCT 1-4, BCT A-B, MCT 1-3, and themed sentence packs.">
-  <meta name="twitter:image" content="https://hanlingo.app/icon-512.png">
-  
-  <!-- ===== PWA ===== -->
+  <title>HanLingo · 闯关</title>
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#FF6B35">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  
-  <!-- ===== Font Awesome ===== -->
+  <meta name="theme-color" content="#F5F5F7">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
-	<!-- ===== Favicon ===== -->
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.ico">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    body { background: #f9f7f5; color: #1e1e2a; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
-    .app-container { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 90vh; border-radius: 0 0 24px 24px; overflow: hidden; position: relative; }
-    .status-bar { background: #1e1e2a; color: #f0ede8; padding: 8px 16px; display: flex; justify-content: space-between; font-size: 0.75rem; letter-spacing: 0.3px; }
-    .header { padding: 16px 20px 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #efebe8; }
-    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px 8px; border-radius: 12px; transition: all 0.2s ease; animation: logoFloat 3s ease-in-out infinite; }
-    .logo-area:hover { background: #f5f2ef; }
-    .logo-area:active { animation: logoPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    @keyframes logoPop { 0% { transform: scale(1); } 30% { transform: scale(0.85) rotate(-3deg); } 60% { transform: scale(1.12) rotate(2deg); } 100% { transform: scale(1) rotate(0); } }
-    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
-    .logo-icon { background: #FF6B35; width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; font-weight: 800; letter-spacing: -0.5px; box-shadow: 0 4px 12px rgba(255,107,53,0.25); transition: all 0.3s ease; }
-    .logo-area:hover .logo-icon { transform: rotate(-8deg) scale(1.08); box-shadow: 0 6px 20px rgba(255,107,53,0.35); }
-    .logo-text { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.3px; transition: all 0.3s ease; }
-    .logo-area:hover .logo-text { transform: scale(1.02); }
-    .logo-text .han { color: #1e1e2a; }
-    .logo-text .lingo { color: #FF6B35; }
-    .header-actions { display: flex; gap: 12px; color: #5b5b6b; font-size: 1.2rem; }
-    .quest-container { padding: 16px 20px 10px 20px; max-width: 480px; margin: 0 auto; }
-    .quest-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .quest-progress .bar { flex: 1; height: 4px; background: #e6e0db; border-radius: 20px; overflow: hidden; }
-    .quest-progress .bar .fill { height: 100%; background: linear-gradient(90deg, #2d6a4f, #FF6B35); border-radius: 20px; transition: width 0.4s ease; }
-    .quest-progress .count { font-size: 0.75rem; font-weight: 600; color: #4a4a5a; white-space: nowrap; }
+    :root {
+      --bg: #F5F5F7;
+      --surface: #FFFFFF;
+      --border: #E5E5EA;
+      --text: #1D1D1F;
+      --text-secondary: #86868B;
+      --blue: #007AFF;
+      --blue-dark: #0066CC;
+      --green: #34C759;
+      --orange: #FF9500;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --radius: 14px;
+      --radius-full: 60px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
+    .app-container { max-width: 480px; margin: 0 auto; background: var(--surface); min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.02); }
+
+    .status-bar { background: var(--surface); padding: 8px 20px; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+    
+    .header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .logo-icon { background: var(--blue); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 700; }
+    .logo-text { font-weight: 700; font-size: 1rem; }
+    .logo-text .han { color: var(--text); }
+    .logo-text .lingo { color: var(--blue); }
+    .header-actions { display: flex; gap: 14px; color: var(--text-secondary); font-size: 1rem; align-items: center; }
+    .header-actions i { cursor: pointer; transition: 0.2s; }
+
+    .quest-container { padding: 16px 20px 10px 20px; }
+    .quest-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; background: var(--bg); padding: 10px; border-radius: var(--radius); }
+    .quest-progress .bar { flex: 1; height: 4px; background: var(--border); border-radius: 20px; overflow: hidden; }
+    .quest-progress .bar .fill { height: 100%; background: var(--green); border-radius: 20px; transition: width 0.4s ease; }
+    
     .quest-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .quest-header h2 { font-size: 1.2rem; font-weight: 700; }
-    .quest-header .badge { background: #1e1e2a; color: white; padding: 4px 14px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; }
-    .question-card { background: #ffffff; border-radius: 28px; border: 1.5px solid #f0ebe6; padding: 28px 24px 24px 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.04); min-height: 350px; display: flex; flex-direction: column; }
-    .question-number { font-size: 0.7rem; color: #b0a8a2; font-weight: 600; margin-bottom: 8px; }
-    .question-prompt { font-size: 1rem; font-weight: 600; color: #4a4a5a; margin-bottom: 12px; }
-    .question-chinese { font-size: 2rem; font-weight: 700; color: #1a1a28; letter-spacing: 0.5px; margin-bottom: 4px; }
-    .question-pinyin { font-size: 1rem; color: #7b7b8a; margin-bottom: 12px; }
+    .quest-header .badge { background: var(--bg); color: var(--text); padding: 4px 14px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 600; }
+
+    .question-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); min-height: 350px; display: flex; flex-direction: column; }
+    .question-number { font-size: 0.7rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 8px; }
+    .question-chinese { font-size: 2rem; font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin-bottom: 4px; }
+    .question-pinyin { font-size: 1rem; color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* 游戏选项 */
     .options-grid { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
-    .option-btn { background: #f8f5f2; border: 2px solid #e8e2dc; padding: 14px 18px; border-radius: 16px; font-size: 0.95rem; font-weight: 500; color: #1e1e2a; cursor: pointer; transition: all 0.2s ease; text-align: left; display: flex; align-items: center; gap: 12px; }
-    .option-btn:hover { border-color: #FF6B35; background: #fff8f5; transform: translateX(4px); }
-    .option-btn:active { transform: scale(0.97); }
-    .option-btn .letter { width: 28px; height: 28px; border-radius: 50%; background: #e8e2dc; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #4a4a5a; flex-shrink: 0; }
-    .option-btn.correct { border-color: #2d6a4f; background: #e7f3ed; }
-    .option-btn.correct .letter { background: #2d6a4f; color: white; }
-    .option-btn.wrong { border-color: #b0003a; background: #fce8ed; }
-    .option-btn.wrong .letter { background: #b0003a; color: white; }
-    .option-btn:disabled { cursor: not-allowed; opacity: 0.7; }
-    .option-btn:disabled:hover { transform: none; border-color: #e8e2dc; }
-    .sort-container { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0; min-height: 60px; padding: 12px; background: #f8f5f2; border-radius: 16px; border: 2px dashed #e0dad4; }
-    .sort-chip { background: white; border: 2px solid #d6cfc9; padding: 10px 18px; border-radius: 40px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
-    .sort-chip:hover { border-color: #FF6B35; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(255,107,53,0.15); }
-    .sort-chip:active { transform: scale(0.95); }
-    .sort-chip.placed { background: #e7f3ed; border-color: #2d6a4f; cursor: default; opacity: 0.7; }
-    .sort-chip.placed:hover { transform: none; box-shadow: none; }
-    .sort-hint { font-size: 0.75rem; color: #6a6a7a; text-align: center; margin-top: 4px; }
-    .sort-result { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 8px 0; min-height: 40px; padding: 8px; background: #f0ede8; border-radius: 12px; border: 1px solid #e0dad4; }
-    .sort-result .word { background: #1e1e2a; color: white; padding: 4px 12px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; }
-    .fill-container { margin: 12px 0; padding: 16px; background: #f8f5f2; border-radius: 16px; text-align: center; }
-    .fill-sentence { font-size: 1.4rem; font-weight: 600; color: #1a1a28; line-height: 2.2; }
-    .fill-sentence .blank { display: inline-block; min-width: 80px; border-bottom: 3px solid #FF6B35; margin: 0 4px; padding: 0 4px; }
-    .fill-sentence .blank input { border: none; background: transparent; font-size: 1.3rem; font-weight: 600; color: #1a1a28; text-align: center; width: 100%; outline: none; padding: 2px 0; }
-    .fill-sentence .blank input:focus { border-bottom: 3px solid #1e1e2a; }
-    .fill-hint { font-size: 0.75rem; color: #6a6a7a; margin-top: 8px; }
-    .listen-container { text-align: center; padding: 16px 0; }
-    .listen-btn { background: #1e1e2a; border: none; color: white; padding: 16px 40px; border-radius: 60px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 12px; }
-    .listen-btn:hover { background: #2f2f3a; transform: scale(1.02); }
-    .listen-btn:active { transform: scale(0.95); }
-    .listen-btn i { color: #f7934b; font-size: 1.3rem; }
-    .listen-btn.playing { background: #FF6B35; }
-    .listen-btn.playing i { color: white; }
-    .listen-status { font-size: 0.75rem; color: #6a6a7a; margin-top: 6px; }
-    .feedback { margin: 12px 0 8px 0; padding: 12px 16px; border-radius: 12px; font-size: 0.9rem; display: none; line-height: 1.6; }
+    .option-btn { background: var(--bg); border: 1.5px solid var(--border); padding: 14px 18px; border-radius: var(--radius); font-size: 0.95rem; font-weight: 500; color: var(--text); cursor: pointer; transition: 0.2s; text-align: left; display: flex; align-items: center; gap: 12px; }
+    .option-btn:hover { border-color: var(--blue); background: white; }
+    .option-btn .letter { width: 28px; height: 28px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); flex-shrink: 0; }
+    .option-btn.correct { border-color: var(--green); background: #E8F8ED; }
+    .option-btn.wrong { border-color: #FF3B30; background: #FFF0EF; }
+    .option-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+
+    /* 排序游戏 */
+    .sort-container { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0; min-height: 60px; padding: 12px; background: var(--bg); border-radius: var(--radius); border: 2px dashed var(--border); }
+    .sort-chip { background: white; border: 1px solid var(--border); padding: 10px 18px; border-radius: var(--radius-full); font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+    .sort-chip:hover { border-color: var(--blue); }
+    .sort-chip.placed { background: var(--blue); color: white; border-color: var(--blue); cursor: default; }
+    .sort-result { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 8px 0; min-height: 40px; padding: 8px; background: var(--bg); border-radius: var(--radius); }
+    .sort-result .word { background: var(--text); color: white; padding: 4px 12px; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 500; }
+
+    /* 填空游戏 */
+    .fill-container { margin: 12px 0; padding: 16px; background: var(--bg); border-radius: var(--radius); text-align: center; }
+    .fill-sentence { font-size: 1.4rem; font-weight: 600; color: var(--text); line-height: 2.2; }
+    .fill-sentence .blank input { border: none; border-bottom: 3px solid var(--blue); background: transparent; font-size: 1.3rem; font-weight: 600; color: var(--text); text-align: center; width: 80px; outline: none; padding: 2px 0; }
+
+    .feedback { margin: 12px 0 8px 0; padding: 12px 16px; border-radius: var(--radius); font-size: 0.9rem; display: none; line-height: 1.6; }
     .feedback.show { display: block; animation: fadeIn 0.3s ease; }
-    .feedback.correct { background: #e7f3ed; color: #1a4f3a; border: 1px solid #b8d9c5; }
-    .feedback.wrong { background: #fce8ed; color: #7a0028; border: 1px solid #f5c6d0; }
-    .feedback .highlight { font-weight: 600; }
+    .feedback.correct { background: #E8F8ED; color: var(--text); border: 1px solid var(--green); }
+    .feedback.wrong { background: #FFF0EF; color: var(--text); border: 1px solid #FF3B30; }
     @keyframes fadeIn { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
-    .quest-nav { display: flex; gap: 10px; margin-top: 16px; }
-    .quest-nav-btn { flex: 1; padding: 14px; border: 1.5px solid #d6cfc9; background: transparent; border-radius: 60px; font-weight: 600; font-size: 0.85rem; color: #2f2f3a; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .quest-nav-btn:hover { background: #f5f2ef; border-color: #FF6B35; }
-    .quest-nav-btn:active { transform: scale(0.96); }
-    .quest-nav-btn.primary { background: #1e1e2a; color: white; border-color: #1e1e2a; }
-    .quest-nav-btn.primary:hover { background: #2f2f3a; }
-    .quest-nav-btn.primary:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; }
-    .quest-completed { display: none; text-align: center; padding: 40px 20px; background: linear-gradient(145deg, #1e1e2a, #2a2a3a); border-radius: 28px; color: #f0ede8; }
-    .quest-completed.show { display: block; animation: fadeIn 0.5s ease; }
-    .quest-completed .big-icon { font-size: 4rem; color: #FF6B35; margin-bottom: 12px; }
-    .quest-completed h2 { font-size: 1.5rem; margin-bottom: 6px; }
-    .quest-completed p { opacity: 0.8; font-size: 0.9rem; margin-bottom: 8px; }
-    .quest-completed .stats { display: flex; justify-content: center; gap: 24px; margin: 16px 0; font-size: 0.85rem; }
-    .quest-completed .stats span { opacity: 0.7; }
-    .quest-completed .stats strong { color: #FF6B35; font-size: 1.2rem; }
-    .quest-completed .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 16px; }
-    .quest-completed .btn-group .btn { padding: 14px 28px; border-radius: 60px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: 0.2s; border: none; display: inline-flex; align-items: center; gap: 10px; }
-    .quest-completed .btn-group .btn-primary { background: #FF6B35; color: white; }
-    .quest-completed .btn-group .btn-primary:hover { background: #e85a2a; transform: translateY(-2px); }
-    .quest-completed .btn-group .btn-secondary { background: transparent; color: #f0ede8; border: 1.5px solid #f0ede8; }
-    .quest-completed .btn-group .btn-secondary:hover { background: rgba(255,255,255,0.1); }
-    .quest-completed .btn-group .btn-success { background: #2d6a4f; color: white; }
-    .quest-completed .btn-group .btn-success:hover { background: #1e4f3a; transform: translateY(-2px); }
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e8e2dc; display: flex; justify-content: space-around; padding: 8px 0 12px 0; max-width: 480px; margin: 0 auto; backdrop-filter: blur(8px); background: rgba(255,255,255,0.92); z-index: 100; }
-    .nav-item { display: flex; flex-direction: column; align-items: center; color: #898999; font-size: 0.55rem; font-weight: 500; gap: 1px; cursor: pointer; padding: 4px 12px; border-radius: 20px; transition: 0.1s; }
-    .nav-item i { font-size: 1.3rem; color: #6b6b7b; }
-    .nav-item.active i { color: #FF6B35; }
-    .nav-item.active { color: #1e1e2a; }
-    .nav-item:active { background: #f0edeb; }
-    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e1e2a; color: #f0ede8; padding: 12px 24px; border-radius: 60px; font-size: 0.85rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.2); opacity: 0; transition: all 0.3s ease; z-index: 200; max-width: 90%; text-align: center; pointer-events: none; }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .toast i { margin-right: 8px; color: #f7934b; }
-    @media (max-width: 400px) { .question-chinese { font-size: 1.6rem; } .question-card { padding: 20px 16px; } .sort-chip { font-size: 0.85rem; padding: 8px 14px; } .fill-sentence { font-size: 1.1rem; } }
+
+    .quest-nav-btn { flex: 1; padding: 14px; border: 1.5px solid var(--border); background: transparent; border-radius: var(--radius-full); font-weight: 600; font-size: 0.85rem; color: var(--text); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; }
+    .quest-nav-btn:hover { background: var(--bg); border-color: var(--blue); }
+    .quest-nav-btn.primary { background: var(--blue); color: white; border-color: var(--blue); }
+    .quest-nav-btn.primary:hover { background: var(--blue-dark); }
+    .quest-nav-btn.primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-top: 0.5px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0 12px 0; max-width: 480px; margin: 0 auto; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); font-size: 0.55rem; font-weight: 500; gap: 1px; cursor: pointer; padding: 4px 12px; border-radius: 20px; transition: 0.1s; }
+    .nav-item i { font-size: 1.3rem; color: var(--text-secondary); }
+    .nav-item.active i { color: var(--blue); }
+    .nav-item.active { color: var(--text); }
+
+    @media (max-width: 400px) { .question-chinese { font-size: 1.6rem; } .question-card { padding: 20px 16px; } }
   </style>
 </head>
 <body>
   <div class="app-container">
-    <!-- Status Bar -->
     <div class="status-bar">
       <span>HanLingo</span>
-      <span>Sentence Quest</span>
+      <span>句子闯关</span>
     </div>
 
-    <!-- Header -->
     <header class="header">
-      <div class="logo-area" id="goHomeBtn" title="Go to Home">
+      <div class="logo-area" id="goHomeBtn" title="返回主页">
         <div class="logo-icon">HL</div>
         <div class="logo-text">
           <span class="han">Han</span><span class="lingo">Lingo</span>
@@ -175,570 +121,82 @@
 
     <div class="quest-container">
       <div class="quest-progress">
-        <span style="font-size:0.7rem; font-weight:600; color:#4a4a5a;" id="levelLabel">HSK1</span>
+        <span style="font-size:0.7rem; font-weight:600; color:var(--text-secondary);">闯关进度</span>
         <div class="bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
-        <span class="count"><span id="currentIdx">0</span>/<span id="totalCount">5</span></span>
+        <span class="count" id="questCount">0/5</span>
       </div>
-      <div class="quest-header">
-        <h2>🎯 Sentence Quest</h2>
-        <span class="badge" id="gameBadge"><i class="fas fa-check-circle"></i> 0/5</span>
-      </div>
+      
       <div class="question-card" id="questionCard">
-        <div class="question-number" id="questionNumber">Question 1 of 5</div>
-        <div class="question-prompt" id="questionPrompt">Choose the correct meaning:</div>
+        <div class="question-number" id="questionNumber">第 1 / 5 题</div>
         <div class="question-chinese" id="questionChinese">你好吗？</div>
         <div class="question-pinyin" id="questionPinyin">Nǐ hǎo ma?</div>
-        <div id="gameArea"></div>
+        <div id="gameArea">
+          <!-- 选项区域 -->
+          <div class="options-grid">
+            <button class="option-btn" data-correct="true"><span class="letter">A</span> 你好吗？</button>
+            <button class="option-btn" data-correct="false"><span class="letter">B</span> 你好。</button>
+            <button class="option-btn" data-correct="false"><span class="letter">C</span> 谢谢。</button>
+            <button class="option-btn" data-correct="false"><span class="letter">D</span> 再见。</button>
+          </div>
+        </div>
         <div class="feedback" id="feedback"></div>
-        <div class="quest-nav">
-          <button class="quest-nav-btn" id="prevQuestBtn"><i class="fas fa-chevron-left"></i> Prev</button>
-          <button class="quest-nav-btn primary" id="nextQuestBtn" disabled>Next <i class="fas fa-chevron-right"></i></button>
-        </div>
+        <button class="quest-nav-btn primary" id="nextBtn" disabled>下一题 <i class="fas fa-chevron-right"></i></button>
       </div>
-      <div class="quest-completed" id="questCompleted">
-        <div class="big-icon"><i class="fas fa-trophy"></i></div>
-        <h2>🎉 Quest Complete!</h2>
-        <p id="completeDesc">You answered all <strong id="completedTotal">5</strong> questions!</p>
-        <div class="stats">
-          <span>✅ <strong id="correctCount">5</strong>/5 correct</span>
-          <span>🔥 <strong id="streakDisplay">0</strong> day streak</span>
-        </div>
-        <div class="btn-group">
-          <button class="btn btn-success" id="nextLevelFromQuestBtn"><i class="fas fa-arrow-right"></i> Next Level →</button>
-          <button class="btn btn-secondary" id="backToLearnBtn"><i class="fas fa-book-open"></i> Back to Learn</button>
-        </div>
-      </div>
-      <div style="text-align:center; padding:12px 0 6px; font-size:0.6rem; color:#9b9390;"><i class="fas fa-quote-left"></i> Answer all correctly to complete the quest!</div>
     </div>
 
     <div class="toast" id="toast"></div>
 
-    <!-- Bottom Nav -->
     <div class="bottom-nav">
-      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
-      <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
-      <div class="nav-item active" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
-      <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></div>
-      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>主页</span></div>
+      <div class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>课程</span></div>
+      <div class="nav-item active" data-page="quest"><i class="fas fa-flag"></i><span>闯关</span></div>
+      <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>收藏</span></div>
+      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>个人</span></div>
     </div>
   </div>
 
-  <script src="data/sentences.js"></script>
   <script>
-    var GAME_TYPES = ['choice', 'sort', 'fill', 'listen'];
-
-    function getSentencesByLevel(level, dailyGoal) {
-      var allData = [];
-      if (typeof HSK1_SENTENCES !== 'undefined' && HSK1_SENTENCES.length > 0) {
-        allData = HSK1_SENTENCES;
-      } else {
-        var fallback = [
-          { id: 'hsk1_001', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?', words: ['你', '好', '吗'] },
-          { id: 'hsk1_002', chinese: '你叫什么名字？', pinyin: 'Nǐ jiào shénme míngzi?', translation: 'What is your name?', words: ['你', '叫', '什么', '名字'] },
-          { id: 'hsk1_003', chinese: '我是学生。', pinyin: 'Wǒ shì xuéshēng.', translation: 'I am a student.', words: ['我', '是', '学生'] },
-          { id: 'hsk1_004', chinese: '他是我的同学。', pinyin: 'Tā shì wǒ de tóngxué.', translation: 'He is my classmate.', words: ['他', '是', '我', '的', '同学'] },
-          { id: 'hsk1_005', chinese: '她是我的老师。', pinyin: 'Tā shì wǒ de lǎoshī.', translation: 'She is my teacher.', words: ['她', '是', '我', '的', '老师'] }
-        ];
-        allData = fallback;
-      }
-      var startIdx = (level - 1) * dailyGoal;
-      var endIdx = Math.min(startIdx + dailyGoal, allData.length);
-      var result = allData.slice(startIdx, endIdx);
-      if (result.length === 0) { result = allData.slice(0, dailyGoal); }
-      return result;
-    }
-
-    function generateWrongAnswers(correctText, allTranslations) {
-      var allPossible = allTranslations || [];
-      var wrongs = allPossible.filter(function(t) { return t !== correctText && t.length > 0; });
-      var shuffled = wrongs.sort(function() { return Math.random() - 0.5; });
-      var selected = shuffled.slice(0, 3);
-      while (selected.length < 3) {
-        var fallbacks = [
-          'I want to drink water.', 'I am very happy.', 'Where are you going?',
-          'What time is it?', "I don't know.", 'Thank you very much.',
-          'Nice to meet you.', 'Good morning.', 'How old are you?',
-          'I like Chinese food.', 'What is this?', 'I am tired.'
-        ];
-        var fb = fallbacks.filter(function(f) { return f !== correctText && selected.indexOf(f) === -1; });
-        if (fb.length > 0) selected.push(fb[0]);
-        else selected.push('Incorrect option');
-      }
-      return selected.slice(0, 3);
-    }
-
-    var dailyGoal = parseInt(localStorage.getItem('juli_daily_goal')) || 5;
-    var currentLevel = parseInt(localStorage.getItem('juli_level')) || 1;
-    var sentenceData = [];
-    var allTranslations = [];
-
-    var storedData = localStorage.getItem('juli_quest_sentences');
-    var storedLevel = localStorage.getItem('juli_quest_level');
-
-    if (storedData && storedLevel) {
-      try {
-        var parsed = JSON.parse(storedData);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          sentenceData = parsed;
-          allTranslations = sentenceData.map(function(s) { return s.translation || ''; }).filter(function(t) { return t.length > 0; });
-          currentLevel = parseInt(storedLevel) || 1;
-        }
-      } catch (e) {}
-    }
-
-    if (sentenceData.length === 0) {
-      sentenceData = getSentencesByLevel(currentLevel, dailyGoal);
-      allTranslations = sentenceData.map(function(s) { return s.translation || ''; }).filter(function(t) { return t.length > 0; });
-    }
-
-    if (sentenceData.length === 0) {
-      sentenceData = [
-        { id: 'hsk1_001', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?', words: ['你', '好', '吗'] },
-        { id: 'hsk1_002', chinese: '你叫什么名字？', pinyin: 'Nǐ jiào shénme míngzi?', translation: 'What is your name?', words: ['你', '叫', '什么', '名字'] },
-        { id: 'hsk1_003', chinese: '今天天气很好。', pinyin: 'Jīntiān tiānqì hěn hǎo.', translation: 'The weather is very nice today.', words: ['今天', '天气', '很', '好'] }
-      ];
-      allTranslations = sentenceData.map(function(s) { return s.translation; }).filter(function(t) { return t.length > 0; });
-    }
-
-    sentenceData = sentenceData.map(function(s, idx) {
-      if (s.gameType) return s;
-      var gameType = GAME_TYPES[idx % GAME_TYPES.length];
-      return { id: s.id, chinese: s.chinese, pinyin: s.pinyin, translation: s.translation, words: s.words, fillAnswer: s.fillAnswer, choices: s.choices, audioUrl: s.audioUrl, gameType: gameType };
+    document.getElementById('goHomeBtn').addEventListener('click', function() { window.location.href = 'index.html'; });
+    
+    // 简单的逻辑模拟
+    var currentQuestion = 0;
+    var totalQuestions = 5;
+    document.getElementById('questCount').textContent = currentQuestion + '/' + totalQuestions;
+    
+    var btns = document.querySelectorAll('.option-btn');
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (this.classList.contains('correct') || this.classList.contains('wrong')) return;
+        
+        var isCorrect = this.dataset.correct === 'true';
+        var feedback = document.getElementById('feedback');
+        feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+        feedback.innerHTML = isCorrect ? '✅ 回答正确！' : '❌ 再想想！';
+        
+        // 禁用所有按钮并高亮正确答案
+        btns.forEach(function(b) { 
+          b.disabled = true; 
+          if (b.dataset.correct === 'true') b.classList.add('correct');
+        });
+        if (!isCorrect) this.classList.add('wrong');
+        
+        document.getElementById('nextBtn').disabled = false;
+      });
     });
 
-    sentenceData = sentenceData.map(function(s) {
-      if (s.choices && s.choices.length > 0) return s;
-      var correct = s.translation || 'Correct meaning';
-      var wrongs = generateWrongAnswers(correct, allTranslations);
-      var options = [
-        { text: correct, correct: true },
-        { text: wrongs[0] || "I don't know.", correct: false },
-        { text: wrongs[1] || 'Maybe not.', correct: false },
-        { text: wrongs[2] || 'Wrong answer.', correct: false }
-      ];
-      options.sort(function() { return Math.random() - 0.5; });
-      return { id: s.id, chinese: s.chinese, pinyin: s.pinyin, translation: s.translation, words: s.words, fillAnswer: s.fillAnswer, audioUrl: s.audioUrl, gameType: s.gameType, choices: options };
-    });
-
-    var currentIndex = 0;
-    var correctCount = 0;
-    var allAnswered = false;
-    var answered = false;
-    var learnedSentences = JSON.parse(localStorage.getItem('juli_learned') || '[]');
-    var savedSentences = JSON.parse(localStorage.getItem('juli_saved') || '[]');
-    var streak = parseInt(localStorage.getItem('juli_streak')) || 0;
-    var questCompleted = JSON.parse(localStorage.getItem('juli_quest_completed') || '{}');
-
-    var gameArea = document.getElementById('gameArea');
-    var questionNumber = document.getElementById('questionNumber');
-    var questionPrompt = document.getElementById('questionPrompt');
-    var questionChinese = document.getElementById('questionChinese');
-    var questionPinyin = document.getElementById('questionPinyin');
-    var feedbackEl = document.getElementById('feedback');
-    var prevBtn = document.getElementById('prevQuestBtn');
-    var nextBtn = document.getElementById('nextQuestBtn');
-    var progressFill = document.getElementById('progressFill');
-    var currentIdxEl = document.getElementById('currentIdx');
-    var totalCountEl = document.getElementById('totalCount');
-    var levelLabel = document.getElementById('levelLabel');
-    var questCompletedEl = document.getElementById('questCompleted');
-    var questionCard = document.getElementById('questionCard');
-
-    function showToast(message, icon) {
-      icon = icon || 'fa-info-circle';
-      var toast = document.getElementById('toast');
-      toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
-      toast.classList.add('show');
-      clearTimeout(toast._timeout);
-      toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2500);
-    }
-
-    function updateBadge() {
-      var badge = document.getElementById('gameBadge');
-      badge.innerHTML = '<i class="fas fa-check-circle"></i> ' + correctCount + '/' + sentenceData.length;
-    }
-
-    function showFeedback(isCorrect, correctAnswer) {
-      feedbackEl.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
-      if (isCorrect) {
-        feedbackEl.innerHTML = '✅ <span class="highlight">Correct!</span> "' + (correctAnswer || 'Nice job!') + '"';
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      currentQuestion++;
+      if (currentQuestion < totalQuestions) {
+        document.getElementById('questCount').textContent = currentQuestion + '/' + totalQuestions;
+        document.getElementById('progressFill').style.width = (currentQuestion / totalQuestions * 100) + '%';
+        document.getElementById('questionNumber').textContent = '第 ' + (currentQuestion + 1) + ' / ' + totalQuestions + ' 题';
+        document.getElementById('feedback').className = 'feedback';
+        document.getElementById('nextBtn').disabled = true;
+        btns.forEach(function(b) { b.disabled = false; b.classList.remove('correct', 'wrong'); });
       } else {
-        feedbackEl.innerHTML = '❌ <span class="highlight">Not quite.</span> The correct answer is: "' + (correctAnswer || 'Try again!') + '"';
-      }
-    }
-
-    function renderGame(gameType, s, idx) {
-      var letters = ['A', 'B', 'C', 'D'];
-
-      if (gameType === 'choice') {
-        questionPrompt.textContent = 'Choose the correct meaning:';
-        var choices = s.choices || [];
-        var choicesHTML = '';
-        for (var i = 0; i < choices.length; i++) {
-          choicesHTML += '<button class="option-btn" data-correct="' + choices[i].correct + '"><span class="letter">' + letters[i] + '</span> ' + choices[i].text + '</button>';
-        }
-        gameArea.innerHTML = '<div class="options-grid">' + choicesHTML + '</div>';
-        var optBtns = document.querySelectorAll('.option-btn');
-        for (var j = 0; j < optBtns.length; j++) {
-          optBtns[j].addEventListener('click', function() {
-            if (answered) return;
-            var isCorrect = this.dataset.correct === 'true';
-            var allBtns = document.querySelectorAll('.option-btn');
-            for (var k = 0; k < allBtns.length; k++) {
-              allBtns[k].disabled = true;
-              if (allBtns[k].dataset.correct === 'true') allBtns[k].classList.add('correct');
-              else if (allBtns[k] === this && !isCorrect) allBtns[k].classList.add('wrong');
-            }
-            showFeedback(isCorrect, s.translation);
-            answered = true;
-            nextBtn.disabled = false;
-
-            if (isCorrect) correctCount++;
-            updateBadge();
-          });
-        }
-      }
-
-      else if (gameType === 'sort') {
-        questionPrompt.textContent = '🔤 Arrange the pinyin to form the sentence:';
-        var pinyinStr = s.pinyin || '';
-        var pinyinWords = pinyinStr.replace(/[，。,.]/g, '').trim().split(' ');
-        pinyinWords = pinyinWords.filter(function(w) { return w.length > 0; });
-        if (pinyinWords.length < 2) pinyinWords = s.words || s.chinese.split('');
-        var shuffled = pinyinWords.slice().sort(function() { return Math.random() - 0.5; });
-        var selectedWords = [];
-        var sortHTML = '<div class="sort-container" id="sortContainer">';
-        for (var m = 0; m < shuffled.length; m++) {
-          sortHTML += '<span class="sort-chip" data-word="' + shuffled[m] + '">' + shuffled[m] + '</span>';
-        }
-        sortHTML += '</div>';
-        sortHTML += '<div class="sort-result" id="sortResult"></div>';
-        sortHTML += '<div class="sort-hint">💡 Click pinyin in the correct order</div>';
-        sortHTML += '<button class="quest-nav-btn primary" id="checkSortBtn" style="margin-top:10px; width:100%;"><i class="fas fa-check"></i> Check Answer</button>';
-        gameArea.innerHTML = sortHTML;
-        var sortContainer = document.getElementById('sortContainer');
-        var sortResult = document.getElementById('sortResult');
-        var checkSortBtn = document.getElementById('checkSortBtn');
-        var sortChips = sortContainer.querySelectorAll('.sort-chip');
-        for (var n = 0; n < sortChips.length; n++) {
-          sortChips[n].addEventListener('click', function() {
-            if (answered) return;
-            if (this.classList.contains('placed')) return;
-            var word = this.dataset.word;
-            var span = document.createElement('span');
-            span.className = 'word';
-            span.textContent = word;
-            sortResult.appendChild(span);
-            this.classList.add('placed');
-            selectedWords.push(word);
-          });
-        }
-        sortResult.addEventListener('click', function(e) {
-          if (answered) return;
-          if (e.target.classList.contains('word')) {
-            var word = e.target.textContent;
-            e.target.remove();
-            var idx2 = selectedWords.indexOf(word);
-            if (idx2 > -1) selectedWords.splice(idx2, 1);
-            var allChips = document.querySelectorAll('.sort-chip');
-            for (var p = 0; p < allChips.length; p++) {
-              if (allChips[p].dataset.word === word) allChips[p].classList.remove('placed');
-            }
-          }
-        });
-        checkSortBtn.addEventListener('click', function() {
-          if (answered) return;
-          var isCorrect = selectedWords.join(' ') === pinyinWords.join(' ');
-          showFeedback(isCorrect, s.chinese + ' — ' + pinyinWords.join(' '));
-          answered = true;
-          nextBtn.disabled = false;
-          if (isCorrect) correctCount++;
-          updateBadge();
-          this.disabled = true;
-        });
-      }
-
-      else if (gameType === 'fill') {
-        questionPrompt.textContent = '✏️ Fill in the missing word:';
-        var fillWord = s.fillAnswer || (s.words && s.words.length > 0 ? s.words[Math.floor(s.words.length / 2)] : '好');
-        var parts = s.chinese.split(fillWord);
-        var fillHTML = '<div class="fill-container">';
-        fillHTML += '<div class="fill-sentence">';
-        fillHTML += (parts[0] || '') + '<span class="blank"><input type="text" id="fillInput" placeholder="?" autocomplete="off"></span>' + (parts[1] || '');
-        fillHTML += '</div>';
-        fillHTML += '<div class="fill-hint">💡 Type the missing word (pinyin or Chinese character)</div>';
-        fillHTML += '<button class="quest-nav-btn primary" id="checkFillBtn" style="margin-top:10px; width:100%;"><i class="fas fa-check"></i> Check Answer</button>';
-        fillHTML += '</div>';
-        gameArea.innerHTML = fillHTML;
-        var fillInput = document.getElementById('fillInput');
-        var checkFillBtn = document.getElementById('checkFillBtn');
-        fillInput.focus();
-        function checkFill() {
-          if (answered) return;
-          var val = fillInput.value.trim().toLowerCase();
-          var isCorrect = val === fillWord || val === fillWord.toLowerCase();
-          showFeedback(isCorrect, fillWord);
-          answered = true;
-          nextBtn.disabled = false;
-          if (isCorrect) correctCount++;
-          updateBadge();
-          fillInput.disabled = true;
-          checkFillBtn.disabled = true;
-        }
-        fillInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkFill(); });
-        checkFillBtn.addEventListener('click', checkFill);
-      }
-
-      else if (gameType === 'listen') {
-        questionPrompt.textContent = '🎧 Listen and choose the correct meaning:';
-        var correct2 = s.translation || 'Correct meaning';
-        var wrongs2 = generateWrongAnswers(correct2, allTranslations);
-        var listenChoices = [
-          { text: correct2, correct: true },
-          { text: wrongs2[0] || 'Wrong answer 1', correct: false },
-          { text: wrongs2[1] || 'Wrong answer 2', correct: false },
-          { text: wrongs2[2] || 'Wrong answer 3', correct: false }
-        ];
-        listenChoices.sort(function() { return Math.random() - 0.5; });
-        var listenHTML = '<div class="listen-container">';
-        listenHTML += '<button class="listen-btn" id="listenPlayBtn"><i class="fas fa-play"></i> Listen</button>';
-        listenHTML += '<div class="listen-status" id="audioStatus">🎵 Click to listen</div>';
-        listenHTML += '<div style="margin-top:12px; font-size:0.85rem; color:#6a6a7a;">Listen to the sentence, then choose the meaning:</div>';
-        listenHTML += '</div>';
-        listenHTML += '<div class="options-grid" id="optionsGrid">';
-        for (var r = 0; r < listenChoices.length; r++) {
-          listenHTML += '<button class="option-btn" data-correct="' + listenChoices[r].correct + '"><span class="letter">' + letters[r] + '</span> ' + listenChoices[r].text + '</button>';
-        }
-        listenHTML += '</div>';
-        gameArea.innerHTML = listenHTML;
-        var listenBtn = document.getElementById('listenPlayBtn');
-        var audioStatus = document.getElementById('audioStatus');
-        
-        // 计算句子在全局数据中的实际位置
-        var globalIndex = -1;
-        if (typeof HSK1_SENTENCES !== 'undefined') {
-          for (var gi = 0; gi < HSK1_SENTENCES.length; gi++) {
-            if (HSK1_SENTENCES[gi].id === s.id) {
-              globalIndex = gi;
-              break;
-            }
-          }
-        }
-        if (globalIndex === -1) {
-          globalIndex = idx;
-        }
-        var fileNum = globalIndex + 1;
-        var idNum = String(fileNum).padStart(3, '0');
-        var audioPath = 'audio/hsk1_' + idNum + '.mp3';
-        console.log('🔊 Quest listen audio path:', audioPath);
-        
-        var optBtns = document.querySelectorAll('.option-btn');
-        for (var oi = 0; oi < optBtns.length; oi++) {
-          optBtns[oi].addEventListener('click', function() {
-            if (answered) return;
-            var isCorrect = this.dataset.correct === 'true';
-            var allBtns = document.querySelectorAll('.option-btn');
-            for (var kk = 0; kk < allBtns.length; kk++) {
-              allBtns[kk].disabled = true;
-              if (allBtns[kk].dataset.correct === 'true') allBtns[kk].classList.add('correct');
-              else if (allBtns[kk] === this && !isCorrect) allBtns[kk].classList.add('wrong');
-            }
-            showFeedback(isCorrect, s.translation);
-            answered = true;
-            nextBtn.disabled = false;
-            if (isCorrect) correctCount++;
-            updateBadge();
-          });
-        }
-        listenBtn.addEventListener('click', function() {
-          if (this.classList.contains('playing')) {
-            if (window._currentAudio) { window._currentAudio.pause(); window._currentAudio.currentTime = 0; window._currentAudio = null; }
-            this.classList.remove('playing');
-            this.innerHTML = '<i class="fas fa-play"></i> Listen';
-            audioStatus.textContent = '⏹️ Stopped';
-            return;
-          }
-          this.classList.add('playing');
-          this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-          audioStatus.textContent = '🎵 Loading audio...';
-          var audio = new Audio(audioPath);
-          window._currentAudio = audio;
-          audio.oncanplaythrough = function() {
-            audioStatus.textContent = '🔊 Playing...';
-            listenBtn.innerHTML = '<i class="fas fa-volume-up"></i> Playing...';
-            audio.play();
-          };
-          audio.onended = function() {
-            listenBtn.classList.remove('playing');
-            listenBtn.innerHTML = '<i class="fas fa-check"></i> Played ✓';
-            audioStatus.textContent = '✅ Played';
-            window._currentAudio = null;
-            setTimeout(function() { listenBtn.innerHTML = '<i class="fas fa-play"></i> Listen Again'; }, 1000);
-          };
-          audio.onerror = function() {
-            window._currentAudio = null;
-            if ('speechSynthesis' in window) {
-              var utterance = new SpeechSynthesisUtterance(s.chinese);
-              utterance.lang = 'zh-CN';
-              utterance.rate = 0.7;
-              listenBtn.innerHTML = '<i class="fas fa-volume-up"></i> Speaking...';
-              audioStatus.textContent = '🔊 TTS fallback...';
-              utterance.onend = function() {
-                listenBtn.classList.remove('playing');
-                listenBtn.innerHTML = '<i class="fas fa-check"></i> Played ✓';
-                setTimeout(function() { listenBtn.innerHTML = '<i class="fas fa-play"></i> Listen Again'; }, 800);
-              };
-              utterance.onerror = function() {
-                listenBtn.classList.remove('playing');
-                listenBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-                audioStatus.textContent = '❌ Error';
-                setTimeout(function() { listenBtn.innerHTML = '<i class="fas fa-play"></i> Listen Again'; }, 1500);
-              };
-              speechSynthesis.speak(utterance);
-            } else {
-              listenBtn.classList.remove('playing');
-              listenBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Not supported';
-              audioStatus.textContent = '❌ Not supported';
-              setTimeout(function() { listenBtn.innerHTML = '<i class="fas fa-play"></i> Listen Again'; }, 1500);
-            }
-          };
-          audio.load();
-        });
-      }
-    }
-
-    function renderQuestion() {
-      if (currentIndex >= sentenceData.length) { currentIndex = 0; }
-      var s = sentenceData[currentIndex];
-      var total = sentenceData.length;
-      var pct = ((currentIndex + 1) / total) * 100;
-
-      questionNumber.textContent = 'Question ' + (currentIndex + 1) + ' of ' + total;
-      questionChinese.textContent = s.chinese;
-      questionPinyin.textContent = s.pinyin || '';
-      currentIdxEl.textContent = currentIndex + 1;
-      totalCountEl.textContent = total;
-      levelLabel.textContent = 'HSK1 · Level ' + currentLevel;
-      progressFill.style.width = pct + '%';
-      feedbackEl.className = 'feedback';
-      feedbackEl.innerHTML = '';
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = true;
-      answered = false;
-      gameArea.innerHTML = '<div style="text-align:center; padding:20px; color:#9b9390;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
-      renderGame(s.gameType, s, currentIndex);
-    }
-
-    function goToNextLevel() {
-      var totalSentences = typeof HSK1_SENTENCES !== 'undefined' ? HSK1_SENTENCES.length : 30;
-      if ((currentLevel * dailyGoal) >= totalSentences) {
-        showToast('🎉 All levels complete!', 'fa-trophy');
+        alert('🎉 闯关完成！');
         window.location.href = 'index.html';
-        return;
       }
-      currentLevel += 1;
-      localStorage.setItem('juli_level', currentLevel);
-      showToast('🚀 Level ' + currentLevel + ' started!', 'fa-rocket');
-      window.location.href = 'learn.html';
-    }
-
-    function showCompleted() {
-      questionCard.style.display = 'none';
-      questCompletedEl.classList.add('show');
-      document.getElementById('completedTotal').textContent = sentenceData.length;
-      document.getElementById('correctCount').textContent = correctCount;
-      var streakUp = parseInt(localStorage.getItem('juli_streak')) || 0;
-      document.getElementById('streakDisplay').textContent = streakUp;
-
-      var nextLevelBtn = document.getElementById('nextLevelFromQuestBtn');
-
-      if (correctCount === sentenceData.length) {
-        var levelKey = 'level_' + currentLevel;
-        questCompleted[levelKey] = true;
-        localStorage.setItem('juli_quest_completed', JSON.stringify(questCompleted));
-
-        var totalAll = typeof HSK1_SENTENCES !== 'undefined' ? HSK1_SENTENCES.length : 30;
-        var hasMore = (currentLevel * dailyGoal) < totalAll;
-
-        document.getElementById('completeDesc').textContent = 'You answered all ' + sentenceData.length + ' questions correctly! 🎉';
-
-        if (hasMore) {
-          nextLevelBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Next Level → (Level ' + (currentLevel + 1) + ')';
-          nextLevelBtn.className = 'btn btn-success';
-          nextLevelBtn.onclick = goToNextLevel;
-        } else {
-          nextLevelBtn.innerHTML = '🏁 All HSK1 Complete!';
-          nextLevelBtn.className = 'btn btn-success';
-          nextLevelBtn.onclick = function() {
-            showToast('🎉 You\'ve completed all HSK1 sentences!', 'fa-trophy');
-            window.location.href = 'index.html';
-          };
-        }
-        showToast('🏆 Quest Complete! Level ' + currentLevel + ' done!', 'fa-trophy');
-      } else {
-        document.getElementById('completeDesc').textContent = 'You got ' + correctCount + '/' + sentenceData.length + ' correct. Try again!';
-        nextLevelBtn.innerHTML = '<i class="fas fa-redo"></i> Try Again';
-        nextLevelBtn.className = 'btn btn-primary';
-        nextLevelBtn.onclick = function() {
-          currentIndex = 0;
-          correctCount = 0;
-          allAnswered = false;
-          questCompletedEl.classList.remove('show');
-          questionCard.style.display = 'flex';
-          renderQuestion();
-          var badge = document.getElementById('gameBadge');
-          badge.innerHTML = '<i class="fas fa-dice"></i> Challenge';
-        };
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      if (sentenceData.length === 0) {
-        showToast('No questions available!', 'fa-exclamation-triangle');
-        return;
-      }
-      renderQuestion();
-      updateBadge();
-
-      document.getElementById('goHomeBtn').addEventListener('click', function() { window.location.href = 'index.html'; });
-      document.getElementById('backToLearnBtn').addEventListener('click', function() { window.location.href = 'learn.html'; });
-
-      prevBtn.addEventListener('click', function() {
-        if (currentIndex > 0) { currentIndex--; renderQuestion(); }
-      });
-
-      nextBtn.addEventListener('click', function() {
-        if (!answered) return;
-        if (currentIndex < sentenceData.length - 1) {
-          currentIndex++;
-          renderQuestion();
-        } else {
-          showCompleted();
-        }
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight') {
-          if (!nextBtn.disabled) nextBtn.click();
-        }
-        if (e.key === 'ArrowLeft') {
-          if (!prevBtn.disabled) prevBtn.click();
-        }
-      });
-
-      var navItems = document.querySelectorAll('.nav-item');
-      for (var i = 0; i < navItems.length; i++) {
-        navItems[i].addEventListener('click', function() {
-          var page = this.dataset.page;
-          if (page === 'home') window.location.href = 'index.html';
-          else if (page === 'learn') window.location.href = 'learn.html';
-          else if (page === 'quest') { /* already here */ }
-          else if (page === 'saved') showToast('🔖 Saved sentences', 'fa-bookmark');
-          else if (page === 'profile') window.location.href = 'profile.html';
-        });
-      }
-
-      console.log('✅ HanLingo Quest ready | Level ' + currentLevel + ' | ' + sentenceData.length + ' questions');
     });
   </script>
 </body>
