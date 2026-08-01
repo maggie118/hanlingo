@@ -1,20 +1,20 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
-  <title>HanLingo · 课程</title>
+  <title>HanLingo · Course</title>
   
-  <meta name="description" content="用真实的句子开始学习中文。支持 HSK 1-9, YCT, BCT, MCT。">
+  <meta name="description" content="Learn Chinese through real sentences. Supporting HSK 1-9, YCT, BCT, MCT.">
   <meta name="author" content="HanLingo">
   
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#F5F5F7">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" href="/favicon.ico?v=2">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
@@ -37,10 +37,10 @@
     body { background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; line-height: 1.5; padding: 0 0 80px 0; min-height: 100vh; }
     .app-container { max-width: 480px; margin: 0 auto; background: var(--surface); min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.02); }
 
-    /* 状态栏 */
+    /* ===== 状态栏 ===== */
     .status-bar { background: var(--surface); padding: 8px 20px; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
     
-    /* 头部 */
+    /* ===== 头部 ===== */
     .header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: var(--surface); }
     .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .logo-icon { background: var(--blue); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; font-weight: 700; }
@@ -51,7 +51,7 @@
     .header-actions i { cursor: pointer; transition: 0.2s; }
     .header-actions i:hover { color: var(--blue); }
 
-    /* 内容 */
+    /* ===== 学习内容 ===== */
     .learn-container { padding: 16px 20px 10px 20px; }
     .learn-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; background: var(--bg); padding: 10px; border-radius: var(--radius); }
     .learn-progress .bar { flex: 1; height: 4px; background: var(--border); border-radius: 20px; overflow: hidden; }
@@ -104,7 +104,7 @@
     .nav-btn.primary:hover { background: #2c2c2e; }
     .nav-btn.primary:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    /* 完成状态 */
+    /* ===== 完成状态 ===== */
     .completed-section { display: none; text-align: center; padding: 30px 20px; background: var(--bg); border-radius: var(--radius); }
     .completed-section.show { display: block; animation: fadeIn 0.5s ease; }
     @keyframes fadeIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
@@ -122,7 +122,7 @@
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .toast i { margin-right: 8px; color: #5AC8FA; }
 
-    /* 底部导航 */
+    /* ===== 底部导航 ===== */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-top: 0.5px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0 12px 0; max-width: 480px; margin: 0 auto; }
     .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); font-size: 0.55rem; font-weight: 500; gap: 1px; cursor: pointer; padding: 4px 12px; border-radius: 20px; transition: 0.1s; position: relative; }
     .nav-item i { font-size: 1.3rem; color: var(--text-secondary); }
@@ -134,24 +134,27 @@
 </head>
 <body>
   <div class="app-container">
+    <!-- ===== 状态栏 ===== -->
     <div class="status-bar">
       <span>HanLingo</span>
-      <span>免费课程</span>
+      <span>Free Course</span>
     </div>
 
+    <!-- ===== 头部 ===== -->
     <header class="header">
-      <div class="logo-area" id="goHomeBtn" title="返回主页">
+      <div class="logo-area" id="goHomeBtn" title="Back to Home">
         <div class="logo-icon">HL</div>
         <div class="logo-text">
           <span class="han">Han</span><span class="lingo">Lingo</span>
         </div>
       </div>
       <div class="header-actions">
-        <i class="far fa-bell" title="通知"></i>
-        <i class="far fa-user-circle" title="个人中心"></i>
+        <i class="far fa-bell" title="Notifications"></i>
+        <i class="far fa-user-circle" title="Profile"></i>
       </div>
     </header>
 
+    <!-- ===== 学习内容 ===== -->
     <div class="learn-container">
       <div class="learn-progress">
         <span style="font-size:0.7rem; font-weight:600; color:var(--text-secondary);" id="levelLabel">HSK 1</span>
@@ -159,74 +162,71 @@
         <span class="count"><span id="currentIdx">1</span>/<span id="totalCount">5</span></span>
       </div>
 
-      <!-- 卡片区域 -->
       <div class="sentence-card" id="sentenceCard">
         <div class="card-number" id="cardNumber">#1 / 5</div>
         <div class="pinyin-top" id="pinyinTop">Nǐ hǎo ma?</div>
         <div class="chinese" id="chineseText">你好吗？</div>
-        <div class="translation" id="translationText">你好吗？</div>
+        <div class="translation" id="translationText">How are you?</div>
 
         <div class="audio-row">
-          <button class="play-btn" id="playBtn"><i class="fas fa-play"></i> 播放</button>
-          <span style="font-size:0.7rem; color:var(--text-secondary);">点击文字查看更多</span>
+          <button class="play-btn" id="playBtn"><i class="fas fa-play"></i> Listen</button>
+          <span style="font-size:0.7rem; color:var(--text-secondary);">Tap text to explore</span>
         </div>
 
         <div class="word-tooltip" id="tooltip">
           <button class="close-tip" id="closeTip">✕</button>
-          <div id="tooltipContent">点击文本查看详细信息。</div>
+          <div id="tooltipContent">Click on text to see details.</div>
         </div>
 
         <div class="pillars-row" id="pillarsRow"></div>
 
         <div class="action-row">
-          <button class="learn-btn" id="learnBtn"><i class="fas fa-check"></i> 标记为已学</button>
+          <button class="learn-btn" id="learnBtn"><i class="fas fa-check"></i> Mark as Learned</button>
           <button class="save-btn" id="saveBtn"><i class="far fa-bookmark"></i></button>
         </div>
 
         <div class="nav-buttons">
-          <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> 上一句</button>
-          <button class="nav-btn primary" id="nextBtn">下一句 <i class="fas fa-chevron-right"></i></button>
+          <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> Previous</button>
+          <button class="nav-btn primary" id="nextBtn">Next <i class="fas fa-chevron-right"></i></button>
         </div>
       </div>
 
-      <!-- 完成区域 -->
       <div class="completed-section" id="completedSection">
         <div class="big-icon">🎉</div>
-        <h2 id="completeTitle">全部完成！</h2>
-        <p id="completeDesc">您已学完本组 <strong id="completedCount">5</strong> 个句子！</p>
+        <h2 id="completeTitle">All Done!</h2>
+        <p id="completeDesc">You've completed <strong id="completedCount">5</strong> sentences!</p>
         <div class="stats">
-          <span>🔥 <strong id="streakDisplay">0</strong> 天</span>
-          <span>⭐ <strong id="savedDisplay">0</span> 收藏</span>
-          <span>✅ <strong id="totalLearnedDisplay">0</span> 总数</span>
+          <span>🔥 <strong id="streakDisplay">0</strong> Days</span>
+          <span>⭐ <strong id="savedDisplay">0</span> Saved</span>
+          <span>✅ <strong id="totalLearnedDisplay">0</span> Total</span>
         </div>
         <div class="btn-group">
-          <button class="btn btn-primary" id="goQuestBtn"><i class="fas fa-flag"></i> 前往闯关</button>
-          <button class="btn btn-success" id="nextLevelBtn"><i class="fas fa-arrow-right"></i> 下一级</button>
+          <button class="btn btn-primary" id="goQuestBtn"><i class="fas fa-flag"></i> Go to Quest</button>
+          <button class="btn btn-success" id="nextLevelBtn"><i class="fas fa-arrow-right"></i> Next Level</button>
         </div>
       </div>
     </div>
 
     <div class="toast" id="toast"></div>
 
-    <!-- 底部导航 -->
+    <!-- ===== 底部导航 ===== -->
     <div class="bottom-nav">
-      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>主页</span></div>
-      <div class="nav-item active" data-page="learn"><i class="fas fa-book-open"></i><span>课程</span></div>
-      <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>闯关</span></div>
-      <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>收藏</span></div>
-      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>个人</span></div>
+      <div class="nav-item" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
+      <div class="nav-item active" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></div>
+      <div class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></div>
+      <div class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></div>
+      <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
   </div>
 
-  <!-- 模拟数据/逻辑脚本 -->
   <script>
-    // 模拟数据（实际应引用 data/sentences.js）
+    // ===== 数据 =====
     var data = [
-      { id: 'hsk1_001', chinese: '你好。', pinyin: 'Nǐ hǎo.', translation: '你好。' },
-      { id: 'hsk1_002', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: '你好吗？' },
-      { id: 'hsk1_003', chinese: '我很好。', pinyin: 'Wǒ hěn hǎo.', translation: '我很好。' },
-      { id: 'hsk1_004', chinese: '谢谢。', pinyin: 'Xièxiè.', translation: '谢谢。' },
-      { id: 'hsk1_005', chinese: '再见。', pinyin: 'Zàijiàn.', translation: '再见。' }
+      { id: 'hsk1_001', chinese: '你好。', pinyin: 'Nǐ hǎo.', translation: 'Hello.' },
+      { id: 'hsk1_002', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?' },
+      { id: 'hsk1_003', chinese: '我很好。', pinyin: 'Wǒ hěn hǎo.', translation: 'I am fine.' },
+      { id: 'hsk1_004', chinese: '谢谢。', pinyin: 'Xièxiè.', translation: 'Thank you.' },
+      { id: 'hsk1_005', chinese: '再见。', pinyin: 'Zàijiàn.', translation: 'Goodbye.' }
     ];
     var currentIndex = 0;
     var learned = [];
@@ -240,7 +240,6 @@
       document.getElementById('totalCount').textContent = data.length;
       document.getElementById('progressFill').style.width = ((currentIndex + 1) / data.length * 100) + '%';
       
-      // 按钮禁用/启用逻辑
       document.getElementById('prevBtn').disabled = currentIndex === 0;
       document.getElementById('nextBtn').disabled = currentIndex === data.length - 1;
     }
@@ -262,7 +261,21 @@
         else if (page === 'learn') { /* 当前页 */ }
         else if (page === 'quest') window.location.href = 'quest.html';
         else if (page === 'profile') window.location.href = 'profile.html';
-        else alert(page + ' 页面开发中');
+        else alert(page + ' page coming soon');
+      });
+    });
+
+    // ===== Listen 按钮动态匹配 =====
+    document.getElementById('playBtn').addEventListener('click', function() {
+      var s = data[currentIndex];
+      if (!s) return;
+      
+      var audioPath = 'audio/' + s.id + '.mp3';      
+      var audio = new Audio(audioPath);
+      
+      audio.play().catch(function() {
+        // 找不到MP3时不发声、不弹窗，仅控制台提示
+        console.log('⚠️ MP3 not found: ' + audioPath);
       });
     });
 
