@@ -599,14 +599,18 @@
   document.getElementById('checkinBtn').addEventListener('click', doCheckin);
   document.getElementById('calBtn').addEventListener('click', function() { toast('📅 Calendar coming soon!'); });
 
-  document.getElementById('listenBtn').addEventListener('click', function() {
+   document.getElementById('listenBtn').addEventListener('click', function() {
     var s = getDaily();
     if (!s) return;
-    var audio = new Audio('audio/hsk1_001.mp3');
+    
+    // ✅ 根据当前句子的 id，动态拼接出音频路径
+    // 例如：句子 id 为 'hsk1_002'，就会去读取 'audio/hsk1_002.mp3'
+    var audioPath = 'audio/' + s.id + '.mp3';
+    
+    var audio = new Audio(audioPath);
     audio.play().catch(function() {
-      var u = new SpeechSynthesisUtterance(s.chinese);
-      u.lang = 'zh-CN'; u.rate = 0.8;
-      speechSynthesis.speak(u);
+      // ✅ 如果找不到对应的 MP3 文件，只静默报错，绝对不播放机器音
+      console.log('⚠️ 未找到音频文件: ' + audioPath);
     });
   });
 
