@@ -1,62 +1,16 @@
 {
-  "name": "HanLingo — Learn Mandarin Chinese. Fast.",
+  "name": "HanLingo",
   "short_name": "HanLingo",
-  "description": "Learn survival Mandarin phrases and ace HSK exams. Perfect for travelers and serious learners.",
-  "lang": "en",
-  "dir": "ltr",
-  "start_url": "./",
-  "scope": "./",
+  "description": "Learn Mandarin Chinese. Fast.",
+  "start_url": ".",
   "display": "standalone",
+  "background_color": "#2d7d46",
+  "theme_color": "#2d7d46",
   "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#58cc02",
-  "categories": ["education", "lifestyle", "language"],
   "icons": [
     {
       "src": "logo.png",
-      "sizes": "48x48",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
-      "sizes": "384x384",
       "type": "image/png",
       "purpose": "any maskable"
     },
@@ -66,29 +20,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "shortcuts": [
-    {
-      "name": "Survival Phrases",
-      "short_name": "Survival",
-      "description": "Jump straight to Daily Emergency Chinese phrases",
-      "url": "./#survival",
-      "icons": [{ "src": "logo.png", "sizes": "96x96", "type": "image/png" }]
-    },
-    {
-      "name": "HSK Prep",
-      "short_name": "HSK",
-      "description": "Jump straight to HSK & BCT professional exam prep",
-      "url": "./#exams",
-      "icons": [{ "src": "logo.png", "sizes": "96x96", "type": "image/png" }]
-    },
-    {
-      "name": "Pricing",
-      "short_name": "Pricing",
-      "description": "View premium plans and Early Bird Lifetime offer",
-      "url": "./#pricing",
-      "icons": [{ "src": "logo.png", "sizes": "96x96", "type": "image/png" }]
-    }
-  ],
-  "prefer_related_applications": false
+  ]
 }
