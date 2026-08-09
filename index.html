@@ -8,9 +8,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="HanLingo" />
     <title>HanLingo — Learn Mandarin Chinese. Fast.</title>
-	<link rel="icon" type="image/x-icon" href="favicon.ico" />
-<link rel="icon" type="image/png" href="logo.png" />
-<link rel="apple-touch-icon" href="logo-180.png" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo-180.png" />
     <link rel="manifest" href="manifest.json" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -127,7 +127,6 @@
             display: inline-block;
         }
 
-        /* ---- LOGO 悬停 ---- */
         .logo-container:hover .logo-panda {
             animation: pandaNodHover 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             transition: none;
@@ -147,7 +146,6 @@
             opacity: 1;
         }
 
-        /* ---- LOGO 关键帧 ---- */
         @keyframes pandaNod {
             0%   { opacity: 0; transform: scale(0.5) translateY(10px); }
             50%  { transform: scale(1.05) translateY(-4px); }
@@ -609,6 +607,7 @@
             letter-spacing: 0.08em;
             margin-bottom: 10px;
             border: 1px solid;
+
         }
         .eyebrow-amber {
             color: var(--amber);
@@ -837,7 +836,52 @@
         }
 
         /* ============================================================
-           PRICING
+           PRICING ACCORDION
+           ============================================================ */
+        .pricing-accordion {
+            border-bottom: 1px solid var(--border-2);
+            padding: 12px 0 8px;
+            transition: all 0.2s ease;
+        }
+        .pricing-accordion:last-of-type {
+            border-bottom: none;
+        }
+        .pricing-accordion summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 4px 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            list-style: none;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+        .pricing-accordion summary:hover {
+            color: var(--green);
+        }
+        .pricing-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+        .pricing-accordion .summary-arrow {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .pricing-accordion[open] .summary-arrow {
+            transform: rotate(180deg);
+        }
+        .pricing-accordion .price-grid {
+            padding-top: 8px;
+            padding-bottom: 12px;
+        }
+
+        /* ============================================================
+           PRICING CARDS (shared)
            ============================================================ */
         .price-grid {
             display: grid;
@@ -881,6 +925,10 @@
             letter-spacing: 0.04em;
             box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
             white-space: nowrap;
+        }
+        .plan-ribbon.popular {
+            background: linear-gradient(90deg, #2d7d46, #3a9b5a);
+            box-shadow: 0 2px 8px rgba(45, 125, 70, 0.3);
         }
         .plan-head {
             margin-bottom: 14px;
@@ -1078,20 +1126,122 @@
             font-size: 0.75rem;
         }
 
-        .section-divider {
-            grid-column: 1 / -1;
-            font-size: 0.75rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            text-align: center;
-            padding: 20px 0 8px;
-            border-bottom: 1px solid var(--border-2);
-            margin-bottom: 8px;
+        /* ---- 高级「Most Popular」标签 (Full Library) ---- */
+        .plan-popular {
+            position: relative;
+            border: 2px solid var(--green);
+            background: linear-gradient(180deg, var(--green-bg) 0%, #fff 60%);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
-        .section-divider:first-of-type {
-            padding-top: 0;
+        .plan-popular:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .badge-popular {
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            background: #fff;
+            color: var(--green);
+            font-weight: 900;
+            font-size: 0.7rem;
+            padding: 4px 16px;
+            border-radius: 999px;
+            border: 1.5px solid var(--green);
+            box-shadow: 0 2px 12px rgba(45, 125, 70, 0.25);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        @media (max-width: 640px) {
+            .badge-popular {
+                top: -8px;
+                right: 10px;
+                font-size: 0.6rem;
+                padding: 2px 12px;
+            }
+        }
+
+        /* ---- 对比表格样式 ---- */
+        .compare-table-wrap {
+            margin-top: 0;
+            padding: 24px 20px;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid var(--border-2);
+            box-shadow: var(--shadow-sm);
+        }
+        .compare-table-wrap h4 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .compare-table th,
+        .compare-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-2);
+        }
+        .compare-table th {
+            font-weight: 900;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .compare-table td:first-child {
+            font-weight: 700;
+            text-align: left;
+            color: var(--text-secondary);
+        }
+        .compare-table .highlight-row {
+            background: var(--green-bg);
+            border-radius: 8px;
+        }
+        .compare-table .highlight-row td {
+            border-bottom-color: rgba(45, 125, 70, 0.2);
+        }
+        .compare-table .best-price {
+            color: var(--green);
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .compare-table .check-mark {
+            color: var(--green);
+            font-weight: 900;
+        }
+        .compare-table .cross-mark {
+            color: var(--text-muted);
+        }
+        .compare-table .tag-popular {
+            display: inline-block;
+            background: var(--green);
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 999px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        @media (max-width: 640px) {
+            .compare-table {
+                font-size: 0.7rem;
+            }
+            .compare-table th,
+            .compare-table td {
+                padding: 8px 4px;
+            }
         }
 
         /* ============================================================
@@ -1109,8 +1259,6 @@
             font-size: clamp(1.6rem, 2.6vw, 2.2rem);
             margin: 10px 0 14px;
             font-weight: 900;
-
-
         }
         .about-text>p {
             color: var(--text-secondary);
@@ -1376,7 +1524,6 @@
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             font-size: 0.95rem;
             font-weight: 700;
-
         }
         .tip-example .ex-py {
             font-size: 0.7rem;
@@ -1938,7 +2085,6 @@
         <!-- SECTION C · REVIEW CHALLENGE -->
         <!-- ============================================================ -->
         <section id="challenge" class="review-challenge-section sec" aria-labelledby="challenge-title">
-
             <div class="wrap">
                 <div class="sec-head">
                     <span class="eyebrow eyebrow-blue">Section C · Review Challenge</span>
@@ -2019,7 +2165,7 @@
         </section>
 
         <!-- ============================================================ -->
-        <!-- PRICING -->
+        <!-- PRICING (顺序已调整：对比表格移到了灵活计划之前) -->
         <!-- ============================================================ -->
         <section id="pricing" class="sec" aria-labelledby="pricing-title">
             <div class="wrap">
@@ -2029,130 +2175,222 @@
                     <p class="sec-sub">Whether you want to test your skills, learn practical Chinese, or prepare for exams — we have a plan for you.</p>
                 </div>
 
-                <div class="price-grid">
-                    <div class="section-divider">── Pay as You Go ──</div>
-                    <article class="plan" data-plan="single_challenge">
-                        <div class="plan-head"><h3>Single Challenge</h3><p class="plan-sub">Just the quiz. No study content.</p></div>
-                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">3.99</span><span class="pp-unit">one-time</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> 1 level (HSK/YCT/BCT/MCT)</li>
-                            <li><span class="chk">✓</span> 10 random questions/round</li>
-                            <li><span class="chk">✓</span> Unlimited attempts</li>
-                            <li><span class="chk">✓</span> Instant results</li>
-                            <li class="mute"><span class="chk grey">—</span> No vocabulary study</li>
-                        </ul>
-                        <button class="btn-outline" onclick="openPaywall('single_challenge','3.99')">Get Challenge — $3.99</button>
-                    </article>
-                    <article class="plan" data-plan="single_topic">
-                        <div class="plan-head"><h3>Single Topic</h3><p class="plan-sub">10 practical phrases + audio.</p></div>
-                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">4.99</span><span class="pp-unit">one-time</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> 1 survival topic (10 phrases)</li>
-                            <li><span class="chk">✓</span> Native audio &amp; pinyin</li>
-                            <li><span class="chk">✓</span> Word-by-word breakdown</li>
-                            <li><span class="chk">✓</span> Grammar notes</li>
-                            <li><span class="chk">✓</span> Lifetime access</li>
-                        </ul>
-                        <button class="btn-outline" onclick="openPaywall('single_topic','4.99')">Get Topic — $4.99</button>
-                    </article>
-                    <article class="plan" data-plan="single_exam">
-                        <div class="plan-head"><h3>Single Exam Level</h3><p class="plan-sub">Full vocabulary + challenge.</p></div>
-                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">19.99</span><span class="pp-unit">one-time</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> 1 exam level (HSK/YCT/BCT/MCT)</li>
-                            <li><span class="chk">✓</span> Full vocabulary list</li>
-                            <li><span class="chk">✓</span> Native audio &amp; examples</li>
-                            <li><span class="chk">✓</span> Interactive challenge</li>
-                            <li><span class="chk">✓</span> Grammar notes</li>
-                            <li><span class="chk">✓</span> Lifetime access</li>
-                        </ul>
-                        <button class="btn-outline" onclick="openPaywall('single_exam','19.99')">Buy Exam Level — $19.99</button>
-                    </article>
+                <!-- 1. SINGLE PURCHASES (collapsed) -->
+                <details class="pricing-accordion">
+                    <summary>
+                        <span>⬇️ Single purchases (starting at $3.99)</span>
+                        <span class="summary-arrow">▾</span>
+                    </summary>
+                    <div class="price-grid">
+                        <article class="plan" data-plan="single_challenge">
+                            <div class="plan-head"><h3>Single Challenge</h3><p class="plan-sub">Just the quiz. No study content.</p></div>
+                            <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">3.99</span><span class="pp-unit">one-time</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> 1 level (HSK/YCT/BCT/MCT)</li>
+                                <li><span class="chk">✓</span> 10 random questions/round</li>
+                                <li><span class="chk">✓</span> Unlimited attempts</li>
+                                <li><span class="chk">✓</span> Instant results</li>
+                                <li class="mute"><span class="chk grey">—</span> No vocabulary study</li>
+                            </ul>
+                            <button class="btn-outline" onclick="openPaywall('single_challenge','3.99')">Get Challenge — $3.99</button>
+                        </article>
 
-                    <div class="section-divider">── Best Value Bundles ──</div>
-                    <article class="plan" data-plan="survival_library">
-                        <div class="plan-head"><h3>Survival Library</h3><p class="plan-sub">15 topics. 150+ phrases.</p></div>
-                        <div class="plan-price"><span class="pp-was">$74.85</span><span class="pp-cur">$</span><span class="pp-num">39.99</span><span class="pp-unit">one-time</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> <strong>All 15</strong> survival topics</li>
-                            <li><span class="chk">✓</span> 150+ real-world phrases</li>
-                            <li><span class="chk">✓</span> Native audio &amp; pinyin</li>
-                            <li><span class="chk">✓</span> Word-by-word breakdowns</li>
-                            <li><span class="chk">✓</span> Grammar notes</li>
-                            <li><span class="chk">✓</span> Offline access</li>
-                            <li><span class="chk">✓</span> <strong>Saves 47%</strong></li>
-                        </ul>
-                        <button class="btn-soft" onclick="openPaywall('survival_library','39.99')">Buy Library — $39.99</button>
-                        <p class="plan-foot">🎯 Best for travelers</p>
-                    </article>
-                    <article class="plan" data-plan="exam_bundle">
-                        <div class="plan-head"><h3>Exam Bundle</h3><p class="plan-sub">HSK 1–6 + challenges.</p></div>
-                        <div class="plan-price"><span class="pp-was">$119.94</span><span class="pp-cur">$</span><span class="pp-num">79.99</span><span class="pp-unit">one-time</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> <strong>All</strong> HSK 1–6 levels</li>
-                            <li><span class="chk">✓</span> Full vocabulary lists</li>
-                            <li><span class="chk">✓</span> Native audio &amp; examples</li>
-                            <li><span class="chk">✓</span> All Review Challenges</li>
-                            <li><span class="chk">✓</span> Grammar notes</li>
-                            <li><span class="chk">✓</span> <strong>Saves 33%</strong></li>
-                        </ul>
-                        <button class="btn-soft" onclick="openPaywall('exam_bundle','79.99')">Buy Bundle — $79.99</button>
-                        <p class="plan-foot">🎯 Best for exam takers</p>
-                    </article>
-                    <article class="plan" data-plan="full_library">
-                        <div class="plan-head"><h3>Full Library</h3><p class="plan-sub">Survival + Exams + Challenges</p></div>
-                        <div class="plan-price"><span class="pp-was">$194.83</span><span class="pp-cur">$</span><span class="pp-num">99.99</span><span class="pp-unit">one-time</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> <strong>Everything</strong> in Survival Library</li>
-                            <li><span class="chk">✓</span> <strong>Everything</strong> in Exam Bundle</li>
-                            <li><span class="chk">✓</span> All Review Challenges</li>
-                            <li><span class="chk">✓</span> Offline access</li>
-                            <li><span class="chk">✓</span> Lifetime access</li>
-                            <li><span class="chk">✓</span> <strong>Saves 49%</strong></li>
-                        </ul>
-                        <button class="btn-soft" onclick="openPaywall('full_library','99.99')">Buy Full Library — $99.99</button>
-                        <p class="plan-foot">🎯 Best value for all learners</p>
-                    </article>
+                        <article class="plan" data-plan="single_topic">
+                            <div class="plan-head"><h3>Single Topic</h3><p class="plan-sub">10 practical phrases + audio.</p></div>
+                            <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">4.99</span><span class="pp-unit">one-time</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> 1 survival topic (10 phrases)</li>
+                                <li><span class="chk">✓</span> Native audio &amp; pinyin</li>
+                                <li><span class="chk">✓</span> Word-by-word breakdown</li>
+                                <li><span class="chk">✓</span> Grammar notes</li>
+                                <li><span class="chk">✓</span> Lifetime access</li>
+                            </ul>
+                            <button class="btn-outline" onclick="openPaywall('single_topic','4.99')">Get Topic — $4.99</button>
+                        </article>
 
-                    <div class="section-divider">── Flexible &amp; Forever ──</div>
-                    <article class="plan" data-plan="monthly">
-                        <div class="plan-head"><h3>Monthly Pass</h3><p class="plan-sub">Everything. Month by month.</p></div>
-                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">21.99</span><span class="pp-unit">/ month</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> <strong>All</strong> survival topics</li>
-                            <li><span class="chk">✓</span> <strong>All</strong> exam levels</li>
-                            <li><span class="chk">✓</span> <strong>All</strong> review challenges</li>
-                            <li><span class="chk">✓</span> Full vocabulary &amp; audio</li>
-                            <li><span class="chk">✓</span> Progress tracking</li>
-                            <li><span class="chk">✓</span> Cancel anytime</li>
-                        </ul>
-                        <button class="btn-soft" onclick="openPaywall('monthly','21.99')">Start Monthly — $21.99</button>
-                        <p class="plan-foot">Renews monthly · Cancel in one click</p>
-                    </article>
-                    <article class="plan plan-star" data-plan="lifetime">
-                        <div class="plan-ribbon">🔥 BEST VALUE</div>
-                        <div class="plan-head"><h3>Lifetime All-Access</h3><p class="plan-sub">One payment. Everything. Forever.</p></div>
-                        <div class="plan-price"><span class="pp-was">$399.00</span><span class="pp-cur">$</span><span class="pp-num grad-num">249.99</span><span class="pp-unit">one-time · forever</span></div>
-                        <ul class="plan-list">
-                            <li><span class="chk">✓</span> <strong>Everything</strong> in Monthly Pass</li>
-                            <li><span class="chk">✓</span> <strong>All</strong> future content free</li>
-                            <li><span class="chk">✓</span> Offline audio downloads</li>
-                            <li><span class="chk">✓</span> Priority support</li>
-                            <li><span class="chk">✓</span> Certificate templates</li>
-                            <li><span class="chk">✓</span> <strong>Saves vs monthly</strong></li>
-                        </ul>
-                        <button class="btn-cta" onclick="openPaywall('lifetime','249.99')">Claim Lifetime — $249.99</button>
-                        <div class="urgency">
-                            <div class="urgency-row">
-                                <span class="u-left"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Only <b>23</b> of 100 Early Bird slots left!</span>
-                                <span class="u-right"><b>23%</b> claimed</span>
+                        <article class="plan" data-plan="single_exam">
+                            <div class="plan-head"><h3>Single Exam Level</h3><p class="plan-sub">Full vocabulary + challenge.</p></div>
+                            <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">19.99</span><span class="pp-unit">one-time</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> 1 exam level (HSK/YCT/BCT/MCT)</li>
+                                <li><span class="chk">✓</span> Full vocabulary list</li>
+                                <li><span class="chk">✓</span> Native audio &amp; examples</li>
+                                <li><span class="chk">✓</span> Interactive challenge</li>
+                                <li><span class="chk">✓</span> Grammar notes</li>
+                                <li><span class="chk">✓</span> Lifetime access</li>
+                            </ul>
+                            <button class="btn-outline" onclick="openPaywall('single_exam','19.99')">Buy Exam Level — $19.99</button>
+                        </article>
+                    </div>
+                </details>
+
+                <!-- 2. BEST VALUE BUNDLES (expanded) -->
+                <details class="pricing-accordion" open>
+                    <summary>
+                        <span>🔥 Best‑value bundles (save up to 49%)</span>
+                        <span class="summary-arrow">▾</span>
+                    </summary>
+                    <div class="price-grid">
+                        <article class="plan" data-plan="survival_library">
+                            <div class="plan-head"><h3>Survival Library</h3><p class="plan-sub">15 topics. 150+ phrases.</p></div>
+                            <div class="plan-price"><span class="pp-was">$74.85</span><span class="pp-cur">$</span><span class="pp-num">39.99</span><span class="pp-unit">one-time</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> <strong>All 15</strong> survival topics</li>
+                                <li><span class="chk">✓</span> 150+ real-world phrases</li>
+                                <li><span class="chk">✓</span> Native audio &amp; pinyin</li>
+                                <li><span class="chk">✓</span> Word-by-word breakdowns</li>
+                                <li><span class="chk">✓</span> Grammar notes</li>
+                                <li><span class="chk">✓</span> Offline access</li>
+                                <li><span class="chk">✓</span> <strong>Saves 47%</strong></li>
+                            </ul>
+                            <button class="btn-soft" onclick="openPaywall('survival_library','39.99')">Buy Library — $39.99</button>
+                            <p class="plan-foot">🎯 Best for travelers</p>
+                        </article>
+
+                        <article class="plan" data-plan="exam_bundle">
+                            <div class="plan-head"><h3>Exam Bundle</h3><p class="plan-sub">HSK 1–6 + challenges.</p></div>
+                            <div class="plan-price"><span class="pp-was">$119.94</span><span class="pp-cur">$</span><span class="pp-num">79.99</span><span class="pp-unit">one-time</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> <strong>All</strong> HSK 1–6 levels</li>
+                                <li><span class="chk">✓</span> Full vocabulary lists</li>
+                                <li><span class="chk">✓</span> Native audio &amp; examples</li>
+                                <li><span class="chk">✓</span> All Review Challenges</li>
+                                <li><span class="chk">✓</span> Grammar notes</li>
+                                <li><span class="chk">✓</span> <strong>Saves 33%</strong></li>
+                            </ul>
+                            <button class="btn-soft" onclick="openPaywall('exam_bundle','79.99')">Buy Bundle — $79.99</button>
+                            <p class="plan-foot">🎯 Best for exam takers</p>
+                        </article>
+
+                        <article class="plan plan-popular" data-plan="full_library">
+                            <div class="badge-popular">👑 Most Popular</div>
+                            <div class="plan-head"><h3>Full Library</h3><p class="plan-sub">Survival + Exams + Challenges</p></div>
+                            <div class="plan-price"><span class="pp-was">$194.83</span><span class="pp-cur">$</span><span class="pp-num">99.99</span><span class="pp-unit">one-time</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> <strong>Everything</strong> in Survival Library</li>
+                                <li><span class="chk">✓</span> <strong>Everything</strong> in Exam Bundle</li>
+                                <li><span class="chk">✓</span> All Review Challenges</li>
+                                <li><span class="chk">✓</span> Offline access</li>
+                                <li><span class="chk">✓</span> Lifetime access</li>
+                                <li><span class="chk">✓</span> <strong>Saves 49%</strong></li>
+                            </ul>
+                            <button class="btn-soft" onclick="openPaywall('full_library','99.99')">Buy Full Library — $99.99</button>
+                            <p class="plan-foot">🎯 Best value for all learners</p>
+                        </article>
+                    </div>
+                </details>
+
+                <!-- 3. COMPARISON TABLE (now before Flexible Plans) -->
+                <details class="pricing-accordion">
+                    <summary>
+                        <span>📊 Compare with other language apps</span>
+                        <span class="summary-arrow">▾</span>
+                    </summary>
+                    <div class="compare-table-wrap" style="margin-top:0;">
+                        <h4>📊 Why HanLingo Full Library is the smarter choice</h4>
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>HanLingo <span class="tag-popular">Full Library</span></th>
+                                    <th>Other App 1</th>
+                                    <th>Other App 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Price</td>
+                                    <td class="best-price"><strong>$99.99</strong></td>
+                                    <td>$179.99</td>
+                                    <td>$159.99+</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td>Content coverage</td>
+                                    <td><span class="check-mark">✅ Survival Phrases + HSK 1–6 + All Challenges</span></td>
+                                    <td>Vocabulary &amp; Grammar only</td>
+                                    <td>Basic courses</td>
+                                </tr>
+                                <tr>
+                                    <td>Native audio</td>
+                                    <td><span class="check-mark">✅ 0.85× slow + normal</span></td>
+                                    <td><span class="cross-mark">❌ Normal only</span></td>
+                                    <td><span class="cross-mark">❌ Normal only</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Offline access</td>
+                                    <td><span class="check-mark">✅ PWA offline</span></td>
+                                    <td><span class="cross-mark">❌</span></td>
+                                    <td><span class="cross-mark">❌</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Future updates</td>
+                                    <td><span class="check-mark">✅ Free forever</span></td>
+                                    <td><span class="cross-mark">❌</span></td>
+                                    <td><span class="cross-mark">❌</span></td>
+                                </tr>
+                                <tr>
+                                    <td>One-time payment</td>
+                                    <td><span class="check-mark">✅ Yes</span></td>
+                                    <td><span class="check-mark">✅ Yes</span></td>
+                                    <td><span class="check-mark">✅ Yes</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="text-align:center;margin-top:12px;font-weight:700;color:var(--green);font-size:0.85rem;">
+                            🏆 Best value – get the most complete Chinese learning package for less than half the price of other apps.
+                        </p>
+                    </div>
+                </details>
+
+                <!-- 4. FLEXIBLE PLANS (now after comparison table) -->
+                <details class="pricing-accordion">
+                    <summary>
+                        <span>🔄 Monthly &amp; Lifetime memberships</span>
+                        <span class="summary-arrow">▾</span>
+                    </summary>
+                    <div class="price-grid">
+                        <article class="plan" data-plan="monthly">
+                            <div class="plan-head"><h3>Monthly Pass</h3><p class="plan-sub">Everything. Month by month.</p></div>
+                            <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">14.99</span><span class="pp-unit">/ month</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> <strong>All</strong> survival topics</li>
+                                <li><span class="chk">✓</span> <strong>All</strong> exam levels</li>
+                                <li><span class="chk">✓</span> <strong>All</strong> review challenges</li>
+                                <li><span class="chk">✓</span> Full vocabulary &amp; audio</li>
+                                <li><span class="chk">✓</span> Progress tracking</li>
+                                <li><span class="chk">✓</span> Cancel anytime</li>
+                            </ul>
+                            <button class="btn-soft" onclick="openPaywall('monthly','14.99')">Start Monthly — $14.99</button>
+                            <p class="plan-foot">Renews monthly · Cancel in one click</p>
+                        </article>
+
+                        <article class="plan plan-star" data-plan="lifetime">
+                            <div class="plan-ribbon">🔥 BEST VALUE</div>
+                            <div class="plan-head"><h3>Lifetime All‑Access</h3><p class="plan-sub">One payment. Everything. Forever.</p></div>
+                            <div class="plan-price"><span class="pp-was">$399.00</span><span class="pp-cur">$</span><span class="pp-num grad-num">249.99</span><span class="pp-unit">one-time · forever</span></div>
+                            <ul class="plan-list">
+                                <li><span class="chk">✓</span> <strong>Everything</strong> in Monthly Pass</li>
+                                <li><span class="chk">✓</span> <strong>All</strong> future content free</li>
+                                <li><span class="chk">✓</span> Offline audio downloads</li>
+                                <li><span class="chk">✓</span> Priority support</li>
+                                <li><span class="chk">✓</span> Certificate templates</li>
+                                <li><span class="chk">✓</span> <strong>Saves vs monthly</strong></li>
+                            </ul>
+                            <button class="btn-cta" onclick="openPaywall('lifetime','249.99')">Claim Lifetime — $249.99</button>
+                            <div class="urgency">
+                                <div class="urgency-row">
+                                    <span class="u-left"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Only <b>23</b> of 100 Early Bird slots left!</span>
+                                    <span class="u-right"><b>23%</b> claimed</span>
+                                </div>
+                                <div class="bar"><div class="bar-fill" style="width:23%"></div><div class="bar-pulse"></div></div>
+                                <div class="urgency-cta">⚡ Price returns to $399 after slots run out.</div>
                             </div>
-                            <div class="bar"><div class="bar-fill" style="width:23%"></div><div class="bar-pulse"></div></div>
-                            <div class="urgency-cta">⚡ Price returns to $399 after slots run out.</div>
-                        </div>
-                    </article>
-                </div>
-            </div>
+                        </article>
+                    </div>
+                </details>
+
+            </div> <!-- /wrap -->
         </section>
 
         <!-- ============================================================ -->
@@ -2283,7 +2521,7 @@
         })();
 
         // ================================================================
-        // PWA 安装逻辑（仅顶栏按钮）
+        // PWA 安装逻辑
         // ================================================================
         (function() {
             'use strict';
@@ -2427,7 +2665,6 @@
             var speedSelect = document.getElementById('speed-select');
             if (!voiceSelect) return;
 
-            // 恢复保存的偏好
             var savedVoice = localStorage.getItem('hanlingo_voice');
             if (savedVoice) {
                 voiceSelect.value = savedVoice;
