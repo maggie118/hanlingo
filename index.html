@@ -1,694 +1,2573 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <title>HanLingo · Learn Chinese through Sentences</title>
-  
-  <meta name="description" content="Learn Chinese through sentences. HSK 1-9, YCT, BCT, MCT · 5 Sentences daily">
-  <meta name="keywords" content="Learn Chinese, HSK, Mandarin, Sentences, Language Learning">
-  <meta name="author" content="HanLingo">
-  <meta name="robots" content="index, follow">
-  
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hanlingo.app/">
-  <meta property="og:title" content="HanLingo · Learn Chinese through Sentences">
-  <meta property="og:description" content="Learn Chinese through sentences. HSK 1-9, YCT, BCT, MCT">
-  <meta property="og:image" content="https://hanlingo.app/icon-512.png">
-  <meta property="og:site_name" content="HanLingo">
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HanLingo · Learn Chinese through Sentences">
-  <meta name="twitter:description" content="Learn Chinese through sentences. HSK 1-9, YCT, BCT, MCT">
-  <meta name="twitter:image" content="https://hanlingo.app/icon-512.png">
-  
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#F5F5F7">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <!-- 加上 ?v=2 强制浏览器更新 Favicon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
-  <link rel="icon" href="/favicon.ico?v=2">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
-  <script src="js/workbook-export.js"></script>
-  <script src="js/notification.js"></script>
-  <script src="js/user-system.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2d7d46" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="HanLingo" />
+    <title>HanLingo — Learn Mandarin Chinese. Fast.</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* ============================================================
+           ROOT VARIABLES
+           ============================================================ */
+        :root {
+            --green: #2d7d46;
+            --green-light: #3a9b5a;
+            --green-bg: #eaf5ee;
+            --green-soft: #d4e8dc;
 
-  <link rel="stylesheet" href="style.css">
-  
-  <style>
-    /* ============================================================
-       内部样式 - 排版优化：主次分明、呼吸感增强
-       ============================================================ */
-    
-    /* 1. 定义动画 */
-    @keyframes fadeSlideUp {
-      0% {
-        opacity: 0 !important;
-        transform: translateY(12px) !important;
-      }
-      100% {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-      }
-    }
+            --purple: #6c4a8e;
+            --purple-light: #8b6cb0;
+            --purple-bg: #f3edf8;
+            --purple-soft: #e5d9ef;
 
-    @keyframes fadeSlideIn {
-      from { opacity: 0 !important; transform: translateY(-10px) !important; }
-      to { opacity: 1 !important; transform: translateY(0) !important; }
-    }
+            --blue: #2b6c94;
+            --blue-light: #4a8fb8;
+            --blue-bg: #e8f0f7;
+            --blue-soft: #d0e4f0;
 
-    /* 2. 基础覆盖 */
-    .app { max-width: 480px !important; margin: 0 auto !important; background: #FFFFFF !important; min-height: 95vh !important; overflow: hidden !important; }
-    .status-bar { padding: 8px 20px 4px !important; display: flex !important; justify-content: space-between !important; font-size: 0.45rem !important; color: #86868B !important; background: #FFFFFF !important; border-bottom: 1px solid #E5E5EA !important; }
-    .status-bar .hl { color: #007AFF !important; font-weight: 600 !important; }
-    
-    .header { 
-      padding: 4px 18px 12px !important; 
-      display: flex !important; 
-      justify-content: flex-start !important; 
-      align-items: center !important; 
-      background: #FFFFFF !important; 
-      border-bottom: 1px solid #E5E5EA !important; 
-    }
-    
-    /* LOGO 与悬停动画（完美保留） */
-    .logo { 
-      display: flex !important; 
-      align-items: center !important; 
-      gap: 4px !important; 
-      cursor: pointer !important; 
-      text-decoration: none !important;
-      color: inherit !important;
-      animation: fadeSlideUp 0.5s ease-out both !important; 
-      transition: transform 0.3s ease-out, filter 0.3s ease-out !important; 
-    }
+            --amber: #b8860b;
+            --amber-light: #d4a02a;
+            --amber-bg: #f8f0e0;
+            --amber-soft: #f0e4c8;
 
-    .logo:hover {
-      transform: translateY(-4px) !important;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06)) !important;
-    }
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #8a8aaa;
 
-    .logo-img { width: 48px !important; height: 48px !important; border-radius: 12px !important; object-fit: contain !important; flex-shrink: 0 !important; display: block !important; }
-    .logo-text { font-weight: 700 !important; font-size: 1.05rem !important; letter-spacing: -0.3px !important; animation: fadeSlideUp 0.5s ease-out 0.1s both !important; }
-    .logo-text .han { color: #1D1D1F !important; }
-    .logo-text .lingo { color: #007AFF !important; }
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
 
-    /* ===== 头部右侧图标 ===== */
-    .header-actions { display: flex !important; gap: 16px !important; color: #86868B !important; font-size: 1.1rem !important; margin-left: auto !important; }
-    .header-actions i { cursor: pointer !important; padding: 4px !important; border-radius: 8px !important; transition: 0.2s !important; }
-    .header-actions i:hover { background: #F5F5F7 !important; color: #007AFF !important; }
-    .main { padding: 8px 18px 20px !important; }
-    
-    /* ===== 英雄区排版 ===== */
-    .hero { text-align: center !important; padding: 28px 20px 20px !important; margin-bottom: 20px !important; background: #F8F9FC !important; border-radius: 16px !important; }
-    .hero .badge { display: inline-block !important; background: #E8F2FF !important; color: #007AFF !important; font-size: 0.45rem !important; font-weight: 600 !important; padding: 2px 12px !important; border-radius: 60px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; margin-bottom: 10px !important; }
-    .hero h1 { font-size: 1.6rem !important; font-weight: 700 !important; letter-spacing: -0.5px !important; color: #1D1D1F !important; }
-    .hero h1 span { color: #007AFF !important; }
-    .hero .sub { font-size: 0.75rem !important; color: #86868B !important; max-width: 320px !important; margin: 6px auto 16px !important; line-height: 1.6 !important; }
-    
-    /* 优化：按钮大小微调，避免喧宾夺主 */
-    .hero .btn-primary { background: #007AFF !important; color: #fff !important; border: none !important; padding: 10px 24px !important; border-radius: 60px !important; font-size: 0.75rem !important; font-weight: 600 !important; cursor: pointer !important; transition: 0.25s !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; box-shadow: 0 2px 16px rgba(0,122,255,0.2) !important; }
-    .hero .btn-primary:hover { background: #0066CC !important; transform: scale(1.02) !important; box-shadow: 0 4px 24px rgba(0,122,255,0.3) !important; }
-    
-    /* ===== 步骤 ===== */
-    .steps { display: flex !important; gap: 6px !important; margin-bottom: 20px !important; background: #F8F9FC !important; border-radius: 14px !important; padding: 10px 6px !important; }
-    .step { flex: 1 !important; text-align: center !important; padding: 6px 2px !important; }
-    .step .num { font-size: 0.35rem !important; font-weight: 600 !important; color: #007AFF !important; letter-spacing: 0.5px !important; }
-    .step .icon { font-size: 0.7rem !important; color: #86868B !important; display: block !important; margin: 2px 0 !important; }
-    .step .label { font-size: 0.5rem !important; font-weight: 600 !important; color: #1D1D1F !important; }
-    .step .desc { font-size: 0.4rem !important; color: #86868B !important; }
-    
-    /* ===== 特点（优化视觉指引） ===== */
-    .features { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 4px 12px !important; background: #F8F9FC !important; border-radius: 14px !important; padding: 12px 14px !important; margin-bottom: 16px !important; }
-    .feature { display: flex !important; align-items: center !important; gap: 6px !important; font-size: 0.6rem !important; color: #1D1D1F !important; padding: 2px 0 !important; }
-    /* 优化：小蓝点放大，视觉引导更清晰 */
-    .feature .dot { color: #007AFF !important; font-size: 0.45rem !important; }
-    .feature.full { grid-column: 1 / -1 !important; border-top: 1px solid #E5E5EA !important; padding-top: 8px !important; flex-wrap: wrap !important; }
-    /* 优化：标签加一点呼吸感 */
-    .feature .tags span { font-size: 0.4rem !important; color: #86868B !important; padding: 1px 10px !important; border-radius: 40px !important; background: #FFFFFF !important; border: 1px solid #E5E5EA !important; display: inline-block !important; margin: 4px 2px !important; }
-    
-    /* ===== 每日句子（核心模块） ===== */
-    /* 优化：增加阴影，使其成为页面视觉重心 */
-    .daily { background: #FFFFFF !important; border-radius: 14px !important; padding: 16px 18px !important; border: 1px solid #E5E5EA !important; margin-bottom: 14px !important; transition: 0.2s !important; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03) !important; }
-    .daily:hover { border-color: #007AFF !important; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important; transform: translateY(-2px) !important; }
-    .daily .label { font-size: 0.45rem !important; font-weight: 600 !important; color: #86868B !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; margin-bottom: 4px !important; }
-    .daily .label i { color: #007AFF !important; margin-right: 4px !important; }
-    .daily .chinese { font-size: 1.3rem !important; font-weight: 700 !important; color: #1D1D1F !important; cursor: pointer !important; transition: 0.2s !important; }
-    .daily .chinese:hover { color: #007AFF !important; }
-    .daily .pinyin { font-size: 0.6rem !important; color: #86868B !important; margin: 1px 0 3px !important; }
-    .daily .translation { font-size: 0.6rem !important; color: #1D1D1F !important; background: #F5F5F7 !important; padding: 1px 14px !important; border-radius: 40px !important; display: inline-block !important; }
-    .daily .actions { display: flex !important; gap: 8px !important; margin-top: 10px !important; }
-    .daily .actions button { background: #F5F5F7 !important; border: none !important; padding: 4px 16px !important; border-radius: 40px !important; font-size: 0.5rem !important; font-weight: 500 !important; cursor: pointer !important; transition: 0.2s !important; display: flex !important; align-items: center !important; gap: 4px !important; color: #1D1D1F !important; }
-    .daily .actions button:hover { background: #E5E5EA !important; }
-    .daily .actions .blue-btn { background: #007AFF !important; color: #fff !important; }
-    .daily .actions .blue-btn:hover { background: #0066CC !important; }
-    
-    /* ===== 进度 ===== */
-    .progress { background: #FFFFFF !important; border-radius: 14px !important; padding: 14px 16px !important; border: 1px solid #E5E5EA !important; margin-bottom: 14px !important; }
-    .progress .head { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 6px !important; }
-    .progress .head .name { font-weight: 600 !important; font-size: 0.6rem !important; color: #1D1D1F !important; }
-    .progress .head .name i { color: #007AFF !important; margin-right: 4px !important; }
-    .progress .stats { display: flex !important; gap: 12px !important; font-size: 0.5rem !important; color: #86868B !important; margin-bottom: 6px !important; }
-    .progress .stats .fire { color: #FF9500 !important; }
-    .progress .stats .check { color: #34C759 !important; }
-    .progress .bar { width: 100% !important; height: 4px !important; background: #E5E5EA !important; border-radius: 20px !important; overflow: hidden !important; margin-bottom: 8px !important; }
-    .progress .bar .fill { height: 100% !important; background: #007AFF !important; border-radius: 20px !important; transition: width 0.5s !important; width: 0% !important; }
-    .progress .bottom { display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: wrap !important; gap: 4px !important; }
-    .progress .bottom .info { font-size: 0.45rem !important; color: #86868B !important; }
-    .progress .bottom .info i { color: #007AFF !important; }
-    .progress .bottom .btn-sm { background: #007AFF !important; color: #fff !important; border: none !important; padding: 3px 14px !important; border-radius: 40px !important; font-size: 0.45rem !important; font-weight: 600 !important; cursor: pointer !important; transition: 0.2s !important; }
-    .progress .bottom .btn-sm:hover { background: #0066CC !important; }
-    .progress .bottom .btn-sm:disabled { background: #34C759 !important; cursor: default !important; }
-    .progress .bottom .btn-outline { background: transparent !important; color: #007AFF !important; border: 1px solid #E5E5EA !important; padding: 3px 10px !important; border-radius: 40px !important; font-size: 0.45rem !important; cursor: pointer !important; transition: 0.2s !important; }
-    .progress .bottom .btn-outline:hover { background: #007AFF !important; color: #fff !important; border-color: #007AFF !important; }
-    
-    /* ===== 折叠区 ===== */
-    .collapse { border: 1px solid #E5E5EA !important; border-radius: 14px !important; margin-bottom: 8px !important; background: #FFFFFF !important; overflow: hidden !important; }
-    .collapse .head { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 12px 14px !important; cursor: pointer !important; transition: 0.15s !important; }
-    .collapse .head:hover { background: #F8F9FC !important; }
-    .collapse .head .left { display: flex !important; align-items: center !important; gap: 8px !important; font-size: 0.6rem !important; font-weight: 600 !important; }
-    .collapse .head .left i { color: #007AFF !important; font-size: 0.7rem !important; }
-    .collapse .head .badge { font-size: 0.35rem !important; font-weight: 600 !important; color: #34C759 !important; background: #E8F8ED !important; padding: 1px 10px !important; border-radius: 40px !important; }
-    .collapse .head .arrow { color: #86868B !important; transition: 0.3s !important; font-size: 0.6rem !important; }
-    .collapse .head .arrow.open { transform: rotate(180deg) !important; color: #007AFF !important; }
-    .collapse .body { max-height: 0 !important; overflow: hidden !important; transition: 0.35s !important; opacity: 0 !important; padding: 0 14px !important; }
-    .collapse .body.open { max-height: 2000px !important; opacity: 1 !important; padding: 0 14px 14px !important; }
-    .collapse .body .sub { font-size: 0.45rem !important; color: #86868B !important; margin-bottom: 8px !important; }
-    
-    /* ===== 网格卡片 ===== */
-    .grid-2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
-    .card { background: #FFFFFF !important; border: 1px solid #E5E5EA !important; border-radius: 10px !important; overflow: hidden !important; transition: 0.25s !important; }
-    .card:hover { border-color: #007AFF !important; transform: translateY(-2px) !important; }
-    .card .inner { padding: 10px 10px 6px !important; }
-    .card .tag { font-size: 0.3rem !important; font-weight: 700 !important; color: #34C759 !important; background: #E8F8ED !important; padding: 1px 8px !important; border-radius: 40px !important; display: inline-block !important; margin-bottom: 3px !important; text-transform: uppercase !important; }
-    .card .tag.gray { background: #F5F5F7 !important; color: #86868B !important; }
-    .card .name { font-size: 0.6rem !important; font-weight: 600 !important; }
-    .card .desc { font-size: 0.4rem !important; color: #86868B !important; }
-    .card .foot { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 4px 10px 8px !important; border-top: 1px solid #E5E5EA !important; }
-    .card .foot .price { font-size: 0.4rem !important; font-weight: 600 !important; color: #34C759 !important; }
-    .card .foot .price-gray { font-size: 0.4rem !important; color: #86868B !important; }
-    .card .foot .btn-s { background: #007AFF !important; color: #fff !important; border: none !important; padding: 2px 12px !important; border-radius: 40px !important; font-size: 0.4rem !important; font-weight: 600 !important; cursor: pointer !important; transition: 0.2s !important; }
-    .card .foot .btn-s:hover { background: #0066CC !important; }
-    .card .foot .btn-s-gray { background: #F5F5F7 !important; color: #86868B !important; border: none !important; padding: 2px 12px !important; border-radius: 40px !important; font-size: 0.4rem !important; cursor: default !important; }
-    
-    /* ===== 小包 ===== */
-    .grid-3 { display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; gap: 4px !important; }
-    .pack { background: #F8F9FC !important; border-radius: 10px !important; padding: 8px 4px !important; text-align: center !important; border: 1px solid #E5E5EA !important; cursor: pointer !important; transition: 0.2s !important; }
-    .pack:hover { border-color: #007AFF !important; transform: translateY(-2px) !important; }
-    .pack .emoji { font-size: 0.7rem !important; display: block !important; }
-    .pack .name { font-size: 0.45rem !important; font-weight: 500 !important; color: #1D1D1F !important; }
-    .pack .price { font-size: 0.35rem !important; color: #007AFF !important; font-weight: 600 !important; }
-    
-    /* ===== Early Bird ===== */
-    .early { background: #F8F9FC !important; border: 2px solid #007AFF !important; border-radius: 14px !important; padding: 16px 18px !important; margin: 12px 0 !important; position: relative !important; overflow: hidden !important; }
-    .early .tag { display: inline-block !important; background: #007AFF !important; color: #fff !important; font-size: 0.4rem !important; font-weight: 700 !important; padding: 1px 12px !important; border-radius: 40px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; margin-bottom: 4px !important; }
-    .early .main { font-size: 0.85rem !important; font-weight: 700 !important; color: #1D1D1F !important; }
-    .early .main .hl { color: #007AFF !important; }
-    .early .sub { font-size: 0.5rem !important; color: #86868B !important; }
-    .early .prices { display: flex !important; align-items: baseline !important; gap: 10px !important; margin: 4px 0 6px !important; }
-    .early .prices .reg { font-size: 0.55rem !important; color: #86868B !important; text-decoration: line-through !important; }
-    .early .prices .sale { font-size: 1.1rem !important; font-weight: 800 !important; color: #007AFF !important; }
-    .early .row { display: flex !important; justify-content: space-between !important; font-size: 0.45rem !important; color: #86868B !important; margin: 2px 0 !important; }
-    .early .row .num { font-size: 0.85rem !important; font-weight: 700 !important; color: #007AFF !important; }
-    .early .bar-wrap { width: 100% !important; height: 4px !important; background: #E5E5EA !important; border-radius: 20px !important; overflow: hidden !important; margin: 4px 0 8px !important; }
-    .early .bar-wrap .fill { height: 100% !important; background: #007AFF !important; border-radius: 20px !important; transition: width 0.8s !important; }
-    .early .btn-link { display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; background: #007AFF !important; color: #fff !important; padding: 10px !important; border-radius: 60px !important; font-weight: 700 !important; font-size: 0.7rem !important; text-decoration: none !important; width: 100% !important; transition: 0.25s !important; border: none !important; cursor: pointer !important; }
-    .early .btn-link:hover { background: #0066CC !important; transform: scale(1.01) !important; }
-    
-    /* ===== 底部 CTA ===== */
-    .bottom-cta { background: #F8F9FC !important; border-radius: 14px !important; padding: 18px 16px !important; margin: 14px 0 10px !important; text-align: center !important; }
-    .bottom-cta .title { font-size: 0.8rem !important; font-weight: 700 !important; }
-    .bottom-cta .title i { color: #007AFF !important; margin-right: 6px !important; }
-    .bottom-cta .desc { font-size: 0.55rem !important; color: #86868B !important; margin-bottom: 10px !important; }
-    .bottom-cta .desc span { color: #1D1D1F !important; font-weight: 500 !important; }
-    .bottom-cta .btn { background: #007AFF !important; color: #fff !important; border: none !important; padding: 10px 24px !important; border-radius: 60px !important; font-weight: 700 !important; font-size: 0.75rem !important; cursor: pointer !important; transition: 0.25s !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; }
-    .bottom-cta .btn:hover { background: #0066CC !important; transform: scale(1.02) !important; }
-    
-    /* ===== 导出区 ===== */
-    .export-cta { background: #E8F8ED !important; border-radius: 14px !important; padding: 16px !important; margin: 10px 0 !important; text-align: center !important; }
-    .export-cta .title { font-size: 0.75rem !important; font-weight: 700 !important; }
-    .export-cta .title i { color: #34C759 !important; margin-right: 6px !important; }
-    .export-cta .desc { font-size: 0.5rem !important; color: #86868B !important; margin-bottom: 8px !important; }
-    .export-cta .desc span { color: #34C759 !important; font-weight: 500 !important; }
-    .export-cta .btn { background: #fff !important; color: #1D1D1F !important; border: 1px solid #E5E5EA !important; padding: 8px 20px !important; border-radius: 60px !important; font-weight: 600 !important; font-size: 0.7rem !important; cursor: pointer !important; transition: 0.2s !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; }
-    .export-cta .btn:hover { transform: translateY(-2px) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.04) !important; }
-    .export-cta .btn i { color: #007AFF !important; }
-    
-    .footer-text { text-align: center !important; padding: 6px 0 !important; font-size: 0.35rem !important; color: #86868B !important; }
-    
-    /* ===== Toast ===== */
-    .toast { position: fixed !important; bottom: 90px !important; left: 50% !important; transform: translateX(-50%) translateY(20px) !important; background: rgba(29,29,31,0.9) !important; backdrop-filter: blur(12px) !important; color: #fff !important; padding: 8px 20px !important; border-radius: 60px !important; font-size: 0.65rem !important; font-weight: 500 !important; opacity: 0 !important; transition: 0.35s !important; z-index: 200 !important; pointer-events: none !important; box-shadow: 0 4px 24px rgba(0,0,0,0.1) !important; }
-    .toast.show { opacity: 1 !important; transform: translateX(-50%) translateY(0) !important; }
-    .toast i { color: #5AC8FA !important; margin-right: 6px !important; }
-    
-    /* ===== 底部导航 ===== */
-    .bottom-nav { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; background: rgba(255,255,255,0.92) !important; backdrop-filter: blur(20px) !important; border-top: 0.5px solid #E5E5EA !important; display: flex !important; justify-content: space-around !important; padding: 6px 0 10px !important; max-width: 480px !important; margin: 0 auto !important; }
-    .nav-item { display: flex !important; flex-direction: column !important; align-items: center !important; color: #86868B !important; font-size: 0.35rem !important; cursor: pointer !important; padding: 2px 10px !important; border-radius: 20px !important; background: none !important; border: none !important; transition: 0.15s !important; gap: 1px !important; }
-    .nav-item i { font-size: 1rem !important; color: #86868B !important; transition: 0.2s !important; }
-    .nav-item.active i { color: #007AFF !important; }
-    .nav-item.active { color: #1D1D1F !important; }
-    .nav-item:active { background: #F5F5F7 !important; }
-    
-    /* ===== 模态框 ===== */
-    .modal-overlay { display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; background: rgba(0,0,0,0.2) !important; backdrop-filter: blur(8px) !important; z-index: 300 !important; align-items: center !important; justify-content: center !important; }
-    .modal-overlay.show { display: flex !important; }
-    .modal { background: #FFFFFF !important; border-radius: 20px !important; padding: 24px !important; max-width: 380px !important; width: 90% !important; max-height: 80vh !important; overflow-y: auto !important; box-shadow: 0 20px 60px rgba(0,0,0,0.08) !important; }
-    .modal .head { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 12px !important; }
-    .modal .head h3 { font-size: 0.85rem !important; font-weight: 700 !important; }
-    .modal .head h3 i { color: #007AFF !important; margin-right: 6px !important; }
-    .modal .head .close { background: none !important; border: none !important; font-size: 1rem !important; cursor: pointer !important; color: #86868B !important; padding: 4px 8px !important; border-radius: 6px !important; }
-    .modal .head .close:hover { background: #F5F5F7 !important; }
-    
-    /* ===== 安装横幅 ===== */
-    .install-banner { background: #FFFFFF !important; border-radius: 14px !important; padding: 12px 16px !important; margin-bottom: 4px !important; display: none !important; align-items: center !important; gap: 12px !important; border: 1px solid #E5E5EA !important; animation: fadeSlideIn 0.4s ease !important; }
-    .install-banner .icon { background: #007AFF !important; width: 36px !important; height: 36px !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; color: #fff !important; font-weight: 700 !important; flex-shrink: 0 !important; }
-    .install-banner .info { flex: 1 !important; }
-    .install-banner .info .title { font-weight: 600 !important; font-size: 0.65rem !important; color: #1D1D1F !important; }
-    .install-banner .info .desc { font-size: 0.45rem !important; color: #86868B !important; }
-    .install-banner .install-btn { background: #007AFF !important; color: #fff !important; border: none !important; padding: 6px 16px !important; border-radius: 40px !important; font-weight: 600 !important; font-size: 0.55rem !important; cursor: pointer !important; transition: 0.2s !important; }
-    .install-banner .install-btn:hover { background: #0066CC !important; }
-    .install-banner .close-btn { background: none !important; border: none !important; color: #86868B !important; font-size: 0.9rem !important; cursor: pointer !important; padding: 2px 6px !important; }
-    .install-banner .close-btn:hover { color: #1D1D1F !important; }
-    
-    /* ===== 通知栏 ===== */
-    .sticky-notification { background: #F8F9FC !important; border-bottom: 2px solid #007AFF !important; padding: 6px 16px !important; position: sticky !important; top: 0 !important; z-index: 50 !important; }
-    .sticky-notification .content { display: flex !important; align-items: center !important; gap: 8px !important; max-width: 480px !important; margin: 0 auto !important; flex-wrap: wrap !important; justify-content: center !important; }
-    .sticky-notification .content .icon { font-size: 1rem !important; }
-    .sticky-notification .content .text { font-size: 0.6rem !important; color: #1D1D1F !important; flex: 1 !important; text-align: center !important; min-width: 100px !important; }
-    .sticky-notification .content .text .hl { color: #007AFF !important; font-weight: 700 !important; }
-    .sticky-notification .content .text .deal { color: #FF9500 !important; font-weight: 700 !important; }
-    .sticky-notification .content .text .countdown { color: #FF3B30 !important; font-weight: 700 !important; font-family: var(--font) !important; }
-    .sticky-notification .content .cta { background: #007AFF !important; color: #fff !important; border: none !important; padding: 3px 12px !important; border-radius: 30px !important; font-size: 0.5rem !important; font-weight: 600 !important; cursor: pointer !important; text-decoration: none !important; }
-    .sticky-notification .content .cta:hover { background: #0066CC !important; }
-    .sticky-notification .content .close { background: none !important; border: none !important; color: #86868B !important; cursor: pointer !important; font-size: 0.8rem !important; padding: 2px 6px !important; }
-    .sticky-notification.hidden { display: none !important; }
-    
-    @media (max-width: 400px) {
-      .hero h1 { font-size: 1.3rem !important; }
-      .hero .sub { font-size: 0.65rem !important; }
-      .daily .chinese { font-size: 1.1rem !important; }
-      .grid-2 { grid-template-columns: 1fr !important; }
-    }
-  </style>
+            --border-2: #e8e8f0;
+        }
+
+        /* ============================================================
+           GLOBAL
+           ============================================================ */
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            background: #fafbfc;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .hdr {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .hdr.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+        .hdr-in {
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+        .logo-panda {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+        .logo-text .green-text {
+            color: var(--green);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav a {
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav a:hover {
+            color: var(--text-primary);
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green);
+            transition: width 0.25s ease;
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .hdr-ctas {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .hdr-ctas .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .hdr-ctas .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+        .hdr-ctas .btn-pill {
+            background: var(--green);
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .hdr-ctas .btn-pill:hover {
+            background: var(--green-light);
+            transform: translateY(-1px);
+        }
+
+        /* ---- 安装按钮（默认可见，JS 控制隐藏） ---- */
+        .hdr-ctas .btn-install {
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hdr-ctas .btn-install:hover {
+            background: var(--blue-light);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+        /* 隐藏类由 JS 动态添加 */
+        .hdr-ctas .btn-install.hidden {
+            display: none !important;
+        }
+        @media (max-width: 640px) {
+            .hdr-ctas .btn-install {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            .hdr-ctas .btn-install .label {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .hdr-ctas .btn-install {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+            }
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            padding: 64px 0 56px;
+            background: linear-gradient(180deg, var(--green-bg) 0%, #fafbfc 100%);
+        }
+        .hero-in {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            border-radius: 999px;
+            background: rgba(45, 125, 70, 0.12);
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.75rem;
+            border: 1px solid rgba(45, 125, 70, 0.15);
+            margin-bottom: 16px;
+        }
+        .hero-title {
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        .hero-title .grad {
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 28px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .hero-ctas .btn-cta {
+            background: var(--green);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-ctas .btn-cta:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .hero-ctas .btn-soft {
+            background: #fff;
+            color: var(--text-primary);
+            border: 2px solid var(--border-2);
+            padding: 12px 26px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.15s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-ctas .btn-soft:hover {
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+        /* 首屏安装按钮（默认可见） */
+        .hero-ctas .btn-install-hero {
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-ctas .btn-install-hero:hover {
+            background: var(--blue-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .hero-ctas .btn-install-hero.hidden {
+            display: none !important;
+        }
+        .hero-install-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .hero-install-hint .icon {
+            font-size: 1rem;
+        }
+
+        .hero-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .hero-chips li {
+            padding: 4px 14px;
+            background: #fff;
+            border: 1px solid var(--border-2);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 280px;
+        }
+        .card-float {
+            position: absolute;
+            background: #fff;
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            width: 170px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card-float:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+        .card-float-1 {
+            top: 10px;
+            left: 5%;
+            animation: float1 6s ease-in-out infinite;
+        }
+        .card-float-2 {
+            top: 80px;
+            left: 38%;
+            animation: float2 7s ease-in-out infinite -1s;
+        }
+        .card-float-3 {
+            top: 20px;
+            left: 68%;
+            animation: float3 8s ease-in-out infinite -2s;
+        }
+        .cf-zh {
+            font-family: 'Nunito', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .cf-py {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin: 2px 0 4px;
+            letter-spacing: 0.06em;
+        }
+        .cf-en {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .cf-play {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--green-bg);
+            color: var(--green);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cf-play:hover {
+            background: var(--green-soft);
+        }
+
+        @keyframes float1 {
+            0%,
+            100% {
+                transform: translateY(0) rotate(-4deg);
+            }
+            50% {
+                transform: translateY(-14px) rotate(-2deg);
+            }
+        }
+        @keyframes float2 {
+            0%,
+            100% {
+                transform: translateY(0) rotate(4deg);
+            }
+            50% {
+                transform: translateY(-16px) rotate(2deg);
+            }
+        }
+        @keyframes float3 {
+            0%,
+            100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+            50% {
+                transform: translateY(-12px) rotate(-1deg);
+            }
+        }
+
+        /* ============================================================
+           FEATURED CARDS
+           ============================================================ */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 56px 0 48px;
+        }
+        .featured-card {
+            background: #fff;
+            border: 1px solid var(--border-2);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .featured-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--green);
+        }
+        .featured-card .icon {
+            font-size: 2.8rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .featured-card h3 {
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+        .featured-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .featured-card .badge-free {
+            display: inline-block;
+            padding: 3px 14px;
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid rgba(45, 125, 70, 0.2);
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+        .featured-card .badge-pro {
+            display: inline-block;
+            padding: 3px 14px;
+            background: var(--purple-bg);
+            color: var(--purple);
+            border: 1px solid rgba(108, 74, 142, 0.2);
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+        .featured-card .arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+            font-size: 1.1rem;
+            margin-left: 4px;
+        }
+        .featured-card:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* ============================================================
+           SECTION COMMON
+           ============================================================ */
+        .sec {
+            padding: 56px 0;
+        }
+        .sec-alt {
+            background: #f8f9fa;
+        }
+        .sec-head {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 36px;
+        }
+        .eyebrow {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+            border: 1px solid;
+        }
+        .eyebrow-amber {
+            color: var(--amber);
+            background: var(--amber-bg);
+            border-color: rgba(184, 134, 11, 0.2);
+        }
+        .eyebrow-purple {
+            color: var(--purple);
+            background: var(--purple-bg);
+            border-color: rgba(108, 74, 142, 0.2);
+        }
+        .eyebrow-blue {
+            color: var(--blue);
+            background: var(--blue-bg);
+            border-color: rgba(43, 108, 148, 0.2);
+        }
+        .eyebrow-green {
+            color: var(--green);
+            background: var(--green-bg);
+            border-color: rgba(45, 125, 70, 0.2);
+        }
+        .sec-title {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .sec-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           CARD GRID
+           ============================================================ */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .card-item {
+            background: #fff;
+            border: 1px solid var(--border-2);
+            border-radius: 14px;
+            padding: 20px 18px 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            min-height: 190px;
+            position: relative;
+            cursor: pointer;
+        }
+        .card-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .card-item .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .card-item .card-header .level-badge {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .card-item .card-header .status-tag {
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 2px 12px;
+            border-radius: 999px;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        .card-item .card-header .status-tag.free {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid rgba(45, 125, 70, 0.15);
+        }
+        .card-item .card-header .status-tag.pro {
+            background: var(--purple-bg);
+            color: var(--purple);
+            border: 1px solid rgba(108, 74, 142, 0.15);
+        }
+        .card-item .card-body .name {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .card-item .card-body .desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            flex: 1;
+        }
+        .card-item .card-body .meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            flex-wrap: wrap;
+        }
+        .card-item .card-footer {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-item .card-footer .btn-sm {
+            padding: 4px 16px;
+            border-radius: 999px;
+            border: none;
+            font-weight: 800;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card-item .card-footer .btn-sm.free-btn {
+            background: var(--green);
+            color: #fff;
+        }
+        .card-item .card-footer .btn-sm.free-btn:hover {
+            background: var(--green-light);
+            transform: translateY(-1px);
+        }
+        .card-item .card-footer .btn-sm.pro-btn {
+            background: var(--purple);
+            color: #fff;
+        }
+        .card-item .card-footer .btn-sm.pro-btn:hover {
+            background: var(--purple-light);
+            transform: translateY(-1px);
+        }
+        .card-item .card-footer .arrow-sm {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        .card-item:hover .card-footer .arrow-sm {
+            transform: translateX(3px);
+        }
+
+        /* ============================================================
+           SECTION A — Amber Theme
+           ============================================================ */
+        #survival .card-item .level-badge {
+            color: var(--amber);
+        }
+        #survival .card-item:hover {
+            border-color: var(--amber);
+        }
+        #survival .card-item .card-footer .btn-sm.free-btn {
+            background: var(--amber);
+        }
+        #survival .card-item .card-footer .btn-sm.free-btn:hover {
+            background: var(--amber-light);
+        }
+        #survival .card-item .card-footer .btn-sm.pro-btn {
+            background: var(--amber);
+        }
+        #survival .card-item .card-footer .btn-sm.pro-btn:hover {
+            background: var(--amber-light);
+        }
+
+        /* ============================================================
+           SECTION B — Purple Theme
+           ============================================================ */
+        #exams .card-item .level-badge {
+            color: var(--purple);
+        }
+        #exams .card-item:hover {
+            border-color: var(--purple);
+        }
+        #exams .card-item .card-footer .btn-sm.free-btn {
+            background: var(--purple);
+        }
+        #exams .card-item .card-footer .btn-sm.free-btn:hover {
+            background: var(--purple-light);
+        }
+        #exams .card-item .card-footer .btn-sm.pro-btn {
+            background: var(--purple);
+        }
+        #exams .card-item .card-footer .btn-sm.pro-btn:hover {
+            background: var(--purple-light);
+        }
+
+        /* ============================================================
+           SECTION C — Blue Theme
+           ============================================================ */
+        .review-challenge-section {
+            background: linear-gradient(180deg, var(--blue-bg) 0%, #fafbfc 100%);
+            border-top: 1px solid rgba(43, 108, 148, 0.1);
+            border-bottom: 1px solid rgba(43, 108, 148, 0.1);
+        }
+        #challenge .card-item .level-badge {
+            color: var(--blue);
+        }
+        #challenge .card-item:hover {
+            border-color: var(--blue);
+        }
+        #challenge .card-item .card-footer .btn-sm.free-btn {
+            background: var(--blue);
+        }
+        #challenge .card-item .card-footer .btn-sm.free-btn:hover {
+            background: var(--blue-light);
+        }
+        #challenge .card-item .card-footer .btn-sm.pro-btn {
+            background: var(--blue);
+        }
+        #challenge .card-item .card-footer .btn-sm.pro-btn:hover {
+            background: var(--blue-light);
+        }
+
+        /* ============================================================
+           VIEW ALL BUTTON
+           ============================================================ */
+        .view-all-wrap {
+            text-align: center;
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-2);
+        }
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 32px;
+            background: #fff;
+            border: 2px solid var(--border-2);
+            border-radius: 999px;
+            color: var(--text-secondary);
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+        .view-all-btn:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        .view-all-btn svg {
+            transition: transform 0.25s;
+        }
+        .view-all-btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ============================================================
+           PRICING
+           ============================================================ */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+        .plan {
+            background: #fff;
+            border: 1px solid var(--border-2);
+            border-radius: 16px;
+            padding: 28px 22px 22px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+        .plan:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .plan-star {
+            border-color: var(--green);
+            background: linear-gradient(180deg, var(--green-bg) 0%, #fff 60%);
+            transform: translateY(-6px);
+        }
+        .plan-star:hover {
+            transform: translateY(-10px);
+        }
+        .plan-ribbon {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 18px;
+            background: linear-gradient(90deg, #d4a02a, #b8860b);
+            color: #fff;
+            border-radius: 999px;
+            font-weight: 900;
+            font-size: 0.7rem;
+            letter-spacing: 0.04em;
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+            white-space: nowrap;
+        }
+        .plan-head {
+            margin-bottom: 14px;
+        }
+        .plan-head h3 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+        .plan-head .plan-sub {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .plan-price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-2);
+        }
+        .pp-cur {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--text-secondary);
+        }
+        .pp-num {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .grad-num {
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .pp-unit {
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-left: 4px;
+        }
+        .pp-was {
+            width: 100%;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+        .plan-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+            flex: 1;
+            list-style: none;
+            padding: 0;
+        }
+        .plan-list li {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .plan-list li.mute {
+            color: var(--text-muted);
+        }
+        .chk {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--green-bg);
+            color: var(--green);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            font-weight: 900;
+            border: 1px solid rgba(45, 125, 70, 0.15);
+        }
+        .chk.grey {
+            background: var(--border-2);
+            color: var(--text-muted);
+            border-color: transparent;
+        }
+        .plan .btn {
+            padding: 12px;
+            border-radius: 999px;
+            border: none;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            width: 100%;
+        }
+        .plan .btn-outline {
+            background: #fff;
+            color: var(--text-primary);
+            border: 2px solid var(--border-2);
+        }
+        .plan .btn-outline:hover {
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+        .plan .btn-soft {
+            background: var(--green);
+            color: #fff;
+        }
+        .plan .btn-soft:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+        }
+        .plan .btn-cta {
+            background: var(--green);
+            color: #fff;
+        }
+        .plan .btn-cta:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+        }
+        .plan-foot {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        .urgency {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #fef9f0;
+            border: 1px solid #f0e4c8;
+            border-radius: 12px;
+        }
+        .urgency-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--amber);
+            margin-bottom: 6px;
+            gap: 10px;
+        }
+        .u-left,
+        .u-right {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .u-left b,
+        .u-right b {
+            color: #8a6d0b;
+            font-size: 0.85rem;
+        }
+        .bar {
+            position: relative;
+            height: 6px;
+            background: #f0e4c8;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4a02a, #b8860b);
+            border-radius: 999px;
+            transition: width 1s ease;
+        }
+        .bar-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 23%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            border-radius: 999px;
+            animation: shimmer 2.4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(200%);
+            }
+        }
+        .urgency-cta {
+            text-align: center;
+            color: var(--amber);
+            font-weight: 900;
+            font-size: 0.75rem;
+        }
+
+        .section-divider {
+            grid-column: 1 / -1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-align: center;
+            padding: 20px 0 8px;
+            border-bottom: 1px solid var(--border-2);
+            margin-bottom: 8px;
+        }
+        .section-divider:first-of-type {
+            padding-top: 0;
+        }
+
+        /* ============================================================
+           ABOUT
+           ============================================================ */
+        .about-sec {
+            padding: 56px 0;
+        }
+        .about-text {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-text h2 {
+            font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+            margin: 10px 0 14px;
+            font-weight: 900;
+        }
+        .about-text>p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 28px;
+            font-weight: 600;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            text-align: left;
+        }
+        .feature {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 14px;
+            align-items: flex-start;
+            background: #fff;
+            border: 1px solid var(--border-2);
+            border-radius: 12px;
+            padding: 16px 18px;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .feature:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        .f-ico {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--green-bg);
+            color: var(--green);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            border: 1px solid rgba(45, 125, 70, 0.1);
+        }
+        .feature h4 {
+            font-size: 0.9rem;
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+        .feature p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .ft {
+            padding: 24px 0;
+            border-top: 1px solid var(--border-2);
+            background: #fff;
+        }
+        .ft-in {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .ft-logo .logo-txt {
+            font-size: 1.1rem;
+        }
+        .ft-copy {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .logo-img-sm {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        /* ============================================================
+           PWA BANNER
+           ============================================================ */
+        .pwa-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 560px;
+            width: 90%;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-2);
+            padding: 14px 18px;
+            display: none;
+            align-items: center;
+            gap: 14px;
+            z-index: 999;
+            animation: slideUp 0.4s ease;
+        }
+        .pwa-banner.show {
+            display: flex;
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        .pwa-banner .pwa-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+        .pwa-banner .pwa-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        .pwa-banner .pwa-text {
+            flex: 1;
+        }
+        .pwa-banner .pwa-text .pwa-title {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+        .pwa-banner .pwa-text .pwa-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .pwa-banner .pwa-btn {
+            padding: 6px 18px;
+            border-radius: 999px;
+            background: var(--green);
+            color: #fff;
+            border: none;
+            font-weight: 800;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .pwa-banner .pwa-btn:hover {
+            background: var(--green-light);
+        }
+        .pwa-banner .pwa-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0 4px;
+            transition: color 0.2s;
+            flex-shrink: 0;
+        }
+        .pwa-banner .pwa-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           TOOLTIP
+           ============================================================ */
+        .tip {
+            position: fixed;
+            z-index: 9999;
+            min-width: 260px;
+            max-width: 360px;
+            padding: 8px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(6px);
+            pointer-events: auto;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            color: var(--text-primary);
+        }
+        .tip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tip-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 4px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            margin-bottom: 6px;
+        }
+        .tip-tab {
+            padding: 8px 6px;
+            min-height: 32px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-weight: 800;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+        .tip-tab:hover {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-primary);
+        }
+        .tip-tab.active {
+            background: #fff;
+            color: var(--green);
+            box-shadow: var(--shadow-sm);
+        }
+        .tip-panes {
+            padding: 8px 12px 12px;
+        }
+        .tip-pane {
+            display: none;
+        }
+        .tip-pane.active {
+            display: block;
+            animation: fadein 0.15s ease;
+        }
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .tip-pinyin {
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: var(--blue);
+            margin-bottom: 2px;
+        }
+        .tip-meaning {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+        .tip-example {
+            margin-top: 6px;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 8px;
+            border-left: 3px solid var(--green);
+        }
+        .tip-example .ex-zh {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .tip-example .ex-py {
+            font-size: 0.7rem;
+            color: var(--blue);
+            font-weight: 600;
+        }
+        .tip-example .ex-en {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .tip-example .highlight {
+            color: #c0392b;
+            font-weight: 900;
+        }
+        .tip-grammar {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 8px 12px;
+            background: rgba(45, 125, 70, 0.06);
+            border-left: 3px solid var(--green);
+            border-radius: 8px;
+        }
+
+        /* ============================================================
+           MODAL (Paywall)
+           ============================================================ */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            cursor: pointer;
+        }
+        .modal-card {
+            position: relative;
+            max-width: 420px;
+            width: 90%;
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px 28px 28px;
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+            transform: scale(0.94) translateY(12px);
+            transition: transform 0.35s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .modal.open .modal-card {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.2s, color 0.2s;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--text-primary);
+        }
+        .modal-emoji {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+        }
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+        .modal-sub {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+        .modal-price {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: var(--green-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(45, 125, 70, 0.12);
+        }
+        .modal-amount {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--green);
+        }
+        .modal-once {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+        .modal .btn-block {
+            width: 100%;
+            padding: 14px;
+            border-radius: 999px;
+            border: none;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            background: var(--green);
+            color: #fff;
+        }
+        .modal .btn-block:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+        }
+        .modal-secure {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .price-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .plan-star {
+                transform: translateY(0);
+            }
+            .plan-star:hover {
+                transform: translateY(-4px);
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-in {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-visual {
+                display: none;
+            }
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav.mobile-open {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border-2);
+                box-shadow: var(--shadow-md);
+                gap: 12px;
+                z-index: 100;
+            }
+            .nav.mobile-open a {
+                padding: 8px 0;
+                border-bottom: 1px solid var(--border-2);
+            }
+            .nav.mobile-open a:last-child {
+                border-bottom: none;
+            }
+            .pwa-banner {
+                bottom: 10px;
+                padding: 12px 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+            .pwa-banner .pwa-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .plan-star {
+                transform: translateY(0);
+            }
+            .hero-ctas .btn-install-hero .label {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .featured-card {
+                padding: 20px 16px;
+            }
+            .card-item {
+                min-height: 160px;
+            }
+        }
+
+        /* ============================================================
+           REDUCED MOTION
+           ============================================================ */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+            .card-float {
+                animation: none !important;
+            }
+            .hero-ctas .btn-cta:hover,
+            .hero-ctas .btn-soft:hover {
+                transform: none !important;
+            }
+            .card-item:hover,
+            .featured-card:hover,
+            .plan:hover {
+                transform: none !important;
+            }
+            .pwa-banner {
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="app">
-
-  <div class="status-bar">
-    <span>HanLingo</span>
-    <span><span class="hl">HSK 1</span> 100% Free</span>
-  </div>
-
-  <header class="header">
-   <a href="index.html" class="logo">
-      <img src="/icon-512.png" alt="HanLingo" class="logo-img">
-      <div class="logo-text"><span class="han">Han</span><span class="lingo">Lingo</span></div>
-    </a>
-    <div class="header-actions">
-      <i class="far fa-bell" id="notifBtn"></i>
-      <i class="fas fa-user-circle" id="userBtn"></i>
-    </div>
-  </header>
-
-  <div class="sticky-notification" id="stickyNotification">
-    <div class="content">
-      <span class="icon">🔥</span>
-      <span class="text"><span class="hl">Limited Offer:</span> <span class="deal">Save $50</span> — <span class="countdown" id="countdownTimer">02:34:17</span> left!</span>
-      <a href="checkout.html" class="cta">Claim →</a>
-      <button class="close" id="closeNotification">✕</button>
-    </div>
-  </div>
-
-  <div class="main">
-
-    <div class="install-banner" id="installBanner">
-      <div class="icon">HL</div>
-      <div class="info">
-        <div class="title">📲 Install HanLingo</div>
-        <div class="desc">Add to Home Screen for offline learning</div>
-      </div>
-      <button class="install-btn" id="installBtn">Install</button>
-      <button class="close-btn" id="closeBanner">✕</button>
-    </div>
-
-    <div class="hero">
-      <div class="badge"><i class="fas fa-bolt"></i> Learn Chinese</div>
-      <h1>HanLingo <span>→</span> Sense in Sentences</h1>
-      <p class="sub">No more rote memorization. Learn with 5 practical sentences daily. Supporting HSK, BCT, YCT, MCT.</p>
-      <button class="btn-primary" id="startBtn"><i class="fas fa-play-circle"></i> Start HSK 1 Free</button>
-    </div>
-
-    <div class="steps">
-      <div class="step"><span class="num">01</span><span class="icon"><i class="fas fa-book-open"></i></span><span class="label">Learn</span><span class="desc">5 sentences</span></div>
-      <div class="step"><span class="num">02</span><span class="icon"><i class="fas fa-flag"></i></span><span class="label">Quest</span><span class="desc">4 games</span></div>
-      <div class="step"><span class="num">03</span><span class="icon"><i class="fas fa-rocket"></i></span><span class="label">Level Up</span><span class="desc">Unlock next</span></div>
-    </div>
-
-    <div class="features">
-      <div class="feature"><span class="dot"><i class="fas fa-circle"></i></span>Context-First</div>
-      <div class="feature"><span class="dot"><i class="fas fa-circle"></i></span>Native-Grade</div>
-      <div class="feature"><span class="dot"><i class="fas fa-circle"></i></span>Frictionless Quiz</div>
-      <div class="feature"><span class="dot"><i class="fas fa-circle"></i></span>Stroke Sheets</div>
-      <div class="feature full">
-        <span class="dot"><i class="fas fa-circle"></i></span>One Sentence → 5 Skills
-        <div class="tags"><span>Vocab</span><span>Grammar</span><span>Pronunciation</span><span>Context</span><span>Culture</span></div>
-      </div>
-    </div>
-
-    <!-- ===== 每日句子（页面核心模块） ===== -->
-    <div class="daily">
-      <div class="label"><i class="far fa-calendar-alt"></i> Today's Sentence</div>
-      <div class="chinese" id="dailyChinese">Loading...</div>
-      <div class="pinyin" id="dailyPinyin"></div>
-      <div class="translation" id="dailyTranslation"></div>
-      <div class="actions">
-        <button class="blue-btn" id="listenBtn"><i class="fas fa-play"></i> Listen</button>
-        <button id="learnMoreBtn"><i class="fas fa-book-open"></i> Learn More</button>
-      </div>
-    </div>
-
-    <!-- ===== 进度 ===== -->
-    <div class="progress">
-      <div class="head">
-        <span class="name"><i class="fas fa-chart-simple"></i> Daily Progress</span>
-        <span style="font-size:0.5rem;color:#86868B;"><span id="done">0</span>/<span id="total">5</span></span>
-      </div>
-      <div class="stats">
-        <span class="fire"><i class="fas fa-fire"></i> <span id="streak">0</span>d</span>
-        <span class="check"><i class="fas fa-check-circle"></i> Level <span id="level">1</span></span>
-        <span><i class="fas fa-bookmark"></i> <span id="saved">0</span></span>
-      </div>
-      <div class="bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
-      <div class="bottom">
-        <span class="info"><i class="fas fa-calendar-check"></i> Last: <span id="lastCheckin">--</span></span>
-        <div>
-          <button class="btn-sm" id="checkinBtn"><i class="fas fa-check"></i> Check In</button>
-          <button class="btn-outline" id="calBtn"><i class="fas fa-calendar-alt"></i></button>
+    <!-- ====== Paywall Modal ====== -->
+    <div class="modal" id="paywallModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
+        <div class="modal-backdrop" data-modal-close></div>
+        <div class="modal-card">
+            <button class="modal-close" data-modal-close aria-label="Close">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="modal-emoji">🔒</div>
+            <h3 id="paywallTitle" class="modal-title">Unlock This Content</h3>
+            <p class="modal-sub" id="paywallSub">Get instant access to premium content.</p>
+            <div class="modal-price"><div class="modal-amount" id="paywallAmount">$4.99</div><div class="modal-once">One-time · Lifetime access</div></div>
+            <button class="btn-block" id="paywallBuyBtn">Unlock Now</button>
+            <p class="modal-secure">🔒 Secure checkout · Cancel anytime</p>
         </div>
-      </div>
     </div>
 
-    <!-- ===== 课程路径 ===== -->
-    <div class="collapse" id="collapsePaths">
-      <div class="head" onclick="toggle('collapsePaths')">
-        <div class="left"><i class="fas fa-crown"></i> Learning Paths <span class="badge">HSK 1 FREE</span></div>
-        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
-      </div>
-      <div class="body">
-        <div class="sub">HSK 1 is 100% free · Start anytime</div>
-        <div class="grid-2">
-          <div class="card"><div class="inner"><div class="tag">POPULAR</div><div class="name">🌐 HSK (1–9)</div><div class="desc">"Unlock fluent Chinese."</div></div><div class="foot"><span class="price">HSK 1 FREE</span><button class="btn-s" onclick="goLearn()">Start →</button></div></div>
-          <div class="card"><div class="inner"><div class="tag gray">COMING</div><div class="name">🧒 YCT (1–4)</div><div class="desc">"For young learners."</div></div><div class="foot"><span class="price-gray">🔒 Premium</span><button class="btn-s-gray">Unlock</button></div></div>
-          <div class="card"><div class="inner"><div class="tag gray">COMING</div><div class="name">💼 BCT (A–B)</div><div class="desc">"Business Chinese."</div></div><div class="foot"><span class="price-gray">🔒 Premium</span><button class="btn-s-gray">Unlock</button></div></div>
-          <div class="card"><div class="inner"><div class="tag gray">COMING</div><div class="name">🩺 MCT (1–3)</div><div class="desc">"Medical terminology."</div></div><div class="foot"><span class="price-gray">🔒 Premium</span><button class="btn-s-gray">Unlock</button></div></div>
+    <!-- ====== Tooltip ====== -->
+    <div class="tip" id="tip" role="tooltip" aria-hidden="true">
+        <div class="tip-tabs" role="tablist">
+            <button class="tip-tab active" data-tab="meaning" role="tab" aria-selected="true">Meaning</button>
+            <button class="tip-tab" data-tab="example" role="tab" aria-selected="false">Example</button>
+            <button class="tip-tab" data-tab="grammar" role="tab" aria-selected="false">Grammar</button>
         </div>
-      </div>
-    </div>
-
-    <!-- ===== 句子包 ===== -->
-    <div class="collapse" id="collapsePacks">
-      <div class="head" onclick="toggle('collapsePacks')">
-        <div class="left"><i class="fas fa-fire"></i> Sentence Packs</div>
-        <span class="arrow"><i class="fas fa-chevron-down"></i></span>
-      </div>
-      <div class="body">
-        <div class="sub">Quick fixes for specific situations</div>
-        <div class="grid-3">
-          <div class="pack" onclick="toast('✈️ Business - $9.99')"><span class="emoji">✈️</span><span class="name">Business</span><span class="price">$9.99</span></div>
-          <div class="pack" onclick="toast('🍜 Restaurant - $9.99')"><span class="emoji">🍜</span><span class="name">Restaurant</span><span class="price">$9.99</span></div>
-          <div class="pack" onclick="toast('🏨 Hotel - $9.99')"><span class="emoji">🏨</span><span class="name">Hotel</span><span class="price">$9.99</span></div>
-          <div class="pack" onclick="toast('🚖 Taxi - $9.99')"><span class="emoji">🚖</span><span class="name">Taxi</span><span class="price">$9.99</span></div>
-          <div class="pack" onclick="toast('🛍️ Shopping - $9.99')"><span class="emoji">🛍️</span><span class="name">Shopping</span><span class="price">$9.99</span></div>
-          <div class="pack" style="border-color:#007AFF;background:#E8F2FF;" onclick="toast('⭐ All Access - Save!')"><span class="emoji">⭐</span><span class="name" style="color:#007AFF;">All Access</span><span class="price" style="color:#34C759;">Save</span></div>
+        <div class="tip-panes">
+            <div class="tip-pane active" data-pane="meaning">
+                <div class="tip-pinyin" id="tipPinyin">—</div>
+                <div class="tip-meaning" id="tipMeaning">—</div>
+            </div>
+            <div class="tip-pane" data-pane="example">
+                <div class="tip-example" id="tipExample"><div class="ex-zh">—</div><div class="ex-py">—</div><div class="ex-en">—</div></div>
+            </div>
+            <div class="tip-pane" data-pane="grammar">
+                <div class="tip-grammar" id="tipGrammar">—</div>
+            </div>
         </div>
-      </div>
     </div>
 
-    <!-- ===== Early Bird ===== -->
-    <div class="early">
-      <div class="tag">⚡ Early Bird</div>
-      <div class="main">Limited to <span class="hl">100</span> Members</div>
-      <div class="sub">Secure lifetime access at launch rate.</div>
-      <div class="prices"><span class="reg">$199.99</span><span class="sale">$149.99</span></div>
-      <div class="row"><span><i class="fas fa-clock"></i> Spots left</span><span class="num" id="earlyCount">47</span></div>
-      <div class="bar-wrap"><div class="fill" id="earlyFill" style="width:47%;"></div></div>
-      <a href="checkout.html" class="btn-link">🚀 Grab My Spot</a>
+    <!-- ====== PWA 下载提醒横幅 ====== -->
+    <div class="pwa-banner" id="pwaBanner" role="alert">
+        <span class="pwa-icon"><img src="logo.png" alt="HanLingo" /></span>
+        <div class="pwa-text">
+            <div class="pwa-title">Install HanLingo</div>
+            <div class="pwa-desc" id="pwaDesc">Add to your home screen for offline learning</div>
+        </div>
+        <button class="pwa-btn" id="pwaInstallBtn">Install</button>
+        <button class="pwa-close" id="pwaCloseBtn" aria-label="Close">×</button>
     </div>
 
-    <!-- ===== 底部 ===== -->
-    <div class="bottom-cta">
-      <div class="title"><i class="fas fa-rocket"></i> Start Free Now</div>
-      <div class="desc">From 5 sentences to confident speaking.<br><span>HSK 1 is 100% free — no credit card.</span></div>
-      <button class="btn" onclick="goLearn()"><i class="fas fa-play-circle"></i> Start Learning Free</button>
-    </div>
+    <!-- ====== HEADER ====== -->
+    <header class="hdr" role="banner">
+        <div class="wrap hdr-in">
+            <a href="index.html" class="logo-container" aria-label="HanLingo Home">
+                <img src="logo.png" alt="HanLingo" class="logo-panda" />
+                <span class="logo-text">Han<span class="green-text">Lingo</span></span>
+            </a>
 
-    <div class="export-cta">
-      <div class="title"><i class="fas fa-file-export"></i> Export Workbook</div>
-      <div class="desc">Download saved sentences as <span>TXT</span> or <span>PDF</span></div>
-      <button class="btn" onclick="alert('📤 Export loading...')"><i class="fas fa-download"></i> Export Now</button>
-    </div>
+            <div class="audio-controls" style="display:inline-flex;align-items:center;gap:16px;margin-left:auto;padding:0 8px;flex-shrink:0;">
+                <div class="dropdown-group" style="display:inline-flex;align-items:center;position:relative;">
+                    <label for="voice-select" class="dropdown-label" style="color:var(--text-secondary);font-weight:800;font-size:0.8rem;cursor:pointer;white-space:nowrap;user-select:none;">Voice ▾</label>
+                    <select id="voice-select" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;background:transparent;border:none;padding:0;margin:0;"></select>
+                </div>
+                <div class="dropdown-group" style="display:inline-flex;align-items:center;position:relative;">
+                    <label for="speed-select" class="dropdown-label" style="color:var(--text-secondary);font-weight:800;font-size:0.8rem;cursor:pointer;white-space:nowrap;user-select:none;">Speed ▾</label>
+                    <select id="speed-select" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;background:transparent;border:none;padding:0;margin:0;">
+                        <option value="slow">Slow (0.75×)</option>
+                        <option value="normal">Normal (1.0×)</option>
+                    </select>
+                </div>
+            </div>
 
-    <div class="footer-text">One sentence = 5 skills · Learn smarter</div>
-  </div>
+            <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+                <a href="#survival">Daily Phrases</a>
+                <a href="#exams">Exam Prep</a>
+                <a href="#challenge">Challenge</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#about">About</a>
+            </nav>
 
-  <!-- ===== 底部导航 ===== -->
-  <div class="bottom-nav">
-    <button class="nav-item active" data-page="home"><i class="fas fa-home"></i><span>Home</span></button>
-    <button class="nav-item" data-page="learn"><i class="fas fa-book-open"></i><span>Learn</span></button>
-    <button class="nav-item" data-page="quest"><i class="fas fa-flag"></i><span>Quest</span></button>
-    <button class="nav-item" data-page="saved"><i class="fas fa-bookmark"></i><span>Saved</span></button>
-    <button class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></button>
-  </div>
-</div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+            </button>
 
-<div class="toast" id="toast"></div>
+            <div class="hdr-ctas">
+                <button class="btn-ghost nav-cta-signin">Sign In</button>
+                <!-- ★ 安装按钮（默认可见，JS 会控制隐藏） -->
+                <button class="btn-install" id="installBtnHeader" aria-label="Install HanLingo app">
+                    <span class="icon">📲</span>
+                    <span class="label">Install</span>
+                </button>
+                <a href="#survival" class="btn-pill">Start Speaking Free</a>
+            </div>
+        </div>
+    </header>
 
-<script src="data/sentences.js"></script>
-<script>
-  // ===== 强制清除 CSS 和 HTML 缓存 =====
-  (function() {
-      fetch(window.location.href, { cache: 'reload', headers: { 'Pragma': 'no-cache' } });
-      console.log('✅ 缓存已强制刷新，动画已就绪');
-  })();
+    <!-- ====== MAIN ====== -->
+    <main>
 
-  // ===== 数据 =====
-  var data = typeof HSK1_SENTENCES !== 'undefined' ? HSK1_SENTENCES : [
-    { id: 'hsk1_001', chinese: '你好。', pinyin: 'Nǐ hǎo.', translation: 'Hello.' },
-    { id: 'hsk1_002', chinese: '你好吗？', pinyin: 'Nǐ hǎo ma?', translation: 'How are you?' },
-    { id: 'hsk1_003', chinese: '我很好。', pinyin: 'Wǒ hěn hǎo.', translation: 'I am fine.' }
-  ];
+        <!-- ============================================================ -->
+        <!-- HERO -->
+        <!-- ============================================================ -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="wrap hero-in">
+                <div class="hero-text">
+                    <span class="badge-pill" role="status">🌏 Loved by 120,000+ learners worldwide</span>
+                    <h1 id="hero-title" class="hero-title">
+                        Learn <span class="grad">Mandarin Chinese</span><br />
+                        in just <span class="grad">5 minutes</span> a day.
+                    </h1>
+                    <p class="hero-sub">
+                        From ordering noodles in Shanghai to acing your HSK exam — bite-sized lessons,
+                        crystal-clear native audio, and a path that actually works.
+                    </p>
+                    <div class="hero-ctas">
+                        <a href="#survival" class="btn-cta">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 3v18M19 12 5 3v18z"/></svg>
+                            Start Speaking Free
+                        </a>
+                        <a href="#pricing" class="btn-soft">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            View Pricing
+                        </a>
+                        <!-- ★ 首屏安装按钮（默认可见） -->
+                        <button class="btn-install-hero" id="installBtnHero">
+                            <span class="icon">📲</span>
+                            <span class="label">Install App</span>
+                        </button>
+                    </div>
+                    <div class="hero-install-hint" id="installHint" style="display:none;">
+                        <span class="icon">📲</span>
+                        <span>Add HanLingo to your home screen for offline learning</span>
+                    </div>
+                    <ul class="hero-chips">
+                        <li>✅ 100% Ad-free</li>
+                        <li>✅ Offline-ready PWA</li>
+                        <li>✅ Native speaker audio</li>
+                    </ul>
+                </div>
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="card-float card-float-1">
+                        <div class="cf-zh">你好</div>
+                        <div class="cf-py">nǐ hǎo</div>
+                        <div class="cf-en">Hello</div>
+                        <div class="cf-play" aria-label="Play audio">🔊</div>
+                    </div>
+                    <div class="card-float card-float-2">
+                        <div class="cf-zh">谢谢</div>
+                        <div class="cf-py">xiè xie</div>
+                        <div class="cf-en">Thank you</div>
+                        <div class="cf-play" aria-label="Play audio">🔊</div>
+                    </div>
+                    <div class="card-float card-float-3">
+                        <div class="cf-zh">再见</div>
+                        <div class="cf-py">zài jiàn</div>
+                        <div class="cf-en">Goodbye</div>
+                        <div class="cf-play" aria-label="Play audio">🔊</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // ===== 工具 =====
-  function goLearn() { window.location.href = 'learn.html'; }
-  function toast(msg) {
-    var t = document.getElementById('toast');
-    t.innerHTML = '<i class="fas fa-info-circle"></i> ' + msg;
-    t.classList.add('show');
-    clearTimeout(t._t);
-    t._t = setTimeout(function() { t.classList.remove('show'); }, 2500);
-  }
-  function toggle(id) {
-    var el = document.getElementById(id);
-    var body = el.querySelector('.body');
-    var arrow = el.querySelector('.arrow');
-    if (body) { body.classList.toggle('open'); if (arrow) arrow.classList.toggle('open'); }
-  }
+        <!-- ============================================================ -->
+        <!-- FEATURED CARDS -->
+        <!-- ============================================================ -->
+        <div class="wrap">
+            <div class="featured-grid">
+                <a href="#survival" class="featured-card">
+                    <span class="icon">🗣️</span>
+                    <h3>Real-Life Phrases</h3>
+                    <p>Everyday Chinese for travel, dining, emergencies — speak from day one.</p>
+                    <span class="badge-free">3 Topics FREE</span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="#pricing" class="featured-card">
+                    <span class="icon">📚</span>
+                    <h3>Survival Library</h3>
+                    <p>15+ real-world topics — from airport to medical. Get the full collection.</p>
+                    <span class="badge-pro">PRO 🔒</span>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="#pricing" class="featured-card">
+                    <span class="icon">🎯</span>
+                    <h3>HSK &amp; Exam Prep</h3>
+                    <p>HSK 1–6, YCT, BCT, MCT — full vocabulary with audio and quizzes.</p>
+                    <span class="badge-free" style="background:#fef0d5;color:var(--amber);border-color:rgba(184,134,11,0.2);">🔥 From $3.99</span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
 
-  // ===== 每日 =====
-  function getDaily() {
-    var d = new Date();
-    var s = new Date(2026, 0, 1);
-    var diff = Math.floor(Math.abs(d - s) / (1000*60*60*24));
-    return data[diff % data.length];
-  }
-  function renderDaily() {
-    var s = getDaily();
-    if (!s) return;
-    document.getElementById('dailyChinese').textContent = s.chinese;
-    document.getElementById('dailyPinyin').textContent = s.pinyin || '';
-    document.getElementById('dailyTranslation').textContent = s.translation || '';
-  }
+        <!-- ============================================================ -->
+        <!-- SECTION A · SURVIVAL PHRASES -->
+        <!-- ============================================================ -->
+        <section id="survival" class="sec" aria-labelledby="survival-title">
+            <div class="wrap">
+                <div class="sec-head">
+                    <span class="eyebrow eyebrow-amber">Section A · Premium Topics</span>
+                    <h2 id="survival-title" class="sec-title">Daily Emergency Chinese</h2>
+                    <p class="sec-sub">Real-world phrases you'll actually use. First 3 topics are free — unlock the full library for just <strong>$39.99</strong>.</p>
+                </div>
 
-  // ===== 状态 =====
-  var streak = parseInt(localStorage.getItem('hanlingo_streak')) || 0;
-  var saved = JSON.parse(localStorage.getItem('hanlingo_saved') || '[]');
-  var learned = JSON.parse(localStorage.getItem('hanlingo_learned') || '[]');
-  var level = parseInt(localStorage.getItem('hanlingo_level')) || 1;
+                <div class="card-grid">
+                    <div class="card-item" onclick="location.href='#pricing'">
+                        <div class="card-header">
+                            <span class="level-badge">Taxi &amp; Travel</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="desc">Airports, train stations, hailing cabs</div>
+                            <div class="meta"><span>📘 10 phrases</span><span>🎯 Audio included</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Learning →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </div>
+                    <div class="card-item" onclick="location.href='#pricing'">
+                        <div class="card-header">
+                            <span class="level-badge">Ordering Food</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="desc">Menus, restaurants, street stalls</div>
+                            <div class="meta"><span>📘 10 phrases</span><span>🎯 Audio included</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Learning →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </div>
+                    <div class="card-item" onclick="location.href='#pricing'">
+                        <div class="card-header">
+                            <span class="level-badge">Asking Directions</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="desc">Streets, landmarks, subway lines</div>
+                            <div class="meta"><span>📘 10 phrases</span><span>🎯 Audio included</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Learning →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </div>
+                    <div class="card-item" onclick="location.href='#pricing'">
+                        <div class="card-header">
+                            <span class="level-badge">12 More Topics</span>
+                            <span class="status-tag pro">PRO 🔒</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="desc">Hotel, emergencies, shopping, healthcare &amp; more</div>
+                            <div class="meta"><span>📘 120+ phrases</span><span>🔒 $39.99</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm pro-btn">Unlock All →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </div>
+                </div>
 
-  function updateUI() {
-    document.getElementById('streak').textContent = streak;
-    document.getElementById('level').textContent = level;
-    document.getElementById('saved').textContent = saved.length;
-    var start = (level - 1) * 5;
-    var end = Math.min(start + 5, data.length);
-    var today = data.slice(start, end);
-    var done = today.filter(function(s) { return learned.indexOf(s.id) !== -1; }).length;
-    document.getElementById('done').textContent = done;
-    document.getElementById('total').textContent = today.length || 5;
-    var pct = today.length > 0 ? (done / today.length) * 100 : 0;
-    document.getElementById('progressFill').style.width = pct + '%';
-  }
+                <div class="view-all-wrap">
+                    <a href="survival-topics.html" class="view-all-btn">
+                        View Full Survival Library (15 topics) →
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  // ===== 签到 =====
-  var checkinKey = 'hanlingo_checkin';
-  function getCheckin() { try { return JSON.parse(localStorage.getItem(checkinKey) || '{}'); } catch(e) { return {}; } }
-  function saveCheckin(c) { localStorage.setItem(checkinKey, JSON.stringify(c)); }
-  function updateCheckin() {
-    var c = getCheckin();
-    var today = new Date().toDateString();
-    var el = document.getElementById('lastCheckin');
-    var btn = document.getElementById('checkinBtn');
-    if (c.last === today) { el.textContent = 'Today ✅'; btn.innerHTML = '<i class="fas fa-check-circle"></i> Done'; btn.disabled = true; }
-    else if (c.last) { el.textContent = new Date(c.last).toLocaleDateString(); btn.innerHTML = '<i class="fas fa-check"></i> Check In'; btn.disabled = false; }
-    else { el.textContent = '--'; btn.innerHTML = '<i class="fas fa-check"></i> Check In'; btn.disabled = false; }
-  }
-  function doCheckin() {
-    var c = getCheckin();
-    var today = new Date().toDateString();
-    if (c.last === today) { toast('✅ Already checked in today!'); return; }
-    var yesterday = new Date(Date.now() - 86400000).toDateString();
-    var ns = (c.last === yesterday) ? (c.streak||0) + 1 : 1;
-    c.last = today; c.streak = ns; c.total = (c.total||0) + 1;
-    saveCheckin(c);
-    streak = ns;
-    localStorage.setItem('hanlingo_streak', streak);
-    updateCheckin(); updateUI();
-    toast('✅ ' + ns + 'd streak!');
-  }
+        <!-- ============================================================ -->
+        <!-- SECTION B · EXAM PREP -->
+        <!-- ============================================================ -->
+        <section id="exams" class="sec sec-alt" aria-labelledby="exams-title">
+            <div class="wrap">
+                <div class="sec-head">
+                    <span class="eyebrow eyebrow-purple">Section B · Exam Prep</span>
+                    <h2 id="exams-title" class="sec-title">Professional Exam Prep</h2>
+                    <p class="sec-sub">Official vocabulary lists for HSK, YCT, BCT &amp; MCT. <strong>HSK 1 is free</strong> — unlock higher levels for <strong>$19.99</strong> each.</p>
+                </div>
 
-  // ===== 早鸟 =====
-  function updateEarly() {
-    var days = Math.floor((Date.now() - new Date('2026-07-20').getTime()) / (1000*60*60*24));
-    var rem = Math.max(0, 47 - days * 2);
-    document.getElementById('earlyCount').textContent = rem;
-    document.getElementById('earlyFill').style.width = (rem / 100 * 100) + '%';
-  }
+                <div class="card-grid">
+                    <a href="hsk1-study.html" class="card-item">
+                        <div class="card-header">
+                            <span class="level-badge">HSK 1</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Beginner Foundation</div>
+                            <div class="desc">150 core words · Greetings, numbers, daily routines</div>
+                            <div class="meta"><span>📘 150 words</span><span>🎯 ~2 weeks</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Free →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                    <a href="yct1-study.html" class="card-item">
+                        <div class="card-header">
+                            <span class="level-badge">YCT 1</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Youth Chinese Test</div>
+                            <div class="desc">80 words · K–12 friendly · Games &amp; stories</div>
+                            <div class="meta"><span>📘 80 words</span><span>🎮 Gamified</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Free →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                    <a href="#pricing" class="card-item" onclick="event.preventDefault();openPaywall('single_exam','19.99')">
+                        <div class="card-header">
+                            <span class="level-badge">BCT A</span>
+                            <span class="status-tag pro">PRO 🔒</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Business Basics</div>
+                            <div class="desc">400 business terms · Office, emails, meetings</div>
+                            <div class="meta"><span>📘 400 terms</span><span>🔒 $19.99</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm pro-btn">Unlock →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                    <a href="#pricing" class="card-item" onclick="event.preventDefault();openPaywall('single_exam','19.99')">
+                        <div class="card-header">
+                            <span class="level-badge">MCT 1</span>
+                            <span class="status-tag pro">PRO 🔒</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Medical Foundations</div>
+                            <div class="desc">350 medical terms · Symptoms, diagnosis, pharmacy</div>
+                            <div class="meta"><span>📘 350 terms</span><span>🔒 $19.99</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm pro-btn">Unlock →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                </div>
 
-  // ===== 倒计时 =====
-  function startCountdown() {
-    var el = document.getElementById('countdownTimer');
-    if (!el) return;
-    var total = 2 * 3600 + 34 * 60 + 17;
-    function update() {
-      if (total <= 0) { el.textContent = '00:00:00'; return; }
-      var h = String(Math.floor(total / 3600)).padStart(2,'0');
-      var m = String(Math.floor((total % 3600) / 60)).padStart(2,'0');
-      var s = String(total % 60).padStart(2,'0');
-      el.textContent = h + ':' + m + ':' + s;
-      total--;
-    }
-    update();
-    setInterval(update, 1000);
-  }
+                <div class="view-all-wrap">
+                    <a href="exam-levels.html" class="view-all-btn">
+                        View Full Exam Library →
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  // ===== 初始化 =====
-  renderDaily();
-  updateUI();
-  updateCheckin();
-  updateEarly();
-  startCountdown();
+        <!-- ============================================================ -->
+        <!-- SECTION C · REVIEW CHALLENGE -->
+        <!-- ============================================================ -->
+        <section id="challenge" class="review-challenge-section sec" aria-labelledby="challenge-title">
+            <div class="wrap">
+                <div class="sec-head">
+                    <span class="eyebrow eyebrow-blue">Section C · Review Challenge</span>
+                    <h2 id="challenge-title" class="sec-title">Test Your Knowledge</h2>
+                    <p class="sec-sub">Interactive quizzes for every exam level. <strong>HSK 1 and YCT 1 are free</strong> — unlock higher levels for <strong>$3.99</strong> each.</p>
+                </div>
 
-  // ===== 事件 =====
-  document.getElementById('startBtn').addEventListener('click', goLearn);
-  document.getElementById('learnMoreBtn').addEventListener('click', goLearn);
-  document.getElementById('checkinBtn').addEventListener('click', doCheckin);
-  document.getElementById('calBtn').addEventListener('click', function() { toast('📅 Calendar coming soon!'); });
+                <div class="card-grid">
+                    <a href="hsk1-challenge.html" class="card-item">
+                        <div class="card-header">
+                            <span class="level-badge">HSK 1</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Beginner Challenge</div>
+                            <div class="desc">150 words · 4 question types · Vocabulary &amp; Listening</div>
+                            <div class="meta"><span>📘 150 words</span><span>🎯 10 questions/round</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Challenge →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                    <a href="yct1-challenge.html" class="card-item">
+                        <div class="card-header">
+                            <span class="level-badge">YCT 1</span>
+                            <span class="status-tag free">⭐ FREE</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Youth Challenge</div>
+                            <div class="desc">80 words · 4 question types · Fun &amp; game-like</div>
+                            <div class="meta"><span>📘 80 words</span><span>🎯 10 questions/round</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm free-btn">Start Challenge →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                    <a href="#pricing" class="card-item" onclick="event.preventDefault();openPaywall('single_challenge','3.99')">
+                        <div class="card-header">
+                            <span class="level-badge">BCT A</span>
+                            <span class="status-tag pro">PRO 🔒</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Business Challenge</div>
+                            <div class="desc">400 terms · 4 question types · Office &amp; meetings</div>
+                            <div class="meta"><span>📘 400 terms</span><span>🔒 $3.99</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm pro-btn">Unlock →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                    <a href="#pricing" class="card-item" onclick="event.preventDefault();openPaywall('single_challenge','3.99')">
+                        <div class="card-header">
+                            <span class="level-badge">MCT 1</span>
+                            <span class="status-tag pro">PRO 🔒</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="name">Medical Challenge</div>
+                            <div class="desc">350 terms · 4 question types · Symptoms &amp; diagnosis</div>
+                            <div class="meta"><span>📘 350 terms</span><span>🔒 $3.99</span></div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="btn-sm pro-btn">Unlock →</span>
+                            <span class="arrow-sm">→</span>
+                        </div>
+                    </a>
+                </div>
 
-   document.getElementById('listenBtn').addEventListener('click', function() {
-    var s = getDaily();
-    if (!s) return;
-    
-    // ✅ 根据当前句子的 id，动态拼接出音频路径
-    // 例如：句子 id 为 'hsk1_002'，就会去读取 'audio/hsk1_002.mp3'
-    var audioPath = 'audio/' + s.id + '.mp3';
-    
-    var audio = new Audio(audioPath);
-    audio.play().catch(function() {
-      // ✅ 如果找不到对应的 MP3 文件，只静默报错，绝对不播放机器音
-      console.log('⚠️ 未找到音频文件: ' + audioPath);
-    });
-  });
+                <div class="view-all-wrap">
+                    <a href="challenge.html" class="view-all-btn">
+                        View Full Review Challenge →
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-  document.getElementById('closeNotification').addEventListener('click', function() {
-    document.getElementById('stickyNotification').classList.add('hidden');
-  });
+        <!-- ============================================================ -->
+        <!-- PRICING -->
+        <!-- ============================================================ -->
+        <section id="pricing" class="sec" aria-labelledby="pricing-title">
+            <div class="wrap">
+                <div class="sec-head">
+                    <span class="eyebrow eyebrow-green">Pricing</span>
+                    <h2 id="pricing-title" class="sec-title">Choose your learning path</h2>
+                    <p class="sec-sub">Whether you want to test your skills, learn practical Chinese, or prepare for exams — we have a plan for you.</p>
+                </div>
 
-  // ===== 导航 =====
-  document.querySelectorAll('.nav-item').forEach(function(el) {
-    el.addEventListener('click', function() {
-      var p = this.dataset.page;
-      if (p === 'home') { /* here */ }
-      else if (p === 'learn') { goLearn(); }
-      else if (p === 'quest') { toast('📚 Learn all sentences first!'); }
-      else if (p === 'saved') { toast('⭐ ' + saved.length + ' saved'); }
-      else if (p === 'profile') { toast('👤 Level ' + level + ' · ' + streak + 'd'); }
-    });
-  });
+                <div class="price-grid">
+                    <div class="section-divider">── Pay as You Go ──</div>
+                    <article class="plan" data-plan="single_challenge">
+                        <div class="plan-head"><h3>Single Challenge</h3><p class="plan-sub">Just the quiz. No study content.</p></div>
+                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">3.99</span><span class="pp-unit">one-time</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> 1 level (HSK/YCT/BCT/MCT)</li>
+                            <li><span class="chk">✓</span> 10 random questions/round</li>
+                            <li><span class="chk">✓</span> Unlimited attempts</li>
+                            <li><span class="chk">✓</span> Instant results</li>
+                            <li class="mute"><span class="chk grey">—</span> No vocabulary study</li>
+                        </ul>
+                        <button class="btn-outline" onclick="openPaywall('single_challenge','3.99')">Get Challenge — $3.99</button>
+                    </article>
+                    <article class="plan" data-plan="single_topic">
+                        <div class="plan-head"><h3>Single Topic</h3><p class="plan-sub">10 practical phrases + audio.</p></div>
+                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">4.99</span><span class="pp-unit">one-time</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> 1 survival topic (10 phrases)</li>
+                            <li><span class="chk">✓</span> Native audio &amp; pinyin</li>
+                            <li><span class="chk">✓</span> Word-by-word breakdown</li>
+                            <li><span class="chk">✓</span> Grammar notes</li>
+                            <li><span class="chk">✓</span> Lifetime access</li>
+                        </ul>
+                        <button class="btn-outline" onclick="openPaywall('single_topic','4.99')">Get Topic — $4.99</button>
+                    </article>
+                    <article class="plan" data-plan="single_exam">
+                        <div class="plan-head"><h3>Single Exam Level</h3><p class="plan-sub">Full vocabulary + challenge.</p></div>
+                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">19.99</span><span class="pp-unit">one-time</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> 1 exam level (HSK/YCT/BCT/MCT)</li>
+                            <li><span class="chk">✓</span> Full vocabulary list</li>
+                            <li><span class="chk">✓</span> Native audio &amp; examples</li>
+                            <li><span class="chk">✓</span> Interactive challenge</li>
+                            <li><span class="chk">✓</span> Grammar notes</li>
+                            <li><span class="chk">✓</span> Lifetime access</li>
+                        </ul>
+                        <button class="btn-outline" onclick="openPaywall('single_exam','19.99')">Buy Exam Level — $19.99</button>
+                    </article>
 
-  // ===== Service Worker =====
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(function() { console.log('✅ SW ready'); }).catch(function() {});
-  }
+                    <div class="section-divider">── Best Value Bundles ──</div>
+                    <article class="plan" data-plan="survival_library">
+                        <div class="plan-head"><h3>Survival Library</h3><p class="plan-sub">15 topics. 150+ phrases.</p></div>
+                        <div class="plan-price"><span class="pp-was">$74.85</span><span class="pp-cur">$</span><span class="pp-num">39.99</span><span class="pp-unit">one-time</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> <strong>All 15</strong> survival topics</li>
+                            <li><span class="chk">✓</span> 150+ real-world phrases</li>
+                            <li><span class="chk">✓</span> Native audio &amp; pinyin</li>
+                            <li><span class="chk">✓</span> Word-by-word breakdowns</li>
+                            <li><span class="chk">✓</span> Grammar notes</li>
+                            <li><span class="chk">✓</span> Offline access</li>
+                            <li><span class="chk">✓</span> <strong>Saves 47%</strong></li>
+                        </ul>
+                        <button class="btn-soft" onclick="openPaywall('survival_library','39.99')">Buy Library — $39.99</button>
+                        <p class="plan-foot">🎯 Best for travelers</p>
+                    </article>
+                    <article class="plan" data-plan="exam_bundle">
+                        <div class="plan-head"><h3>Exam Bundle</h3><p class="plan-sub">HSK 1–6 + challenges.</p></div>
+                        <div class="plan-price"><span class="pp-was">$119.94</span><span class="pp-cur">$</span><span class="pp-num">79.99</span><span class="pp-unit">one-time</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> <strong>All</strong> HSK 1–6 levels</li>
+                            <li><span class="chk">✓</span> Full vocabulary lists</li>
+                            <li><span class="chk">✓</span> Native audio &amp; examples</li>
+                            <li><span class="chk">✓</span> All Review Challenges</li>
+                            <li><span class="chk">✓</span> Grammar notes</li>
+                            <li><span class="chk">✓</span> <strong>Saves 33%</strong></li>
+                        </ul>
+                        <button class="btn-soft" onclick="openPaywall('exam_bundle','79.99')">Buy Bundle — $79.99</button>
+                        <p class="plan-foot">🎯 Best for exam takers</p>
+                    </article>
+                    <article class="plan" data-plan="full_library">
+                        <div class="plan-head"><h3>Full Library</h3><p class="plan-sub">Survival + Exams + Challenges</p></div>
+                        <div class="plan-price"><span class="pp-was">$194.83</span><span class="pp-cur">$</span><span class="pp-num">99.99</span><span class="pp-unit">one-time</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> <strong>Everything</strong> in Survival Library</li>
+                            <li><span class="chk">✓</span> <strong>Everything</strong> in Exam Bundle</li>
+                            <li><span class="chk">✓</span> All Review Challenges</li>
+                            <li><span class="chk">✓</span> Offline access</li>
+                            <li><span class="chk">✓</span> Lifetime access</li>
+                            <li><span class="chk">✓</span> <strong>Saves 49%</strong></li>
+                        </ul>
+                        <button class="btn-soft" onclick="openPaywall('full_library','99.99')">Buy Full Library — $99.99</button>
+                        <p class="plan-foot">🎯 Best value for all learners</p>
+                    </article>
 
-  // =====================================================
-  // ===== PWA 安装提示逻辑优化 =====
-  // =====================================================
-  var deferredPrompt = null;
-  var banner = document.getElementById('installBanner');
-  var installBtn = document.getElementById('installBtn');
-  var closeBtn = document.getElementById('closeBanner');
+                    <div class="section-divider">── Flexible &amp; Forever ──</div>
+                    <article class="plan" data-plan="monthly">
+                        <div class="plan-head"><h3>Monthly Pass</h3><p class="plan-sub">Everything. Month by month.</p></div>
+                        <div class="plan-price"><span class="pp-cur">$</span><span class="pp-num">21.99</span><span class="pp-unit">/ month</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> <strong>All</strong> survival topics</li>
+                            <li><span class="chk">✓</span> <strong>All</strong> exam levels</li>
+                            <li><span class="chk">✓</span> <strong>All</strong> review challenges</li>
+                            <li><span class="chk">✓</span> Full vocabulary &amp; audio</li>
+                            <li><span class="chk">✓</span> Progress tracking</li>
+                            <li><span class="chk">✓</span> Cancel anytime</li>
+                        </ul>
+                        <button class="btn-soft" onclick="openPaywall('monthly','21.99')">Start Monthly — $21.99</button>
+                        <p class="plan-foot">Renews monthly · Cancel in one click</p>
+                    </article>
+                    <article class="plan plan-star" data-plan="lifetime">
+                        <div class="plan-ribbon">🔥 BEST VALUE</div>
+                        <div class="plan-head"><h3>Lifetime All-Access</h3><p class="plan-sub">One payment. Everything. Forever.</p></div>
+                        <div class="plan-price"><span class="pp-was">$399.00</span><span class="pp-cur">$</span><span class="pp-num grad-num">249.99</span><span class="pp-unit">one-time · forever</span></div>
+                        <ul class="plan-list">
+                            <li><span class="chk">✓</span> <strong>Everything</strong> in Monthly Pass</li>
+                            <li><span class="chk">✓</span> <strong>All</strong> future content free</li>
+                            <li><span class="chk">✓</span> Offline audio downloads</li>
+                            <li><span class="chk">✓</span> Priority support</li>
+                            <li><span class="chk">✓</span> Certificate templates</li>
+                            <li><span class="chk">✓</span> <strong>Saves vs monthly</strong></li>
+                        </ul>
+                        <button class="btn-cta" onclick="openPaywall('lifetime','249.99')">Claim Lifetime — $249.99</button>
+                        <div class="urgency">
+                            <div class="urgency-row">
+                                <span class="u-left"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Only <b>23</b> of 100 Early Bird slots left!</span>
+                                <span class="u-right"><b>23%</b> claimed</span>
+                            </div>
+                            <div class="bar"><div class="bar-fill" style="width:23%"></div><div class="bar-pulse"></div></div>
+                            <div class="urgency-cta">⚡ Price returns to $399 after slots run out.</div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-  if (localStorage.getItem('hanlingo_install_dismissed') === 'true') {
-    banner.style.display = 'none';
-  }
+        <!-- ============================================================ -->
+        <!-- ABOUT -->
+        <!-- ============================================================ -->
+        <section id="about" class="sec sec-alt about-sec" aria-labelledby="about-title">
+            <div class="wrap about-grid">
+                <div class="about-text">
+                    <span class="eyebrow eyebrow-blue">Why HanLingo</span>
+                    <h2 id="about-title">Built by linguists, loved by learners.</h2>
+                    <p>HanLingo was built for real life. Every phrase was recorded by a native Beijing speaker at a crystal-clear 0.85× speed so you actually catch the tones. Every exam item maps directly to the official Hanban / Confucius Institute syllabus.</p>
+                    <div class="feature-grid">
+                        <div class="feature"><div class="f-ico">🎧</div><div><h4>Crystal-clear native audio</h4><p>Slow, enunciated, pitch-perfect — every character.</p></div></div>
+                        <div class="feature"><div class="f-ico">🧠</div><div><h4>Word-by-word breakdowns</h4><p>See exactly what each character means.</p></div></div>
+                        <div class="feature"><div class="f-ico">🚀</div><div><h4>Works offline, anywhere</h4><p>PWA-ready. Learn on the subway, the plane, the Great Wall.</p></div></div>
+                        <div class="feature"><div class="f-ico">💸</div><div><h4>Fair prices, forever</h4><p>One-time unlocks, no sneaky subscriptions.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    if (localStorage.getItem('hanlingo_install_dismissed') !== 'true') {
-      banner.style.display = 'flex';
-    }
-  });
+    </main>
 
-  installBtn.addEventListener('click', function() {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function(choiceResult) {
-        if (choiceResult.outcome === 'accepted') {
-          banner.style.display = 'none';
-          toast('🎉 Installed!');
-          localStorage.setItem('hanlingo_install_dismissed', 'true');
-        } else {
-          toast('⏳ Maybe later!');
+    <!-- ====== FOOTER ====== -->
+    <footer class="ft" role="contentinfo">
+        <div class="wrap ft-in">
+            <a href="index.html" class="logo ft-logo"><img src="logo.png" class="logo-img logo-img-sm" alt="HanLingo" onerror="this.style.display='none'"/><span class="logo-text">Han<span style="color:var(--green);">Lingo</span></span></a>
+            <p class="ft-copy">© 2026 HanLingo.app. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ====== JAVASCRIPT ====== -->
+    <script>
+        // ====== 汉堡菜单 ======
+        (function() {
+            var hamburger = document.getElementById('hamburgerBtn');
+            var nav = document.getElementById('mainNav');
+            if (!hamburger || !nav) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = this.classList.toggle('active');
+                nav.classList.toggle('mobile-open');
+                this.setAttribute('aria-expanded', isOpen);
+            });
+            nav.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    nav.classList.remove('mobile-open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+        })();
+
+        // ====== Paywall 打开函数 ======
+        function openPaywall(item, price) {
+            var modal = document.getElementById('paywallModal');
+            var title = document.getElementById('paywallTitle');
+            var sub = document.getElementById('paywallSub');
+            var amount = document.getElementById('paywallAmount');
+            if (!modal) return;
+
+            var titles = {
+                'single_challenge': 'Unlock Single Challenge',
+                'single_topic': 'Unlock This Topic',
+                'single_exam': 'Unlock Exam Level',
+                'survival_library': 'Get Survival Library',
+                'exam_bundle': 'Get Exam Bundle',
+                'full_library': 'Get Full Library',
+                'monthly': 'Start Monthly Pass',
+                'lifetime': 'Claim Lifetime All-Access'
+            };
+
+            var subs = {
+                'single_challenge': 'Get unlimited access to one level\'s challenge. 10 questions per round, instant results.',
+                'single_topic': 'Get 10 practical phrases with native audio, pinyin, word-by-word breakdown, and grammar notes.',
+                'single_exam': 'Full vocabulary list, native audio, examples, and interactive challenge for one exam level.',
+                'survival_library': 'All 15 survival topics — 150+ real-world phrases for travel, dining, emergencies, and more.',
+                'exam_bundle': 'All HSK 1–6 levels with full vocabulary, audio, examples, grammar notes, and challenges.',
+                'full_library': 'Everything in Survival Library + Exam Bundle — the complete HanLingo experience.',
+                'monthly': 'All survival topics, all exam levels, all challenges. Everything for one month.',
+                'lifetime': 'One payment of $249.99 — everything we have now and everything we build in the future.'
+            };
+
+            title.textContent = titles[item] || 'Unlock This Content';
+            sub.textContent = subs[item] || 'Get full access to this content with native audio and interactive challenges.';
+            amount.textContent = '$' + price;
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
         }
-        deferredPrompt = null;
-      });
-    }
-  });
 
-  closeBtn.addEventListener('click', function() {
-    banner.style.display = 'none';
-    localStorage.setItem('hanlingo_install_dismissed', 'true');
-    toast('👌 No problem! You can install anytime from your browser menu.');
-  });
+        // ====== 关闭 Paywall ======
+        (function() {
+            var modal = document.getElementById('paywallModal');
+            if (!modal) return;
 
-  window.addEventListener('appinstalled', function() {
-    banner.style.display = 'none';
-    localStorage.setItem('hanlingo_install_dismissed', 'true');
-    toast('🎉 HanLingo installed!');
-  });
+            function closeModal() {
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
 
-  if (typeof HanLingoUser !== 'undefined') {
-    console.log('✅ User System ready');
-  }
+            document.querySelectorAll('[data-modal-close]').forEach(function(el) {
+                el.addEventListener('click', closeModal);
+            });
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+            });
 
-  console.log('✅ HanLingo · ' + data.length + ' sentences');
-</script>
+            var buyBtn = document.getElementById('paywallBuyBtn');
+            if (buyBtn) {
+                buyBtn.addEventListener('click', function() {
+                    buyBtn.textContent = 'Processing…';
+                    buyBtn.disabled = true;
+                    setTimeout(function() {
+                        closeModal();
+                        setTimeout(function() {
+                            buyBtn.textContent = 'Unlock Now';
+                            buyBtn.disabled = false;
+                        }, 1000);
+                    }, 800);
+                });
+            }
+        })();
+
+        // ================================================================
+        // ★★★ PWA 安装逻辑（按钮默认可见，自动隐藏） ★★★
+        // ================================================================
+        (function() {
+            'use strict';
+
+            var headerBtn = document.getElementById('installBtnHeader');
+            var heroBtn = document.getElementById('installBtnHero');
+            var installHint = document.getElementById('installHint');
+            var banner = document.getElementById('pwaBanner');
+            var bannerInstallBtn = document.getElementById('pwaInstallBtn');
+            var bannerCloseBtn = document.getElementById('pwaCloseBtn');
+            var bannerDesc = document.getElementById('pwaDesc');
+
+            var deferredPrompt = null;
+            var isInstalled = false;
+            var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            var isAndroid = /Android/.test(navigator.userAgent);
+            var isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone === true;
+
+            // ---- 显示/隐藏按钮 ----
+            function setButtonsVisible(visible) {
+                var show = visible === true;
+                if (headerBtn) headerBtn.classList.toggle('hidden', !show);
+                if (heroBtn) heroBtn.classList.toggle('hidden', !show);
+                if (installHint) installHint.style.display = show ? 'flex' : 'none';
+            }
+
+            // ---- iOS 指引 ----
+            function showIOSInstructions() {
+                alert('📲 点击屏幕底部的「分享」按钮，然后选择「添加到主屏幕」即可安装 HanLingo。');
+            }
+
+            // ---- 执行安装 ----
+            function performInstall() {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(function(choice) {
+                        if (choice.outcome === 'accepted') {
+                            isInstalled = true;
+                            setButtonsVisible(false);
+                            if (banner) banner.classList.remove('show');
+                            localStorage.setItem('hanlingo_pwa_installed', 'true');
+                        }
+                        deferredPrompt = null;
+                    });
+                } else if (isIOS) {
+                    showIOSInstructions();
+                } else {
+                    alert('📲 请使用 Chrome / Edge / Safari 打开此页面，然后点击地址栏的「安装」图标。');
+                }
+            }
+
+            // ---- beforeinstallprompt ----
+            window.addEventListener('beforeinstallprompt', function(e) {
+                e.preventDefault();
+                deferredPrompt = e;
+                if (!isInstalled && !isStandalone) {
+                    setButtonsVisible(true);
+                    if (bannerInstallBtn) bannerInstallBtn.textContent = 'Install';
+                }
+            });
+
+            // ---- appinstalled ----
+            window.addEventListener('appinstalled', function() {
+                isInstalled = true;
+                setButtonsVisible(false);
+                if (banner) banner.classList.remove('show');
+                localStorage.setItem('hanlingo_pwa_installed', 'true');
+                deferredPrompt = null;
+            });
+
+            // ---- 检测 standalone ----
+            if (isStandalone) {
+                isInstalled = true;
+                setButtonsVisible(false);
+                if (banner) banner.classList.remove('show');
+                localStorage.setItem('hanlingo_pwa_installed', 'true');
+            }
+
+            // ---- localStorage 记录 ----
+            if (localStorage.getItem('hanlingo_pwa_installed') === 'true') {
+                isInstalled = true;
+                setButtonsVisible(false);
+                if (banner) banner.classList.remove('show');
+            }
+
+            // ---- iOS 特殊处理 ----
+            if (isIOS && !isStandalone) {
+                // iOS 不会触发 beforeinstallprompt，所以我们直接显示按钮并更改文案
+                setTimeout(function() {
+                    if (!isInstalled) {
+                        setButtonsVisible(true);
+                        if (installHint) {
+                            installHint.style.display = 'flex';
+                            installHint.querySelector('span:last-child').textContent =
+                                'Tap Share → Add to Home Screen';
+                        }
+                        if (bannerDesc) bannerDesc.textContent = 'Tap Share → Add to Home Screen';
+                        if (bannerInstallBtn) bannerInstallBtn.textContent = 'Add to Home';
+                    }
+                }, 1000);
+            }
+
+            // ---- 不支持 Service Worker 则隐藏 ----
+            if (!('serviceWorker' in navigator) && !isIOS) {
+                setButtonsVisible(false);
+                if (banner) banner.classList.remove('show');
+            }
+
+            // ---- 绑定点击 ----
+            if (headerBtn) headerBtn.addEventListener('click', function(e) { e.preventDefault();
+                performInstall(); });
+            if (heroBtn) heroBtn.addEventListener('click', function(e) { e.preventDefault();
+                performInstall(); });
+            if (bannerInstallBtn) {
+                bannerInstallBtn.addEventListener('click', function() {
+                    if (isIOS && !deferredPrompt) {
+                        showIOSInstructions();
+                        if (banner) banner.classList.remove('show');
+                        localStorage.setItem('hanlingo_pwa_banner_dismissed', 'true');
+                        return;
+                    }
+                    performInstall();
+                });
+            }
+
+            // ---- 横幅关闭 ----
+            if (bannerCloseBtn && banner) {
+                bannerCloseBtn.addEventListener('click', function() {
+                    banner.classList.remove('show');
+                    localStorage.setItem('hanlingo_pwa_banner_dismissed', 'true');
+                });
+            }
+
+            // ---- 显示横幅 ----
+            if (banner && !isInstalled && !isStandalone &&
+                localStorage.getItem('hanlingo_pwa_banner_dismissed') !== 'true') {
+                setTimeout(function() {
+                    if (!isInstalled && !isStandalone) {
+                        banner.classList.add('show');
+                        if (isIOS) {
+                            if (bannerDesc) bannerDesc.textContent = 'Tap Share → Add to Home Screen';
+                            if (bannerInstallBtn) bannerInstallBtn.textContent = 'Add to Home';
+                        }
+                    }
+                }, 3000);
+            }
+
+            // ---- 最终状态 ----
+            if (isInstalled || isStandalone) {
+                if (banner) banner.classList.remove('show');
+                setButtonsVisible(false);
+            }
+
+            console.log('📲 PWA 安装模块已初始化 (按钮默认可见)');
+        })();
+
+        // ====== 音频下拉 ======
+        (function() {
+            var voiceSelect = document.getElementById('voice-select');
+            if (!voiceSelect) return;
+            var VOICE_FEMALE = 'zh-CN-XiaoxiaoNeural';
+            var VOICE_MALE = 'zh-CN-YunyangNeural';
+            voiceSelect.innerHTML = '';
+            var optF = document.createElement('option');
+            optF.value = VOICE_FEMALE;
+            optF.textContent = 'Female (Xiaoxiao)';
+            voiceSelect.appendChild(optF);
+            var optM = document.createElement('option');
+            optM.value = VOICE_MALE;
+            optM.textContent = 'Male (Yunyang)';
+            voiceSelect.appendChild(optM);
+            var saved = localStorage.getItem('hanlingo_voice');
+            voiceSelect.value = (saved === VOICE_FEMALE || saved === VOICE_MALE) ? saved : VOICE_FEMALE;
+            voiceSelect.addEventListener('change', function() {
+                localStorage.setItem('hanlingo_voice', this.value);
+            });
+            var speedSelect = document.getElementById('speed-select');
+            if (speedSelect) {
+                var speedSaved = localStorage.getItem('hanlingo_speed');
+                speedSelect.value = speedSaved === 'normal' ? 'normal' : 'slow';
+                speedSelect.addEventListener('change', function() {
+                    localStorage.setItem('hanlingo_speed', this.value);
+                });
+            }
+        })();
+
+        // ====== 滚动阴影 ======
+        (function() {
+            var header = document.querySelector('.hdr');
+            if (!header) return;
+            window.addEventListener('scroll', function() {
+                var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                header.classList.toggle('scrolled', scrollY > 10);
+            }, { passive: true });
+        })();
+    </script>
+
 </body>
 </html>
