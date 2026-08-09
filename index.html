@@ -339,29 +339,8 @@
             border-color: var(--green);
             transform: translateY(-2px);
         }
-        .hero-ctas .btn-install-hero {
-            background: var(--blue);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .hero-ctas .btn-install-hero:hover {
-            background: var(--blue-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        .hero-ctas .btn-install-hero.hidden {
-            display: none !important;
-        }
+        /* ⚠️ 已删除 hero 中的 btn-install-hero，只保留 header 中的安装按钮 */
+
         .hero-install-hint {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -635,7 +614,6 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 8px;
-
         }
         .card-item .card-header .level-badge {
             font-weight: 800;
@@ -1516,7 +1494,6 @@
             .pwa-banner { bottom: 10px; padding: 12px 16px; flex-wrap: wrap; justify-content: center; text-align: center; }
             .pwa-banner .pwa-btn { width: 100%; justify-content: center; }
             .plan-star { transform: translateY(0); }
-            .hero-ctas .btn-install-hero .label { display: none; }
         }
         @media (max-width: 480px) {
             .hero-title { font-size: 1.8rem; }
@@ -1622,6 +1599,7 @@
 
             <div class="hdr-ctas">
                 <button class="btn-ghost nav-cta-signin">Sign In</button>
+                <!-- ★ 唯一保留的安装按钮（顶栏） -->
                 <button class="btn-install" id="installBtnHeader" aria-label="Install HanLingo app">
                     <span class="icon">📲</span>
                     <span class="label">Install</span>
@@ -1658,10 +1636,7 @@
                             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
                             View Pricing
                         </a>
-                        <button class="btn-install-hero" id="installBtnHero">
-                            <span class="icon">📲</span>
-                            <span class="label">Install App</span>
-                        </button>
+                        <!-- ⚠️ 已删除此处重复的 Install 按钮 -->
                     </div>
                     <div class="hero-install-hint" id="installHint" style="display:none;">
                         <span class="icon">📲</span>
@@ -1891,6 +1866,7 @@
         <!-- SECTION C · REVIEW CHALLENGE -->
         <!-- ============================================================ -->
         <section id="challenge" class="review-challenge-section sec" aria-labelledby="challenge-title">
+
             <div class="wrap">
                 <div class="sec-head">
                     <span class="eyebrow eyebrow-blue">Section C · Review Challenge</span>
@@ -2235,13 +2211,12 @@
         })();
 
         // ================================================================
-        // ★★★ PWA 安装逻辑（按钮默认可见，自动隐藏） ★★★
+        // ★★★ PWA 安装逻辑（仅顶栏按钮，已删除 Hero 区重复按钮） ★★★
         // ================================================================
         (function() {
             'use strict';
 
             var headerBtn = document.getElementById('installBtnHeader');
-            var heroBtn = document.getElementById('installBtnHero');
             var installHint = document.getElementById('installHint');
             var banner = document.getElementById('pwaBanner');
             var bannerInstallBtn = document.getElementById('pwaInstallBtn');
@@ -2251,14 +2226,12 @@
             var deferredPrompt = null;
             var isInstalled = false;
             var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            var isAndroid = /Android/.test(navigator.userAgent);
             var isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
                 window.navigator.standalone === true;
 
             function setButtonsVisible(visible) {
                 var show = visible === true;
                 if (headerBtn) headerBtn.classList.toggle('hidden', !show);
-                if (heroBtn) heroBtn.classList.toggle('hidden', !show);
                 if (installHint) installHint.style.display = show ? 'flex' : 'none';
             }
 
@@ -2336,7 +2309,6 @@
             }
 
             if (headerBtn) headerBtn.addEventListener('click', function(e) { e.preventDefault(); performInstall(); });
-            if (heroBtn) heroBtn.addEventListener('click', function(e) { e.preventDefault(); performInstall(); });
             if (bannerInstallBtn) {
                 bannerInstallBtn.addEventListener('click', function() {
                     if (isIOS && !deferredPrompt) {
@@ -2374,7 +2346,7 @@
                 setButtonsVisible(false);
             }
 
-            console.log('📲 PWA 安装模块已初始化 (按钮默认可见)');
+            console.log('📲 PWA 安装模块已初始化 (仅顶栏按钮)');
         })();
 
         // ====== 音频下拉 ======
