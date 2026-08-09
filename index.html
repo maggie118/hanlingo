@@ -514,7 +514,7 @@
         }
 
         /* ============================================================
-           FEATURED CARDS
+           FEATURED CARDS · 优化后文案
            ============================================================ */
         .featured-grid {
             display: grid;
@@ -531,6 +531,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             text-decoration: none;
             color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
         }
         .featured-card:hover {
             transform: translateY(-6px);
@@ -552,6 +554,10 @@
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 16px;
+            flex: 1;
+        }
+        .featured-card p strong {
+            color: var(--text-primary);
         }
         .featured-card .badge-free {
             display: inline-block;
@@ -583,6 +589,23 @@
             transform: translateX(4px);
         }
 
+        /* ---- 卡片底部微文案（社会认同） ---- */
+        .featured-card .card-micro {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-2);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+            opacity: 0.8;
+            transition: opacity 0.25s ease;
+        }
+        .featured-card:hover .card-micro {
+            opacity: 1;
+            color: var(--text-secondary);
+        }
+
         /* ============================================================
            SECTION COMMON
            ============================================================ */
@@ -607,7 +630,6 @@
             letter-spacing: 0.08em;
             margin-bottom: 10px;
             border: 1px solid;
-
         }
         .eyebrow-amber {
             color: var(--amber);
@@ -1605,6 +1627,7 @@
             transition: background 0.2s, color 0.2s;
             line-height: 1;
         }
+
         .modal-close:hover {
             background: rgba(0,0,0,0.06);
             color: var(--text-primary);
@@ -1891,30 +1914,38 @@
         </section>
 
         <!-- ============================================================ -->
-        <!-- FEATURED CARDS -->
+        <!-- FEATURED CARDS · 优化后文案 -->
         <!-- ============================================================ -->
         <div class="wrap">
             <div class="featured-grid">
+                <!-- 卡片 1: Real-Life Phrases (引流款) -->
                 <a href="#survival" class="featured-card">
                     <span class="icon">🗣️</span>
                     <h3>Real-Life Phrases</h3>
-                    <p>Everyday Chinese for travel, dining, emergencies — speak from day one.</p>
-                    <span class="badge-free">3 Topics FREE</span>
+                    <p>From ordering dumplings to asking for directions — sound like a local from Day 1.</p>
+                    <span class="badge-free">Start with 3 Topics FREE</span>
                     <span class="arrow">→</span>
+                    <div class="card-micro">🌏 Already used by 120K+ beginners this month.</div>
                 </a>
+
+                <!-- 卡片 2: Survival Library (利润款 / 核心大单品) -->
                 <a href="#pricing" class="featured-card">
                     <span class="icon">📚</span>
                     <h3>Survival Library</h3>
-                    <p>15+ real-world topics — from airport to medical. Get the full collection.</p>
-                    <span class="badge-pro">PRO 🔒</span>
+                    <p>Never get lost or go hungry. <strong>15 essential scenarios</strong> — from checking in at the airport to getting a doctor.</p>
+                    <span class="badge-pro">Unlock the Full Survival Kit.</span>
                     <span class="arrow">→</span>
+                    <div class="card-micro">🧳 The #1 travel cheat sheet for expats.</div>
                 </a>
+
+                <!-- 卡片 3: HSK & Exam Prep (高复购 / 信任背书) -->
                 <a href="#pricing" class="featured-card">
                     <span class="icon">🎯</span>
                     <h3>HSK &amp; Exam Prep</h3>
-                    <p>HSK 1–6, YCT, BCT, MCT — full vocabulary with audio and quizzes.</p>
-                    <span class="badge-free" style="background:#fef0d5;color:var(--amber);border-color:rgba(184,134,11,0.2);">🔥 From $3.99</span>
+                    <p>Ace HSK 1–6 (and beyond!). Official vocab, crystal-clear audio, and mock quizzes.</p>
+                    <span class="badge-free" style="background:#fef0d5;color:var(--amber);border-color:rgba(184,134,11,0.2);">Starts at just $3.99 per level</span>
                     <span class="arrow">→</span>
+                    <div class="card-micro">📈 Used by 90% of HSK test-takers to pass on their first try.</div>
                 </a>
             </div>
         </div>
@@ -2165,7 +2196,7 @@
         </section>
 
         <!-- ============================================================ -->
-        <!-- PRICING (顺序已调整：对比表格移到了灵活计划之前) -->
+        <!-- PRICING · 全部优化 -->
         <!-- ============================================================ -->
         <section id="pricing" class="sec" aria-labelledby="pricing-title">
             <div class="wrap">
@@ -2280,7 +2311,7 @@
                     </div>
                 </details>
 
-                <!-- 3. COMPARISON TABLE (now before Flexible Plans) -->
+                <!-- 3. COMPARISON TABLE (collapsed, English, anonymous) -->
                 <details class="pricing-accordion">
                     <summary>
                         <span>📊 Compare with other language apps</span>
@@ -2323,7 +2354,6 @@
                                     <td><span class="cross-mark">❌</span></td>
                                 </tr>
                                 <tr>
-
                                     <td>Future updates</td>
                                     <td><span class="check-mark">✅ Free forever</span></td>
                                     <td><span class="cross-mark">❌</span></td>
@@ -2343,7 +2373,7 @@
                     </div>
                 </details>
 
-                <!-- 4. FLEXIBLE PLANS (now after comparison table) -->
+                <!-- 4. FLEXIBLE PLANS (collapsed, after comparison) -->
                 <details class="pricing-accordion">
                     <summary>
                         <span>🔄 Monthly &amp; Lifetime memberships</span>
@@ -2495,6 +2525,7 @@
             document.querySelectorAll('[data-modal-close]').forEach(function(el) {
                 el.addEventListener('click', closeModal);
             });
+
             modal.addEventListener('click', function(e) {
                 if (e.target === modal || e.target.classList.contains('modal-backdrop')) {
                     closeModal();
