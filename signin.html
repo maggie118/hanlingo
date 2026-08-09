@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2d7d46" />
+    <title>HanLingo — Sign In</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================================
+           GLOBAL
+           ============================================================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --green: #2d7d46;
+            --green-light: #3a9b5a;
+            --green-bg: #eaf5ee;
+            --green-soft: #d4e8dc;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #8a8aaa;
+            --border-2: #e8e8f0;
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f0f7f2 0%, #e8f0ec 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* ============================================================
+           AUTH CARD
+           ============================================================ */
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px 36px 32px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease;
+        }
+
+        .auth-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ---- Logo ---- */
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .auth-logo img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .auth-logo .green-text {
+            color: var(--green);
+        }
+
+        .auth-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        /* ---- Tab切换 ---- */
+        .auth-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            background: var(--border-2);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .auth-tab {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .auth-tab.active {
+            background: #ffffff;
+            color: var(--text-primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .auth-tab:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* ---- Form ---- */
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .auth-form.active {
+            display: flex;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group input {
+            padding: 12px 16px;
+            border: 2px solid var(--border-2);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: #fafbfc;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 4px rgba(45, 125, 70, 0.12);
+            background: #ffffff;
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        .form-options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .form-options label input[type="checkbox"] {
+            accent-color: var(--green);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .form-options a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .form-options a:hover {
+            color: var(--green-light);
+            text-decoration: underline;
+        }
+
+        /* ---- Submit Button ---- */
+        .btn-submit {
+            padding: 14px;
+            border: none;
+            border-radius: 999px;
+            background: var(--green);
+            color: #ffffff;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+            margin-top: 4px;
+        }
+
+        .btn-submit:hover {
+            background: var(--green-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(45, 125, 70, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ---- Error / Success Messages ---- */
+        .auth-message {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .auth-message.error {
+            display: block;
+            background: #fde8e8;
+            color: #c0392b;
+            border: 1px solid #f5d0d0;
+        }
+
+        .auth-message.success {
+            display: block;
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid rgba(45, 125, 70, 0.2);
+        }
+
+        /* ---- 密码强度指示器 ---- */
+        .password-strength {
+            display: flex;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .password-strength .segment {
+            flex: 1;
+            height: 4px;
+            border-radius: 4px;
+            background: var(--border-2);
+            transition: background 0.3s ease;
+        }
+
+        .password-strength .segment.weak { background: #e74c3c; }
+        .password-strength .segment.medium { background: #f39c12; }
+        .password-strength .segment.strong { background: var(--green); }
+
+        /* ---- 切换提示 ---- */
+        .auth-switch {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-2);
+        }
+
+        .auth-switch a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 800;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .auth-switch a:hover {
+            color: var(--green-light);
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+           DASHBOARD (登录后显示)
+           ============================================================ */
+        .dashboard {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 12px 0 4px;
+        }
+
+        .dashboard .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--green-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: var(--green);
+            margin-bottom: 12px;
+            border: 3px solid rgba(45, 125, 70, 0.15);
+        }
+
+        .dashboard .user-name {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .dashboard .user-email {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .dashboard .btn-logout {
+            padding: 10px 32px;
+            border: 2px solid var(--border-2);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .dashboard .btn-logout:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            background: #fde8e8;
+        }
+
+        .dashboard .back-link {
+            margin-top: 16px;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .dashboard .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 28px 20px 24px;
+            }
+            .auth-logo {
+                font-size: 22px;
+            }
+            .auth-logo img {
+                width: 32px;
+                height: 32px;
+            }
+            .form-group input {
+                padding: 10px 14px;
+                font-size: 0.9rem;
+            }
+            .btn-submit {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+            .auth-card:hover { transform: none !important; }
+            .btn-submit:hover { transform: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container" id="app">
+
+        <!-- ====== AUTH CARD ====== -->
+        <div class="auth-card" id="authCard">
+
+            <!-- Logo -->
+            <a href="index.html" class="auth-logo">
+                <img src="logo.png" alt="HanLingo" />
+                <span>Han<span class="green-text">Lingo</span></span>
+            </a>
+            <p class="auth-subtitle">Learn Mandarin Chinese. Fast.</p>
+
+            <!-- ====== 登录后仪表板 ====== -->
+            <div class="dashboard" id="dashboard">
+                <div class="avatar" id="avatarLetter">👤</div>
+                <div class="user-name" id="displayName">User</div>
+                <div class="user-email" id="displayEmail">user@example.com</div>
+                <button class="btn-logout" id="logoutBtn">Sign Out</button>
+                <a href="index.html" class="back-link">← Back to Home</a>
+            </div>
+
+            <!-- ====== 登录/注册表单 ====== -->
+            <div id="authForms">
+
+                <!-- Tab切换 -->
+                <div class="auth-tabs" id="authTabs">
+                    <button class="auth-tab active" data-tab="signin">Sign In</button>
+                    <button class="auth-tab" data-tab="signup">Sign Up</button>
+                </div>
+
+                <!-- 消息提示 -->
+                <div class="auth-message" id="authMessage"></div>
+
+                <!-- ===== Sign In Form ===== -->
+                <form class="auth-form active" id="signinForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="signinEmail">Email</label>
+                        <input type="email" id="signinEmail" placeholder="you@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signinPassword">Password</label>
+                        <input type="password" id="signinPassword" placeholder="Enter your password" required />
+                    </div>
+                    <div class="form-options">
+                        <label><input type="checkbox" id="rememberMe" checked /> Remember me</label>
+                        <a href="#" onclick="alert('Reset link sent to your email (demo).'); return false;">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-submit">Sign In</button>
+                </form>
+
+                <!-- ===== Sign Up Form ===== -->
+                <form class="auth-form" id="signupForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Your name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="you@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Min 6 characters" required />
+                        <div class="password-strength" id="passwordStrength">
+                            <span class="segment"></span>
+                            <span class="segment"></span>
+                            <span class="segment"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirm">Confirm Password</label>
+                        <input type="password" id="signupConfirm" placeholder="Confirm your password" required />
+                    </div>
+                    <button type="submit" class="btn-submit">Create Account</button>
+                </form>
+
+                <!-- 底部切换 -->
+                <div class="auth-switch" id="authSwitch">
+                    <span id="switchText">Already have an account?</span>
+                    <a id="switchLink">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // DOM refs
+            // ============================================================
+            const authForms = document.getElementById('authForms');
+            const dashboard = document.getElementById('dashboard');
+            const signinForm = document.getElementById('signinForm');
+            const signupForm = document.getElementById('signupForm');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authMessage = document.getElementById('authMessage');
+            const switchLink = document.getElementById('switchLink');
+            const switchText = document.getElementById('switchText');
+
+            const signinEmail = document.getElementById('signinEmail');
+            const signinPassword = document.getElementById('signinPassword');
+            const signupName = document.getElementById('signupName');
+            const signupEmail = document.getElementById('signupEmail');
+            const signupPassword = document.getElementById('signupPassword');
+            const signupConfirm = document.getElementById('signupConfirm');
+            const rememberMe = document.getElementById('rememberMe');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const displayName = document.getElementById('displayName');
+            const displayEmail = document.getElementById('displayEmail');
+            const avatarLetter = document.getElementById('avatarLetter');
+
+            const passwordStrength = document.getElementById('passwordStrength');
+            const segments = passwordStrength.querySelectorAll('.segment');
+
+            // ============================================================
+            // 状态
+            // ============================================================
+            const STORAGE_KEY = 'hanlingo_users';
+            const SESSION_KEY = 'hanlingo_session';
+            let currentUser = null;
+
+            // ============================================================
+            // 工具函数
+            // ============================================================
+            function getUsers() {
+                try {
+                    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                } catch { return {}; }
+            }
+
+            function saveUsers(users) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+            }
+
+            function getSession() {
+                try {
+                    return JSON.parse(localStorage.getItem(SESSION_KEY));
+                } catch { return null; }
+            }
+
+            function saveSession(email) {
+                localStorage.setItem(SESSION_KEY, JSON.stringify({ email, timestamp: Date.now() }));
+            }
+
+            function clearSession() {
+                localStorage.removeItem(SESSION_KEY);
+            }
+
+            function showMessage(text, type) {
+                authMessage.textContent = text;
+                authMessage.className = 'auth-message ' + type;
+                authMessage.style.display = 'block';
+                setTimeout(() => {
+                    authMessage.style.display = 'none';
+                }, 5000);
+            }
+
+            function switchTab(tabId) {
+                authTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.tab === tabId);
+                });
+                signinForm.classList.toggle('active', tabId === 'signin');
+                signupForm.classList.toggle('active', tabId === 'signup');
+                authMessage.style.display = 'none';
+
+                const isSignin = tabId === 'signin';
+                switchText.textContent = isSignin ? "Don't have an account?" : "Already have an account?";
+                switchLink.textContent = isSignin ? 'Sign Up' : 'Sign In';
+                switchLink.dataset.target = isSignin ? 'signup' : 'signin';
+            }
+
+            // ============================================================
+            // 密码强度检测
+            // ============================================================
+            function checkPasswordStrength(password) {
+                let score = 0;
+                if (password.length >= 6) score++;
+                if (password.length >= 10) score++;
+                if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+                if (/\d/.test(password)) score++;
+                if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+                if (password.length === 0) return 0;
+                if (score <= 2) return 1;
+                if (score <= 4) return 2;
+                return 3;
+            }
+
+            function updatePasswordStrength() {
+                const password = signupPassword.value;
+                const strength = checkPasswordStrength(password);
+                segments.forEach((seg, i) => {
+                    seg.className = 'segment';
+                    if (strength === 0) return;
+                    if (i < strength) {
+                        if (strength === 1) seg.classList.add('weak');
+                        else if (strength === 2) seg.classList.add('medium');
+                        else if (strength >= 3) seg.classList.add('strong');
+                    }
+                });
+            }
+
+            // ============================================================
+            // 注册
+            // ============================================================
+            function handleSignup(e) {
+                e.preventDefault();
+
+                const name = signupName.value.trim();
+                const email = signupEmail.value.trim().toLowerCase();
+                const password = signupPassword.value;
+                const confirm = signupConfirm.value;
+
+                // 验证
+                if (!name) { showMessage('Please enter your name.', 'error'); return; }
+                if (!email || !email.includes('@')) { showMessage('Please enter a valid email address.', 'error'); return; }
+                if (password.length < 6) { showMessage('Password must be at least 6 characters.', 'error'); return; }
+                if (password !== confirm) { showMessage('Passwords do not match.', 'error'); return; }
+
+                const users = getUsers();
+                if (users[email]) {
+                    showMessage('This email is already registered. Please sign in.', 'error');
+                    return;
+                }
+
+                // 保存用户
+                users[email] = {
+                    name: name,
+                    email: email,
+                    password: password,
+                    created: Date.now()
+                };
+                saveUsers(users);
+
+                showMessage('Account created successfully! Please sign in.', 'success');
+                switchTab('signin');
+                signinEmail.value = email;
+                signinPassword.value = '';
+                signupName.value = '';
+                signupEmail.value = '';
+                signupPassword.value = '';
+                signupConfirm.value = '';
+                segments.forEach(seg => seg.className = 'segment');
+            }
+
+            // ============================================================
+            // 登录
+            // ============================================================
+            function handleSignin(e) {
+                e.preventDefault();
+
+                const email = signinEmail.value.trim().toLowerCase();
+                const password = signinPassword.value;
+
+                if (!email || !email.includes('@')) { showMessage('Please enter a valid email.', 'error'); return; }
+                if (!password) { showMessage('Please enter your password.', 'error'); return; }
+
+                const users = getUsers();
+                const user = users[email];
+
+                if (!user) {
+                    showMessage('No account found with this email. Please sign up first.', 'error');
+                    return;
+                }
+
+                if (user.password !== password) {
+                    showMessage('Incorrect password. Please try again.', 'error');
+                    return;
+                }
+
+                // 登录成功
+                currentUser = user;
+                if (rememberMe.checked) {
+                    saveSession(email);
+                } else {
+                    clearSession();
+                    // 仍然保存当前会话，但下次不自动登录
+                    sessionStorage.setItem('hanlingo_session_temp', JSON.stringify({ email }));
+                }
+
+                showDashboard(user);
+                showMessage('Welcome back, ' + user.name + '! 🎉', 'success');
+            }
+
+            // ============================================================
+            // 显示仪表板
+            // ============================================================
+            function showDashboard(user) {
+                authForms.style.display = 'none';
+                dashboard.style.display = 'flex';
+                displayName.textContent = user.name;
+                displayEmail.textContent = user.email;
+                avatarLetter.textContent = user.name.charAt(0).toUpperCase() || '👤';
+            }
+
+            function hideDashboard() {
+                authForms.style.display = 'block';
+                dashboard.style.display = 'none';
+                currentUser = null;
+            }
+
+            // ============================================================
+            // 登出
+            // ============================================================
+            function handleLogout() {
+                clearSession();
+                sessionStorage.removeItem('hanlingo_session_temp');
+                hideDashboard();
+                signinPassword.value = '';
+                showMessage('You have been signed out.', 'success');
+                switchTab('signin');
+            }
+
+            // ============================================================
+            // 自动登录检查
+            // ============================================================
+            function checkAutoLogin() {
+                // 检查 localStorage session
+                const session = getSession();
+                if (session && session.email) {
+                    const users = getUsers();
+                    const user = users[session.email];
+                    if (user) {
+                        currentUser = user;
+                        showDashboard(user);
+                        return true;
+                    } else {
+                        clearSession();
+                    }
+                }
+
+                // 检查 sessionStorage (临时会话)
+                try {
+                    const temp = JSON.parse(sessionStorage.getItem('hanlingo_session_temp'));
+                    if (temp && temp.email) {
+                        const users = getUsers();
+                        const user = users[temp.email];
+                        if (user) {
+                            currentUser = user;
+                            showDashboard(user);
+                            return true;
+                        }
+                    }
+                } catch {}
+
+                return false;
+            }
+
+            // ============================================================
+            // 键盘快捷键 (Enter 提交)
+            // ============================================================
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const activeForm = document.querySelector('.auth-form.active');
+                    if (activeForm) {
+                        activeForm.dispatchEvent(new Event('submit', { cancelable: true }));
+                    }
+                }
+            });
+
+            // ============================================================
+            // 事件绑定
+            // ============================================================
+            // Tab 切换
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    switchTab(this.dataset.tab);
+                });
+            });
+
+            // 底部切换链接
+            switchLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.dataset.target || 'signup';
+                switchTab(target);
+            });
+
+            // 注册表单
+            signupForm.addEventListener('submit', handleSignup);
+
+            // 登录表单
+            signinForm.addEventListener('submit', handleSignin);
+
+            // 登出
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // 密码强度实时检测
+            signupPassword.addEventListener('input', updatePasswordStrength);
+
+            // 确认密码实时反馈
+            signupConfirm.addEventListener('input', function() {
+                if (this.value && this.value !== signupPassword.value) {
+                    this.style.borderColor = '#e74c3c';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
+
+            // 切换表单时清空消息
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    authMessage.style.display = 'none';
+                });
+            });
+
+            // ============================================================
+            // 初始化
+            // ============================================================
+            // 默认显示 Sign In tab
+            switchTab('signin');
+
+            // 自动登录
+            if (checkAutoLogin()) {
+                // 已登录
+            }
+
+            // 如果登录了，隐藏表单
+            if (currentUser) {
+                authForms.style.display = 'none';
+                dashboard.style.display = 'flex';
+            }
+
+            console.log('🔐 HanLingo Auth 已初始化 (无数据库, localStorage 存储)');
+        })();
+    </script>
+
+</body>
+</html>
