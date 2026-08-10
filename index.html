@@ -355,6 +355,7 @@
             margin: 0;
         }
 
+
         .hero-chips li {
             padding: 4px 14px;
             background: #fff;
@@ -721,7 +722,7 @@
         .view-all-btn:hover svg { transform: translateX(4px); }
 
         /* ============================================================
-           PRICING (核心优化：支付图标)
+           PRICING (核心优化：支付图标 + 早鸟计数器)
            ============================================================ */
         .pricing-focus {
             display: grid;
@@ -953,7 +954,6 @@
             height: 26px;
             width: auto;
         }
-        /* 简单 SVG fallback 字体图标 */
         .payment-icons .pm-emoji {
             font-size: 1.5rem;
             line-height: 1;
@@ -969,6 +969,67 @@
             color: var(--text-muted);
             font-size: 0.78rem;
             font-weight: 800;
+        }
+
+        /* ===== 早鸟计数器 (Lifetime) ===== */
+        .early-bird-counter {
+            background: #fef9f0;
+            border: 1px solid #f0e4c8;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 6px 0 12px;
+        }
+        .early-bird-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--amber);
+            gap: 10px;
+        }
+        .early-bird-row .left span, .early-bird-row .right span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .early-bird-row b {
+            color: #8a6d0b;
+            font-size: 0.85rem;
+        }
+        .early-bird-bar {
+            position: relative;
+            height: 6px;
+            background: #f0e4c8;
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 6px 0 4px;
+        }
+        .early-bird-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4a02a, #b8860b);
+            border-radius: 999px;
+            transition: width 1s ease;
+        }
+        .early-bird-bar .pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 30%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            border-radius: 999px;
+            animation: shimmer 2.4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+        .early-bird-cta {
+            text-align: center;
+            color: var(--amber);
+            font-weight: 900;
+            font-size: 0.75rem;
         }
 
         .pricing-more {
@@ -1055,7 +1116,6 @@
             box-shadow: var(--shadow-sm);
         }
         .compare-table-wrap h4 {
-
             font-size: 1.1rem;
             font-weight: 900;
             text-align: center;
@@ -1717,7 +1777,7 @@
 </div>
                     </article>
 
-                    <!-- Lifetime -->
+                    <!-- Lifetime (含早鸟计数器) -->
                     <article class="plan pricing-lifetime" data-plan="lifetime">
                         <div class="plan-ribbon" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 18px;background:linear-gradient(90deg,#d4a02a,#b8860b);color:#fff;border-radius:999px;font-weight:900;font-size:0.7rem;box-shadow:0 2px 8px rgba(184,134,11,0.3);white-space:nowrap;">🔥 BEST VALUE</div>
                         <div class="plan-head" style="margin-top:12px;">
@@ -1736,6 +1796,20 @@
                             <li><span class="chk">✓</span> Offline audio downloads</li>
                             <li><span class="chk">✓</span> Priority support</li>
                         </ul>
+
+                        <!-- ★★★ 早鸟计数器 (首100位) ★★★ -->
+                        <div class="early-bird-counter" id="earlyBirdCounter">
+                            <div class="early-bird-row">
+                                <span class="left"><span>⏳</span> Only <b id="earlyBirdLeft">23</b> of 100 Early Bird slots left!</span>
+                                <span class="right"><b id="earlyBirdPercent">23</b>% claimed</span>
+                            </div>
+                            <div class="early-bird-bar">
+                                <div class="fill" id="earlyBirdFill" style="width:23%"></div>
+                                <div class="pulse"></div>
+                            </div>
+                            <div class="early-bird-cta">⚡ Only <span id="earlyBirdLeft2">23</span> spots at this price. Then it's back to $399.</div>
+                        </div>
+
                         <button class="btn-soft" onclick="openPaywall('lifetime','249.99')">Get Lifetime — $249.99</button>
                         <p class="plan-foot">Best for learners planning to stay with Chinese long-term.</p>
                         <div class="payment-methods-row" style="margin-top:12px;border-top:1px solid var(--border-2);">
@@ -1954,6 +2028,60 @@
             button.setAttribute('aria-expanded', String(!expanded));
             content.hidden = expanded;
         }
+
+        // ====== 早鸟计数器（模拟动态更新） ======
+        (function() {
+            // 初始剩余名额
+            var remaining = 23;
+            var total = 100;
+
+            function updateCounter() {
+                var leftEls = document.querySelectorAll('#earlyBirdLeft, #earlyBirdLeft2');
+                var percentEl = document.getElementById('earlyBirdPercent');
+                var fillEl = document.getElementById('earlyBirdFill');
+
+                if (leftEls.length) {
+                    leftEls.forEach(function(el) { el.textContent = remaining; });
+                }
+                if (percentEl) {
+                    var pct = Math.round(((total - remaining) / total) * 100);
+                    percentEl.textContent = pct;
+                }
+                if (fillEl) {
+                    var pct = Math.round(((total - remaining) / total) * 100);
+                    fillEl.style.width = pct + '%';
+                }
+            }
+
+            // 模拟每5~8秒减少1个名额（制造紧迫感）
+            var interval = setInterval(function() {
+                if (remaining > 1) {
+                    remaining--;
+                    updateCounter();
+                } else {
+                    clearInterval(interval);
+                }
+            }, 5000 + Math.random() * 3000); // 5~8秒随机间隔
+
+            // 初始更新
+            updateCounter();
+
+            // 页面可见性变化时暂停/继续（提升用户体验）
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    clearInterval(interval);
+                } else {
+                    interval = setInterval(function() {
+                        if (remaining > 1) {
+                            remaining--;
+                            updateCounter();
+                        } else {
+                            clearInterval(interval);
+                        }
+                    }, 5000 + Math.random() * 3000);
+                }
+            });
+        })();
 
         // ====== PWA 安装 (精简) ======
         (function() {
