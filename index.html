@@ -1806,7 +1806,7 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
             </button>
             <div class="modal-emoji">🔒</div>
-            <h3 id="paywallTitle" class="modal-title">Unlock This Content</h3>
+            <h3 id="paywallTitle" class="modal-title">Get Instant Access</h3>
             <p class="modal-sub" id="paywallSub">Get instant access to premium content.</p>
             <div class="modal-price"><div class="modal-amount" id="paywallAmount">$4.99</div><div class="modal-once">Pay once. Yours forever.</div></div>
             <button class="btn-block" id="paywallBuyBtn">Get Instant Access</button>
@@ -2533,13 +2533,13 @@
 
             var titles = {
                 'single_challenge': 'Unlock Single Challenge',
-                'single_topic': 'Unlock This Topic',
-                'single_exam': 'Unlock Exam Level',
+                'single_topic': 'Get Topic Access',
+                'single_exam': 'Get Level Access',
                 'survival_library': 'Get Survival Library',
                 'exam_bundle': 'Get Exam Bundle',
-                'full_library': 'Get Full Library',
+                'full_library': 'Get Full Access',
                 'monthly': 'Start Monthly Pass',
-                'lifetime': 'Claim Lifetime All-Access'
+                'lifetime': 'Get Lifetime Access'
             };
 
             var subs = {
@@ -2553,7 +2553,7 @@
                 'lifetime': 'One payment of $249.99 — everything we have now and everything we build in the future.'
             };
 
-            title.textContent = titles[item] || 'Unlock This Content';
+            title.textContent = titles[item] || 'Get Instant Access';
             sub.textContent = subs[item] || 'Get full access to this content with native audio and interactive challenges.';
             amount.textContent = '$' + price;
             modal.classList.add('open');
