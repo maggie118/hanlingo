@@ -1629,8 +1629,8 @@
                 </div>
             </div>
         </section>
-
-        <!-- ====== PRICING (with payment icons) ====== -->
+		
+   <!-- ====== PRICING ====== -->
         <section id="pricing" class="sec" aria-labelledby="pricing-title">
             <div class="wrap">
                 <div class="sec-head">
@@ -1662,63 +1662,77 @@
                         </div>
                         <button class="btn-cta" onclick="openPaywall('full_library','99.99')">Get Full Library — $99.99</button>
                         <p class="plan-foot">One payment. No subscription. Learn at your own pace.</p>
-                        <!-- 支付图标 -->
+
+                        <!-- ★★★ 六大支付图标 ★★★ -->
                         <div class="payment-methods-row">
-                            <span class="pm-label">Most payment methods supported for upgrade:</span>
+                            <span class="pm-label">We accept:</span>
                             <span class="payment-icons">
-                                <!-- Visa (SVG) -->
-                                <svg class="visa-icon" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa">
-                                    <rect x="0.5" y="0.5" width="47" height="29" rx="3.5" fill="#fff" stroke="#d0d5dc"/>
-                                    <path d="M17.5 10.5H15L12.5 19.5H15L17.5 10.5Z" fill="#1a1f71"/>
-                                    <path d="M21.5 10.5H19L16.5 19.5H19L21.5 10.5Z" fill="#1a1f71"/>
-                                    <path d="M31.5 10.5C30.5 10.5 29.5 10.5 28.5 10.5L27 19.5H29.5L31.5 10.5Z" fill="#1a1f71"/>
-                                    <path d="M40.5 10.5C39.5 10.5 38.5 10.5 37.5 10.5L36 19.5H38.5L40.5 10.5Z" fill="#1a1f71"/>
-                                    <path d="M34.5 10.5H32L29.5 19.5H32L34.5 10.5Z" fill="#1a1f71"/>
-                                    <path d="M25.5 10.5H23L20.5 19.5H23L25.5 10.5Z" fill="#1a1f71"/>
-                                    <path d="M36 19.5L37.5 10.5H40L36 19.5Z" fill="#1a1f71"/>
-                                    <path d="M44 19.5L45.5 10.5H48L44 19.5Z" fill="#1a1f71"/>
-                                    <circle cx="24" cy="15" r="1.5" fill="#1a1f71"/>
-                                    <path d="M11.5 10.5C10.5 10.5 9.5 10.5 8.5 10.5L7 19.5H9.5L11.5 10.5Z" fill="#1a1f71"/>
-                                </svg>
-                                <!-- PayPal (SVG) -->
-                                <svg class="paypal-icon" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PayPal">
-                                    <rect x="0.5" y="0.5" width="47" height="29" rx="3.5" fill="#fff" stroke="#d0d5dc"/>
-                                    <path d="M14 10.5H11.5L10 19.5H12.5L14 10.5Z" fill="#253b80"/>
-                                    <path d="M20 10.5H17.5L16 19.5H18.5L20 10.5Z" fill="#253b80"/>
-                                    <path d="M26 10.5H23.5L22 19.5H24.5L26 10.5Z" fill="#253b80"/>
-                                    <path d="M32 10.5H29.5L28 19.5H30.5L32 10.5Z" fill="#253b80"/>
-                                    <path d="M38 10.5H35.5L34 19.5H36.5L38 10.5Z" fill="#253b80"/>
-                                    <path d="M44 10.5H41.5L40 19.5H42.5L44 10.5Z" fill="#253b80"/>
-                                    <path d="M46.5 10.5H44L42.5 19.5H45L46.5 10.5Z" fill="#253b80"/>
-                                    <path d="M10.5 10.5H8L6.5 19.5H9L10.5 10.5Z" fill="#253b80"/>
-                                    <circle cx="24" cy="15" r="1.5" fill="#253b80"/>
-                                    <path d="M6 19.5L7.5 10.5H10L6 19.5Z" fill="#253b80"/>
-                                </svg>
-                                <!-- Apple Pay (SVG) -->
-                                <svg class="apple-icon" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Apple Pay">
-                                    <rect x="0.5" y="0.5" width="47" height="29" rx="3.5" fill="#fff" stroke="#d0d5dc"/>
-                                    <path d="M16 10.5C15.5 10.5 15 10.5 14.5 10.5L13.5 19.5H15.5L16 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M21 10.5H18.5L17 19.5H19.5L21 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M26 10.5H23.5L22 19.5H24.5L26 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M31 10.5H28.5L27 19.5H29.5L31 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M36 10.5H33.5L32 19.5H34.5L36 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M41 10.5H38.5L37 19.5H39.5L41 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M46 10.5H43.5L42 19.5H44.5L46 10.5Z" fill="#1a1a1a"/>
-                                    <path d="M10 10.5H7.5L6 19.5H8.5L10 10.5Z" fill="#1a1a1a"/>
-                                    <circle cx="24" cy="15" r="1.5" fill="#1a1a1a"/>
-                                    <path d="M5.5 19.5L7 10.5H9.5L5.5 19.5Z" fill="#1a1a1a"/>
-                                    <path d="M19.5 9.5C19.5 8.5 18.5 7.5 17.5 7.5C16.5 7.5 15.5 8.5 15.5 9.5C15.5 10.5 16.5 11.5 17.5 11.5C18.5 11.5 19.5 10.5 19.5 9.5Z" fill="#1a1a1a"/>
-                                    <path d="M18 8.5C17.5 8.5 17 8 17 7.5C17 7 17.5 6.5 18 6.5C18.5 6.5 19 7 19 7.5C19 8 18.5 8.5 18 8.5Z" fill="#1a1a1a"/>
-                                </svg>
-                                <span class="pm-emoji">💳</span>
+                                <!-- Visa -->
+                                <span class="pm-icon" role="img" aria-label="Visa">
+                                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d5dc" stroke-width="1"/>
+                                        <rect x="8" y="8" width="44" height="24" rx="2" fill="#1a1f71"/>
+                                        <text x="30" y="23" font-family="Arial,sans-serif" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">VISA</text>
+                                        <text x="30" y="33" font-family="Arial,sans-serif" font-size="5" fill="#ffcd00" text-anchor="middle">●</text>
+                                    </svg>
+                                </span>
+                                <!-- Mastercard -->
+                                <span class="pm-icon" role="img" aria-label="Mastercard">
+                                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d5dc" stroke-width="1"/>
+                                        <circle cx="23" cy="20" r="11" fill="#eb001b" opacity="0.9"/>
+                                        <circle cx="37" cy="20" r="11" fill="#f79e1b" opacity="0.9"/>
+                                        <circle cx="30" cy="20" r="11" fill="#f79e1b" opacity="0.5"/>
+                                        <text x="30" y="35" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="#1a1a1a" text-anchor="middle">Mastercard</text>
+                                    </svg>
+                                </span>
+                                <!-- 银联 UnionPay -->
+                                <span class="pm-icon" role="img" aria-label="UnionPay">
+                                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d5dc" stroke-width="1"/>
+                                        <rect x="6" y="8" width="20" height="24" rx="2" fill="#0047a0"/>
+                                        <rect x="34" y="8" width="20" height="24" rx="2" fill="#0047a0"/>
+                                        <text x="16" y="23" font-family="Arial,sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle">银联</text>
+                                        <text x="44" y="23" font-family="Arial,sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle">UnionPay</text>
+                                    </svg>
+                                </span>
+                                <!-- American Express -->
+                                <span class="pm-icon" role="img" aria-label="American Express">
+                                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d5dc" stroke-width="1"/>
+                                        <rect x="6" y="10" width="48" height="20" rx="2" fill="#006fcf"/>
+                                        <text x="30" y="23" font-family="Arial,sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle">AMERICAN EXPRESS</text>
+                                        <text x="30" y="32" font-family="Arial,sans-serif" font-size="5" fill="#ffffff" text-anchor="middle">●</text>
+                                    </svg>
+                                </span>
+                                <!-- JCB -->
+                                <span class="pm-icon" role="img" aria-label="JCB">
+                                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d5dc" stroke-width="1"/>
+                                        <rect x="6" y="10" width="48" height="20" rx="2" fill="#1a8a3a"/>
+                                        <text x="30" y="23" font-family="Arial,sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">JCB</text>
+                                        <text x="30" y="32" font-family="Arial,sans-serif" font-size="5" fill="#ffcc00" text-anchor="middle">● ● ●</text>
+                                    </svg>
+                                </span>
+                                <!-- Discover -->
+                                <span class="pm-icon" role="img" aria-label="Discover">
+                                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="60" height="40" rx="4" fill="#ffffff" stroke="#d0d5dc" stroke-width="1"/>
+                                        <rect x="6" y="10" width="48" height="20" rx="2" fill="#ff6600"/>
+                                        <text x="30" y="23" font-family="Arial,sans-serif" font-size="8" font-weight="800" fill="#ffffff" text-anchor="middle">Discover</text>
+                                        <text x="30" y="32" font-family="Arial,sans-serif" font-size="5" fill="#ffffff" text-anchor="middle">●●●</text>
+                                    </svg>
+                                </span>
+                                <!-- 备用 emoji -->
+                                <span class="pm-emoji" role="img" aria-label="More payment methods">💳</span>
                             </span>
                         </div>
                     </article>
 
                     <!-- Lifetime -->
                     <article class="plan pricing-lifetime" data-plan="lifetime">
-                        <div class="plan-ribbon">🔥 BEST VALUE</div>
-                        <div class="plan-head">
+                        <div class="plan-ribbon" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 18px;background:linear-gradient(90deg,#d4a02a,#b8860b);color:#fff;border-radius:999px;font-weight:900;font-size:0.7rem;box-shadow:0 2px 8px rgba(184,134,11,0.3);white-space:nowrap;">🔥 BEST VALUE</div>
+                        <div class="plan-head" style="margin-top:12px;">
                             <h3>Lifetime All‑Access</h3>
                             <p class="plan-sub">For serious learners who want everything, forever.</p>
                         </div>
@@ -1728,7 +1742,7 @@
                             <span class="pp-num grad-num">249.99</span>
                             <span class="pp-unit">one-time · forever</span>
                         </div>
-                        <ul class="plan-list compact-list">
+                        <ul class="plan-list">
                             <li><span class="chk">✓</span> <strong>Everything</strong> in Full Library</li>
                             <li><span class="chk">✓</span> <strong>All future content</strong> included</li>
                             <li><span class="chk">✓</span> Offline audio downloads</li>
@@ -1736,8 +1750,7 @@
                         </ul>
                         <button class="btn-soft" onclick="openPaywall('lifetime','249.99')">Get Lifetime — $249.99</button>
                         <p class="plan-foot">Best for learners planning to stay with Chinese long-term.</p>
-                        <!-- 支付图标 (简化) -->
-                        <div class="payment-methods-row" style="margin-top:12px; border-top:1px solid var(--border-2);">
+                        <div class="payment-methods-row" style="margin-top:12px;border-top:1px solid var(--border-2);">
                             <span class="pm-label">Secure checkout:</span>
                             <span class="payment-icons">
                                 <span class="pm-emoji">💳</span>
@@ -1754,10 +1767,9 @@
                     <span>✓ 30-day money-back guarantee</span>
                 </div>
 
-                <!-- 其他计划折叠 -->
+                <!-- 更多选项 -->
                 <div class="pricing-more">
-                    <button class="pricing-more-toggle" type="button" aria-expanded="false"
-                            aria-controls="pricing-more-content" onclick="togglePricingMore(this)">
+                    <button class="pricing-more-toggle" type="button" aria-expanded="false" aria-controls="pricing-more-content" onclick="togglePricingMore(this)">
                         <span>See all other options</span>
                         <span class="summary-arrow">▾</span>
                     </button>
@@ -2070,5 +2082,12 @@
             });
         }
     </script>
+	 <!-- PWA Banner -->
+    <div class="pwa-banner" id="pwaBanner" role="alert" style="display:none;">
+        <span class="pwa-icon">📲</span>
+        <div class="pwa-text"><div class="pwa-title">Take HanLingo with you</div><div class="pwa-desc" id="pwaDesc">Add to home screen. Learn anywhere.</div></div>
+        <button class="pwa-btn" id="pwaInstallBtn">Add to Home</button>
+        <button class="pwa-close" id="pwaCloseBtn" aria-label="Close">×</button>
+    </div>
 </body>
 </html>
