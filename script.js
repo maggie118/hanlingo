@@ -148,10 +148,10 @@ setInterval(() => {
 // ================================================================
 // 4. 合规弹窗内容与逻辑
 // ================================================================
+
 const legalModal = document.getElementById('legalModal');
 const legalContent = document.getElementById('legalContent');
 
-const legalTexts = {
 const legalTexts = {
     'terms': `
         <h2>Terms of Service</h2>
@@ -171,10 +171,7 @@ const legalTexts = {
         <p>These Terms shall be governed by the laws of Singapore.</p>
 
         <h4>5. CONTACT</h4>
-        <p>support@hanlingo.app</p>
-        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
-        
-        <div class="disclaimer">?? <strong>Disclaimer:</strong> Our survival sentences are for practical communication purposes. We are not responsible for any cultural misunderstandings in real-world use.</div>
+        <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
     `,
     'privacy': `
         <h2>Privacy Policy</h2>
@@ -191,15 +188,14 @@ const legalTexts = {
         <p>We will never sell your data. Data is only shared with infrastructure partners strictly to run the website.</p>
 
         <h4>4. YOUR RIGHTS</h4>
-        <p>You have the right to request access, correction, or deletion of your data via support@hanlingo.app.</p>
+        <p>You have the right to request access, correction, or deletion of your data via <a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a>.</p>
 
         <h4>5. GOVERNING LAW</h4>
         <p>This Privacy Policy is governed by the laws of Singapore.</p>
 
         <h4>6. CONTACT</h4>
-        <p>support@hanlingo.app</p>
-        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;"></p>
-        `,
+        <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
+    `,
     'refund': `
         <h2>Refund Policy</h2>
         <span class="update-date">Last Updated: August 2026</span>
@@ -210,19 +206,21 @@ const legalTexts = {
         </ul>
         <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
         <h4>Contact Us</h4>
-        <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong></p>
-        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;"></p>
+        <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
+    `
+};
+
 // ? 公司信息 - 统一在底部显示
 const COMPANY_FOOTER = `
     <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
         HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.
     </div>
 `;
-    
-};
 
 function openLegalModal(type) {
-    legalContent.innerHTML = legalTexts[type];
+    const content = legalTexts[type];
+    // ? 在内容底部添加公司信息
+    legalContent.innerHTML = content + COMPANY_FOOTER;
     legalModal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -232,6 +230,7 @@ function closeLegalModal() {
     document.body.style.overflow = '';
 }
 
+// 点击背景关闭弹窗
 document.getElementById('legalModal').addEventListener('click', function(e) {
     if (e.target === this) closeLegalModal();
 });
