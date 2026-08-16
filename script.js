@@ -172,6 +172,10 @@ const legalTexts = {
 
         <h4>5. CONTACT</h4>
         <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
+        
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
+            HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.
+        </div>
     `,
     'privacy': `
         <h2>Privacy Policy</h2>
@@ -195,6 +199,10 @@ const legalTexts = {
 
         <h4>6. CONTACT</h4>
         <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
+        
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
+            HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.
+        </div>
     `,
     'refund': `
         <h2>Refund Policy</h2>
@@ -207,27 +215,18 @@ const legalTexts = {
         <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
         <h4>Contact Us</h4>
         <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
+        
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
+            HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.
+        </div>
     `
 };
 
-// ? 公司信息 - 统一在底部显示
-const COMPANY_FOOTER = `
-    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
-        HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.
-    </div>
-`;
-
+// 然后简化 openLegalModal
 function openLegalModal(type) {
-    const content = legalTexts[type];
-    // ? 在内容底部添加公司信息
-    legalContent.innerHTML = content + COMPANY_FOOTER;
+    legalContent.innerHTML = legalTexts[type];
     legalModal.classList.add('open');
     document.body.style.overflow = 'hidden';
-}
-
-function closeLegalModal() {
-    legalModal.classList.remove('open');
-    document.body.style.overflow = '';
 }
 
 // 点击背景关闭弹窗
