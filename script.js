@@ -206,7 +206,8 @@ const legalTexts = {
         </ul>
         <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
         <h4>Contact Us</h4>
-        <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong><br>HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
+        <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong></p>
+        <p>HanLingo.app is operated by Daren Business Printing Pte.Ltd., Singapore.</p>
     `
 };
 
