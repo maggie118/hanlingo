@@ -11,7 +11,7 @@ function toggleCard(btnElement, cardId) {
 
     if (isSpeaking) {
         btnElement.classList.remove('speaking');
-        btnElement.innerHTML = '▶';
+        btnElement.innerHTML = '�?;
         back.classList.remove('open');
         return;
     }
@@ -32,7 +32,7 @@ function toggleCard(btnElement, cardId) {
 
     utterance.onend = () => {
         btnElement.classList.remove('speaking');
-        btnElement.innerHTML = '▶';
+        btnElement.innerHTML = '�?;
 
         // 如果是第5句，弹出转化诱导
         if (cardId === 5) {
@@ -45,7 +45,7 @@ function toggleCard(btnElement, cardId) {
     window.speechSynthesis.speak(utterance);
 }
 
-// ===== 点击卡片空白区触发 =====
+// ===== 点击卡片空白区触�?=====
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.phrase-card').forEach(card => {
         card.addEventListener('click', function(e) {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (isIOS && !isStandalone) {
         setTimeout(() => banner.classList.add('show'), 4000);
-        document.querySelector('.pwa-desc').textContent = 'Tap Share → Add to Home Screen';
+        document.querySelector('.pwa-desc').textContent = 'Tap Share �?Add to Home Screen';
         installBtn.textContent = 'View Guide';
     }
 
@@ -99,11 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 deferredPrompt = null;
             });
         } else if (isIOS) {
-            alert('📲 请点击屏幕底部 Safari 的「分享」按钮，然后选择「添加到主屏幕」即可完成离线安装。');
+            alert('📲 请点击屏幕底�?Safari 的「分享」按钮，然后选择「添加到主屏幕」即可完成离线安装�?);
             banner.classList.remove('show');
             localStorage.setItem('hanlingo_pwa_dismissed', 'true');
         } else {
-            alert('📲 请在浏览器地址栏点击「安装 / 下载」图标完成安装。');
+            alert('📲 请在浏览器地址栏点击「安�?/ 下载」图标完成安装�?);
         }
     });
     closeBtn.addEventListener('click', () => {
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 
 
-// ===== 3. 早鸟倒计时 =====
+// ===== 3. 早鸟倒计�?=====
 let earlyBirdCount = 14;
 function updateEarlyBirdUI() {
     const el = document.getElementById('earlyBirdCountdown');
@@ -202,7 +202,7 @@ const legalTexts = {
         </ul>
         <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
         <h4>Contact Us</h4>
-        <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong></p>
+        <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong><br>HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
     `
 };
 
