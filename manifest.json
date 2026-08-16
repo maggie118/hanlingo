@@ -2,7 +2,7 @@
   "name": "HanLingo - Learn Chinese Offline",
   "short_name": "HanLingo",
   "description": "Master essential Mandarin with offline audio. Perfect for travelers and expats.",
-  "start_url": "./index.html",
+   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F9FAFB",
   "theme_color": "#1E293B",
