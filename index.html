@@ -304,35 +304,24 @@
 <body>
 
    <!-- 顶部导航 -->
-   <!-- 顶部导航 - 修复版 -->
-<header class="top-nav" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #ffffff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 1000;">
-    
-    <!-- 左侧：Logo -->
-    <a href="#" class="nav-brand" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-        <img src="logo.png" alt="HanLingo Logo" style="height: 32px; width: auto;">
-        <span style="font-size: 20px; font-weight: 800; color: #1a202c; letter-spacing: -0.5px;">HanLingo</span>
-    </a>
-
-    <!-- ✅ 右侧：使用 flex 容器确保水平排列 -->
-    <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
-        
-        <!-- PWA 安装按钮 (可点击 + 闪烁动画) -->
+    <header class="top-nav" role="banner">
+        <a href="#" class="nav-brand" aria-label="HanLingo Home">
+            <img src="logo.png" alt="HanLingo Logo" style="height: 32px; width: auto;">
+             <span style="font-size: 20px; font-weight: 800; color: #1a202c; letter-spacing: -0.5px;">HanLingo</span>
+        </a>
         <div id="headerPwaInstall" 
-             style="display: none; align-items: center; gap: 6px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #166534; font-weight: bold; cursor: pointer; transition: all 0.2s ease; user-select: none; white-space: nowrap;"
-             onclick="triggerHeaderInstall()"
-             onmouseover="this.style.background='#dcfce7'; this.style.transform='scale(1.02)'"
-             onmouseout="this.style.background='#f0fdf4'; this.style.transform='scale(1)'">
-            <span style="height: 6px; width: 6px; background: #22c55e; border-radius: 50%; display: inline-block; animation: blink 2s infinite;"></span>
-            📲 Install App
+     style="display: flex; align-items: center; gap: 6px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 12px; border-radius: 20px; font-size: 13px; color: #166534; font-weight: bold; cursor: pointer; transition: all 0.2s ease; user-select: none;"
+     onclick="document.getElementById('pwaInstallBtn')?.click()"
+     onmouseover="this.style.background='#dcfce7'; this.style.transform='scale(1.02)'"
+     onmouseout="this.style.background='#f0fdf4'; this.style.transform='scale(1)'">
+    <span style="height: 6px; width: 6px; background: #22c55e; border-radius: 50%; display: inline-block; animation: blink 2s infinite;"></span>
+     Add to Home Screen
+</div>
+            <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior:'smooth', block:'center'});" class="nav-cta-btn" aria-label="Unlock all-access">
+                🔥 Get All-Access
+            </button>
         </div>
-
-        <!-- 橙色购买按钮 -->
-        <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior:'smooth', block:'center'});" 
-                style="background: #ff4500; color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(255,69,0,0.18); transition: all 0.2s; white-space: nowrap;">
-            🔥 Get All-Access
-        </button>
-    </div>
-</header>
+    </header>
 
     <!-- 2. 核心首屏 -->
     <section class="hero" aria-labelledby="hero-title">
