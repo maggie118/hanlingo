@@ -198,7 +198,8 @@ const legalTexts = {
 
         <h4>6. CONTACT</h4>
         <p>support@hanlingo.app</p>
-        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;"></p>
+        <p>HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
     `,
     'refund': `
         <h2>Refund Policy</h2>
