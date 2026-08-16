@@ -152,29 +152,29 @@ const legalModal = document.getElementById('legalModal');
 const legalContent = document.getElementById('legalContent');
 
 const legalTexts = {
-'terms': `
-    <h2>Terms of Service</h2>
-    <span class="update-date">Last Updated: August 2026</span>
-    <p>Welcome to HanLingo.app (the "Website"). By accessing or using our services, you agree to be bound by these Terms of Service. Please read them carefully.</p>
-    
-    <h4>1. INTELLECTUAL PROPERTY & USE LICENSE</h4>
-    <p>All learning materials, including but not limited to audio recordings, pinyin guides, Chinese text, PDF phrasebooks, and interface designs, are the intellectual property of HanLingo.app. You are granted a personal, non-transferable license. You agree NOT to copy, redistribute, resell, or commercially exploit any content without our prior written consent.</p>
+const legalTexts = {
+    'terms': `
+        <h2>Terms of Service</h2>
+        <span class="update-date">Last Updated: August 2026</span>
+        <p>Welcome to HanLingo.app (the "Website"). By accessing or using our services, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+        
+        <h4>1. INTELLECTUAL PROPERTY & USE LICENSE</h4>
+        <p>All learning materials, including but not limited to audio recordings, pinyin guides, Chinese text, PDF phrasebooks, and interface designs, are the intellectual property of HanLingo.app. You are granted a personal, non-transferable license. You agree NOT to copy, redistribute, resell, or commercially exploit any content without our prior written consent.</p>
 
-    <h4>2. ONE-TIME BUYOUT & LIFETIME ACCESS</h4>
-    <p>The "Survival Kit" and "All-Access Pass" are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
+        <h4>2. ONE-TIME BUYOUT & LIFETIME ACCESS</h4>
+        <p>The "Survival Kit" and "All-Access Pass" are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
 
-    <h4>3. REFUND POLICY</h4>
-    <p><strong>Due to the digital nature of our products, ALL SALES ARE FINAL.</strong> We do not offer refunds once premium content has been unlocked.</p>
+        <h4>3. REFUND POLICY</h4>
+        <p><strong>Due to the digital nature of our products, ALL SALES ARE FINAL.</strong> We do not offer refunds once premium content has been unlocked.</p>
 
-    <h4>4. GOVERNING LAW</h4>
-    <p>These Terms shall be governed by the laws of Singapore.</p>
+        <h4>4. GOVERNING LAW</h4>
+        <p>These Terms shall be governed by the laws of Singapore.</p>
 
-    <h4>5. CONTACT</h4>
-    <p>support@hanlingo.app</p>
-    <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
-    
-    <div class="disclaimer">?? <strong>Disclaimer:</strong> Our survival sentences are for practical communication purposes. We are not responsible for any cultural misunderstandings in real-world use.</div>
-`
+        <h4>5. CONTACT</h4>
+        <p>support@hanlingo.app</p>
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
+        
+        <div class="disclaimer">?? <strong>Disclaimer:</strong> Our survival sentences are for practical communication purposes. We are not responsible for any cultural misunderstandings in real-world use.</div>
     `,
     'privacy': `
         <h2>Privacy Policy</h2>
@@ -198,6 +198,7 @@ const legalTexts = {
 
         <h4>6. CONTACT</h4>
         <p>support@hanlingo.app</p>
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
     `,
     'refund': `
         <h2>Refund Policy</h2>
@@ -210,7 +211,7 @@ const legalTexts = {
         <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
         <h4>Contact Us</h4>
         <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong></p>
-        <p>HanLingo.app is operated by Daren Business Printing Pte.Ltd., Singapore.</p>
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
     `
 };
 
