@@ -211,8 +211,14 @@ const legalTexts = {
         <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
         <h4>Contact Us</h4>
         <p>If you have any questions regarding your purchase, please contact us at: <strong>support@hanlingo.app</strong></p>
-        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.</p>
-    `
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;"></p>
+// ? 公司信息 - 统一在底部显示
+const COMPANY_FOOTER = `
+    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
+        HanLingo.app is operated by Daren Business Printing Pte. Ltd., Singapore.
+    </div>
+`;
+    
 };
 
 function openLegalModal(type) {
