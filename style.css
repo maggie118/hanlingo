@@ -19,6 +19,7 @@
     --shadow: 0 4px 16px rgba(22, 43, 58, 0.06);
     --shadow-hover: 0 10px 30px rgba(22, 43, 58, 0.12);
     --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --culture-green: #28a745;  /* ✅ 新增 — 用于语音播放动画 */
 }
 
 /* ----- 2. 全局重置 & 字体 ----- */
@@ -89,7 +90,7 @@ h1, h2, h3, h4, h5, .nav-brand, .hero h1, .steps-guide h2,
 .step-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--struct-dark); }
 .step-item p { font-size: 14px; color: var(--text-muted); line-height: 1.4; }
 
-/* ----- 6. 15 主题网格 (从内联移入) ----- */
+/* ----- 6. 15 主题网格 ----- */
 .topic-shelf { max-width: 900px; margin: 0 auto; padding: 40px 24px; text-align: center; border-bottom: 1px solid var(--border-color); }
 .topic-shelf h2 { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: var(--struct-dark); }
 .topic-shelf .sub-desc { color: var(--text-muted); margin-bottom: 24px; font-weight: 500; }
@@ -253,56 +254,170 @@ h1, h2, h3, h4, h5, .nav-brand, .hero h1, .steps-guide h2,
 .testimonial-card p { font-size: 14px; font-style: italic; color: #334155; line-height: 1.6; }
 .testimonial-card .stars { margin-top: 8px; color: #F59E0B; letter-spacing: 2px; }
 
-/* ----- 9. 定价区 ----- */
-.pricing-section {
-    padding: 60px 20px; background: #fafafa; text-align: center;
+/* ----- 9. 定价区 (#pricing-section) ----- */
+#pricing-section {
+    padding: 60px 20px;
+    background: #fafafa;
+    text-align: center;
 }
-.pricing-section h2 { font-size: 32px; font-weight: 800; color: #1a202c; margin: 0 0 8px 0; }
-.pricing-section .sub { color: #718096; font-size: 16px; margin: 0 0 40px 0; }
-.early-bird-tag {
-    background: #fff5f5; color: #ff4500; font-size: 13px; font-weight: bold;
-    padding: 6px 16px; border-radius: 20px; border: 1px solid #fed7d7;
-    display: inline-block; margin-bottom: 20px;
+#pricing-section .early-bird-tag {
+    background: #fff5f5;
+    color: #ff4500;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid #fed7d7;
+    display: inline-block;
+    margin-bottom: 20px;
 }
-.pricing-grid-wrap {
-    display: flex; gap: 24px; justify-content: center; max-width: 950px;
-    margin: 0 auto; padding: 0 20px; text-align: left; flex-wrap: wrap;
+#pricing-section h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a202c;
+    margin: 0 0 8px 0;
 }
-.pricing-card {
-    background: #ffffff; border-radius: 16px; padding: 32px;
-    flex: 1; min-width: 290px; display: flex; flex-direction: column;
-    justify-content: space-between; border: 1px solid #e2e8f0;
+#pricing-section .sub {
+    color: #718096;
+    font-size: 16px;
+    margin: 0 0 40px 0;
 }
-.pricing-card.all-access {
-    border: 2px solid #ff4500; position: relative;
+#pricing-section .pricing-grid-wrap {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: left;
+    flex-wrap: wrap;
+}
+#pricing-section .pricing-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    flex: 1;
+    min-width: 290px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e2e8f0;
+}
+#pricing-section .pricing-card.all-access {
+    border: 2px solid #ff4500;
+    position: relative;
     box-shadow: 0 10px 25px rgba(255, 69, 0, 0.05);
 }
-.popular-badge {
-    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-    background: #ff4500; color: white; font-size: 11px; font-weight: bold;
-    padding: 4px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+#pricing-section .popular-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4500;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
-.pricing-card h3 { font-size: 20px; color: #1a202c; margin: 0 0 8px 0; }
-.plan-desc { color: #718096; font-size: 14px; margin: 0; }
-.plan-features { list-style: none; padding: 0; margin: 24px 0; font-size: 14.5px; color: #4a5568; line-height: 1.6; }
-.plan-features li { margin-bottom: 12px; }
-.plan-features .highlight { font-weight: bold; }
-.plan-features .highlight-orange { font-weight: bold; color: #ff4500; }
-.plan-features .highlight-green { font-weight: bold; color: #28a745; }
-.plan-features .strikethrough { color: #a0aec0; text-decoration: line-through; }
-.price-block { margin-bottom: 16px; }
-.price-block .price { font-size: 42px; font-weight: 800; color: #1a202c; line-height: 1; display: block; margin-bottom: 4px; }
-.price-block .reg-price { font-size: 14px; color: #a0aec0; text-decoration: line-through; }
-.checkout-btn {
-    width: 100%; padding: 12px; border-radius: 8px; font-weight: bold;
-    cursor: pointer; transition: all 0.2s; background: #ffffff;
-    border: 1px solid #cbd5e0; color: #4a5568;
+#pricing-section .pricing-card h3 {
+    font-size: 20px;
+    color: #1a202c;
+    margin: 0 0 8px 0;
 }
-.checkout-btn.primary { background: #ff4500; color: white; border: none; box-shadow: 0 4px 12px rgba(255,69,0,0.2); }
-.checkout-btn.primary:hover { background: #e03d00; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,69,0,0.3); }
-.urgency-note { margin: 8px 0 0 0; text-align: center; color: #ff4500; font-size: 12px; font-weight: bold; }
-.single-topic-hint { color: #718096; font-size: 14px; margin-top: 28px; }
-.single-topic-hint span { color: #ff4500; font-weight: bold; text-decoration: underline; cursor: pointer; }
+#pricing-section .plan-desc {
+    color: #718096;
+    font-size: 14px;
+    margin: 0;
+}
+#pricing-section .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+    font-size: 14.5px;
+    color: #4a5568;
+    line-height: 1.6;
+}
+#pricing-section .plan-features li {
+    margin-bottom: 12px;
+}
+#pricing-section .plan-features .highlight {
+    font-weight: bold;
+}
+#pricing-section .plan-features .highlight-orange {
+    font-weight: bold;
+    color: #ff4500;
+}
+#pricing-section .plan-features .highlight-green {
+    font-weight: bold;
+    color: #28a745;
+}
+#pricing-section .plan-features .strikethrough {
+    color: #a0aec0;
+    text-decoration: line-through;
+}
+#pricing-section .price-block {
+    margin-bottom: 16px;
+}
+#pricing-section .price-block .price {
+    font-size: 42px;
+    font-weight: 800;
+    color: #1a202c;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+}
+#pricing-section .price-block .reg-price {
+    font-size: 14px;
+    color: #a0aec0;
+    text-decoration: line-through;
+}
+#pricing-section .checkout-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #ffffff;
+    border: 1px solid #cbd5e0;
+    color: #4a5568;
+}
+#pricing-section .checkout-btn.primary {
+    background: #ff4500;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(255, 69, 0, 0.2);
+}
+#pricing-section .checkout-btn.primary:hover {
+    background: #e03d00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3);
+}
+#pricing-section .urgency-note {
+    margin: 8px 0 0 0;
+    text-align: center;
+    color: #ff4500;
+    font-size: 12px;
+    font-weight: bold;
+}
+#pricing-section .single-topic-hint {
+    color: #718096;
+    font-size: 14px;
+    margin-top: 28px;
+}
+#pricing-section .single-topic-hint a {
+    color: #ff4500;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#pricing-section .single-topic-hint a:hover {
+    color: #d14418;
+}
 
 /* ----- 10. 路线图 & 邮箱 ----- */
 .roadmap-section { max-width: 900px; margin: 0 auto; padding: 20px 24px 40px; text-align: center; border-top: 1px solid var(--border-color); }
@@ -385,3 +500,92 @@ h1, h2, h3, h4, h5, .nav-brand, .hero h1, .steps-guide h2,
 .pwa-banner .pwa-close { background: transparent; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer; padding: 4px; transition: 0.2s; }
 .pwa-banner .pwa-close:hover { color: var(--struct-dark); }
 @media (min-width: 769px) { .pwa-banner { display: none !important; } }
+
+/* ----- 14. 响应式 (移动端适配) ----- */
+@media (max-width: 768px) {
+    .top-nav { padding: 10px 16px; flex-wrap: nowrap; gap: 8px; }
+    .nav-brand span { font-size: 16px; }
+    .nav-brand img { width: 28px; height: 28px; }
+    .header-pwa-status { font-size: 11px; padding: 4px 10px; }
+    .nav-cta-btn { font-size: 12px; padding: 6px 14px; }
+    .hero { padding: 30px 16px 24px; }
+    .hero h1 { font-size: 1.8rem; }
+    .btn-hero-cta { font-size: 15px; padding: 14px 24px; }
+    .steps-guide { padding: 16px 16px 24px; }
+    .steps-guide h2 { font-size: 20px; }
+    .step-item { padding: 16px 12px; }
+    .topic-shelf { padding: 24px 16px; }
+    .topic-shelf h2 { font-size: 20px; }
+    .free-sample-section { padding: 24px 16px; }
+    .free-sample-section h2 { font-size: 20px; }
+    .phrase-card { padding: 14px; }
+    .phrase-card .front .eng-text { font-size: 16px; }
+    .phrase-card .front .play-icon { width: 40px; height: 40px; font-size: 16px; }
+    .phrase-card .back .chn { font-size: 22px; }
+    .phrase-card .back .pin { font-size: 16px; }
+    #pricing-section { padding: 40px 16px; }
+    #pricing-section h2 { font-size: 24px; }
+    #pricing-section .pricing-card { padding: 20px 16px; min-width: 100%; }
+    #pricing-section .price-block .price { font-size: 32px; }
+    #pricing-section .popular-badge { font-size: 10px; padding: 3px 12px; white-space: nowrap; }
+    .social-proof-sec { padding: 20px 16px; }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .roadmap-section { padding: 16px 16px 24px; }
+    .email-capture-box { padding: 18px 16px; }
+    .email-capture-box .text p { font-size: 16px; }
+    .global-footer { padding: 24px 16px; }
+    .global-footer .links { gap: 8px 16px; font-size: 11px; }
+    .legal-modal-card { padding: 28px 20px; }
+    .legal-modal-card h2 { font-size: 18px; }
+    .pwa-banner .pwa-btn { font-size: 12px; padding: 6px 14px; }
+}
+
+@media (max-width: 480px) {
+    .top-nav { padding: 8px 12px; }
+    .header-pwa-status { display: none !important; }
+    .nav-brand span { font-size: 14px; }
+    .nav-brand img { width: 24px; height: 24px; }
+    .nav-cta-btn { font-size: 11px; padding: 5px 12px; }
+    .hero h1 { font-size: 1.5rem; }
+    .hero .badges span { font-size: 11px; padding: 4px 10px; }
+    .btn-hero-cta { font-size: 14px; padding: 12px 20px; }
+    .step-item .num { width: 36px; height: 36px; font-size: 15px; }
+    .step-item h4 { font-size: 14px; }
+    .step-item p { font-size: 12px; }
+    .premium-badge { font-size: 8px; padding: 2px 8px; top: -5px; right: -5px; }
+    .home-scenario-card { padding: 10px 12px; }
+    .home-scenario-card .icon-box { width: 32px; height: 32px; font-size: 18px; }
+    .home-scenario-card h4 { font-size: 13px; }
+    .home-scenario-card .sub-desc { font-size: 11px; }
+    .phrase-card .front .eng-text { font-size: 14px; }
+    .phrase-card .front .play-icon { width: 34px; height: 34px; font-size: 14px; }
+    .phrase-card .back .chn { font-size: 18px; }
+    .phrase-card .back .pin { font-size: 14px; }
+    #pricing-section h2 { font-size: 20px; }
+    #pricing-section .sub { font-size: 14px; }
+    #pricing-section .pricing-card { padding: 16px 12px; }
+    #pricing-section .price-block .price { font-size: 28px; }
+    #pricing-section .plan-features { font-size: 13px; }
+    #pricing-section .checkout-btn { font-size: 13px; padding: 10px; }
+    #pricing-section .popular-badge { font-size: 9px; padding: 2px 10px; }
+    .upsell-toast { padding: 14px 16px; }
+    .upsell-cta-btn { font-size: 13px; padding: 10px 20px; }
+    .email-capture-box .input-group input { min-width: 140px; font-size: 13px; padding: 8px 14px; }
+    .email-capture-box .input-group button { font-size: 13px; padding: 8px 16px; }
+    .legal-modal-card { padding: 20px 16px; }
+    .legal-modal-card h2 { font-size: 16px; }
+    .legal-modal-card p { font-size: 13px; }
+}
+
+/* ----- 15. 辅助/工具类 ----- */
+.text-center { text-align: center; }
+.hidden { display: none !important; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
