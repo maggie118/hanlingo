@@ -1,9 +1,9 @@
 // ============================================================
-// HanLingo Service Worker — v2.1
+// HanLingo Service Worker — v2.2
 // 策略: Cache First (with network fallback) + 自动版本管理
 // ============================================================
 
-const CACHE_VERSION = 'v2.1';
+const CACHE_VERSION = 'v2.2';
 const CACHE_NAME = `hanlingo-${CACHE_VERSION}`;
 
 // 需要缓存的静态资源 (仅核心文件, CSS/JS 通过版本号控制更新)
@@ -19,8 +19,8 @@ const STATIC_ASSETS = [
 // 需要缓存的 CSS/JS (带版本号, 确保更新时强制刷新)
 // 注意: 每次部署更新时, 修改版本号即可
 const VERSIONED_ASSETS = [
-  './style.css?v=2.1',
-  './script.js?v=2.1'
+  './style.css?v=2.2',
+  './script.js?v=2.2'
 ];
 
 // 合并所有需要预缓存的资源
