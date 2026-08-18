@@ -1,7 +1,7 @@
 {
-  "name": "HanLingo - Learn & Play Chinese",
+  "name": "HanLingo - Learn Chinese Offline | HSK BCT YCT MCT Prep + Phrase Player",
   "short_name": "HanLingo",
-  "description": "Learn Chinese (HSK/BCT/YCT/MCT) with offline audio. Play phrases for taxi, restaurant, hotel, and more!",
+  "description": "Learn Mandarin Chinese offline with HanLingo. HSK/BCT/YCT/MCT exam prep, plus a Chinese audio player for taxis, restaurants, hotels & hospitals. Free PWA app.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F9FAFB",
