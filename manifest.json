@@ -1,7 +1,7 @@
 {
-  "name": "HanLingo - Learn Chinese Offline",
+  "name": "HanLingo - Learn & Play Chinese",
   "short_name": "HanLingo",
-  "description": "Master essential Mandarin with offline audio. Perfect for travelers and expats.",
+  "description": "Learn Chinese (HSK/BCT/YCT/MCT) with offline audio. Play phrases for taxi, restaurant, hotel, and more!",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F9FAFB",
