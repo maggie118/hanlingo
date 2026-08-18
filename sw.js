@@ -1,12 +1,12 @@
 // ============================================================
-// HanLingo Service Worker â€” v2.0
-// ç­–ç•¥: Cache First (with network fallback) + è‡ªåŠ¨ç‰ˆæœ¬ç®¡ç†
+// HanLingo Service Worker ¡ª v2.1
+// ²ßÂÔ: Cache First (with network fallback) + ×Ô¶¯°æ±¾¹ÜÀí
 // ============================================================
 
-const CACHE_VERSION = 'v2.0';
+const CACHE_VERSION = 'v2.1';
 const CACHE_NAME = `hanlingo-${CACHE_VERSION}`;
 
-// éœ€è¦ç¼“å­˜çš„é™æ€èµ„æº (ä»…æ ¸å¿ƒæ–‡ä»¶, CSS/JS é€šè¿‡ç‰ˆæœ¬å·æ§åˆ¶æ›´æ–°)
+// ĞèÒª»º´æµÄ¾²Ì¬×ÊÔ´ (½öºËĞÄÎÄ¼ş, CSS/JS Í¨¹ı°æ±¾ºÅ¿ØÖÆ¸üĞÂ)
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -16,18 +16,18 @@ const STATIC_ASSETS = [
   './favicon.ico'
 ];
 
-// éœ€è¦ç¼“å­˜çš„ CSS/JS (å¸¦ç‰ˆæœ¬å·, ç¡®ä¿æ›´æ–°æ—¶å¼ºåˆ¶åˆ·æ–°)
-// æ³¨æ„: æ¯æ¬¡éƒ¨ç½²æ›´æ–°æ—¶, ä¿®æ”¹ç‰ˆæœ¬å·å³å¯
+// ĞèÒª»º´æµÄ CSS/JS (´ø°æ±¾ºÅ, È·±£¸üĞÂÊ±Ç¿ÖÆË¢ĞÂ)
+// ×¢Òâ: Ã¿´Î²¿Êğ¸üĞÂÊ±, ĞŞ¸Ä°æ±¾ºÅ¼´¿É
 const VERSIONED_ASSETS = [
-  './style.css?v=2.0',
-  './script.js?v=2.0'
+  './style.css?v=2.1',
+  './script.js?v=2.1'
 ];
 
-// åˆå¹¶æ‰€æœ‰éœ€è¦é¢„ç¼“å­˜çš„èµ„æº
+// ºÏ²¢ËùÓĞĞèÒªÔ¤»º´æµÄ×ÊÔ´
 const PRECACHE_ASSETS = [...STATIC_ASSETS, ...VERSIONED_ASSETS];
 
 // ============================================================
-// 1. INSTALL â€” é¢„ç¼“å­˜æ ¸å¿ƒèµ„æº
+// 1. INSTALL ¡ª Ô¤»º´æºËĞÄ×ÊÔ´
 // ============================================================
 self.addEventListener('install', (event) => {
   console.log(`[SW] Installing ${CACHE_NAME}...`);
@@ -40,7 +40,7 @@ self.addEventListener('install', (event) => {
       })
       .then(() => {
         console.log('[SW] Pre-cache complete.');
-        // å¼ºåˆ¶æ–° SW ç«‹å³æ¿€æ´»
+        // Ç¿ÖÆĞÂ SW Á¢¼´¼¤»î
         return self.skipWaiting();
       })
       .catch((error) => {
@@ -50,7 +50,7 @@ self.addEventListener('install', (event) => {
 });
 
 // ============================================================
-// 2. ACTIVATE â€” æ¸…ç†æ—§ç¼“å­˜
+// 2. ACTIVATE ¡ª ÇåÀí¾É»º´æ
 // ============================================================
 self.addEventListener('activate', (event) => {
   console.log(`[SW] Activating ${CACHE_NAME}...`);
@@ -72,36 +72,36 @@ self.addEventListener('activate', (event) => {
       })
       .then(() => {
         console.log('[SW] Activation complete. Taking control...');
-        // ç«‹å³æ§åˆ¶æ‰€æœ‰æ‰“å¼€çš„é¡µé¢
+        // Á¢¼´¿ØÖÆËùÓĞ´ò¿ªµÄÒ³Ãæ
         return self.clients.claim();
       })
   );
 });
 
 // ============================================================
-// 3. FETCH â€” ç¼“å­˜ä¼˜å…ˆç­–ç•¥ (å¸¦ç½‘ç»œå›é€€)
+// 3. FETCH ¡ª »º´æÓÅÏÈ²ßÂÔ (´øÍøÂç»ØÍË)
 // ============================================================
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
-  // è·³è¿‡é GET è¯·æ±‚ (å¦‚ POST ç­‰)
+  // Ìø¹ı·Ç GET ÇëÇó (Èç POST µÈ)
   if (request.method !== 'GET') {
     event.respondWith(fetch(request));
     return;
   }
 
-  // è·³è¿‡æµè§ˆå™¨æ‰©å±•æˆ–é HTTP è¯·æ±‚
+  // Ìø¹ıä¯ÀÀÆ÷À©Õ¹»ò·Ç HTTP ÇëÇó
   if (!request.url.startsWith('http')) {
     event.respondWith(fetch(request));
     return;
   }
 
-  // å¯¹äº HTML é¡µé¢, ä¼˜å…ˆä½¿ç”¨ç½‘ç»œ (ç¡®ä¿æœ€æ–°å†…å®¹)
+  // ¶ÔÓÚ HTML Ò³Ãæ, ÓÅÏÈÊ¹ÓÃÍøÂç (È·±£×îĞÂÄÚÈİ)
   if (request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          // å…‹éš†å“åº”ä»¥å­˜å…¥ç¼“å­˜
+          // ¿ËÂ¡ÏìÓ¦ÒÔ´æÈë»º´æ
           const responseClone = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(request, responseClone);
@@ -109,31 +109,31 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => {
-          // ç½‘ç»œå¤±è´¥æ—¶å›é€€åˆ°ç¼“å­˜
+          // ÍøÂçÊ§°ÜÊ±»ØÍËµ½»º´æ
           return caches.match(request);
         })
     );
     return;
   }
 
-  // å¯¹äº CSS/JS ç­‰é™æ€èµ„æº: å…ˆæŸ¥ç¼“å­˜, è‹¥æ²¡æœ‰åˆ™ç½‘ç»œè¯·æ±‚
+  // ¶ÔÓÚ CSS/JS µÈ¾²Ì¬×ÊÔ´: ÏÈ²é»º´æ, ÈôÃ»ÓĞÔòÍøÂçÇëÇó
   event.respondWith(
     caches.match(request)
       .then((cachedResponse) => {
         if (cachedResponse) {
-          // ç¼“å­˜å‘½ä¸­ â€” è¿”å›ç¼“å­˜å†…å®¹
+          // »º´æÃüÖĞ ¡ª ·µ»Ø»º´æÄÚÈİ
           return cachedResponse;
         }
 
-        // ç¼“å­˜æœªå‘½ä¸­ â€” è¯·æ±‚ç½‘ç»œ
+        // »º´æÎ´ÃüÖĞ ¡ª ÇëÇóÍøÂç
         return fetch(request)
           .then((response) => {
-            // åªç¼“å­˜æˆåŠŸçš„å“åº”
+            // Ö»»º´æ³É¹¦µÄÏìÓ¦
             if (!response || response.status !== 200) {
               return response;
             }
 
-            // å…‹éš†å“åº”ä»¥å­˜å…¥ç¼“å­˜
+            // ¿ËÂ¡ÏìÓ¦ÒÔ´æÈë»º´æ
             const responseClone = response.clone();
             caches.open(CACHE_NAME).then((cache) => {
               cache.put(request, responseClone);
@@ -143,22 +143,22 @@ self.addEventListener('fetch', (event) => {
           })
           .catch((error) => {
             console.warn('[SW] Fetch failed:', request.url, error);
-            // è¿”å›ä¸€ä¸ªç®€å•çš„ç¦»çº¿å›é€€é¡µé¢ (å¯é€‰)
-            // å¯¹äºå›¾ç‰‡, å¯ä»¥è¿”å›ä¸€ä¸ªå ä½å›¾
+            // ·µ»ØÒ»¸ö¼òµ¥µÄÀëÏß»ØÍËÒ³Ãæ (¿ÉÑ¡)
+            // ¶ÔÓÚÍ¼Æ¬, ¿ÉÒÔ·µ»ØÒ»¸öÕ¼Î»Í¼
             if (request.url.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i)) {
               return new Response(
-                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="#f0f0f0"/><text x="50%" y="50%" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle" dy=".3em">ğŸ“· Offline</text></svg>',
+                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="#f0f0f0"/><text x="50%" y="50%" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle" dy=".3em">?? Offline</text></svg>',
                 { headers: { 'Content-Type': 'image/svg+xml' } }
               );
             }
-            return new Response('Offline â€” please check your connection.', { status: 503 });
+            return new Response('Offline ¡ª please check your connection.', { status: 503 });
           });
       })
   );
 });
 
 // ============================================================
-// 4. MESSAGE â€” ç›‘å¬å®¢æˆ·ç«¯æ¶ˆæ¯ (å¯é€‰, ç”¨äºè§¦å‘æ›´æ–°)
+// 4. MESSAGE ¡ª ¼àÌı¿Í»§¶ËÏûÏ¢ (¿ÉÑ¡, ÓÃÓÚ´¥·¢¸üĞÂ)
 // ============================================================
 self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') {
@@ -167,6 +167,6 @@ self.addEventListener('message', (event) => {
 });
 
 // ============================================================
-// 5. æ—¥å¿— (ä»…å¼€å‘ç¯å¢ƒ)
+// 5. ÈÕÖ¾ (½ö¿ª·¢»·¾³)
 // ============================================================
 console.log(`[SW] HanLingo Service Worker ${CACHE_VERSION} initialized.`);
