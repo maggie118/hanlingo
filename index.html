@@ -714,9 +714,9 @@
             <img src="logo.png" alt="HanLingo Logo" style="height: 32px; width: auto;">
             <span style="font-size: 20px; font-weight: 800; color: #1a202c; letter-spacing: -0.5px;">HanLingo</span>
         </a>
-        <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior:'smooth', block:'center'});" class="nav-cta-btn" aria-label="Get Lifetime Access">
+        <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" class="nav-cta-btn" aria-label="Get Lifetime Access">
             🔥 Get Lifetime Access
-        </button>
+        </a>
     </header>
 
     <!-- Hero -->
@@ -755,9 +755,9 @@
         <div id="themesContainer" class="scenarios-grid"></div>
         <button id="toggleTopicsBtn" class="toggle-topics-btn">Show all 15 topics</button>
         <div style="margin-top:24px;">
-            <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior:'smooth', block:'center'});" style="background:#ff4e00; color:white; border:none; padding:14px 40px; border-radius:99px; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(255, 69, 0, 0.25); transition:all 0.2s;">
+            <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" style="background:#ff4e00; color:white; border:none; padding:14px 40px; border-radius:99px; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(255, 69, 0, 0.25); transition:all 0.2s; display:inline-block; text-decoration:none;">
                 🔓 Unlock All Topics — $49 Lifetime
-            </button>
+            </a>
         </div>
 
         <!-- 💡 已购买提示链接 -->
@@ -886,9 +886,9 @@
                     You just practiced a real taxi phrase. Imagine having <span style="color:#ff4500;">1,500+ more</span> for every situation.<br>
                     <span style="font-weight:400;color:#64748b;">Taxis · Restaurants · Hotels · Emergencies · Shopping · And more.</span>
                 </p>
-                <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior:'smooth', block:'center'});" style="background:#ff4500;color:white;border:none;padding:14px 36px;border-radius:25px;font-size:15px;font-weight:bold;cursor:pointer;box-shadow:0 4px 14px rgba(255,69,0,0.25);transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;">
+                <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" style="background:#ff4500;color:white;border:none;padding:14px 36px;border-radius:25px;font-size:15px;font-weight:bold;cursor:pointer;box-shadow:0 4px 14px rgba(255,69,0,0.25);transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none;">
                     Get Lifetime Access — $49 →
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -958,7 +958,9 @@
                 <li><span class="icon">✅</span> <strong>Lifetime access to everything included at launch.</strong></li>
             </ul>
 
-            <button class="checkout-btn" onclick="triggerCheckout('lifetime')">Get Lifetime Access — $49 →</button>
+            <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" class="checkout-btn" style="display:block; text-align:center; text-decoration:none;">
+                Get Lifetime Access — $49 →
+            </a>
 
             <div class="footnote" style="color:#b91c1c;font-weight:600;">Price increases after launch · <strong>Lifetime</strong> means exactly that.</div>
         </div>
@@ -1126,9 +1128,8 @@
                     </div>
                 `;
                 card.addEventListener('click', () => {
-                    alert('🔒 "' + theme.title + '" is a Premium theme.\n\nUpgrade to Lifetime for $49 and unlock all 15 topics + 1,500+ phrases!\n\nClick "Get Lifetime Access" below to proceed.');
-                    const pricingSection = document.getElementById('pricing-section');
-                    if (pricingSection) pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // 直接跳转到 Stripe 付款页面
+                    window.open('https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00', '_blank');
                 });
                 container.appendChild(card);
                 allCards.push(card);
@@ -1155,13 +1156,10 @@
             });
         });
 
-        // ===== 4. 购买 =====
+        // ===== 4. 购买 (已改为直接跳转 Stripe) =====
         function triggerCheckout(plan) {
-            if (plan === 'lifetime') {
-                if (confirm('🛒 You\'re about to purchase HanLingo Lifetime Access for $49.00 — one payment, no subscription.\n\nClick OK to continue to checkout.')) {
-                    alert('🔒 Redirecting to secure checkout (Stripe) for $49.00 ...');
-                }
-            }
+            // 直接跳转到 Stripe 付款页面
+            window.open('https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00', '_blank');
         }
 
         // ===== 5. FAQ =====
