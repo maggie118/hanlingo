@@ -587,6 +587,123 @@
         @media (prefers-reduced-motion: reduce) {
             * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
         }
+
+        /* ----- 已购买提示链接 ----- */
+        .purchased-hint {
+            margin-top: 20px;
+            padding: 12px 20px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        .purchased-hint a {
+            color: var(--cta-orange);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .purchased-hint a:hover {
+            color: var(--cta-orange-hover);
+            text-decoration: underline;
+        }
+        .purchased-hint .arrow {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        .purchased-hint a:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* ----- FAQ 下方的 PWA 安装按钮 ----- */
+        .offline-install-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px 24px 40px;
+            text-align: center;
+        }
+        .offline-install-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow);
+        }
+        .offline-install-card .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .offline-install-card .left .icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .offline-install-card .left .text {
+            text-align: left;
+        }
+        .offline-install-card .left .text .title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #0f1e2c;
+        }
+        .offline-install-card .left .text .desc {
+            font-size: 13px;
+            color: #475569;
+        }
+        .offline-install-card .install-btn {
+            background: #22c55e;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .offline-install-card .install-btn:hover {
+            background: #16a34a;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+        .offline-install-card .install-btn .badge {
+            font-size: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 99px;
+        }
+        @media (max-width: 600px) {
+            .offline-install-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px 18px;
+            }
+            .offline-install-card .left {
+                flex-direction: column;
+                text-align: center;
+            }
+            .offline-install-card .left .text {
+                text-align: center;
+            }
+            .offline-install-card .install-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -625,7 +742,6 @@
         <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
             <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">👂</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Listen</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Hear natural audio</div></div>
             <span style="font-size:28px;color:#cbd5e1;font-weight:300;">→</span>
-
             <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">🗣️</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Repeat</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Practice out loud</div></div>
             <span style="font-size:28px;color:#cbd5e1;font-weight:300;">→</span>
             <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">✅</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Use</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Speak in real situations</div></div>
@@ -642,6 +758,15 @@
             <button onclick="document.getElementById('pricing-section').scrollIntoView({behavior:'smooth', block:'center'});" style="background:#ff4e00; color:white; border:none; padding:14px 40px; border-radius:99px; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(255, 69, 0, 0.25); transition:all 0.2s;">
                 🔓 Unlock All Topics — $49 Lifetime
             </button>
+        </div>
+
+        <!-- 💡 已购买提示链接 -->
+        <div class="purchased-hint">
+            💡 Already purchased? 
+            <a href="survival-topics.html">
+                Go to Full Survival Library 
+                <span class="arrow">→</span>
+            </a>
         </div>
     </section>
 
@@ -850,6 +975,22 @@
         <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What happens after I buy?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Instant access.</strong> After purchase, you'll get immediate access to all unlocked topics and phrases. You can start using HanLingo <strong>right away</strong> — online or offline.</div></div>
         <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I use it while traveling in China?</span><span class="toggle">+</span></div><div class="faq-a"><strong>That's exactly what it's built for.</strong> HanLingo works <strong>offline</strong>, so you can use it on the plane, in the subway, or anywhere in China without worrying about data or VPN issues.</div></div>
         <div class="more-coming">More situations coming soon.</div>
+    </section>
+
+    <!-- ===== 📶 离线安装提示 (FAQ 下方) ===== -->
+    <section class="offline-install-section">
+        <div class="offline-install-card">
+            <div class="left">
+                <span class="icon">📲</span>
+                <div class="text">
+                    <div class="title">Add to Home Screen</div>
+                    <div class="desc">Use HanLingo offline — no Wi‑Fi needed.</div>
+                </div>
+            </div>
+            <button class="install-btn" onclick="triggerPWAInstall()">
+                📶 Install App <span class="badge">Works Offline</span>
+            </button>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -1121,6 +1262,68 @@
             legalModal.addEventListener('click', function(e) {
                 if (e.target === this) closeLegalModal();
             });
+        }
+
+        // ===== 7. PWA 安装触发 =====
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('✅ PWA install prompt available');
+        });
+
+        function triggerPWAInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ PWA installed');
+                        // 隐藏按钮或显示成功状态
+                        const btn = document.querySelector('.install-btn');
+                        if (btn) {
+                            btn.innerHTML = '✅ Installed!';
+                            btn.style.background = '#16a34a';
+                            btn.disabled = true;
+                        }
+                    } else {
+                        console.log('❌ PWA install declined');
+                        // 显示手动安装引导
+                        showManualInstallGuide();
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // 没有 beforeinstallprompt 事件，显示手动安装引导
+                showManualInstallGuide();
+            }
+        }
+
+        function showManualInstallGuide() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            let message = '';
+            
+            if (isIOS) {
+                message = '📲 Tap the Share button (square with arrow) at the bottom, then select "Add to Home Screen".';
+            } else if (/Android/.test(navigator.userAgent)) {
+                message = '📲 Tap the menu (three dots) in your browser, then select "Add to Home Screen" or "Install App".';
+            } else {
+                message = '📲 Look for the install icon (⬇️ or +) in your browser\'s address bar, or select "Install" from the browser menu.';
+            }
+            
+            alert('📲 Add HanLingo to your Home Screen:\n\n' + message + '\n\nThen you can use it offline anytime.');
+        }
+
+        // 检测是否已在 PWA 中运行
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            const btn = document.querySelector('.install-btn');
+            if (btn) {
+                btn.innerHTML = '✅ Already Installed';
+                btn.style.background = '#16a34a';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+                btn.style.cursor = 'default';
+            }
         }
 
         console.log('✅ HanLingo script loaded. All 5 phrases have Slow buttons (0.4x). Practice Speaking button now uses 🗣️ icon without recording simulation.');
