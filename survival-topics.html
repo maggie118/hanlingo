@@ -246,11 +246,6 @@
             <span style="font-size: 20px; font-weight: 800; color: #1a202c; letter-spacing: -0.5px;">HanLingo</span>
         </div>
         <div style="display: flex; align-items: center; gap: 16px;">
-            <!--  Install App for Offline Use 按钮 -->
-            <button id="pwaInstallHeaderBtn" onclick="triggerPWAInstall()" style="display: flex; align-items: center; gap: 6px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #166534; font-weight: bold; cursor: pointer; transition: all 0.2s ease; white-space: nowrap;">
-                <span class="pwa-status-dot" style="height: 6px; width: 6px; background: #22c55e; border-radius: 50%; display: inline-block;"></span>
-                 Install App for Offline Use
-            </button>
             <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" style="background: #ff4500; color: white; border: none; padding: 9px 20px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(255,69,0,0.18); transition: all 0.2s; white-space: nowrap; text-decoration: none; display: inline-block;">
                 🔥 Get All-Access
             </a>
@@ -875,7 +870,7 @@
         }
 
         // ============================================================
-        // PWA 安装功能 (独立于 script.js)
+        // PWA 安装功能 (修复版)
         // ============================================================
         let deferredPrompt = null;
 
@@ -915,11 +910,27 @@
             deferredPrompt = null;
         });
 
-        // 触发 PWA 安装
+        // 触发 PWA 安装 (修复版 - 放在全局作用域)
         function triggerPWAInstall() {
             const headerBtn = document.getElementById('pwaInstallHeaderBtn');
             
+            // 如果已经安装，不执行
             if (headerBtn && headerBtn.disabled) {
+                return;
+            }
+
+            // 检查是否已经安装了 PWA
+            if (window.matchMedia('(display-mode: standalone)').matches || 
+                window.navigator.standalone === true) {
+                if (headerBtn) {
+                    headerBtn.innerHTML = '✅ Installed!';
+                    headerBtn.style.background = '#dcfce7';
+                    headerBtn.style.borderColor = '#86efac';
+                    headerBtn.style.color = '#166534';
+                    headerBtn.style.cursor = 'default';
+                    headerBtn.disabled = true;
+                    headerBtn.classList.add('pwa-installed-btn');
+                }
                 return;
             }
 
@@ -928,6 +939,15 @@
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('✅ PWA installed from header');
+                        if (headerBtn) {
+                            headerBtn.innerHTML = '✅ Installed!';
+                            headerBtn.style.background = '#dcfce7';
+                            headerBtn.style.borderColor = '#86efac';
+                            headerBtn.style.color = '#166534';
+                            headerBtn.style.cursor = 'default';
+                            headerBtn.disabled = true;
+                            headerBtn.classList.add('pwa-installed-btn');
+                        }
                     } else {
                         console.log('❌ PWA install declined');
                         showManualInstallGuide();
@@ -976,7 +996,7 @@
             document.body.appendChild(modal);
         }
 
-        // 检测是否已在 PWA 中运行
+        // 检测是否已在 PWA 中运行 (页面加载时检查)
         if (window.matchMedia('(display-mode: standalone)').matches || 
             window.navigator.standalone === true) {
             const headerBtn = document.getElementById('pwaInstallHeaderBtn');
@@ -1055,6 +1075,7 @@
         }
 
         console.log('✅ HanLingo Survival Topics loaded — all 15 topics locked.');
+        console.log('✅ PWA install button fixed.');
     </script>
 </body>
 </html>
