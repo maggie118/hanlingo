@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>HanLingo · Speak Chinese for Travel & Life – Real Phrases, Offline</title>
+    <title>HanLingo · Practical Chinese for Real Life – Real Phrases, Offline</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <meta name="mobile-web-app-capable" content="yes">
@@ -224,8 +224,9 @@
             text-align: left;
         }
         .phrase-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); border-color: var(--cta-orange); }
-        .phrase-card .front { display: flex; align-items: center; justify-content: space-between; }
-        .phrase-card .front .eng-text { font-size: 20px; font-weight: 600; color: var(--struct-dark); }
+        .phrase-card .front { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+        .phrase-card .front .eng-text { font-size: 20px; font-weight: 600; color: var(--struct-dark); flex: 1; min-width: 120px; }
+        .phrase-card .front .controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .phrase-card .front .play-icon {
             width: 48px;
             height: 48px;
@@ -245,10 +246,10 @@
         .phrase-card .front .play-icon.slow {
             background: #475569;
             box-shadow: 0 4px 12px rgba(71,85,105,0.25);
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
         }
         .phrase-card .back { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color); animation: fadeSlide 0.4s ease; }
         .phrase-card .back.open { display: block; }
@@ -265,17 +266,8 @@
             transition: 0.2s; display: flex; align-items: center; gap: 6px;
         }
         .phrase-card .back .repeat-area .mic-btn:hover { background: #16a34a; transform: scale(1.02); }
-        .phrase-card .back .repeat-area .mic-btn .pulse-dot {
-            display: inline-block; width: 10px; height: 10px; background: #fff;
-            border-radius: 50%; margin-right: 4px; animation: none;
-        }
-        .phrase-card .back .repeat-area .mic-btn.recording .pulse-dot {
-            animation: pulse-dot 0.8s ease-in-out infinite;
-        }
-        @keyframes pulse-dot { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.3; transform:scale(0.6); } }
         .phrase-card .back .repeat-area .status-text { font-size: 14px; color: #64748b; font-weight: 500; flex: 1; }
         .phrase-card .back .repeat-area .status-text strong { color: #0f1e2c; }
-        .phrase-card .back .repeat-area .hint { font-size: 12px; color: #94a3b8; }
         .phrase-card .tag-free {
             display: inline-block; background: #f0fdf4; color: #166534;
             font-size: 10px; font-weight: 700; padding: 2px 10px; border-radius: 99px;
@@ -558,6 +550,8 @@
             .phrase-card { padding: 14px; }
             .phrase-card .front .eng-text { font-size: 16px; }
             .phrase-card .front .play-icon { width: 40px; height: 40px; font-size: 16px; }
+            .phrase-card .front .play-icon.slow { width: 38px; height: 38px; font-size: 10px; }
+            .phrase-card .back .chn { font-size: 22px; }
             #pricing-section { padding: 40px 16px; }
             #pricing-section h2 { font-size: 24px; }
             #pricing-section .pricing-card { padding: 20px 16px; }
@@ -581,6 +575,7 @@
             .home-scenario-card .sub-desc { font-size: 11px; }
             .phrase-card .front .eng-text { font-size: 14px; }
             .phrase-card .front .play-icon { width: 34px; height: 34px; font-size: 14px; }
+            .phrase-card .front .play-icon.slow { width: 32px; height: 32px; font-size: 9px; }
             .phrase-card .back .chn { font-size: 18px; }
             .phrase-card .back .pin { font-size: 14px; }
             #pricing-section h2 { font-size: 20px; }
@@ -614,10 +609,10 @@
             <span>📶 No Wi-Fi? No problem.</span>
             <span>🎯 Real-Life Situations</span>
         </div>
-        <h1 id="hero-title">Learn Chinese You Can Actually Use.</h1>
-        <p class="sub">Real-life phrases for travel, work & everyday life.</p>
+        <h1 id="hero-title">Speak Chinese You Can Actually Use.</h1>
+        <p class="sub">Real phrases for travel, work & everyday life.</p>
         <div class="cta-group">
-            <a href="#free-phrases" class="btn-hero-cta">Start Learning Free</a>
+            <a href="#free-phrases" class="btn-hero-cta">Start Free</a>
             <p class="cta-sub-text">5 phrases free · No credit card</p>
         </div>
     </section>
@@ -626,10 +621,11 @@
     <section class="method-section" style="max-width:800px;margin:0 auto;padding:30px 24px 40px;text-align:center;">
         <span class="method-tag" style="display:inline-block;background:#fff5f5;color:#ff4e00;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border-radius:99px;border:1px solid #fed7d7;margin-bottom:12px;">🎯 The HanLingo Method</span>
         <h2 style="font-size:30px;font-weight:800;color:#0f1e2c;margin:0 0 8px;">Listen → Repeat → Use</h2>
-        <p style="color:#64748b;font-size:17px;margin:0 0 32px;">No grammar overload. No endless vocabulary lists. Just Chinese you can actually say.</p>
+        <p style="color:#64748b;font-size:17px;margin:0 0 32px;">Listen, repeat, and practice real Chinese phrases for the situations you actually face.</p>
         <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
             <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">👂</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Listen</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Hear natural audio</div></div>
             <span style="font-size:28px;color:#cbd5e1;font-weight:300;">→</span>
+
             <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">🗣️</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Repeat</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Practice out loud</div></div>
             <span style="font-size:28px;color:#cbd5e1;font-weight:300;">→</span>
             <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">✅</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Use</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Speak in real situations</div></div>
@@ -655,26 +651,105 @@
         <p>More than a translation. <strong>The right phrase for the right situation — with pinyin, audio and speaking practice.</strong></p>
 
         <div class="phrase-card-list">
-            <div class="phrase-card"><span class="tag-free">🎯 FREE</span>
-                <div class="front"><div class="eng-text">Hello! / Excuse me.</div><div class="controls"><button class="play-icon" onclick="playPhrase(this, '你好！', 'Nǐ hǎo', false)">▶</button></div></div>
-                <div class="back"><div class="chn">你好！</div><div class="pin">Nǐ hǎo</div><div class="repeat-area"><button class="mic-btn" onclick="startRepeat(this, '你好！', 'Nǐ hǎo')"><span class="pulse-dot"></span> 🎤 Practice speaking</button><span class="status-text">Say it out loud</span></div></div>
+            <!-- 短语 1: Hello -->
+            <div class="phrase-card">
+                <span class="tag-free">🎯 FREE</span>
+                <div class="front">
+                    <div class="eng-text">Hello! / Excuse me.</div>
+                    <div class="controls">
+                        <button class="play-icon" onclick="playPhrase(this, '你好！', 'Nǐ hǎo', false)">▶</button>
+                        <button class="play-icon slow" onclick="playPhrase(this, '你好！', 'Nǐ hǎo', true)">🐢 Slow</button>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="chn">你好！</div>
+                    <div class="pin">Nǐ hǎo</div>
+                    <div class="repeat-area">
+                        <button class="mic-btn" onclick="startRepeat(this, '你好！', 'Nǐ hǎo')">🗣️ Practice Speaking</button>
+                        <span class="status-text">Say it out loud</span>
+                    </div>
+                </div>
             </div>
+
+            <!-- 短语 2: Taxi (突出显示) -->
             <div class="phrase-card" style="border-color:#ff4e00;border-width:2px;">
                 <span class="tag-free" style="background:#fef3c7;color:#92400e;border-color:#fcd34d;">🚕 REAL SCENARIO</span>
-                <div class="front"><div class="eng-text" style="font-weight:700;">Can you take me to this address?</div><div class="controls"><button class="play-icon" onclick="playPhrase(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.', false)">▶</button><button class="play-icon slow" onclick="playPhrase(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.', true)">🔊 Slow</button></div></div>
-                <div class="back open" style="display:block;"><div class="chn">请带我去这个地址。</div><div class="pin">Qǐng dài wǒ qù zhè ge dì zhǐ.</div><div class="repeat-area" style="background:#fef3c7;border-color:#fcd34d;"><button class="mic-btn" onclick="startRepeat(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.')" style="background:#92400e;"><span class="pulse-dot"></span> 🎤 Practice speaking</button><span class="status-text"><strong>Try it!</strong> Say it out loud — you've got this.</span><span class="hint">💡 Show this to your taxi driver</span></div></div>
+                <div class="front">
+                    <div class="eng-text" style="font-weight:700;">Can you take me to this address?</div>
+                    <div class="controls">
+                        <button class="play-icon" onclick="playPhrase(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.', false)">▶</button>
+                        <button class="play-icon slow" onclick="playPhrase(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.', true)">🐢 Slow</button>
+                    </div>
+                </div>
+                <div class="back open" style="display:block;">
+                    <div class="chn">请带我去这个地址。</div>
+                    <div class="pin">Qǐng dài wǒ qù zhè ge dì zhǐ.</div>
+                    <div class="repeat-area" style="background:#fef3c7;border-color:#fcd34d;">
+                        <button class="mic-btn" onclick="startRepeat(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.')" style="background:#92400e;">🗣️ Practice Speaking</button>
+                        <span class="status-text"><strong>Try it!</strong> Say it out loud — you've got this.</span>
+                        <span class="hint">💡 Show this to your taxi driver</span>
+                    </div>
+                </div>
             </div>
-            <div class="phrase-card"><span class="tag-free">🎯 FREE</span>
-                <div class="front"><div class="eng-text">How much is this?</div><div class="controls"><button class="play-icon" onclick="playPhrase(this, '这个多少钱？', 'Zhè ge duō shǎo qián', false)">▶</button></div></div>
-                <div class="back"><div class="chn">这个多少钱？</div><div class="pin">Zhè ge duō shǎo qián</div><div class="repeat-area"><button class="mic-btn" onclick="startRepeat(this, '这个多少钱？', 'Zhè ge duō shǎo qián')"><span class="pulse-dot"></span> 🎤 Practice speaking</button><span class="status-text">Say it out loud</span></div></div>
+
+            <!-- 短语 3: How much -->
+            <div class="phrase-card">
+                <span class="tag-free">🎯 FREE</span>
+                <div class="front">
+                    <div class="eng-text">How much is this?</div>
+                    <div class="controls">
+                        <button class="play-icon" onclick="playPhrase(this, '这个多少钱？', 'Zhè ge duō shǎo qián', false)">▶</button>
+                        <button class="play-icon slow" onclick="playPhrase(this, '这个多少钱？', 'Zhè ge duō shǎo qián', true)">🐢 Slow</button>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="chn">这个多少钱？</div>
+                    <div class="pin">Zhè ge duō shǎo qián</div>
+                    <div class="repeat-area">
+                        <button class="mic-btn" onclick="startRepeat(this, '这个多少钱？', 'Zhè ge duō shǎo qián')">🗣️ Practice Speaking</button>
+                        <span class="status-text">Say it out loud</span>
+                    </div>
+                </div>
             </div>
-            <div class="phrase-card"><span class="tag-free">🎯 FREE</span>
-                <div class="front"><div class="eng-text">Do you speak English?</div><div class="controls"><button class="play-icon" onclick="playPhrase(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma', false)">▶</button></div></div>
-                <div class="back"><div class="chn">你会说英语吗？</div><div class="pin">Nǐ huì shuō Yīng yǔ ma</div><div class="repeat-area"><button class="mic-btn" onclick="startRepeat(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma')"><span class="pulse-dot"></span> 🎤 Practice speaking</button><span class="status-text">Say it out loud</span></div></div>
+
+            <!-- 短语 4: Do you speak English -->
+            <div class="phrase-card">
+                <span class="tag-free">🎯 FREE</span>
+                <div class="front">
+                    <div class="eng-text">Do you speak English?</div>
+                    <div class="controls">
+                        <button class="play-icon" onclick="playPhrase(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma', false)">▶</button>
+                        <button class="play-icon slow" onclick="playPhrase(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma', true)">🐢 Slow</button>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="chn">你会说英语吗？</div>
+                    <div class="pin">Nǐ huì shuō Yīng yǔ ma</div>
+                    <div class="repeat-area">
+                        <button class="mic-btn" onclick="startRepeat(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma')">🗣️ Practice Speaking</button>
+                        <span class="status-text">Say it out loud</span>
+                    </div>
+                </div>
             </div>
-            <div class="phrase-card"><span class="tag-free">🎯 FREE</span>
-                <div class="front"><div class="eng-text">I would like to order this.</div><div class="controls"><button class="play-icon" onclick="playPhrase(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.', false)">▶</button></div></div>
-                <div class="back"><div class="chn">我要点这个。</div><div class="pin">Wǒ yào diǎn zhè ge.</div><div class="repeat-area"><button class="mic-btn" onclick="startRepeat(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.')"><span class="pulse-dot"></span> 🎤 Practice speaking</button><span class="status-text">Say it out loud</span></div></div>
+
+            <!-- 短语 5: I would like to order -->
+            <div class="phrase-card">
+                <span class="tag-free">🎯 FREE</span>
+                <div class="front">
+                    <div class="eng-text">I would like to order this.</div>
+                    <div class="controls">
+                        <button class="play-icon" onclick="playPhrase(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.', false)">▶</button>
+                        <button class="play-icon slow" onclick="playPhrase(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.', true)">🐢 Slow</button>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="chn">我要点这个。</div>
+                    <div class="pin">Wǒ yào diǎn zhè ge.</div>
+                    <div class="repeat-area">
+                        <button class="mic-btn" onclick="startRepeat(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.')">🗣️ Practice Speaking</button>
+                        <span class="status-text">Say it out loud</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -696,7 +771,7 @@
     <!-- 社交证明 — 三列一行 -->
     <section class="social-proof-sec" aria-labelledby="testimonial-title">
         <h3 id="testimonial-title">What Early Learners Say</h3>
-        <p style="color:#64748b;font-size:15px;margin-bottom:12px;">Real feedback from our beta testers</p>
+        <p style="color:#64748b;font-size:15px;margin-bottom:12px;">Early feedback from our beta testers</p>
         <div class="testimonial-grid">
             <div class="testimonial-card">
                 <span class="badge-beta">🧪 Beta Tester</span>
@@ -730,9 +805,9 @@
 
     <!-- 定价 -->
     <section id="pricing-section" class="pricing-section" aria-labelledby="pricing-title">
-        <span class="early-bird-tag">⏱️ FOUNDING PRICE</span>
+        <span class="early-bird-tag">⏱️ Founding Members</span>
         <h2 id="pricing-title">$49 Lifetime</h2>
-        <p class="sub">Price increases after launch.</p>
+        <p class="sub">First 100 members only.</p>
 
         <div class="pricing-card">
             <span class="popular-badge">⭐ FOUNDING PRICE</span>
@@ -818,7 +893,7 @@
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(chn);
                 utterance.lang = 'zh-CN';
-                utterance.rate = slow ? 0.6 : 0.9;
+                utterance.rate = slow ? 0.4 : 0.9;
                 utterance.pitch = 1.0;
                 utterance.volume = 1;
 
@@ -849,21 +924,17 @@
             }
         }
 
-        // ----- 2. 跟读 -----
+        // ----- 2. 跟读 (改为单纯的"Practice Speaking"提示，不模拟录音) -----
         function startRepeat(el, chn, pin) {
             const card = el.closest('.phrase-card');
             if (!card) return;
             const status = card.querySelector('.status-text');
             if (!status) return;
-            el.classList.add('recording');
-            el.disabled = true;
-            status.innerHTML = '🎙️ <strong>Say it out loud...</strong>';
-            setTimeout(() => {
-                el.classList.remove('recording');
-                el.disabled = false;
-                status.innerHTML = '✅ <strong>Practice makes perfect.</strong> Keep speaking out loud!';
-                setTimeout(() => { status.innerHTML = 'Say it out loud'; }, 3000);
-            }, 2500);
+            // 直接显示鼓励提示，不模拟录音状态
+            status.innerHTML = '✅ <strong>Great!</strong> Say it out loud — practice makes perfect!';
+            setTimeout(() => { 
+                status.innerHTML = 'Say it out loud'; 
+            }, 3000);
         }
 
         // ----- 3. 15 个主题渲染 (默认显示5个，点击展开全部) — 全部为 Premium -----
@@ -1043,7 +1114,7 @@
             });
         }
 
-        console.log('✅ HanLingo script loaded. All 15 topics are Premium.');
+        console.log('✅ HanLingo script loaded. All 5 phrases have Slow buttons (0.4x). Practice Speaking button now uses 🗣️ icon without recording simulation.');
     </script>
 </body>
 </html>
