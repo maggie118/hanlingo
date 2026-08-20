@@ -166,10 +166,17 @@ const legalTexts = {
         <h4>2. ONE-TIME BUYOUT & LIFETIME ACCESS</h4>
         <p>The "Survival Kit" and "All-Access Pass" are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
         <h4>3. REFUND POLICY</h4>
-        <p><strong>Due to the digital nature of our products, ALL SALES ARE FINAL.</strong> We do not offer refunds once premium content has been unlocked.</p>
-        <h4>4. GOVERNING LAW</h4>
+        <p><strong>Digital Nature & Final Sale</strong><br>
+        Due to the digital, intangible, and instantly downloadable nature of our learning materials, all sales of premium content (including the "Survival Kit" and "All-Access Pass") are strictly final. We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content. Access is deemed granted upon the automated internal issuance of account permissions or email delivery of access links, regardless of actual download status.</p>
+        <h4>4. EU/UK CONSUMER WAIVER NOTICE</h4>
+        <p>If you reside in the European Union (EU) or the United Kingdom (UK), by clicking "Purchase", "Checkout", or checking the consent box at checkout, you expressly agree that the supply of digital content begins immediately upon purchase. You hereby acknowledge and agree that you lose your 14-day right of withdrawal (cooling-off period) under the EU Consumer Rights Directive once the content delivery or account provisioning has commenced.</p>
+        <h4>5. TESTING AND COMPATIBILITY</h4>
+        <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on our homepage before making any purchasing decisions. It is the user's sole responsibility to ensure that their device, operating system, internet connection, and software are compatible with our digital file formats. Refunds will not be issued based on user-end technical, internet, or software compatibility issues.</p>
+        <h4>6. CHARGEBACKS AND FRAUD</h4>
+        <p>Unauthorized chargebacks, frivolous dispute filings, or fraudulent refund claims will result in the immediate, permanent termination of your account and access privileges. We reserve the right to submit your purchase history, IP logs, and check-out consent records to payment processors (such as Stripe/PayPal) and relevant consumer risk databases to dispute any bad-faith chargebacks.</p>
+        <h4>7. GOVERNING LAW</h4>
         <p>These Terms shall be governed by the laws of Singapore.</p>
-        <h4>5. CONTACT</h4>
+        <h4>8. CONTACT</h4>
         <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
         
         <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
@@ -200,12 +207,19 @@ const legalTexts = {
     'refund': `
         <h2>Refund Policy</h2>
         <span class="update-date">Last Updated: August 2026</span>
-        <p>Due to the digital and instantly downloadable nature of our learning materials, we strictly enforce the following policy:</p>
-        <ul>
-            <li>All sales of premium content (Survival Kit and All-Access Pass) are final.</li>
-            <li>We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content.</li>
-        </ul>
-        <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on the homepage before making any purchasing decisions.</p>
+        
+        <h4>1. DIGITAL NATURE & FINAL SALE</h4>
+        <p>Due to the digital, intangible, and instantly downloadable nature of our learning materials, all sales of premium content (including the "Survival Kit" and "All-Access Pass") are strictly final. We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content. Access is deemed granted upon the automated internal issuance of account permissions or email delivery of access links, regardless of actual download status.</p>
+        
+        <h4>2. EU/UK CONSUMER WAIVER NOTICE</h4>
+        <p>If you reside in the European Union (EU) or the United Kingdom (UK), by clicking "Purchase", "Checkout", or checking the consent box at checkout, you expressly agree that the supply of digital content begins immediately upon purchase. You hereby acknowledge and agree that you lose your 14-day right of withdrawal (cooling-off period) under the EU Consumer Rights Directive once the content delivery or account provisioning has commenced.</p>
+        
+        <h4>3. TESTING AND COMPATIBILITY</h4>
+        <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on our homepage before making any purchasing decisions. It is the user's sole responsibility to ensure that their device, operating system, internet connection, and software are compatible with our digital file formats. Refunds will not be issued based on user-end technical, internet, or software compatibility issues.</p>
+        
+        <h4>4. CHARGEBACKS AND FRAUD</h4>
+        <p>Unauthorized chargebacks, frivolous dispute filings, or fraudulent refund claims will result in the immediate, permanent termination of your account and access privileges. We reserve the right to submit your purchase history, IP logs, and check-out consent records to payment processors (such as Stripe/PayPal) and relevant consumer risk databases to dispute any bad-faith chargebacks.</p>
+        
         <h4>Contact Us</h4>
         <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
         
