@@ -1255,20 +1255,27 @@
         };
 
         (function () {
-            // ---- Audio cache (normal + slow reuse the same element) ----
+            // ---- Audio cache (per pid, reused across normal/slow via playbackRate) ----
             const homeNormalCache = {};
             const HOME_SLOW_RATE = 0.7;
+            // Per-audio currently-attached card + handlers (so we can rebind per-click)
+            const homeAudioCtx = {}; // pid -> { card, onUpdate, onEnded, onLoadedMeta }
 
+            function buildAudioSrc(pid) {
+                // "./audio/..." is safer than "audio/" when page URL has hash / search params
+                const base = (document.querySelector('base') && document.querySelector('base').href) || '';
+                if (base) return ('./audio/' + pid + '.mp3');
+                return './audio/' + pid + '.mp3';
+            }
             function getAudio(pid, slow) {
-                const rate = slow ? HOME_SLOW_RATE : 1.0;
+                // Note: playbackRate is applied in playHomePhrase's readyToPlay
+                // only AFTER loadedmetadata to ensure support across browsers.
                 let a = homeNormalCache[pid];
                 if (!a) {
-                    a = new Audio('audio/' + pid + '.mp3');
+                    a = new Audio(buildAudioSrc(pid));
                     a.preload = 'auto';
                     homeNormalCache[pid] = a;
                 }
-                try { a.playbackRate = rate; } catch (_) {}
-                try { a.preservesPitch = true; } catch (_) {}
                 return a;
             }
 
@@ -1310,6 +1317,7 @@
             }
             function hideHpWtip() {
                 if (!hpWtip) return;
+                clearTimeout(hpWtipHideTimer);
                 hpWtipHideTimer = setTimeout(function () {
                     if (!hpWtip) return;
                     hpWtip.classList.remove('show');
@@ -1367,28 +1375,30 @@
                 const shouldOpen = forceOpen === true ? true : (forceOpen === false ? false : !back.classList.contains('open'));
                 if (shouldOpen) {
                     back.classList.add('open');
-                    if (back.style.display === 'none') back.style.display = '';
+                    back.style.display = '';
                 } else {
                     back.classList.remove('open');
                 }
             }
 
-            // ---- Attach card root click (but avoid speaker buttons) ----
+            // ---- Attach card root click (but don't toggle on speaker buttons themselves) ----
             function bindCardClick(card) {
                 card.addEventListener('click', function (e) {
-                    if (e.target.closest && e.target.closest('button, .play-icon')) return;
+                    if (e.target.closest && e.target.closest('button, .play-icon, .kch, .kpy, .hp-culture-box')) return;
                     toggleCardBack(card);
                 });
             }
 
-            // ---- Playback progress + karaoke highlight loop ----
+            // ---- Playback progress + karaoke highlight helpers ----
             function fmtTime(t) {
                 if (typeof t !== 'number' || !isFinite(t)) return '0:00';
                 const s = Math.floor(t % 60);
                 const m = Math.floor(t / 60);
                 return m + ':' + (s < 10 ? '0' + s : String(s));
             }
-            function attachPlaybackLoop(audio, card, pyCount) {
+            // Create a per-play-progress closure bound to ONE card.
+            // Returns handlers object so we can detach later.
+            function makePlaybackHandlers(audio, card, pyCount) {
                 const fill = card.querySelector('.hp-play-fill');
                 const time = card.querySelector('.hp-play-time');
                 const zhSpans = card.querySelectorAll('.back .chn .kch');
@@ -1399,8 +1409,8 @@
                     for (let i = 0; i < pySpans.length; i++) pySpans[i].classList.remove('active');
                 }
                 function update() {
-                    const dur = audio.duration || 0;
-                    const cur = audio.currentTime || 0;
+                    const dur = (typeof audio.duration === 'number' && isFinite(audio.duration)) ? audio.duration : 0;
+                    const cur = (typeof audio.currentTime === 'number') ? audio.currentTime : 0;
                     const pct = dur > 0 ? Math.min(100, (cur / dur) * 100) : 0;
                     if (fill) fill.style.width = pct + '%';
                     if (time) time.textContent = fmtTime(cur) + ' / ' + fmtTime(dur);
@@ -1410,14 +1420,38 @@
                     if (charIdx >= 0 && zhSpans[charIdx]) zhSpans[charIdx].classList.add('active');
                     if (pyIdx >= 0 && pySpans[pyIdx]) pySpans[pyIdx].classList.add('active');
                 }
-                audio.addEventListener('timeupdate', update);
-                audio.addEventListener('ended', function () {
+                let endedFired = false;
+                function onEnded() {
+                    if (endedFired) return; endedFired = true;
                     clearActive();
                     if (fill) fill.style.width = '100%';
-                    setTimeout(function () { if (fill) fill.style.width = '0%'; if (time) time.textContent = fmtTime(0) + ' / ' + fmtTime(audio.duration || 0); }, 550);
-                });
-                audio.addEventListener('loadedmetadata', update);
-                update();
+                    setTimeout(function () {
+                        if (fill) fill.style.width = '0%';
+                        const dur = (typeof audio.duration === 'number' && isFinite(audio.duration)) ? audio.duration : 0;
+                        if (time) time.textContent = fmtTime(0) + ' / ' + fmtTime(dur);
+                    }, 550);
+                }
+                return { update: update, ended: onEnded, reset: clearActive };
+            }
+
+            // Detach old handlers for a pid; attach new handlers for current play target card
+            function rebindPlaybackForCard(pid, audio, card, pyCount) {
+                const old = homeAudioCtx[pid];
+                if (old) {
+                    try { audio.removeEventListener('timeupdate', old.onUpdate); } catch (_) {}
+                    try { audio.removeEventListener('ended', old.onEnded); } catch (_) {}
+                    try { audio.removeEventListener('loadedmetadata', old.onLoadedMeta); } catch (_) {}
+                }
+                const h = makePlaybackHandlers(audio, card, pyCount);
+                const onUpdate = h.update;
+                const onEnded = h.ended;
+                const onLoadedMeta = h.update;
+                audio.addEventListener('timeupdate', onUpdate);
+                audio.addEventListener('ended', onEnded);
+                audio.addEventListener('loadedmetadata', onLoadedMeta);
+                homeAudioCtx[pid] = { card: card, onUpdate: onUpdate, onEnded: onEnded, onLoadedMeta: onLoadedMeta };
+                h.reset();
+                h.update();
             }
 
             // ---- Public API: playHomePhrase(buttonEl, homeId, slow) ----
@@ -1427,30 +1461,89 @@
                 const data = HOME_5_PHRASES[pid];
                 if (!data) return;
                 toggleCardBack(card, true);
-                // Stop all other home audios first
+
+                const targetRate = slow ? HOME_SLOW_RATE : 1.0;
+
+                // 1) Pause ALL other playing audios first, including this one (clean restart)
                 Object.keys(homeNormalCache).forEach(function (k) {
                     const a = homeNormalCache[k];
-                    if (a && a !== getAudio(pid, slow)) { try { a.pause(); } catch (_) {} }
+                    if (!a) return;
+                    try { a.pause(); } catch (_) {}
                 });
+
                 const audio = getAudio(pid, !!slow);
                 const pyCount = (data.pyTokens && data.pyTokens.length) || 0;
-                // Wire progress/karaoke loop once per cached audio
-                if (!audio.__hpLoopsAttached) {
-                    attachPlaybackLoop(audio, card, pyCount);
-                    audio.__hpLoopsAttached = true;
+
+                // 2) Always rebind progress + karaoke handlers to the currently-clicked card
+                rebindPlaybackForCard(pid, audio, card, pyCount);
+
+                // 3) Ensure audio metadata is ready before setting rate/seek (required for
+                //    cross-browser safe playbackRate). If already loaded, resolve synchronously.
+                let metadataReady = Promise.resolve();
+                const durIsReady = typeof audio.duration === 'number' && isFinite(audio.duration) && audio.duration > 0;
+                if (!durIsReady) {
+                    metadataReady = new Promise(function (resolve) {
+                        let done = false;
+                        function finish() { if (done) return; done = true; resolve(); }
+                        audio.addEventListener('loadedmetadata', function once() { audio.removeEventListener('loadedmetadata', once); finish(); });
+                        try { audio.load(); } catch (_) {}
+                        setTimeout(finish, 1500);
+                    });
                 }
-                try { audio.pause(); audio.currentTime = 0; } catch (_) {}
-                const origLabel = btn.textContent;
+
+                // 4) Set pitch-preserve flags + playbackRate + seek to 0, all inside ready-to-play promise
+                const readyToPlay = metadataReady.then(function () {
+                    try { audio.preservesPitch = true; } catch (_) {}
+                    try { audio.mozPreservesPitch = true; } catch (_) {}
+                    try { audio.webkitPreservesPitch = true; } catch (_) {}
+                    try { audio.playbackRate = targetRate; } catch (_) {}
+                    try { audio.currentTime = 0; } catch (_) { /* ignore */ }
+                });
+
+                const origLabel = btn.textContent || (slow ? '🐢 Slow' : '▶');
                 btn.disabled = true;
-                btn.style.opacity = '0.6';
-                const playPromise = audio.play();
-                if (playPromise && typeof playPromise.catch === 'function') {
-                    playPromise.catch(function () { /* autoplay block — silently ignore */ });
-                }
-                audio.addEventListener('playing', function onPlaying() { audio.removeEventListener('playing', onPlaying); btn.disabled = false; btn.style.opacity = ''; });
-                audio.addEventListener('ended', function onEnded() { audio.removeEventListener('ended', onEnded); btn.disabled = false; btn.style.opacity = ''; btn.textContent = origLabel; });
+                btn.style.opacity = '0.55';
                 btn.textContent = slow ? '🐢…' : '▶…';
-                setTimeout(function () { if (btn.textContent === '🐢…' || btn.textContent === '▶…') btn.textContent = origLabel; }, 600);
+                // Safety fallback: if neither playing/ended fire within 8 seconds, restore button
+                const stallTimer = setTimeout(function () {
+                    btn.disabled = false;
+                    btn.style.opacity = '';
+                    btn.textContent = origLabel;
+                }, 8000);
+
+                function restoreBtn() {
+                    clearTimeout(stallTimer);
+                    btn.disabled = false;
+                    btn.style.opacity = '';
+                    if (btn.textContent === '🐢…' || btn.textContent === '▶…') btn.textContent = origLabel;
+                }
+                function onPlayingOnce() { audio.removeEventListener('playing', onPlayingOnce); restoreBtn(); }
+                function onEndedOnce() { audio.removeEventListener('ended', onEndedOnce); restoreBtn(); }
+                audio.addEventListener('playing', onPlayingOnce);
+                audio.addEventListener('ended', onEndedOnce);
+
+                // Try to start playback. If metadata was already ready, readyToPlay is a chained
+                // promise that resolves in a microtask (still inside the user gesture's task so
+                // autoplay policy does not block). Otherwise we wait for the load, then play.
+                readyToPlay.then(function () {
+                    try {
+                        const p = audio.play();
+                        if (p && typeof p.catch === 'function') {
+                            p.catch(function (err) {
+                                const msg = (err && err.message) ? err.message : '';
+                                if (typeof console !== 'undefined' && console.warn) console.warn('[playHomePhrase] play() rejected:', msg);
+                                btn.textContent = '⚠️ Retry';
+                                btn.title = 'Audio error: ' + msg + '. Click to retry.';
+                                restoreBtn();
+                                try { audio.load(); } catch (_) {}
+                            });
+                        }
+                    } catch (syncErr) {
+                        restoreBtn();
+                        btn.textContent = '⚠️ Retry';
+                        if (typeof console !== 'undefined' && console.warn) console.warn('[playHomePhrase] play() threw:', syncErr && syncErr.message ? syncErr.message : String(syncErr));
+                    }
+                });
             };
 
             // ---- Init all 5 cards on DOMContentLoaded ----
@@ -1462,10 +1555,9 @@
                     buildKaraokeForCard(card, pid);
                     bindCardClick(card);
                 });
-                // Also hide word bubble on scroll/resize
                 window.addEventListener('scroll', hideHpWtip, true);
                 window.addEventListener('resize', hideHpWtip);
-                console.log('[Home Learning Layer] Initialized. 5 cards with karaoke + word hover + culture tip.');
+                console.log('[Home Learning Layer] Initialized. 5 cards with karaoke + word hover + culture tip. Robust audio (rebind per-click + 8s stall fallback).');
             }
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', initHomeCards);
