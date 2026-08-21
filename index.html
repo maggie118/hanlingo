@@ -268,6 +268,126 @@
         .phrase-card .back .repeat-area .mic-btn:hover { background: #16a34a; transform: scale(1.02); }
         .phrase-card .back .repeat-area .status-text { font-size: 14px; color: #64748b; font-weight: 500; flex: 1; }
         .phrase-card .back .repeat-area .status-text strong { color: #0f1e2c; }
+        /* ---- Karaoke (Chinese char + pinyin per syllable highlight) ---- */
+        .phrase-card .back .chn { font-size: 28px; font-weight: 800; color: var(--struct-dark); margin-bottom: 4px; line-height: 1.35; letter-spacing: 0.5px; }
+        .phrase-card .back .kch {
+            display: inline-block;
+            position: relative;
+            padding: 1px 1px;
+            margin: 0 1px;
+            border-radius: 6px;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
+            cursor: pointer;
+            color: var(--struct-dark);
+        }
+        .phrase-card .back .kch:hover { background: rgba(240,90,40,0.08); transform: translateY(-1px); }
+        .phrase-card .back .kch.active {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #7c2d12;
+            box-shadow: 0 0 0 2px #f59e0b;
+        }
+        .phrase-card .back .pin { font-size: 18px; font-weight: 500; color: var(--cta-orange); letter-spacing: 0.5px; line-height: 1.35; margin-bottom: 6px; }
+        .phrase-card .back .kpy {
+            display: inline-block;
+            padding: 1px 2px;
+            margin: 0 2px;
+            border-radius: 4px;
+            transition: background 0.18s ease, color 0.18s ease, font-weight 0.18s ease;
+            color: var(--cta-orange);
+        }
+        .phrase-card .back .kpy.active {
+            background: rgba(240,90,40,0.14);
+            color: #7c2d12;
+            font-weight: 800;
+        }
+        /* ---- Playback Progress Bar (per card) ---- */
+        .hp-play-bar {
+            margin-top: 8px;
+            height: 6px;
+            width: 100%;
+            background: #E2E8F0;
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+        .hp-play-fill {
+            position: absolute; inset: 0; width: 0%;
+            background: linear-gradient(90deg, #F05A28, #f97316);
+            border-radius: 999px;
+            transition: width 0.08s linear;
+        }
+        .hp-play-time {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-align: right;
+        }
+        /* ---- Word Hover Bubble (per card) ---- */
+        .hp-wtip {
+            position: fixed;
+            z-index: 12000;
+            pointer-events: none;
+            padding: 10px 12px;
+            min-width: 180px;
+            max-width: 260px;
+            background: #ffffff;
+            border: 1px solid rgba(240,90,40,0.25);
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(22,43,58,0.18);
+            opacity: 0;
+            transform: translateY(4px) scale(0.97);
+            transition: opacity 0.14s ease, transform 0.14s ease;
+        }
+        .hp-wtip.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .hp-wtip::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 7px solid #ffffff;
+            filter: drop-shadow(0 1px 0 rgba(240,90,40,0.25));
+        }
+        .hp-wtip.below::after {
+            bottom: auto; top: -6px;
+            border-top: none;
+            border-bottom: 7px solid #ffffff;
+            filter: drop-shadow(0 -1px 0 rgba(240,90,40,0.25));
+        }
+        .hp-wtip .wt-ch { display: block; font-size: 20px; font-weight: 800; color: var(--struct-dark); margin-bottom: 2px; }
+        .hp-wtip .wt-py { display: block; font-size: 12.5px; color: var(--cta-orange); font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .hp-wtip .wt-mn { display: block; font-size: 13px; color: #334155; font-weight: 600; line-height: 1.3; }
+        /* ---- 文化提示 (Culture Tip) block replacing Practice Speaking ---- */
+        .hp-culture-box {
+            margin-top: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 1px solid #bbf7d0;
+        }
+        .hp-culture-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #166534;
+            margin: 0 0 6px 0;
+            letter-spacing: 0.3px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .hp-culture-body {
+            font-size: 13px;
+            color: #14532d;
+            line-height: 1.55;
+            font-weight: 500;
+        }
+        .hp-culture-body em { font-style: normal; font-weight: 700; color: #166534; background: #bbf7d0; padding: 0 4px; border-radius: 4px; }
         .phrase-card .tag-free {
             display: inline-block; background: #f0fdf4; color: #166534;
             font-size: 10px; font-weight: 700; padding: 2px 10px; border-radius: 99px;
@@ -770,109 +890,137 @@
         </div>
     </section>
 
+    <!-- ============================================================
+         🎓 HanLingo Homepage Learning Layer (5 free phrases)
+         - Same MP3 voice as survival-topics (zh-CN-XiaoxiaoNeural)
+         - Hover any character → bubble with pinyin + English meaning
+         - Play/Slow → karaoke-style char-by-char highlight
+         - Culture Tip (文化提示) replaces "Practice Speaking"
+         ============================================================ -->
+    <div class="hp-wtip" id="hpWtip" aria-hidden="true"></div>
+
     <!-- 免费短语 -->
     <section class="free-sample-section" id="free-phrases" aria-labelledby="free-phrases-title">
         <h2 id="free-phrases-title">Try 5 Phrases Free</h2>
-        <p>More than a translation. <strong>The right phrase for the right situation — with pinyin, audio and speaking practice.</strong></p>
+        <p>More than a translation. <strong>The right phrase for the right situation — with pinyin, audio and cultural tip.</strong></p>
 
         <div class="phrase-card-list">
             <!-- 短语 1: Hello -->
-            <div class="phrase-card">
+            <div class="phrase-card" data-home-id="home-01">
                 <span class="tag-free">🎯 FREE</span>
                 <div class="front">
                     <div class="eng-text">Hello! / Excuse me.</div>
                     <div class="controls">
-                        <button class="play-icon" onclick="playPhrase(this, '你好！', 'Nǐ hǎo', false)">▶</button>
-                        <button class="play-icon slow" onclick="playPhrase(this, '你好！', 'Nǐ hǎo', true)">🐢 Slow</button>
+                        <button class="play-icon" onclick="playHomePhrase(this, 'home-01', false)">▶</button>
+                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-01', true)">🐢 Slow</button>
                     </div>
                 </div>
                 <div class="back">
                     <div class="chn">你好！</div>
                     <div class="pin">Nǐ hǎo</div>
-                    <div class="repeat-area">
-                        <button class="mic-btn" onclick="startRepeat(this, '你好！', 'Nǐ hǎo')">🗣️ Practice Speaking</button>
-                        <span class="status-text">Say it out loud</span>
+                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
+                    <div class="hp-play-time">0:00 / 0:00</div>
+                    <div class="hp-culture-box">
+                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-body">
+                            <em>你好</em> is the safest, most neutral "hello" in Mandarin — it works with strangers, elders, and friends. Don't use <em>嗨</em> (hāi, borrowed from English "hi") with people older than you; it can sound too casual. When entering a small shop, <em>你好</em> is more polite than staying silent.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- 短语 2: Taxi (突出显示) -->
-            <div class="phrase-card" style="border-color:#ff4e00;border-width:2px;">
+            <div class="phrase-card" data-home-id="home-02" style="border-color:#ff4e00;border-width:2px;">
                 <span class="tag-free" style="background:#fef3c7;color:#92400e;border-color:#fcd34d;">🚕 REAL SCENARIO</span>
                 <div class="front">
                     <div class="eng-text" style="font-weight:700;">Can you take me to this address?</div>
                     <div class="controls">
-                        <button class="play-icon" onclick="playPhrase(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.', false)">▶</button>
-                        <button class="play-icon slow" onclick="playPhrase(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.', true)">🐢 Slow</button>
+                        <button class="play-icon" onclick="playHomePhrase(this, 'home-02', false)">▶</button>
+                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-02', true)">🐢 Slow</button>
                     </div>
                 </div>
                 <div class="back open" style="display:block;">
                     <div class="chn">请带我去这个地址。</div>
                     <div class="pin">Qǐng dài wǒ qù zhè ge dì zhǐ.</div>
-                    <div class="repeat-area" style="background:#fef3c7;border-color:#fcd34d;">
-                        <button class="mic-btn" onclick="startRepeat(this, '请带我去这个地址。', 'Qǐng dài wǒ qù zhè ge dì zhǐ.')" style="background:#92400e;">🗣️ Practice Speaking</button>
-                        <span class="status-text"><strong>Try it!</strong> Say it out loud — you've got this.</span>
-                        <span class="hint">💡 Show this to your taxi driver</span>
+                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
+                    <div class="hp-play-time">0:00 / 0:00</div>
+                    <div class="hp-culture-box">
+                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-body">
+                            Most taxi drivers in China don't read English — even in Shanghai or Beijing. Always keep <em>your destination written in Chinese</em> (from your hotel card, a saved screenshot, or Baidu/Amap). Just show the screen <b>plus</b> play this sentence, and you'll get there with zero confusion. <em>请</em> at the start makes it politely formal, which taxi drivers appreciate.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- 短语 3: How much -->
-            <div class="phrase-card">
+            <div class="phrase-card" data-home-id="home-03">
                 <span class="tag-free">🎯 FREE</span>
                 <div class="front">
                     <div class="eng-text">How much is this?</div>
                     <div class="controls">
-                        <button class="play-icon" onclick="playPhrase(this, '这个多少钱？', 'Zhè ge duō shǎo qián', false)">▶</button>
-                        <button class="play-icon slow" onclick="playPhrase(this, '这个多少钱？', 'Zhè ge duō shǎo qián', true)">🐢 Slow</button>
+                        <button class="play-icon" onclick="playHomePhrase(this, 'home-03', false)">▶</button>
+                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-03', true)">🐢 Slow</button>
                     </div>
                 </div>
                 <div class="back">
                     <div class="chn">这个多少钱？</div>
-                    <div class="pin">Zhè ge duō shǎo qián</div>
-                    <div class="repeat-area">
-                        <button class="mic-btn" onclick="startRepeat(this, '这个多少钱？', 'Zhè ge duō shǎo qián')">🗣️ Practice Speaking</button>
-                        <span class="status-text">Say it out loud</span>
+                    <div class="pin">Zhè ge duō shǎo qián?</div>
+                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
+                    <div class="hp-play-time">0:00 / 0:00</div>
+                    <div class="hp-culture-box">
+                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-body">
+                            In open-air markets and tourist streets, haggling with a smile is completely normal — but supermarket and mall prices are fixed. A friendly opener: point + <em>这个多少钱？</em>, then reply with <em>pián yi yì diǎn</em> (a little cheaper). The particle <em>吗</em> at the end turns a statement into a yes/no question; keep your tone rising, just like in English.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- 短语 4: Do you speak English -->
-            <div class="phrase-card">
+            <div class="phrase-card" data-home-id="home-04">
                 <span class="tag-free">🎯 FREE</span>
                 <div class="front">
                     <div class="eng-text">Do you speak English?</div>
                     <div class="controls">
-                        <button class="play-icon" onclick="playPhrase(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma', false)">▶</button>
-                        <button class="play-icon slow" onclick="playPhrase(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma', true)">🐢 Slow</button>
+                        <button class="play-icon" onclick="playHomePhrase(this, 'home-04', false)">▶</button>
+                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-04', true)">🐢 Slow</button>
                     </div>
                 </div>
                 <div class="back">
                     <div class="chn">你会说英语吗？</div>
-                    <div class="pin">Nǐ huì shuō Yīng yǔ ma</div>
-                    <div class="repeat-area">
-                        <button class="mic-btn" onclick="startRepeat(this, '你会说英语吗？', 'Nǐ huì shuō Yīng yǔ ma')">🗣️ Practice Speaking</button>
-                        <span class="status-text">Say it out loud</span>
+                    <div class="pin">Nǐ huì shuō Yīng yǔ ma?</div>
+                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
+                    <div class="hp-play-time">0:00 / 0:00</div>
+                    <div class="hp-culture-box">
+                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-body">
+                            Younger Chinese (< 30) often learn English in school but are <em>shy to speak</em> — don't mistake a quiet answer for "they can't". Ask slowly with <em>你会说英语吗？</em> and if they say <em>一点点</em> (yī diǎn diǎn = a little bit), switch to simple words + gestures. Also note: in China, "English" is always <em>Yīng yǔ</em> — never "American" or "Australian".
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- 短语 5: I would like to order -->
-            <div class="phrase-card">
+            <div class="phrase-card" data-home-id="home-05">
                 <span class="tag-free">🎯 FREE</span>
                 <div class="front">
                     <div class="eng-text">I would like to order this.</div>
                     <div class="controls">
-                        <button class="play-icon" onclick="playPhrase(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.', false)">▶</button>
-                        <button class="play-icon slow" onclick="playPhrase(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.', true)">🐢 Slow</button>
+                        <button class="play-icon" onclick="playHomePhrase(this, 'home-05', false)">▶</button>
+                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-05', true)">🐢 Slow</button>
                     </div>
                 </div>
                 <div class="back">
                     <div class="chn">我要点这个。</div>
                     <div class="pin">Wǒ yào diǎn zhè ge.</div>
-                    <div class="repeat-area">
-                        <button class="mic-btn" onclick="startRepeat(this, '我要点这个。', 'Wǒ yào diǎn zhè ge.')">🗣️ Practice Speaking</button>
-                        <span class="status-text">Say it out loud</span>
+                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
+                    <div class="hp-play-time">0:00 / 0:00</div>
+                    <div class="hp-culture-box">
+                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-body">
+                            In Chinese restaurants, waiters are <em>extremely</em> used to customers simply pointing at a photo menu and saying <em>我要点这个</em> — no long polite sentence needed. The verb <em>点</em> is specifically "to order (food)"; it's more natural than the literal verb <em>mǎi</em> (to buy/ purchase). If you want two portions, add <em>两个</em> (liǎng ge) before <em>这个</em>.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1025,6 +1173,308 @@
         // HanLingo - 完整 JavaScript 功能 (整合 script.js)
         // ============================================================
 
+        // ================================================================
+        // 🎓 Homepage 5 Free Phrases — same learning layer as survival-topics
+        //   - MP3 audio from /audio/home-XX.mp3 (voice: zh-CN-XiaoxiaoNeural)
+        //   - Karaoke per-character highlighting (kch + pinyin kpy)
+        //   - Hover any kch → bubble with pinyin + English meaning
+        //   - Culture Tip (文化提示) replaces "Practice Speaking"
+        // ================================================================
+        const HOME_5_PHRASES = {
+            'home-01': {
+                zh: '你好！',
+                py: 'Nǐ hǎo！',
+                pyTokens: ['Nǐ', 'hǎo'],
+                en: 'Hello! / Excuse me.',
+                words: [
+                    { ch: '你', py: 'Nǐ', mn: 'you (polite, neutral singular)' },
+                    { ch: '好', py: 'hǎo', mn: 'good / well / OK' },
+                    { ch: '！', py: '·', mn: '·' }
+                ]
+            },
+            'home-02': {
+                zh: '请带我去这个地址。',
+                py: 'Qǐng dài wǒ qù zhè ge dì zhǐ。',
+                pyTokens: ['Qǐng', 'dài', 'wǒ', 'qù', 'zhè', 'ge', 'dì', 'zhǐ'],
+                en: 'Please take me to this address.',
+                words: [
+                    { ch: '请', py: 'Qǐng', mn: 'please (polite request marker)' },
+                    { ch: '带', py: 'dài', mn: 'to take / bring / lead' },
+                    { ch: '我', py: 'wǒ', mn: 'I / me (singular 1st person)' },
+                    { ch: '去', py: 'qù', mn: 'to go (direction verb)' },
+                    { ch: '这', py: 'zhè', mn: 'this (near demonstrative)' },
+                    { ch: '个', py: 'ge', mn: 'ge — most common measure word' },
+                    { ch: '地', py: 'dì', mn: 'place / ground (here part of address)' },
+                    { ch: '址', py: 'zhǐ', mn: 'site / location (here part of address)' },
+                    { ch: '。', py: '·', mn: '·' }
+                ]
+            },
+            'home-03': {
+                zh: '这个多少钱？',
+                py: 'Zhè ge duō shǎo qián？',
+                pyTokens: ['Zhè', 'ge', 'duō', 'shǎo', 'qián'],
+                en: 'How much is this?',
+                words: [
+                    { ch: '这', py: 'Zhè', mn: 'this (near demonstrative)' },
+                    { ch: '个', py: 'ge', mn: 'ge — most common measure word' },
+                    { ch: '多', py: 'duō', mn: 'many / much (here in "how much")' },
+                    { ch: '少', py: 'shǎo', mn: 'few / little (here in "how much")' },
+                    { ch: '钱', py: 'qián', mn: 'money / cash / price' },
+                    { ch: '？', py: '·', mn: '·' }
+                ]
+            },
+            'home-04': {
+                zh: '你会说英语吗？',
+                py: 'Nǐ huì shuō Yīng yǔ ma？',
+                pyTokens: ['Nǐ', 'huì', 'shuō', 'Yīng', 'yǔ', 'ma'],
+                en: 'Do you speak English?',
+                words: [
+                    { ch: '你', py: 'Nǐ', mn: 'you (singular neutral)' },
+                    { ch: '会', py: 'huì', mn: 'can / to be able to (know how to)' },
+                    { ch: '说', py: 'shuō', mn: 'to speak / to say' },
+                    { ch: '英', py: 'Yīng', mn: 'English/British (part of English)' },
+                    { ch: '语', py: 'yǔ', mn: 'language / speech (part of English)' },
+                    { ch: '吗', py: 'ma', mn: 'ma — yes/no question particle (neutral tone)' },
+                    { ch: '？', py: '·', mn: '·' }
+                ]
+            },
+            'home-05': {
+                zh: '我要点这个。',
+                py: 'Wǒ yào diǎn zhè ge。',
+                pyTokens: ['Wǒ', 'yào', 'diǎn', 'zhè', 'ge'],
+                en: 'I would like to order this.',
+                words: [
+                    { ch: '我', py: 'Wǒ', mn: 'I / me (1st person singular)' },
+                    { ch: '要', py: 'yào', mn: 'want / would like / need to' },
+                    { ch: '点', py: 'diǎn', mn: 'order (food) / select from menu' },
+                    { ch: '这', py: 'zhè', mn: 'this (near demonstrative)' },
+                    { ch: '个', py: 'ge', mn: 'ge — most common measure word' },
+                    { ch: '。', py: '·', mn: '·' }
+                ]
+            }
+        };
+
+        (function () {
+            // ---- Audio cache (normal + slow reuse the same element) ----
+            const homeNormalCache = {};
+            const HOME_SLOW_RATE = 0.7;
+
+            function getAudio(pid, slow) {
+                const rate = slow ? HOME_SLOW_RATE : 1.0;
+                let a = homeNormalCache[pid];
+                if (!a) {
+                    a = new Audio('audio/' + pid + '.mp3');
+                    a.preload = 'auto';
+                    homeNormalCache[pid] = a;
+                }
+                try { a.playbackRate = rate; } catch (_) {}
+                try { a.preservesPitch = true; } catch (_) {}
+                return a;
+            }
+
+            // ---- Hover word bubble (shared by all 5 cards) ----
+            const hpWtip = document.getElementById('hpWtip');
+            let hpWtipHideTimer = null;
+            function positionHpWtip(elRect) {
+                if (!hpWtip) return;
+                const w = hpWtip.offsetWidth || 220;
+                const h = hpWtip.offsetHeight || 120;
+                const vw = window.innerWidth, vh = window.innerHeight;
+                const cx = elRect.left + elRect.width / 2;
+                let left = cx - w / 2;
+                let top = elRect.top - h - 10;
+                left = Math.max(8, Math.min(vw - w - 8, left));
+                if (top < 8) {
+                    top = elRect.bottom + 10;
+                    hpWtip.classList.add('below');
+                } else {
+                    hpWtip.classList.remove('below');
+                }
+                if (top + h > vh - 8) top = Math.max(8, vh - h - 8);
+                hpWtip.style.left = Math.round(left) + 'px';
+                hpWtip.style.top = Math.round(top) + 'px';
+            }
+            function showHpWtip(ch, py, mn, ev) {
+                if (!hpWtip) return;
+                clearTimeout(hpWtipHideTimer);
+                if (!mn || mn === '·') { hpWtip.classList.remove('show'); return; }
+                hpWtip.innerHTML =
+                    '<span class="wt-ch">' + escapeHTML(ch) + '</span>' +
+                    '<span class="wt-py">' + escapeHTML(py || '') + '</span>' +
+                    '<span class="wt-mn">' + escapeHTML(mn) + '</span>';
+                hpWtip.classList.add('show');
+                hpWtip.setAttribute('aria-hidden', 'false');
+                const r = ev && ev.currentTarget && typeof ev.currentTarget.getBoundingClientRect === 'function'
+                    ? ev.currentTarget.getBoundingClientRect() : { left: 0, top: 0, width: 20, height: 20, bottom: 20 };
+                positionHpWtip(r);
+            }
+            function hideHpWtip() {
+                if (!hpWtip) return;
+                hpWtipHideTimer = setTimeout(function () {
+                    if (!hpWtip) return;
+                    hpWtip.classList.remove('show');
+                    hpWtip.setAttribute('aria-hidden', 'true');
+                }, 80);
+            }
+            function escapeHTML(s) {
+                s = String(s == null ? '' : s);
+                return s.replace(/[&<>"']/g, function (c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+
+            // ---- Build karaoke spans for one card ----
+            function buildKaraokeForCard(card, pid) {
+                const data = HOME_5_PHRASES[pid];
+                if (!data) return;
+                const zhEl = card.querySelector('.back .chn');
+                const pyEl = card.querySelector('.back .pin');
+                if (!zhEl || !pyEl) return;
+
+                const rawZh = zhEl.textContent || data.zh;
+                zhEl.innerHTML = '';
+                for (let i = 0; i < rawZh.length; i++) {
+                    const ch = rawZh.charAt(i);
+                    const word = (data.words[i] && data.words[i].ch === ch) ? data.words[i] : null;
+                    const span = document.createElement('span');
+                    span.className = 'kch';
+                    span.setAttribute('data-char-idx', String(i));
+                    span.textContent = ch;
+                    if (word) {
+                        span.addEventListener('mouseenter', function (e) { showHpWtip(word.ch, word.py, word.mn, e); });
+                        span.addEventListener('mouseleave', hideHpWtip);
+                    }
+                    zhEl.appendChild(span);
+                }
+
+                pyEl.innerHTML = '';
+                const toks = data.pyTokens;
+                for (let j = 0; j < toks.length; j++) {
+                    const t = toks[j];
+                    const s = document.createElement('span');
+                    s.className = 'kpy';
+                    s.setAttribute('data-py-idx', String(j));
+                    s.textContent = t;
+                    pyEl.appendChild(s);
+                    if (j < toks.length - 1) pyEl.appendChild(document.createTextNode(' '));
+                }
+            }
+
+            // ---- Click card → open back panel ----
+            function toggleCardBack(card, forceOpen) {
+                const back = card.querySelector('.back');
+                if (!back) return;
+                const shouldOpen = forceOpen === true ? true : (forceOpen === false ? false : !back.classList.contains('open'));
+                if (shouldOpen) {
+                    back.classList.add('open');
+                    if (back.style.display === 'none') back.style.display = '';
+                } else {
+                    back.classList.remove('open');
+                }
+            }
+
+            // ---- Attach card root click (but avoid speaker buttons) ----
+            function bindCardClick(card) {
+                card.addEventListener('click', function (e) {
+                    if (e.target.closest && e.target.closest('button, .play-icon')) return;
+                    toggleCardBack(card);
+                });
+            }
+
+            // ---- Playback progress + karaoke highlight loop ----
+            function fmtTime(t) {
+                if (typeof t !== 'number' || !isFinite(t)) return '0:00';
+                const s = Math.floor(t % 60);
+                const m = Math.floor(t / 60);
+                return m + ':' + (s < 10 ? '0' + s : String(s));
+            }
+            function attachPlaybackLoop(audio, card, pyCount) {
+                const fill = card.querySelector('.hp-play-fill');
+                const time = card.querySelector('.hp-play-time');
+                const zhSpans = card.querySelectorAll('.back .chn .kch');
+                const pySpans = card.querySelectorAll('.back .pin .kpy');
+                const totalKch = zhSpans.length;
+                function clearActive() {
+                    for (let i = 0; i < zhSpans.length; i++) zhSpans[i].classList.remove('active');
+                    for (let i = 0; i < pySpans.length; i++) pySpans[i].classList.remove('active');
+                }
+                function update() {
+                    const dur = audio.duration || 0;
+                    const cur = audio.currentTime || 0;
+                    const pct = dur > 0 ? Math.min(100, (cur / dur) * 100) : 0;
+                    if (fill) fill.style.width = pct + '%';
+                    if (time) time.textContent = fmtTime(cur) + ' / ' + fmtTime(dur);
+                    const charIdx = dur > 0 ? Math.min(totalKch - 1, Math.floor((cur / dur) * totalKch)) : -1;
+                    const pyIdx = dur > 0 && pyCount > 0 ? Math.min(pyCount - 1, Math.floor((cur / dur) * pyCount)) : -1;
+                    clearActive();
+                    if (charIdx >= 0 && zhSpans[charIdx]) zhSpans[charIdx].classList.add('active');
+                    if (pyIdx >= 0 && pySpans[pyIdx]) pySpans[pyIdx].classList.add('active');
+                }
+                audio.addEventListener('timeupdate', update);
+                audio.addEventListener('ended', function () {
+                    clearActive();
+                    if (fill) fill.style.width = '100%';
+                    setTimeout(function () { if (fill) fill.style.width = '0%'; if (time) time.textContent = fmtTime(0) + ' / ' + fmtTime(audio.duration || 0); }, 550);
+                });
+                audio.addEventListener('loadedmetadata', update);
+                update();
+            }
+
+            // ---- Public API: playHomePhrase(buttonEl, homeId, slow) ----
+            window.playHomePhrase = function (btn, pid, slow) {
+                const card = btn && btn.closest ? btn.closest('.phrase-card') : null;
+                if (!card) return;
+                const data = HOME_5_PHRASES[pid];
+                if (!data) return;
+                toggleCardBack(card, true);
+                // Stop all other home audios first
+                Object.keys(homeNormalCache).forEach(function (k) {
+                    const a = homeNormalCache[k];
+                    if (a && a !== getAudio(pid, slow)) { try { a.pause(); } catch (_) {} }
+                });
+                const audio = getAudio(pid, !!slow);
+                const pyCount = (data.pyTokens && data.pyTokens.length) || 0;
+                // Wire progress/karaoke loop once per cached audio
+                if (!audio.__hpLoopsAttached) {
+                    attachPlaybackLoop(audio, card, pyCount);
+                    audio.__hpLoopsAttached = true;
+                }
+                try { audio.pause(); audio.currentTime = 0; } catch (_) {}
+                const origLabel = btn.textContent;
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+                const playPromise = audio.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(function () { /* autoplay block — silently ignore */ });
+                }
+                audio.addEventListener('playing', function onPlaying() { audio.removeEventListener('playing', onPlaying); btn.disabled = false; btn.style.opacity = ''; });
+                audio.addEventListener('ended', function onEnded() { audio.removeEventListener('ended', onEnded); btn.disabled = false; btn.style.opacity = ''; btn.textContent = origLabel; });
+                btn.textContent = slow ? '🐢…' : '▶…';
+                setTimeout(function () { if (btn.textContent === '🐢…' || btn.textContent === '▶…') btn.textContent = origLabel; }, 600);
+            };
+
+            // ---- Init all 5 cards on DOMContentLoaded ----
+            function initHomeCards() {
+                const cards = document.querySelectorAll('.phrase-card[data-home-id]');
+                cards.forEach(function (card) {
+                    const pid = card.getAttribute('data-home-id');
+                    if (!HOME_5_PHRASES[pid]) return;
+                    buildKaraokeForCard(card, pid);
+                    bindCardClick(card);
+                });
+                // Also hide word bubble on scroll/resize
+                window.addEventListener('scroll', hideHpWtip, true);
+                window.addEventListener('resize', hideHpWtip);
+                console.log('[Home Learning Layer] Initialized. 5 cards with karaoke + word hover + culture tip.');
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initHomeCards);
+            } else {
+                initHomeCards();
+            }
+        })();
+
+        // ===== Legacy playPhrase (used by other sections if any) =====
         // ===== 1. 播放 =====
         function playPhrase(el, chn, pin, slow) {
             const card = el.closest('.phrase-card');
