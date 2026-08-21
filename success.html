@@ -3,24 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    
-    <title>Payment Successful · HanLingo Lifetime Access – Start Learning Chinese</title>
+    <title>Payment Successful · HanLingo Lifetime Access</title>
     <meta name="robots" content="noindex, follow">
-    
-    <!-- ========== SEO ========== -->
-    <meta name="description" content="Your HanLingo Lifetime All-Access Pass is confirmed. Start learning 1,500+ real-life Chinese phrases for travel, food, hotels, and more. Offline audio included.">
-    <meta name="keywords" content="HanLingo payment success, Chinese lifetime access, learn Chinese offline, real-life Chinese phrases, travel Chinese, Chinese phrasebook">
-    <link rel="canonical" href="https://hanlingo.app/success.html">
-    <meta property="og:title" content="Payment Successful · HanLingo Lifetime Access – Start Learning Chinese">
-    <meta property="og:description" content="Your HanLingo Lifetime All-Access Pass is confirmed. Learn 1,500+ real-life Chinese phrases for travel, food, hotels, and more. Offline audio included.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hanlingo.app/success.html">
-    <meta property="og:locale" content="en_US">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Payment Successful · HanLingo Lifetime Unlocked">
-    <meta name="twitter:description" content="Your HanLingo Lifetime All-Access Pass is confirmed. Start learning Chinese offline now.">
-    <!-- ========== /SEO ========== -->
-    
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="mobile-web-app-capable" content="yes">
@@ -28,10 +12,7 @@
     <meta name="theme-color" content="#162B3A" />
     
     <style>
-        /* ============================================================
-           FONTS & VARIABLES
-           ============================================================ */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
 
         :root {
             --bg-main: #F1F5F9;
@@ -39,14 +20,6 @@
             --struct-dark: #0F1E2C;
             --cta-orange: #ff4500;
             --cta-orange-hover: #C9431F;
-            --cta-orange-glow: rgba(232, 85, 46, 0.30);
-            --text-primary: #0F1E2C;
-            --text-secondary: #475569;
-            --text-muted: #94A3B8;
-            --border-color: #E2E8F0;
-            --shadow-card: 0 24px 80px rgba(15, 30, 44, 0.10), 0 8px 32px rgba(15, 30, 44, 0.04);
-            --shadow-hover: 0 12px 40px rgba(15, 30, 44, 0.12);
-            --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --success-green: #1EA84C;
             --success-green-bg: #ECFDF3;
             --radius-card: 32px;
@@ -54,19 +27,11 @@
             --radius-full: 99px;
         }
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
+            color: var(--struct-dark);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -76,16 +41,16 @@
         }
 
         .success-card {
-            max-width: 580px;
+            max-width: 540px;
             width: 100%;
             background: var(--white);
             border-radius: var(--radius-card);
             padding: 48px 36px 40px;
-            box-shadow: var(--shadow-card);
+            box-shadow: 0 24px 80px rgba(15, 30, 44, 0.10);
             border: 1px solid rgba(226, 232, 240, 0.6);
             text-align: center;
-            position: relative;
             animation: cardFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
             overflow: hidden;
         }
 
@@ -101,17 +66,9 @@
             animation: shimmerBar 4s ease-in-out infinite;
         }
 
-        @keyframes shimmerBar {
-            0%, 100% { background-position: 0% 0%; }
-            50% { background-position: 100% 0%; }
-        }
+        @keyframes shimmerBar { 0%, 100% { background-position: 0% 0%; } 50% { background-position: 100% 0%; } }
+        @keyframes cardFadeUp { 0% { opacity: 0; transform: translateY(36px) scale(0.97); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
-        @keyframes cardFadeUp {
-            0% { opacity: 0; transform: translateY(36px) scale(0.97); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        /* ===== ICON ===== */
         .success-icon-wrap {
             position: relative;
             width: 88px;
@@ -128,61 +85,15 @@
             align-items: center;
             justify-content: center;
             font-size: 42px;
-            position: relative;
-            z-index: 2;
             animation: iconPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
         }
 
-        @keyframes iconPop {
-            0% { transform: scale(0) rotate(-8deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
+        @keyframes iconPop { 0% { transform: scale(0) rotate(-8deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
 
-        /* Ripple */
-        .success-icon-wrap::before,
-        .success-icon-wrap::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid rgba(30, 168, 76, 0.12);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: rippleOut 2.8s ease-out infinite;
-        }
-        .success-icon-wrap::after { animation-delay: 0.9s; }
+        h1 { font-size: 28px; font-weight: 900; margin-bottom: 6px; }
+        .subtitle { font-size: 15px; color: #475569; margin-bottom: 20px; }
+        .subtitle strong { color: var(--struct-dark); }
 
-        @keyframes rippleOut {
-            0% { width: 100%; height: 100%; opacity: 1; }
-            100% { width: 180%; height: 180%; opacity: 0; }
-        }
-
-        /* ===== TYPOGRAPHY ===== */
-        .success-card h1 {
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--struct-dark);
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
-            line-height: 1.15;
-        }
-
-        .success-card .subtitle {
-            font-size: 15px;
-            color: var(--text-secondary);
-            font-weight: 450;
-            margin-bottom: 20px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .subtitle strong {
-            color: var(--struct-dark);
-            font-weight: 700;
-        }
-
-        /* ===== HIGHLIGHT BOX ===== */
         .highlight-box {
             background: #FFFAF5;
             border: 1px solid #FDE8D0;
@@ -191,28 +102,10 @@
             margin-bottom: 20px;
             text-align: left;
         }
+        .highlight-box .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #B45309; }
+        .highlight-box .content { font-size: 14.5px; font-weight: 600; color: var(--struct-dark); line-height: 1.7; }
+        .highlight-box .content .accent { color: var(--cta-orange); }
 
-        .highlight-box .label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: #B45309;
-            margin-bottom: 2px;
-        }
-
-        .highlight-box .content {
-            font-size: 14.5px;
-            font-weight: 600;
-            color: var(--text-primary);
-            line-height: 1.7;
-        }
-
-        .highlight-box .content .accent {
-            color: var(--cta-orange);
-        }
-
-        /* ===== FEATURE GRID ===== */
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -220,183 +113,21 @@
             margin: 16px 0 24px;
             text-align: left;
         }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            padding: 4px 0;
-        }
-
+        .feature-item { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; padding: 4px 0; }
         .feature-item .check {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             background: var(--success-green-bg);
             border-radius: 50%;
-            color: var(--success-green);
-            font-size: 12px;
-            flex-shrink: 0;
-            font-weight: 800;
-        }
-
-        @media (max-width: 440px) {
-            .feature-grid { grid-template-columns: 1fr; gap: 4px; }
-        }
-
-        /* ===== INSTALL SECTION ===== */
-        .install-section {
-            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
-            border-radius: var(--radius-sm);
-            padding: 18px 20px 20px;
-            margin: 8px 0 20px;
-            text-align: left;
-            border: 1.5px solid transparent;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .install-section:hover {
-            background: var(--white);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .install-section .install-header {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 2px;
-        }
-
-        .install-section .install-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--struct-dark);
-        }
-
-        .install-section .install-badge {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            background: var(--success-green);
-            color: #fff;
-            padding: 2px 12px;
-            border-radius: var(--radius-full);
-        }
-
-        .install-section .install-desc {
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .install-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .install-step {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            padding: 3px 0;
-        }
-
-        .install-step .step-num {
-            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 24px;
-            height: 24px;
-            background: var(--white);
-            border-radius: 50%;
+            color: var(--success-green);
+            font-size: 12px;
             font-weight: 800;
-            font-size: 11px;
-            color: var(--cta-orange);
-            border: 1px solid var(--border-color);
             flex-shrink: 0;
         }
 
-        .install-step .step-icon {
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .install-step strong {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        /* ===== PWA INLINE BANNER ===== */
-        .pwa-inline-banner {
-            display: none;
-            background: var(--struct-dark);
-            color: #fff;
-            border-radius: var(--radius-sm);
-            padding: 14px 18px;
-            margin-top: 14px;
-            align-items: center;
-            gap: 12px;
-            animation: cardFadeUp 0.5s ease;
-        }
-
-        .pwa-inline-banner.show { display: flex; }
-
-        .pwa-inline-banner .pwa-icon { font-size: 26px; flex-shrink: 0; }
-        .pwa-inline-banner .pwa-text { flex: 1; min-width: 0; }
-        .pwa-inline-banner .pwa-title { font-weight: 700; font-size: 14px; }
-        .pwa-inline-banner .pwa-desc { font-size: 12px; opacity: 0.7; }
-
-        .pwa-inline-banner .pwa-btn-small {
-            background: var(--cta-orange);
-            color: #fff;
-            border: none;
-            padding: 7px 18px;
-            border-radius: var(--radius-full);
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
-            flex-shrink: 0;
-        }
-
-        .pwa-inline-banner .pwa-btn-small:hover {
-            background: var(--cta-orange-hover);
-            transform: scale(1.03);
-        }
-
-        .pwa-inline-banner .pwa-close-small {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 18px;
-            cursor: pointer;
-            padding: 4px;
-            flex-shrink: 0;
-            line-height: 1;
-        }
-
-        .pwa-inline-banner .pwa-close-small:hover { color: #fff; }
-
-        /* ===== BUTTONS ===== */
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 4px;
-        }
-
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -410,27 +141,12 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 20px var(--cta-orange-glow);
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(232, 85, 46, 0.30);
             width: 100%;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
-
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .btn-primary:hover {
-            background: var(--cta-orange-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(232, 85, 46, 0.35);
-        }
+        .btn-primary:hover { background: var(--cta-orange-hover); transform: translateY(-2px); }
 
         .btn-secondary {
             display: inline-flex;
@@ -438,157 +154,150 @@
             justify-content: center;
             gap: 8px;
             background: transparent;
-            color: var(--text-secondary);
-            border: 2px solid var(--border-color);
+            color: #475569;
+            border: 2px solid #E2E8F0;
             padding: 12px 24px;
             border-radius: var(--radius-full);
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s;
             width: 100%;
             text-decoration: none;
         }
+        .btn-secondary:hover { border-color: var(--struct-dark); color: var(--struct-dark); background: #F8FAFC; }
 
-        .btn-secondary:hover {
-            border-color: var(--struct-dark);
-            color: var(--struct-dark);
-            background: #F8FAFC;
-        }
-
-        /* ===== FOOTER ===== */
-        .fine-print {
-            margin-top: 18px;
-            font-size: 12.5px;
-            color: var(--text-muted);
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .fine-print a {
-            color: var(--cta-orange);
-            font-weight: 600;
-            text-decoration: none;
-        }
-
+        .fine-print { margin-top: 18px; font-size: 12.5px; color: #94A3B8; }
+        .fine-print a { color: var(--cta-orange); font-weight: 600; text-decoration: none; }
         .fine-print a:hover { text-decoration: underline; }
-        .fine-print .meta { font-size: 11.5px; opacity: 0.6; }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== 验证失败 ===== */
+        .error-state { display: none; }
+        .error-state .error-icon { font-size: 48px; margin-bottom: 12px; }
+        .error-state h2 { font-size: 22px; font-weight: 800; color: #b91c1c; }
+        .error-state p { color: #475569; font-size: 15px; margin-top: 8px; }
+
+        .loading-state { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px 0; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #E2E8F0; border-top-color: var(--cta-orange); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .content-unlocked { display: none; }
+        .content-unlocked.show { display: block; }
+
+        /* ===== 管理员提示 (仅开发可见) ===== */
+        .admin-hint {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #92400e;
+            text-align: left;
+            display: none;
+        }
+        .admin-hint.show { display: block; }
+        .admin-hint code {
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            word-break: break-all;
+        }
+        .admin-hint .copy-btn {
+            background: #92400e;
+            color: #fff;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+        .admin-hint .copy-btn:hover { background: #78350f; }
+
         @media (max-width: 520px) {
             .success-card { padding: 28px 18px 24px; border-radius: 24px; }
-            .success-card h1 { font-size: 22px; }
-            .success-icon-wrap { width: 72px; height: 72px; }
-            .success-icon { font-size: 34px; }
-            .install-section { padding: 14px 14px 16px; }
-            .install-step { font-size: 12px; gap: 8px; }
-            .highlight-box .content { font-size: 13.5px; }
-            .feature-item { font-size: 13px; }
-        }
-
-        @media (max-width: 380px) {
-            .success-card { padding: 20px 14px 20px; }
-            .btn-primary { font-size: 14px; padding: 12px 16px; }
-            .btn-secondary { font-size: 13px; padding: 10px 16px; }
-            .pwa-inline-banner { flex-wrap: wrap; justify-content: center; text-align: center; }
-            .pwa-inline-banner .pwa-text { flex: 0 0 100%; }
-        }
-
-        @media print {
-            .pwa-inline-banner, .btn-secondary { display: none !important; }
-            .success-card { box-shadow: none !important; border: 1px solid #ddd; }
+            h1 { font-size: 22px; }
+            .feature-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="success-card">
+    <div class="success-card" id="app">
 
-        <!-- ===== ICON ===== -->
-        <div class="success-icon-wrap">
-            <div class="success-icon">✅</div>
+        <!-- 加载状态 -->
+        <div class="loading-state" id="loadingState">
+            <div class="spinner"></div>
+            <p style="color:#475569;font-weight:500;">Verifying your access...</p>
         </div>
 
-        <!-- ===== HEADLINE ===== -->
-        <h1>You're All Set! 🎉</h1>
-        <p class="subtitle">
-            Your <strong>Lifetime All-Access Pass</strong> is now active.<br>
-            Start learning Chinese — <strong>anywhere, even offline</strong>.
-        </p>
+        <!-- 错误状态 -->
+        <div class="error-state" id="errorState">
+            <div class="error-icon">🔒</div>
+            <h2>Access Not Verified</h2>
+            <p>Your access code could not be verified. Please check your email for the correct link, or <a href="mailto:support@hanlingo.app" style="color:#ff4500;font-weight:600;">contact support</a>.</p>
+            <br>
+            <a href="/" class="btn-secondary" style="display:inline-flex;width:auto;padding:10px 28px;">← Return to Home</a>
+        </div>
 
-        <!-- ===== WHAT'S INCLUDED ===== -->
-        <div class="highlight-box">
-            <div class="label">📦 Your Library Includes</div>
-            <div class="content">
-                ✅ <span class="accent">15 Real-Life Topics</span> · 150 Phrases<br />
-                ✅ <span class="accent">Travel</span> · Food · Hotels · Shopping · Emergencies · And more
+        <!-- 成功解锁 -->
+        <div class="content-unlocked" id="unlockedContent">
+
+            <div class="success-icon-wrap">
+                <div class="success-icon">✅</div>
             </div>
-        </div>
 
-        <!-- ===== FEATURE GRID ===== -->
-        <div class="feature-grid">
-            <div class="feature-item"><span class="check">✓</span> Offline Audio Playback</div>
-            <div class="feature-item"><span class="check">✓</span> Add to Home Screen</div>
-            <div class="feature-item"><span class="check">✓</span> Lifetime Free Updates</div>
-            <div class="feature-item"><span class="check">✓</span> Printable PDF Phrasebook</div>
-        </div>
-
-        <!-- ===== INSTALL GUIDE ===== -->
-        <div class="install-section" id="installGuide">
-            <div class="install-header">
-                <span class="install-title">📲 Add to Home Screen</span>
-                <span class="install-badge">Recommended</span>
-            </div>
-            <p class="install-desc">
-                Add HanLingo to your home screen for <strong>offline access</strong>
-                and the best learning experience.
+            <h1>You're All Set! 🎉</h1>
+            <p class="subtitle">
+                Your <strong>Lifetime All-Access Pass</strong> is now active.<br>
+                Start learning Chinese — <strong>anywhere, even offline</strong>.
             </p>
 
-            <div class="install-steps">
-                <div class="install-step">
-                    <span class="step-num">1</span>
-                    <span class="step-icon">🌐</span>
-                    Open this page in <strong>Safari / Chrome</strong>
-                </div>
-                <div class="install-step">
-                    <span class="step-num">2</span>
-                    <span class="step-icon">📤</span>
-                    Tap the <strong>Share</strong> icon
-                </div>
-                <div class="install-step">
-                    <span class="step-num">3</span>
-                    <span class="step-icon">➕</span>
-                    Select <strong>Add to Home Screen</strong>
+            <div class="highlight-box">
+                <div class="label">📦 Your Library Includes</div>
+                <div class="content">
+                    ✅ <span class="accent">15 Real-Life Topics</span> · 150+ Phrases<br />
+                    ✅ <span class="accent">Travel</span> · Food · Hotels · Shopping · Emergencies · And more
                 </div>
             </div>
-        </div>
 
-        <!-- ===== PWA INLINE BANNER ===== -->
-        <div class="pwa-inline-banner" id="pwaInlineBanner">
-            <span class="pwa-icon">📲</span>
-            <div class="pwa-text">
-                <div class="pwa-title">Install HanLingo</div>
-                <div class="pwa-desc">One tap to install as an app</div>
+            <div class="feature-grid">
+                <div class="feature-item"><span class="check">✓</span> Offline Audio Playback</div>
+                <div class="feature-item"><span class="check">✓</span> Add to Home Screen</div>
+                <div class="feature-item"><span class="check">✓</span> Lifetime Free Updates</div>
+                <div class="feature-item"><span class="check">✓</span> Printable PDF Phrasebook</div>
             </div>
-            <button class="pwa-btn-small" id="pwaInlineInstallBtn">Install</button>
-            <button class="pwa-close-small" id="pwaInlineCloseBtn">✕</button>
+
+            <div class="btn-group">
+                <a href="survival-topics.html" class="btn-primary">
+                    🚀 Start Learning Now →
+                </a>
+                <button class="btn-secondary" onclick="window.print()">
+                    🖨️ Print PDF Phrasebook
+                </button>
+            </div>
+
+            <div class="fine-print">
+                <span>💡 Questions? <a href="mailto:support@hanlingo.app">support@hanlingo.app</a></span>
+                <br>
+                <span style="font-size:11px;opacity:0.6;">Payment confirmed · Lifetime access</span>
+            </div>
+
         </div>
 
-        <!-- ===== ACTION BUTTONS ===== -->
-        <div class="btn-group">
-           <a href="survival-topics.html" class="btn-primary">
-           🚀 Start Learning Now →
-            </a>
-            <button class="btn-secondary" onclick="window.print()">
-                🖨️ Print PDF Phrasebook
-            </button>
-        </div>
-
-        <!-- ===== FOOTER ===== -->
-        <div class="fine-print">
-            <span>💡 Questions? <a href="mailto:support@hanlingo.app">support@hanlingo.app</a></span>
-            <span class="meta">Payment confirmed · Lifetime access</span>
+        <!-- ===== 管理员提示：当 URL 包含 ?admin=true 时显示 ===== -->
+        <div class="admin-hint" id="adminHint">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                <span>🔑 <strong>Admin:</strong> Current access code</span>
+                <button class="copy-btn" onclick="copyCode()">📋 Copy</button>
+            </div>
+            <code id="currentCodeDisplay" style="display:block;margin-top:6px;background:#fff;padding:6px 10px;border-radius:4px;font-size:12px;word-break:break-all;"></code>
+            <p style="margin-top:6px;font-size:11px;color:#78350f;">
+                💡 Add this code to <code>VALID_CODES</code> array in success.html
+            </p>
         </div>
 
     </div>
@@ -597,84 +306,97 @@
         (function() {
             'use strict';
 
-            const inlineBanner = document.getElementById('pwaInlineBanner');
-            const inlineInstallBtn = document.getElementById('pwaInlineInstallBtn');
-            const inlineCloseBtn = document.getElementById('pwaInlineCloseBtn');
-            const installGuide = document.getElementById('installGuide');
-            let deferredPrompt = null;
+            // ================================================================
+            // 🔑 有效访问码清单 — 手动维护
+            // 每次有新用户付款，将 Stripe Session ID 添加到这里
+            // 格式: cs_test_xxx 或 cs_live_xxx
+            // ================================================================
+            const VALID_CODES = [
+                // ⬇️ 在这里添加有效的 Session ID
+                // 'cs_test_abc123def456',
+                // 'cs_live_xyz789uvw012',
+            ];
 
-            // --- PWA Install Event ---
-            window.addEventListener('beforeinstallprompt', function(e) {
-                e.preventDefault();
-                deferredPrompt = e;
-                if (inlineBanner) {
-                    inlineBanner.classList.add('show');
+            // ================================================================
+            // 页面逻辑
+            // ================================================================
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const unlockedContent = document.getElementById('unlockedContent');
+            const adminHint = document.getElementById('adminHint');
+            const currentCodeDisplay = document.getElementById('currentCodeDisplay');
+
+            function showError() {
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                unlockedContent.classList.remove('show');
+            }
+
+            function showUnlocked() {
+                loadingState.style.display = 'none';
+                errorState.style.display = 'none';
+                unlockedContent.classList.add('show');
+            }
+
+            function verifyCode() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+                const isAdmin = urlParams.get('admin') === 'true';
+
+                // 管理员模式：显示当前 code
+                if (isAdmin && code) {
+                    adminHint.classList.add('show');
+                    currentCodeDisplay.textContent = code;
                 }
-            });
 
-            // --- Install Button ---
-            if (inlineInstallBtn) {
-                inlineInstallBtn.addEventListener('click', function() {
-                    if (deferredPrompt) {
-                        deferredPrompt.prompt();
-                        deferredPrompt.userChoice.then(function(choiceResult) {
-                            if (choiceResult.outcome === 'accepted') {
-                                inlineBanner.classList.remove('show');
-                            }
-                            deferredPrompt = null;
-                        });
-                    } else {
-                        alert('📲 Tap "Share" → "Add to Home Screen" to install HanLingo.');
-                        if (installGuide) {
-                            installGuide.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            installGuide.style.borderColor = '#E8552E';
-                            installGuide.style.borderWidth = '2px';
-                            setTimeout(() => {
-                                installGuide.style.borderColor = 'transparent';
-                                installGuide.style.borderWidth = '1.5px';
-                            }, 2500);
-                        }
-                    }
-                });
-            }
-
-            // --- Close Banner ---
-            if (inlineCloseBtn) {
-                inlineCloseBtn.addEventListener('click', function() {
-                    inlineBanner.classList.remove('show');
-                });
-            }
-
-            // --- App Installed ---
-            window.addEventListener('appinstalled', function() {
-                if (inlineBanner) {
-                    inlineBanner.classList.remove('show');
+                // 如果没有 code 参数
+                if (!code) {
+                    console.warn('❌ No access code found in URL');
+                    showError();
+                    return;
                 }
-                const toast = document.createElement('div');
-                toast.style.cssText = `
-                    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-                    background: #0F1E2C; color: #fff; padding: 14px 24px;
-                    border-radius: 14px; font-weight: 600; font-size: 14px;
-                    box-shadow: 0 12px 48px rgba(0,0,0,0.25); z-index: 9999;
-                    animation: cardFadeUp 0.5s ease; text-align: center; max-width: 90%;
-                `;
-                toast.textContent = '✅ HanLingo installed on your device!';
-                document.body.appendChild(toast);
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    toast.style.transition = 'opacity 0.6s ease';
-                    setTimeout(() => toast.remove(), 700);
-                }, 3000);
-            });
 
-            // --- Hide install guide if already installed ---
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                                 window.navigator.standalone === true;
-            if (isStandalone && installGuide) {
-                installGuide.style.display = 'none';
+                console.log('🔑 Verifying code:', code);
+
+                // 检查是否在有效清单中
+                const isValid = VALID_CODES.includes(code);
+
+                if (isValid) {
+                    console.log('✅ Code verified!');
+                    showUnlocked();
+                } else {
+                    console.warn('❌ Invalid code:', code);
+                    showError();
+                }
             }
 
-            console.log('🎉 HanLingo Payment Success');
+            // 复制 code 到剪贴板
+            window.copyCode = function() {
+                const code = currentCodeDisplay.textContent;
+                if (!code) return;
+                navigator.clipboard.writeText(code).then(() => {
+                    const btn = document.querySelector('.copy-btn');
+                    const original = btn.textContent;
+                    btn.textContent = '✅ Copied!';
+                    setTimeout(() => { btn.textContent = original; }, 2000);
+                }).catch(() => {
+                    // 降级方案
+                    const textarea = document.createElement('textarea');
+                    textarea.value = code;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    const btn = document.querySelector('.copy-btn');
+                    const original = btn.textContent;
+                    btn.textContent = '✅ Copied!';
+                    setTimeout(() => { btn.textContent = original; }, 2000);
+                });
+            };
+
+            // 页面加载后执行验证
+            verifyCode();
+
         })();
     </script>
 
