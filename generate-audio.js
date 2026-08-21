@@ -1,226 +1,226 @@
 // generate-audio.js
-// ä½¿ç”¨ Edge-TTS ç”Ÿæˆæ‰€æœ‰çŸ­è¯­éŸ³é¢‘
-// éŸ³è‰²: zh-CN-XiaoxiaoNeural (æœ€è‡ªç„¶çš„ä¸­æ–‡å¥³å£°)
-// è¯­é€Ÿ: -10% (æ›´é€‚åˆè¯­è¨€å­¦ä¹ )
+// Ê¹ÓÃ Edge-TTS Éú³ÉËùÓĞ¶ÌÓïÒô??
+// ÒôÉ«: zh-CN-XiaoxiaoNeural (×î×ÔÈ»µÄÖĞÎÄÅ®??
+// Óï?? -10% (¸üÊÊºÏÓïÑÔÑ§Ï°)
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
 // ============================================================
-// ğŸµ é…ç½®
+// ?? ÅäÖÃ
 // ============================================================
 const CONFIG = {
-  voice: 'zh-CN-XiaoxiaoNeural',  // æœ€ä½³ä¸­æ–‡å¥³å£°
-  rate: '-10%',                    // æ”¾æ…¢10%ï¼Œé€‚åˆå­¦ä¹ 
-  pitch: '+0%',                    // éŸ³é«˜ä¸å˜
-  outputDir: 'public/audio',
+  voice: 'zh-CN-XiaoxiaoNeural',  // ×î¼ÑÖĞÎÄÅ®??
+  rate: '-10%',                    // ·ÅÂı10%£¬ÊÊºÏÑ§Ï°
+  pitch: '+0Hz',                    // Òô¸ß²»±ä (edge-tts 7.x ÒªÇó Hz ¸ñÊ½)
+  outputDir: 'audio',
 };
 
 // ============================================================
-// ğŸ“‹ æ‰€æœ‰çŸ­è¯­ (å…±150ä¸ª)
+// ?? ËùÓĞ¶Ì??(??50??
 // ============================================================
 const PHRASES = [
   // ===== Taxi & Travel (10) =====
-  { id: 'travel-01', chinese: 'æˆ‘è¦å»æœºåœºã€‚' },
-  { id: 'travel-02', chinese: 'è¯·å¼€æ…¢ä¸€ç‚¹ã€‚' },
-  { id: 'travel-03', chinese: 'åœåœ¨è¿™é‡Œï¼Œè°¢è°¢ã€‚' },
-  { id: 'travel-04', chinese: 'æˆ‘è¿·è·¯äº†ã€‚' },
-  { id: 'travel-05', chinese: 'ä¸€å¼ å»åŒ—äº¬çš„ç«è½¦ç¥¨ã€‚' },
-  { id: 'travel-06', chinese: 'åœ¨è¿™é‡Œå·¦æ‹ï¼Œç„¶åç›´èµ°ã€‚' },
-  { id: 'travel-07', chinese: 'è¯·æ‰“è¡¨ï¼Œè°¢è°¢ã€‚' },
-  { id: 'travel-08', chinese: 'åœ°é“ç«™åœ¨å“ªé‡Œï¼Ÿ' },
-  { id: 'travel-09', chinese: 'æˆ‘èµ¶é£æœºï¼Œè¯·å¿«ä¸€ç‚¹ã€‚' },
-  { id: 'travel-10', chinese: 'å¤šå°‘é’±ï¼Ÿå¯ä»¥æ‰«ç å—ï¼Ÿ' },
+  { id: 'travel-01', chinese: 'ÎÒÒªÈ¥»ú³¡?? },
+  { id: 'travel-02', chinese: 'Çë¿ªÂıÒ»µã?? },
+  { id: 'travel-03', chinese: 'Í£ÔÚÕâÀï£¬Ğ»Ğ»?? },
+  { id: 'travel-04', chinese: 'ÎÒÃÔÂ·ÁË?? },
+  { id: 'travel-05', chinese: 'Ò»ÕÅÈ¥±±¾©µÄ»ğ³µÆ±?? },
+  { id: 'travel-06', chinese: 'ÔÚÕâÀï×ó¹Õ£¬È»ºóÖ±×ß?? },
+  { id: 'travel-07', chinese: 'Çë´ò±í£¬Ğ»Ğ»?? },
+  { id: 'travel-08', chinese: 'µØÌúÕ¾ÔÚÄÄÀï?? },
+  { id: 'travel-09', chinese: 'ÎÒ¸Ï·É»ú£¬Çë¿ìÒ»µã?? },
+  { id: 'travel-10', chinese: '¶àÉÙÇ®£¿¿ÉÒÔÉ¨ÂëÂğ£¿' },
 
   // ===== Ordering Food (10) =====
-  { id: 'food-01', chinese: 'ä½ å¥½ï¼Œæˆ‘è¦ä¸€ä»½è¿™ä¸ªã€‚' },
-  { id: 'food-02', chinese: 'ä¸è¦è¾£ï¼Œè°¢è°¢ã€‚' },
-  { id: 'food-03', chinese: 'ä¹°å•ã€‚' },
-  { id: 'food-04', chinese: 'æœ‰è‹±æ–‡èœå•å—ï¼Ÿ' },
-  { id: 'food-05', chinese: 'å¥½åƒï¼å†æ¥ä¸€ä»½ã€‚' },
-  { id: 'food-06', chinese: 'æˆ‘åƒç´ ï¼Œæ²¡æœ‰è‚‰ã€‚' },
-  { id: 'food-07', chinese: 'æœ‰ç­·å­å—ï¼Ÿç»™æˆ‘ä¸€åŒã€‚' },
-  { id: 'food-08', chinese: 'æ‰“åŒ…å¸¦èµ°ï¼Œè°¢è°¢ã€‚' },
-  { id: 'food-09', chinese: 'æœ‰æ¸©æ°´å—ï¼Ÿæˆ‘è¿‡æ•èŠ±ç”Ÿã€‚' },
-  { id: 'food-10', chinese: 'è€æ¿ï¼Œæ¨èä¸€ä¸‹æ‹›ç‰Œèœã€‚' },
+  { id: 'food-01', chinese: 'ÄãºÃ£¬ÎÒÒªÒ»·İÕâ¸ö?? },
+  { id: 'food-02', chinese: '²»ÒªÀ±£¬Ğ»Ğ»?? },
+  { id: 'food-03', chinese: 'Âòµ¥?? },
+  { id: 'food-04', chinese: 'ÓĞÓ¢ÎÄ²Ëµ¥Âğ?? },
+  { id: 'food-05', chinese: 'ºÃ³Ô£¡ÔÙÀ´Ò»·İ?? },
+  { id: 'food-06', chinese: 'ÎÒ³ÔËØ£¬Ã»ÓĞÈâ?? },
+  { id: 'food-07', chinese: 'ÓĞ¿ê×ÓÂğ£¿¸øÎÒÒ»Ë«?? },
+  { id: 'food-08', chinese: '´ò°ü´ø×ß£¬Ğ»Ğ»?? },
+  { id: 'food-09', chinese: 'ÓĞÎÂË®Âğ£¿ÎÒ¹ıÃô»¨Éú?? },
+  { id: 'food-10', chinese: 'ÀÏ°å£¬ÍÆ¼öÒ»ÏÂÕĞÅÆ²Ë?? },
 
   // ===== Asking Directions (10) =====
-  { id: 'directions-01', chinese: 'è¯·é—®ï¼Œæ´—æ‰‹é—´åœ¨å“ªé‡Œï¼Ÿ' },
-  { id: 'directions-02', chinese: 'ç¦»è¿™é‡Œè¿œå—ï¼Ÿ' },
-  { id: 'directions-03', chinese: 'ç›´èµ°ï¼Œç„¶åå³æ‹ã€‚' },
-  { id: 'directions-04', chinese: 'èµ°è·¯è¦å¤šä¹…ï¼Ÿ' },
-  { id: 'directions-05', chinese: 'æˆ‘å¬ä¸æ‡‚ï¼Œè¯·å†™ä¸‹æ¥ã€‚' },
-  { id: 'directions-06', chinese: 'åœ°é“ç«™æ˜¯å“ªä¸ªå‡ºå£ï¼Ÿ' },
-  { id: 'directions-07', chinese: 'å¯¹é¢å°±æ˜¯å—ï¼Ÿè¿‡é©¬è·¯èµ°å“ªä¸ªå¤©æ¡¥ï¼Ÿ' },
-  { id: 'directions-08', chinese: 'åå‡ å·çº¿ï¼Ÿåœ¨å“ªç«™æ¢ä¹˜ï¼Ÿ' },
-  { id: 'directions-09', chinese: 'é™„è¿‘æœ‰è¶…å¸‚å’Œè¯åº—å—ï¼Ÿ' },
-  { id: 'directions-10', chinese: 'å¯ä»¥å¸®æˆ‘åœ¨åœ°å›¾ä¸ŠæŒ‡ä¸€ä¸‹å—ï¼Ÿ' },
+  { id: 'directions-01', chinese: 'ÇëÎÊ£¬Ï´ÊÖ¼äÔÚÄÄÀï£¿' },
+  { id: 'directions-02', chinese: 'ÀëÕâÀïÔ¶Âğ£¿' },
+  { id: 'directions-03', chinese: 'Ö±×ß£¬È»ºóÓÒ¹Õ?? },
+  { id: 'directions-04', chinese: '×ßÂ·Òª¶à¾Ã£¿' },
+  { id: 'directions-05', chinese: 'ÎÒÌı²»¶®£¬ÇëĞ´ÏÂÀ´?? },
+  { id: 'directions-06', chinese: 'µØÌúÕ¾ÊÇÄÄ¸ö³ö¿Ú?? },
+  { id: 'directions-07', chinese: '¶ÔÃæ¾ÍÊÇÂğ£¿¹ıÂíÂ·×ßÄÄ¸öÌìÇÅ?? },
+  { id: 'directions-08', chinese: '×ø¼¸ºÅÏß£¿ÔÚÄÄÕ¾»»³Ë?? },
+  { id: 'directions-09', chinese: '¸½½üÓĞ³¬ÊĞºÍÒ©µêÂğ£¿' },
+  { id: 'directions-10', chinese: '¿ÉÒÔ°ïÎÒÔÚµØÍ¼ÉÏÖ¸Ò»ÏÂÂğ?? },
 
   // ===== Hotel & Accommodation (10) =====
-  { id: 'hotel-01', chinese: 'æˆ‘é¢„è®¢äº†ä¸€ä¸ªæˆ¿é—´ã€‚' },
-  { id: 'hotel-02', chinese: 'å¯ä»¥å¸®æˆ‘å«å‡ºç§Ÿè½¦å—ï¼Ÿ' },
-  { id: 'hotel-03', chinese: 'æˆ¿é—´æœ‰ WiFi å—ï¼Ÿ' },
-  { id: 'hotel-04', chinese: 'æ—©é¤å‡ ç‚¹å¼€å§‹ï¼Ÿ' },
-  { id: 'hotel-05', chinese: 'æˆ‘çš„æˆ¿é—´å·æ˜¯ 302ã€‚' },
-  { id: 'hotel-06', chinese: 'ç©ºè°ƒä¸å·¥ä½œäº†ã€‚' },
-  { id: 'hotel-07', chinese: 'æˆ‘éœ€è¦å¤šä¸€æ¡æ¯›å·¾ã€‚' },
-  { id: 'hotel-08', chinese: 'è¯·é—®é€€æˆ¿æ—¶é—´æ˜¯å‡ ç‚¹ï¼Ÿ' },
-  { id: 'hotel-09', chinese: 'å¯ä»¥å»¶è¿Ÿé€€æˆ¿å—ï¼Ÿ' },
-  { id: 'hotel-10', chinese: 'éå¸¸æ„Ÿè°¢ä½ çš„å¸®åŠ©ã€‚' },
+  { id: 'hotel-01', chinese: 'ÎÒÔ¤¶©ÁËÒ»¸ö·¿¼ä?? },
+  { id: 'hotel-02', chinese: '¿ÉÒÔ°ïÎÒ½Ğ³ö×â³µÂğ£¿' },
+  { id: 'hotel-03', chinese: '·¿¼ä??WiFi Âğ£¿' },
+  { id: 'hotel-04', chinese: 'Ôç²Í¼¸µã¿ªÊ¼£¿' },
+  { id: 'hotel-05', chinese: 'ÎÒµÄ·¿¼äºÅÊÇ 302?? },
+  { id: 'hotel-06', chinese: '¿Õµ÷²»¹¤×÷ÁË?? },
+  { id: 'hotel-07', chinese: 'ÎÒĞèÒª¶àÒ»ÌõÃ«½í?? },
+  { id: 'hotel-08', chinese: 'ÇëÎÊÍË·¿Ê±¼äÊÇ¼¸µã?? },
+  { id: 'hotel-09', chinese: '¿ÉÒÔÑÓ³ÙÍË·¿Âğ?? },
+  { id: 'hotel-10', chinese: '·Ç³£¸ĞĞ»ÄãµÄ°ïÖú?? },
 
   // ===== Shopping (10) =====
-  { id: 'shopping-01', chinese: 'è¿™ä¸ªå¤šå°‘é’±ï¼Ÿ' },
-  { id: 'shopping-02', chinese: 'å¯ä»¥ä¾¿å®œä¸€ç‚¹å—ï¼Ÿ' },
-  { id: 'shopping-03', chinese: 'æœ‰åˆ«çš„é¢œè‰²å—ï¼Ÿ' },
-  { id: 'shopping-04', chinese: 'æˆ‘è¦è¿™ä¸ªå°ºå¯¸ã€‚' },
-  { id: 'shopping-05', chinese: 'å¯ä»¥ç”¨ä¿¡ç”¨å¡å—ï¼Ÿ' },
-  { id: 'shopping-06', chinese: 'å¯ä»¥è¯•ç©¿å—ï¼Ÿ' },
-  { id: 'shopping-07', chinese: 'æœ‰å‘ç¥¨å—ï¼Ÿ' },
-  { id: 'shopping-08', chinese: 'å¤ªè´µäº†ã€‚' },
-  { id: 'shopping-09', chinese: 'æˆ‘å¯ä»¥é€€è´§å—ï¼Ÿ' },
-  { id: 'shopping-10', chinese: 'æˆ‘å°±è¦è¿™ä¸ªäº†ã€‚' },
+  { id: 'shopping-01', chinese: 'Õâ¸ö¶àÉÙÇ®£¿' },
+  { id: 'shopping-02', chinese: '¿ÉÒÔ±ãÒËÒ»µãÂğ?? },
+  { id: 'shopping-03', chinese: 'ÓĞ±ğµÄÑÕÉ«Âğ?? },
+  { id: 'shopping-04', chinese: 'ÎÒÒªÕâ¸ö³ß´ç?? },
+  { id: 'shopping-05', chinese: '¿ÉÒÔÓÃĞÅÓÃ¿¨Âğ£¿' },
+  { id: 'shopping-06', chinese: '¿ÉÒÔÊÔ´©Âğ£¿' },
+  { id: 'shopping-07', chinese: 'ÓĞ·¢Æ±Âğ?? },
+  { id: 'shopping-08', chinese: 'Ì«¹óÁË?? },
+  { id: 'shopping-09', chinese: 'ÎÒ¿ÉÒÔÍË»õÂğ?? },
+  { id: 'shopping-10', chinese: 'ÎÒ¾ÍÒªÕâ¸öÁË?? },
 
   // ===== Emergency & Health (10) =====
-  { id: 'emergency-01', chinese: 'æ•‘å‘½ï¼è¯·å¸®æˆ‘æ‰“120ã€‚' },
-  { id: 'emergency-02', chinese: 'æˆ‘éœ€è¦å»åŒ»é™¢ã€‚' },
-  { id: 'emergency-03', chinese: 'æˆ‘è‚šå­ç—›ã€‚' },
-  { id: 'emergency-04', chinese: 'é™„è¿‘æœ‰è¯åº—å—ï¼Ÿ' },
-  { id: 'emergency-05', chinese: 'æˆ‘å¯¹é’éœ‰ç´ è¿‡æ•ã€‚' },
-  { id: 'emergency-06', chinese: 'è¯·å¸®å¸®æˆ‘ï¼Œæˆ‘ä¸¢äº†æŠ¤ç…§ã€‚' },
-  { id: 'emergency-07', chinese: 'æœ€è¿‘çš„è­¦å¯Ÿå±€åœ¨å“ªé‡Œï¼Ÿ' },
-  { id: 'emergency-08', chinese: 'æˆ‘é’±åŒ…è¢«å·äº†ã€‚' },
-  { id: 'emergency-09', chinese: 'æˆ‘éœ€è¦ä¸€ä¸ªç¿»è¯‘ã€‚' },
-  { id: 'emergency-10', chinese: 'å¤ªæ„Ÿè°¢äº†ï¼' },
+  { id: 'emergency-01', chinese: '¾ÈÃü£¡Çë°ïÎÒ??20?? },
+  { id: 'emergency-02', chinese: 'ÎÒĞèÒªÈ¥Ò½Ôº?? },
+  { id: 'emergency-03', chinese: 'ÎÒ¶Ç×ÓÍ´?? },
+  { id: 'emergency-04', chinese: '¸½½üÓĞÒ©µêÂğ?? },
+  { id: 'emergency-05', chinese: 'ÎÒ¶ÔÇàÃ¹ËØ¹ıÃô?? },
+  { id: 'emergency-06', chinese: 'Çë°ï°ïÎÒ£¬ÎÒ¶ªÁË»¤ÕÕ?? },
+  { id: 'emergency-07', chinese: '×î½üµÄ¾¯²ì¾ÖÔÚÄÄÀï£¿' },
+  { id: 'emergency-08', chinese: 'ÎÒÇ®°ü±»ÍµÁË?? },
+  { id: 'emergency-09', chinese: 'ÎÒĞèÒªÒ»¸ö·­Òë?? },
+  { id: 'emergency-10', chinese: 'Ì«¸ĞĞ»ÁË?? },
 
   // ===== At the Bank (10) =====
-  { id: 'bank-01', chinese: 'æˆ‘æƒ³æ¢äººæ°‘å¸ã€‚' },
-  { id: 'bank-02', chinese: 'æ±‡ç‡æ˜¯å¤šå°‘ï¼Ÿ' },
-  { id: 'bank-03', chinese: 'ATM åœ¨å“ªé‡Œï¼Ÿ' },
-  { id: 'bank-04', chinese: 'æˆ‘çš„ä¿¡ç”¨å¡è¢«åäº†ã€‚' },
-  { id: 'bank-05', chinese: 'æˆ‘æƒ³å¼€ä¸€ä¸ªè´¦æˆ·ã€‚' },
-  { id: 'bank-06', chinese: 'å¯ä»¥å¸®æˆ‘æŸ¥ä¸€ä¸‹ä½™é¢å—ï¼Ÿ' },
-  { id: 'bank-07', chinese: 'æ‰‹ç»­è´¹æ˜¯å¤šå°‘ï¼Ÿ' },
-  { id: 'bank-08', chinese: 'æˆ‘éœ€è¦é›¶é’±ã€‚' },
-  { id: 'bank-09', chinese: 'å¯ä»¥è½¬è´¦å—ï¼Ÿ' },
-  { id: 'bank-10', chinese: 'æˆ‘è¦å­˜é’±ã€‚' },
+  { id: 'bank-01', chinese: 'ÎÒÏë»»ÈËÃñ±Ò?? },
+  { id: 'bank-02', chinese: '»ãÂÊÊÇ¶àÉÙ£¿' },
+  { id: 'bank-03', chinese: 'ATM ÔÚÄÄÀï£¿' },
+  { id: 'bank-04', chinese: 'ÎÒµÄĞÅÓÃ¿¨±»ÍÌÁË?? },
+  { id: 'bank-05', chinese: 'ÎÒÏë¿ªÒ»¸öÕË»§?? },
+  { id: 'bank-06', chinese: '¿ÉÒÔ°ïÎÒ²éÒ»ÏÂÓà¶îÂğ?? },
+  { id: 'bank-07', chinese: 'ÊÖĞø·ÑÊÇ¶àÉÙ?? },
+  { id: 'bank-08', chinese: 'ÎÒĞèÒªÁãÇ®?? },
+  { id: 'bank-09', chinese: '¿ÉÒÔ×ªÕËÂğ£¿' },
+  { id: 'bank-10', chinese: 'ÎÒÒª´æÇ®?? },
 
   // ===== Post Office (10) =====
-  { id: 'post-01', chinese: 'æˆ‘è¦å¯„è¿™ä¸ªåŒ…è£¹åˆ°ç¾å›½ã€‚' },
-  { id: 'post-02', chinese: 'é‚®ç¥¨å¤šå°‘é’±ï¼Ÿ' },
-  { id: 'post-03', chinese: 'éœ€è¦å¤šå°‘å¤©èƒ½åˆ°ï¼Ÿ' },
-  { id: 'post-04', chinese: 'æˆ‘æƒ³å¯„å¿«é€’ã€‚' },
-  { id: 'post-05', chinese: 'å¯ä»¥æŒ‚å·å—ï¼Ÿ' },
-  { id: 'post-06', chinese: 'é‚®å±€å‡ ç‚¹å¼€é—¨ï¼Ÿ' },
-  { id: 'post-07', chinese: 'æˆ‘éœ€è¦å¡«è¿™å¼ å•å­å—ï¼Ÿ' },
-  { id: 'post-08', chinese: 'å¯ä»¥é‚®å¯„åˆ°ä¸­å›½å—ï¼Ÿ' },
-  { id: 'post-09', chinese: 'æœ‰é‚®æ”¿ç‰¹å¿«ä¸“é€’å—ï¼Ÿ' },
-  { id: 'post-10', chinese: 'è¯·ç»™æˆ‘ä¸¤å¼ æ˜ä¿¡ç‰‡ã€‚' },
+  { id: 'post-01', chinese: 'ÎÒÒª¼ÄÕâ¸ö°ü¹üµ½ÃÀ¹ú?? },
+  { id: 'post-02', chinese: 'ÓÊÆ±¶àÉÙÇ®£¿' },
+  { id: 'post-03', chinese: 'ĞèÒª¶àÉÙÌìÄÜµ½?? },
+  { id: 'post-04', chinese: 'ÎÒÏë¼Ä¿ìµİ?? },
+  { id: 'post-05', chinese: '¿ÉÒÔ¹ÒºÅÂğ£¿' },
+  { id: 'post-06', chinese: 'ÓÊ¾Ö¼¸µã¿ªÃÅ£¿' },
+  { id: 'post-07', chinese: 'ÎÒĞèÒªÌîÕâÕÅµ¥×ÓÂğ£¿' },
+  { id: 'post-08', chinese: '¿ÉÒÔÓÊ¼Äµ½ÖĞ¹úÂğ?? },
+  { id: 'post-09', chinese: 'ÓĞÓÊÕşÌØ¿ì×¨µİÂğ?? },
+  { id: 'post-10', chinese: 'Çë¸øÎÒÁ½ÕÅÃ÷ĞÅÆ¬?? },
 
-  // ===== At the CafÃ© (10) =====
-  { id: 'cafe-01', chinese: 'æˆ‘è¦ä¸€æ¯æ‹¿é“ã€‚' },
-  { id: 'cafe-02', chinese: 'å°‘ç³–ï¼Œè°¢è°¢ã€‚' },
-  { id: 'cafe-03', chinese: 'æœ‰ç‡•éº¦å¥¶å—ï¼Ÿ' },
-  { id: 'cafe-04', chinese: 'æˆ‘è¦ä¸€æ¯çƒ­ç¾å¼ã€‚' },
-  { id: 'cafe-05', chinese: 'åŠ ä¸€ä»½æµ“ç¼©ã€‚' },
-  { id: 'cafe-06', chinese: 'å¯ä»¥å¸¦èµ°å—ï¼Ÿ' },
-  { id: 'cafe-07', chinese: 'æœ‰è›‹ç³•æˆ–ç‚¹å¿ƒå—ï¼Ÿ' },
-  { id: 'cafe-08', chinese: 'è¿™é‡Œå¯ä»¥åå—ï¼Ÿ' },
-  { id: 'cafe-09', chinese: 'å¯ä»¥ç”¨æ”¯ä»˜å®å—ï¼Ÿ' },
-  { id: 'cafe-10', chinese: 'å†è§ï¼Œä¸‹æ¬¡å†æ¥ï¼' },
+  // ===== At the Caf¨¦ (10) =====
+  { id: 'cafe-01', chinese: 'ÎÒÒªÒ»±­ÄÃÌú?? },
+  { id: 'cafe-02', chinese: 'ÉÙÌÇ£¬Ğ»Ğ»?? },
+  { id: 'cafe-03', chinese: 'ÓĞÑàÂóÄÌÂğ£¿' },
+  { id: 'cafe-04', chinese: 'ÎÒÒªÒ»±­ÈÈÃÀÊ½?? },
+  { id: 'cafe-05', chinese: '¼ÓÒ»·İÅ¨Ëõ?? },
+  { id: 'cafe-06', chinese: '¿ÉÒÔ´ø×ßÂğ£¿' },
+  { id: 'cafe-07', chinese: 'ÓĞµ°¸â»òµãĞÄÂğ£¿' },
+  { id: 'cafe-08', chinese: 'ÕâÀï¿ÉÒÔ×øÂğ?? },
+  { id: 'cafe-09', chinese: '¿ÉÒÔÓÃÖ§¸¶±¦Âğ£¿' },
+  { id: 'cafe-10', chinese: 'ÔÙ¼û£¬ÏÂ´ÎÔÙÀ´£¡' },
 
   // ===== Phone & Internet (10) =====
-  { id: 'phone-01', chinese: 'æˆ‘æƒ³ä¹°ä¸€å¼  SIM å¡ã€‚' },
-  { id: 'phone-02', chinese: 'WiFi å¯†ç æ˜¯å¤šå°‘ï¼Ÿ' },
-  { id: 'phone-03', chinese: 'å›½é™…æ¼«æ¸¸æ€ä¹ˆå¼€é€šï¼Ÿ' },
-  { id: 'phone-04', chinese: 'æˆ‘çš„æ‰‹æœºæ²¡ç”µäº†ã€‚' },
-  { id: 'phone-05', chinese: 'æœ‰å……ç”µå®å¯ä»¥å€Ÿå—ï¼Ÿ' },
-  { id: 'phone-06', chinese: 'æˆ‘æƒ³æŸ¥ä¸€ä¸‹æµé‡ä½™é¢ã€‚' },
-  { id: 'phone-07', chinese: 'å¯ä»¥å……è¯è´¹å—ï¼Ÿ' },
-  { id: 'phone-08', chinese: 'è¿™ä¸ªå¡å¯ä»¥ç”¨å¤šå°‘å¤©ï¼Ÿ' },
-  { id: 'phone-09', chinese: 'å“ªé‡Œæœ‰å…è´¹ Wi-Fiï¼Ÿ' },
-  { id: 'phone-10', chinese: 'æˆ‘çš„æ‰‹æœºå‹å·æ˜¯ iPhoneã€‚' },
+  { id: 'phone-01', chinese: 'ÎÒÏëÂòÒ»??SIM ¿¨?? },
+  { id: 'phone-02', chinese: 'WiFi ÃÜÂëÊÇ¶àÉÙ£¿' },
+  { id: 'phone-03', chinese: '¹ú¼ÊÂşÓÎÔõÃ´¿ªÍ¨£¿' },
+  { id: 'phone-04', chinese: 'ÎÒµÄÊÖ»úÃ»µçÁË?? },
+  { id: 'phone-05', chinese: 'ÓĞ³äµç±¦¿ÉÒÔ½èÂğ?? },
+  { id: 'phone-06', chinese: 'ÎÒÏë²éÒ»ÏÂÁ÷Á¿Óà¶î?? },
+  { id: 'phone-07', chinese: '¿ÉÒÔ³ä»°·ÑÂğ?? },
+  { id: 'phone-08', chinese: 'Õâ¸ö¿¨¿ÉÒÔÓÃ¶àÉÙÌì£¿' },
+  { id: 'phone-09', chinese: 'ÄÄÀïÓĞÃâ??Wi-Fi?? },
+  { id: 'phone-10', chinese: 'ÎÒµÄÊÖ»úĞÍºÅ??iPhone?? },
 
   // ===== Work & Business (10) =====
-  { id: 'work-01', chinese: 'è¿™æ˜¯æˆ‘çš„åç‰‡ã€‚' },
-  { id: 'work-02', chinese: 'æˆ‘ä»¬æ˜å¤©å¼€ä¼šã€‚' },
-  { id: 'work-03', chinese: 'è¿™æ˜¯æˆ‘çš„æŠ¥ä»·ã€‚' },
-  { id: 'work-04', chinese: 'å¯ä»¥å‘é‚®ä»¶ç»™æˆ‘å—ï¼Ÿ' },
-  { id: 'work-05', chinese: 'æˆ‘éœ€è¦ä¸€ä»½åˆåŒã€‚' },
-  { id: 'work-06', chinese: 'æˆ‘ä»¬åˆä½œæ„‰å¿«ï¼' },
-  { id: 'work-07', chinese: 'ä½ çš„èŒä½æ˜¯ä»€ä¹ˆï¼Ÿ' },
-  { id: 'work-08', chinese: 'è¯·ç¨ç­‰ï¼Œæˆ‘æ‰“ä¸ªç”µè¯ã€‚' },
-  { id: 'work-09', chinese: 'å¯ä»¥æ‹ç…§å—ï¼Ÿ' },
-  { id: 'work-10', chinese: 'å¾ˆé«˜å…´è®¤è¯†ä½ ï¼' },
+  { id: 'work-01', chinese: 'ÕâÊÇÎÒµÄÃûÆ¬?? },
+  { id: 'work-02', chinese: 'ÎÒÃÇÃ÷Ìì¿ª»á?? },
+  { id: 'work-03', chinese: 'ÕâÊÇÎÒµÄ±¨¼Û?? },
+  { id: 'work-04', chinese: '¿ÉÒÔ·¢ÓÊ¼ş¸øÎÒÂğ?? },
+  { id: 'work-05', chinese: 'ÎÒĞèÒªÒ»·İºÏÍ¬?? },
+  { id: 'work-06', chinese: 'ÎÒÃÇºÏ×÷Óä¿ì?? },
+  { id: 'work-07', chinese: 'ÄãµÄÖ°Î»ÊÇÊ²Ã´£¿' },
+  { id: 'work-08', chinese: 'ÇëÉÔµÈ£¬ÎÒ´ò¸öµç»°?? },
+  { id: 'work-09', chinese: '¿ÉÒÔÅÄÕÕÂğ£¿' },
+  { id: 'work-10', chinese: 'ºÜ¸ßĞËÈÏÊ¶Äã?? },
 
   // ===== Socializing (10) =====
-  { id: 'social-01', chinese: 'ä½ å«ä»€ä¹ˆåå­—ï¼Ÿ' },
-  { id: 'social-02', chinese: 'ä½ æ˜¯å“ªé‡Œäººï¼Ÿ' },
-  { id: 'social-03', chinese: 'ä½ çš„çˆ±å¥½æ˜¯ä»€ä¹ˆï¼Ÿ' },
-  { id: 'social-04', chinese: 'æˆ‘ä¼šè¯´ä¸€ç‚¹ä¸­æ–‡ã€‚' },
-  { id: 'social-05', chinese: 'ä½ å­¦ä¸­æ–‡å¤šä¹…äº†ï¼Ÿ' },
-  { id: 'social-06', chinese: 'æˆ‘ä»¬åŠ ä¸ªå¾®ä¿¡å§ï¼' },
-  { id: 'social-07', chinese: 'ä½ å–œæ¬¢åƒä¸­å›½èœå—ï¼Ÿ' },
-  { id: 'social-08', chinese: 'ç¥ä½ ç”Ÿæ—¥å¿«ä¹ï¼' },
-  { id: 'social-09', chinese: 'æœ‰ç©ºä¸€èµ·åƒé¥­ï¼' },
-  { id: 'social-10', chinese: 'æˆ‘å¾ˆå–œæ¬¢ä¸­å›½ï¼' },
+  { id: 'social-01', chinese: 'Äã½ĞÊ²Ã´Ãû×Ö£¿' },
+  { id: 'social-02', chinese: 'ÄãÊÇÄÄÀïÈË£¿' },
+  { id: 'social-03', chinese: 'ÄãµÄ°®ºÃÊÇÊ²Ã´£¿' },
+  { id: 'social-04', chinese: 'ÎÒ»áËµÒ»µãÖĞÎÄ?? },
+  { id: 'social-05', chinese: 'ÄãÑ§ÖĞÎÄ¶à¾ÃÁË£¿' },
+  { id: 'social-06', chinese: 'ÎÒÃÇ¼Ó¸öÎ¢ĞÅ°É£¡' },
+  { id: 'social-07', chinese: 'ÄãÏ²»¶³ÔÖĞ¹ú²ËÂğ?? },
+  { id: 'social-08', chinese: '×£ÄãÉúÈÕ¿ìÀÖ?? },
+  { id: 'social-09', chinese: 'ÓĞ¿ÕÒ»Æğ³Ô·¹£¡' },
+  { id: 'social-10', chinese: 'ÎÒºÜÏ²»¶ÖĞ¹ú?? },
 
   // ===== Weather & Seasons (10) =====
-  { id: 'weather-01', chinese: 'ä»Šå¤©å¤©æ°”æ€ä¹ˆæ ·ï¼Ÿ' },
-  { id: 'weather-02', chinese: 'æ˜å¤©ä¼šä¸‹é›¨å—ï¼Ÿ' },
-  { id: 'weather-03', chinese: 'ä»Šå¤©å¾ˆå†·ã€‚' },
-  { id: 'weather-04', chinese: 'ç°åœ¨å¤šå°‘åº¦ï¼Ÿ' },
-  { id: 'weather-05', chinese: 'æ˜¥å¤©æ¥äº†ï¼ŒèŠ±å¼€äº†ã€‚' },
-  { id: 'weather-06', chinese: 'å¤å¤©å¾ˆçƒ­ï¼Œé€‚åˆæ¸¸æ³³ã€‚' },
-  { id: 'weather-07', chinese: 'ç§‹å¤©å¾ˆå‡‰çˆ½ã€‚' },
-  { id: 'weather-08', chinese: 'å†¬å¤©ä¼šä¸‹é›ªå—ï¼Ÿ' },
-  { id: 'weather-09', chinese: 'ä»Šå¤©æœ‰é›¾éœ¾ã€‚' },
-  { id: 'weather-10', chinese: 'ä»Šå¤©å¤©æ°”çœŸå¥½ï¼' },
+  { id: 'weather-01', chinese: '½ñÌìÌìÆøÔõÃ´Ñù£¿' },
+  { id: 'weather-02', chinese: 'Ã÷Ìì»áÏÂÓêÂğ?? },
+  { id: 'weather-03', chinese: '½ñÌìºÜÀä?? },
+  { id: 'weather-04', chinese: 'ÏÖÔÚ¶àÉÙ¶È£¿' },
+  { id: 'weather-05', chinese: '´ºÌìÀ´ÁË£¬»¨¿ªÁË?? },
+  { id: 'weather-06', chinese: 'ÏÄÌìºÜÈÈ£¬ÊÊºÏÓÎÓ¾?? },
+  { id: 'weather-07', chinese: 'ÇïÌìºÜÁ¹Ë¬?? },
+  { id: 'weather-08', chinese: '¶¬Ìì»áÏÂÑ©Âğ?? },
+  { id: 'weather-09', chinese: '½ñÌìÓĞÎíö²?? },
+  { id: 'weather-10', chinese: '½ñÌìÌìÆøÕæºÃ?? },
 
   // ===== Time & Schedule (10) =====
-  { id: 'time-01', chinese: 'ç°åœ¨å‡ ç‚¹äº†ï¼Ÿ' },
-  { id: 'time-02', chinese: 'æˆ‘ä»¬å‡ ç‚¹è§é¢ï¼Ÿ' },
-  { id: 'time-03', chinese: 'ä»Šå¤©å‡ æœˆå‡ å·ï¼Ÿ' },
-  { id: 'time-04', chinese: 'æ˜å¤©æ˜¯æ˜ŸæœŸå‡ ï¼Ÿ' },
-  { id: 'time-05', chinese: 'å•†åº—å‡ ç‚¹å¼€é—¨ï¼Ÿ' },
-  { id: 'time-06', chinese: 'æˆ‘æ™šä¸Šä¸ƒç‚¹æœ‰ç©ºã€‚' },
-  { id: 'time-07', chinese: 'ç”µå½±å‡ ç‚¹å¼€å§‹ï¼Ÿ' },
-  { id: 'time-08', chinese: 'æˆ‘è¿Ÿåˆ°äº†äº”åˆ†é’Ÿã€‚' },
-  { id: 'time-09', chinese: 'è¿™ä¸ªä¼šå¼€å¤šä¹…ï¼Ÿ' },
-  { id: 'time-10', chinese: 'æ—¶é—´ä¸æ—©äº†ï¼Œæˆ‘è¯¥èµ°äº†ã€‚' },
+  { id: 'time-01', chinese: 'ÏÖÔÚ¼¸µãÁË£¿' },
+  { id: 'time-02', chinese: 'ÎÒÃÇ¼¸µã¼ûÃæ?? },
+  { id: 'time-03', chinese: '½ñÌì¼¸ÔÂ¼¸ºÅ?? },
+  { id: 'time-04', chinese: 'Ã÷ÌìÊÇĞÇÆÚ¼¸?? },
+  { id: 'time-05', chinese: 'ÉÌµê¼¸µã¿ªÃÅ£¿' },
+  { id: 'time-06', chinese: 'ÎÒÍíÉÏÆßµãÓĞ¿Õ?? },
+  { id: 'time-07', chinese: 'µçÓ°¼¸µã¿ªÊ¼£¿' },
+  { id: 'time-08', chinese: 'ÎÒ³Ùµ½ÁËÎå·ÖÖÓ?? },
+  { id: 'time-09', chinese: 'Õâ¸ö»á¿ª¶à¾Ã?? },
+  { id: 'time-10', chinese: 'Ê±¼ä²»ÔçÁË£¬ÎÒ¸Ã×ßÁË?? },
 
   // ===== Culture & Etiquette (10) =====
-  { id: 'culture-01', chinese: 'æ–°å¹´å¿«ä¹ï¼æ­å–œå‘è´¢ï¼' },
-  { id: 'culture-02', chinese: 'ç«¯åˆèŠ‚åƒç²½å­ã€‚' },
-  { id: 'culture-03', chinese: 'ä¸­ç§‹èŠ‚åƒæœˆé¥¼ã€‚' },
-  { id: 'culture-04', chinese: 'è¯·é—®ï¼Œå¯ä»¥ç”¨ç­·å­å—ï¼Ÿ' },
-  { id: 'culture-05', chinese: 'ä¸­å›½åŠŸå¤«å¾ˆå‰å®³ï¼' },
-  { id: 'culture-06', chinese: 'ä½ å–èŒ¶è¿˜æ˜¯å’–å•¡ï¼Ÿ' },
-  { id: 'culture-07', chinese: 'ä¸­å›½æ±‰å­—çœŸç¾ã€‚' },
-  { id: 'culture-08', chinese: 'æˆ‘æƒ³å­¦ä¹¦æ³•ã€‚' },
-  { id: 'culture-09', chinese: 'è°¢è°¢ä½ çš„ç¤¼ç‰©ï¼' },
-  { id: 'culture-10', chinese: 'æ¬¢è¿æ¥ä¸­å›½ï¼' },
+  { id: 'culture-01', chinese: 'ĞÂÄê¿ìÀÖ£¡¹§Ï²·¢²Æ£¡' },
+  { id: 'culture-02', chinese: '¶ËÎç½Ú³ÔôÕ×Ó?? },
+  { id: 'culture-03', chinese: 'ÖĞÇï½Ú³ÔÔÂ±ı?? },
+  { id: 'culture-04', chinese: 'ÇëÎÊ£¬¿ÉÒÔÓÃ¿ê×ÓÂğ£¿' },
+  { id: 'culture-05', chinese: 'ÖĞ¹ú¹¦·òºÜÀ÷º¦£¡' },
+  { id: 'culture-06', chinese: 'ÄãºÈ²è»¹ÊÇ¿§·È£¿' },
+  { id: 'culture-07', chinese: 'ÖĞ¹úºº×ÖÕæÃÀ?? },
+  { id: 'culture-08', chinese: 'ÎÒÏëÑ§Êé·¨?? },
+  { id: 'culture-09', chinese: 'Ğ»Ğ»ÄãµÄÀñÎï?? },
+  { id: 'culture-10', chinese: '»¶Ó­À´ÖĞ¹ú£¡' },
 ];
 
 // ============================================================
-// ğŸš€ ç”ŸæˆéŸ³é¢‘
+// ?? Éú³ÉÒôÆµ
 // ============================================================
 async function generateAllAudio() {
   const audioDir = path.join(__dirname, CONFIG.outputDir);
   
-  // åˆ›å»ºç›®å½•
+  // ´´½¨Ä¿Â¼
   if (!fs.existsSync(audioDir)) {
     fs.mkdirSync(audioDir, { recursive: true });
-    console.log(`ğŸ“ åˆ›å»ºç›®å½•: ${audioDir}`);
+    console.log(`?? ´´½¨Ä¿Â¼: ${audioDir}`);
   }
 
   console.log('\n' + '='.repeat(60));
-  console.log('ğŸµ HanLingo éŸ³é¢‘ç”Ÿæˆå™¨');
+  console.log('?? HanLingo ÒôÆµÉú³É??);
   console.log('='.repeat(60));
-  console.log(`ğŸ“‹ çŸ­è¯­æ€»æ•°: ${PHRASES.length}`);
-  console.log(`ğŸ¤ éŸ³è‰²: ${CONFIG.voice}`);
-  console.log(`ğŸ¢ è¯­é€Ÿ: ${CONFIG.rate}`);
-  console.log(`ğŸ“ è¾“å‡ºç›®å½•: ${audioDir}`);
+  console.log(`?? ¶ÌÓï×ÜÊı: ${PHRASES.length}`);
+  console.log(`?? ÒôÉ«: ${CONFIG.voice}`);
+  console.log(`?? Óï?? ${CONFIG.rate}`);
+  console.log(`?? Êä³öÄ¿Â¼: ${audioDir}`);
   console.log('='.repeat(60) + '\n');
 
   let successCount = 0;
@@ -228,113 +228,134 @@ async function generateAllAudio() {
   let failCount = 0;
   const failedPhrases = [];
 
+  // °²È«É¾³ıÎÄ¼ş£¨±ÜÃâ±»°²È«É¾³ıÀ¹½ØÆ÷À¹½Øµ¼ÖÂ±ÀÀ££©
+  function safeDelete(filePath) {
+    try {
+      fs.unlinkSync(filePath);
+    } catch (e) {
+      // ºöÂÔÉ¾³ıÊ§°Ü
+    }
+  }
+
   for (let i = 0; i < PHRASES.length; i++) {
     const phrase = PHRASES[i];
     const outputPath = path.join(audioDir, `${phrase.id}.mp3`);
     const progress = `[${String(i+1).padStart(3, '0')}/${PHRASES.length}]`;
-    
-    // è·³è¿‡å·²å­˜åœ¨çš„æ–‡ä»¶
+
+    // Ìø¹ıÒÑ´æÔÚµÄÎÄ¼ş
     if (fs.existsSync(outputPath)) {
       const stats = fs.statSync(outputPath);
       if (stats.size > 1000) {
-        console.log(`â­ï¸ ${progress} è·³è¿‡: ${phrase.id}.mp3 (å·²å­˜åœ¨, ${Math.round(stats.size/1024)}KB)`);
+        console.log(`?? ${progress} Ìø¹ı: ${phrase.id}.mp3 (ÒÑ´æ?? ${Math.round(stats.size/1024)}KB)`);
         skipCount++;
         continue;
       } else {
-        // æ–‡ä»¶æŸåï¼Œé‡æ–°ç”Ÿæˆ
-        console.log(`âš ï¸ ${progress} æ–‡ä»¶æŸå: ${phrase.id}.mp3 (${stats.size}bytes)ï¼Œé‡æ–°ç”Ÿæˆ...`);
-        fs.unlinkSync(outputPath);
+        // ÎÄ¼şËğ»µ£¬ÖØĞÂÉú??
+        console.log(`?? ${progress} ÎÄ¼şËğ»µ: ${phrase.id}.mp3 (${stats.size}bytes)£¬ÖØĞÂÉú??..`);
+        safeDelete(outputPath);
       }
     }
 
-    try {
-      // æ„å»ºå‘½ä»¤
-      const command = [
-        'edge-tts',
-        `--text "${phrase.chinese}"`,
-        `--voice ${CONFIG.voice}`,
-        `--rate ${CONFIG.rate}`,
-        `--pitch ${CONFIG.pitch}`,
-        `--write-media "${outputPath}"`
-      ].join(' ');
-      
-      // æ‰§è¡Œ
-      console.log(`ğŸ¤ ${progress} ç”Ÿæˆ: ${phrase.id}.mp3 (${phrase.chinese})`);
-      execSync(command, { stdio: 'pipe' });
-      
-      // éªŒè¯æ–‡ä»¶
-      if (fs.existsSync(outputPath)) {
-        const stats = fs.statSync(outputPath);
-        if (stats.size > 1000) {
-          successCount++;
-          console.log(`âœ… ${progress} å®Œæˆ: ${phrase.id}.mp3 (${Math.round(stats.size/1024)}KB)`);
+    // ÖØÊÔÂß¼­£¨×î??3 ´Î£©
+    let phraseSuccess = false;
+    for (let attempt = 1; attempt <= 3 && !phraseSuccess; attempt++) {
+      try {
+        // ¹¹½¨ÃüÁî (--rate=-10% Ê¹ÓÃ = Óï·¨, ±ÜÃâ¸ºÖµ±»½âÎöÎªÑ¡Ïî)
+        const command = [
+          'edge-tts',
+          `--text "${phrase.chinese}"`,
+          `--voice ${CONFIG.voice}`,
+          `--rate=${CONFIG.rate}`,
+          `--pitch=${CONFIG.pitch}`,
+          `--write-media "${outputPath}"`
+        ].join(' ');
+
+        // Ö´ĞĞ
+        if (attempt === 1) {
+          console.log(`?? ${progress} Éú³É: ${phrase.id}.mp3 (${phrase.chinese})`);
         } else {
-          throw new Error(`æ–‡ä»¶å¤ªå° (${stats.size}bytes)`);
+          console.log(`?? ${progress} ÖØÊÔ ${attempt}/3: ${phrase.id}.mp3`);
         }
-      } else {
-        throw new Error('æ–‡ä»¶æœªç”Ÿæˆ');
-      }
-      
-      // å»¶è¿Ÿé¿å…è¯·æ±‚è¿‡é¢‘
-      await new Promise(resolve => setTimeout(resolve, 80));
-      
-    } catch (error) {
-      console.error(`âŒ ${progress} å¤±è´¥: ${phrase.id}.mp3`);
-      console.error(`   é”™è¯¯: ${error.message}`);
-      failCount++;
-      failedPhrases.push(phrase.id);
-      
-      // åˆ é™¤å¯èƒ½æ®‹ç•™çš„æŸåæ–‡ä»¶
-      if (fs.existsSync(outputPath)) {
-        fs.unlinkSync(outputPath);
+        execSync(command, { stdio: 'pipe', timeout: 30000 });
+
+        // ÑéÖ¤ÎÄ¼ş
+        if (fs.existsSync(outputPath)) {
+          const stats = fs.statSync(outputPath);
+          if (stats.size > 1000) {
+            successCount++;
+            console.log(`??${progress} Íê³É: ${phrase.id}.mp3 (${Math.round(stats.size/1024)}KB)`);
+            phraseSuccess = true;
+          } else {
+            throw new Error(`ÎÄ¼şÌ«Ğ¡ (${stats.size}bytes)`);
+          }
+        } else {
+          throw new Error('ÎÄ¼şÎ´Éú??);
+        }
+
+        // ÑÓ³Ù±ÜÃâÇëÇó¹ıÆµ
+        await new Promise(resolve => setTimeout(resolve, 80));
+
+      } catch (error) {
+        // ÇåÀí¿ÉÄÜ²ĞÁôµÄËğ»µÎÄ??
+        safeDelete(outputPath);
+
+        if (attempt < 3) {
+          console.log(`?? ${progress} ??{attempt}´ÎÊ§?? ${error.message.substring(0, 80)}£¬µÈ´ıÖØ??..`);
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+        } else {
+          console.error(`??${progress} Ê§°Ü(3´ÎÖØÊÔºó): ${phrase.id}.mp3`);
+          console.error(`   ´íÎó: ${error.message.substring(0, 100)}`);
+          failCount++;
+          failedPhrases.push(phrase.id);
+        }
       }
     }
   }
 
   // ============================================================
-  // ğŸ“Š ç»Ÿè®¡æŠ¥å‘Š
+  // ?? Í³¼Æ±¨¸æ
   // ============================================================
   console.log('\n' + '='.repeat(60));
-  console.log('ğŸ“Š ç”Ÿæˆå®Œæˆ!');
+  console.log('?? Éú³ÉÍê³É!');
   console.log('='.repeat(60));
-  console.log(`âœ… æˆåŠŸ: ${successCount} ä¸ª`);
-  console.log(`â­ï¸ è·³è¿‡: ${skipCount} ä¸ª (å·²å­˜åœ¨)`);
-  console.log(`âŒ å¤±è´¥: ${failCount} ä¸ª`);
-  console.log(`ğŸ“ è¾“å‡ºç›®å½•: ${audioDir}`);
+  console.log(`??³É¹¦: ${successCount} ¸ö`);
+  console.log(`?? Ìø¹ı: ${skipCount} ??(ÒÑ´æ??`);
+  console.log(`??Ê§°Ü: ${failCount} ¸ö`);
+  console.log(`?? Êä³öÄ¿Â¼: ${audioDir}`);
   
   if (failedPhrases.length > 0) {
-    console.log('\nâŒ å¤±è´¥çš„çŸ­è¯­:');
+    console.log('\n??Ê§°ÜµÄ¶Ì??');
     failedPhrases.forEach(id => console.log(`   - ${id}`));
-    console.log('\nğŸ’¡ å¯ä»¥é‡æ–°è¿è¡Œè„šæœ¬é‡è¯•å¤±è´¥çš„çŸ­è¯­');
+    console.log('\n?? ¿ÉÒÔÖØĞÂÔËĞĞ½Å±¾ÖØÊÔÊ§°ÜµÄ¶Ì??);
   } else {
-    console.log('\nğŸ‰ æ‰€æœ‰éŸ³é¢‘ç”ŸæˆæˆåŠŸï¼');
+    console.log('\n?? ËùÓĞÒôÆµÉú³É³É¹¦£¡');
   }
   
   console.log('='.repeat(60) + '\n');
 }
 
 // ============================================================
-// ğŸ”§ æ£€æŸ¥ä¾èµ–
+// ?? ¼ì²éÒÀ??
 // ============================================================
 function checkDependencies() {
-  console.log('ğŸ” æ£€æŸ¥ä¾èµ–...');
+  console.log('?? ¼ì²éÒÀ??..');
   
   try {
     execSync('edge-tts --version', { stdio: 'ignore' });
-    console.log('âœ… edge-tts å·²å®‰è£…\n');
+    console.log('??edge-tts ÒÑ°²×°\n');
     return true;
   } catch (error) {
-    console.error('\nâŒ æœªæ‰¾åˆ° edge-tts');
-    console.error('\nè¯·å…ˆå®‰è£…:');
+    console.error('\n??Î´ÕÒ??edge-tts');
+    console.error('\nÇëÏÈ°²×°:');
     console.error('  npm install -g edge-tts');
-    console.error('\næˆ–è€…ä½¿ç”¨ pip:');
+    console.error('\n»òÕßÊ¹??pip:');
     console.error('  pip install edge-tts\n');
     return false;
   }
 }
 
 // ============================================================
-// â–¶ï¸ è¿è¡Œ
+// ?? ÔËĞĞ
 // ============================================================
 if (checkDependencies()) {
   generateAllAudio();
