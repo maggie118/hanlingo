@@ -25,7 +25,7 @@
         /* ============================================================
            📚 完整样式
            ============================================================ */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
 
         :root {
             --bg-main: #F8FAFC;
@@ -47,7 +47,7 @@
             --radius-full: 99px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         body { background: var(--bg-main); color: var(--struct-dark); line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
 
@@ -173,14 +173,22 @@
             font-size: 13px; font-weight: 800; color: var(--white);
             background: var(--cta-orange); padding: 4px 12px; border-radius: 99px;
         }
-        .accordion-arrow { display: none; }
-
-        /* 主题内容默认隐藏 (所有主题收起) */
-        .accordion-body {
-            max-height: 0; overflow: hidden; transition: none;
-            padding: 0 24px; border-top: 1px solid transparent;
+        .accordion-arrow {
+            display: inline-block; margin-left: 8px; font-size: 14px;
+            color: var(--text-muted); transition: transform 0.3s ease;
         }
-        /* 永远不展开，所以没有 max-height 变化 */
+        .accordion-item.expanded .accordion-arrow { transform: rotate(180deg); }
+
+        /* 主题内容默认隐藏 (所有主题收起)，点击 header 展开 */
+        .accordion-body {
+            max-height: 0; overflow: hidden;
+            padding: 0 24px; border-top: 1px solid transparent;
+            transition: max-height 0.35s ease, padding 0.25s ease, border-color 0.25s ease;
+        }
+        .accordion-item.expanded .accordion-body {
+            max-height: 3000px; padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+        }
 
         /* ===== 短语样式 (始终可见，但内容模糊锁定) ===== */
         .phrases { display: flex; flex-direction: column; gap: 10px; padding: 0 0 16px 0; }
@@ -279,10 +287,6 @@
         /* ===== Preview Mode (body.hl-preview) — temporary unlocked state for design.
            To restore the paywall: remove the 'hl-preview' class from <body>
            (i.e. delete the init call in the HanLingo Learning Layer script). ===== */
-        body.hl-preview .accordion-body {
-            max-height: none; overflow: visible; padding: 16px 24px;
-            border-top: 1px solid var(--border-color);
-        }
         body.hl-preview .accordion-header { cursor: pointer; }
         body.hl-preview .phrase .p-body.blur {
             filter: none; user-select: auto; pointer-events: auto; opacity: 1;
@@ -3545,6 +3549,31 @@
             }
         }
         scheduleConversion();
+    })();
+
+    /* ============================================================
+       手风琴展开/收起：主题默认折叠，点击 header 切换
+       ============================================================ */
+    (function () {
+        'use strict';
+        function initAccordionToggle() {
+            const wrap = document.querySelector('.accordion-wrap');
+            if (!wrap) return;
+            wrap.addEventListener('click', function (e) {
+                const header = e.target.closest('.accordion-header');
+                if (!header) return;
+                // 避免点击 header 内的按钮/链接时触发
+                if (e.target.closest('button, a')) return;
+                const item = header.closest('.accordion-item');
+                if (!item) return;
+                item.classList.toggle('expanded');
+            });
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAccordionToggle);
+        } else {
+            initAccordionToggle();
+        }
     })();
     </script>
 
