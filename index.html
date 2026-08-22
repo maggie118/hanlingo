@@ -924,8 +924,8 @@
             <a href="#topic-shelf">Topics</a>
             <a href="#pricing-section">Pricing</a>
         </nav>
-        <a href="#free-phrases" class="nav-cta-btn" aria-label="Try It Now">
-            Try It Now
+        <a href="#free-phrases" class="nav-cta-btn" aria-label="Start Free">
+            Start Free
         </a>
     </header>
 
@@ -934,8 +934,8 @@
         <h1 id="hero-title">Speak Chinese<br><span>You Can Actually Use.</span></h1>
         <p class="sub">Learn real Chinese expressions for travel, work, food &amp; everyday life.</p>
         <div class="cta-group">
-            <a href="#free-phrases" class="btn-hero-cta">Start Free</a>
-            <p class="cta-sub-text">5 phrases · No credit card · Learn at your own pace</p>
+            <a href="#free-phrases" class="btn-hero-cta">Start Speaking Now</a>
+            <p class="cta-sub-text">5 phrases · No card · Learn at your own pace</p>
         </div>
     </section>
 
@@ -1122,7 +1122,7 @@
                 <span>Audio &amp; Pinyin</span>
                 <span>Lifetime access</span>
             </div>
-            <a href="#pricing-section" class="btn-see-plans">See Lifetime Plans</a>
+            <a href="#pricing-section" class="btn-see-plans">Get  Started</a>
         </div>
     </section>
 
@@ -1233,7 +1233,7 @@
     <section class="final-cta-section">
         <h2>Ready to speak more Chinese?</h2>
         <p>Start free — 5 expressions, no credit card.</p>
-        <a href="#free-phrases" class="btn-hero-cta">Start Free</a>
+        <a href="#free-phrases" class="btn-hero-cta">Try It Now</a>
     </section>
 
     <!-- Footer -->
@@ -1556,8 +1556,13 @@
 
                 const targetRate = slow ? HOME_SLOW_RATE : 1.0;
 
-                // 1) Pause ALL other playing audios first, including this one (clean restart)
+                // 1) Pause all OTHER audios first (do NOT pause the current pid —
+                //    we're about to reset + replay it below; pausing it would
+                //    Abort the previous play() promise and falsely trip the
+                //    error handler → user sees "⚠️ Retry" even though the
+                //    audio is fine).
                 Object.keys(homeNormalCache).forEach(function (k) {
+                    if (k === pid) return;
                     const a = homeNormalCache[k];
                     if (!a) return;
                     try { a.pause(); } catch (_) {}
@@ -1623,6 +1628,17 @@
                         if (p && typeof p.catch === 'function') {
                             p.catch(function (err) {
                                 const msg = (err && err.message) ? err.message : '';
+                                const name = (err && err.name) ? err.name : '';
+                                // AbortError = our own pause()/load() interrupted a previous
+                                // play() promise. This is expected when restarting playback;
+                                // the new play() we just issued above is the authoritative
+                                // one. Do NOT show "⚠️ Retry" — that misleads users into
+                                // thinking audio is broken.
+                                if (name === 'AbortError' ||
+                                    msg.indexOf('interrupted by a call to pause()') !== -1 ||
+                                    msg.indexOf('interrupted by a new load request') !== -1) {
+                                    return;
+                                }
                                 if (typeof console !== 'undefined' && console.warn) console.warn('[playHomePhrase] play() rejected:', msg);
                                 btn.textContent = '⚠️ Retry';
                                 btn.title = 'Audio error: ' + msg + '. Click to retry.';
