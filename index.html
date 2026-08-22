@@ -12,7 +12,7 @@
 
     <!-- ========== ENHANCED SEO (English, US/EU focus) ========== -->
     <meta name="description" content="Learn practical Chinese phrases for real life. HanLingo is a speaking tool — not a phrasebook. Audio, pinyin, cultural tips. 150+ expressions across 15 real-life topics.">
-    <meta name="keywords" content="learn Chinese, Mandarin expressions, travel Chinese, Chinese for travelers, offline Chinese, speak Chinese, Chinese audio, survival Chinese, practical Mandarin, everyday Chinese, Chinese speaking tool, learn Mandarin fast, Chinese for beginners, travel to China, Chinese expressions, audio Chinese, speak Chinese confidently, not a phrasebook">
+    <meta name="keywords" content="learn Chinese, Mandarin expressions, travel Chinese, Chinese for travelers, offline Chinese, speak Chinese, Chinese audio, survival Chinese, practical Mandarin, everyday Chinese, Chinese speaking tool, learn Mandarin fast, Chinese for beginners, wherever Chinese is spoken., Chinese expressions, audio Chinese, speak Chinese confidently, not a phrasebook">
     <link rel="canonical" href="https://hanlingo.app/">
     <meta property="og:title" content="HanLingo · Stop Memorizing Words. Start Speaking Expressions.">
     <meta property="og:description" content="HanLingo is not a phrasebook. It's a practical Chinese speaking tool for real life. Learn expressions you can actually use — with audio, pinyin, and cultural tips.">
@@ -120,7 +120,7 @@
             background: #ffffff;
             border: 1px solid #E2E8F0;
             border-radius: 12px;
-            padding: 16px 20px;
+            padding: 18px 18px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             box-shadow: var(--shadow);
@@ -134,48 +134,22 @@
             box-shadow: var(--shadow-hover);
             border-color: var(--cta-orange);
         }
-        .premium-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #fff5f5;
-            color: #ff4500;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
-            border: 1px solid #fed7d7;
-            z-index: 5;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
-            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-        }
-        .home-scenario-card:hover .premium-badge {
-            background: var(--cta-orange);
-            color: #fff;
-            border-color: var(--cta-orange);
-            transform: scale(1.05);
-        }
         .home-scenario-card .card-content {
             display: flex;
-            align-items: center;
-            gap: 14px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 10px;
             width: 100%;
-            padding-right: 10px;
         }
-        .home-scenario-card .icon-box {
-            font-size: 28px;
-            background: #F7FAFC;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
+        .home-scenario-card .scenario-emoji {
+            font-size: 20px;
+            line-height: 1.3;
             flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
         }
         .home-scenario-card .card-text { flex: 1; min-width: 0; }
-        .home-scenario-card h4 { margin: 0 0 4px 0; font-size: 15px; color: var(--struct-dark); font-weight: 800; line-height: 1.3; }
+        .home-scenario-card h4 { margin: 0 0 4px 0; font-size: 15px; color: var(--struct-dark); font-weight: 800; line-height: 1.3; display: inline-flex; align-items: center; gap: 8px; }
         .home-scenario-card .sub-desc { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.4; font-weight: 500; word-break: break-word; }
 
         /* 隐藏状态 */
@@ -370,24 +344,24 @@
             margin-top: 14px;
             padding: 14px 16px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            border: 1px solid #bbf7d0;
+            background: #ecfdf3;
+            border: 1px solid #a7f3d0;
         }
         .hp-culture-title {
             font-size: 13px;
             font-weight: 800;
-            color: #166534;
+            color: #065f46;
             margin: 0 0 6px 0;
             letter-spacing: 0.3px;
             display: flex; align-items: center; gap: 6px;
         }
         .hp-culture-body {
             font-size: 13px;
-            color: #14532d;
+            color: #065f46;
             line-height: 1.55;
             font-weight: 500;
         }
-        .hp-culture-body em { font-style: normal; font-weight: 700; color: #166534; background: #bbf7d0; padding: 0 4px; border-radius: 4px; }
+        .hp-culture-body em { font-style: normal; font-weight: 700; color: #065f46; background: #a7f3d0; padding: 0 4px; border-radius: 4px; }
         .phrase-card .tag-free {
             display: inline-block; background: #f0fdf4; color: #166534;
             font-size: 10px; font-weight: 700; padding: 2px 10px; border-radius: 99px;
@@ -688,9 +662,8 @@
             .hero .badges span { font-size: 11px; padding: 4px 10px; }
             .btn-hero-cta { font-size: 14px; padding: 12px 20px; }
             .scenarios-grid { grid-template-columns: 1fr; }
-            .premium-badge { font-size: 8px; padding: 2px 8px; top: -5px; right: -5px; }
-            .home-scenario-card { padding: 10px 12px; }
-            .home-scenario-card .icon-box { width: 32px; height: 32px; font-size: 18px; }
+            .home-scenario-card { padding: 14px 14px; }
+            .home-scenario-card .scenario-emoji { font-size: 18px; }
             .home-scenario-card h4 { font-size: 13px; }
             .home-scenario-card .sub-desc { font-size: 11px; }
             .phrase-card .front .eng-text { font-size: 14px; }
@@ -909,6 +882,267 @@
             .pricing-tier h3 { font-size: 1.1rem; }
             .pricing-cards-row { gap: 16px; }
         }
+
+        /* ----- New: Hero V2 (极简) ----- */
+        .hero-v2 { max-width: 720px; margin: 0 auto; padding: 80px 24px 48px; text-align: center; }
+        .hero-v2 h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); font-weight: 900; letter-spacing: -1.2px; line-height: 1.12; margin-bottom: 20px; color: var(--struct-dark); }
+        .hero-v2 h1 .accent { color: var(--cta-orange); }
+        .hero-v2 .sub-line { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--text-muted); font-weight: 500; max-width: 520px; margin: 0 auto 32px; line-height: 1.6; }
+        .hero-v2 .hero-stats { display: inline-flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+        .hero-v2 .hero-stats span { font-size: 14px; font-weight: 600; color: var(--struct-dark); }
+        .hero-v2 .hero-stats span::before { content: "✓"; color: var(--cta-orange); margin-right: 6px; font-weight: 800; }
+        @media (max-width: 480px) {
+            .hero-v2 { padding: 48px 20px 32px; }
+            .hero-v2 .hero-stats { gap: 12px; }
+            .hero-v2 .hero-stats span { font-size: 12px; }
+        }
+
+        /* ----- New: Intro Section ----- */
+        .intro-section { max-width: 680px; margin: 0 auto; padding: 24px 24px 48px; text-align: center; }
+        .intro-section h2 { font-size: clamp(1.4rem, 3.5vw, 1.8rem); font-weight: 800; color: var(--struct-dark); margin-bottom: 16px; }
+        .intro-section p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+
+        /* ----- Updated: Method (minimal flow) ----- */
+        .method-section { max-width: 720px; margin: 0 auto; padding: 16px 24px 48px; text-align: center; }
+        .method-section .eyebrow { display: inline-block; color: var(--cta-orange); font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .method-section h2 { font-size: clamp(1.4rem, 3vw, 1.7rem); font-weight: 800; color: var(--struct-dark); margin: 0 0 16px; }
+        .method-flow { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .method-flow .step { font-size: 16px; font-weight: 700; color: var(--struct-dark); padding: 10px 24px; border-radius: 12px; background: var(--white); border: 1px solid var(--border-color); }
+        .method-flow .arrow { color: var(--cta-orange); font-weight: 300; }
+        @media (max-width: 480px) { .method-flow .step { font-size: 14px; padding: 8px 16px; } }
+
+        /* ----- Value Props (3 breathing rows, 1 column) ----- */
+        .value-section { max-width: 960px; margin: 0 auto; padding: 8px 24px 56px; }
+        .value-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+        .value-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            text-align: left;
+            box-shadow: var(--shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .value-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--cta-orange);
+        }
+        .value-card .v-emoji {
+            font-size: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+        .value-card .v-body { flex: 1; min-width: 0; }
+        .value-card h3 {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--struct-dark);
+            margin: 0 0 6px;
+            line-height: 1.35;
+            letter-spacing: 0.1px;
+        }
+        .value-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin: 0;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .value-card { gap: 12px; padding: 16px 16px; }
+            .value-card .v-emoji { font-size: 22px; }
+        }
+
+        /* ----- Topic Modal ----- */
+        .topic-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            display: none; align-items: center; justify-content: center;
+            z-index: 9999; padding: 20px;
+        }
+        .topic-modal.open { display: flex; }
+        .topic-modal-content {
+            background: var(--white); border-radius: 16px; max-width: 480px; width: 100%;
+            max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            padding: 0;
+        }
+        .topic-modal-header {
+            position: sticky; top: 0; background: var(--white); z-index: 2;
+            padding: 20px 24px 12px; border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .topic-modal-header h3 { margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--struct-dark); }
+        .topic-modal-header .tm-close {
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background: #F1F5F9; color: #64748b; font-size: 18px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .topic-modal-body { padding: 16px 24px 24px; }
+        /* ---- Phrase row + expandable detail (survival-topics style) ---- */
+        .tm-phrase {
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: #fff;
+            overflow: hidden;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .tm-phrase:hover {
+            border-color: #fdba74;
+            box-shadow: 0 6px 20px rgba(249,115,22,0.08);
+        }
+        .tm-phrase.open {
+            border-color: var(--cta-orange);
+            box-shadow: 0 8px 24px rgba(249,115,22,0.12);
+        }
+        .tm-row {
+            padding: 18px 18px 16px 20px;
+            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            gap: 12px;
+            user-select: none;
+        }
+        .tm-row-text { flex: 1; min-width: 0; }
+        .tm-row-label {
+            font-size: 12px; font-weight: 700; letter-spacing: 0.4px;
+            color: #94a3b8; text-transform: none;
+            margin-bottom: 8px;
+        }
+        .tm-row-label.free-label { color: #059669; }
+        .tm-row-eng {
+            font-size: 22px; font-weight: 700;
+            color: var(--struct-dark); line-height: 1.35;
+        }
+        .tm-row-hand {
+            flex-shrink: 0;
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            color: #CBD5E1; font-size: 22px;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .tm-phrase.open .tm-row-hand {
+            color: var(--cta-orange);
+            transform: rotate(180deg);
+        }
+        /* Detail panel (hidden by default, opens under row when clicked) */
+        .tm-detail {
+            display: none;
+            padding: 0 20px 18px 20px;
+            border-top: 1px solid var(--border-color);
+            background:
+                radial-gradient(circle at 100% 0%, rgba(251,191,36,0.14), transparent 55%),
+                radial-gradient(circle at 0% 100%, rgba(249,115,22,0.1), transparent 55%),
+                #FFFBF5;
+        }
+        .tm-phrase.open .tm-detail { display: block; }
+        .tm-detail .tm-chn {
+            font-size: 32px; font-weight: 900;
+            color: #451a03; line-height: 1.4;
+            letter-spacing: 0.8px;
+            margin: 16px 0 8px 0;
+            user-select: none;
+        }
+        .tm-detail .tm-chn span.karaoke {
+            display: inline-block; position: relative;
+            padding: 0 1px; border-radius: 4px;
+            transition: color 0.08s ease, transform 0.1s ease, background 0.2s;
+            cursor: pointer;
+        }
+        .tm-detail .tm-chn span.karaoke.active {
+            color: #ea580c;
+            transform: scale(1.18);
+            text-shadow: 0 0 8px rgba(249,115,22,0.5);
+        }
+        .tm-detail .tm-pin {
+            font-size: 16px; font-weight: 600;
+            color: #c2410c;
+            letter-spacing: 0.4px;
+            margin-bottom: 14px;
+            word-break: break-word;
+            line-height: 1.8;
+        }
+        .tm-detail .tm-pin .kpy {
+            display: inline-block;
+            padding: 0 1px;
+            margin-right: 4px;
+            transition: color 0.12s ease, font-weight 0.12s ease, transform 0.12s ease;
+        }
+        .tm-detail .tm-pin .kpy.active {
+            color: #ea580c;
+            font-weight: 900;
+            transform: scale(1.1);
+        }
+        .tm-detail .tm-controls { display: flex; gap: 8px; align-items: center; }
+        .tm-detail .tm-play-btn {
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            background: var(--cta-orange); color: white; font-size: 16px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .tm-detail .tm-play-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(249,115,22,0.35);
+        }
+        .tm-detail .tm-slow-btn {
+            padding: 9px 16px; border-radius: 10px; border: 1px solid #fed7aa;
+            background: white; color: #c2410c; font-size: 13px; font-weight: 700;
+            cursor: pointer; transition: background 0.15s;
+        }
+        .tm-detail .tm-slow-btn:hover { background: #fff7ed; }
+        .tm-detail .tm-progress {
+            flex: 1; height: 6px; background: #FED7AA; border-radius: 3px; overflow: hidden;
+            position: relative;
+        }
+        .tm-detail .tm-progress-fill {
+            position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+            background: var(--cta-orange); border-radius: 3px; transition: width 0.1s;
+        }
+        .tm-detail .tm-time { font-size: 11px; color: #9A3412; font-weight: 600; min-width: 62px; text-align: right; }
+        .tm-detail .tm-culture {
+            margin-top: 16px; padding: 12px 14px; background: #ecfdf3;
+            border: 1px solid #a7f3d0; border-radius: 10px;
+            font-size: 12.5px; color: #065f46; line-height: 1.6;
+        }
+        /* Locked phrase rows (blurred list) */
+        .tm-locked-group {
+            position: relative; margin-top: 18px; border-radius: 16px;
+        }
+        .tm-locked-phrase {
+            background: #F8FAFC; border: 1px solid var(--border-color);
+            border-radius: 14px; padding: 14px 20px;
+            margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px;
+            filter: blur(4px); user-select: none;
+        }
+        .tm-locked-phrase .tm-lock-label {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+            color: #94a3b8; margin-bottom: 6px;
+        }
+        .tm-locked-phrase .tm-lock-label-wrap { flex: 1; min-width: 0; }
+        .tm-locked-phrase .tm-lock-text { font-size: 18px; color: #64748b; font-weight: 600; }
+        .tm-locked-overlay {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.98) 100%);
+            border-radius: 16px; padding: 32px 20px; text-align: center;
+        }
+        .tm-locked-overlay .tm-lock-icon { font-size: 32px; margin-bottom: 8px; }
+        .tm-locked-overlay h4 { margin: 0 0 4px; font-size: 15px; font-weight: 800; color: var(--struct-dark); }
+        .tm-locked-overlay p { margin: 0 0 14px; font-size: 12px; color: #64748b; }
+        .tm-unlock-btn {
+            display: inline-block; background: var(--cta-orange); color: white;
+            padding: 10px 24px; border-radius: 10px; font-size: 13px; font-weight: 700;
+            text-decoration: none; cursor: pointer; border: none;
+        }
+        .tm-unlock-btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -920,48 +1154,58 @@
             <span style="font-size: 20px; font-weight: 800; color: #1a202c; letter-spacing: -0.5px;">HanLingo</span>
         </a>
         <nav class="nav-links">
-            <a href="#method">How it works</a>
+            <a href="#value-section">Features</a>
             <a href="#topic-shelf">Topics</a>
             <a href="#pricing-section">Pricing</a>
         </nav>
-        <a href="#free-phrases" class="nav-cta-btn" aria-label="Start Free">
+        <a href="#topic-shelf" class="nav-cta-btn" aria-label="Start Free">
             Start Free
         </a>
     </header>
 
     <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-title">
-        <h1 id="hero-title">Speak Chinese<br><span>You Can Actually Use.</span></h1>
-        <p class="sub">Learn real Chinese expressions for travel, work, food &amp; everyday life.</p>
-        <div class="cta-group">
-            <a href="#free-phrases" class="btn-hero-cta">Start Speaking Now</a>
-            <p class="cta-sub-text">5 phrases · No card · Learn at your own pace</p>
+    <section class="hero-v2" aria-labelledby="hero-title">
+        <h1 id="hero-title">Speak Chinese <span class="accent"><br>You Can Actually Use.</span></h1>
+        <p class="sub-line">Welcome to HanLingo. Pick a scenario, tap a sentence, and say it out loud. That's it.</p>
+        <div class="hero-stats">
+            <span>15 real-life scenarios</span>
+            <span>150 essential phrases</span>
+            <span>Pinyin · English · Audio · Word Breakdown</span>
         </div>
+        <a href="#topic-shelf" class="btn-hero-cta">Start Speaking Now</a>
     </section>
 
-    <!-- Brand Positioning -->
-    <div class="brand-positioning">
-        <p><strong>HanLingo</strong> — Practical Chinese built around the expressions you actually need to say.</p>
-    </div>
-
-    <!-- Method -->
-    <section class="method-section" id="method" aria-labelledby="method-title">
-        <p class="eyebrow">The HanLingo Method</p>
-        <h2 id="method-title">Hear it. Say it. Use it.</h2>
-        <p class="method-desc">Learn Chinese through real expressions — not endless vocabulary lists.</p>
-        <div class="method-flow">
-            <span class="step">Listen</span>
-            <span class="arrow">→</span>
-            <span class="step">Repeat</span>
-            <span class="arrow">→</span>
-            <span class="step">Use</span>
+    <!-- 3 Core Value Points (3 breathing cards) -->
+    <section class="value-section" aria-label="What you get">
+        <div class="value-grid">
+            <div class="value-card" id="value-section">
+                <span class="v-emoji">🎯</span>
+                <div class="v-body">
+                    <h3>Start Speaking from Day 1</h3>
+                    <p>Zero Chinese required. Pinyin guides your pronunciation, English tells you what it means.</p>
+                </div>
+            </div>
+            <div class="value-card">
+                <span class="v-emoji">🗣️</span>
+                <div class="v-body">
+                    <h3>Natural — No Awkward Textbook</h3>
+                    <p>Native-level phrases, not textbook awkwardness. Every sentence is how locals actually talk.</p>
+                </div>
+            </div>
+            <div class="value-card">
+                <span class="v-emoji">💡</span>
+                <div class="v-body">
+                    <h3>Cultural Context — Avoid Faux Pas</h3>
+                    <p>English cultural notes explain the "why" — what to say, what not to say, and the context behind it.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- 15 个主题 (默认显示5个，点击展开全部) — 所有主题均为 Premium -->
     <section class="topic-shelf" id="topic-shelf" aria-labelledby="themes-title">
-        <h2 id="themes-title">Expressions for Real Life</h2>
-        <p class="sub-desc">From taxis to emergencies — learn what to say when it matters.</p>
+        <h2 id="themes-title">15 Scenarios You Can't Survive Without:</h2>
+        <p class="sub-desc">( Hear it. Say it. Use it. ）</p>
         <div id="themesContainer" class="scenarios-grid"></div>
         <button id="toggleTopicsBtn" class="toggle-topics-btn">Show all 15 topics</button>
 
@@ -975,199 +1219,25 @@
         </div>
     </section>
 
-    <!-- ============================================================
-         🎓 HanLingo Homepage Learning Layer (5 free phrases)
-         - Same MP3 voice as survival-topics (zh-CN-XiaoxiaoNeural)
-         - Hover any character → bubble with pinyin + English meaning
-         - Play/Slow → karaoke-style char-by-char highlight
-         - Culture Note replaces "Practice Speaking"
-         ============================================================ -->
-    <div class="hp-wtip" id="hpWtip" aria-hidden="true"></div>
-
-    <!-- 免费短语 -->
-    <section class="free-sample-section" id="free-phrases" aria-labelledby="free-phrases-title">
-        <h2 id="free-phrases-title">Try 5 Phrases Free</h2>
-        <p>Not a phrasebook. A speaking tool. <strong>Real expressions you can use — with audio, pinyin, and cultural tips.</strong></p>
-
-        <div class="phrase-card-list">
-            <!-- 短语 1: Hello -->
-            <div class="phrase-card" data-home-id="home-01">
-                <span class="tag-free">🎯 FREE</span>
-                <div class="front">
-                    <div class="eng-text">Hello! / Excuse me.</div>
-                    <div class="controls">
-                        <button class="play-icon" onclick="playHomePhrase(this, 'home-01', false)">▶</button>
-                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-01', true)">🐢 Slow</button>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="chn">你好！</div>
-                    <div class="pin">Nǐ hǎo</div>
-                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
-                    <div class="hp-play-time">0:00 / 0:00</div>
-                    <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 Cultural Note</p>
-                        <p class="hp-culture-body">
-                            <em>你好</em> is the safest, most neutral "hello" in Mandarin — it works with strangers, elders, and friends. Don't use <em>嗨</em> (hāi, borrowed from English "hi") with people older than you; it can sound too casual. When entering a small shop, <em>你好</em> is more polite than staying silent.
-                        </p>
-                    </div>
-                </div>
+    <!-- Topic Modal (动态填充) -->
+    <div class="topic-modal" id="topicModal" role="dialog" aria-modal="true">
+        <div class="topic-modal-content">
+            <div class="topic-modal-header">
+                <h3 id="tmTitle">Topic</h3>
+                <button class="tm-close" onclick="closeTopicModal()" aria-label="Close">✕</button>
             </div>
-
-            <!-- 短语 2: Taxi (突出显示) -->
-            <div class="phrase-card" data-home-id="home-02" style="border-color:#ff4e00;border-width:2px;">
-                <span class="tag-free" style="background:#fef3c7;color:#92400e;border-color:#fcd34d;">🚕 REAL SCENARIO</span>
-                <div class="front">
-                    <div class="eng-text" style="font-weight:700;">Can you take me to this address?</div>
-                    <div class="controls">
-                        <button class="play-icon" onclick="playHomePhrase(this, 'home-02', false)">▶</button>
-                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-02', true)">🐢 Slow</button>
-                    </div>
-                </div>
-                <div class="back open" style="display:block;">
-                    <div class="chn">请带我去这个地址。</div>
-                    <div class="pin">Qǐng dài wǒ qù zhè ge dì zhǐ.</div>
-                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
-                    <div class="hp-play-time">0:00 / 0:00</div>
-                    <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 Cultural Note</p>
-                        <p class="hp-culture-body">
-                            Most taxi drivers in China don't read English — even in Shanghai or Beijing. Always keep <em>your destination written in Chinese</em> (from your hotel card, a saved screenshot, or Baidu/Amap). Just show the screen <b>plus</b> play this sentence, and you'll get there with zero confusion. <em>请</em> at the start makes it politely formal, which taxi drivers appreciate.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 短语 3: How much -->
-            <div class="phrase-card" data-home-id="home-03">
-                <span class="tag-free">🎯 FREE</span>
-                <div class="front">
-                    <div class="eng-text">How much is this?</div>
-                    <div class="controls">
-                        <button class="play-icon" onclick="playHomePhrase(this, 'home-03', false)">▶</button>
-                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-03', true)">🐢 Slow</button>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="chn">这个多少钱？</div>
-                    <div class="pin">Zhè ge duō shǎo qián?</div>
-                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
-                    <div class="hp-play-time">0:00 / 0:00</div>
-                    <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 Cultural Note</p>
-                        <p class="hp-culture-body">
-                            In open-air markets and tourist streets, haggling with a smile is completely normal — but supermarket and mall prices are fixed. A friendly opener: point + <em>这个多少钱？</em>, then reply with <em>pián yi yì diǎn</em> (a little cheaper). The particle <em>吗</em> at the end turns a statement into a yes/no question; keep your tone rising, just like in English.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 短语 4: Do you speak English -->
-            <div class="phrase-card" data-home-id="home-04">
-                <span class="tag-free">🎯 FREE</span>
-                <div class="front">
-                    <div class="eng-text">Do you speak English?</div>
-                    <div class="controls">
-                        <button class="play-icon" onclick="playHomePhrase(this, 'home-04', false)">▶</button>
-                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-04', true)">🐢 Slow</button>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="chn">你会说英语吗？</div>
-                    <div class="pin">Nǐ huì shuō Yīng yǔ ma?</div>
-                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
-                    <div class="hp-play-time">0:00 / 0:00</div>
-                    <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 Cultural Note</p>
-                        <p class="hp-culture-body">
-                            Younger Chinese (< 30) often learn English in school but are <em>shy to speak</em> — don't mistake a quiet answer for "they can't". Ask slowly with <em>你会说英语吗？</em> and if they say <em>一点点</em> (yī diǎn diǎn = a little bit), switch to simple words + gestures. Also note: in China, "English" is always <em>Yīng yǔ</em> — never "American" or "Australian".
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 短语 5: I would like to order -->
-            <div class="phrase-card" data-home-id="home-05">
-                <span class="tag-free">🎯 FREE</span>
-                <div class="front">
-                    <div class="eng-text">I would like to order this.</div>
-                    <div class="controls">
-                        <button class="play-icon" onclick="playHomePhrase(this, 'home-05', false)">▶</button>
-                        <button class="play-icon slow" onclick="playHomePhrase(this, 'home-05', true)">🐢 Slow</button>
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="chn">我要点这个。</div>
-                    <div class="pin">Wǒ yào diǎn zhè ge.</div>
-                    <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
-                    <div class="hp-play-time">0:00 / 0:00</div>
-                    <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 Cultural Note</p>
-                        <p class="hp-culture-body">
-                            In Chinese restaurants, waiters are <em>extremely</em> used to customers simply pointing at a photo menu and saying <em>我要点这个</em> — no long polite sentence needed. The verb <em>点</em> is specifically "to order (food)"; it's more natural than the literal verb <em>mǎi</em> (to buy/ purchase). If you want two portions, add <em>两个</em> (liǎng ge) before <em>这个</em>.
-                        </p>
-                    </div>
-                </div>
+            <div class="topic-modal-body" id="tmBody">
+                <!-- 动态内容 -->
             </div>
         </div>
-
-        <!-- Conversion Bridge -->
-        <div class="conversion-bridge">
-            <div class="cb-icon">✓</div>
-            <h3>You've learned 5 useful phrases.</h3>
-            <p>That's just a preview of what's inside HanLingo.</p>
-            <div class="unlock-summary">
-                <span>150+ phrases</span>
-                <span>15 real-life topics</span>
-                <span>Audio &amp; Pinyin</span>
-                <span>Lifetime access</span>
-            </div>
-            <a href="#pricing-section" class="btn-see-plans">Get  Started</a>
-        </div>
-    </section>
-
-    <!-- 社交证明 — 三列一行 -->
-    <section class="social-proof-sec" aria-labelledby="testimonial-title">
-        <h3 id="testimonial-title">What Early Learners Say</h3>
-        <p style="color:#64748b;font-size:15px;margin-bottom:12px;">Early feedback from our beta testers</p>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <span class="badge-beta">🧪 Beta Tester</span>
-                <div class="avatar">
-                    <div class="img img-1">MK</div>
-                    <div><div class="name">Mike K.</div><div class="title">Traveling to China next month</div></div>
-                </div>
-                <p>"The taxi expression with slow audio and repeat practice made me actually say it correctly. Game changer."</p>
-                <div class="stars">★★★★★</div>
-            </div>
-            <div class="testimonial-card">
-                <span class="badge-beta">🧪 Beta Tester</span>
-                <div class="avatar">
-                    <div class="img img-2">JR</div>
-                    <div><div class="name">James R.</div><div class="title">First-time visitor to Beijing</div></div>
-                </div>
-                <p>"The repeat feature made me actually practice. Not just read — I spoke it. Big difference from Google Translate."</p>
-                <div class="stars">★★★★★</div>
-            </div>
-            <div class="testimonial-card">
-                <span class="badge-beta">🧪 Beta Tester</span>
-                <div class="avatar">
-                    <div class="img img-3">AL</div>
-                    <div><div class="name">Amanda L.</div><div class="title">Expat in Shanghai</div></div>
-                </div>
-                <p>"The taxi expressions saved me. I just played the audio to the driver and we got where I needed to go."</p>
-                <div class="stars">★★★★★</div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Pricing -->
     <section id="pricing-section" class="pricing-section" aria-labelledby="pricing-title">
         <span class="pricing-eyebrow">Pricing</span>
         <h2 id="pricing-title">No subscription. One payment. Lifetime access.</h2>
-        <p class="pricing-sub">Try 5 phrases free before you buy. Then choose the plan that fits you.</p>
-        <p class="pricing-reassurance">No subscription. No recurring charges. One payment gives you lifetime access.</p>
-        <p class="pricing-tagline">$29 buys the Practical Chinese library. <strong>$59 locks in HanLingo for life.</strong></p>
+        <p class="pricing-reassurance">One payment gives you lifetime access. No recurring charges.</p>
+        <p class="pricing-tagline">$29 gets you started. <strong>$59 locks in HanLingo for life.</strong></p>
 
         <div class="pricing-cards-row">
             <!-- Founding Lifetime $59 -->
@@ -1199,9 +1269,9 @@
                 <div class="tier-price">$29</div>
                 <div class="tier-price-sub">One-time payment</div>
                 <ul>
-                    <li><span class="ck">✓</span> <strong>150 expressions</strong> — all current content</li>
-                    <li><span class="ck">✓</span> <strong>15 real-life topics</strong>— travel, food, hotel + more</li>
-                    <li><span class="ck">✓</span> <strong>Audio + Pinyin + Cultural Tips</strong></li>
+                    <li><span class="ck">✓</span> <strong>150 expressions</strong></li>
+                    <li><span class="ck">✓</span> <strong>15 real-life topics</strong></li>
+                    <li><span class="ck">✓</span> <strong>Audio + Pinyin + Cultural Note + Word Breakdown</strong></li>
 					 <li><span class="ck">✓</span> <strong>Export Saved Sentences</strong></li>
                     <li><span class="ck">✓</span> <strong>Lifetime access to current library</strong></li>
                     </ul>
@@ -1213,27 +1283,8 @@
 
         <!-- Free mention -->
         <div class="practical-mention">
-            <p>Not ready yet? <a href="#free-phrases">Try 5 phrases free</a> — no credit card needed.</p>
+            <p>Questions? <a href="mailto:support@hanlingo.app">support@hanlingo.app</a></p>
         </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq-section" id="faq" aria-labelledby="faq-title">
-        <h2 id="faq-title">Frequently Asked Questions</h2>
-        <p class="faq-sub">Everything you need to know before buying.</p>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is HanLingo a subscription?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No.</strong> HanLingo uses one-time lifetime pricing. You pay once and own it forever. No monthly fees, no subscription, no surprises.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is HanLingo for beginners?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Yes.</strong> Start with practical expressions and learn at your own pace. Every expression includes pinyin and audio, so you don't need to know Chinese characters.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do I need to know Chinese characters?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No.</strong> Pinyin and audio are included with every expression. You can speak Chinese confidently without reading a single character.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I use HanLingo offline?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Yes.</strong> Selected content can be available offline when you install HanLingo as a PWA. Perfect for flights, subway rides, or anywhere in China without Wi-Fi or data.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What does Founding Lifetime include?</span><span class="toggle">+</span></div><div class="faq-a"><strong>You get access to everything currently available in HanLingo</strong> — 150+ expressions across 15 real-life topics, with audio, pinyin, and cultural tips — <strong>plus every new topic, course, and learning update we add in the future, at no extra cost.</strong> One payment. Lifetime access.</div></div>
-        <div class="more-coming">More questions? <a href="mailto:support@hanlingo.app" style="color:var(--cta-orange);font-weight:600;">support@hanlingo.app</a></div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="final-cta-section">
-        <h2>Ready to speak more Chinese?</h2>
-        <p>Start free — 5 expressions, no credit card.</p>
-        <a href="#free-phrases" class="btn-hero-cta">Try It Now</a>
     </section>
 
     <!-- Footer -->
@@ -1259,6 +1310,9 @@
             <div id="legalContent"></div>
         </div>
     </div>
+
+    <!-- Word Hover Tooltip (shared by homepage cards + topic modal phrases) -->
+    <div id="hpWtip" class="hp-wtip" role="tooltip" aria-hidden="true"></div>
 
     <script>
         // ============================================================
@@ -1730,57 +1784,120 @@
             }, 3000);
         }
 
-        // ===== 3. 15 个主题渲染 (默认显示5个，点击展开全部) — 全部为 Premium =====
+        // ===== 3. 15 个主题渲染 — 默认5个点开看免费句子 =====
+        // 每个主题前2句免费，其余模糊
+        const topicFreeData = {
+            0: { // Taxi & Travel
+                title: "Taxi & Travel", icon: "🚕",
+                phrases: [
+                    { en: "I want to go to the airport.", zh: "我要去机场。", pin: "Wǒ yào qù jīchǎng.", audioId: "travel-01",
+                      words: [{ch:'我',py:'wǒ',mn:'I'},{ch:'要',py:'yào',mn:'want to / will'},{ch:'去',py:'qù',mn:'go to'},{ch:'机场',py:'jīchǎng',mn:'airport'}],
+                      culture: "Taxis are everywhere in Chinese cities. Drivers rarely speak English — show the address in Chinese characters or use a translation app. Ride-hailing app Didi (滴滴) is the local alternative to Uber." },
+                    { en: "I'm in a hurry for a flight.", zh: "我赶飞机，请快一点。", pin: "Wǒ gǎn fēijī, qǐng kuài yīdiǎn.", audioId: "travel-09",
+                      words: [{ch:'我',py:'wǒ',mn:'I'},{ch:'赶',py:'gǎn',mn:'rush / catch'},{ch:'飞机',py:'fēijī',mn:'airplane'},{ch:'请',py:'qǐng',mn:'please'},{ch:'快',py:'kuài',mn:'fast'},{ch:'一点',py:'yīdiǎn',mn:'a little'}],
+                      culture: "Gǎn (赶) means to rush to catch something — a flight, train, deadline. Traffic in Beijing/Shanghai can be unpredictable; leave 3+ hours before a flight. Airports require ID checks at the entrance." }
+                ],
+                lockedCount: 8
+            },
+            1: { // Ordering Food
+                title: "Ordering Food", icon: "🍜",
+                phrases: [
+                    { en: "No spice, please.", zh: "不要辣，谢谢。", pin: "Bú yào là, xièxie.", audioId: "food-02",
+                      words: [{ch:'不',py:'bù',mn:'not'},{ch:'要',py:'yào',mn:'want'},{ch:'辣',py:'là',mn:'spicy'},{ch:'谢谢',py:'xièxie',mn:'thanks'}],
+                      culture: "Bù becomes bú before 4th-tone syllables (like yào). Sichuan and Hunan food is genuinely spicy — bù yào là is essential. Even mild (微辣) can be hot by Western standards." },
+                    { en: "Check, please.", zh: "买单。", pin: "Mǎidān.", audioId: "food-03",
+                      words: [{ch:'买单',py:'mǎidān',mn:'pay the bill (买 buy, 单 bill)'}],
+                      culture: "Mǎidān literally means buy the bill. In Cantonese areas (Hong Kong, Guangzhou) you may hear máidān or the Cantonese maai5 daan1 (埋單). To call a server raise your hand and say fúwùyuán (服务员, server)." }
+                ],
+                lockedCount: 8
+            },
+            2: { // Asking Directions
+                title: "Asking Directions", icon: "🗺️",
+                phrases: [
+                    { en: "Excuse me, where is the restroom?", zh: "请问，洗手间在哪里？", pin: "Qǐng wèn, xǐshǒujiān zài nǎlǐ?", audioId: "directions-01",
+                      words: [{ch:'请问',py:'qǐng wèn',mn:'excuse me (please ask)'},{ch:'洗手间',py:'xǐshǒujiān',mn:'restroom (wash-hand room)'},{ch:'在',py:'zài',mn:'at'},{ch:'哪里',py:'nǎlǐ',mn:'where'}],
+                      culture: "Qǐng wèn (请问, may I ask) is the polite way to start any question to a stranger. Public restrooms in China are usually squat toilets; carry tissue and hand sanitizer." },
+                    { en: "Go straight, then turn right.", zh: "直走，然后右拐。", pin: "Zhí zǒu, ránhòu yòu guǎi.", audioId: "directions-03",
+                      words: [{ch:'直走',py:'zhí zǒu',mn:'go straight (直 straight)'},{ch:'然后',py:'ránhòu',mn:'then'},{ch:'右拐',py:'yòu guǎi',mn:'turn right'}],
+                      culture: "Directions are often given by landmark rather than street name (Chinese streets change names frequently). Wǎng qián zǒu (往前走, walk forward) is another common phrasing." }
+                ],
+                lockedCount: 8
+            },
+            3: { // Hotel
+                title: "Hotel", icon: "🏨",
+                phrases: [
+                    { en: "I have a reservation.", zh: "我预订了一个房间。", pin: "Wǒ yùdìng le yí ge fángjiān.", audioId: "hotel-01",
+                      words: [{ch:'我',py:'wǒ',mn:'I'},{ch:'预订',py:'yùdìng',mn:'book / reserve'},{ch:'了',py:'le',mn:'completed action'},{ch:'一个',py:'yí ge',mn:'one (measure)'},{ch:'房间',py:'fángjiān',mn:'room'}],
+                      culture: "Bring your passport — it is legally required for hotel check-in in China. Foreigners can only stay at hotels with foreigner registration (涉外酒店). Budget hostels may not have this license." },
+                    { en: "Does the room have WiFi?", zh: "房间有 WiFi 吗？", pin: "Fángjiān yǒu WiFi ma?", audioId: "hotel-03",
+                      words: [{ch:'房间',py:'fángjiān',mn:'room'},{ch:'有',py:'yǒu',mn:'have'},{ch:'WiFi',py:'WiFi',mn:'WiFi'},{ch:'吗',py:'ma',mn:'question particle'}],
+                      culture: "WiFi is standard but the password is often taped to the desk or shown in the room folder. Internet is censored — Google, WhatsApp, Instagram are blocked without a VPN. Hotel WiFi is sometimes monitored." }
+                ],
+                lockedCount: 8
+            },
+            4: { // Shopping
+                title: "Shopping", icon: "🛍️",
+                phrases: [
+                    { en: "How much is this?", zh: "这个多少钱？", pin: "Zhèige duōshao qián?", audioId: "shopping-01",
+                      words: [{ch:'这个',py:'zhèige',mn:'this'},{ch:'多少',py:'duōshao',mn:'how much'},{ch:'钱',py:'qián',mn:'money'}],
+                      culture: "Prices are often on tags but in markets (e.g., Silk Street, Beijing) bargaining is expected. Start at 30–50% of asking price. Walk away — sellers often chase you with a lower price." },
+                    { en: "Can you make it cheaper?", zh: "可以便宜一点吗？", pin: "Kěyǐ piányi yīdiǎn ma?", audioId: "shopping-02",
+                      words: [{ch:'可以',py:'kěyǐ',mn:'can'},{ch:'便宜',py:'piányi',mn:'cheap'},{ch:'一点',py:'yīdiǎn',mn:'a little'},{ch:'吗',py:'ma',mn:'question particle'}],
+                      culture: "Bargaining is standard in markets and small shops. Fixed-price stores (supermarkets, malls, brand stores) do not bargain. Saying tài guì le (太贵了, too expensive) and walking away often earns a discount." }
+                ],
+                lockedCount: 8
+            }
+        };
+
+        const topicFullData = [
+            { title: "Taxi & Travel", desc: "Tell the driver, pay the fare, get to your hotel", icon: "🚕" },
+            { title: "Ordering Food", desc: "Order food, ask for the bill, say \"not spicy\"", icon: "🍜" },
+            { title: "Asking Directions", desc: "Ask where it is, understand the answer", icon: "🗺️" },
+            { title: "Hotel", desc: "Check in, request extras, sort out problems", icon: "🏨" },
+            { title: "Shopping", desc: "Ask price, bargain, pick the right size", icon: "🛍️" },
+            { title: "Emergency", desc: "Get help, call 120, describe what hurts", icon: "🚨" },
+            { title: "Bank", desc: "Exchange money, transfer, ask about fees", icon: "🏛️" },
+            { title: "Post Office", desc: "Send mail and packages without confusion", icon: "📮" },
+            { title: "Café", desc: "Order coffee, customize your drink, sit down", icon: "☕" },
+            { title: "Phone & Internet", desc: "Get a SIM, top up, ask for Wi-Fi", icon: "📱" },
+            { title: "Work & Business", desc: "Introduce yourself, join meetings, email", icon: "💼" },
+            { title: "Socializing", desc: "Make friends, greet, small talk naturally", icon: "💬" },
+            { title: "Weather", desc: "Talk about forecast, temperature, seasons", icon: "⛅" },
+            { title: "Time & Schedule", desc: "Ask the time, set meetings, plan ahead", icon: "🕐" },
+            { title: "Culture & Etiquette", desc: "Customs, festivals, avoid awkward moments", icon: "🏮" }
+        ];
+
         document.addEventListener('DOMContentLoaded', function() {
-            const themesList = [
-                { title: "Taxi & Travel", desc: "Tell the driver, pay the fare, get to your hotel", icon: "🚕", premium: true },
-                { title: "Ordering Food", desc: "Order food, ask for the bill, say \"not spicy\"", icon: "🍜", premium: true },
-                { title: "Asking Directions", desc: "Ask where it is, understand the answer", icon: "🗺️", premium: true },
-                { title: "Hotel", desc: "Check in, request extras, sort out problems", icon: "🏨", premium: true },
-                { title: "Shopping", desc: "Ask price, bargain, pick the right size", icon: "🛍️", premium: true },
-                { title: "Emergency", desc: "Get help, call 120, describe what hurts", icon: "🚨", premium: true },
-                { title: "Bank", desc: "Exchange money, transfer, ask about fees", icon: "🏛️", premium: true },
-                { title: "Post Office", desc: "Send mail and packages without confusion", icon: "📮", premium: true },
-                { title: "Café", desc: "Order coffee, customize your drink, sit down", icon: "☕", premium: true },
-                { title: "Phone & Internet", desc: "Get a SIM, top up, ask for Wi-Fi", icon: "📱", premium: true },
-                { title: "Work & Business", desc: "Introduce yourself, join meetings, email", icon: "💼", premium: true },
-                { title: "Socializing", desc: "Make friends, greet, small talk naturally", icon: "💬", premium: true },
-                { title: "Weather", desc: "Talk about forecast, temperature, seasons", icon: "⛅", premium: true },
-                { title: "Time & Schedule", desc: "Ask the time, set meetings, plan ahead", icon: "🕐", premium: true },
-                { title: "Culture & Etiquette", desc: "Customs, festivals, avoid awkward moments", icon: "🏮", premium: true }
-            ];
+        const container = document.getElementById('themesContainer');
+        const toggleBtn = document.getElementById('toggleTopicsBtn');
+        if (!container) return;
 
-            const container = document.getElementById('themesContainer');
-            const toggleBtn = document.getElementById('toggleTopicsBtn');
-            if (!container) return;
+        let allCards = [];
 
-            let allCards = [];
-
-            themesList.forEach((theme, index) => {
-                const card = document.createElement('div');
-                card.className = 'home-scenario-card';
-                // 默认隐藏索引 >= 5 的主题
-                if (index >= 5) {
-                    card.classList.add('hidden-card');
-                }
-                const badgeHtml = `<span class="premium-badge">🔒 Premium</span>`;
-                card.innerHTML = `
-                    ${badgeHtml}
-                    <div class="card-content">
-                        <div class="icon-box">${theme.icon}</div>
-                        <div class="card-text">
-                            <h4>${theme.title}</h4>
-                            <div class="sub-desc">${theme.desc}</div>
-                            <span class="topic-phrase-count">10+ useful phrases →</span>
-                        </div>
+        topicFullData.forEach((theme, index) => {
+            const card = document.createElement('div');
+            card.className = 'home-scenario-card';
+            if (index >= 5) {
+                card.classList.add('hidden-card');
+            }
+            const isFree = index < 5;
+            const countText = isFree ? 'Try 2 free →' : '10+ useful phrases →';
+            // Simplified layout: emoji inline left of title (same baseline), desc + count CTA below
+            card.innerHTML = `
+                <div class="card-content">
+                    <div class="card-text">
+                        <h4><span class="scenario-emoji">${theme.icon}</span>${theme.title}</h4>
+                        <div class="sub-desc">${theme.desc}</div>
+                        <span class="topic-phrase-count">${countText}</span>
                     </div>
-                `;
-                card.addEventListener('click', () => {
-                    window.location.href = '#pricing-section';
-                });
-                container.appendChild(card);
-                allCards.push(card);
+                </div>
+            `;
+            card.addEventListener('click', () => {
+                openTopicModal(index);
             });
+            container.appendChild(card);
+            allCards.push(card);
+        });
 
             // 展开按钮逻辑
             let isExpanded = false;
@@ -1801,6 +1918,342 @@
                     isExpanded = false;
                 }
             });
+        }); // end DOMContentLoaded
+
+        // ===== Topic Modal Logic (全局) =====
+        let tmAudio = null;
+        let tmCurrentPhrase = null;
+
+        function openTopicModal(index) {
+            const modal = document.getElementById('topicModal');
+            const body = document.getElementById('tmBody');
+            const title = document.getElementById('tmTitle');
+
+            if (index < 5 && topicFreeData[index]) {
+                const data = topicFreeData[index];
+                title.textContent = data.icon + ' ' + data.title;
+
+                let html = '';
+                data.phrases.forEach((p, i) => {
+                    html += buildTmPhraseHTML(p, i, data.title);
+                });
+
+                // 模糊区域：显示剩余lockedCount句的模糊列表（行编号从 data.phrases.length + 1 开始）
+                html += `
+                    <div class="tm-locked-group">
+                        ${buildLockedRowHTML(data.lockedCount, data.title, data.phrases.length + 1)}
+                        <div class="tm-locked-overlay">
+                            <div class="tm-lock-icon">🔒</div>
+                            <h4>${data.lockedCount} more phrases in this topic</h4>
+                            <p>Get lifetime access to unlock all 150 phrases across 15 scenarios.</p>
+                            <button class="tm-unlock-btn" onclick="window.open('https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01','_blank')">Get Lifetime Access</button>
+                        </div>
+                    </div>
+                `;
+                body.innerHTML = html;
+
+                // 绑定：行点击（展开/收起 detail） + 播放事件 + 悬停气泡
+                data.phrases.forEach((p, i) => {
+                    const phraseEl = body.querySelector(`.tm-phrase[data-phrase-idx="${i}"]`);
+                    if (!phraseEl) return;
+                    // 行点击切换展开
+                    const row = phraseEl.querySelector('.tm-row');
+                    if (row) {
+                        row.addEventListener('click', function (e) {
+                            // 不要在点了播放/慢放按钮时切换
+                            if (e.target.closest('.tm-controls, button')) return;
+                            phraseEl.classList.toggle('open');
+                        });
+                    }
+                    // 播放 / 慢放
+                    const playBtn = phraseEl.querySelector(`[data-phrase-play="${i}"]`);
+                    const slowBtn = phraseEl.querySelector(`[data-phrase-slow="${i}"]`);
+                    if (playBtn) playBtn.addEventListener('click', (ev) => { ev.stopPropagation(); playTmPhrase(p, i, false); });
+                    if (slowBtn) slowBtn.addEventListener('click', (ev) => { ev.stopPropagation(); playTmPhrase(p, i, true); });
+                });
+
+                // 绑定单词悬停气泡 (show pinyin + English meaning)
+                const tip = document.getElementById('hpWtip');
+                let hideTimer = null;
+                const escapeAttr = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const showTip = function(ch, py, mn, ev) {
+                    if (!tip || !mn || mn === '·') { hideTip(); return; }
+                    clearTimeout(hideTimer);
+                    tip.innerHTML =
+                        '<span class="wt-ch">' + escapeAttr(ch) + '</span>' +
+                        '<span class="wt-py">' + escapeAttr(py) + '</span>' +
+                        '<span class="wt-mn">' + escapeAttr(mn) + '</span>';
+                    tip.classList.add('show');
+                    tip.setAttribute('aria-hidden', 'false');
+                    const elRect = ev.currentTarget.getBoundingClientRect();
+                    const tipW = tip.offsetWidth || 220;
+                    const tipH = tip.offsetHeight || 120;
+                    const vw = window.innerWidth, vh = window.innerHeight;
+                    const cx = elRect.left + elRect.width / 2;
+                    let left = cx - tipW / 2;
+                    let top = elRect.top - tipH - 10;
+                    left = Math.max(8, Math.min(vw - tipW - 8, left));
+                    if (top < 8) {
+                        top = elRect.bottom + 10;
+                        tip.classList.add('below');
+                    } else {
+                        tip.classList.remove('below');
+                    }
+                    tip.style.left = Math.round(left) + 'px';
+                    tip.style.top = Math.round(top) + 'px';
+                };
+                const hideTip = function() {
+                    if (!tip) return;
+                    clearTimeout(hideTimer);
+                    hideTimer = setTimeout(function() {
+                        tip.classList.remove('show');
+                        tip.setAttribute('aria-hidden', 'true');
+                        tip.classList.remove('below');
+                    }, 80);
+                };
+                body.querySelectorAll('.tm-detail .tm-chn .karaoke').forEach(function(span) {
+                    const py = span.getAttribute('data-wpy');
+                    const mn = span.getAttribute('data-wmn');
+                    if (py && mn) {
+                        span.addEventListener('mouseenter', function(e) { showTip(span.textContent || '', py, mn, e); });
+                        span.addEventListener('mouseleave', hideTip);
+                    }
+                });
+            } else {
+                // Premium topic
+                const t = topicFullData[index];
+                title.textContent = t.icon + ' ' + t.title;
+                body.innerHTML = `
+                    <div class="tm-locked-group">
+                        ${buildLockedRowHTML(10, t.title, 1)}
+                        <div class="tm-locked-overlay">
+                            <div class="tm-lock-icon">🔒</div>
+                            <h4>This topic is Premium</h4>
+                            <p>Get lifetime access to unlock all 150 phrases across 15 scenarios.</p>
+                            <button class="tm-unlock-btn" onclick="window.open('https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01','_blank')">Get Lifetime Access</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            modal.classList.add('open');
+        }
+
+        function closeTopicModal() {
+            document.getElementById('topicModal').classList.remove('open');
+            if (tmAudio) { tmAudio.pause(); tmAudio = null; }
+            tmCurrentPhrase = null;
+        }
+
+        // Split a multi-character pinyin string into n per-character syllables.
+        // Mirrors survival-topics.html's localSplitPY so token count == char count 1:1.
+        function localSplitPY(pyStr, n) {
+            const raw = String(pyStr || '').split(/\s+/).filter(Boolean);
+            const out = [];
+            if (n <= 0) return out;
+            if (raw.length === n) { for (let k = 0; k < n; k++) out.push(raw[k]); return out; }
+            if (n === 1) return [raw.join('') || '·'];
+            const PY_RE = /(zh|ch|sh|[bpmfdtnlgkhjqxrzcsyw])?([aeiouüv\u00C0-\u024F\u1E00-\u1EFF]+(ng?|n|r)?)/gi;
+            const combined = raw.join('');
+            const syllables = combined.match(PY_RE) || [];
+            if (syllables.length === n) {
+                for (let k = 0; k < n; k++) out.push(syllables[k] || '·');
+                return out;
+            }
+            if (syllables.length > n) {
+                for (let k = 0; k < n - 1; k++) out.push(syllables[k]);
+                out.push(syllables.slice(n - 1).join(''));
+                return out;
+            }
+            if (syllables.length >= 1) {
+                for (let k = 0; k < syllables.length; k++) out.push(syllables[k]);
+                while (out.length < n) out.push('·');
+                return out;
+            }
+            out.push(raw[0] || '');
+            for (let k = 1; k < n; k++) out.push('·');
+            return out;
+        }
+
+        // Build per-char pinyin tokens aligned 1:1 with characters in p.zh.
+        // Punctuation (non-word chars) use '·' as the token so the row visual matches screenshots.
+        function buildPerCharPyTokens(p) {
+            const words = p.words || [];
+            const perWord = [];
+            words.forEach(function (w) {
+                const nChars = (w.ch || '').length;
+                if (nChars <= 1) { perWord.push(w.py || '·'); return; }
+                const arr = localSplitPY(w.py || '', nChars);
+                for (let i = 0; i < arr.length; i++) perWord.push(arr[i] || '·');
+            });
+            const zhStr = p.zh || '';
+            const need = zhStr.length;
+            if (perWord.length === need) return perWord;
+            if (perWord.length > need) {
+                // Too many tokens: the last word's py produced extras, merge remaining into last one
+                const merged = perWord.slice(0, need - 1);
+                merged.push(perWord.slice(need - 1).join(''));
+                return merged;
+            }
+            // Not enough tokens; pad with '·' — this covers punctuation (， 。 ？ etc.)
+            while (perWord.length < need) perWord.push('·');
+            return perWord;
+        }
+
+        function buildTmPhraseHTML(p, i, topicTitle) {
+            // Build per-char spans with word data (pinyin + meaning). Map the words array onto characters.
+            const words = p.words || [];
+            const charMap = {}; // char index → {py, mn}
+            let charIdx = 0;
+            for (const w of words) {
+                for (let k = 0; k < w.ch.length; k++) {
+                    charMap[charIdx] = { py: w.py, mn: w.mn };
+                    charIdx++;
+                }
+            }
+            // Build chars HTML — append ch/py/mn as data attrs for hover binding
+            const chars = Array.from(p.zh).map((c, j) => {
+                const w = charMap[j];
+                if (w) {
+                    const py = w.py.replace(/"/g, '&quot;');
+                    const mn = w.mn.replace(/"/g, '&quot;');
+                    return `<span class="karaoke" data-idx="${j}" data-wpy="${py}" data-wmn="${mn}">${c}</span>`;
+                }
+                return `<span class="karaoke" data-idx="${j}">${c}</span>`;
+            }).join('');
+            // Build per-char pinyin tokens (1:1 with zh characters) so karaoke indexes align perfectly.
+            // Example: "我要去机场。" (6 chars) → ["wǒ","yào","qù","jī","chǎng","·"]
+            //          "不要辣，谢谢。" (6 chars) → ["bú","yào","là","·","xiè","·"]  +  xie 实际上有两个字 -> 用words的ch长度拆分
+            const perCharPy = buildPerCharPyTokens(p);
+            const pyTokens = perCharPy.map((tok, j) =>
+                `<span class="kpy" data-idx="${j}">${tok}</span>`
+            ).join(' ');
+            const num = i + 1;
+            return `
+                <div class="tm-phrase" data-phrase-idx="${i}">
+                    <div class="tm-row" role="button" tabindex="0" aria-expanded="false">
+                        <div class="tm-row-text">
+                            <div class="tm-row-label free-label">${topicTitle} · ${num}</div>
+                            <div class="tm-row-eng">${p.en}</div>
+                        </div>
+                        <div class="tm-row-hand" aria-hidden="true">⌄</div>
+                    </div>
+                    <div class="tm-detail">
+                        <div class="tm-chn">${chars}</div>
+                        <div class="tm-pin">${pyTokens}</div>
+                        <div class="tm-controls">
+                            <button class="tm-play-btn" data-phrase-play="${i}" aria-label="Play">▶</button>
+                            <button class="tm-slow-btn" data-phrase-slow="${i}" aria-label="Slow">🐢 Slow</button>
+                            <div class="tm-progress"><div class="tm-progress-fill"></div></div>
+                            <span class="tm-time">0:00 / 0:00</span>
+                        </div>
+                        <div class="tm-culture">💡 ${p.culture}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function buildLockedRowHTML(count, topicTitle, startNum) {
+            let html = '';
+            const sampleEn = ['Order more...', 'Ask about...', 'Pay the bill...', 'Get a receipt...', 'Complaint...', 'Ask for help...', 'Change...', 'Cancel...', 'Recommend...', 'Discount...'];
+            for (let i = 0; i < count; i++) {
+                const n = (startNum || 1) + i;
+                const en = sampleEn[i] || 'More phrases...';
+                html += `
+                    <div class="tm-locked-phrase">
+                        <div class="tm-lock-label-wrap">
+                            <div class="tm-lock-label">${topicTitle} · ${n}</div>
+                            <div class="tm-lock-text">${en}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        function playTmPhrase(phrase, idx, slow) {
+            const url = `./audio/${phrase.audioId}.mp3`;
+            const phraseEl = document.querySelector(`.tm-phrase[data-phrase-idx="${idx}"]`);
+            if (!phraseEl) return;
+
+            // 停止当前音频
+            if (tmAudio) { tmAudio.pause(); }
+
+            tmAudio = new Audio(url);
+            const chnEl = phraseEl.querySelector('.tm-chn');
+            const pinEl = phraseEl.querySelector('.tm-pin');
+            const progressFill = phraseEl.querySelector('.tm-progress-fill');
+            const timeEl = phraseEl.querySelector('.tm-time');
+            const playBtn = phraseEl.querySelector('.tm-play-btn');
+            const allKaraoke = chnEl.querySelectorAll('.karaoke');
+            const pyTokens = pinEl ? pinEl.querySelectorAll('.kpy') : [];
+
+            // 重置卡拉OK（中文字 + 拼音 tokens）
+            allKaraoke.forEach(s => s.classList.remove('active'));
+            pyTokens.forEach(s => s.classList.remove('active'));
+
+            const rate = slow ? 0.7 : 1.0;
+
+            tmAudio.addEventListener('loadedmetadata', () => {
+                tmAudio.playbackRate = rate;
+                tmAudio.preservesPitch = true;
+            }, { once: true });
+
+            tmAudio.addEventListener('play', () => {
+                playBtn.textContent = '⏸';
+            });
+
+            tmAudio.addEventListener('ended', () => {
+                playBtn.textContent = '▶';
+                allKaraoke.forEach(s => s.classList.remove('active'));
+                pyTokens.forEach(s => s.classList.remove('active'));
+                progressFill.style.width = '0%';
+                timeEl.textContent = '0:00 / 0:00';
+            });
+
+            tmAudio.addEventListener('timeupdate', () => {
+                const pct = (tmAudio.currentTime / tmAudio.duration) * 100;
+                progressFill.style.width = pct + '%';
+                const cur = formatTime(tmAudio.currentTime);
+                const dur = formatTime(tmAudio.duration);
+                timeEl.textContent = `${cur} / ${dur}`;
+
+                // 卡拉OK：按时间比例高亮（中文字 + 拼音 token 一一对应）
+                const total = Math.max(1, allKaraoke.length);
+                const charIdx = Math.min(allKaraoke.length - 1, Math.floor(pct / 100 * total));
+                allKaraoke.forEach((s, i) => {
+                    s.classList.toggle('active', i <= charIdx);
+                });
+                if (pyTokens.length) {
+                    pyTokens.forEach((s, i) => {
+                        s.classList.toggle('active', i <= charIdx);
+                    });
+                }
+            });
+
+            tmAudio.playbackRate = rate;
+            tmAudio.play().catch(() => {
+                // 播放失败
+                progressFill.style.width = '0%';
+                timeEl.textContent = 'Audio unavailable';
+            });
+        }
+
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return `${m}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        // 点击背景关闭
+        document.getElementById('topicModal').addEventListener('click', (e) => {
+            if (e.target.id === 'topicModal') closeTopicModal();
+        });
+
+        // ESC 关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeTopicModal();
         });
 
         // ===== 4. 购买 (跳转 Stripe) =====
