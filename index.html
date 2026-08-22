@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>HanLingo · Practical Chinese for Real Life – Real Phrases, Offline</title>
+    <title>Practical Chinese Phrases for Real Life | HanLingo</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <meta name="mobile-web-app-capable" content="yes">
@@ -11,17 +11,17 @@
     <meta name="theme-color" content="#162B3A">
 
     <!-- ========== ENHANCED SEO (English, US/EU focus) ========== -->
-    <meta name="description" content="Learn Mandarin Chinese phrases for real travel & daily life. Offline audio, pinyin, and speaking practice. No textbooks. Start free.">
-    <meta name="keywords" content="learn Chinese, Mandarin phrases, travel Chinese, Chinese for travelers, offline Chinese, speak Chinese, Chinese audio, survival Chinese, taxi Chinese, restaurant Chinese, hotel Chinese, Chinese for tourists, practical Mandarin, everyday Chinese, Chinese phrases offline, Chinese pronunciation, Pinyin, Chinese language app, learn Mandarin fast, Chinese for beginners, travel to China, Chinese phrasebook, audio Chinese, speak Chinese confidently">
+    <meta name="description" content="Learn practical Chinese phrases for real life. HanLingo is a speaking tool — not a phrasebook. Audio, pinyin, cultural tips. 150+ expressions across 15 real-life topics.">
+    <meta name="keywords" content="learn Chinese, Mandarin expressions, travel Chinese, Chinese for travelers, offline Chinese, speak Chinese, Chinese audio, survival Chinese, practical Mandarin, everyday Chinese, Chinese speaking tool, learn Mandarin fast, Chinese for beginners, travel to China, Chinese expressions, audio Chinese, speak Chinese confidently, not a phrasebook">
     <link rel="canonical" href="https://hanlingo.app/">
-    <meta property="og:title" content="HanLingo · Speak Chinese for Travel & Life – Real Phrases, Offline">
-    <meta property="og:description" content="Learn practical Mandarin phrases for taxis, restaurants, hotels, and emergencies. Offline audio & pinyin. No textbooks. Start free.">
+    <meta property="og:title" content="HanLingo · Stop Memorizing Words. Start Speaking Expressions.">
+    <meta property="og:description" content="HanLingo is not a phrasebook. It's a practical Chinese speaking tool for real life. Learn expressions you can actually use — with audio, pinyin, and cultural tips.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hanlingo.app/">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="HanLingo · Speak Chinese for Travel & Life – Real Phrases">
-    <meta name="twitter:description" content="Practical Mandarin for real situations. Offline, audio, pinyin. Start speaking Chinese from day one.">
+    <meta name="twitter:title" content="HanLingo · Stop Memorizing Words. Start Speaking Expressions.">
+    <meta name="twitter:description" content="HanLingo is not a phrasebook. A practical Chinese speaking tool for real life. Start speaking from day one.">
     <!-- ========== /SEO ========== -->
 
     <style>
@@ -824,6 +824,91 @@
                 justify-content: center;
             }
         }
+
+        /* ----- Nav links ----- */
+        .nav-links { display: flex; align-items: center; gap: 24px; }
+        .nav-links a { font-size: 14px; font-weight: 600; color: #475569; text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--cta-orange); }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+
+        /* ----- Brand positioning (clean one-liner) ----- */
+        .brand-positioning { text-align: center; padding: 8px 24px 20px; max-width: 700px; margin: 0 auto; }
+        .brand-positioning p { font-size: 15px; color: var(--text-muted); font-weight: 500; line-height: 1.5; margin: 0; }
+        .brand-positioning p strong { color: var(--struct-dark); font-weight: 700; }
+
+        /* ----- Method flow (simple text, not cards) ----- */
+        .method-section { max-width: 800px; margin: 0 auto; padding: 20px 24px 40px; text-align: center; }
+        .method-section .eyebrow { display: inline-block; color: var(--cta-orange); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+        .method-section h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; color: var(--struct-dark); margin: 0 0 8px; letter-spacing: -0.5px; }
+        .method-section .method-desc { color: var(--text-muted); font-size: 16px; margin: 0 0 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+        .method-flow { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .method-flow .step { font-size: 22px; font-weight: 800; color: var(--struct-dark); padding: 10px 28px; border-radius: 12px; background: var(--white); border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .method-flow .arrow { font-size: 24px; color: var(--cta-orange); font-weight: 300; }
+        @media (max-width: 480px) { .method-flow .step { font-size: 18px; padding: 8px 20px; } .method-flow { gap: 10px; } }
+
+        /* ----- Conversion Bridge ----- */
+        .conversion-bridge { max-width: 560px; margin: 0 auto; padding: 32px 24px; text-align: center; border-top: 1px solid var(--border-color); }
+        .conversion-bridge .cb-icon { width: 48px; height: 48px; border-radius: 50%; background: #f0fdf4; border: 2px solid #22c55e; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #22c55e; font-weight: 800; margin: 0 auto 16px; }
+        .conversion-bridge h3 { font-size: 22px; font-weight: 800; color: var(--struct-dark); margin: 0 0 8px; }
+        .conversion-bridge p { color: var(--text-muted); font-size: 15px; margin: 0 0 20px; }
+        .conversion-bridge .unlock-summary { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; margin-bottom: 24px; }
+        .conversion-bridge .unlock-summary span { background: var(--white); border: 1px solid var(--border-color); border-radius: 99px; padding: 6px 16px; font-size: 13px; font-weight: 600; color: var(--struct-dark); }
+        .conversion-bridge .btn-see-plans { display: inline-block; background: var(--cta-orange); color: #fff; padding: 14px 36px; border-radius: 99px; font-weight: 800; font-size: 16px; text-decoration: none; box-shadow: 0 6px 20px var(--cta-orange-glow); transition: var(--transition); }
+        .conversion-bridge .btn-see-plans:hover { transform: translateY(-2px); background: var(--cta-orange-hover); }
+
+        /* ----- New Pricing (two-tier) ----- */
+        #pricing-section { padding: 60px 20px; background: #fafafa; text-align: center; }
+        #pricing-section .pricing-eyebrow { color: var(--cta-orange); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
+        #pricing-section h2 { font-size: 32px; font-weight: 800; color: var(--struct-dark); margin: 0 0 6px; }
+        #pricing-section .pricing-sub { color: var(--text-muted); font-size: 16px; margin: 0 0 40px; }
+        #pricing-section .pricing-tagline { font-size: 15px; font-weight: 600; color: var(--struct-dark); margin: 0 0 32px; }
+        #pricing-section .pricing-tagline strong { color: var(--cta-orange); }
+        #pricing-section .pricing-reassurance { font-size: 14px; color: #64748b; margin: 0 0 8px; font-weight: 500; }
+        .pricing-cards-row { display: flex; justify-content: center; align-items: stretch; gap: 20px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+        .pricing-tier { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 32px 28px; width: 100%; max-width: 400px; position: relative; display: flex; flex-direction: column; transition: var(--transition); }
+        .pricing-tier.founding { border: 2px solid var(--cta-orange); box-shadow: 0 8px 30px rgba(240,90,40,0.12); }
+        .pricing-tier:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .pricing-tier .tier-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--cta-orange); color: #fff; font-size: 11px; font-weight: 800; padding: 4px 18px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; box-shadow: 0 2px 8px rgba(240,90,40,0.3); }
+        .pricing-tier.practical .tier-badge { background: #3b82f6; box-shadow: 0 2px 8px rgba(59,130,246,0.25); }
+        .pricing-tier h3 { font-size: 1.3rem; font-weight: 800; color: var(--struct-dark); margin: 0 0 4px; }
+        .pricing-tier .tier-desc { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; margin: 0 0 16px; min-height: 36px; }
+        .pricing-tier .tier-price { font-size: 2.6rem; font-weight: 900; color: var(--cta-orange); line-height: 1.1; margin: 0 0 4px; }
+        .pricing-tier.practical .tier-price { color: #3b82f6; }
+        .pricing-tier .tier-price-sub { font-size: 0.82rem; color: #94a3b8; font-weight: 500; margin: 0 0 20px; }
+        .pricing-tier ul { list-style: none; padding: 0; margin: 0 0 20px; line-height: 2; font-size: 0.9rem; color: #334155; text-align: left; }
+        .pricing-tier ul li { display: flex; align-items: flex-start; gap: 8px; padding: 2px 0; }
+        .pricing-tier ul li .ck { flex-shrink: 0; width: 20px; text-align: center; }
+        .pricing-tier ul li strong { color: var(--struct-dark); font-weight: 700; }
+        .pricing-tier .tier-cta { display: block; width: 100%; padding: 14px 20px; border-radius: 99px; font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer; text-align: center; text-decoration: none; margin-top: auto; background: var(--cta-orange); color: #fff; box-shadow: 0 4px 16px rgba(240,90,40,0.2); transition: var(--transition); }
+        .pricing-tier .tier-cta:hover { transform: translateY(-2px); background: var(--cta-orange-hover); box-shadow: 0 6px 24px rgba(240,90,40,0.3); }
+        .pricing-tier.practical .tier-cta { background: #3b82f6; box-shadow: 0 4px 16px rgba(59,130,246,0.2); }
+        .pricing-tier.practical .tier-cta:hover { background: #2563eb; box-shadow: 0 6px 24px rgba(59,130,246,0.3); }
+        .pricing-tier .tier-footnote { font-size: 0.72rem; color: #94a3b8; text-align: center; margin-top: 12px; font-weight: 500; }
+        .practical-mention { max-width: 560px; margin: 32px auto 0; text-align: center; padding: 16px 24px; border-top: 1px solid var(--border-color); }
+        .practical-mention p { font-size: 14px; color: var(--text-muted); margin: 0 0 12px; }
+        .practical-mention a { display: inline-block; font-size: 14px; font-weight: 700; color: #3b82f6; text-decoration: none; border-bottom: 2px solid #3b82f6; padding-bottom: 2px; }
+        .practical-mention a:hover { color: #2563eb; }
+
+        /* ----- Final CTA ----- */
+        .final-cta-section { text-align: center; padding: 60px 24px; background: var(--struct-dark); }
+        .final-cta-section h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; color: #fff; margin: 0 0 8px; }
+        .final-cta-section p { color: #94A3B8; font-size: 16px; margin: 0 0 24px; }
+        .final-cta-section .btn-hero-cta { margin: 0 auto; }
+
+        /* ----- Topic card enhanced ----- */
+        .home-scenario-card .topic-phrase-count { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--cta-orange); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .pricing-tier { max-width: 100%; }
+            .pricing-cards-row { flex-direction: column; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .pricing-tier { padding: 20px 16px; }
+            .pricing-tier .tier-cta { font-size: 0.88rem; padding: 12px 14px; line-height: 1.3; }
+            .pricing-tier .tier-price { font-size: 2rem; }
+            .pricing-tier h3 { font-size: 1.1rem; }
+            .pricing-cards-row { gap: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -834,57 +919,57 @@
             <img src="logo.png" alt="HanLingo Logo" style="height: 32px; width: auto;">
             <span style="font-size: 20px; font-weight: 800; color: #1a202c; letter-spacing: -0.5px;">HanLingo</span>
         </a>
-        <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" class="nav-cta-btn" aria-label="Get Lifetime Access">
-            🔥 Get Lifetime Access
+        <nav class="nav-links">
+            <a href="#method">How it works</a>
+            <a href="#topic-shelf">Topics</a>
+            <a href="#pricing-section">Pricing</a>
+        </nav>
+        <a href="#free-phrases" class="nav-cta-btn" aria-label="Start Free">
+            Start Free
         </a>
     </header>
 
     <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
-        <div class="badges">
-            <span>⚡ Instant Play — No Setup</span>
-            <span>📶 No Wi-Fi? No problem.</span>
-            <span>🎯 Real-Life Situations</span>
-        </div>
-        <h1 id="hero-title">Speak Chinese You Can Actually Use.</h1>
-        <p class="sub">Real phrases for travel, work & everyday life.</p>
+        <h1 id="hero-title">Speak Chinese<br><span>You Can Actually Use.</span></h1>
+        <p class="sub">Learn real Chinese expressions for travel, work, food &amp; everyday life.</p>
         <div class="cta-group">
             <a href="#free-phrases" class="btn-hero-cta">Start Free</a>
-            <p class="cta-sub-text">5 phrases free · No credit card</p>
+            <p class="cta-sub-text">5 phrases · No credit card · Learn at your own pace</p>
         </div>
     </section>
 
+    <!-- Brand Positioning -->
+    <div class="brand-positioning">
+        <p><strong>HanLingo</strong> — Practical Chinese built around the expressions you actually need to say.</p>
+    </div>
+
     <!-- Method -->
-    <section class="method-section" style="max-width:800px;margin:0 auto;padding:30px 24px 40px;text-align:center;">
-        <span class="method-tag" style="display:inline-block;background:#fff5f5;color:#ff4e00;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border-radius:99px;border:1px solid #fed7d7;margin-bottom:12px;">🎯 The HanLingo Method</span>
-        <h2 style="font-size:30px;font-weight:800;color:#0f1e2c;margin:0 0 8px;">Listen → Repeat → Use</h2>
-        <p style="color:#64748b;font-size:17px;margin:0 0 32px;">Listen, repeat, and practice real Chinese phrases for the situations you actually face.</p>
-        <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
-            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">👂</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Listen</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Hear natural audio</div></div>
-            <span style="font-size:28px;color:#cbd5e1;font-weight:300;">→</span>
-            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">🗣️</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Repeat</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Practice out loud</div></div>
-            <span style="font-size:28px;color:#cbd5e1;font-weight:300;">→</span>
-            <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:20px 24px;min-width:140px;flex:1;max-width:200px;text-align:center;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.03);"><span style="font-size:36px;display:block;margin-bottom:6px;">✅</span><div style="font-size:18px;font-weight:800;color:#0f1e2c;">Use</div><div style="font-size:13px;color:#94a3b8;margin:4px 0 0;">Speak in real situations</div></div>
+    <section class="method-section" id="method" aria-labelledby="method-title">
+        <p class="eyebrow">The HanLingo Method</p>
+        <h2 id="method-title">Hear it. Say it. Use it.</h2>
+        <p class="method-desc">Learn Chinese through real expressions — not endless vocabulary lists.</p>
+        <div class="method-flow">
+            <span class="step">Listen</span>
+            <span class="arrow">→</span>
+            <span class="step">Repeat</span>
+            <span class="arrow">→</span>
+            <span class="step">Use</span>
         </div>
     </section>
 
     <!-- 15 个主题 (默认显示5个，点击展开全部) — 所有主题均为 Premium -->
     <section class="topic-shelf" id="topic-shelf" aria-labelledby="themes-title">
-        <h2 id="themes-title">Real-Life Topics</h2>
-        <p class="sub-desc">Know what to say when you need it. The essentials first, more when you're ready.</p>
+        <h2 id="themes-title">Expressions for Real Life</h2>
+        <p class="sub-desc">From taxis to emergencies — learn what to say when it matters.</p>
         <div id="themesContainer" class="scenarios-grid"></div>
         <button id="toggleTopicsBtn" class="toggle-topics-btn">Show all 15 topics</button>
-        <div style="margin-top:24px;">
-            <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" style="background:#ff4e00; color:white; border:none; padding:14px 40px; border-radius:99px; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(255, 69, 0, 0.25); transition:all 0.2s; display:inline-block; text-decoration:none;">
-                🔓 Unlock All Topics — $49 Lifetime
-            </a>
-        </div>
 
         <!-- 💡 已购买提示链接 -->
         <div class="purchased-hint">
-            💡 Already purchased? 
+            💡 Already purchased?
             <a href="survival-topics.html">
-                Go to Full Survival Library 
+                Go to Full Survival Library
                 <span class="arrow">→</span>
             </a>
         </div>
@@ -895,14 +980,14 @@
          - Same MP3 voice as survival-topics (zh-CN-XiaoxiaoNeural)
          - Hover any character → bubble with pinyin + English meaning
          - Play/Slow → karaoke-style char-by-char highlight
-         - Culture Tip (文化提示) replaces "Practice Speaking"
+         - Culture Note replaces "Practice Speaking"
          ============================================================ -->
     <div class="hp-wtip" id="hpWtip" aria-hidden="true"></div>
 
     <!-- 免费短语 -->
     <section class="free-sample-section" id="free-phrases" aria-labelledby="free-phrases-title">
         <h2 id="free-phrases-title">Try 5 Phrases Free</h2>
-        <p>More than a translation. <strong>The right phrase for the right situation — with pinyin, audio and cultural tip.</strong></p>
+        <p>Not a phrasebook. A speaking tool. <strong>Real expressions you can use — with audio, pinyin, and cultural tips.</strong></p>
 
         <div class="phrase-card-list">
             <!-- 短语 1: Hello -->
@@ -921,7 +1006,7 @@
                     <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
                     <div class="hp-play-time">0:00 / 0:00</div>
                     <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-title">💡 Cultural Note</p>
                         <p class="hp-culture-body">
                             <em>你好</em> is the safest, most neutral "hello" in Mandarin — it works with strangers, elders, and friends. Don't use <em>嗨</em> (hāi, borrowed from English "hi") with people older than you; it can sound too casual. When entering a small shop, <em>你好</em> is more polite than staying silent.
                         </p>
@@ -945,7 +1030,7 @@
                     <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
                     <div class="hp-play-time">0:00 / 0:00</div>
                     <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-title">💡 Cultural Note</p>
                         <p class="hp-culture-body">
                             Most taxi drivers in China don't read English — even in Shanghai or Beijing. Always keep <em>your destination written in Chinese</em> (from your hotel card, a saved screenshot, or Baidu/Amap). Just show the screen <b>plus</b> play this sentence, and you'll get there with zero confusion. <em>请</em> at the start makes it politely formal, which taxi drivers appreciate.
                         </p>
@@ -969,7 +1054,7 @@
                     <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
                     <div class="hp-play-time">0:00 / 0:00</div>
                     <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-title">💡 Cultural Note</p>
                         <p class="hp-culture-body">
                             In open-air markets and tourist streets, haggling with a smile is completely normal — but supermarket and mall prices are fixed. A friendly opener: point + <em>这个多少钱？</em>, then reply with <em>pián yi yì diǎn</em> (a little cheaper). The particle <em>吗</em> at the end turns a statement into a yes/no question; keep your tone rising, just like in English.
                         </p>
@@ -993,7 +1078,7 @@
                     <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
                     <div class="hp-play-time">0:00 / 0:00</div>
                     <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-title">💡 Cultural Note</p>
                         <p class="hp-culture-body">
                             Younger Chinese (< 30) often learn English in school but are <em>shy to speak</em> — don't mistake a quiet answer for "they can't". Ask slowly with <em>你会说英语吗？</em> and if they say <em>一点点</em> (yī diǎn diǎn = a little bit), switch to simple words + gestures. Also note: in China, "English" is always <em>Yīng yǔ</em> — never "American" or "Australian".
                         </p>
@@ -1017,7 +1102,7 @@
                     <div class="hp-play-bar"><div class="hp-play-fill"></div></div>
                     <div class="hp-play-time">0:00 / 0:00</div>
                     <div class="hp-culture-box">
-                        <p class="hp-culture-title">💡 文化提示 Cultural Tip</p>
+                        <p class="hp-culture-title">💡 Cultural Note</p>
                         <p class="hp-culture-body">
                             In Chinese restaurants, waiters are <em>extremely</em> used to customers simply pointing at a photo menu and saying <em>我要点这个</em> — no long polite sentence needed. The verb <em>点</em> is specifically "to order (food)"; it's more natural than the literal verb <em>mǎi</em> (to buy/ purchase). If you want two portions, add <em>两个</em> (liǎng ge) before <em>这个</em>.
                         </p>
@@ -1026,18 +1111,18 @@
             </div>
         </div>
 
-        <div class="upsell-toast">
-            <div style="text-align:center;padding:8px 0;">
-                <div style="font-size:28px;margin-bottom:6px;">🤯</div>
-                <h4 style="font-size:18px;font-weight:700;color:#1e293b;margin:0 0 6px 0;">"Oh, this actually helps me say it."</h4>
-                <p style="color:#1e293b;font-size:15px;font-weight:600;margin:0 0 18px 0;">
-                    You just practiced a real taxi phrase. Imagine having <span style="color:#ff4500;">1,500+ more</span> for every situation.<br>
-                    <span style="font-weight:400;color:#64748b;">Taxis · Restaurants · Hotels · Emergencies · Shopping · And more.</span>
-                </p>
-                <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" style="background:#ff4500;color:white;border:none;padding:14px 36px;border-radius:25px;font-size:15px;font-weight:bold;cursor:pointer;box-shadow:0 4px 14px rgba(255,69,0,0.25);transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none;">
-                    Get Lifetime Access — $49 →
-                </a>
+        <!-- Conversion Bridge -->
+        <div class="conversion-bridge">
+            <div class="cb-icon">✓</div>
+            <h3>You've learned 5 useful phrases.</h3>
+            <p>That's just a preview of what's inside HanLingo.</p>
+            <div class="unlock-summary">
+                <span>150+ phrases</span>
+                <span>15 real-life topics</span>
+                <span>Audio &amp; Pinyin</span>
+                <span>Lifetime access</span>
             </div>
+            <a href="#pricing-section" class="btn-see-plans">See Lifetime Plans</a>
         </div>
     </section>
 
@@ -1052,7 +1137,7 @@
                     <div class="img img-1">MK</div>
                     <div><div class="name">Mike K.</div><div class="title">Traveling to China next month</div></div>
                 </div>
-                <p>"The taxi phrase with slow audio and repeat practice made me actually say it correctly. Game changer."</p>
+                <p>"The taxi expression with slow audio and repeat practice made me actually say it correctly. Game changer."</p>
                 <div class="stars">★★★★★</div>
             </div>
             <div class="testimonial-card">
@@ -1070,47 +1155,64 @@
                     <div class="img img-3">AL</div>
                     <div><div class="name">Amanda L.</div><div class="title">Expat in Shanghai</div></div>
                 </div>
-                <p>"The taxi phrases saved me. I just played the audio to the driver and we got where I needed to go."</p>
+                <p>"The taxi expressions saved me. I just played the audio to the driver and we got where I needed to go."</p>
                 <div class="stars">★★★★★</div>
             </div>
         </div>
     </section>
 
-    <!-- 定价 -->
+    <!-- Pricing -->
     <section id="pricing-section" class="pricing-section" aria-labelledby="pricing-title">
-        <span class="early-bird-tag">⏱️ Founding Members</span>
-        <h2 id="pricing-title">$49 Lifetime</h2>
-        <p class="sub">First 100 members only.</p>
+        <span class="pricing-eyebrow">Pricing</span>
+        <h2 id="pricing-title">No subscription. One payment. Lifetime access.</h2>
+        <p class="pricing-sub">Try 5 phrases free before you buy. Then choose the plan that fits you.</p>
+        <p class="pricing-reassurance">No subscription. No recurring charges. One payment gives you lifetime access.</p>
+        <p class="pricing-tagline">$29 buys the Practical Chinese library. <strong>$59 locks in HanLingo for life.</strong></p>
 
-        <div class="pricing-card">
-            <span class="popular-badge">⭐ FOUNDING PRICE</span>
-            <h3>🔥 Lifetime All-Access</h3>
-            <p class="plan-desc">Know what to say when you need it. Forever.</p>
-
-            <div class="value-highlight">
-                <div class="no-sub"><span class="check">✓</span> One payment. Lifetime access.</div>
-                <div class="sub-text">No recurring fees. No subscription.</div>
+        <div class="pricing-cards-row">
+            <!-- Founding Lifetime $59 -->
+            <div class="pricing-tier founding">
+                <span class="tier-badge">⭐ FOUNDING OFFER</span>
+                <h3>BEST VALUE</h3>
+                <p class="tier-desc">One-time payment· Lifetime access</p>
+                <div class="tier-price">$59</div>
+                <div class="tier-price-sub">Regular price $149  Founding price $59</div>
+                <ul>
+                    <li><span class="ck">✓</span> <strong>Everything in HanLingo today</strong></li>
+                    <li><span class="ck">✓</span> <strong>Every future topic</strong></li>
+                    <li><span class="ck">✓</span> <strong>Everything new we add</strong></li>
+                    <li><span class="ck">✓</span> <strong>Every future update</strong></li>
+                    <li><span class="ck">✓</span> <strong>No subscription</strong></li>
+					 <li><span class="ck">✓</span> <strong>One payment. Forever.</strong></li>
+                    </ul>
+                <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" rel="noopener noreferrer" class="tier-cta">
+                    Get Lifetime Access — $59
+                </a>
+                <p class="tier-footnote">Founding offer · Limited to first 100 members</p>
             </div>
 
-            <div class="price-block">
-                <div class="reg-price">$99</div>
-                <div class="price">$49</div>
-                <div class="sub-text">Lifetime access — never pay again</div>
-            </div>
+            <!-- Practical Chinese $29 -->
+            <div class="pricing-tier practical">
+                <span class="tier-badge">PRACTICAL</span>
+                <h3>Practical Chinese</h3>
+                <p class="tier-desc">The essentials for travel &amp; everyday life.</p>
+                <div class="tier-price">$29</div>
+                <div class="tier-price-sub">One-time payment</div>
+                <ul>
+                    <li><span class="ck">✓</span> <strong>150 expressions</strong> — all current content</li>
+                    <li><span class="ck">✓</span> <strong>15 real-life topics</strong>— travel, food, hotel + more</li>
+                    <li><span class="ck">✓</span> <strong>Audio + Pinyin + Cultural Tips</strong></li>
+                    <li><span class="ck">✓</span> <strong>Lifetime access to current library</strong></li>
+                    </ul>
+                <a href="https://buy.stripe.com/dRm9AV3Qqa5j5Jq9wYb7y02" target="_blank" rel="noopener noreferrer" class="tier-cta">
+                    Get Practical Access — $29
+                </a>
+               </div>
+        </div>
 
-            <ul class="plan-features">
-                <li><span class="icon">✅</span> <strong>150 real-life phrases</strong> for every situation</li>
-                <li><span class="icon">✅</span> <strong>15 real-life topics</strong> — travel, food, hotel, healthcare + more</li>
-                <li><span class="icon">✅</span> <strong>Crystal-clear audio</strong> — natural pronunciation</li>
-                <li class="offline-benefit"><span class="icon">📶</span> <strong>Works offline when you need it most</strong> — no Wi‑Fi, no problem</li>
-                <li><span class="icon">✅</span> <strong>Lifetime access to everything included at launch.</strong></li>
-            </ul>
-
-            <a href="https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00" target="_blank" rel="noopener noreferrer" class="checkout-btn" style="display:block; text-align:center; text-decoration:none;">
-                Get Lifetime Access — $49 →
-            </a>
-
-            <div class="footnote" style="color:#b91c1c;font-weight:600;">Price increases after launch · <strong>Lifetime</strong> means exactly that.</div>
+        <!-- Free mention -->
+        <div class="practical-mention">
+            <p>Not ready yet? <a href="#free-phrases">Try 5 phrases free</a> — no credit card needed.</p>
         </div>
     </section>
 
@@ -1118,45 +1220,34 @@
     <section class="faq-section" id="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">Frequently Asked Questions</h2>
         <p class="faq-sub">Everything you need to know before buying.</p>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is HanLingo a Chinese course?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No.</strong> HanLingo is not a traditional course. We don't teach grammar rules or characters. Instead, we give you <strong>real phrases for real situations</strong> — so you can actually speak Chinese when you need it.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do I need internet to use HanLingo?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No.</strong> HanLingo works <strong>offline when you need it most</strong>. Includes a printable PDF survival phrasebook. Perfect for flights, subway rides, or anywhere without Wi‑Fi or data.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is this for complete beginners?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Yes, absolutely.</strong> HanLingo is designed for <strong>total beginners</strong> who want to speak useful Chinese immediately. Every phrase includes <strong>pinyin</strong> (pronunciation guide) so you don't need to read characters.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is there a subscription?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No subscription.</strong> The Lifetime plan is a <strong>one-time payment</strong> of $49. You pay once and own it forever. No monthly fees, no surprises.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What happens after I buy?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Instant access.</strong> After purchase, you'll get immediate access to all unlocked topics and phrases. You can start using HanLingo <strong>right away</strong> — online or offline.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I use it while traveling in China?</span><span class="toggle">+</span></div><div class="faq-a"><strong>That's exactly what it's built for.</strong> HanLingo works <strong>offline</strong>, so you can use it on the plane, in the subway, or anywhere in China without worrying about data or VPN issues.</div></div>
-        <div class="more-coming">More situations coming soon.</div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is HanLingo a subscription?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No.</strong> HanLingo uses one-time lifetime pricing. You pay once and own it forever. No monthly fees, no subscription, no surprises.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Is HanLingo for beginners?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Yes.</strong> Start with practical expressions and learn at your own pace. Every expression includes pinyin and audio, so you don't need to know Chinese characters.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Do I need to know Chinese characters?</span><span class="toggle">+</span></div><div class="faq-a"><strong>No.</strong> Pinyin and audio are included with every expression. You can speak Chinese confidently without reading a single character.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Can I use HanLingo offline?</span><span class="toggle">+</span></div><div class="faq-a"><strong>Yes.</strong> Selected content can be available offline when you install HanLingo as a PWA. Perfect for flights, subway rides, or anywhere in China without Wi-Fi or data.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>What does Founding Lifetime include?</span><span class="toggle">+</span></div><div class="faq-a"><strong>You get access to everything currently available in HanLingo</strong> — 150+ expressions across 15 real-life topics, with audio, pinyin, and cultural tips — <strong>plus every new topic, course, and learning update we add in the future, at no extra cost.</strong> One payment. Lifetime access.</div></div>
+        <div class="more-coming">More questions? <a href="mailto:support@hanlingo.app" style="color:var(--cta-orange);font-weight:600;">support@hanlingo.app</a></div>
     </section>
 
-    <!-- ===== 📶 离线安装提示 (FAQ 下方) ===== -->
-    <section class="offline-install-section">
-        <div class="offline-install-card">
-            <div class="left">
-                <span class="icon">📲</span>
-                <div class="text">
-                    <div class="title">Add to Home Screen</div>
-                    <div class="desc">Use HanLingo offline — no Wi‑Fi needed.</div>
-                </div>
-            </div>
-            <button class="install-btn" onclick="triggerPWAInstall()">
-                📶 Install App <span class="badge">Works Offline</span>
-            </button>
-        </div>
+    <!-- Final CTA -->
+    <section class="final-cta-section">
+        <h2>Ready to speak more Chinese?</h2>
+        <p>Start free — 5 expressions, no credit card.</p>
+        <a href="#free-phrases" class="btn-hero-cta">Start Free</a>
     </section>
 
     <!-- Footer -->
     <footer class="global-footer" role="contentinfo">
-        <div class="payment-icons">
-            <span>💳 <small>Visa</small></span><span>💳 <small>Mastercard</small></span>
-            <span>💳 <small>AMEX</small></span><span>💲 <small>PayPal</small></span>
-            <span>💳 <small>Alipay</small></span><span>🍎 <small>Apple Pay</small></span>
-            <span>🔒 <small>Stripe Secure</small></span>
-        </div>
-        <div class="copy">© 2026 HanLingo.app. Made for travelers, expats, and anyone who wants to speak Chinese.</div>
+        <div class="copy"><strong>HanLingo</strong> — Made for people who want to speak Chinese in real life.</div>
+        <div class="copy" style="margin-top:4px;">© 2026 HanLingo.app</div>
         <div class="links">
-            <a href="javascript:void(0)" onclick="openLegalModal('terms')">Terms of Service</a>
-            <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy Policy</a>
+            <a href="javascript:void(0)" onclick="openLegalModal('terms')">Terms</a>
+            <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy</a>
             <a href="javascript:void(0)" onclick="openLegalModal('refund')">Refund Policy</a>
             <a href="mailto:support@hanlingo.app">support@hanlingo.app</a>
+            <a href="javascript:void(0)" onclick="triggerPWAInstall()" style="color:#94a3b8;font-size:12px;">📶 Install App</a>
+        </div>
+        <div class="links" style="margin-top:6px;">
+            <span style="color:#64748b;font-size:11px;">🔒 Secure checkout by Stripe</span>
         </div>
     </footer>
 
@@ -1625,23 +1716,21 @@
         // ===== 3. 15 个主题渲染 (默认显示5个，点击展开全部) — 全部为 Premium =====
         document.addEventListener('DOMContentLoaded', function() {
             const themesList = [
-                // 前 5 个主题 (默认可见) — 全部 Premium
-                { title: "Travel", desc: "Airports, train stations, hailing cabs", icon: "🚕", premium: true },
-                { title: "Food", desc: "Restaurants, street stalls, menus", icon: "🍜", premium: true },
-                { title: "Directions", desc: "Streets, landmarks, subway lines", icon: "🗺️", premium: true },
-                { title: "Accommodation", desc: "Check-in, room service, complaints", icon: "🏨", premium: true },
-                { title: "Shopping", desc: "Markets, bargaining, sizes", icon: "🛍️", premium: true },
-                // 后 10 个 Premium 主题 (默认隐藏)
-                { title: "Emergency", desc: "Police, hospital, urgent help", icon: "🚨", premium: true },
-                { title: "Bank", desc: "Exchange, transfer, accounts", icon: "🏛️", premium: true },
-                { title: "Post Office", desc: "Sending mail, packages, stamps", icon: "📮", premium: true },
-                { title: "Healthcare", desc: "Doctor, pharmacy, symptoms", icon: "🏥", premium: true },
-                { title: "Digital Pay", desc: "Scanning codes, cards, checkout", icon: "💳", premium: true },
-                { title: "Weather", desc: "Forecast, temperature, seasons", icon: "⛅", premium: true },
-                { title: "Work & Office", desc: "Meetings, emails, conversations", icon: "💼", premium: true },
-                { title: "Technology", desc: "Devices, internet, apps", icon: "💻", premium: true },
-                { title: "Culture & Etiquette", desc: "Customs, festivals, manners", icon: "🏮", premium: true },
-                { title: "Social", desc: "Making friends, greetings, small talk", icon: "💬", premium: true }
+                { title: "Taxi & Travel", desc: "Tell the driver, pay the fare, get to your hotel", icon: "🚕", premium: true },
+                { title: "Ordering Food", desc: "Order food, ask for the bill, say \"not spicy\"", icon: "🍜", premium: true },
+                { title: "Asking Directions", desc: "Ask where it is, understand the answer", icon: "🗺️", premium: true },
+                { title: "Hotel", desc: "Check in, request extras, sort out problems", icon: "🏨", premium: true },
+                { title: "Shopping", desc: "Ask price, bargain, pick the right size", icon: "🛍️", premium: true },
+                { title: "Emergency", desc: "Get help, call 120, describe what hurts", icon: "🚨", premium: true },
+                { title: "Bank", desc: "Exchange money, transfer, ask about fees", icon: "🏛️", premium: true },
+                { title: "Post Office", desc: "Send mail and packages without confusion", icon: "📮", premium: true },
+                { title: "Café", desc: "Order coffee, customize your drink, sit down", icon: "☕", premium: true },
+                { title: "Phone & Internet", desc: "Get a SIM, top up, ask for Wi-Fi", icon: "📱", premium: true },
+                { title: "Work & Business", desc: "Introduce yourself, join meetings, email", icon: "💼", premium: true },
+                { title: "Socializing", desc: "Make friends, greet, small talk naturally", icon: "💬", premium: true },
+                { title: "Weather", desc: "Talk about forecast, temperature, seasons", icon: "⛅", premium: true },
+                { title: "Time & Schedule", desc: "Ask the time, set meetings, plan ahead", icon: "🕐", premium: true },
+                { title: "Culture & Etiquette", desc: "Customs, festivals, avoid awkward moments", icon: "🏮", premium: true }
             ];
 
             const container = document.getElementById('themesContainer');
@@ -1657,7 +1746,6 @@
                 if (index >= 5) {
                     card.classList.add('hidden-card');
                 }
-                // 全部使用 Premium 标签
                 const badgeHtml = `<span class="premium-badge">🔒 Premium</span>`;
                 card.innerHTML = `
                     ${badgeHtml}
@@ -1666,12 +1754,12 @@
                         <div class="card-text">
                             <h4>${theme.title}</h4>
                             <div class="sub-desc">${theme.desc}</div>
+                            <span class="topic-phrase-count">10+ useful phrases →</span>
                         </div>
                     </div>
                 `;
                 card.addEventListener('click', () => {
-                    // 直接跳转到 Stripe 付款页面
-                    window.open('https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00', '_blank');
+                    window.location.href = '#pricing-section';
                 });
                 container.appendChild(card);
                 allCards.push(card);
@@ -1698,10 +1786,13 @@
             });
         });
 
-        // ===== 4. 购买 (已改为直接跳转 Stripe) =====
+        // ===== 4. 购买 (跳转 Stripe) =====
         function triggerCheckout(plan) {
-            // 直接跳转到 Stripe 付款页面
-            window.open('https://buy.stripe.com/3cIcN73QqfpD2xe6kMb7y00', '_blank');
+            if (plan === 'founding' || plan === '59') {
+                window.open('https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01', '_blank');
+            } else {
+                window.open('https://buy.stripe.com/dRm9AV3Qqa5j5Jq9wYb7y02', '_blank');
+            }
         }
 
         // ===== 5. FAQ =====
@@ -1728,16 +1819,16 @@
                 <h4>1. INTELLECTUAL PROPERTY & USE LICENSE</h4>
                 <p>All learning materials, including but not limited to audio recordings, pinyin guides, Chinese text, PDF phrasebooks, and interface designs, are the intellectual property of HanLingo.app. You are granted a personal, non-transferable license. You agree NOT to copy, redistribute, resell, or commercially exploit any content without our prior written consent.</p>
                 <h4>2. ONE-TIME BUYOUT & LIFETIME ACCESS</h4>
-                <p>The "Survival Kit" and "All-Access Pass" are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
+                <p>The "Practical Chinese" ($29) and "Founding Lifetime" ($59) are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational. The Founding Lifetime plan includes all future content updates at no extra charge.</p>
                 <h4>3. REFUND POLICY</h4>
                 <p><strong>Digital Nature & Final Sale</strong><br>
-                Due to the digital, intangible, and instantly downloadable nature of our learning materials, all sales of premium content (including the "Survival Kit" and "All-Access Pass") are strictly final. We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content. Access is deemed granted upon the automated internal issuance of account permissions or email delivery of access links, regardless of actual download status.</p>
+                Because HanLingo is a digital product with instant access, all sales are final. We encourage you to try the 5 free phrases on our homepage before purchasing. Once access is granted, refunds are not available.</p>
                 <h4>4. EU/UK CONSUMER WAIVER NOTICE</h4>
-                <p>If you reside in the European Union (EU) or the United Kingdom (UK), by clicking "Purchase", "Checkout", or checking the consent box at checkout, you expressly agree that the supply of digital content begins immediately upon purchase. You hereby acknowledge and agree that you lose your 14-day right of withdrawal (cooling-off period) under the EU Consumer Rights Directive once the content delivery or account provisioning has commenced.</p>
+                <p>If you reside in the EU or UK, by completing checkout you agree that digital content supply begins immediately. You acknowledge losing your 14-day withdrawal right once access is provisioned.</p>
                 <h4>5. TESTING AND COMPATIBILITY</h4>
-                <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on our homepage before making any purchasing decisions. It is the user's sole responsibility to ensure that their device, operating system, internet connection, and software are compatible with our digital file formats. Refunds will not be issued based on user-end technical, internet, or software compatibility issues.</p>
-                <h4>6. CHARGEBACKS AND FRAUD</h4>
-                <p>Unauthorized chargebacks, frivolous dispute filings, or fraudulent refund claims will result in the immediate, permanent termination of your account and access privileges. We reserve the right to submit your purchase history, IP logs, and check-out consent records to payment processors (such as Stripe/PayPal) and relevant consumer risk databases to dispute any bad-faith chargebacks.</p>
+                <p>We encourage all users to try the free 5-phrase samples before purchasing. Please ensure your device and browser are compatible.</p>
+                <h4>6. DISPUTES</h4>
+                <p>If you have an issue with your purchase, please contact support@hanlingo.app. We reserve the right to share transaction records with payment processors to resolve disputes.</p>
                 <h4>7. GOVERNING LAW</h4>
                 <p>These Terms shall be governed by the laws of Singapore.</p>
                 <h4>8. CONTACT</h4>
@@ -1770,13 +1861,13 @@
                 <h2>Refund Policy</h2>
                 <span class="update-date">Last Updated: August 2026</span>
                 <h4>1. DIGITAL NATURE & FINAL SALE</h4>
-                <p>Due to the digital, intangible, and instantly downloadable nature of our learning materials, all sales of premium content (including the "Survival Kit" and "All-Access Pass") are strictly final. We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content. Access is deemed granted upon the automated internal issuance of account permissions or email delivery of access links, regardless of actual download status.</p>
+                <p>Because HanLingo is a digital product with instant access, all sales are final. We encourage you to try the 5 free phrases on our homepage before purchasing. Once access is granted, refunds, exchanges, or cancellations are not available.</p>
                 <h4>2. EU/UK CONSUMER WAIVER NOTICE</h4>
-                <p>If you reside in the European Union (EU) or the United Kingdom (UK), by clicking "Purchase", "Checkout", or checking the consent box at checkout, you expressly agree that the supply of digital content begins immediately upon purchase. You hereby acknowledge and agree that you lose your 14-day right of withdrawal (cooling-off period) under the EU Consumer Rights Directive once the content delivery or account provisioning has commenced.</p>
+                <p>If you reside in the European Union (EU) or the United Kingdom (UK), by completing checkout you agree that the supply of digital content begins immediately. You acknowledge that you lose your 14-day right of withdrawal under the EU Consumer Rights Directive once access has been provisioned.</p>
                 <h4>3. TESTING AND COMPATIBILITY</h4>
-                <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on our homepage before making any purchasing decisions. It is the user's sole responsibility to ensure that their device, operating system, internet connection, and software are compatible with our digital file formats. Refunds will not be issued based on user-end technical, internet, or software compatibility issues.</p>
-                <h4>4. CHARGEBACKS AND FRAUD</h4>
-                <p>Unauthorized chargebacks, frivolous dispute filings, or fraudulent refund claims will result in the immediate, permanent termination of your account and access privileges. We reserve the right to submit your purchase history, IP logs, and check-out consent records to payment processors (such as Stripe/PayPal) and relevant consumer risk databases to dispute any bad-faith chargebacks.</p>
+                <p>We encourage all users to try the free 5-phrase samples on our homepage before purchasing. Please ensure your device and browser are compatible.</p>
+                <h4>4. DISPUTES</h4>
+                <p>If you believe there is an issue with your purchase, please contact us at support@hanlingo.app and we will do our best to resolve it. We reserve the right to share transaction records with payment processors to resolve disputes.</p>
                 <h4>Contact Us</h4>
                 <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
                 <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
