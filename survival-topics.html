@@ -190,6 +190,141 @@
             border-top: 1px solid var(--border-color);
         }
 
+        /* ===== 搜索 + 收藏工具栏 ===== */
+        .tools-bar {
+            max-width: 900px; margin: 0 auto 16px; padding: 0 24px;
+            display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+        }
+        .search-box {
+            flex: 1 1 260px; position: relative; min-width: 220px;
+        }
+        .search-box input {
+            width: 100%; padding: 12px 16px 12px 42px;
+            border: 1px solid var(--border-color); border-radius: 99px;
+            font-size: 14px; font-weight: 600; color: var(--struct-dark);
+            background: var(--white); outline: none;
+            transition: var(--transition);
+        }
+        .search-box input:focus {
+            border-color: var(--cta-orange);
+            box-shadow: 0 0 0 4px var(--cta-orange-glow);
+        }
+        .search-box .search-ico {
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+            font-size: 16px; color: var(--text-muted); pointer-events: none;
+        }
+        .search-scope {
+            display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .search-scope button {
+            border: 1px solid var(--border-color); background: var(--white);
+            color: var(--text-muted); padding: 8px 14px; border-radius: 99px;
+            font-size: 12px; font-weight: 700; cursor: pointer; transition: var(--transition);
+        }
+        .search-scope button.active {
+            background: var(--struct-dark); color: var(--white); border-color: var(--struct-dark);
+        }
+        .fav-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--white); border: 1px solid var(--border-color);
+            color: var(--struct-dark); padding: 10px 16px; border-radius: 99px;
+            font-size: 13px; font-weight: 700; cursor: pointer; transition: var(--transition);
+        }
+        .fav-btn:hover { border-color: var(--cta-orange); color: var(--cta-orange); }
+        .fav-btn .fav-count {
+            background: var(--cta-orange); color: var(--white); min-width: 20px; height: 20px;
+            border-radius: 50%; font-size: 11px; display: inline-flex; align-items: center; justify-content: center;
+        }
+        .search-status {
+            max-width: 900px; margin: 0 auto; padding: 0 24px 12px;
+            font-size: 13px; color: var(--text-muted); font-weight: 600; min-height: 20px;
+        }
+
+        /* ===== 收藏按钮（卡片内） ===== */
+        .sv-fav-btn {
+            position: absolute; top: 10px; right: 10px;
+            width: 34px; height: 34px; border-radius: 50%;
+            border: 1px solid var(--border-color); background: var(--white);
+            color: #cbd5e1; font-size: 18px; line-height: 1;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: var(--transition); z-index: 5;
+        }
+        .sv-fav-btn:hover { transform: scale(1.1); border-color: #f59e0b; color: #f59e0b; }
+        .sv-fav-btn.faved { color: #f59e0b; border-color: #f59e0b; background: #fffbeb; }
+
+        /* ===== 收藏夹面板 ===== */
+        .fav-panel-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            z-index: 52000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .fav-panel-overlay.open { display: flex; }
+        .fav-panel {
+            width: 100%; max-width: 720px; max-height: 90vh; background: var(--white);
+            border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .fav-panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px; border-bottom: 1px solid var(--border-color);
+        }
+        .fav-panel-header h2 { font-size: 18px; font-weight: 800; color: var(--struct-dark); }
+        .fav-panel-actions { display: flex; gap: 10px; align-items: center; }
+        .fav-panel-actions button {
+            border: none; border-radius: 99px; padding: 9px 16px;
+            font-size: 13px; font-weight: 700; cursor: pointer; transition: var(--transition);
+        }
+        .btn-export-pdf { background: var(--cta-orange); color: var(--white); }
+        .btn-export-pdf:hover { background: var(--cta-orange-hover); }
+        .btn-close-fav { background: var(--bg-main); color: var(--text-muted); }
+        .btn-close-fav:hover { background: var(--border-color); color: var(--struct-dark); }
+        .fav-panel-body {
+            padding: 16px 24px 24px; overflow-y: auto; flex: 1;
+        }
+        .fav-empty {
+            text-align: center; padding: 40px 20px; color: var(--text-muted); font-weight: 600;
+        }
+        .fav-list { display: flex; flex-direction: column; gap: 10px; }
+        .fav-item {
+            display: grid; grid-template-columns: 1fr auto auto; gap: 10px;
+            align-items: center; background: var(--bg-main); border-radius: 14px;
+            padding: 14px 16px; border: 1px solid var(--border-color);
+        }
+        .fav-item .fav-zh { font-weight: 800; font-size: 16px; color: var(--struct-dark); }
+        .fav-item .fav-py { font-size: 12px; color: #f97316; font-weight: 700; font-style: italic; }
+        .fav-item .fav-en { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+        .fav-item .fav-topic {
+            font-size: 11px; font-weight: 700; color: var(--cta-orange);
+            background: #fff; border: 1px solid #fed7aa; border-radius: 99px;
+            padding: 3px 10px; white-space: nowrap;
+        }
+        .fav-item .fav-remove {
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background: #fee2e2; color: #ef4444; font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .fav-item .fav-remove:hover { background: #ef4444; color: #fff; }
+
+        /* ===== 打印导出 PDF ===== */
+        .pdf-print-sheet {
+            display: none;
+            background: #fff; color: #000; padding: 40px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .pdf-print-sheet h1 { font-size: 26px; margin-bottom: 8px; }
+        .pdf-print-sheet .pdf-meta { color: #64748b; font-size: 13px; margin-bottom: 24px; }
+        .pdf-print-sheet .pdf-topic { font-size: 16px; font-weight: 800; margin: 20px 0 8px; color: #162B3A; }
+        .pdf-print-sheet .pdf-row { margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; }
+        .pdf-print-sheet .pdf-zh { font-size: 18px; font-weight: 800; }
+        .pdf-print-sheet .pdf-py { font-size: 14px; color: #f97316; font-style: italic; }
+        .pdf-print-sheet .pdf-en { font-size: 14px; color: #475569; margin-top: 2px; }
+        @media print {
+            body > * { display: none !important; }
+            .pdf-print-sheet, .pdf-print-sheet * { display: block !important; }
+            .pdf-print-sheet { position: static; width: 100%; padding: 0; }
+            .fav-panel-overlay { display: none !important; }
+        }
+
         /* ===== 短语样式 (始终可见，但内容模糊锁定) ===== */
         .phrases { display: flex; flex-direction: column; gap: 10px; padding: 0 0 16px 0; }
         .phrase {
@@ -568,7 +703,7 @@
             box-shadow: 0 6px 14px rgba(245, 158, 11, 0.1);
         }
         .hl-bc-culture::before {
-            content: '💡 Cultural Tip';
+            content: '💡 Cultural Note';
             display: block;
             font-size: 11px; font-weight: 800;
             text-transform: uppercase; letter-spacing: 0.6px;
@@ -972,6 +1107,26 @@
         </div>
     </div>
 
+    <!-- ====== 搜索 + 收藏工具栏 ====== -->
+    <div class="tools-bar">
+        <div class="search-box">
+            <span class="search-ico">🔍</span>
+            <input type="text" id="phraseSearchInput" placeholder="Search Chinese sentences..." autocomplete="off">
+        </div>
+        <div class="search-scope" id="searchScope">
+            <button type="button" data-scope="all" class="active">All</button>
+            <button type="button" data-scope="zh">Chinese</button>
+            <button type="button" data-scope="py">Pinyin</button>
+            <button type="button" data-scope="en">English</button>
+            <button type="button" data-scope="topic">Topic</button>
+        </div>
+        <button class="fav-btn" id="openFavPanel" type="button" title="Open favorites">
+            <span>⭐ Favorites</span>
+            <span class="fav-count" id="favCount">0</span>
+        </button>
+    </div>
+    <div class="search-status" id="searchStatus"></div>
+
     <!-- ====== 手风琴内容 (15个主题，全部默认收起) ====== -->
     <section class="accordion-wrap">
 
@@ -1017,7 +1172,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🍜</div>
                     <div class="topic-info"><h3>Ordering Food <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Order food, ask for the bill, say "not spicy"</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1043,7 +1198,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🗺️</div>
                     <div class="topic-info"><h3>Asking Directions <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Ask where it is, understand the answer</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1069,7 +1224,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🏨</div>
                     <div class="topic-info"><h3>Hotel &amp; Accommodation <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Check in, request extras, sort out problems</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1095,7 +1250,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🛍️</div>
                     <div class="topic-info"><h3>Shopping <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Ask price, bargain, pick the right size</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1121,7 +1276,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🚨</div>
                     <div class="topic-info"><h3>Emergency &amp; Health <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Get help fast, explain symptoms, find a doctor</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1147,7 +1302,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🏦</div>
                     <div class="topic-info"><h3>At the Bank <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Exchange money, use ATMs, ask about fees</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1173,7 +1328,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">📮</div>
                     <div class="topic-info"><h3>Post Office <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Send packages, buy stamps, ask about delivery</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1199,7 +1354,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">☕</div>
                     <div class="topic-info"><h3>At the Café <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Order coffee, customize your drink, get takeaway</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1225,7 +1380,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">📱</div>
                     <div class="topic-info"><h3>Phone &amp; Internet <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Buy a SIM, find WiFi, top up data</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1251,7 +1406,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">💼</div>
                     <div class="topic-info"><h3>Work &amp; Business <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Introduce yourself, exchange cards, schedule meetings</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1277,7 +1432,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🤝</div>
                     <div class="topic-info"><h3>Socializing <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Meet people, share hobbies, make friends</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1303,7 +1458,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🌤️</div>
                     <div class="topic-info"><h3>Weather &amp; Seasons <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Ask about weather, understand the forecast</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1329,7 +1484,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🕐</div>
                     <div class="topic-info"><h3>Time &amp; Schedule <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Ask the time, schedule appointments, check hours</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -1355,7 +1510,7 @@
                 <div class="accordion-header locked-header">
                     <div class="topic-ico">🏮</div>
                     <div class="topic-info"><h3>Culture &amp; Etiquette <span class="lock-icon">🔒</span> <span class="viewed-badge">✅ Viewed</span></h3><p>Show respect, understand customs, avoid faux pas</p></div>
-                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span><span class="topic-click-hint">点击句子查看卡片 💡</span></div>
+                    <div class="topic-meta"><span class="count-pill">10 expressions</span><span class="price-tag">Premium</span><span class="accordion-arrow">▾</span></div>
                 </div>
                 <div class="accordion-body">
                     <div class="phrases">
@@ -3052,8 +3207,184 @@
     })();
 
     /* ============================================================
+       ⭐ 收藏夹：无数据库，纯 localStorage；卡片层会调用这些 API
+       ============================================================ */
+    (function () {
+        'use strict';
+        const FAV_KEY = 'hanlingo_favorites';
+
+        function read() {
+            try {
+                const raw = localStorage.getItem(FAV_KEY);
+                if (raw) return JSON.parse(raw);
+            } catch (e) {}
+            return [];
+        }
+        function write(list) {
+            try {
+                localStorage.setItem(FAV_KEY, JSON.stringify(list));
+            } catch (e) {}
+        }
+        function normalize(item) {
+            return {
+                pid: item.pid || '',
+                zh: item.zh || '',
+                en: item.en || '',
+                py: item.py || '',
+                topic: item.topic || '',
+                topicLabel: item.topicLabel || ''
+            };
+        }
+
+        const api = {
+            list: function () { return read(); },
+            has: function (pid) {
+                return read().some(function (f) { return f.pid === pid; });
+            },
+            add: function (item) {
+                const list = read();
+                if (list.some(function (f) { return f.pid === item.pid; })) return;
+                list.push(normalize(item));
+                write(list);
+                api.refresh();
+            },
+            remove: function (pid) {
+                const list = read().filter(function (f) { return f.pid !== pid; });
+                write(list);
+                api.refresh();
+            },
+            toggle: function (item) {
+                if (api.has(item.pid)) api.remove(item.pid);
+                else api.add(item);
+            },
+            updateStar: function (btn, pid) {
+                if (!btn) return;
+                const isFav = api.has(pid);
+                btn.classList.toggle('faved', isFav);
+                btn.innerHTML = isFav ? '★' : '☆';
+                btn.title = isFav ? 'Remove from favorites' : 'Add to favorites';
+                btn.setAttribute('aria-pressed', isFav ? 'true' : 'false');
+            },
+            refresh: function () {
+                const list = read();
+                // Update all star buttons
+                document.querySelectorAll('.sv-fav-btn[data-pid]').forEach(function (btn) {
+                    api.updateStar(btn, btn.getAttribute('data-pid'));
+                });
+                // Update counter
+                const counter = document.getElementById('favCount');
+                if (counter) counter.textContent = String(list.length);
+                // Re-render panel if open
+                if (document.getElementById('favPanelOverlay') && document.getElementById('favPanelOverlay').classList.contains('open')) {
+                    api.renderPanel();
+                }
+            },
+            renderPanel: function () {
+                const body = document.getElementById('favPanelBody');
+                const list = read();
+                if (!body) return;
+                if (list.length === 0) {
+                    body.innerHTML = '<div class="fav-empty">No favorites yet. Click the ☆ star on any sentence to add it here.</div>';
+                    return;
+                }
+                // Group by topic
+                const groups = {};
+                list.forEach(function (f) {
+                    const key = f.topicLabel || 'Other';
+                    if (!groups[key]) groups[key] = [];
+                    groups[key].push(f);
+                });
+                let html = '<div class="fav-list">';
+                Object.keys(groups).forEach(function (topic) {
+                    html += '<div class="fav-group">';
+                    html += '<div class="fav-topic-label" style="font-size:13px;font-weight:800;color:#92400e;margin-bottom:8px;">📂 ' + window.escapeHTML(topic) + '</div>';
+                    groups[topic].forEach(function (f) {
+                        html += '<div class="fav-item" data-pid="' + window.escapeHTML(f.pid) + '">';
+                        html += '<div>';
+                        html += '<div class="fav-zh">' + window.escapeHTML(f.zh) + '</div>';
+                        html += '<div class="fav-py">' + window.escapeHTML(f.py) + '</div>';
+                        html += '<div class="fav-en">' + window.escapeHTML(f.en) + '</div>';
+                        html += '</div>';
+                        html += '<span class="fav-topic">' + window.escapeHTML(f.topicLabel || f.topic) + '</span>';
+                        html += '<button class="fav-remove" type="button" title="Remove" aria-label="Remove">🗑</button>';
+                        html += '</div>';
+                    });
+                    html += '</div>';
+                });
+                html += '</div>';
+                body.innerHTML = html;
+
+                // Bind remove buttons
+                body.querySelectorAll('.fav-remove').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        const item = btn.closest('.fav-item');
+                        if (item) api.remove(item.getAttribute('data-pid'));
+                    });
+                });
+            },
+            exportPdf: function () {
+                const list = read();
+                const sheet = document.getElementById('pdfPrintSheet');
+                if (!sheet) return;
+                const now = new Date().toLocaleString();
+                let html = '<h1>⭐ HanLingo Favorite Sentences</h1>';
+                html += '<div class="pdf-meta">Exported on ' + window.escapeHTML(now) + ' · ' + list.length + ' sentence' + (list.length === 1 ? '' : 's') + '</div>';
+                if (list.length === 0) {
+                    html += '<p>No favorites to export.</p>';
+                    sheet.innerHTML = html;
+                    window.print();
+                    return;
+                }
+                const groups = {};
+                list.forEach(function (f) {
+                    const key = f.topicLabel || 'Other';
+                    if (!groups[key]) groups[key] = [];
+                    groups[key].push(f);
+                });
+                Object.keys(groups).forEach(function (topic) {
+                    html += '<div class="pdf-topic">' + window.escapeHTML(topic) + '</div>';
+                    groups[topic].forEach(function (f) {
+                        html += '<div class="pdf-row">';
+                        html += '<div class="pdf-zh">' + window.escapeHTML(f.zh) + '</div>';
+                        html += '<div class="pdf-py">' + window.escapeHTML(f.py) + '</div>';
+                        html += '<div class="pdf-en">' + window.escapeHTML(f.en) + '</div>';
+                        html += '</div>';
+                    });
+                });
+                sheet.innerHTML = html;
+                window.print();
+            }
+        };
+
+        window.HanLingoFavorites = api;
+
+        // Wire panel controls once DOM is ready
+        function wire() {
+            const overlay = document.getElementById('favPanelOverlay');
+            const openBtn = document.getElementById('openFavPanel');
+            const closeBtn = document.getElementById('closeFavPanel');
+            const exportBtn = document.getElementById('exportFavPdf');
+            if (openBtn) openBtn.addEventListener('click', function () {
+                api.renderPanel();
+                if (overlay) overlay.classList.add('open');
+            });
+            if (closeBtn) closeBtn.addEventListener('click', function () {
+                if (overlay) overlay.classList.remove('open');
+            });
+            if (overlay) overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) overlay.classList.remove('open');
+            });
+            if (exportBtn) exportBtn.addEventListener('click', api.exportPdf);
+            api.refresh();
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire);
+        else wire();
+    })();
+
+    /* ============================================================
        🏠 主页同款 Phrase-Card 改造 — Survival 150 句
-       - 把旧 .phrase row 动态替换为 .phrase-card（正面英语+按钮/背面中文+拼音+进度+文化提示）
+       - 把旧 .phrase row 动态替换为 .phrase-card（正面英语+按钮/背面中文+拼音+进度+Cultural Note）
        - 复用 PHRASE_DATA、TOPIC_LABELS、splitPY、escapeHTML（来自上方脚本）
        - 播放逻辑参考 playHomePhrase：rebind per-click + 8s stall + Retry
        ============================================================ */
@@ -3282,7 +3613,7 @@
         function bindCardClick(card, isLocked) {
             card.addEventListener('click', function (e) {
                 if (isLocked) return; // 付费锁状态下不展开
-                if (e.target.closest && e.target.closest('button, .play-icon, .kch, .kpy, .sv-culture-box, .sv-play-bar, .sv-play-time')) return;
+                if (e.target.closest && e.target.closest('button, .play-icon, .kch, .kpy, .sv-culture-box, .sv-play-bar, .sv-play-time, .sv-fav-btn')) return;
                 toggleCardBack(card);
             });
         }
@@ -3482,6 +3813,30 @@
                 if (isLocked) { btnNormal.disabled = true; btnSlow.disabled = true; }
                 controls.appendChild(btnNormal);
                 controls.appendChild(btnSlow);
+
+                // Favorite star button
+                const favBtn = document.createElement('button');
+                favBtn.className = 'sv-fav-btn';
+                favBtn.type = 'button';
+                favBtn.title = 'Add to favorites';
+                favBtn.setAttribute('aria-label', 'Add to favorites');
+                favBtn.setAttribute('data-pid', pid);
+                favBtn.onclick = function (e) {
+                    e.stopPropagation();
+                    const data = SURVIVAL_DATA[pid] || {};
+                    const payload = {
+                        pid: pid,
+                        zh: zhText,
+                        en: enText,
+                        py: data.py || '',
+                        topic: topicKey,
+                        topicLabel: topicLabel
+                    };
+                    if (window.HanLingoFavorites) window.HanLingoFavorites.toggle(payload);
+                };
+                if (window.HanLingoFavorites) window.HanLingoFavorites.updateStar(favBtn, pid);
+                front.appendChild(favBtn);
+
                 front.appendChild(engDiv);
                 front.appendChild(controls);
                 card.appendChild(front);
@@ -3502,7 +3857,7 @@
                 const cult = document.createElement('div');
                 cult.className = 'sv-culture-box';
                 const cultTitle = document.createElement('p');
-                cultTitle.className = 'sv-culture-title'; cultTitle.textContent = '💡 文化提示 Cultural Tip';
+                cultTitle.className = 'sv-culture-title'; cultTitle.textContent = '💡 Cultural Note';
                 const cultBody = document.createElement('p');
                 cultBody.className = 'sv-culture-body';
                 // Emphasize Chinese words in culture tip: wrap any CJK run in <em>
@@ -3528,7 +3883,7 @@
             console.log('[Survival Card Layer] Converted ' + converted + ' rows → phrase-card. Style: home-page (English first, expand for Chinese, karaoke, word bubble, culture tip).');
         }
 
-        // 在文化提示中：把连续的 CJK 字符块用 <em> 包裹（同主页效果）
+        // 在 Cultural Note 中：把连续的 CJK 字符块用 <em> 包裹（同主页效果）
         function highlightChineseInCulture(text) {
             if (!text) return '';
             const safe = esc(text);
@@ -3575,7 +3930,195 @@
             initAccordionToggle();
         }
     })();
+
+    /* ============================================================
+       🔍 Search Chinese sentences
+       ============================================================ */
+    (function () {
+        'use strict';
+        let phraseIndex = [];
+        let topicMap = {};
+
+        function buildIndex() {
+            const PHRASE_DATA = window.PHRASE_DATA || {};
+            const TOPIC_LABELS = window.TOPIC_LABELS || {};
+            const items = [];
+            const map = {};
+
+            document.querySelectorAll('.accordion-item[data-topic]').forEach(function (item) {
+                const accordionTopic = item.getAttribute('data-topic');
+                // Read topic label from header h3 first text node (strips lock icon / viewed badge)
+                const h3 = item.querySelector('.topic-info h3');
+                let topicLabel = accordionTopic;
+                if (h3 && h3.childNodes && h3.childNodes.length) {
+                    const firstText = Array.from(h3.childNodes).find(function (n) { return n.nodeType === 3; });
+                    if (firstText) topicLabel = firstText.textContent.trim();
+                }
+                map[accordionTopic] = topicLabel || TOPIC_LABELS[accordionTopic] || accordionTopic;
+                const cards = item.querySelectorAll('.phrase-card[data-phrase-id]');
+                // Also index old .phrase rows if conversion has not happened yet
+                const rows = item.querySelectorAll('.phrase[data-phrase-id]');
+                const elements = cards.length ? Array.from(cards) : Array.from(rows);
+
+                elements.forEach(function (el) {
+                    const pid = el.getAttribute('data-phrase-id');
+                    if (!pid) return;
+                    const dashIdx = pid.indexOf('-');
+                    const topicKey = dashIdx > 0 ? pid.substring(0, dashIdx) : accordionTopic;
+                    const data = PHRASE_DATA[pid] || {};
+                    const zh = el.querySelector('.back .chn, .p-zh');
+                    const en = el.querySelector('.front .eng-text, .p-en');
+                    const pyEl = el.querySelector('.back .pin');
+                    const zhText = zh ? zh.textContent.trim() : '';
+                    const enText = en ? en.textContent.trim() : '';
+                    const pyText = pyEl ? pyEl.textContent.trim() : (data.py || '');
+
+                    // Keywords from word meanings
+                    const keywords = (data.words || []).map(function (w) { return (w.mn || '').toLowerCase(); }).join(' ');
+
+                    items.push({
+                        pid: pid,
+                        topicKey: topicKey,
+                        topic: accordionTopic,
+                        topicLabel: map[accordionTopic] || topicKey,
+                        zh: zhText,
+                        en: enText,
+                        py: pyText,
+                        pyNorm: pyText.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ''),
+                        keywords: keywords,
+                        element: el,
+                        topicElement: item
+                    });
+                });
+            });
+            phraseIndex = items;
+            topicMap = map;
+        }
+
+        function doSearch() {
+            const input = document.getElementById('phraseSearchInput');
+            const status = document.getElementById('searchStatus');
+            const scopeBtn = document.querySelector('.search-scope button.active');
+            const scope = scopeBtn ? scopeBtn.getAttribute('data-scope') : 'all';
+            const raw = input ? input.value.trim() : '';
+            const q = raw.toLowerCase();
+
+            if (!q) {
+                // Clear search: show all topics/phrases
+                document.querySelectorAll('.accordion-item[data-topic]').forEach(function (item) {
+                    item.style.display = '';
+                    item.querySelectorAll('.phrase-card, .phrase').forEach(function (el) { el.style.display = ''; });
+                });
+                if (status) status.textContent = '';
+                return;
+            }
+
+            let matchCount = 0;
+            const topicHits = {};
+
+            const qNorm = q.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, '');
+            phraseIndex.forEach(function (p) {
+                let hit = false;
+                if (scope === 'zh' || scope === 'all') {
+                    hit = hit || p.zh.toLowerCase().includes(q);
+                }
+                if (scope === 'py' || scope === 'all') {
+                    hit = hit || (p.pyNorm || '').includes(qNorm);
+                }
+                if (scope === 'en' || scope === 'all') {
+                    hit = hit || p.en.toLowerCase().includes(q);
+                }
+                if (scope === 'topic' || scope === 'all') {
+                    hit = hit || p.topicLabel.toLowerCase().includes(q) || p.topicKey.toLowerCase().includes(q) || p.topic.toLowerCase().includes(q);
+                }
+                // Keywords only in "all" mode
+                if (scope === 'all') {
+                    hit = hit || p.keywords.includes(q);
+                }
+
+                if (hit) {
+                    matchCount++;
+                    topicHits[p.topic] = (topicHits[p.topic] || 0) + 1;
+                    p.element.style.display = '';
+                } else {
+                    p.element.style.display = 'none';
+                }
+            });
+
+            // Show/hide topics and expand those with hits
+            document.querySelectorAll('.accordion-item[data-topic]').forEach(function (item) {
+                const topic = item.getAttribute('data-topic');
+                const visibleCards = item.querySelectorAll('.phrase-card:not([style*="display: none"]), .phrase:not([style*="display: none"])');
+                if (topicHits[topic] || visibleCards.length > 0) {
+                    item.style.display = '';
+                    item.classList.add('expanded');
+                } else {
+                    item.style.display = 'none';
+                    item.classList.remove('expanded');
+                }
+            });
+
+            if (status) {
+                status.textContent = matchCount
+                    ? 'Found ' + matchCount + ' sentence' + (matchCount === 1 ? '' : 's') + ' matching “' + raw + '”'
+                    : 'No sentences match “' + raw + '”';
+            }
+        }
+
+        function init() {
+            // Wait for card conversion to finish
+            function waitAndBuild() {
+                if (window.__survivalConverted) {
+                    buildIndex();
+                    return;
+                }
+                setTimeout(waitAndBuild, 50);
+            }
+            waitAndBuild();
+
+            const input = document.getElementById('phraseSearchInput');
+            const scopeBox = document.getElementById('searchScope');
+
+            if (input) {
+                input.addEventListener('input', doSearch);
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') { input.value = ''; doSearch(); }
+                });
+            }
+            if (scopeBox) {
+                scopeBox.addEventListener('click', function (e) {
+                    const btn = e.target.closest('button[data-scope]');
+                    if (!btn) return;
+                    scopeBox.querySelectorAll('button').forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    doSearch();
+                });
+            }
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+    })();
     </script>
+
+    <!-- ====== 收藏夹面板 ====== -->
+    <div class="fav-panel-overlay" id="favPanelOverlay">
+        <div class="fav-panel">
+            <div class="fav-panel-header">
+                <h2>⭐ My Favorite Sentences</h2>
+                <div class="fav-panel-actions">
+                    <button class="btn-export-pdf" id="exportFavPdf" type="button">📄 Export PDF</button>
+                    <button class="btn-close-fav" id="closeFavPanel" type="button">✕ Close</button>
+                </div>
+            </div>
+            <div class="fav-panel-body" id="favPanelBody">
+                <div class="fav-empty">No favorites yet. Click the ☆ star on any sentence to add it here.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== PDF 导出专用打印页 ====== -->
+    <div class="pdf-print-sheet" id="pdfPrintSheet"></div>
 
 </body>
 </html>
