@@ -1,13 +1,13 @@
 // ============================================================
-// HanLingo - ÍêÕû JavaScript ¹¦ÄÜ
+// HanLingo - ï¿½ï¿½ï¿½ï¿½ JavaScript ï¿½ï¿½ï¿½ï¿½
 // ============================================================
-// ===== 1. 5¾ä¿¨Æ¬½»»¥Âß¼­ (²¥·Å + ·­×ªÕ¹¿ª) =====
+// ===== 1. 5ï¿½ä¿¨Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½×ªÕ¹ï¿½ï¿½) =====
 function toggleCard(btnElement, cardId) {
     const card = btnElement.closest('.phrase-card');
     const back = card.querySelector('.back');
     const textToSpeak = card.querySelector('.chn').textContent;
     const isSpeaking = btnElement.classList.contains('speaking');
-    // Í£Ö¹ÆäËûÉùÒô
+    // Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     window.speechSynthesis.cancel();
     document.querySelectorAll('.play-icon').forEach(el => el.classList.remove('speaking'));
     if (isSpeaking) {
@@ -16,21 +16,21 @@ function toggleCard(btnElement, cardId) {
         back.classList.remove('open');
         return;
     }
-    // ²¥·ÅÓïÒô
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     btnElement.classList.add('speaking');
     btnElement.innerHTML = '?';
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.lang = 'zh-CN';
     utterance.rate = 0.8;
     const voices = window.speechSynthesis.getVoices();
-    const zhVoice = voices.find(v => v.lang.startsWith('zh') && (v.name.includes('Xiaoxiao') || v.name.includes('ÏþÏþ'))) || voices.find(v => v.lang.startsWith('zh'));
+    const zhVoice = voices.find(v => v.lang.startsWith('zh') && (v.name.includes('Xiaoxiao') || v.name.includes('ï¿½ï¿½ï¿½ï¿½'))) || voices.find(v => v.lang.startsWith('zh'));
     if (zhVoice) utterance.voice = zhVoice;
-    // Õ¹¿ª±³ÃæÄÚÈÝ
+    // Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     back.classList.add('open');
     utterance.onend = () => {
         btnElement.classList.remove('speaking');
         btnElement.innerHTML = '?';
-        // Èç¹ûÊÇµÚ5¾ä£¬µ¯³ö×ª»¯ÓÕµ¼
+        // ï¿½ï¿½ï¿½ï¿½Çµï¿½5ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Õµï¿½
         if (cardId === 5) {
             const toastEl = document.getElementById('upsellToast');
             if(toastEl){
@@ -43,7 +43,7 @@ function toggleCard(btnElement, cardId) {
     };
     window.speechSynthesis.speak(utterance);
 }
-// ===== µã»÷¿¨Æ¬¿Õ°×Çø´¥·¢ =====
+// ===== ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½Õ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ =====
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.phrase-card').forEach(card => {
         card.addEventListener('click', function(e) {
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-// ===== 2. PWA °²×°Òýµ¼ =====
+// ===== 2. PWA ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ =====
 (function() {
     const banner = document.getElementById('pwaBanner');
     const installBtn = document.getElementById('pwaInstallBtn');
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isIOS && !isStandalone) {
         if(banner) setTimeout(() => banner.classList.add('show'), 4000);
         const pwaDesc = document.querySelector('.pwa-desc');
-        if(pwaDesc) pwaDesc.textContent = 'Tap Share ¡ú Add to Home Screen';
+        if(pwaDesc) pwaDesc.textContent = 'Tap Share ï¿½ï¿½ Add to Home Screen';
         if(installBtn) installBtn.textContent = 'View Guide';
     }
     if(installBtn){
@@ -99,11 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     deferredPrompt = null;
                 });
             } else if (isIOS) {
-                alert('?? Çëµã»÷ÆÁÄ»µ×²¿ Safari µÄ¡¸·ÖÏí¡¹°´Å¥£¬È»ºóÑ¡Ôñ¡¸Ìí¼Óµ½Ö÷ÆÁÄ»¡¹¼´¿ÉÍê³ÉÀëÏß°²×°¡£');
+                alert('?? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½×²ï¿½ Safari ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½È»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½×°ï¿½ï¿½');
                 if(banner) banner.classList.remove('show');
                 localStorage.setItem('hanlingo_pwa_dismissed', 'true');
             } else {
-                alert('?? ÇëÔÚä¯ÀÀÆ÷µØÖ·À¸µã»÷¡¸°²×° / ÏÂÔØ¡¹Í¼±êÍê³É°²×°¡£');
+                alert('?? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×° / ï¿½ï¿½ï¿½Ø¡ï¿½Í¼ï¿½ï¿½ï¿½ï¿½É°ï¿½×°ï¿½ï¿½');
             }
         });
     }
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 })();
-// ===== 3. ÔçÄñµ¹¼ÆÊ± =====
+// ===== 3. ï¿½ï¿½ï¿½ñµ¹¼ï¿½Ê± =====
 let earlyBirdCount = 14;
 function updateEarlyBirdUI() {
     const el = document.getElementById('earlyBirdCountdown');
@@ -130,10 +130,10 @@ function updateEarlyBirdUI() {
         const buyBtn = document.getElementById('lifetimeBuyBtn');
         const waitlist = document.getElementById('waitlistGroup');
 
-        // Ã¿Ò»¸öÔªËØ¶¼ÏÈÅÐ¶ÏÊÇ·ñ´æÔÚ£¬²»´æÔÚÌø¹ý²Ù×÷£¬·ÀÖ¹null±¨´í
+        // Ã¿Ò»ï¿½ï¿½Ôªï¿½Ø¶ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹nullï¿½ï¿½ï¿½ï¿½
         if(scarcityBar){
             scarcityBar.classList.add('sold-out');
-            scarcityBar.innerHTML = `?? Sold Out ¡¤ Next batch launching soon`;
+            scarcityBar.innerHTML = `?? Sold Out ï¿½ï¿½ Next batch launching soon`;
         }
         if(buyBtn){
             buyBtn.style.display = 'none';
@@ -151,7 +151,7 @@ setInterval(() => {
     }
 }, 10000 + Math.random() * 5000);
 // ================================================================
-// 4. ºÏ¹æµ¯´°ÄÚÈÝÓëÂß¼­
+// 4. ï¿½Ï¹æµ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 // ================================================================
 const legalModal = document.getElementById('legalModal');
 const legalContent = document.getElementById('legalContent');
@@ -164,16 +164,16 @@ const legalTexts = {
         <h4>1. INTELLECTUAL PROPERTY & USE LICENSE</h4>
         <p>All learning materials, including but not limited to audio recordings, pinyin guides, Chinese text, PDF phrasebooks, and interface designs, are the intellectual property of HanLingo.app. You are granted a personal, non-transferable license. You agree NOT to copy, redistribute, resell, or commercially exploit any content without our prior written consent.</p>
         <h4>2. ONE-TIME BUYOUT & LIFETIME ACCESS</h4>
-        <p>The "Survival Kit" and "All-Access Pass" are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
+        <p>The "Practical Chinese" ($29) and "Founding Lifetime" ($59) are one-time payment products. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational. The Founding Lifetime plan includes all future content updates at no extra charge.</p>
         <h4>3. REFUND POLICY</h4>
         <p><strong>Digital Nature & Final Sale</strong><br>
-        Due to the digital, intangible, and instantly downloadable nature of our learning materials, all sales of premium content (including the "Survival Kit" and "All-Access Pass") are strictly final. We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content. Access is deemed granted upon the automated internal issuance of account permissions or email delivery of access links, regardless of actual download status.</p>
+        Because HanLingo is a digital product with instant access, all sales are final. We encourage you to try the 5 free phrases on our homepage before purchasing. Once access is granted, refunds are not available.</p>
         <h4>4. EU/UK CONSUMER WAIVER NOTICE</h4>
-        <p>If you reside in the European Union (EU) or the United Kingdom (UK), by clicking "Purchase", "Checkout", or checking the consent box at checkout, you expressly agree that the supply of digital content begins immediately upon purchase. You hereby acknowledge and agree that you lose your 14-day right of withdrawal (cooling-off period) under the EU Consumer Rights Directive once the content delivery or account provisioning has commenced.</p>
+        <p>If you reside in the EU or UK, by completing checkout you agree that digital content supply begins immediately. You acknowledge losing your 14-day withdrawal right once access is provisioned.</p>
         <h4>5. TESTING AND COMPATIBILITY</h4>
-        <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on our homepage before making any purchasing decisions. It is the user's sole responsibility to ensure that their device, operating system, internet connection, and software are compatible with our digital file formats. Refunds will not be issued based on user-end technical, internet, or software compatibility issues.</p>
-        <h4>6. CHARGEBACKS AND FRAUD</h4>
-        <p>Unauthorized chargebacks, frivolous dispute filings, or fraudulent refund claims will result in the immediate, permanent termination of your account and access privileges. We reserve the right to submit your purchase history, IP logs, and check-out consent records to payment processors (such as Stripe/PayPal) and relevant consumer risk databases to dispute any bad-faith chargebacks.</p>
+        <p>We encourage all users to try the free 5-phrase samples before purchasing. Please ensure your device and browser are compatible.</p>
+        <h4>6. DISPUTES</h4>
+        <p>If you have an issue with your purchase, please contact support@hanlingo.app. We reserve the right to share transaction records with payment processors to resolve disputes.</p>
         <h4>7. GOVERNING LAW</h4>
         <p>These Terms shall be governed by the laws of Singapore.</p>
         <h4>8. CONTACT</h4>
@@ -209,16 +209,16 @@ const legalTexts = {
         <span class="update-date">Last Updated: August 2026</span>
         
         <h4>1. DIGITAL NATURE & FINAL SALE</h4>
-        <p>Due to the digital, intangible, and instantly downloadable nature of our learning materials, all sales of premium content (including the "Survival Kit" and "All-Access Pass") are strictly final. We do not offer refunds, exchanges, or cancellations once the user's account has been granted access to the content. Access is deemed granted upon the automated internal issuance of account permissions or email delivery of access links, regardless of actual download status.</p>
+        <p>Because HanLingo is a digital product with instant access, all sales are final. We encourage you to try the 5 free phrases on our homepage before purchasing. Once access is granted, refunds, exchanges, or cancellations are not available.</p>
         
         <h4>2. EU/UK CONSUMER WAIVER NOTICE</h4>
-        <p>If you reside in the European Union (EU) or the United Kingdom (UK), by clicking "Purchase", "Checkout", or checking the consent box at checkout, you expressly agree that the supply of digital content begins immediately upon purchase. You hereby acknowledge and agree that you lose your 14-day right of withdrawal (cooling-off period) under the EU Consumer Rights Directive once the content delivery or account provisioning has commenced.</p>
+        <p>If you reside in the EU or UK, by completing checkout you agree that the supply of digital content begins immediately. You acknowledge that you lose your 14-day right of withdrawal under the EU Consumer Rights Directive once access has been provisioned.</p>
         
         <h4>3. TESTING AND COMPATIBILITY</h4>
-        <p>We strongly encourage all users to thoroughly test the free 5-sentence samples provided on our homepage before making any purchasing decisions. It is the user's sole responsibility to ensure that their device, operating system, internet connection, and software are compatible with our digital file formats. Refunds will not be issued based on user-end technical, internet, or software compatibility issues.</p>
+        <p>We encourage all users to try the free 5-phrase samples on our homepage before purchasing. Please ensure your device and browser are compatible.</p>
         
-        <h4>4. CHARGEBACKS AND FRAUD</h4>
-        <p>Unauthorized chargebacks, frivolous dispute filings, or fraudulent refund claims will result in the immediate, permanent termination of your account and access privileges. We reserve the right to submit your purchase history, IP logs, and check-out consent records to payment processors (such as Stripe/PayPal) and relevant consumer risk databases to dispute any bad-faith chargebacks.</p>
+        <h4>4. DISPUTES</h4>
+        <p>If you believe there is an issue with your purchase, please contact us at support@hanlingo.app and we will do our best to resolve it. We reserve the right to share transaction records with payment processors to resolve disputes.</p>
         
         <h4>Contact Us</h4>
         <p><a href="mailto:support@hanlingo.app" style="color: #ff4500; font-weight: 600; text-decoration: none;">support@hanlingo.app</a></p>
@@ -228,7 +228,7 @@ const legalTexts = {
         </div>
     `
 };
-// È»ºó¼ò»¯ openLegalModal
+// È»ï¿½ï¿½ï¿½ openLegalModal
 function openLegalModal(type) {
     if(!legalModal || !legalContent) return;
     legalContent.innerHTML = legalTexts[type];
@@ -240,20 +240,20 @@ function closeLegalModal() {
     legalModal.classList.remove('open');
     document.body.style.overflow = '';
 }
-// µã»÷±³¾°¹Ø±Õµ¯´°
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õµï¿½ï¿½ï¿½
 if(legalModal){
     legalModal.addEventListener('click', function(e) {
         if (e.target === this) closeLegalModal();
     });
 }
-// ===== 5. ¶¥²¿µ¼º½ PWA °²×°°´Å¥ (Ö§³Öµã»÷) =====
+// ===== 5. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PWA ï¿½ï¿½×°ï¿½ï¿½Å¥ (Ö§ï¿½Öµï¿½ï¿½) =====
 let deferredPromptHeader = null;
-// ¼àÌý beforeinstallprompt
+// ï¿½ï¿½ï¿½ï¿½ beforeinstallprompt
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPromptHeader = e;
     
-    // ÏÔÊ¾¶¥²¿°²×°°´Å¥
+    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Å¥
     const headerBtn = document.getElementById('headerPwaInstall');
     if (headerBtn) {
         headerBtn.style.display = 'flex';
@@ -263,7 +263,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
         `;
     }
 });
-// µã»÷¶¥²¿°´Å¥´¥·¢°²×°
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°
 function triggerHeaderInstall() {
     const headerBtn = document.getElementById('headerPwaInstall');
     
@@ -281,11 +281,11 @@ function triggerHeaderInstall() {
             deferredPromptHeader = null;
         });
     } else {
-        // ÏÔÊ¾ÊÖ¶¯°²×°Òýµ¼
+        // ï¿½ï¿½Ê¾ï¿½Ö¶ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
         showManualInstallGuide();
     }
 }
-// ÊÖ¶¯°²×°Òýµ¼
+// ï¿½Ö¶ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
 function showManualInstallGuide() {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     let steps = [];
@@ -314,7 +314,7 @@ function showManualInstallGuide() {
         ];
     }
     
-    // ´´½¨Òýµ¼µ¯´°
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     const modal = document.createElement('div');
     modal.style.cssText = `
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -325,7 +325,7 @@ function showManualInstallGuide() {
     
     modal.innerHTML = `
         <div style="background: white; border-radius: 24px; max-width: 380px; width: 90%; padding: 28px 24px; box-shadow: 0 24px 80px rgba(0,0,0,0.3); text-align: left; position: relative;">
-            <button onclick="this.closest('div[style]').remove()" style="position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 22px; color: #94a3b8; cursor: pointer;">¡Á</button>
+            <button onclick="this.closest('div[style]').remove()" style="position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 22px; color: #94a3b8; cursor: pointer;">ï¿½ï¿½</button>
             <div style="font-size: 44px; text-align: center; margin-bottom: 4px;">??</div>
             <h3 style="font-size: 19px; font-weight: 800; color: #0F1E2C; text-align: center; margin: 0 0 4px 0;">Install HanLingo</h3>
             <p style="font-size: 13px; color: #475569; text-align: center; margin: 0 0 16px 0;">${deviceName}</p>
@@ -340,7 +340,7 @@ function showManualInstallGuide() {
     
     document.body.appendChild(modal);
 }
-// ¼ì²âÊÇ·ñÒÑÔÚ PWA ÖÐÔËÐÐ
+// ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ PWA ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 if (window.matchMedia('(display-mode: standalone)').matches || 
     window.navigator.standalone === true) {
     const headerBtn = document.getElementById('headerPwaInstall');
@@ -348,7 +348,7 @@ if (window.matchMedia('(display-mode: standalone)').matches ||
         headerBtn.style.display = 'none';
     }
 }
-// ¼àÌý°²×°Íê³É
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½
 window.addEventListener('appinstalled', () => {
     const headerBtn = document.getElementById('headerPwaInstall');
     if (headerBtn) {
