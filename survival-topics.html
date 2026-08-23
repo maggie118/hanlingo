@@ -281,12 +281,16 @@
         /* ===== 短语样式 (始终可见，但内容模糊锁定) ===== */
         .phrases { display: flex; flex-direction: column; gap: 10px; padding: 0 0 16px 0; }
         .phrase {
-            display: grid; grid-template-columns: 28px 40px 1fr auto; gap: 10px;
+            display: grid; grid-template-columns: 28px 40px 40px 1fr 28px auto; gap: 8px;
             align-items: center; background: var(--bg-main); border-radius: 12px;
             padding: 10px 16px; border: 1px solid transparent; transition: var(--transition);
             position: relative; cursor: pointer;
         }
         .phrase:hover { border-color: #cbd5e1; }
+        /* Override .sv-fav-btn absolute positioning for inline .phrase layout */
+        .phrase .sv-fav-btn {
+            position: static; width: 28px; height: 28px; font-size: 15px; border-radius: 50%;
+        }
         .phrase.phrase-completed { border-left: 4px solid #22c55e; background: #f0fdf4; }
         .phrase .p-num { font-weight: 900; color: var(--text-muted); font-size: 13px; text-align: center; }
 
@@ -895,7 +899,7 @@
         @media (max-width: 600px) {
             .accordion-header { flex-wrap: wrap; padding: 16px; }
             .topic-meta { width: 100%; justify-content: flex-start; padding-left: 64px; margin-top: -8px; }
-            .phrase { grid-template-columns: 24px 36px 1fr auto; gap: 6px; padding: 8px 12px; }
+            .phrase { grid-template-columns: 24px 34px 34px 1fr 24px auto; gap: 6px; padding: 8px 12px; }
             .speaker { width: 34px; height: 34px; font-size: 12px; }
             .page-header-inner h1 { font-size: 24px; }
             .top-nav { padding: 10px 16px; }
@@ -909,7 +913,7 @@
             .topic-ico { width: 36px; height: 36px; font-size: 1rem; }
             .topic-info h3 { font-size: 14px; }
             .topic-info p { font-size: 12px; }
-            .phrase { grid-template-columns: 20px 30px 1fr auto; padding: 6px 10px; }
+            .phrase { grid-template-columns: 20px 30px 30px 1fr 20px auto; padding: 6px 10px; }
             .phrase .p-zh { font-size: 14px; }
             .phrase .p-en { font-size: 12px; }
         }
@@ -1826,7 +1830,7 @@
                 </div>
             </div>
             <div class="hl-bc-body">
-                <div class="hl-bc-culture" id="hlBcCulture"></div>
+                <div id="hlBcCulture"></div>
                 <div class="hl-bc-nav">
                     <button class="hl-bc-nav-btn" id="hlBcPrev" aria-label="Previous phrase">← Prev</button>
                     <span class="hl-bc-nav-pos" id="hlBcNavPos">1 / 10</span>
