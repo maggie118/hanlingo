@@ -648,6 +648,37 @@
             margin-top: 4px;
         }
         .hl-bc-culture.open { display: block; }
+        /* Chinese pinyin annotation in cultural notes */
+        .cn-pinyin {
+            border-bottom: 1px dashed #a7f3d0;
+            cursor: help;
+            padding-bottom: 1px;
+            transition: background 0.15s ease;
+        }
+        .cn-pinyin:hover {
+            background: #ecfdf3;
+            border-bottom-color: #065f46;
+        }
+        .cn-pinyin::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #065f46;
+            color: #ecfdf3;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+            z-index: 5;
+        }
+        .cn-pinyin { position: relative; }
+        .cn-pinyin:hover::after { opacity: 1; }
 
         /* Big Card prev/next navigation */
         .hl-bc-nav {
@@ -665,12 +696,63 @@
         .hl-bc-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
         .hl-bc-nav-pos { font-size: 13px; color: #94a3b8; font-weight: 600; }
 
+        /* Big Card lock overlay for premium phrases */
+        .hl-bigcard { position: relative; }
+        .hl-bc-lock-overlay {
+            position: absolute; inset: 0;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.22s ease;
+            z-index: 10;
+        }
+        .hl-bc-lock-overlay.show {
+            opacity: 1; pointer-events: auto;
+        }
+        .hl-bc-lock-content {
+            text-align: center;
+            padding: 28px 24px;
+            max-width: 280px;
+        }
+        .hl-bc-lock-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+        .hl-bc-lock-title {
+            font-size: 20px; font-weight: 800;
+            color: var(--struct-dark);
+            margin-bottom: 8px;
+        }
+        .hl-bc-lock-desc {
+            font-size: 13px; color: #64748b;
+            line-height: 1.55;
+            margin-bottom: 20px;
+        }
+        .hl-bc-lock-cta {
+            display: block; width: 100%;
+            padding: 12px 20px;
+            background: var(--struct-dark); color: #fff;
+            border: none; border-radius: 12px;
+            font-size: 15px; font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-bottom: 8px;
+        }
+        .hl-bc-lock-cta:hover { background: var(--struct-dark-light); }
+        .hl-bc-lock-sub {
+            font-size: 12px; color: #94a3b8; font-weight: 500;
+        }
+
         @media (max-width: 480px) {
             .hl-bc-words { grid-template-columns: 1fr; }
             .hl-bc-zh { font-size: 28px; letter-spacing: 0.5px; }
             .hl-bc-hero { padding: 32px 20px 22px 20px; }
             .hl-bc-body { padding: 22px 20px 26px 20px; }
-            .hl-bc-play, .hl-bc-slow { font-size: 13px; padding: 9px 16px; min-width: 115px; }
+            .hl-bc-play, .hl-bc-slow { font-size: 13px; padding: 10px 18px; min-width: 120px; }
+            .hl-bc-play .pb-icon, .hl-bc-slow .pb-icon { font-size: 16px; margin-right: 4px; }
         }
 
         /* ===== Word-meaning bubble inside Big Card (hover on zh char or py syllable) ===== */
@@ -1837,6 +1919,15 @@
                     <button class="hl-bc-nav-btn" id="hlBcNext" aria-label="Next phrase">Next →</button>
                 </div>
             </div>
+            <div class="hl-bc-lock-overlay" id="hlBcLockOverlay" aria-hidden="true">
+                <div class="hl-bc-lock-content">
+                    <div class="hl-bc-lock-icon">🔒</div>
+                    <div class="hl-bc-lock-title">Premium Content</div>
+                    <div class="hl-bc-lock-desc">Unlock all 150 phrases with audio, pinyin, and cultural notes</div>
+                    <button class="hl-bc-lock-cta" id="hlBcLockCta">Get Lifetime Access</button>
+                    <div class="hl-bc-lock-sub">$59 — Best Value · Lifetime updates</div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -2442,11 +2533,21 @@
             const bcPrev = document.getElementById('hlBcPrev');
             const bcNext = document.getElementById('hlBcNext');
             const bcNavPos = document.getElementById('hlBcNavPos');
+            const bcLockOverlay = document.getElementById('hlBcLockOverlay');
+            const bcLockCta = document.getElementById('hlBcLockCta');
             let bcWtipHideTimer = null;
             let currentBcPhraseId = null;
             const SLOW_RATE = 0.7; // 70% speed for zero-basics learners
+            const FREE_COUNT = 2; // First 2 phrases per topic are free
 
             // ===== Prev/Next navigation in Big Card =====
+            // Topic order follows DOM data-topic sequence; first topic DOM uses 'taxi'
+            // but its phrase IDs use the 'travel' prefix, so we normalize here.
+            const TOPIC_ORDER = [
+                'travel', 'food', 'directions', 'hotel', 'shopping',
+                'emergency', 'bank', 'post', 'cafe', 'phone',
+                'work', 'social', 'weather', 'time', 'culture'
+            ];
             function getTopicPhraseIds(topicKey) {
                 const ids = [];
                 for (let i = 1; i <= 20; i++) {
@@ -2462,14 +2563,40 @@
                 const ids = getTopicPhraseIds(topicKey);
                 const idx = ids.indexOf(currentBcPhraseId);
                 if (idx < 0) return;
-                const newIdx = idx + dir;
-                if (newIdx < 0 || newIdx >= ids.length) return;
+                let newIdx = idx + dir;
+                // Cross-topic navigation: when reaching boundary, jump to next/prev topic
+                if (newIdx >= ids.length) {
+                    const tIdx = TOPIC_ORDER.indexOf(topicKey);
+                    if (tIdx < 0 || tIdx >= TOPIC_ORDER.length - 1) return;
+                    const nextTopic = TOPIC_ORDER[tIdx + 1];
+                    const nextIds = getTopicPhraseIds(nextTopic);
+                    if (!nextIds.length) return;
+                    if (window.hl_currentAudio) { try { window.hl_currentAudio.pause(); } catch (e) {} }
+                    openBigCard(nextIds[0]);
+                    return;
+                }
+                if (newIdx < 0) {
+                    const tIdx = TOPIC_ORDER.indexOf(topicKey);
+                    if (tIdx <= 0) return;
+                    const prevTopic = TOPIC_ORDER[tIdx - 1];
+                    const prevIds = getTopicPhraseIds(prevTopic);
+                    if (!prevIds.length) return;
+                    if (window.hl_currentAudio) { try { window.hl_currentAudio.pause(); } catch (e) {} }
+                    openBigCard(prevIds[prevIds.length - 1]);
+                    return;
+                }
                 // Stop current audio before navigating
                 if (window.hl_currentAudio) { try { window.hl_currentAudio.pause(); } catch (e) {} }
                 openBigCard(ids[newIdx]);
             }
             if (bcPrev) bcPrev.addEventListener('click', function () { navigateBigCard(-1); });
             if (bcNext) bcNext.addEventListener('click', function () { navigateBigCard(1); });
+            // Lock CTA → open unlock popup
+            if (bcLockCta) bcLockCta.addEventListener('click', function () {
+                if (window.openUnlockPopup) { window.openUnlockPopup(); }
+            });
+            function showBcLock() { if (bcLockOverlay) { bcLockOverlay.classList.add('show'); bcLockOverlay.setAttribute('aria-hidden', 'false'); } }
+            function hideBcLock() { if (bcLockOverlay) { bcLockOverlay.classList.remove('show'); bcLockOverlay.setAttribute('aria-hidden', 'true'); } }
 
             // ===== Big Card char hover: word-meaning bubble =====
             function positionBcWtip(elRect) {
@@ -2922,6 +3049,114 @@
                 });
             }
 
+            // ===== Pinyin annotation for Chinese in Cultural Notes =====
+            // Build a pinyin lookup map from all phrase words
+            const pinyinMap = {};
+            for (const _pid in PHRASE_DATA) {
+                const _pd = PHRASE_DATA[_pid];
+                if (_pd && _pd.words) {
+                    for (let _wi = 0; _wi < _pd.words.length; _wi++) {
+                        const _w = _pd.words[_wi];
+                        if (_w.ch && _w.py) {
+                            // Store by full word first, then by individual chars
+                            if (!pinyinMap[_w.ch]) pinyinMap[_w.ch] = _w.py;
+                            // Also store per-char mapping for partial matches
+                            const pySyls = splitPY(_w.py, _w.ch.length);
+                            for (let _ci = 0; _ci < _w.ch.length; _ci++) {
+                                const _ch = _w.ch[_ci];
+                                if (!pinyinMap[_ch]) pinyinMap[_ch] = pySyls[_ci] || '';
+                            }
+                        }
+                    }
+                }
+            }
+            // Extra cultural-term pinyin not in phrase words
+            const EXTRA_PINYIN = {
+                '滴滴': 'dī dī', '人民币': 'rén mín bì', '元': 'yuán',
+                '高铁': 'gāo tiě', '地铁': 'dì tiě', '站': 'zhàn',
+                '出口': 'chū kǒu', '微信支付': 'wēi xìn zhī fù',
+                '支付宝': 'zhī fù bǎo', '微辣': 'wēi là',
+                '埋單': 'mái dān', '服务员': 'fú wù yuán',
+                '好吃': 'hǎo chī', '不好吃': 'bù hǎo chī',
+                '双': 'shuāng', '打包': 'dǎ bāo',
+                '老板': 'lǎo bǎn', '招牌菜': 'zhāo pái cài',
+                '一下': 'yī xià', '请问': 'qǐng wèn',
+                '往前走': 'wǎng qián zǒu', '地下通道': 'dì xià tōng dào',
+                '天桥': 'tiān qiáo', '药店': 'yào diàn',
+                '医院': 'yī yuàn', '百度地图': 'bǎi dù dì tú',
+                '高德': 'gāo dé', '涉外酒店': 'shè wài jiǔ diàn',
+                '机场': 'jī chǎng', '出租车': 'chū zū chē',
+                '酒店': 'jiǔ diàn', '银行': 'yín háng',
+                '邮局': 'yóu jú', '咖啡厅': 'kā fēi tīng',
+                '电话': 'diàn huà', '手机': 'shǒu jī',
+                '网络': 'wǎng luò', '公司': 'gōng sī',
+                '天气': 'tiān qì', '季节': 'jì jié',
+                '时间': 'shí jiān', '文化': 'wén huà',
+                '礼仪': 'lǐ yí', '商场': 'shāng chǎng',
+                '超市': 'chāo shì', '市场': 'shì chǎng',
+                '餐厅': 'cān tīng', '厕所': 'cè suǒ',
+                '洗手间': 'xǐ shǒu jiān', '路': 'lù',
+                '街': 'jiē', '号': 'hào', '楼': 'lóu',
+                '房间': 'fáng jiān', '钥匙': 'yào shi',
+                '护照': 'hù zhào', '签证': 'qiān zhèng',
+                '飞机': 'fēi jī', '火车': 'huǒ chē',
+                '票': 'piào', '座位': 'zuò wèi',
+                '预约': 'yù yuē', '预订': 'yù dìng',
+                '改变': 'gǎi biàn', '取消': 'qǔ xiāo',
+                '身份证': 'shēn fèn zhèng', '登记': 'dēng jì',
+                '押金': 'yā jīn', '退还': 'tuì huán'
+            };
+            for (const _k in EXTRA_PINYIN) {
+                if (!pinyinMap[_k]) pinyinMap[_k] = EXTRA_PINYIN[_k];
+            }
+            // Also index extra terms by individual chars
+            for (const _k in EXTRA_PINYIN) {
+                const _py = EXTRA_PINYIN[_k];
+                const _syls = _py.split(/\s+/);
+                for (let _ci = 0; _ci < _k.length; _ci++) {
+                    const _ch = _k[_ci];
+                    if (!pinyinMap[_ch] && _syls[_ci]) pinyinMap[_ch] = _syls[_ci];
+                }
+            }
+
+            function annotateCultureChinese(text) {
+                if (!text) return '';
+                // First escape HTML, then find Chinese character sequences
+                const escaped = escapeHTML(text);
+                const cjkRe = /[\u4e00-\u9fff\u3400-\u4dbf]+/g;
+                const annotated = escaped.replace(cjkRe, function (match) {
+                    // Try longest match first from pinyinMap
+                    let result = '';
+                    let i = 0;
+                    while (i < match.length) {
+                        let matched = false;
+                        // Try to match longest known term starting at position i
+                        for (let len = Math.min(match.length - i, 6); len >= 2; len--) {
+                            const sub = match.substring(i, i + len);
+                            if (pinyinMap[sub]) {
+                                result += '<span class="cn-pinyin" title="' + escapeHTML(pinyinMap[sub]) + '">' + escapeHTML(sub) + '</span>';
+                                i += len;
+                                matched = true;
+                                break;
+                            }
+                        }
+                        if (!matched) {
+                            // Single char lookup
+                            const ch = match[i];
+                            const py = pinyinMap[ch] || '';
+                            if (py) {
+                                result += '<span class="cn-pinyin" title="' + escapeHTML(py) + '">' + escapeHTML(ch) + '</span>';
+                            } else {
+                                result += escapeHTML(ch);
+                            }
+                            i++;
+                        }
+                    }
+                    return result;
+                });
+                return annotated;
+            }
+
             function openBigCard(phraseId) {
                 const data = PHRASE_DATA[phraseId];
                 if (!data || !overlay) return;
@@ -2932,28 +3167,33 @@
                 const dash = phraseId.indexOf('-');
                 const topicKey = phraseId.substring(0, dash);
                 const numStr = phraseId.substring(dash + 1);
-                // Update prev/next nav
+                // Update prev/next nav (cross-topic aware)
                 const topicIds = getTopicPhraseIds(topicKey);
                 const posIdx = topicIds.indexOf(phraseId);
+                const tIdx = TOPIC_ORDER.indexOf(topicKey);
+                const isFirstOverall = (tIdx === 0 && posIdx === 0);
+                const isLastOverall = (tIdx === TOPIC_ORDER.length - 1 && posIdx === topicIds.length - 1);
                 if (bcNavPos) bcNavPos.textContent = (posIdx + 1) + ' / ' + topicIds.length;
-                if (bcPrev) bcPrev.disabled = (posIdx <= 0);
-                if (bcNext) bcNext.disabled = (posIdx >= topicIds.length - 1);
+                if (bcPrev) bcPrev.disabled = isFirstOverall;
+                if (bcNext) bcNext.disabled = isLastOverall;
+                const isLocked = (posIdx >= FREE_COUNT);
                 const label = TOPIC_LABELS[topicKey] || topicKey;
                 const numNum = parseInt(numStr, 10);
                 const enText = document.querySelector('.phrase[data-phrase-id="' + phraseId + '"] .p-en');
                 if (bcTopic) bcTopic.textContent = label;
-                if (bcNum) bcNum.textContent = numNum + ' / 10 in this topic';
+                if (bcNum) bcNum.textContent = numNum + ' / ' + topicIds.length + ' in this topic';
                 // Build karaoke spans (fills bcZh + bcPy with per-char <span>s, and fills kkChars array)
                 buildKaraokeSpans(phraseId);
                 computeKaraokeTiming(0); // initial estimate using weight-based seconds (real duration auto-refines on metadata load)
                 if (bcEn) bcEn.textContent = enText ? enText.textContent.trim() : '';
-                // Cultural Note: foldable (collapsed by default)
+                // Cultural Note: foldable (collapsed by default) — render even when locked
                 if (bcCulture) {
+                    const cultureHtml = annotateCultureChinese(data.culture);
                     bcCulture.innerHTML =
                         '<div class="hl-bc-culture-toggle" id="hlBcCultureToggle">' +
                         '<span class="toggle-arrow">▶</span> Cultural Note' +
                         '</div>' +
-                        '<div class="hl-bc-culture" id="hlBcCultureBody">' + escapeHTML(data.culture) + '</div>';
+                        '<div class="hl-bc-culture" id="hlBcCultureBody">' + cultureHtml + '</div>';
                     const toggle = document.getElementById('hlBcCultureToggle');
                     const cultureBody = document.getElementById('hlBcCultureBody');
                     if (toggle) {
@@ -2962,6 +3202,22 @@
                             if (cultureBody) cultureBody.classList.toggle('open');
                         });
                     }
+                }
+                // Lock overlay: show for phrases beyond FREE_COUNT
+                if (isLocked) {
+                    showBcLock();
+                    // Pause any audio when locked
+                    try {
+                        const normalA = bcAudioCache['/audio/' + phraseId + '.mp3@1'];
+                        const slowA = bcAudioCache['/audio/' + phraseId + '.mp3@' + SLOW_RATE];
+                        if (normalA) normalA.pause();
+                        if (slowA) slowA.pause();
+                    } catch (e) {}
+                    resetBigCardPlaybackUI();
+                    if (bcPlay) { bcPlay.classList.remove('playing'); if (bcPlayIcon) bcPlayIcon.textContent = '▶'; }
+                    if (bcSlow) { bcSlow.classList.remove('playing'); if (bcSlowIcon) bcSlowIcon.textContent = '🐢'; }
+                } else {
+                    hideBcLock();
                 }
                 overlay.classList.add('open');
                 overlay.setAttribute('aria-hidden', 'false');
@@ -2974,6 +3230,8 @@
                 overlay.classList.remove('open');
                 overlay.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
+                // Hide lock overlay
+                hideBcLock();
                 // Hide any char-meaning tooltip
                 hideBcWtip();
                 if (bcWtip) {
