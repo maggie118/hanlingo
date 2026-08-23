@@ -1122,10 +1122,9 @@
 
     <!-- ====== 页面头部 ====== -->
     <section class="page-header-inner">
-        <h1>Survival Chinese</h1>
-        <p>Learn Chinese for real-life situations.</p>
-        <p style="margin-top:4px;font-size:12px;color:#94a3b8;">150 phrases · 15 topics</p>
-    </section>
+        <h1>Practical Chinese</h1>
+        <p>Real Chinese for real situations.</p>
+        </section>
 
     <!-- ====== 学习进度条 (极简) ====== -->
     <div class="progress-container" id="progressContainer">
@@ -1141,7 +1140,7 @@
     <div class="tools-bar">
         <div class="search-box">
             <span class="search-ico">🔍</span>
-            <input type="text" id="phraseSearchInput" placeholder="Search Chinese sentences..." autocomplete="off">
+            <input type="text" id="phraseSearchInput" placeholder="Search phrases..." autocomplete="off">
         </div>
         <div class="search-scope" id="searchScope">
             <button type="button" data-scope="all" class="active">All</button>
@@ -1688,7 +1687,7 @@
 
         function playLocalAudio(phraseId, buttonElement) {
             if (!phraseId) return;
-            const audioUrl = `/audio/${phraseId}.mp3`;
+            const audioUrl = `./audio/${phraseId}.mp3`;
 
             if (audioCache[audioUrl]) {
                 const audio = audioCache[audioUrl];
@@ -2465,7 +2464,7 @@
                     icoBox.textContent = icoBox.textContent.trim();
                 }
                 const countPill = item.querySelector('.topic-meta .count-pill');
-                if (countPill) countPill.textContent = '10 phrases';
+                if (countPill) countPill.textContent = 'expressions →';
 
                 // 2. Remove unlock-row buttons at bottom of each topic
                 item.querySelectorAll('.unlock-row').forEach(function (btn) { btn.remove(); });
@@ -2918,7 +2917,7 @@
             // Shared cache: key by "${url}@${rate}" so normal and slow are independent audios
             const bcAudioCache = window.audioCache || {};
             function getOrCreateAudio(phraseId, rate) {
-                const audioUrl = '/audio/' + phraseId + '.mp3';
+                const audioUrl = './audio/' + phraseId + '.mp3';
                 const cacheKey = audioUrl + '@' + rate;
                 let audio = bcAudioCache[cacheKey];
                 if (!audio) {
@@ -3208,8 +3207,8 @@
                     showBcLock();
                     // Pause any audio when locked
                     try {
-                        const normalA = bcAudioCache['/audio/' + phraseId + '.mp3@1'];
-                        const slowA = bcAudioCache['/audio/' + phraseId + '.mp3@' + SLOW_RATE];
+                        const normalA = bcAudioCache['./audio/' + phraseId + '.mp3@1'];
+                        const slowA = bcAudioCache['./audio/' + phraseId + '.mp3@' + SLOW_RATE];
                         if (normalA) normalA.pause();
                         if (slowA) slowA.pause();
                     } catch (e) {}
@@ -3242,8 +3241,8 @@
                 detachProgressLoop();
                 // Pause the audio of the current phrase if any (both normal & slow caches)
                 try {
-                    const normalA = bcAudioCache['/audio/' + currentBcPhraseId + '.mp3@1'];
-                    const slowA = bcAudioCache['/audio/' + currentBcPhraseId + '.mp3@' + SLOW_RATE];
+                    const normalA = bcAudioCache['./audio/' + currentBcPhraseId + '.mp3@1'];
+                    const slowA = bcAudioCache['./audio/' + currentBcPhraseId + '.mp3@' + SLOW_RATE];
                     if (normalA) normalA.pause();
                     if (slowA) slowA.pause();
                 } catch (e) { /* ignore */ }
