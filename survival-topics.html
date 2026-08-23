@@ -284,7 +284,9 @@
             display: grid; grid-template-columns: 28px 40px 1fr auto; gap: 10px;
             align-items: center; background: var(--bg-main); border-radius: 12px;
             padding: 10px 16px; border: 1px solid transparent; transition: var(--transition);
+            position: relative; cursor: pointer;
         }
+        .phrase:hover { border-color: #cbd5e1; }
         .phrase.phrase-completed { border-left: 4px solid #22c55e; background: #f0fdf4; }
         .phrase .p-num { font-weight: 900; color: var(--text-muted); font-size: 13px; text-align: center; }
 
@@ -642,6 +644,22 @@
             margin-top: 4px;
         }
         .hl-bc-culture.open { display: block; }
+
+        /* Big Card prev/next navigation */
+        .hl-bc-nav {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-top: 20px; padding-top: 16px;
+            border-top: 1px solid var(--border-color, #e2e8f0);
+        }
+        .hl-bc-nav-btn {
+            padding: 8px 18px; border-radius: 999px;
+            border: 1px solid var(--border-color, #e2e8f0); background: #fff;
+            color: var(--struct-dark, #1e293b); font-size: 13px; font-weight: 700;
+            cursor: pointer; transition: all 0.15s ease;
+        }
+        .hl-bc-nav-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+        .hl-bc-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .hl-bc-nav-pos { font-size: 13px; color: #94a3b8; font-weight: 600; }
 
         @media (max-width: 480px) {
             .hl-bc-words { grid-template-columns: 1fr; }
@@ -1478,7 +1496,6 @@
 
     <!-- ====== FOOTER ====== -->
     <footer class="global-footer">
-        <button class="nav-cta-btn" onclick="triggerPWAInstall()" id="pwaInstallFooterBtn" style="margin-bottom:12px;">📲 Install App</button>
         <div class="copy"><strong>HanLingo</strong> — Made for people who want to speak Chinese in real life.</div>
         <div class="copy" style="margin-top:4px;">© 2026 HanLingo.app</div>
         <div class="links">
@@ -1486,6 +1503,7 @@
             <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy</a>
             <a href="javascript:void(0)" onclick="openLegalModal('refund')">Refund Policy</a>
             <a href="mailto:support@hanlingo.app">support@hanlingo.app</a>
+            <button class="nav-cta-btn" onclick="triggerPWAInstall()" id="pwaInstallFooterBtn" style="font-size:12px;padding:4px 12px;">📲 Install App</button>
             <a href="index.html" style="color:#94a3b8;font-size:12px;">← Back to Home</a>
         </div>
     </footer>
@@ -1809,6 +1827,11 @@
             </div>
             <div class="hl-bc-body">
                 <div class="hl-bc-culture" id="hlBcCulture"></div>
+                <div class="hl-bc-nav">
+                    <button class="hl-bc-nav-btn" id="hlBcPrev" aria-label="Previous phrase">← Prev</button>
+                    <span class="hl-bc-nav-pos" id="hlBcNavPos">1 / 10</span>
+                    <button class="hl-bc-nav-btn" id="hlBcNext" aria-label="Next phrase">Next →</button>
+                </div>
             </div>
         </div>
     </div>
@@ -2330,15 +2353,8 @@
         function initHanLingoLearningLayer() {
             document.body.classList.add('hl-preview');
 
-            // Remove existing paywall click handlers via clone+replace (cleans addEventListener listeners)
-            document.querySelectorAll('.locked-phrase-row').forEach(function (row) {
-                const clone = row.cloneNode(true);
-                if (row.parentNode) row.parentNode.replaceChild(clone, row);
-            });
-            document.querySelectorAll('.accordion-header').forEach(function (header) {
-                const clone = header.cloneNode(true);
-                if (header.parentNode) header.parentNode.replaceChild(clone, header);
-            });
+            // Clone+replace not needed: convertAllPhraseRows() replaces old rows entirely,
+            // and accordion toggle uses event delegation on .accordion-wrap.
 
             // ===== Topic Restructuring: clean headers + limit free phrases + add "more phrases" row =====
             document.querySelectorAll('.accordion-item').forEach(function (item) {
@@ -2359,39 +2375,9 @@
                 // 2. Remove unlock-row buttons at bottom of each topic
                 item.querySelectorAll('.unlock-row').forEach(function (btn) { btn.remove(); });
 
-                // 3. Process phrases: first 2 free, rest hidden + "more phrases" row
-                const phrases = item.querySelectorAll('.phrase');
-                const FREE_COUNT = 2;
-                phrases.forEach(function (ph, idx) {
-                    if (idx < FREE_COUNT) {
-                        // Free phrase: remove blur + locked classes
-                        ph.classList.remove('locked', 'locked-phrase-row');
-                        const body = ph.querySelector('.p-body');
-                        if (body) { body.classList.remove('blur'); body.classList.add('unlocked'); }
-                        const badge = ph.querySelector('.lock-badge');
-                        if (badge) badge.remove();
-                        const speaker = ph.querySelector('.speaker');
-                        if (speaker) { speaker.removeAttribute('disabled'); speaker.classList.remove('locked'); }
-                    } else {
-                        // Locked phrase: hide entirely
-                        ph.style.display = 'none';
-                    }
-                });
-
-                // 4. Add "🔒 8 more phrases" row if there are locked phrases
-                if (phrases.length > FREE_COUNT) {
-                    const lockedCount = phrases.length - FREE_COUNT;
-                    const moreRow = document.createElement('div');
-                    moreRow.className = 'more-phrases-row';
-                    moreRow.innerHTML = '<span>🔒 ' + lockedCount + ' more phrases</span>';
-                    moreRow.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        openUnlockPopup();
-                    });
-                    // Insert after the last free phrase
-                    const phrasesContainer = item.querySelector('.phrases');
-                    if (phrasesContainer) phrasesContainer.appendChild(moreRow);
-                }
+                // Phrase visibility (first 2 free, rest hidden + "more phrases" row)
+                // is handled AFTER convertAllPhraseRows() runs, so all phrases share
+                // the same .phrase-card format. See postConversionCleanup() below.
             });
 
             // ===== Unlock Popup =====
@@ -2449,9 +2435,37 @@
             const bcSlow = document.getElementById('hlBcSlow');
             const bcSlowIcon = document.getElementById('hlBcSlowIcon');
             const bcWtip = document.getElementById('hlBcWtip');
+            const bcPrev = document.getElementById('hlBcPrev');
+            const bcNext = document.getElementById('hlBcNext');
+            const bcNavPos = document.getElementById('hlBcNavPos');
             let bcWtipHideTimer = null;
             let currentBcPhraseId = null;
             const SLOW_RATE = 0.7; // 70% speed for zero-basics learners
+
+            // ===== Prev/Next navigation in Big Card =====
+            function getTopicPhraseIds(topicKey) {
+                const ids = [];
+                for (let i = 1; i <= 20; i++) {
+                    const pid = topicKey + '-' + String(i).padStart(2, '0');
+                    if (PHRASE_DATA[pid]) ids.push(pid);
+                }
+                return ids;
+            }
+            function navigateBigCard(dir) {
+                if (!currentBcPhraseId) return;
+                const dash = currentBcPhraseId.indexOf('-');
+                const topicKey = currentBcPhraseId.substring(0, dash);
+                const ids = getTopicPhraseIds(topicKey);
+                const idx = ids.indexOf(currentBcPhraseId);
+                if (idx < 0) return;
+                const newIdx = idx + dir;
+                if (newIdx < 0 || newIdx >= ids.length) return;
+                // Stop current audio before navigating
+                if (window.hl_currentAudio) { try { window.hl_currentAudio.pause(); } catch (e) {} }
+                openBigCard(ids[newIdx]);
+            }
+            if (bcPrev) bcPrev.addEventListener('click', function () { navigateBigCard(-1); });
+            if (bcNext) bcNext.addEventListener('click', function () { navigateBigCard(1); });
 
             // ===== Big Card char hover: word-meaning bubble =====
             function positionBcWtip(elRect) {
@@ -2914,6 +2928,12 @@
                 const dash = phraseId.indexOf('-');
                 const topicKey = phraseId.substring(0, dash);
                 const numStr = phraseId.substring(dash + 1);
+                // Update prev/next nav
+                const topicIds = getTopicPhraseIds(topicKey);
+                const posIdx = topicIds.indexOf(phraseId);
+                if (bcNavPos) bcNavPos.textContent = (posIdx + 1) + ' / ' + topicIds.length;
+                if (bcPrev) bcPrev.disabled = (posIdx <= 0);
+                if (bcNext) bcNext.disabled = (posIdx >= topicIds.length - 1);
                 const label = TOPIC_LABELS[topicKey] || topicKey;
                 const numNum = parseInt(numStr, 10);
                 const enText = document.querySelector('.phrase[data-phrase-id="' + phraseId + '"] .p-en');
@@ -2971,9 +2991,10 @@
                 if (e.target === overlay) closeBigCard();
             });
             document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && overlay && overlay.classList.contains('open')) {
-                    closeBigCard();
-                }
+                if (!overlay || !overlay.classList.contains('open')) return;
+                if (e.key === 'Escape') closeBigCard();
+                else if (e.key === 'ArrowLeft') navigateBigCard(-1);
+                else if (e.key === 'ArrowRight') navigateBigCard(1);
             });
 
             // Tooltip element
@@ -3013,84 +3034,128 @@
                 tooltip.setAttribute('aria-hidden', 'true');
             }
 
-            // For each phrase: insert pinyin, append detail panel, wire hover+click
-            // Skip hidden (locked) phrases — only process the 2 free phrases per topic
-            let missing = 0;
-            document.querySelectorAll('.phrase').forEach(function (phrase) {
-                if (phrase.style.display === 'none') return; // skip locked phrases
-                const id = phrase.getAttribute('data-phrase-id');
-                if (!id) return;
-                const data = PHRASE_DATA[id];
-                if (!data) { missing++; return; }
+            // Process ALL phrases: unlock, add pinyin, speaker, slow-play, favorite, click→BigCard
+            // First 2 visible, rest hidden behind "more phrases" row.
+            const FREE_COUNT = 2;
+            document.querySelectorAll('.accordion-item').forEach(function (item) {
+                const phrases = item.querySelectorAll('.phrase');
+                phrases.forEach(function (phrase, idx) {
+                    const id = phrase.getAttribute('data-phrase-id');
+                    if (!id) return;
+                    const data = PHRASE_DATA[id];
+                    if (!data) return;
 
-                const body = phrase.querySelector('.p-body');
-                if (!body) return;
+                    const body = phrase.querySelector('.p-body');
+                    if (!body) return;
 
-                // Insert pinyin div between .p-zh and .p-en
-                const zh = body.querySelector('.p-zh');
-                const en = body.querySelector('.p-en');
-                const pyDiv = document.createElement('div');
-                pyDiv.className = 'p-py';
-                pyDiv.textContent = data.py;
-                if (zh && en && zh.parentNode === body) {
-                    body.insertBefore(pyDiv, en);
-                } else if (body.appendChild) {
-                    body.appendChild(pyDiv);
-                }
+                    // Unlock: remove locked/blur classes
+                    phrase.classList.remove('locked', 'locked-phrase-row');
+                    body.classList.remove('blur');
+                    body.classList.add('unlocked');
 
-                // Append detail panel inside the phrase (grid will span all columns)
-                const detail = document.createElement('div');
-                detail.className = 'phrase-detail';
-                detail.innerHTML = buildDetailContent(data);
-                phrase.appendChild(detail);
+                    // Remove lock badge
+                    const badge = phrase.querySelector('.lock-badge');
+                    if (badge) badge.remove();
 
-                phrase.classList.add('has-detail');
+                    // Insert pinyin div between .p-zh and .p-en
+                    const zh = body.querySelector('.p-zh');
+                    const en = body.querySelector('.p-en');
+                    const pyDiv = document.createElement('div');
+                    pyDiv.className = 'p-py';
+                    pyDiv.textContent = data.py;
+                    if (zh && en && zh.parentNode === body) {
+                        body.insertBefore(pyDiv, en);
+                    } else {
+                        body.appendChild(pyDiv);
+                    }
 
-                // Enable speaker button: remove disabled + locked class, wire audio handler
-                const speakerBtn = phrase.querySelector('.speaker');
-                if (speakerBtn) {
-                    speakerBtn.removeAttribute('disabled');
-                    speakerBtn.classList.remove('locked');
-                    speakerBtn.addEventListener('click', function (e) {
+                    // Enable speaker button
+                    const speakerBtn = phrase.querySelector('.speaker');
+                    if (speakerBtn) {
+                        speakerBtn.removeAttribute('disabled');
+                        speakerBtn.classList.remove('locked');
+                        speakerBtn.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            playPhraseAudio(id, speakerBtn, 'normal');
+                        });
+                    }
+
+                    // Add slow-play button
+                    const slowBtn = document.createElement('button');
+                    slowBtn.className = 'speaker-slow';
+                    slowBtn.innerHTML = '🐢';
+                    slowBtn.setAttribute('aria-label', 'Play slow (beginner mode)');
+                    slowBtn.addEventListener('click', function (e) {
                         e.stopPropagation();
                         e.preventDefault();
-                        playPhraseAudio(id, speakerBtn, 'normal');
+                        playPhraseAudio(id, slowBtn, 'slow');
                     });
-                }
-                // Add inline slow-play button (🐢) right next to the normal ▶ speaker
-                const slowBtn = document.createElement('button');
-                slowBtn.className = 'speaker-slow';
-                slowBtn.innerHTML = '🐢';
-                slowBtn.setAttribute('aria-label', 'Play slow (beginner mode)');
-                slowBtn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    playPhraseAudio(id, slowBtn, 'slow');
-                });
-                if (speakerBtn && speakerBtn.parentNode) {
-                    // insert after the speaker button
-                    if (speakerBtn.nextSibling) speakerBtn.parentNode.insertBefore(slowBtn, speakerBtn.nextSibling);
-                    else speakerBtn.parentNode.appendChild(slowBtn);
-                } else if (phrase && phrase.firstChild) {
-                    phrase.insertBefore(slowBtn, phrase.firstChild.nextSibling || phrase.firstChild);
-                }
-                // Also add .speaker-slow to click-ignore list so it doesn't open big card
+                    if (speakerBtn && speakerBtn.parentNode) {
+                        if (speakerBtn.nextSibling) speakerBtn.parentNode.insertBefore(slowBtn, speakerBtn.nextSibling);
+                        else speakerBtn.parentNode.appendChild(slowBtn);
+                    }
 
-                // (List-level hover tooltips have been removed per user request;
-                //  word-meaning bubbles now only appear inside the Big Card modal.)
+                    // Add favorite button
+                    const favBtn = document.createElement('button');
+                    favBtn.className = 'sv-fav-btn';
+                    favBtn.setAttribute('type', 'button');
+                    favBtn.setAttribute('title', 'Add to favorites');
+                    favBtn.setAttribute('aria-label', 'Add to favorites');
+                    favBtn.setAttribute('data-pid', id);
+                    favBtn.setAttribute('aria-pressed', 'false');
+                    favBtn.innerHTML = '☆';
+                    favBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        const payload = {
+                            pid: id, zh: data.zh || '', en: data.en || '',
+                            py: data.py || '', topic: data.topic || '', topicLabel: data.topicLabel || ''
+                        };
+                        if (window.HanLingoFavorites) window.HanLingoFavorites.toggle(payload);
+                    });
+                    if (window.HanLingoFavorites) window.HanLingoFavorites.updateStar(favBtn, id);
+                    phrase.appendChild(favBtn);
 
-                // Click handler: ignore clicks on speaker / slow / lock / num
-                phrase.addEventListener('click', function (e) {
-                    if (e.target.closest('.speaker, .speaker-slow, .lock-badge, .completed-check, .p-num')) return;
-                    e.stopPropagation();
-                    e.preventDefault();
-                    // Show Big Card (large per-phrase modal)
-                    openBigCard(id);
+                    // Click handler uses event delegation on .accordion-wrap (see below)
+
+                    // Hide phrases beyond first 2
+                    if (idx >= FREE_COUNT) phrase.style.display = 'none';
                 });
+
+                // Add "more phrases" row
+                if (phrases.length > FREE_COUNT) {
+                    const lockedCount = phrases.length - FREE_COUNT;
+                    const moreRow = document.createElement('div');
+                    moreRow.className = 'more-phrases-row';
+                    moreRow.innerHTML = '<span>🔒 ' + lockedCount + ' more phrases</span>';
+                    moreRow.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        if (window.openUnlockPopup) window.openUnlockPopup();
+                    });
+                    const phrasesContainer = item.querySelector('.phrases');
+                    if (phrasesContainer) phrasesContainer.appendChild(moreRow);
+                }
             });
 
             // Accordion toggle is handled by delegated listener on .accordion-wrap (see below)
             // to avoid double-toggle conflict with the delegated handler.
+
+            // ===== Delegated click: phrase row → open Big Card =====
+            const accordionWrap = document.querySelector('.accordion-wrap');
+            if (accordionWrap) {
+                accordionWrap.addEventListener('click', function (e) {
+                    const phrase = e.target.closest('.phrase');
+                    if (!phrase) return;
+                    // Ignore clicks on interactive elements within the phrase
+                    if (e.target.closest('.speaker, .speaker-slow, .sv-fav-btn, .lock-badge, .completed-check, .p-num, .more-phrases-row')) return;
+                    const pid = phrase.getAttribute('data-phrase-id');
+                    if (!pid) return;
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openBigCard(pid);
+                });
+            }
 
             // Recompute tooltip position on scroll/resize
             window.addEventListener('scroll', hideTooltip, true);
@@ -3168,10 +3233,7 @@
                 }, true);
             })();
 
-            if (missing > 0) {
-                console.warn('[HanLingo Learning Layer] Missing data for ' + missing + ' phrase(s).');
-            }
-            console.log('[HanLingo Learning Layer] Active. 150 phrases with pinyin + hover tooltips + Big Card click modal (preview mode).');
+            console.log('[HanLingo Learning Layer] Active. All phrases handled by convertAllPhraseRows().');
         }
 
         if (document.readyState === 'loading') {
@@ -3733,7 +3795,7 @@
         function convertAllPhraseRows() {
             if (window.__survivalConverted) return;
             const isPreviewMode = document.body && document.body.classList && document.body.classList.contains('hl-preview');
-            const rows = document.querySelectorAll('.phrase.locked-phrase-row');
+            const rows = document.querySelectorAll('.phrase');
             let converted = 0;
             rows.forEach(function (row) {
                 const pid = row.getAttribute('data-phrase-id');
@@ -3854,6 +3916,28 @@
                 if (data) buildKaraokeForCard(card, pid);
                 bindCardClick(card, isLocked);
             });
+
+            // ===== Post-conversion: show first 2 cards free, hide rest + "more phrases" row =====
+            var FREE_COUNT = 2;
+            document.querySelectorAll('.accordion-item').forEach(function (item) {
+                var cards = item.querySelectorAll('.phrase-card');
+                cards.forEach(function (card, idx) {
+                    if (idx >= FREE_COUNT) card.style.display = 'none';
+                });
+                if (cards.length > FREE_COUNT) {
+                    var lockedCount = cards.length - FREE_COUNT;
+                    var moreRow = document.createElement('div');
+                    moreRow.className = 'more-phrases-row';
+                    moreRow.innerHTML = '<span>🔒 ' + lockedCount + ' more phrases</span>';
+                    moreRow.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        if (window.openUnlockPopup) window.openUnlockPopup();
+                    });
+                    var phrasesContainer = item.querySelector('.phrases');
+                    if (phrasesContainer) phrasesContainer.appendChild(moreRow);
+                }
+            });
+
             window.__survivalConverted = true;
 
             window.addEventListener('scroll', hideSvWtip, true);
@@ -3882,7 +3966,8 @@
                 run();
             }
         }
-        scheduleConversion();
+        // scheduleConversion() disabled — phrases stay in .phrase format (user preference)
+        // scheduleConversion();
     })();
 
     /* ============================================================
