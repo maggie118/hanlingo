@@ -651,7 +651,8 @@
             border-color: var(--struct-dark);
         }
         .hl-bc-slow {
-            background: #fff; color: var(--struct-dark);
+            background: #f1f5f9; color: var(--struct-dark);
+            border-color: #cbd5e1;
         }
         .hl-bc-play:hover { background: var(--struct-dark-light); border-color: var(--struct-dark-light); }
         .hl-bc-slow:hover { background: #f1f5f9; border-color: #cbd5e1; }
@@ -2023,7 +2024,6 @@
                             <span class="pb-label">Play Audio</span>
                         </button>
                         <button class="hl-bc-slow" id="hlBcSlow" aria-label="Play slow audio for beginners">
-                            // Inline SVG fills the slow button — no img fallback needed anymore
                             <span class="pb-icon" id="hlBcSlowIcon" aria-hidden="true"></span>
                             <span class="pb-label">Slow Read</span>
                         </button>
