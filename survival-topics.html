@@ -1009,14 +1009,11 @@
 
     <!-- ====== 顶部导航 ====== -->
     <header class="top-nav">
-        <a href="index.html" class="nav-brand">
+        <a href="index.html" class="nav-brand" title="Back to home">
             <img src="logo.png" alt="HanLingo Logo">
             <span>HanLingo</span>
         </a>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <a href="index.html" style="color:#64748b;font-size:14px;font-weight:600;text-decoration:none;">← Home</a>
-            <button class="nav-cta-btn" onclick="triggerPWAInstall()" id="pwaInstallHeaderBtn">Install</button>
-        </div>
+        <a href="index.html" style="color:#64748b;font-size:14px;font-weight:600;text-decoration:none;" title="Back to home">← Home</a>
     </header>
 
     <!-- ====== 页面头部 ====== -->
@@ -3092,14 +3089,8 @@
                 });
             });
 
-            // Accordion header: toggle expand/collapse
-            document.querySelectorAll('.accordion-header').forEach(function (header) {
-                header.addEventListener('click', function () {
-                    const item = header.closest('.accordion-item');
-                    if (!item) return;
-                    item.classList.toggle('expanded');
-                });
-            });
+            // Accordion toggle is handled by delegated listener on .accordion-wrap (see below)
+            // to avoid double-toggle conflict with the delegated handler.
 
             // Recompute tooltip position on scroll/resize
             window.addEventListener('scroll', hideTooltip, true);
