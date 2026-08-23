@@ -1717,8 +1717,7 @@
 
     <!-- ====== FOOTER ====== -->
     <footer class="global-footer">
-        <div class="copy"><strong>HanLingo</strong> — Made for people who want to speak Chinese in real life.</div>
-        <div class="copy" style="margin-top:4px;">© 2026 HanLingo.app · <a href="javascript:void(0)" onclick="openLegalModal('terms')">Terms</a> · <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy</a></div>
+        <div class="copy" style="font-size:11px;">© 2026 HanLingo</div>
     </footer>
 
     <!-- ====== 合规弹窗 ====== -->
@@ -3823,6 +3822,41 @@
                     phraseList.appendChild(moreRow);
                 }
             });
+
+            // ===== Auto-unlock when user returns from Stripe payment (no refresh needed) =====
+            // Ideal flow: Learning Page → UNLOCK NOW → Stripe Checkout → pay → success.html
+            // sets 'hanlingo_paid' → user returns to this tab → we detect it and unlock live.
+            let hlWasPaid = isPaidUser();
+            function applyPaidUnlock() {
+                // 1. Show all hidden phrases
+                document.querySelectorAll('.accordion-item .phrase').forEach(function (phrase) {
+                    phrase.style.display = '';
+                });
+                // 2. Enable locked pill buttons
+                document.querySelectorAll('.phrase-btn[aria-disabled="true"]').forEach(function (btn) {
+                    btn.disabled = false;
+                    btn.setAttribute('aria-disabled', 'false');
+                });
+                // 2b. Enable locked card play buttons (sv-card path) + remove PREMIUM tags
+                document.querySelectorAll('.play-icon[disabled]').forEach(function (btn) { btn.disabled = false; });
+                document.querySelectorAll('.tag-lock').forEach(function (tag) { tag.remove(); });
+                // 3. Remove "+ N more expressions" gate rows
+                document.querySelectorAll('.more-phrases-row').forEach(function (row) { row.remove(); });
+                // 4. If a locked Big Card is open, drop the lock overlay
+                try { if (bcLockOverlay && bcLockOverlay.classList.contains('show')) hideBcLock(); } catch (e) {}
+            }
+            function checkPaidOnReturn() {
+                if (!hlWasPaid && isPaidUser()) {
+                    hlWasPaid = true;
+                    applyPaidUnlock();
+                }
+            }
+            document.addEventListener('visibilitychange', function () {
+                if (document.visibilityState === 'visible') checkPaidOnReturn();
+            });
+            window.addEventListener('focus', checkPaidOnReturn);
+            // Also re-check right after load (covers: paid in another tab, then came here directly)
+            window.addEventListener('pageshow', checkPaidOnReturn);
 
             // Accordion toggle is handled by delegated listener on .accordion-wrap (see below)
             // to avoid double-toggle conflict with the delegated handler.
