@@ -60,11 +60,11 @@
         .nav-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 20px; letter-spacing: -0.5px; color: var(--struct-dark); }
         .nav-brand img { width: 32px; height: 32px; object-fit: contain; border-radius: 50%; }
         .nav-cta-btn {
-            background: #ff4500; color: white; border: none; padding: 9px 20px; border-radius: 20px;
-            font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(255,69,0,0.18);
+            background: var(--struct-dark); color: white; border: none; padding: 8px 18px; border-radius: 20px;
+            font-size: 13px; font-weight: 700; cursor: pointer;
             transition: all 0.2s; white-space: nowrap; text-decoration: none; display: inline-block;
         }
-        .nav-cta-btn:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(255,69,0,0.3); }
+        .nav-cta-btn:hover { background: var(--struct-dark-light); }
 
         /* ===== 页面头部 ===== */
         .page-header-inner {
@@ -75,107 +75,60 @@
         .page-header-inner p { color: var(--text-muted); max-width: 620px; margin: 0 auto; line-height: 1.6; }
         .page-header-inner p a { color: var(--cta-orange); font-weight: 700; }
 
-        /* ===== 付费专区提示 ===== */
-        .premium-banner {
-            max-width: 900px; margin: 0 auto; padding: 0 24px 20px;
-        }
-        .premium-banner .inner {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #f59e0b;
-            border-radius: 16px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .premium-banner .left { display: flex; align-items: center; gap: 12px; }
-        .premium-banner .left .icon { font-size: 28px; }
-        .premium-banner .left .title { font-weight: 800; color: #92400e; font-size: 15px; }
-        .premium-banner .left .desc { font-size: 13px; color: #78350f; font-weight: 500; }
-        .premium-banner .btn-unlock {
-            background: #ff4500; color: white; border: none; padding: 10px 24px;
-            border-radius: 99px; font-weight: 700; font-size: 14px; cursor: pointer;
-            text-decoration: none; box-shadow: 0 4px 12px rgba(255,69,0,0.25);
-            transition: all 0.2s; flex-shrink: 0; display: inline-block;
-        }
-        .premium-banner .btn-unlock:hover { background: #e03e00; transform: scale(1.02); }
-
-        /* ===== 学习进度条 ===== */
+        /* ===== 学习进度条 (极简) ===== */
         .progress-container {
-            max-width: 900px; margin: 0 auto; padding: 12px 24px 16px;
+            max-width: 900px; margin: 0 auto; padding: 8px 24px 12px;
         }
         .progress-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 6px; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 4px;
         }
-        .progress-header .label { font-size: 14px; font-weight: 700; color: #0f1e2c; }
+        .progress-header .label { font-size: 13px; font-weight: 600; color: #64748b; }
         .progress-header .count { font-size: 13px; color: #64748b; font-weight: 600; }
         .progress-bar-track {
-            width: 100%; height: 8px; background: #e2e8f0; border-radius: 99px; overflow: hidden;
+            width: 100%; height: 6px; background: #e2e8f0; border-radius: 99px; overflow: hidden;
         }
         .progress-bar-fill {
-            height: 100%; background: linear-gradient(90deg, #ff4500, #f59e0b);
-            border-radius: 99px; transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            width: 0%;
+            height: 100%; background: #22c55e; border-radius: 99px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); width: 0%;
         }
-        .progress-stats {
-            display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: #94a3b8; flex-wrap: wrap;
-            align-items: center;
-        }
-        .progress-stats .stat-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; }
-        .stat-dot.orange { background: #ff4500; }
-        .stat-dot.green { background: #22c55e; }
-        .reset-btn { color: #ef4444; cursor: pointer; text-decoration: underline; background: none; border: none; font-size: 12px; font-weight: 600; }
-        .reset-btn:hover { color: #dc2626; }
 
         /* ===== 手风琴 (所有主题默认收起) ===== */
         .accordion-wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 40px; }
 
         .accordion-item {
             background: var(--white); border: 1px solid var(--border-color);
-            border-radius: 16px; margin-bottom: 16px; overflow: hidden;
+            border-radius: 16px; margin-bottom: 12px; overflow: hidden;
             transition: var(--transition); box-shadow: var(--shadow);
         }
-        .accordion-item:hover { box-shadow: var(--shadow-hover); }
-        /* 移除 expanded 样式，所有主题默认收起 */
-        .accordion-item.topic-viewed { border-left: 4px solid #22c55e; }
+        .accordion-item:hover { box-shadow: var(--shadow-hover); border-color: #cbd5e1; }
+        .accordion-item.topic-viewed { border-left: 3px solid #22c55e; }
 
         .accordion-header {
-            display: flex; align-items: center; gap: 16px; padding: 20px 24px;
+            display: flex; align-items: center; gap: 14px; padding: 18px 22px;
             cursor: pointer; transition: background 0.2s; user-select: none;
         }
         .accordion-header:hover { background: var(--bg-main); }
 
         .topic-ico {
-            width: 48px; height: 48px; font-size: 1.4rem;
-            border-radius: 14px; border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            background: var(--bg-main);
+            font-size: 1.5rem; flex-shrink: 0; line-height: 1;
         }
-        .topic-info { flex: 1; }
-        .topic-info h3 { font-size: 17px; font-weight: 800; color: var(--struct-dark); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .topic-info h3 .lock-icon { font-size: 14px; color: #94a3b8; }
+        .topic-info { flex: 1; min-width: 0; }
+        .topic-info h3 { font-size: 16px; font-weight: 800; color: var(--struct-dark); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .topic-info h3 .viewed-badge {
             font-size: 10px; background: var(--success-green-bg); color: #166534;
             padding: 2px 10px; border-radius: 99px; font-weight: 700; display: none;
         }
         .accordion-item.topic-viewed .topic-info h3 .viewed-badge { display: inline-block; }
-        .topic-info p { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+        .topic-info p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 
-        .topic-meta { display: flex; align-items: center; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+        .topic-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
         .count-pill {
-            font-size: 12px; padding: 4px 12px; background: var(--bg-main);
-            border: 1px solid var(--border-color); border-radius: 99px; font-weight: 800; color: var(--text-muted);
-        }
-        .price-tag {
-            font-size: 13px; font-weight: 800; color: var(--white);
-            background: var(--cta-orange); padding: 4px 12px; border-radius: 99px;
+            font-size: 12px; color: var(--text-muted); font-weight: 600;
         }
         .accordion-arrow {
-            display: inline-block; margin-left: 8px; font-size: 14px;
-            color: var(--text-muted); transition: transform 0.3s ease;
+            display: inline-block; font-size: 14px; color: #94a3b8;
+            transition: transform 0.3s ease;
         }
         .accordion-item.expanded .accordion-arrow { transform: rotate(180deg); }
 
@@ -351,12 +304,20 @@
         .phrase .p-py { font-size: 13px; color: #f97316; font-weight: 700; font-style: italic; letter-spacing: 0.2px; margin: 1px 0; cursor: pointer; }
         .phrase .p-en { font-size: 14px; color: var(--text-muted); font-weight: 600; cursor: pointer; }
         .phrase .p-body { cursor: pointer; }
-        .phrase .p-body.blur { filter: blur(5px); user-select: none; pointer-events: none; opacity: 0.6; }
-        /* When unlocked by JS, the body becomes interactive */
+        /* Learning hub: no blur — free phrases show normally */
         .phrase .p-body.unlocked { filter: none; user-select: auto; pointer-events: auto; opacity: 1; }
-        .lock-badge { font-size: 11px; padding: 4px 10px; background: #E2E8F0; color: var(--text-muted); border-radius: 99px; font-weight: 700; }
         .phrase .completed-check { color: #22c55e; font-size: 16px; display: none; }
         .phrase.phrase-completed .completed-check { display: inline-block; }
+
+        /* "🔒 8 more phrases" row — replaces blur wall for locked phrases */
+        .more-phrases-row {
+            margin-top: 8px; padding: 14px 20px; border-radius: 12px;
+            background: #f8fafc; border: 1px solid var(--border-color);
+            color: var(--text-muted); font-weight: 600; font-size: 14px;
+            cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .more-phrases-row:hover { border-color: #cbd5e1; background: #f1f5f9; color: var(--struct-dark); }
 
         /* ===== Pinyin + Tooltip + Detail Panel (HanLingo learning layer) ===== */
         .phrase.has-detail { cursor: pointer; }
@@ -419,30 +380,12 @@
         }
         .phrase-detail .pd-culture b { color: #92400e; }
 
-        /* ===== Preview Mode (body.hl-preview) — temporary unlocked state for design.
-           To restore the paywall: remove the 'hl-preview' class from <body>
-           (i.e. delete the init call in the HanLingo Learning Layer script). ===== */
+        /* ===== Learning Hub Mode (body.hl-preview) — all topics accessible ===== */
         body.hl-preview .accordion-header { cursor: pointer; }
-        body.hl-preview .phrase .p-body.blur {
-            filter: none; user-select: auto; pointer-events: auto; opacity: 1;
-        }
-        body.hl-preview .phrase.locked-phrase-row { cursor: default; }
-        body.hl-preview .phrase.locked-phrase-row:hover { border-color: #fdba74; background: #fff7ed; }
         body.hl-preview .lock-badge { display: none; }
         body.hl-preview .unlock-row { display: none; }
         body.hl-preview .accordion-item.locked-topic .topic-info h3 .lock-icon { display: none; }
         body.hl-preview .topic-meta .price-tag { display: none; }
-
-        .unlock-row {
-            margin-top: 4px; width: 100%; padding: 12px; border-radius: 99px;
-            border: 2px dashed var(--border-color); background: transparent; color: var(--struct-dark);
-            font-weight: 700; font-size: 14px; cursor: pointer; transition: var(--transition);
-            display: flex; justify-content: center; align-items: center; gap: 6px;
-        }
-        .unlock-row:hover { border-color: var(--cta-orange); background: #FEF9F0; color: var(--cta-orange); }
-
-        .locked-phrase-row { cursor: pointer !important; transition: all 0.2s ease; }
-        .locked-phrase-row:hover { border-color: var(--cta-orange) !important; background: #FEF9F0 !important; }
         @keyframes shake-error {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-6px); }
@@ -472,38 +415,35 @@
         .hl-bigcard {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 560px;
             max-height: 92vh;
             overflow-y: auto;
             background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(249,115,22,0.12);
-            animation: hl-bc-pop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+            animation: hl-bc-pop 0.22s ease;
             scrollbar-width: thin;
-            scrollbar-color: #fbbf24 transparent;
+            scrollbar-color: #cbd5e1 transparent;
         }
-        .hl-bigcard::-webkit-scrollbar { width: 6px; }
-        .hl-bigcard::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 6px; }
-        @keyframes hl-bc-pop { from { opacity: 0; transform: translateY(16px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .hl-bigcard::-webkit-scrollbar { width: 5px; }
+        .hl-bigcard::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; }
+        @keyframes hl-bc-pop { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
         .hl-bc-close {
-            position: absolute; top: 14px; right: 14px;
-            width: 36px; height: 36px; border-radius: 50%;
-            border: none; background: #fff1e6; color: #f97316;
-            font-size: 20px; font-weight: 700; cursor: pointer;
+            position: absolute; top: 12px; right: 12px;
+            width: 32px; height: 32px; border-radius: 50%;
+            border: none; background: #f1f5f9; color: #64748b;
+            font-size: 18px; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: all 0.15s ease; z-index: 2;
         }
-        .hl-bc-close:hover { background: #f97316; color: #fff; transform: rotate(90deg); }
+        .hl-bc-close:hover { background: #e2e8f0; color: var(--struct-dark); }
 
         .hl-bc-hero {
-            padding: 40px 32px 28px 32px;
-            background:
-                radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.35), transparent 55%),
-                radial-gradient(circle at 0% 100%, rgba(249, 115, 22, 0.25), transparent 55%),
-                linear-gradient(135deg, #fff7ed 0%, #fde68a 100%);
-            border-radius: 24px 24px 0 0;
-            border-bottom: 1px solid #fed7aa;
+            padding: 36px 28px 24px 28px;
+            background: #ffffff;
+            border-radius: 20px 20px 0 0;
+            border-bottom: 1px solid var(--border-color);
         }
         .hl-bc-topic-row {
             display: flex; align-items: center; justify-content: space-between;
@@ -511,25 +451,22 @@
         }
         .hl-bc-topic-tag {
             display: inline-block;
-            padding: 5px 14px;
-            background: #f97316; color: #fff;
+            padding: 4px 12px;
+            background: #f1f5f9; color: #475569;
             border-radius: 999px;
-            font-size: 11px; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.6px;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         .hl-bc-num {
-            font-size: 12px; font-weight: 700;
-            color: #92400e;
+            font-size: 12px; font-weight: 600;
+            color: #94a3b8;
             letter-spacing: 0.3px;
-            padding: 4px 10px;
-            background: rgba(255,255,255,0.6);
-            border-radius: 999px;
         }
 
         /* ===== Karaoke: per-char + per-pinyin highlight ===== */
         .hl-bc-zh {
             font-size: 34px; font-weight: 900;
-            color: #451a03; line-height: 1.4;
+            color: var(--struct-dark); line-height: 1.4;
             letter-spacing: 1px;
             margin: 4px 0 10px 0;
             user-select: none;
@@ -543,15 +480,14 @@
         }
         .hl-bc-zh .kch.space { width: 0.4em; }
         .hl-bc-zh .kch.active {
-            color: #ea580c;
-            transform: scale(1.18);
-            text-shadow: 0 0 8px rgba(249, 115, 22, 0.5);
+            color: var(--cta-orange);
+            transform: scale(1.15);
         }
-        .hl-bc-zh .kch.done { color: #059669; }
+        .hl-bc-zh .kch.done { color: #94a3b8; }
 
         .hl-bc-py {
-            font-size: 17px; font-weight: 700; font-style: italic;
-            color: #b45309; margin-bottom: 12px;
+            font-size: 17px; font-weight: 600; font-style: italic;
+            color: #64748b; margin-bottom: 12px;
             letter-spacing: 0.5px;
             line-height: 1.8;
             user-select: none;
@@ -565,30 +501,26 @@
             white-space: nowrap;
         }
         .hl-bc-py .kpy.active {
-            color: #dc2626;
-            transform: scale(1.12);
-            background: rgba(254, 226, 226, 0.7);
+            color: var(--cta-orange);
+            transform: scale(1.1);
             font-weight: 800;
         }
-        .hl-bc-py .kpy.done { color: #059669; }
+        .hl-bc-py .kpy.done { color: #94a3b8; }
 
         .hl-bc-en {
             font-size: 16px; font-weight: 600;
-            color: #78350f; line-height: 1.55;
+            color: var(--text-muted); line-height: 1.55;
             padding-top: 10px;
-            border-top: 1px dashed rgba(249, 115, 22, 0.25);
+            border-top: 1px solid var(--border-color);
         }
 
         /* Playback control strip: buttons + progress */
         .hl-bc-ctl {
             margin-top: 22px;
-            background: rgba(255,255,255,0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 18px;
-            padding: 14px 16px 16px;
-            border: 1px solid rgba(249, 115, 22, 0.2);
-            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.08);
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 12px 14px 14px;
+            border: 1px solid var(--border-color);
         }
         .hl-bc-playback-row {
             display: flex; flex-wrap: wrap; align-items: center;
@@ -599,42 +531,37 @@
             display: inline-flex; align-items: center; gap: 8px;
             padding: 10px 20px;
             border-radius: 999px;
-            border: none; cursor: pointer;
+            border: 1px solid var(--border-color); cursor: pointer;
             font-size: 14px; font-weight: 700;
-            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease;
+            transition: all 0.15s ease;
             flex: 1 1 auto; min-width: 130px; justify-content: center;
         }
         .hl-bc-play {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            color: #fff;
-            box-shadow: 0 6px 14px rgba(249, 115, 22, 0.35);
+            background: var(--struct-dark); color: #fff;
+            border-color: var(--struct-dark);
         }
         .hl-bc-slow {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: #fff;
-            box-shadow: 0 6px 14px rgba(99, 102, 241, 0.35);
+            background: #fff; color: var(--struct-dark);
         }
-        .hl-bc-play:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(249, 115, 22, 0.45); }
-        .hl-bc-slow:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(99, 102, 241, 0.45); }
+        .hl-bc-play:hover { background: var(--struct-dark-light); border-color: var(--struct-dark-light); }
+        .hl-bc-slow:hover { background: #f1f5f9; border-color: #cbd5e1; }
         .hl-bc-play:active, .hl-bc-slow:active { transform: translateY(0); }
-        .hl-bc-play.playing { background: linear-gradient(135deg, #10b981, #059669); animation: pulse-play 0.9s infinite; box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35); }
-        .hl-bc-slow.playing { background: linear-gradient(135deg, #8b5cf6, #7c3aed); animation: pulse-slow 0.9s infinite; box-shadow: 0 6px 14px rgba(139, 92, 246, 0.45); }
-        @keyframes pulse-play { 0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.55);} 50% { box-shadow: 0 0 0 10px rgba(16,185,129,0);} }
-        @keyframes pulse-slow { 0%, 100% { box-shadow: 0 0 0 0 rgba(139,92,246,0.55);} 50% { box-shadow: 0 0 0 10px rgba(139,92,246,0);} }
+        .hl-bc-play.playing { background: #22c55e; border-color: #22c55e; }
+        .hl-bc-slow.playing { background: var(--struct-dark-light); color: #fff; border-color: var(--struct-dark-light); }
         .hl-bc-play .pb-icon, .hl-bc-slow .pb-icon { font-size: 15px; line-height: 1; }
         .hl-bc-play .pb-label, .hl-bc-slow .pb-label { line-height: 1; }
 
         /* Progress bar (karaoke) */
         .hl-bc-progress {
-            margin-top: 14px;
+            margin-top: 12px;
             position: relative;
             display: flex; align-items: center; gap: 10px;
         }
         .hl-bc-bar {
             flex: 1;
             position: relative;
-            height: 8px;
-            background: #fed7aa;
+            height: 6px;
+            background: #e2e8f0;
             border-radius: 999px;
             overflow: hidden;
             cursor: pointer;
@@ -642,23 +569,23 @@
         .hl-bc-bar-fill {
             position: absolute; left: 0; top: 0; bottom: 0;
             width: 0%;
-            background: linear-gradient(90deg, #f97316 0%, #ef4444 100%);
+            background: var(--struct-dark);
             border-radius: 999px;
             transition: width 0.12s linear;
         }
         .hl-bc-bar.slow-mode .hl-bc-bar-fill {
-            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            background: var(--struct-dark-light);
         }
         .hl-bc-time {
-            font-size: 11px; font-weight: 700;
-            color: #92400e;
+            font-size: 11px; font-weight: 600;
+            color: #94a3b8;
             font-variant-numeric: tabular-nums;
             min-width: 70px; text-align: right;
             letter-spacing: 0.3px;
         }
 
         .hl-bc-body {
-            padding: 26px 32px 30px 32px;
+            padding: 22px 28px 26px 28px;
         }
         .hl-bc-section-title {
             font-size: 11px; font-weight: 800;
@@ -673,42 +600,48 @@
         }
         .hl-bc-word {
             display: flex; flex-direction: column; gap: 3px;
-            background: #fff7ed; border: 1px solid #fed7aa;
-            border-radius: 14px; padding: 12px 16px;
-            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+            background: #f8fafc; border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 10px 14px;
+            transition: border-color 0.15s ease;
             cursor: default;
         }
         .hl-bc-word:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(249, 115, 22, 0.15);
-            border-color: #fdba74;
+            border-color: #cbd5e1;
         }
         .hl-bc-word .w {
-            font-size: 20px; font-weight: 800; color: #451a03;
+            font-size: 18px; font-weight: 800; color: var(--struct-dark);
         }
         .hl-bc-word .p {
-            font-size: 12.5px; font-weight: 700; font-style: italic;
-            color: #f97316;
+            font-size: 12px; font-weight: 600; font-style: italic;
+            color: #64748b;
         }
         .hl-bc-word .m {
             font-size: 13px; color: #475569; font-weight: 500;
         }
+        /* Cultural Note: foldable, collapsed by default */
+        .hl-bc-culture-toggle {
+            display: flex; align-items: center; gap: 6px;
+            cursor: pointer; user-select: none;
+            font-size: 13px; font-weight: 700; color: #475569;
+            padding: 10px 0; transition: color 0.15s ease;
+        }
+        .hl-bc-culture-toggle:hover { color: var(--struct-dark); }
+        .hl-bc-culture-toggle .toggle-arrow {
+            display: inline-block; transition: transform 0.2s ease;
+            font-size: 10px; color: #94a3b8;
+        }
+        .hl-bc-culture-toggle.open .toggle-arrow { transform: rotate(90deg); }
         .hl-bc-culture {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-left: 4px solid #f59e0b;
+            display: none;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 16px 20px;
-            color: #78350f;
-            font-size: 14px; line-height: 1.75;
-            box-shadow: 0 6px 14px rgba(245, 158, 11, 0.1);
+            padding: 14px 18px;
+            color: #475569;
+            font-size: 14px; line-height: 1.7;
+            margin-top: 4px;
         }
-        .hl-bc-culture::before {
-            content: '💡 Cultural Note';
-            display: block;
-            font-size: 11px; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.6px;
-            color: #92400e; margin-bottom: 8px;
-        }
+        .hl-bc-culture.open { display: block; }
 
         @media (max-width: 480px) {
             .hl-bc-words { grid-template-columns: 1fr; }
@@ -863,22 +796,47 @@
             transform: translate(-50%, -130%) scale(1);
         }
 
-        /* ===== Premium 解锁大闸 ===== */
-        .premium-dark-gate {
-            background: #0f172a; padding: 40px 32px; border-radius: 16px; text-align: center;
-            max-width: 750px; margin: 40px auto; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.3);
+        /* ===== Unlock Popup (shown when user clicks "🔒 More phrases") ===== */
+        .unlock-popup-overlay {
+            display: none; position: fixed; inset: 0; z-index: 60000;
+            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            justify-content: center; align-items: center; padding: 20px;
         }
-        .dark-gate-title { font-size: 22px; font-weight: 800; color: #ffffff; margin: 0 0 10px; }
-        .dark-gate-subtitle { color: #94a3b8; font-size: 14.5px; max-width: 600px; margin: 0 auto 28px; line-height: 1.6; }
-        .dark-gate-btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .dark-btn-primary {
-            background: #ff4500; color: white; border: none; padding: 14px 40px;
-            border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 14px rgba(255, 69, 0, 0.3); transition: all 0.2s ease;
-            text-decoration: none; display: inline-block;
+        .unlock-popup-overlay.open { display: flex; }
+        .unlock-popup {
+            background: #fff; border-radius: 20px; max-width: 420px; width: 100%;
+            padding: 32px 28px; text-align: center; position: relative;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+            animation: hl-bc-pop 0.22s ease;
         }
-        .dark-btn-primary:hover { transform: translateY(-2px); background: #ff5714; box-shadow: 0 6px 20px rgba(255, 69, 0, 0.45); }
-        .dark-gate-retail-text { margin: 0; color: #64748b; font-size: 13px; }
+        .unlock-popup .up-close {
+            position: absolute; top: 10px; right: 10px;
+            width: 30px; height: 30px; border-radius: 50%; border: none;
+            background: #f1f5f9; color: #64748b; font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .unlock-popup .up-close:hover { background: #e2e8f0; }
+        .unlock-popup .up-icon { font-size: 32px; margin-bottom: 12px; }
+        .unlock-popup h3 { font-size: 18px; font-weight: 800; color: var(--struct-dark); margin: 0 0 8px; }
+        .unlock-popup .up-features {
+            list-style: none; padding: 0; margin: 0 0 20px;
+            font-size: 14px; color: var(--text-muted); line-height: 1.8;
+        }
+        .unlock-popup .up-features li { padding: 2px 0; }
+        .unlock-popup .up-price {
+            font-size: 28px; font-weight: 800; color: var(--struct-dark); margin: 0 0 16px;
+        }
+        .unlock-popup .up-price small { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+        .unlock-popup .up-btn {
+            display: inline-block; background: var(--struct-dark); color: #fff;
+            border: none; padding: 12px 32px; border-radius: 999px;
+            font-size: 15px; font-weight: 700; cursor: pointer;
+            text-decoration: none; transition: background 0.2s ease;
+        }
+        .unlock-popup .up-btn:hover { background: var(--struct-dark-light); }
+        .unlock-popup .up-note {
+            margin-top: 10px; font-size: 12px; color: #94a3b8;
+        }
 
         /* ===== 合规弹窗 ===== */
         .legal-modal-overlay {
@@ -1056,54 +1014,25 @@
             <span>HanLingo</span>
         </a>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="nav-cta-btn">
-            Get Lifetime Access
-        </a>
+            <a href="index.html" style="color:#64748b;font-size:14px;font-weight:600;text-decoration:none;">← Home</a>
+            <button class="nav-cta-btn" onclick="triggerPWAInstall()" id="pwaInstallHeaderBtn">Install</button>
         </div>
     </header>
 
     <!-- ====== 页面头部 ====== -->
     <section class="page-header-inner">
-        <h1>Speak Chinese in Real-Life Situations</h1>
-        <p>
-            150+ practical phrases for travel, food, hotels, shopping, work and everyday life.
-            Try 3 free expressions in every topic — <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank">unlock all 150 for life</a>.
-        </p>
-        <p style="margin-top:8px;font-size:14px;color:#94a3b8;">
-            👆 <strong>15 real-life topics.</strong> Click any topic to see the expressions inside.
-        </p>
+        <h1>Survival Chinese</h1>
+        <p>Learn Chinese for real-life situations.</p>
+        <p style="margin-top:4px;font-size:12px;color:#94a3b8;">150 phrases · 15 topics</p>
     </section>
 
-    <!-- ====== Premium Content Banner ====== -->
-    <div class="premium-banner">
-        <div class="inner">
-            <div class="left">
-                <span class="icon">📚</span>
-                <div>
-                    <div class="title">150+ Practical Expressions</div>
-                    <div class="desc">Try 5 free on our homepage, then unlock all 15 topics.</div>
-                </div>
-            </div>
-            <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" rel="noopener noreferrer" class="btn-unlock">
-                Get Lifetime Access — $59
-            </a>
-        </div>
-    </div>
-
-    <!-- ====== 学习进度条 ====== -->
+    <!-- ====== 学习进度条 (极简) ====== -->
     <div class="progress-container" id="progressContainer">
         <div class="progress-header">
-            <span class="label">📚 Learning Progress</span>
-            <span class="count" id="progressText">0/150 expressions (0%)</span>
+            <span class="count" id="progressText">0 / 150 learned</span>
         </div>
         <div class="progress-bar-track">
             <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-        <div class="progress-stats">
-            <span><span class="stat-dot orange"></span>Learned <strong id="completedCount">0</strong> expressions</span>
-            <span><span class="stat-dot green"></span>Viewed <strong id="viewedCount">0</strong> topics</span>
-            <span>🎧 Played <strong id="totalPlays">0</strong> times</span>
-            <button class="reset-btn" onclick="resetProgress()">🗑️ Reset progress</button>
         </div>
     </div>
 
@@ -1531,29 +1460,28 @@
 
         </div>
 
-        <!-- ====== Premium Gate ====== -->
-        <div class="premium-dark-gate" id="premium-unlock-section">
-            <h3 class="dark-gate-title">Ready to speak more Chinese?</h3>
-            <p class="dark-gate-subtitle">
-                Get all 150 practical expressions — with audio, pinyin, and cultural tips.
-            </p>
-            <div class="dark-gate-btn-group">
-                <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" rel="noopener noreferrer" class="dark-btn-primary">
-                    Get Lifetime Access — $59
-                </a>
-            </div>
-            <p class="dark-gate-retail-text">
-                No subscription. No recurring charges. One payment gives you lifetime access.
-            </p>
-            <p style="margin-top:12px;font-size:13px;color:#94a3b8;">
-                Not ready yet? <a href="index.html#free-phrases" style="color:#fbbf24;font-weight:600;">Try 5 expressions free →</a>
-            </p>
-        </div>
-
     </section>
+
+    <!-- ====== Unlock Popup (only shown when user clicks "🔒 More phrases") ====== -->
+    <div class="unlock-popup-overlay" id="unlockPopupOverlay">
+        <div class="unlock-popup">
+            <button class="up-close" onclick="closeUnlockPopup()" aria-label="Close">×</button>
+            <div class="up-icon">🔒</div>
+            <h3>Unlock Survival Chinese</h3>
+            <ul class="up-features">
+                <li>150+ real-life phrases</li>
+                <li>15 practical topics</li>
+                <li>Lifetime access</li>
+            </ul>
+            <div class="up-price">$59 <small>one-time</small></div>
+            <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" rel="noopener noreferrer" class="up-btn">Get Lifetime Access</a>
+            <p class="up-note">No subscription. No recurring charges.</p>
+        </div>
+    </div>
 
     <!-- ====== FOOTER ====== -->
     <footer class="global-footer">
+        <button class="nav-cta-btn" onclick="triggerPWAInstall()" id="pwaInstallFooterBtn" style="margin-bottom:12px;">📲 Install App</button>
         <div class="copy"><strong>HanLingo</strong> — Made for people who want to speak Chinese in real life.</div>
         <div class="copy" style="margin-top:4px;">© 2026 HanLingo.app</div>
         <div class="links">
@@ -1562,9 +1490,6 @@
             <a href="javascript:void(0)" onclick="openLegalModal('refund')">Refund Policy</a>
             <a href="mailto:support@hanlingo.app">support@hanlingo.app</a>
             <a href="index.html" style="color:#94a3b8;font-size:12px;">← Back to Home</a>
-        </div>
-        <div class="links" style="margin-top:6px;">
-            <span style="color:#64748b;font-size:11px;">🔒 Secure checkout by Stripe</span>
         </div>
     </footer>
 
@@ -1619,19 +1544,12 @@
         function updateProgressUI(progress) {
             const bar = document.getElementById('progressBar');
             const text = document.getElementById('progressText');
-            const completedCount = document.getElementById('completedCount');
-            const viewedCount = document.getElementById('viewedCount');
-            const totalPlays = document.getElementById('totalPlays');
 
             const completed = progress.completedPhrases?.length || 0;
-            const viewed = progress.viewedTopics?.length || 0;
             const percentage = Math.min(Math.round((completed / TOTAL_PHRASES) * 100), 100);
 
             if (bar) bar.style.width = percentage + '%';
-            if (text) text.textContent = `${completed}/${TOTAL_PHRASES} expressions (${percentage}%)`;
-            if (completedCount) completedCount.textContent = completed;
-            if (viewedCount) viewedCount.textContent = viewed;
-            if (totalPlays) totalPlays.textContent = progress.totalPlays || 0;
+            if (text) text.textContent = completed + ' / ' + TOTAL_PHRASES + ' learned';
         }
 
         function resetProgress() {
@@ -1707,37 +1625,14 @@
         }
 
         // ============================================================
-        // 4. 锁定行点击 → 滚动到付费区
+        // 4. DOM ready: restore progress
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // 主题点击 → 滚动到付费区 "Get Lifetime Access — $59"
-            document.querySelectorAll('.accordion-header').forEach(header => {
-                header.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const pricing = document.getElementById('premium-unlock-section');
-                    if (pricing) pricing.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
-            // 锁定行点击 → 滚动到付费区
-            document.querySelectorAll('.locked-phrase-row').forEach(row => {
-                row.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.classList.add('trigger-shake');
-                    setTimeout(() => this.classList.remove('trigger-shake'), 400);
-                    setTimeout(() => {
-                        const pricing = document.getElementById('premium-unlock-section');
-                        if (pricing) pricing.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
-                });
-            });
-
             // 恢复进度
             setTimeout(restoreLastPosition, 500);
             updateProgressUI(getProgress());
 
-            console.log('📚 HanLingo Practical Chinese Library loaded! (15 topics, all collapsed)');
+            console.log('📚 HanLingo Survival Chinese Learning Hub loaded! (15 topics, 2 free phrases each)');
         });
 
         // ============================================================
@@ -2448,6 +2343,82 @@
                 if (header.parentNode) header.parentNode.replaceChild(clone, header);
             });
 
+            // ===== Topic Restructuring: clean headers + limit free phrases + add "more phrases" row =====
+            document.querySelectorAll('.accordion-item').forEach(function (item) {
+                // 1. Clean header: remove lock-icon, price-tag; simplify topic-ico; update count-pill text
+                const lockIcon = item.querySelector('.topic-info h3 .lock-icon');
+                if (lockIcon) lockIcon.remove();
+                const priceTag = item.querySelector('.topic-meta .price-tag');
+                if (priceTag) priceTag.remove();
+                const icoBox = item.querySelector('.topic-ico');
+                if (icoBox) {
+                    // Strip inline styles/border from old box style — just keep emoji text
+                    icoBox.removeAttribute('style');
+                    icoBox.textContent = icoBox.textContent.trim();
+                }
+                const countPill = item.querySelector('.topic-meta .count-pill');
+                if (countPill) countPill.textContent = '10 phrases';
+
+                // 2. Remove unlock-row buttons at bottom of each topic
+                item.querySelectorAll('.unlock-row').forEach(function (btn) { btn.remove(); });
+
+                // 3. Process phrases: first 2 free, rest hidden + "more phrases" row
+                const phrases = item.querySelectorAll('.phrase');
+                const FREE_COUNT = 2;
+                phrases.forEach(function (ph, idx) {
+                    if (idx < FREE_COUNT) {
+                        // Free phrase: remove blur + locked classes
+                        ph.classList.remove('locked', 'locked-phrase-row');
+                        const body = ph.querySelector('.p-body');
+                        if (body) { body.classList.remove('blur'); body.classList.add('unlocked'); }
+                        const badge = ph.querySelector('.lock-badge');
+                        if (badge) badge.remove();
+                        const speaker = ph.querySelector('.speaker');
+                        if (speaker) { speaker.removeAttribute('disabled'); speaker.classList.remove('locked'); }
+                    } else {
+                        // Locked phrase: hide entirely
+                        ph.style.display = 'none';
+                    }
+                });
+
+                // 4. Add "🔒 8 more phrases" row if there are locked phrases
+                if (phrases.length > FREE_COUNT) {
+                    const lockedCount = phrases.length - FREE_COUNT;
+                    const moreRow = document.createElement('div');
+                    moreRow.className = 'more-phrases-row';
+                    moreRow.innerHTML = '<span>🔒 ' + lockedCount + ' more phrases</span>';
+                    moreRow.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        openUnlockPopup();
+                    });
+                    // Insert after the last free phrase
+                    const phrasesContainer = item.querySelector('.phrases');
+                    if (phrasesContainer) phrasesContainer.appendChild(moreRow);
+                }
+            });
+
+            // ===== Unlock Popup =====
+            function openUnlockPopup() {
+                const popup = document.getElementById('unlockPopupOverlay');
+                if (popup) { popup.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            }
+            function closeUnlockPopup() {
+                const popup = document.getElementById('unlockPopupOverlay');
+                if (popup) { popup.classList.remove('open'); document.body.style.overflow = ''; }
+            }
+            // Close on overlay click or Escape
+            const unlockOverlay = document.getElementById('unlockPopupOverlay');
+            if (unlockOverlay) {
+                unlockOverlay.addEventListener('click', function (e) {
+                    if (e.target === unlockOverlay) closeUnlockPopup();
+                });
+            }
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeUnlockPopup();
+            });
+            window.openUnlockPopup = openUnlockPopup;
+            window.closeUnlockPopup = closeUnlockPopup;
+
             // ===== Big Card Modal =====
             const TOPIC_LABELS = {
                 'travel': 'Taxi & Travel',
@@ -2955,8 +2926,22 @@
                 buildKaraokeSpans(phraseId);
                 computeKaraokeTiming(0); // initial estimate using weight-based seconds (real duration auto-refines on metadata load)
                 if (bcEn) bcEn.textContent = enText ? enText.textContent.trim() : '';
-                // (Word Breakdown removed per user request — word meanings now appear as hover bubbles on each character.)
-                if (bcCulture) bcCulture.innerHTML = escapeHTML(data.culture);
+                // Cultural Note: foldable (collapsed by default)
+                if (bcCulture) {
+                    bcCulture.innerHTML =
+                        '<div class="hl-bc-culture-toggle" id="hlBcCultureToggle">' +
+                        '<span class="toggle-arrow">▶</span> Cultural Note' +
+                        '</div>' +
+                        '<div class="hl-bc-culture" id="hlBcCultureBody">' + escapeHTML(data.culture) + '</div>';
+                    const toggle = document.getElementById('hlBcCultureToggle');
+                    const cultureBody = document.getElementById('hlBcCultureBody');
+                    if (toggle) {
+                        toggle.addEventListener('click', function () {
+                            toggle.classList.toggle('open');
+                            if (cultureBody) cultureBody.classList.toggle('open');
+                        });
+                    }
+                }
                 overlay.classList.add('open');
                 overlay.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
@@ -3032,8 +3017,10 @@
             }
 
             // For each phrase: insert pinyin, append detail panel, wire hover+click
+            // Skip hidden (locked) phrases — only process the 2 free phrases per topic
             let missing = 0;
             document.querySelectorAll('.phrase').forEach(function (phrase) {
+                if (phrase.style.display === 'none') return; // skip locked phrases
                 const id = phrase.getAttribute('data-phrase-id');
                 if (!id) return;
                 const data = PHRASE_DATA[id];
@@ -3105,11 +3092,12 @@
                 });
             });
 
-            // Smooth-scroll accordion header to its body (since bodies are always expanded in preview mode)
+            // Accordion header: toggle expand/collapse
             document.querySelectorAll('.accordion-header').forEach(function (header) {
                 header.addEventListener('click', function () {
                     const item = header.closest('.accordion-item');
-                    if (item) item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (!item) return;
+                    item.classList.toggle('expanded');
                 });
             });
 
