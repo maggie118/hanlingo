@@ -96,19 +96,12 @@
         /* ===== 手风琴 (所有主题默认收起) ===== */
         .accordion-wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 40px; }
 
-        #accordion { counter-reset: topic-number; }
-        #accordion > .accordion-item { counter-increment: topic-number; }
         .accordion-item {
             background: var(--white); border: 1px solid var(--border-color);
             border-radius: 16px; margin-bottom: 12px; overflow: hidden;
             transition: var(--transition); box-shadow: var(--shadow); position: relative;
         }
-        #accordion > .accordion-item::before {
-            content: counter(topic-number, decimal-leading-zero);
-            position: absolute; top: 9px; left: 18px; z-index: 1;
-            color: var(--text-muted); font-size: 11px; font-weight: 800;
-            letter-spacing: 0.08em;
-        }
+        /* topic numbering "01"-"15" removed per design feedback */
         .accordion-item:hover { box-shadow: var(--shadow-hover); border-color: #cbd5e1; }
         .accordion-item.topic-viewed { border-left: 3px solid #22c55e; }
 
@@ -291,52 +284,138 @@
             .fav-panel-overlay { display: none !important; }
         }
 
-        /* ===== 短语样式 (始终可见，但内容模糊锁定) ===== */
-        .phrases { display: flex; flex-direction: column; gap: 10px; padding: 0 0 16px 0; }
+        /* ===== 短语样式 (新布局：01 序号 + 英文 + ▶ Play + Slow，删除中文与拼音) ===== */
         .phrase {
-            display: grid; grid-template-columns: 28px 40px 40px 1fr 28px auto; gap: 8px;
-            align-items: center; background: var(--bg-main); border-radius: 12px;
-            padding: 10px 16px; border: 1px solid transparent; transition: var(--transition);
+            display: grid;
+            grid-template-columns: 52px 1fr auto auto;
+            grid-template-areas:
+                "num  body   fav   check"
+                "ctl  ctl    ctl   ctl";
+            align-items: start;
+            background: transparent;
+            border-radius: 0;
+            padding: 16px 8px 18px 8px;
+            border: none;
+            transition: background 0.18s ease;
             position: relative; cursor: pointer;
+            box-shadow: none;
         }
-        .phrase:hover { border-color: #cbd5e1; }
-        /* Override .sv-fav-btn absolute positioning for inline .phrase layout */
+        .phrases { display: flex; flex-direction: column; gap: 0; padding: 0 0 8px 0; }
+        .phrase:not(:last-child) {
+            border-bottom: 1px solid #eef1f4;
+        }
+        .phrase:hover { background: transparent; }
+        .phrase > .p-num { grid-area: num; align-self: start; }
+        .phrase > .speaker, .phrase > .speaker-slow { display: none; } /* old small circle buttons: replaced by new pill controls below */
+        .phrase > .p-body { grid-area: body; align-self: start; }
+        .phrase > .sv-fav-btn { grid-area: fav; }
+        .phrase > .lock-badge { grid-area: fav; }
+        .phrase > .completed-check { grid-area: check; }
+
+        /* Row controls below the text — tight visual coupling with the sentence */
+        .phrase > .phrase-ctl {
+            grid-area: ctl;
+            display: flex; gap: 10px; flex-wrap: wrap;
+            margin-top: 14px;
+        }
+        .phrase-ctl .phrase-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 0 18px; min-height: 50px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-size: 14px; font-weight: 700; line-height: 1;
+            transition: all 0.18s ease;
+            flex: 1 1 120px;
+            white-space: nowrap;
+        }
+        .phrase-ctl .phrase-btn-play {
+            background: #162B3A; color: #ffffff; border-color: #162B3A;
+            box-shadow: 0 2px 4px rgba(22, 43, 58, 0.12);
+        }
+        .phrase-ctl .phrase-btn-play:hover { background: #233D50; border-color: #233D50; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(22, 43, 58, 0.18); }
+        .phrase-ctl .phrase-btn-play:disabled,
+        .phrase-ctl .phrase-btn-play[aria-disabled="true"] {
+            background: #E2E8F0; color: #94a3b8; border-color: #E2E8F0;
+            box-shadow: none; transform: none; cursor: not-allowed;
+        }
+        .phrase-ctl .phrase-btn-play.playing { background: #16a34a; border-color: #16a34a; box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25); animation: pulse-play 0.9s infinite; }
+        .phrase-ctl .phrase-btn-slow {
+            background: #ffffff; color: #162B3A; border-color: #e2e8f0;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+        .phrase-ctl .phrase-btn-slow:hover { background: #f8fafc; border-color: #cbd5e1; transform: translateY(-1px); box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06); }
+        .phrase-ctl .phrase-btn-slow:disabled,
+        .phrase-ctl .phrase-btn-slow[aria-disabled="true"] {
+            background: #ffffff; color: #cbd5e1; border-color: #eef1f4;
+            transform: none; cursor: not-allowed; box-shadow: none;
+        }
+        .phrase-ctl .phrase-btn-slow.playing { background: #0f766e; color: #ffffff; border-color: #0f766e; box-shadow: 0 2px 6px rgba(15, 118, 110, 0.22); }
+        .phrase-ctl .phrase-btn-slow.playing .slow-icon-svg path { stroke: #e2f1ef; }
+        .phrase-ctl .slow-icon-svg { width: 16px; height: 16px; }
+
+        .phrase .p-num {
+            font-weight: 900;
+            color: #162B3A;
+            font-size: 26px;
+            line-height: 1.1;
+            letter-spacing: -0.8px;
+            text-align: left;
+            padding-top: 1px;
+            font-variant-numeric: tabular-nums;
+            -webkit-font-smoothing: antialiased;
+        }
+        @keyframes pulse-play { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+        /* ===== "+ N more expressions" 行：付费墙引导条 ===== */
+        .more-phrases-row {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: calc(100% - 16px);
+            margin: 14px 8px 18px 8px;
+            padding: 17px 20px;
+            background: #162B3A;
+            color: #ffffff;
+            border: none; border-radius: 14px;
+            font-family: inherit;
+            font-size: 15px; font-weight: 800; letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+        .more-phrases-row:hover {
+            background: #233D50; transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(22, 43, 58, 0.22);
+        }
+        .more-phrases-row:active { transform: translateY(0); }
+        .more-phrases-row .mp-plus { font-size: 19px; font-weight: 900; color: var(--cta-orange); line-height: 1; }
+        .more-phrases-row .mp-lock { font-size: 12px; font-weight: 700; opacity: 0.75; }
+
+        /* Override .sv-fav-btn absolute positioning for inline .phrase layout — 36×36 round button, 16px right margin */
         .phrase .sv-fav-btn {
-            position: static; width: 28px; height: 28px; font-size: 15px; border-radius: 50%;
+            position: static; width: 36px; height: 36px; font-size: 18px; border-radius: 50%;
+            margin-right: 16px; align-self: start; flex-shrink: 0;
         }
         .phrase.phrase-completed { border-left: 4px solid #22c55e; background: #f0fdf4; }
-        .phrase .p-num { font-weight: 900; color: var(--text-muted); font-size: 13px; text-align: center; }
 
-        .speaker {
-            width: 40px; height: 40px; border-radius: 50%; border: none;
-            background: var(--cta-orange); color: #fff; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: var(--transition); box-shadow: 0 4px 12px var(--cta-orange-glow);
-            padding: 0; font-size: 14px;
+        /* ===== Speaker fallback (old) hidden because phrase has new pill buttons ===== */
+        .speaker, .speaker-slow { display: none; }
+
+        /* Hide Chinese & Pinyin from phrase rows (per user request) */
+        .phrase .p-zh, .phrase .p-py { display: none !important; }
+
+        .phrase .p-en {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.3;
+            cursor: pointer;
+            letter-spacing: -0.2px;
+            -webkit-font-smoothing: antialiased;
         }
-        .speaker:hover { background: var(--cta-orange-hover); transform: scale(1.02); }
-        .speaker.locked { background: #E2E8F0; box-shadow: none; color: var(--text-muted); cursor: not-allowed; }
-        .speaker.playing { background: var(--success-green); animation: pulse-play 0.8s infinite; }
-        .speaker:disabled { opacity: 0.5; cursor: not-allowed; }
-        @keyframes pulse-play { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
-        .phrase .p-zh { font-weight: 800; font-size: 16px; color: var(--struct-dark); cursor: pointer; }
-        .phrase .p-py { font-size: 13px; color: #f97316; font-weight: 700; font-style: italic; letter-spacing: 0.2px; margin: 1px 0; cursor: pointer; }
-        .phrase .p-en { font-size: 14px; color: var(--text-muted); font-weight: 600; cursor: pointer; }
         .phrase .p-body { cursor: pointer; }
         /* Learning hub: no blur — free phrases show normally */
         .phrase .p-body.unlocked { filter: none; user-select: auto; pointer-events: auto; opacity: 1; }
-        .phrase .completed-check { color: #22c55e; font-size: 16px; display: none; }
-        .phrase.phrase-completed .completed-check { display: inline-block; }
-
-        /* "🔒 8 more phrases" row — replaces blur wall for locked phrases */
-        .more-phrases-row {
-            margin-top: 8px; padding: 14px 20px; border-radius: 12px;
-            background: #f8fafc; border: 1px solid var(--border-color);
-            color: var(--text-muted); font-weight: 600; font-size: 14px;
-            cursor: pointer; transition: all 0.2s ease;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .more-phrases-row:hover { border-color: #cbd5e1; background: #f1f5f9; color: var(--struct-dark); }
+        .phrase .completed-check { color: #22c55e; font-size: 18px; display: none; align-self: center; justify-content: center; padding: 0 2px; }
+        .phrase.phrase-completed .completed-check { display: inline-flex; }
 
         /* ===== Pinyin + Tooltip + Detail Panel (HanLingo learning layer) ===== */
         .phrase.has-detail { cursor: pointer; }
@@ -399,12 +478,12 @@
         }
         .phrase-detail .pd-culture b { color: #92400e; }
 
-        /* ===== Learning Hub Mode (body.hl-preview) — all topics accessible ===== */
-        body.hl-preview .accordion-header { cursor: pointer; }
-        body.hl-preview .lock-badge { display: none; }
-        body.hl-preview .unlock-row { display: none; }
-        body.hl-preview .accordion-item.locked-topic .topic-info h3 .lock-icon { display: none; }
-        body.hl-preview .topic-meta .price-tag { display: none; }
+        /* ===== Learning Hub Mode — all topics accessible ===== */
+        .accordion-header { cursor: pointer; }
+        .lock-badge { display: none; }
+        .unlock-row { display: none; }
+        .accordion-item.locked-topic .topic-info h3 .lock-icon { display: none; }
+        .topic-meta .price-tag { display: none; }
         @keyframes shake-error {
             0%, 100% { transform: translateX(0); }
             20%, 60% { transform: translateX(-6px); }
@@ -458,6 +537,18 @@
         }
         .hl-bc-close:hover { background: #e2e8f0; color: var(--struct-dark); }
 
+        /* Big Card favorite star — same 36×36 round button as inline phrase cards */
+        .hl-bc-fav {
+            position: absolute; top: 14px; right: 56px;
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 1px solid var(--border-color); background: #ffffff;
+            color: #cbd5e1; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.18s ease; z-index: 2;
+        }
+        .hl-bc-fav:hover { transform: scale(1.06); border-color: #f59e0b; color: #f59e0b; }
+        .hl-bc-fav.faved { color: #f59e0b; border-color: #f59e0b; background: #fffbeb; }
+
         .hl-bc-hero {
             padding: 36px 28px 24px 28px;
             background: #ffffff;
@@ -505,7 +596,7 @@
         .hl-bc-zh .kch.done { color: #94a3b8; }
 
         .hl-bc-py {
-            font-size: 17px; font-weight: 600; font-style: italic;
+            font-size: 19px; font-weight: 600; font-style: italic;
             color: #64748b; margin-bottom: 12px;
             letter-spacing: 0.5px;
             line-height: 1.8;
@@ -542,18 +633,18 @@
             border: 1px solid var(--border-color);
         }
         .hl-bc-playback-row {
-            display: flex; flex-wrap: wrap; align-items: center;
-            gap: 10px;
+            display: flex; flex-wrap: nowrap; align-items: center;
+            gap: 8px;
         }
         .hl-bc-play,
         .hl-bc-slow {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 20px;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 18px;
             border-radius: 999px;
             border: 1px solid var(--border-color); cursor: pointer;
             font-size: 14px; font-weight: 700;
             transition: all 0.15s ease;
-            flex: 1 1 auto; min-width: 130px; justify-content: center;
+            flex: 1 1 0; min-width: 0; justify-content: center;
         }
         .hl-bc-play {
             background: var(--struct-dark); color: #fff;
@@ -567,8 +658,50 @@
         .hl-bc-play:active, .hl-bc-slow:active { transform: translateY(0); }
         .hl-bc-play.playing { background: #22c55e; border-color: #22c55e; }
         .hl-bc-slow.playing { background: var(--struct-dark-light); color: #fff; border-color: var(--struct-dark-light); }
-        .hl-bc-play .pb-icon, .hl-bc-slow .pb-icon { font-size: 15px; line-height: 1; }
+        .hl-bc-play .pb-icon, .hl-bc-slow .pb-icon { font-size: 15px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
         .hl-bc-play .pb-label, .hl-bc-slow .pb-label { line-height: 1; }
+
+        /* size the inline-SVG slow glyph at each call site */
+        .hl-bc-slow .slow-icon-svg { width: 20px; height: 20px; vertical-align: middle; }
+
+        /* ===== 🎙 Shadow button: Play → Listen → Speak ===== */
+        .hl-bc-shadow {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--cta-orange); cursor: pointer;
+            font-size: 14px; font-weight: 700;
+            background: #fff; color: var(--cta-orange);
+            transition: all 0.15s ease;
+            flex: 1 1 0; min-width: 0; justify-content: center;
+        }
+        .hl-bc-shadow:hover { background: #fff7ed; }
+        .hl-bc-shadow:active { transform: translateY(0); }
+        .hl-bc-shadow.playing { background: var(--cta-orange); border-color: var(--cta-orange); color: #fff; }
+        .hl-bc-shadow.rec {
+            background: var(--cta-orange); border-color: var(--cta-orange); color: #fff;
+            animation: hl-shadow-pulse 1s infinite;
+        }
+        @keyframes hl-shadow-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.35); }
+            50% { box-shadow: 0 0 0 7px rgba(255, 69, 0, 0); }
+        }
+
+        /* Shadow step indicator: 1 Play · 2 Listen · 3 Speak */
+        .hl-bc-shadow-steps {
+            display: none; margin-top: 10px;
+            align-items: center; flex-wrap: wrap; gap: 6px;
+        }
+        .hl-bc-shadow-steps.on { display: flex; }
+        .hl-bc-steps-chip {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+            padding: 4px 10px; border-radius: 999px;
+            background: #fff; border: 1px solid var(--border-color); color: #94a3b8;
+            transition: all 0.15s ease;
+        }
+        .hl-bc-steps-chip.active { background: var(--cta-orange); border-color: var(--cta-orange); color: #fff; }
+        .hl-bc-steps-chip.done { background: #dcfce7; border-color: #bbf7d0; color: #16a34a; }
+        .hl-bc-steps-status { font-size: 11px; font-weight: 600; color: #64748b; margin-left: auto; }
 
         /* Progress bar (karaoke) */
         .hl-bc-progress {
@@ -725,11 +858,25 @@
         .hl-bc-lock-overlay.show {
             opacity: 1; pointer-events: auto;
         }
+        /* Locked state: shrink the card to lock-content size and hide nav row */
+        .hl-bigcard.is-locked { max-height: 520px; }
+        .hl-bigcard.is-locked .hl-bc-nav { display: none; }
         .hl-bc-lock-content {
+            position: relative;
             text-align: center;
             padding: 28px 24px;
             max-width: 280px;
         }
+        .hl-bc-lock-close {
+            position: absolute; top: -8px; right: -8px;
+            width: 32px; height: 32px; border-radius: 50%;
+            border: none; background: #f1f5f9; color: #64748b;
+            font-size: 18px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .hl-bc-lock-close:hover { background: #e2e8f0; color: var(--struct-dark); }
         .hl-bc-lock-icon {
             font-size: 42px;
             margin-bottom: 12px;
@@ -764,8 +911,10 @@
             .hl-bc-zh { font-size: 28px; letter-spacing: 0.5px; }
             .hl-bc-hero { padding: 32px 20px 22px 20px; }
             .hl-bc-body { padding: 22px 20px 26px 20px; }
-            .hl-bc-play, .hl-bc-slow { font-size: 13px; padding: 10px 18px; min-width: 120px; }
+            .hl-bc-play, .hl-bc-slow, .hl-bc-shadow { font-size: 13px; padding: 9px 12px; }
+            .hl-bc-steps-status { margin-left: 0; width: 100%; }
             .hl-bc-play .pb-icon, .hl-bc-slow .pb-icon { font-size: 16px; margin-right: 4px; }
+            .hl-bc-slow .pb-icon.slow-icon-img { width: 22px; height: 22px; margin-right: 4px; }
         }
 
         /* ===== Word-meaning bubble inside Big Card (hover on zh char or py syllable) ===== */
@@ -837,21 +986,21 @@
             width: 40px; height: 40px;
             border-radius: 50%;
             border: none; cursor: pointer;
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: #fff;
-            font-size: 16px; font-weight: 700;
+            background: transparent;
+            color: var(--struct-dark);
+            font-size: 18px; font-weight: 700;
             display: inline-flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            box-shadow: none;
+            transition: transform 0.12s ease, background 0.12s ease;
             flex-shrink: 0;
         }
-        .speaker-slow:hover { transform: scale(1.06); }
-        .speaker-slow.locked { background: #E2E8F0; color: #94A3B8; box-shadow: none; cursor: not-allowed; }
-        .speaker-slow.playing { background: linear-gradient(135deg, #8b5cf6, #7c3aed); animation: pulse-slow 0.9s infinite; }
+        .speaker-slow:hover { transform: scale(1.06); background: rgba(0,0,0,0.04); }
+        .speaker-slow.locked { background: transparent; color: #94A3B8; box-shadow: none; cursor: not-allowed; }
+        .speaker-slow.playing { background: rgba(34, 197, 94, 0.15); color: #16a34a; animation: pulse-slow 0.9s infinite; }
         .speaker-slow:disabled { opacity: 0.5; cursor: not-allowed; }
 
         /* ===== Hint: tell user to click a phrase to open the big card ===== */
-        body.hl-preview .topic-click-hint {
+        .topic-click-hint {
             display: inline-block;
             margin-left: 8px;
             padding: 3px 8px;
@@ -863,14 +1012,14 @@
             letter-spacing: 0.2px;
             vertical-align: middle;
         }
-        body.hl-preview .phrases-hint-row {
+        .phrases-hint-row {
             padding: 6px 20px 0 20px;
             font-size: 12px;
             color: #94a3b8;
             font-weight: 600;
             letter-spacing: 0.2px;
         }
-        body.hl-preview .phrases-hint-row .phrases-hint-dot {
+        .phrases-hint-row .phrases-hint-dot {
             display: inline-block; width: 6px; height: 6px; border-radius: 50%;
             background: #22c55e; margin-right: 6px;
             box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
@@ -881,36 +1030,15 @@
             50% { opacity: 0.35; }
         }
         .hl-row-click-hint {
-            position: fixed;
-            z-index: 12000;
-            pointer-events: none;
-            padding: 6px 12px;
-            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-            color: #ffffff;
+            display: inline-block;
+            margin: 2px 0 10px;
+            padding: 4px 12px;
+            background: #f1f5f9;
+            color: #94a3b8;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
             border-radius: 999px;
-            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.35);
-            white-space: nowrap;
-            opacity: 0;
-            transform: translate(-50%, -130%) scale(0.85);
-            transition: opacity 0.18s ease, transform 0.18s ease;
-            will-change: transform, top, left, opacity;
-        }
-        .hl-row-click-hint::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: -5px;
-            width: 0; height: 0;
-            transform: translateX(-50%);
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 6px solid #f97316;
-        }
-        .hl-row-click-hint.show {
-            opacity: 1;
-            transform: translate(-50%, -130%) scale(1);
+            letter-spacing: 0.2px;
         }
 
         /* ===== Unlock Popup (shown when user clicks "🔒 More phrases") ===== */
@@ -977,16 +1105,15 @@
         .legal-modal-card a:hover { text-decoration: underline; }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        /* ===== Footer ===== */
+        /* ===== Footer (slim visual weight) ===== */
         .global-footer {
-            background: var(--struct-dark); color: #94A3B8; padding: 32px 20px; text-align: center;
+            background: var(--struct-dark); color: #6B7785; padding: 18px 20px 22px; text-align: center;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
-        .global-footer .copy { font-size: 13px; }
-        .global-footer .copy strong { color: #fff; font-weight: 600; }
-        .global-footer .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px; font-size: 12px; margin-top: 8px; }
-        .global-footer .links a { color: #94A3B8; text-decoration: none; transition: 0.2s; }
-        .global-footer .links a:hover { color: #fff; }
+        .global-footer .copy { font-size: 12px; color: #6B7785; line-height: 1.7; }
+        .global-footer .copy strong { color: #94A3B8; font-weight: 600; }
+        .global-footer .copy a { color: #94A3B8; text-decoration: none; transition: 0.18s; }
+        .global-footer .copy a:hover { color: #fff; }
         .payment-icons { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
         .payment-icons span { font-size: 14px; }
 
@@ -994,8 +1121,8 @@
         @media (max-width: 600px) {
             .accordion-header { flex-wrap: wrap; padding: 16px; }
             .topic-meta { width: 100%; justify-content: flex-start; padding-left: 64px; margin-top: -8px; }
-            .phrase { grid-template-columns: 24px 34px 34px 1fr 24px auto; gap: 6px; padding: 8px 12px; }
-            .speaker { width: 34px; height: 34px; font-size: 12px; }
+            .phrase { grid-template-columns: 24px 24px 40px 1fr 24px auto; gap: 6px; padding: 8px 12px; }
+            .speaker { width: 22px; height: 22px; font-size: 12px; }
             .page-header-inner h1 { font-size: 24px; }
             .top-nav { padding: 10px 16px; }
             #pwaInstallHeaderBtn { font-size: 11px; padding: 6px 12px; }
@@ -1008,7 +1135,7 @@
             .topic-ico { width: 36px; height: 36px; font-size: 1rem; }
             .topic-info h3 { font-size: 14px; }
             .topic-info p { font-size: 12px; }
-            .phrase { grid-template-columns: 20px 30px 30px 1fr 20px auto; padding: 6px 10px; }
+            .phrase { grid-template-columns: 20px 24px 40px 1fr 20px auto; padding: 6px 10px; }
             .phrase .p-zh { font-size: 14px; }
             .phrase .p-en { font-size: 12px; }
         }
@@ -1155,22 +1282,15 @@
             <span class="search-ico">🔍</span>
             <input type="text" id="phraseSearchInput" placeholder="Search phrases..." autocomplete="off">
         </div>
-        <div class="search-scope" id="searchScope">
-            <button type="button" data-scope="all" class="active">All</button>
-            <button type="button" data-scope="zh">Chinese</button>
-            <button type="button" data-scope="py">Pinyin</button>
-            <button type="button" data-scope="en">English</button>
-            <button type="button" data-scope="topic">Topic</button>
-        </div>
-        <button class="fav-btn" id="openFavPanel" type="button" title="Open favorites">
+            <button class="fav-btn" id="openFavPanel" type="button" title="Open favorites">
             <span>⭐ Favorites</span>
             <span class="fav-count" id="favCount">0</span>
         </button>
     </div>
     <div class="search-status" id="searchStatus"></div>
 
-    <div class="topics-section-title">15 REAL-LIFE TOPICS</div>
-
+    <div class="topics-section-title">Choose a topic</div>
+  
     <!-- ====== 手风琴内容 (15个主题，全部默认收起) ====== -->
     <section class="accordion-wrap">
 
@@ -1597,15 +1717,7 @@
     <!-- ====== FOOTER ====== -->
     <footer class="global-footer">
         <div class="copy"><strong>HanLingo</strong> — Made for people who want to speak Chinese in real life.</div>
-        <div class="copy" style="margin-top:4px;">© 2026 HanLingo.app</div>
-        <div class="links">
-            <a href="javascript:void(0)" onclick="openLegalModal('terms')">Terms</a>
-            <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy</a>
-            <a href="javascript:void(0)" onclick="openLegalModal('refund')">Refund Policy</a>
-            <a href="mailto:support@hanlingo.app">support@hanlingo.app</a>
-            <button class="nav-cta-btn" onclick="triggerPWAInstall()" id="pwaInstallFooterBtn" style="font-size:12px;padding:4px 12px;">📲 Install App</button>
-            <a href="index.html" style="color:#94a3b8;font-size:12px;">← Back to Home</a>
-        </div>
+        <div class="copy" style="margin-top:4px;">© 2026 HanLingo.app · <a href="javascript:void(0)" onclick="openLegalModal('terms')">Terms</a> · <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Privacy</a></div>
     </footer>
 
     <!-- ====== 合规弹窗 ====== -->
@@ -1887,17 +1999,15 @@
          - Adds pinyin between Chinese and English for all 150 phrases
          - Hover any phrase → floating tooltip with pinyin + word meanings (English)
          - Click any phrase → expand panel with word breakdown + cultural tip (English)
-         - Adds 'hl-preview' to <body> to unlock content (temporary design preview)
-         - To restore the paywall: comment out or delete the initHanLingoLearningLayer() call below
          ============================================================ -->
     <div class="hl-tooltip" id="hlTooltip" role="tooltip" aria-hidden="true"></div>
     <div class="hl-bc-wtip" id="hlBcWtip" aria-hidden="true"></div>
     <!-- Survival 150 句：共享 hover 词义气泡容器 -->
     <div class="sv-wtip" id="svWtip" aria-hidden="true"></div>
-    <div class="hl-row-click-hint" id="hlRowClickHint">👆 点击查看详情卡片</div>
     <div class="hl-bc-overlay" id="hlBigCardOverlay" aria-hidden="true">
         <div class="hl-bigcard" id="hlBigCard" role="dialog" aria-modal="true" aria-labelledby="hlBcZh">
             <button class="hl-bc-close" id="hlBcClose" aria-label="Close">×</button>
+            <button class="hl-bc-fav" id="hlBcFav" type="button" title="Add to favorites" aria-label="Add to favorites" aria-pressed="false">☆</button>
             <div class="hl-bc-hero">
                 <div class="hl-bc-topic-row">
                     <div class="hl-bc-topic-tag" id="hlBcTopic">—</div>
@@ -1913,9 +2023,20 @@
                             <span class="pb-label">Play Audio</span>
                         </button>
                         <button class="hl-bc-slow" id="hlBcSlow" aria-label="Play slow audio for beginners">
-                            <span class="pb-icon" id="hlBcSlowIcon">🐢</span>
+                            // Inline SVG fills the slow button — no img fallback needed anymore
+                            <span class="pb-icon" id="hlBcSlowIcon" aria-hidden="true"></span>
                             <span class="pb-label">Slow Read</span>
                         </button>
+                        <button class="hl-bc-shadow" id="hlBcShadow" type="button" title="Shadow practice: Play → Listen → Speak" aria-label="Shadow practice: play, listen, then speak">
+                            <span class="pb-icon" aria-hidden="true">🎙</span>
+                            <span class="pb-label" id="hlBcShadowLabel">Shadow</span>
+                        </button>
+                    </div>
+                    <div class="hl-bc-shadow-steps" id="hlBcShadowSteps" aria-hidden="true">
+                        <span class="hl-bc-steps-chip" data-step="play">1 · Play</span>
+                        <span class="hl-bc-steps-chip" data-step="listen">2 · Listen</span>
+                        <span class="hl-bc-steps-chip" data-step="speak">3 · Speak</span>
+                        <span class="hl-bc-steps-status" id="hlBcShadowStatus"></span>
                     </div>
                     <div class="hl-bc-progress">
                         <div class="hl-bc-bar" id="hlBcBar">
@@ -1935,11 +2056,12 @@
             </div>
             <div class="hl-bc-lock-overlay" id="hlBcLockOverlay" aria-hidden="true">
                 <div class="hl-bc-lock-content">
+                    <button class="hl-bc-lock-close" id="hlBcLockClose" type="button" aria-label="Close">×</button>
                     <div class="hl-bc-lock-icon">🔒</div>
-                    <div class="hl-bc-lock-title">Premium Content</div>
-                    <div class="hl-bc-lock-desc">Unlock all 150 phrases with audio, pinyin, and cultural notes</div>
-                    <button class="hl-bc-lock-cta" id="hlBcLockCta">Get Lifetime Access</button>
-                    <div class="hl-bc-lock-sub">$59 — Best Value · Lifetime updates</div>
+                    <div class="hl-bc-lock-title">More phrases are waiting</div>
+                    <div class="hl-bc-lock-desc">Unlock the full library</div>
+                    <button class="hl-bc-lock-cta" id="hlBcLockCta">UNLOCK NOW</button>
+                    <div class="hl-bc-lock-sub">150+ practical Chinese phrases · Lifetime access</div>
                 </div>
             </div>
         </div>
@@ -1947,6 +2069,18 @@
     <script>
     (function () {
         'use strict';
+
+        // Minimal monochrome "slow playback" glyph: trailing motion dots → playhead.
+        // Uses currentColor so each call site controls the icon color via CSS.
+        const SLOW_ICON_SVG =
+            '<svg class="slow-icon-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<g fill="currentColor">' +
+            '<circle cx="2.5" cy="8" r="1"/>' +
+            '<circle cx="6" cy="8" r="1"/>' +
+            '<path d="M 9.5 5 L 13.5 8 L 9.5 11 Z"/>' +
+            '</g></svg>';
+        const SLOW_ICON_BC = SLOW_ICON_SVG;
+        const SLOW_ICON_INLINE = SLOW_ICON_SVG;
 
         // === PHRASE_DATA: pinyin + word breakdown + cultural tip (English only) ===
         const PHRASE_DATA = {
@@ -2460,7 +2594,6 @@
 
         // === Init ===
         function initHanLingoLearningLayer() {
-            document.body.classList.add('hl-preview');
 
             // Clone+replace not needed: convertAllPhraseRows() replaces old rows entirely,
             // and accordion toggle uses event delegation on .accordion-wrap.
@@ -2543,9 +2676,32 @@
             const bcPlayIcon = document.getElementById('hlBcPlayIcon');
             const bcSlow = document.getElementById('hlBcSlow');
             const bcSlowIcon = document.getElementById('hlBcSlowIcon');
+            // Seed big card slow icon with the inline SVG glyph
+            if (bcSlowIcon && SLOW_ICON_SVG) bcSlowIcon.innerHTML = SLOW_ICON_SVG;
             const bcWtip = document.getElementById('hlBcWtip');
             const bcPrev = document.getElementById('hlBcPrev');
             const bcNext = document.getElementById('hlBcNext');
+            const bcFav = document.getElementById('hlBcFav');
+            if (bcFav) {
+                bcFav.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (!currentBcPhraseId) return;
+                    const data = PHRASE_DATA[currentBcPhraseId];
+                    if (!data) return;
+                    const dash = currentBcPhraseId.indexOf('-');
+                    const topicKey = currentBcPhraseId.substring(0, dash);
+                    if (window.HanLingoFavorites) {
+                        window.HanLingoFavorites.toggle({
+                            pid: currentBcPhraseId,
+                            zh: data.zh || '',
+                            en: data.en || '',
+                            py: data.py || '',
+                            topic: topicKey,
+                            topicLabel: TOPIC_LABELS[topicKey] || topicKey
+                        });
+                    }
+                });
+            }
             const bcNavPos = document.getElementById('hlBcNavPos');
             const bcLockOverlay = document.getElementById('hlBcLockOverlay');
             const bcLockCta = document.getElementById('hlBcLockCta');
@@ -2553,6 +2709,10 @@
             let currentBcPhraseId = null;
             const SLOW_RATE = 0.7; // 70% speed for zero-basics learners
             const FREE_COUNT = 2; // First 2 phrases per topic are free
+            // Paid entitlement: set by success.html after a valid Stripe session code is verified
+            function isPaidUser() {
+                try { return localStorage.getItem('hanlingo_paid') === 'true'; } catch (e) { return false; }
+            }
 
             // ===== Prev/Next navigation in Big Card =====
             // Topic order follows DOM data-topic sequence; first topic DOM uses 'taxi'
@@ -2605,12 +2765,26 @@
             }
             if (bcPrev) bcPrev.addEventListener('click', function () { navigateBigCard(-1); });
             if (bcNext) bcNext.addEventListener('click', function () { navigateBigCard(1); });
-            // Lock CTA → open unlock popup
+            // Lock CTA → go straight to Stripe checkout (skip the $59 popup card)
             if (bcLockCta) bcLockCta.addEventListener('click', function () {
-                if (window.openUnlockPopup) { window.openUnlockPopup(); }
+                window.open('https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01', '_blank');
             });
-            function showBcLock() { if (bcLockOverlay) { bcLockOverlay.classList.add('show'); bcLockOverlay.setAttribute('aria-hidden', 'false'); } }
-            function hideBcLock() { if (bcLockOverlay) { bcLockOverlay.classList.remove('show'); bcLockOverlay.setAttribute('aria-hidden', 'true'); } }
+            function showBcLock() {
+                if (bcLockOverlay) {
+                    bcLockOverlay.classList.add('show');
+                    bcLockOverlay.setAttribute('aria-hidden', 'false');
+                }
+                const card = document.getElementById('hlBigCard');
+                if (card) card.classList.add('is-locked');
+            }
+            function hideBcLock() {
+                if (bcLockOverlay) {
+                    bcLockOverlay.classList.remove('show');
+                    bcLockOverlay.setAttribute('aria-hidden', 'true');
+                }
+                const card = document.getElementById('hlBigCard');
+                if (card) card.classList.remove('is-locked');
+            }
 
             // ===== Big Card char hover: word-meaning bubble =====
             function positionBcWtip(elRect) {
@@ -3030,11 +3204,11 @@
                     if (mode === 'slow' && bcSlow && bcSlowIcon) {
                         setBtnState(bcSlow, { html: '⏳', playing: true });
                         audio.play()
-                            .then(function () { if (currentBcPhraseId === phraseId) setBtnState(bcSlow, { html: (bcSlowIcon.textContent='🐢')||null, playing: true }); })
-                            .catch(function () { if (currentBcPhraseId === phraseId) setBtnState(bcSlow, { html: (bcSlowIcon.textContent='🐢')||null, playing: false }); });
+                            .then(function () { if (currentBcPhraseId === phraseId) setBtnState(bcSlow, { html: SLOW_ICON_BC, playing: true }); })
+                            .catch(function () { if (currentBcPhraseId === phraseId) setBtnState(bcSlow, { html: SLOW_ICON_BC, playing: false }); });
                         audio.addEventListener('ended', function onEndedBCS() {
                             audio.removeEventListener('ended', onEndedBCS);
-                            if (currentBcPhraseId === phraseId) setBtnState(bcSlow, { html: (bcSlowIcon.textContent='🐢')||null, playing: false });
+                            if (currentBcPhraseId === phraseId) setBtnState(bcSlow, { html: SLOW_ICON_BC, playing: false });
                         });
                     }
                 }
@@ -3044,13 +3218,161 @@
             if (bcPlay) {
                 bcPlay.addEventListener('click', function (e) {
                     e.stopPropagation();
+                    shadowCancel();
                     if (currentBcPhraseId) playPhraseAudio(currentBcPhraseId, bcPlay, 'normal');
                 });
             }
             if (bcSlow) {
                 bcSlow.addEventListener('click', function (e) {
                     e.stopPropagation();
+                    shadowCancel();
                     if (currentBcPhraseId) playPhraseAudio(currentBcPhraseId, bcSlow, 'slow');
+                });
+            }
+
+            // ===== 🎙 Shadow: Play → Listen → Speak (lightweight shadowing flow) =====
+            const bcShadow = document.getElementById('hlBcShadow');
+            const bcShadowLabel = document.getElementById('hlBcShadowLabel');
+            const bcShadowSteps = document.getElementById('hlBcShadowSteps');
+            const bcShadowStatus = document.getElementById('hlBcShadowStatus');
+            let shadowPhase = null;        // null | 'play' | 'listen' | 'speak' | 'review' | 'done'
+            let shadowRecorder = null;
+            let shadowStream = null;
+            let shadowChunks = [];
+            let shadowTimer = null;
+            let shadowRecURL = null;
+            let shadowRecAudio = null;
+
+            function shadowSetPhase(phase, statusText) {
+                shadowPhase = phase;
+                if (bcShadowSteps) {
+                    const order = ['play', 'listen', 'speak'];
+                    const cur = (phase === 'review' || phase === 'done') ? 'speak' : phase;
+                    const ci = cur ? order.indexOf(cur) : -1;
+                    bcShadowSteps.querySelectorAll('.hl-bc-steps-chip').forEach(function (chip) {
+                        const si = order.indexOf(chip.getAttribute('data-step'));
+                        chip.classList.remove('active', 'done');
+                        if (ci >= 0 && si < ci) chip.classList.add('done');
+                        else if (ci >= 0 && si === ci) chip.classList.add('active');
+                    });
+                    bcShadowSteps.classList.toggle('on', !!phase);
+                    bcShadowSteps.setAttribute('aria-hidden', phase ? 'false' : 'true');
+                }
+                if (bcShadowStatus && statusText !== undefined) bcShadowStatus.textContent = statusText || '';
+                if (bcShadow) {
+                    bcShadow.classList.toggle('playing', phase === 'play' || phase === 'listen');
+                    bcShadow.classList.toggle('rec', phase === 'speak');
+                    bcShadow.title = phase ? 'Shadowing… tap to stop' : 'Shadow practice: Play → Listen → Speak';
+                    if (bcShadowLabel) bcShadowLabel.textContent = phase ? 'Stop' : 'Shadow';
+                }
+            }
+
+            function shadowStopMicTracks() {
+                if (shadowStream) {
+                    shadowStream.getTracks().forEach(function (t) { try { t.stop(); } catch (err) {} });
+                    shadowStream = null;
+                }
+            }
+
+            function shadowCancel() {
+                clearTimeout(shadowTimer);
+                shadowTimer = null;
+                try {
+                    if (shadowRecorder && shadowRecorder.state !== 'inactive') {
+                        shadowRecorder.onstop = null; // cancel mid-recording: don't play back
+                        shadowRecorder.stop();
+                    }
+                } catch (err) {}
+                shadowRecorder = null;
+                shadowStopMicTracks();
+                if (shadowRecAudio) { try { shadowRecAudio.pause(); } catch (err) {} shadowRecAudio = null; }
+                if (shadowRecURL) { try { URL.revokeObjectURL(shadowRecURL); } catch (err) {} shadowRecURL = null; }
+                try {
+                    const a1 = bcAudioCache['./audio/' + currentBcPhraseId + '.mp3@1'];
+                    const a2 = bcAudioCache['./audio/' + currentBcPhraseId + '.mp3@' + SLOW_RATE];
+                    if (a1) a1.pause();
+                    if (a2) a2.pause();
+                } catch (err) {}
+                if (shadowPhase) { detachProgressLoop(); shadowSetPhase(null); }
+            }
+
+            function shadowPlayAudio(rate, mode, next) {
+                const audio = getOrCreateAudio(currentBcPhraseId, rate);
+                attachProgressLoop(audio, mode);
+                audio.addEventListener('ended', function onShadowEnd() {
+                    audio.removeEventListener('ended', onShadowEnd);
+                    if (shadowPhase) next();
+                });
+                audio.play().catch(function () { shadowCancel(); });
+            }
+
+            function shadowSpeak() {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined') {
+                    shadowSetPhase('done', '🎙 Recording not supported — just speak along!');
+                    setTimeout(function () { if (shadowPhase === 'done') shadowCancel(); }, 3000);
+                    return;
+                }
+                navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+                    shadowStream = stream;
+                    shadowRecorder = new MediaRecorder(stream);
+                    shadowChunks = [];
+                    shadowRecorder.ondataavailable = function (e) { if (e.data && e.data.size) shadowChunks.push(e.data); };
+                    shadowRecorder.onstop = function () {
+                        shadowStopMicTracks();
+                        if (!shadowPhase || !shadowChunks.length) { shadowSetPhase(null); return; }
+                        shadowReview(new Blob(shadowChunks, { type: shadowRecorder.mimeType || 'audio/webm' }));
+                    };
+                    shadowRecorder.start();
+                    // Record for phrase length + 2s buffer (min 3s, max 15s)
+                    const ms = Math.min(15000, Math.max(3000, Math.round((kkTotalDuration || 4) * 1000) + 2000));
+                    shadowSetPhase('speak', '🎤 Speak now — recording ' + Math.ceil(ms / 1000) + 's…');
+                    shadowTimer = setTimeout(function () {
+                        try { if (shadowRecorder && shadowRecorder.state !== 'inactive') shadowRecorder.stop(); } catch (err) {}
+                    }, ms);
+                }).catch(function () {
+                    shadowSetPhase('done', '🎙 Mic blocked — just speak along!');
+                    setTimeout(function () { if (shadowPhase === 'done') shadowCancel(); }, 3000);
+                });
+            }
+
+            function shadowReview(blob) {
+                shadowSetPhase('review', '▶ Playing your recording…');
+                shadowRecURL = URL.createObjectURL(blob);
+                shadowRecAudio = new Audio(shadowRecURL);
+                shadowRecAudio.onended = function () {
+                    shadowSetPhase('done', '✅ Shadow complete — tap 🎙 to retry');
+                    setTimeout(function () { if (shadowPhase === 'done') shadowSetPhase(null); }, 4000);
+                };
+                shadowRecAudio.onerror = function () { shadowSetPhase(null); };
+                shadowRecAudio.play().catch(function () { shadowSetPhase(null); });
+            }
+
+            function shadowRun() {
+                if (!currentBcPhraseId) return;
+                if (shadowPhase) { shadowCancel(); return; } // tap again = stop
+                // Pause any ongoing playback first
+                try {
+                    const a1 = bcAudioCache['./audio/' + currentBcPhraseId + '.mp3@1'];
+                    const a2 = bcAudioCache['./audio/' + currentBcPhraseId + '.mp3@' + SLOW_RATE];
+                    if (a1) a1.pause();
+                    if (a2) a2.pause();
+                } catch (err) {}
+                // Step 1: Play — normal speed, karaoke follows
+                shadowSetPhase('play', 'Listen to the native audio');
+                shadowPlayAudio(1, 'normal', function () {
+                    // Step 2: Listen — slow speed
+                    shadowSetPhase('listen', 'Listen carefully — slow speed');
+                    shadowPlayAudio(SLOW_RATE, 'slow', function () {
+                        // Step 3: Speak — record yourself
+                        shadowSpeak();
+                    });
+                });
+            }
+
+            if (bcShadow) {
+                bcShadow.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    shadowRun();
                 });
             }
             // Click-to-seek on progress bar
@@ -3176,8 +3498,9 @@
                 if (!data || !overlay) return;
                 currentBcPhraseId = phraseId;
                 resetBigCardPlaybackUI();
+                shadowCancel(); // stop any Shadow flow from previous phrase
                 if (bcPlay) { bcPlay.classList.remove('playing'); if (bcPlayIcon) bcPlayIcon.textContent = '▶'; }
-                if (bcSlow) { bcSlow.classList.remove('playing'); if (bcSlowIcon) bcSlowIcon.textContent = '🐢'; }
+                if (bcSlow) { bcSlow.classList.remove('playing'); if (bcSlowIcon && SLOW_ICON_SVG) bcSlowIcon.innerHTML = SLOW_ICON_SVG; }
                 const dash = phraseId.indexOf('-');
                 const topicKey = phraseId.substring(0, dash);
                 const numStr = phraseId.substring(dash + 1);
@@ -3190,7 +3513,7 @@
                 if (bcNavPos) bcNavPos.textContent = (posIdx + 1) + ' / ' + topicIds.length;
                 if (bcPrev) bcPrev.disabled = isFirstOverall;
                 if (bcNext) bcNext.disabled = isLastOverall;
-                const isLocked = (posIdx >= FREE_COUNT);
+                const isLocked = (posIdx >= FREE_COUNT) && !isPaidUser();
                 const label = TOPIC_LABELS[topicKey] || topicKey;
                 const numNum = parseInt(numStr, 10);
                 const enText = document.querySelector('.phrase[data-phrase-id="' + phraseId + '"] .p-en');
@@ -3200,6 +3523,8 @@
                 buildKaraokeSpans(phraseId);
                 computeKaraokeTiming(0); // initial estimate using weight-based seconds (real duration auto-refines on metadata load)
                 if (bcEn) bcEn.textContent = enText ? enText.textContent.trim() : '';
+                // Sync Big Card favorite star with phrase's persistent state
+                if (bcFav && window.HanLingoFavorites) window.HanLingoFavorites.updateStar(bcFav, phraseId);
                 // Cultural Note: foldable (collapsed by default) — render even when locked
                 if (bcCulture) {
                     const cultureHtml = annotateCultureChinese(data.culture);
@@ -3229,7 +3554,7 @@
                     } catch (e) {}
                     resetBigCardPlaybackUI();
                     if (bcPlay) { bcPlay.classList.remove('playing'); if (bcPlayIcon) bcPlayIcon.textContent = '▶'; }
-                    if (bcSlow) { bcSlow.classList.remove('playing'); if (bcSlowIcon) bcSlowIcon.textContent = '🐢'; }
+                    if (bcSlow) { bcSlow.classList.remove('playing'); if (bcSlowIcon && SLOW_ICON_SVG) bcSlowIcon.innerHTML = SLOW_ICON_SVG; }
                 } else {
                     hideBcLock();
                 }
@@ -3241,6 +3566,7 @@
             }
             function closeBigCard() {
                 if (!overlay) return;
+                shadowCancel(); // stop mic recording / shadow flow
                 overlay.classList.remove('open');
                 overlay.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
@@ -3263,6 +3589,11 @@
                 } catch (e) { /* ignore */ }
             }
             if (bcClose) bcClose.addEventListener('click', function () { closeBigCard(); });
+            const bcLockClose = document.getElementById('hlBcLockClose');
+            if (bcLockClose) bcLockClose.addEventListener('click', function (e) {
+                e.stopPropagation();
+                closeBigCard();
+            });
             if (overlay) overlay.addEventListener('click', function (e) {
                 if (e.target === overlay) closeBigCard();
             });
@@ -3332,7 +3663,7 @@
                     const badge = phrase.querySelector('.lock-badge');
                     if (badge) badge.remove();
 
-                    // Insert pinyin div between .p-zh and .p-en
+                    // Insert pinyin div between .p-zh and .p-en (kept in DOM even though rows hide it visually)
                     const zh = body.querySelector('.p-zh');
                     const en = body.querySelector('.p-en');
                     const pyDiv = document.createElement('div');
@@ -3344,7 +3675,14 @@
                         body.appendChild(pyDiv);
                     }
 
-                    // Enable speaker button
+                    // Zero-pad the row number: 1 -> "01", ..., 9 -> "09", 10 -> "10"
+                    const numEl = phrase.querySelector('.p-num');
+                    if (numEl) {
+                        const raw = parseInt(String(numEl.textContent || '').trim(), 10);
+                        if (!isNaN(raw)) numEl.textContent = raw < 10 ? '0' + raw : String(raw);
+                    }
+
+                    // Enable original speaker button (kept for logic; the new pill button is what users see)
                     const speakerBtn = phrase.querySelector('.speaker');
                     if (speakerBtn) {
                         speakerBtn.removeAttribute('disabled');
@@ -3356,10 +3694,10 @@
                         });
                     }
 
-                    // Add slow-play button
+                    // Add original slow-play button (hidden visually; for logic parity)
                     const slowBtn = document.createElement('button');
                     slowBtn.className = 'speaker-slow';
-                    slowBtn.innerHTML = '🐢';
+                    slowBtn.innerHTML = SLOW_ICON_INLINE;
                     slowBtn.setAttribute('aria-label', 'Play slow (beginner mode)');
                     slowBtn.addEventListener('click', function (e) {
                         e.stopPropagation();
@@ -3392,24 +3730,97 @@
                     if (window.HanLingoFavorites) window.HanLingoFavorites.updateStar(favBtn, id);
                     phrase.appendChild(favBtn);
 
+                    // ---- NEW pill controls: ▶ Play + Slow (user-facing) ----
+                    // These mirror the original speaker/slowBtn actions but render as the new pill layout below text.
+                    const isLockedRow = (idx >= FREE_COUNT) && !isPaidUser();
+                    const ctl = document.createElement('div');
+                    ctl.className = 'phrase-ctl';
+                    const pillPlay = document.createElement('button');
+                    pillPlay.className = 'phrase-btn phrase-btn-play';
+                    pillPlay.setAttribute('type', 'button');
+                    pillPlay.setAttribute('aria-label', 'Play audio');
+                    if (isLockedRow) {
+                        pillPlay.setAttribute('aria-disabled', 'true');
+                        pillPlay.disabled = true;
+                    }
+                    pillPlay.innerHTML =
+                        '<span aria-hidden="true" style="font-size:13px;line-height:1;">▶</span>' +
+                        '<span class="phrase-btn-label">Play</span>';
+                    pillPlay.addEventListener('click', function (e) {
+                        e.stopPropagation(); e.preventDefault();
+                        if (pillPlay.disabled || pillPlay.getAttribute('aria-disabled') === 'true') return;
+                        playPhraseAudio(id, speakerBtn || pillPlay, 'normal');
+                        // Sync playing class so pill button shows active green pulse
+                        const sync = setInterval(function () {
+                            if (!speakerBtn) { clearInterval(sync); return; }
+                            if (speakerBtn.classList.contains('playing')) pillPlay.classList.add('playing');
+                            else { pillPlay.classList.remove('playing'); clearInterval(sync); }
+                        }, 60);
+                        setTimeout(function () { clearInterval(sync); pillPlay.classList.remove('playing'); }, 8000);
+                    });
+
+                    const pillSlow = document.createElement('button');
+                    pillSlow.className = 'phrase-btn phrase-btn-slow';
+                    pillSlow.setAttribute('type', 'button');
+                    pillSlow.setAttribute('aria-label', 'Slow playback');
+                    if (isLockedRow) {
+                        pillSlow.setAttribute('aria-disabled', 'true');
+                        pillSlow.disabled = true;
+                    }
+                    pillSlow.innerHTML = SLOW_ICON_INLINE +
+                        '<span class="phrase-btn-label">Slow</span>';
+                    pillSlow.addEventListener('click', function (e) {
+                        e.stopPropagation(); e.preventDefault();
+                        if (pillSlow.disabled || pillSlow.getAttribute('aria-disabled') === 'true') return;
+                        playPhraseAudio(id, slowBtn || pillSlow, 'slow');
+                        const sync = setInterval(function () {
+                            if (!slowBtn) { clearInterval(sync); return; }
+                            if (slowBtn.classList.contains('playing')) pillSlow.classList.add('playing');
+                            else { pillSlow.classList.remove('playing'); clearInterval(sync); }
+                        }, 60);
+                        setTimeout(function () { clearInterval(sync); pillSlow.classList.remove('playing'); }, 12000);
+                    });
+                    ctl.appendChild(pillPlay);
+                    ctl.appendChild(pillSlow);
+                    phrase.appendChild(ctl);
+
                     // Click handler uses event delegation on .accordion-wrap (see below)
 
-                    // Hide phrases beyond first 2
-                    if (idx >= FREE_COUNT) phrase.style.display = 'none';
+                    // Hide phrases beyond first 2 (paid users see all 10)
+                    if (idx >= FREE_COUNT && !isPaidUser()) phrase.style.display = 'none';
                 });
+            });
 
-                // Add "more phrases" row
-                if (phrases.length > FREE_COUNT) {
-                    const lockedCount = phrases.length - FREE_COUNT;
-                    const moreRow = document.createElement('div');
+            // ===== "+ N more expressions" 行：未付费时展示，点击直达 Big Card 付费页 =====
+            document.querySelectorAll('.accordion-item').forEach(function (item) {
+                if (isPaidUser()) return; // paid: all phrases visible, no gate row needed
+                const phraseList = item.querySelector('.phrases');
+                if (!phraseList) return;
+                const phrases = item.querySelectorAll('.phrase');
+                let hiddenCount = 0, firstLockedPid = null;
+                phrases.forEach(function (phrase, idx) {
+                    const pid = phrase.getAttribute('data-phrase-id');
+                    if (idx >= FREE_COUNT && pid && PHRASE_DATA[pid]) {
+                        hiddenCount++;
+                        if (!firstLockedPid) firstLockedPid = pid;
+                    }
+                });
+                if (hiddenCount > 0 && firstLockedPid) {
+                    const moreRow = document.createElement('button');
+                    moreRow.type = 'button';
                     moreRow.className = 'more-phrases-row';
-                    moreRow.innerHTML = '<span>🔒 ' + lockedCount + ' more phrases</span>';
+                    moreRow.setAttribute('aria-label', 'Unlock ' + hiddenCount + ' more expressions');
+                    moreRow.innerHTML =
+                        '<span class="mp-plus" aria-hidden="true">＋</span>' +
+                        '<span class="mp-label">' + hiddenCount + ' more expressions</span>' +
+                        '<span class="mp-lock" aria-hidden="true">🔒 Unlock</span>';
                     moreRow.addEventListener('click', function (e) {
                         e.stopPropagation();
-                        if (window.openUnlockPopup) window.openUnlockPopup();
+                        e.preventDefault();
+                        // Opens the Big Card on the first premium phrase → paywall card; UNLOCK NOW links straight to Stripe
+                        openBigCard(firstLockedPid);
                     });
-                    const phrasesContainer = item.querySelector('.phrases');
-                    if (phrasesContainer) phrasesContainer.appendChild(moreRow);
+                    phraseList.appendChild(moreRow);
                 }
             });
 
@@ -3423,7 +3834,7 @@
                     const phrase = e.target.closest('.phrase');
                     if (!phrase) return;
                     // Ignore clicks on interactive elements within the phrase
-                    if (e.target.closest('.speaker, .speaker-slow, .sv-fav-btn, .lock-badge, .completed-check, .p-num, .more-phrases-row')) return;
+                    if (e.target.closest('.speaker, .speaker-slow, .sv-fav-btn, .lock-badge, .completed-check, .p-num, .phrase-ctl, .phrase-btn')) return;
                     const pid = phrase.getAttribute('data-phrase-id');
                     if (!pid) return;
                     e.stopPropagation();
@@ -3435,78 +3846,6 @@
             // Recompute tooltip position on scroll/resize
             window.addEventListener('scroll', hideTooltip, true);
             window.addEventListener('resize', hideTooltip);
-
-            // ===== Hint bubble near cursor: tell user "Click to open Big Card" =====
-            (function () {
-                const hint = document.getElementById('hlRowClickHint');
-                if (!hint) return;
-                let showTimer = null;
-                const SHOW_DELAY = 420; // ms: quick but not annoying
-                const OFFSET_X = 0;
-                const OFFSET_Y = -18; // pull bubble slightly above cursor so it doesn't cover row text
-
-                function positionHint(ev) {
-                    if (!hint.classList.contains('show')) return;
-                    const vw = window.innerWidth;
-                    const bh = hint.offsetWidth || 160;
-                    let left = ev.clientX + OFFSET_X;
-                    let top = ev.clientY + OFFSET_Y;
-                    // Clamp horizontally to stay inside viewport (10px safe margin)
-                    const half = bh / 2 + 10;
-                    if (left < half) left = half;
-                    if (left + half > vw) left = vw - half;
-                    hint.style.left = Math.round(left) + 'px';
-                    hint.style.top = Math.round(Math.max(60, top)) + 'px';
-                }
-                function scheduleShow(ev) {
-                    clearTimeout(showTimer);
-                    showTimer = setTimeout(function () {
-                        hint.classList.add('show');
-                        hint.setAttribute('aria-hidden', 'false');
-                        positionHint(ev);
-                    }, SHOW_DELAY);
-                }
-                function forceHide() {
-                    clearTimeout(showTimer);
-                    hint.classList.remove('show');
-                    hint.setAttribute('aria-hidden', 'true');
-                }
-
-                document.addEventListener('mouseover', function (e) {
-                    const row = e.target.closest('.phrase');
-                    if (!row) return;
-                    // If user is over a speaker/slow button, don't distract them with a click-hint
-                    if (e.target.closest('.speaker-btn, .speaker-slow, .speaker-icon, button')) { forceHide(); return; }
-                    scheduleShow(e);
-                }, true);
-
-                document.addEventListener('mouseout', function (e) {
-                    if (e.target.closest && e.target.closest('.phrase')) {
-                        forceHide();
-                    }
-                }, true);
-
-                document.addEventListener('mousemove', function (e) {
-                    // Follow cursor (soft reposition while visible)
-                    if (!hint.classList.contains('show')) return;
-                    // Only follow when still over a .phrase row
-                    const over = document.elementFromPoint(e.clientX, e.clientY);
-                    if (over && over.closest && over.closest('.phrase')) {
-                        positionHint(e);
-                    } else {
-                        forceHide();
-                    }
-                }, true);
-
-                // Dismiss permanently once user clicks a phrase (they've figured it out)
-                document.addEventListener('click', function (e) {
-                    if (e.target.closest && e.target.closest('.phrase')) {
-                        forceHide();
-                        // Keep it hidden for the rest of the session (no bubble while they're clicking rows)
-                        try { hint.style.display = 'none'; } catch (_) {}
-                    }
-                }, true);
-            })();
 
             console.log('[HanLingo Learning Layer] Active. All phrases handled by convertAllPhraseRows().');
         }
@@ -4031,15 +4370,32 @@
                 try { audio.currentTime = 0; } catch (_) {}
             });
 
-            const origLabel = btn.textContent || (slow ? '🐢 Slow' : '▶');
+            // Capture original markup; button that contains an SVG glyph must keep it intact
+            // during loading — only the text-only ▶ button gets a "…" suffix.
+            const origHtml = btn.innerHTML;
+            const hasGlyph = !!btn.querySelector('img, svg.slow-icon-svg');
+            btn.dataset.origHtml = origHtml;
             btn.disabled = true; btn.style.opacity = '0.55';
-            btn.textContent = slow ? '🐢…' : '▶…';
+            if (hasGlyph) {
+                btn.classList.add('is-loading');
+            } else {
+                btn.textContent = slow ? 'Slow…' : 'Play…';
+            }
             const stallTimer = setTimeout(function () {
-                btn.disabled = false; btn.style.opacity = ''; btn.textContent = origLabel;
+                btn.disabled = false; btn.style.opacity = '';
+                if (btn.dataset.origHtml !== undefined) {
+                    btn.innerHTML = btn.dataset.origHtml;
+                    delete btn.dataset.origHtml;
+                }
+                btn.classList.remove('is-loading');
             }, 8000);
             function restoreBtn() {
                 clearTimeout(stallTimer); btn.disabled = false; btn.style.opacity = '';
-                if (btn.textContent === '🐢…' || btn.textContent === '▶…') btn.textContent = origLabel;
+                if (hasGlyph) {
+                    btn.classList.remove('is-loading');
+                } else if (btn.textContent === 'Slow…' || btn.textContent === 'Play…') {
+                    btn.innerHTML = origHtml;
+                }
             }
             function onPlayingOnce() { audio.removeEventListener('playing', onPlayingOnce); restoreBtn(); }
             function onEndedOnce() { audio.removeEventListener('ended', onEndedOnce); restoreBtn(); }
@@ -4053,14 +4409,14 @@
                         p.catch(function (err) {
                             const msg = (err && err.message) ? err.message : '';
                             if (typeof console !== 'undefined' && console.warn) console.warn('[playSurvivalPhrase] play() rejected:', msg);
-                            btn.textContent = '⚠️ Retry';
+                            if (!hasImg) btn.textContent = '⚠️ Retry';
                             btn.title = 'Audio error: ' + msg + '. Click to retry.';
                             restoreBtn();
                             try { audio.load(); } catch (_) {}
                         });
                     }
                 } catch (syncErr) {
-                    restoreBtn(); btn.textContent = '⚠️ Retry';
+                    restoreBtn(); if (!hasImg) btn.textContent = '⚠️ Retry';
                     if (typeof console !== 'undefined' && console.warn) console.warn('[playSurvivalPhrase] play() threw:', syncErr && syncErr.message ? syncErr.message : String(syncErr));
                 }
             });
@@ -4069,7 +4425,6 @@
         // ---- 8. 把所有 .phrase 行 → .phrase-card ----
         function convertAllPhraseRows() {
             if (window.__survivalConverted) return;
-            const isPreviewMode = document.body && document.body.classList && document.body.classList.contains('hl-preview');
             const rows = document.querySelectorAll('.phrase');
             let converted = 0;
             rows.forEach(function (row) {
@@ -4079,7 +4434,7 @@
                 const enEl = row.querySelector('.p-en');
                 const zhEl = row.querySelector('.p-zh');
                 const numEl = row.querySelector('.p-num');
-                const isLocked = !isPreviewMode && row.classList.contains('locked');
+                const isLocked = row.classList.contains('locked');
                 const enText = enEl ? enEl.textContent.trim() : '';
                 const zhText = zhEl ? zhEl.textContent.trim() : '';
                 const numText = numEl ? numEl.textContent.trim() : '#';
@@ -4122,7 +4477,7 @@
                 btnNormal.onclick = function () { window.playSurvivalPhrase(btnNormal, pid, false); };
                 const btnSlow = document.createElement('button');
                 btnSlow.className = 'play-icon slow';
-                btnSlow.textContent = '🐢';
+                btnSlow.innerHTML = SLOW_ICON_INLINE;
                 btnSlow.title = 'Slow playback (0.7x)';
                 btnSlow.setAttribute('aria-label', 'Slow playback');
                 btnSlow.onclick = function () { window.playSurvivalPhrase(btnSlow, pid, true); };
@@ -4192,25 +4547,13 @@
                 bindCardClick(card, isLocked);
             });
 
-            // ===== Post-conversion: show first 2 cards free, hide rest + "more phrases" row =====
+            // ===== Post-conversion: show first 2 cards free, hide rest =====
             var FREE_COUNT = 2;
             document.querySelectorAll('.accordion-item').forEach(function (item) {
                 var cards = item.querySelectorAll('.phrase-card');
                 cards.forEach(function (card, idx) {
                     if (idx >= FREE_COUNT) card.style.display = 'none';
                 });
-                if (cards.length > FREE_COUNT) {
-                    var lockedCount = cards.length - FREE_COUNT;
-                    var moreRow = document.createElement('div');
-                    moreRow.className = 'more-phrases-row';
-                    moreRow.innerHTML = '<span>🔒 ' + lockedCount + ' more phrases</span>';
-                    moreRow.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        if (window.openUnlockPopup) window.openUnlockPopup();
-                    });
-                    var phrasesContainer = item.querySelector('.phrases');
-                    if (phrasesContainer) phrasesContainer.appendChild(moreRow);
-                }
             });
 
             window.__survivalConverted = true;
