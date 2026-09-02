@@ -1,5 +1,5 @@
 // service‑worker.js - 针对单页面与高频音频深度优化
-const CACHE_NAME = 'hanlingo-cache-v15'; // 上线更新版本号：每次改代�?1，例 v16
+const CACHE_NAME = 'hanlingo-cache-v16'; // 上线更新版本号：每次改代�?1，例 v16
 
 const PRE_CACHE_ASSETS = [
  './',
