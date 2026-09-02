@@ -1,0 +1,551 @@
+// ============================================================
+// HanLingo — Complete 15-Topic 150-Phrase Database
+// Topics 1-4: FREE (all 10 phrases unlocked)
+// Topics 5-15: PAID (preview first 2, then unlock)
+// Audio: ./audio/{topicNum}_{phraseNum}.mp3
+// ============================================================
+
+(function() {
+  'use strict';
+
+  // ---------- Helper: split a phrase into character-level word units ----------
+  // Each unit: { w: char, py: pinyinFrag, mn: meaning }
+  // We use approximate per-character pinyin & minimal meanings for tooltips.
+  function buildWords(zhText, pyText, meanings) {
+    // meanings = array of per-char or per-word simple definitions (optional)
+    var units = [];
+    var zhChars = [];
+    var i;
+    for (i = 0; i < zhText.length; i++) {
+      var c = zhText.charAt(i);
+      if (c.trim() === '' || /[，。！？、；：""''（）…—·\!\?,\.]/.test(c)) {
+        // Skip most punctuation as word units, add as spacer with empty mn
+        if (/[，。！？、；：！？\.\,]/.test(c)) {
+          zhChars.push({ ch: c, punc: true });
+        }
+      } else {
+        zhChars.push({ ch: c, punc: false });
+      }
+    }
+    // Split pinyin by whitespace to get rough tokens, then distribute to chars
+    var pyTokens = (pyText || '').replace(/[，。！？\!\?,\.]/g, '').trim().split(/\s+/);
+    var tokenIdx = 0;
+    var charPerTokenRatio = zhChars.filter(function(z){return !z.punc;}).length / Math.max(1, pyTokens.length);
+    var charCount = 0;
+    zhChars.forEach(function(zc, idx) {
+      if (zc.punc) {
+        units.push({ w: zc.ch, py: '', mn: '' });
+      } else {
+        // assign a pinyin token (rough alignment — the karaoke visual uses ordered highlighting)
+        var pyFrag = pyTokens[tokenIdx] || '';
+        // For tones carried by characters (e.g., Duìbuqǐ = 对 不 起), we split if token has hyphen or no space
+        // For simplicity, we assign full token and advance based on ratio
+        units.push({
+          w: zc.ch,
+          py: pyFrag,
+          mn: meanings && meanings[idx] ? meanings[idx] : ''
+        });
+        charCount++;
+        if (charCount >= Math.ceil(charPerTokenRatio) * (tokenIdx + 1) && tokenIdx < pyTokens.length - 1) {
+          tokenIdx++;
+        }
+      }
+    });
+    return units;
+  }
+
+  // ============================================================
+  // TOPIC 1: Daily Politeness & Icebreakers (FREE)
+  // ============================================================
+  var T1_CULTURE = '华人见面不习惯拥抱或贴面，握手是最安全得体的礼仪，微笑点头也非常合适。初次见面递名片时，双手奉上且文字朝向对方，在新加坡和台湾同样适用。问"你怎么样？"时，对方若回答"还行"表示"so-so"，不必追问细节，这只是客套寒暄。';
+
+  var t1 = [
+    { id: '1_1', zh: '你好！',           py: 'Nǐ hǎo!',                       en: 'Hello!',
+      words: buildWords('你好！','Nǐ hǎo!',['you','good','']) },
+    { id: '1_2', zh: '谢谢！',           py: 'Xièxie!',                       en: 'Thank you!',
+      words: buildWords('谢谢！','Xièxie!',['thank','thank','']) },
+    { id: '1_3', zh: '对不起。',         py: 'Duìbuqǐ.',                      en: 'Sorry / Excuse me.',
+      words: buildWords('对不起。','Duìbuqǐ.',['correct/face','not','rise','']) },
+    { id: '1_4', zh: '没关系。',         py: 'Méi guānxi.',                    en: "It's okay / No problem.",
+      words: buildWords('没关系。','Méi guānxi.',['no','relation/matter','','']) },
+    { id: '1_5', zh: '再见！',           py: 'Zàijiàn!',                       en: 'Goodbye!',
+      words: buildWords('再见！','Zàijiàn!',['again','see','']) },
+    { id: '1_6', zh: '你怎么样？',       py: 'Nǐ zěnmeyàng?',                  en: 'How are you doing?',
+      words: buildWords('你怎么样？','Nǐ zěnmeyàng?',['you','how','appearance','?']) },
+    { id: '1_7', zh: '我很好，你呢？',   py: 'Wǒ hěn hǎo, nǐ ne?',             en: "I'm fine, and you?",
+      words: buildWords('我很好，你呢？','Wǒ hěn hǎo nǐ ne',['I','very','good','','you','particle','?']) },
+    { id: '1_8', zh: '你叫什么名字？',   py: 'Nǐ jiào shénme míngzi?',         en: "What's your name?",
+      words: buildWords('你叫什么名字？','Nǐ jiào shénme míngzi?',['you','be called','what','name','word','?']) },
+    { id: '1_9', zh: '我叫大卫。',       py: 'Wǒ jiào Dàwèi.',                 en: 'My name is David.',
+      words: buildWords('我叫大卫。','Wǒ jiào Dàwèi.',['I','be called','Da','wei','']) },
+    { id: '1_10',zh: '认识你很高兴。',   py: 'Rènshi nǐ hěn gāoxìng.',          en: 'Nice to meet you.',
+      words: buildWords('认识你很高兴。','Rènshi nǐ hěn gāoxìng.',['know/recognize','you','very','happy','','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 2: Numbers, Paying & Shopping (FREE)
+  // ============================================================
+  var T2_CULTURE = '在夜市和小贩中心讨价还价是常见现象，但连锁店和商场明码标价不能还价。新加坡小贩中心一般也不还价，摊位价格已固定。说"太贵了"后卖家若不让价，表示已到底价。块（kuài）和毛（máo）是口语中的"元"和"角"，新加坡人也用"块"指代新加坡元。';
+
+  var t2 = [
+    { id: '2_1', zh: '这个多少钱？',       py: 'Zhège duōshao qián?',            en: 'How much is this?',
+      words: buildWords('这个多少钱？','Zhège duōshao qián?',['this','measure','how much','money','?']) },
+    { id: '2_2', zh: '太贵了！',           py: 'Tài guì le!',                    en: 'Too expensive!',
+      words: buildWords('太贵了！','Tài guì le!',['too','expensive','particle','']) },
+    { id: '2_3', zh: '便宜一点吧。',       py: 'Piányi yīdiǎn ba.',              en: 'A little cheaper, please.',
+      words: buildWords('便宜一点吧。','Piányi yīdiǎn ba.',['cheap','inexpensive','one','a bit','particle','']) },
+    { id: '2_4', zh: '我要这个。',         py: 'Wǒ yào zhège.',                  en: "I'll take this one.",
+      words: buildWords('我要这个。','Wǒ yào zhège.',['I','want','this','measure','']) },
+    { id: '2_5', zh: '一共多少钱？',       py: 'Yīgòng duōshao qián?',           en: 'How much in total?',
+      words: buildWords('一共多少钱？','Yīgòng duōshao qián?',['one','total','how much','money','?']) },
+    { id: '2_6', zh: '可以刷卡吗？',       py: 'Kěyǐ shuā kǎ ma?',               en: 'Can I pay by card?',
+      words: buildWords('可以刷卡吗？','Kěyǐ shuā kǎ ma?',['can','may','swipe','card','particle','?']) },
+    { id: '2_7', zh: '我没有现金。',       py: 'Wǒ méiyǒu xiànjīn.',             en: "I don't have cash.",
+      words: buildWords('我没有现金。','Wǒ méiyǒu xiànjīn.',['I','not have','cash','money','']) },
+    { id: '2_8', zh: '请找我钱。',         py: 'Qǐng zhǎo wǒ qián.',              en: 'Please give me my change.',
+      words: buildWords('请找我钱。','Qǐng zhǎo wǒ qián.',['please','find/give change','me','money','']) },
+    { id: '2_9', zh: '只要这个。',         py: 'Zhǐyào zhège.',                  en: 'Only this one, please.',
+      words: buildWords('只要这个。','Zhǐyào zhège.',['only','want','this','measure','']) },
+    { id: '2_10',zh: '十块五毛。',         py: 'Shí kuài wǔ máo.',               en: 'Ten dollars fifty cents (local currency).',
+      words: buildWords('十块五毛。','Shí kuài wǔ máo.',['ten','dollar/yuan','five','dime/mao','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 3: Dining Out & Food Preferences (FREE)
+  // ============================================================
+  var T3_CULTURE = '在中国大陆和台湾，"买单"是最通用的说法。在新加坡，"买单"也完全通用，部分老一辈会说"结账"。如果你不吃辣，一定要强调"不要辣"或"不辣"，因为很多菜默认放辣椒。用筷子时，千万不要把筷子竖插在米饭上——这像祭拜，是大忌。等大家都入座后再开始吃是基本礼貌。';
+
+  var t3 = [
+    { id: '3_1', zh: '我饿了！',                 py: 'Wǒ è le!',                        en: "I'm hungry!",
+      words: buildWords('我饿了！','Wǒ è le!',['I','hungry','particle','']) },
+    { id: '3_2', zh: '请给我菜单。',             py: 'Qǐng gěi wǒ càidān.',              en: 'Please give me the menu.',
+      words: buildWords('请给我菜单。','Qǐng gěi wǒ càidān.',['please','give','me','menu','','']) },
+    { id: '3_3', zh: '我要一杯水。',             py: 'Wǒ yào yī bēi shuǐ.',              en: 'I want a glass of water.',
+      words: buildWords('我要一杯水。','Wǒ yào yī bēi shuǐ.',['I','want','one','cup/glass','water','']) },
+    { id: '3_4', zh: '不要辣！',                 py: 'Bùyào là!',                        en: 'No spicy, please!',
+      words: buildWords('不要辣！','Bùyào là!',['not want','spicy','']) },
+    { id: '3_5', zh: '我不吃猪肉。',             py: 'Wǒ bù chī zhūròu.',                en: "I don't eat pork.",
+      words: buildWords('我不吃猪肉。','Wǒ bù chī zhūròu.',['I','not','eat','pig','meat','']) },
+    { id: '3_6', zh: '有素食吗？',               py: 'Yǒu sùshí ma?',                    en: 'Do you have vegetarian food?',
+      words: buildWords('有素食吗？','Yǒu sùshí ma?',['have','vegetarian','food','particle','?']) },
+    { id: '3_7', zh: '这个很好吃！',             py: 'Zhège hěn hǎochī!',                en: 'This is delicious!',
+      words: buildWords('这个很好吃！','Zhège hěn hǎochī!',['this','measure','very','good eat','']) },
+    { id: '3_8', zh: '买单！',                   py: 'Mǎidān!',                          en: 'Check, please!',
+      words: buildWords('买单！','Mǎidān!',['buy','bill','']) },
+    { id: '3_9', zh: '请给我打包。',             py: 'Qǐng gěi wǒ dǎbāo.',               en: 'Please pack this to go.',
+      words: buildWords('请给我打包。','Qǐng gěi wǒ dǎbāo.',['please','give','me','pack','bag','']) },
+    { id: '3_10',zh: '请给我叉子/筷子。',        py: 'Qǐng gěi wǒ chāzi / kuàizi.',       en: 'Please give me a fork / chopsticks.',
+      words: buildWords('请给我叉子筷子。','Qǐng gěi wǒ chāzi kuàizi.',['please','give','me','fork','chopsticks','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 4: Getting Around (FREE)
+  // ============================================================
+  var T4_CULTURE = '在新加坡，说"巴士"比"公交车"更普遍；在台湾说"公车"；在中国大陆说"公交车"。问路时最好先微笑说"打扰一下"以示礼貌。出租车司机大多会讲简单英语，但说中文更容易得到亲切回应。坐地铁时"先下后上"（xiān xià hòu shàng）是基本秩序。';
+
+  var t4 = [
+    { id: '4_1', zh: '厕所在哪里？',         py: 'Cèsuǒ zài nǎli?',                    en: 'Where is the restroom?',
+      words: buildWords('厕所在哪里？','Cèsuǒ zài nǎli?',['toilet/restroom','at','where','?']) },
+    { id: '4_2', zh: '我想去这个地方。',     py: 'Wǒ xiǎng qù zhège dìfang.',          en: 'I want to go to this place (show address).',
+      words: buildWords('我想去这个地方。','Wǒ xiǎng qù zhège dìfang.',['I','want to','go','this','measure','place','']) },
+    { id: '4_3', zh: '怎么走？',             py: 'Zěnme zǒu?',                          en: 'How do I get there?',
+      words: buildWords('怎么走？','Zěnme zǒu?',['how','walk/go','?']) },
+    { id: '4_4', zh: '往左转。',             py: 'Wǎng zuǒ zhuǎn.',                     en: 'Turn left.',
+      words: buildWords('往左转。','Wǎng zuǒ zhuǎn.',['toward','left','turn','']) },
+    { id: '4_5', zh: '往右转。',             py: 'Wǎng yòu zhuǎn.',                     en: 'Turn right.',
+      words: buildWords('往右转。','Wǎng yòu zhuǎn.',['toward','right','turn','']) },
+    { id: '4_6', zh: '一直往前走。',         py: 'Yīzhí wǎng qián zǒu.',                en: 'Go straight ahead.',
+      words: buildWords('一直往前走。','Yīzhí wǎng qián zǒu.',['always','straight','toward','front','walk','']) },
+    { id: '4_7', zh: '很近，走路五分钟。',   py: 'Hěn jìn, zǒulù wǔ fēnzhōng.',         en: 'Very close, 5-minute walk.',
+      words: buildWords('很近，走路五分钟。','Hěn jìn zǒulù wǔ fēnzhōng.',['very','close','','walk road','five','minute','','']) },
+    { id: '4_8', zh: '坐地铁/巴士。',        py: 'Zuò dìtiě / bāshì.',                 en: 'Take the subway / bus.',
+      words: buildWords('坐地铁巴士。','Zuò dìtiě bāshì.',['sit/take','subway iron','bus','']) },
+    { id: '4_9', zh: '我迷路了。',           py: 'Wǒ mílù le.',                         en: "I'm lost.",
+      words: buildWords('我迷路了。','Wǒ mílù le.',['I','lost road','particle','']) },
+    { id: '4_10',zh: '请在这里停。',         py: 'Qǐng zài zhèli tíng.',                en: 'Please stop here (to taxi driver).',
+      words: buildWords('请在这里停。','Qǐng zài zhèli tíng.',['please','at','here','stop','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 5: Work & Office Greetings (PAID)
+  // ============================================================
+  var T5_CULTURE = '"你辛苦了"是职场万金油，用于感谢同事加班或协助，不是客气，而是共情——在两岸三地及新加坡都广泛使用。华人职场很重视"准时"，迟到要主动道歉。说"加油"是热血鼓励，比"Good luck"更有力量，在中文世界通用。';
+
+  var t5 = [
+    { id: '5_1', zh: '你辛苦了！',               py: 'Nǐ xīnkǔ le!',                     en: 'Thanks for your hard work! (said to colleagues)',
+      words: buildWords('你辛苦了！','Nǐ xīnkǔ le!',['you','hard work','bitter','particle','']) },
+    { id: '5_2', zh: '今天忙不忙？',             py: 'Jīntiān máng bù máng?',              en: 'Are you busy today?',
+      words: buildWords('今天忙不忙？','Jīntiān máng bù máng?',['today sky','busy','not','busy','?']) },
+    { id: '5_3', zh: '我要去开会了。',           py: 'Wǒ yào qù kāihuì le.',               en: "I'm going to a meeting now.",
+      words: buildWords('我要去开会了。','Wǒ yào qù kāihuì le.',['I','want to','go','open meeting','particle','']) },
+    { id: '5_4', zh: '你几点下班？',             py: 'Nǐ jǐ diǎn xiàbān?',                 en: 'What time do you get off work?',
+      words: buildWords('你几点下班？','Nǐ jǐ diǎn xiàbān?',['you','how many','o\'clock','off work','?']) },
+    { id: '5_5', zh: '我九点上班。',             py: 'Wǒ jiǔ diǎn shàngbān.',              en: 'I start work at 9.',
+      words: buildWords('我九点上班。','Wǒ jiǔ diǎn shàngbān.',['I','nine','o\'clock','on work','']) },
+    { id: '5_6', zh: '我们休息一下吧。',         py: 'Wǒmen xiūxi yīxià ba.',              en: "Let's take a break.",
+      words: buildWords('我们休息一下吧。','Wǒmen xiūxi yīxià ba.',['we','rest','one','a bit','particle','']) },
+    { id: '5_7', zh: '这个报告很重要。',         py: 'Zhège bàogào hěn zhòngyào.',         en: 'This report is very important.',
+      words: buildWords('这个报告很重要。','Zhège bàogào hěn zhòngyào.',['this','measure','report tell','very','important','']) },
+    { id: '5_8', zh: '对不起，我迟到了。',       py: 'Duìbuqǐ, wǒ chídào le.',             en: "Sorry, I'm late.",
+      words: buildWords('对不起，我迟到了。','Duìbuqǐ wǒ chídào le.',['sorry','','I','late arrive','particle','']) },
+    { id: '5_9', zh: '大家加油！',               py: 'Dàjiā jiāyóu!',                      en: 'Everyone, keep it up! (cheering)',
+      words: buildWords('大家加油！','Dàjiā jiāyóu!',['big','everyone','add oil','']) },
+    { id: '5_10',zh: '明天见！',                 py: 'Míngtiān jiàn!',                     en: 'See you tomorrow.',
+      words: buildWords('明天见！','Míngtiān jiàn!',['tomorrow sky','see','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 6: Feeling Sick & Doctor Visit (PAID)
+  // ============================================================
+  var T6_CULTURE = '在中国大陆去医院，先到挂号处（guàhào）挂号，再看医生。华人普遍相信"喝热水"对感冒有益，要冰水医生可能会不解。说"过敏"时要清晰，尤其花生、海鲜——中餐常用这些食材。在药房可以说"有药吗"，药剂师会帮忙。';
+
+  var t6 = [
+    { id: '6_1', zh: '我不舒服。',                 py: 'Wǒ bù shūfu.',                        en: "I don't feel well.",
+      words: buildWords('我不舒服。','Wǒ bù shūfu.',['I','not','comfortable','']) },
+    { id: '6_2', zh: '我肚子疼。',                 py: 'Wǒ dùzi téng.',                        en: 'I have a stomachache.',
+      words: buildWords('我肚子疼。','Wǒ dùzi téng.',['I','belly','ache','']) },
+    { id: '6_3', zh: '我嗓子疼。',                 py: 'Wǒ sǎngzi téng.',                       en: 'I have a sore throat.',
+      words: buildWords('我嗓子疼。','Wǒ sǎngzi téng.',['I','throat voice','ache','']) },
+    { id: '6_4', zh: '我有一点发烧。',             py: 'Wǒ yǒu yīdiǎn fāshāo.',                en: 'I have a slight fever.',
+      words: buildWords('我有一点发烧。','Wǒ yǒu yīdiǎn fāshāo.',['I','have','one','a bit','emit burn','']) },
+    { id: '6_5', zh: '我对花生过敏。',             py: 'Wǒ duì huāshēng guòmǐn.',              en: "I'm allergic to peanuts.",
+      words: buildWords('我对花生过敏。','Wǒ duì huāshēng guòmǐn.',['I','toward','flower birth','cross sensitivity','']) },
+    { id: '6_6', zh: '我需要看医生。',             py: 'Wǒ xūyào kàn yīshēng.',                en: 'I need to see a doctor.',
+      words: buildWords('我需要看医生。','Wǒ xūyào kàn yīshēng.',['I','need','see','medicine life','']) },
+    { id: '6_7', zh: '我吃了药。',                 py: 'Wǒ chī le yào.',                        en: 'I took some medicine.',
+      words: buildWords('我吃了药。','Wǒ chī le yào.',['I','ate','particle','medicine','']) },
+    { id: '6_8', zh: '我要喝热水。',               py: 'Wǒ yào hē rè shuǐ.',                    en: 'I want to drink hot water.',
+      words: buildWords('我要喝热水。','Wǒ yào hē rè shuǐ.',['I','want','drink','hot','water','']) },
+    { id: '6_9', zh: '你多休息。',                 py: 'Nǐ duō xiūxi.',                        en: 'Get more rest.',
+      words: buildWords('你多休息。','Nǐ duō xiūxi.',['you','more','rest','']) },
+    { id: '6_10',zh: '我好了很多。',               py: 'Wǒ hǎo le hěnduō.',                     en: "I'm much better.",
+      words: buildWords('我好了很多。','Wǒ hǎo le hěnduō.',['I','good','particle','very much','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 7: Real Feelings & Emotions (PAID)
+  // ============================================================
+  var T7_CULTURE = '华人文化中情绪表达相对内敛，但"累死了"是夸张幽默修辞，大家能接受。说"烦人"时语气要轻，否则显得攻击性。"我想你"只用于亲密关系（家人、恋人），对普通朋友说会太肉麻，慎用。表达情绪时配合适当语气，效果更好。';
+
+  var t7 = [
+    { id: '7_1', zh: '我高兴极了！',           py: 'Wǒ gāoxìng jí le!',                   en: "I'm extremely happy!",
+      words: buildWords('我高兴极了！','Wǒ gāoxìng jí le!',['I','happy','extreme','particle','']) },
+    { id: '7_2', zh: '我很担心。',             py: 'Wǒ hěn dānxīn.',                       en: "I'm very worried.",
+      words: buildWords('我很担心。','Wǒ hěn dānxīn.',['I','very','worry heart','']) },
+    { id: '7_3', zh: '这太无聊了。',           py: 'Zhè tài wúliáo le.',                    en: 'This is so boring.',
+      words: buildWords('这太无聊了。','Zhè tài wúliáo le.',['this','too','no chat','particle','']) },
+    { id: '7_4', zh: '我累死了。',             py: 'Wǒ lèi sǐ le.',                         en: "I'm exhausted (lit. tired to death).",
+      words: buildWords('我累死了。','Wǒ lèi sǐ le.',['I','tired','die','particle','']) },
+    { id: '7_5', zh: '真烦人！',               py: 'Zhēn fánrén!',                          en: 'So annoying!',
+      words: buildWords('真烦人！','Zhēn fánrén!',['truly','annoying','person','']) },
+    { id: '7_6', zh: '我觉得很紧张。',         py: 'Wǒ juéde hěn jǐnzhāng.',                en: 'I feel very nervous.',
+      words: buildWords('我觉得很紧张。','Wǒ juéde hěn jǐnzhāng.',['I','feel think','very','tight tense','']) },
+    { id: '7_7', zh: '别着急。',               py: 'Bié zhāojí.',                           en: "Don't worry / Take your time.",
+      words: buildWords('别着急。','Bié zhāojí.',['don\'t','anxious hurry','']) },
+    { id: '7_8', zh: '我有点失望。',           py: 'Wǒ yǒudiǎn shīwàng.',                   en: "I'm a little disappointed.",
+      words: buildWords('我有点失望。','Wǒ yǒudiǎn shīwàng.',['I','have a bit','lose hope','']) },
+    { id: '7_9', zh: '好好笑！',               py: 'Hǎohǎo xiào!',                          en: "That's so funny!",
+      words: buildWords('好好笑！','Hǎohǎo xiào!',['good','good','laugh','']) },
+    { id: '7_10',zh: '我很想你。',             py: 'Wǒ hěn xiǎng nǐ.',                      en: 'I miss you very much.',
+      words: buildWords('我很想你。','Wǒ hěn xiǎng nǐ.',['I','very','miss/think','you','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 8: Phone, Wi-Fi & Digital Pay (PAID)
+  // ============================================================
+  var T8_CULTURE = '在中国和新加坡，扫码支付非常普遍——支付宝和微信支付在东南亚也越来越常见。主动问"我扫你"是标准操作，如果对方说"扫我"，就是让你扫他的二维码。要区分"Wi-Fi"和"流量"（liúliàng 移动数据），前者免费后者花钱。';
+
+  var t8 = [
+    { id: '8_1', zh: '这里有Wi-Fi吗？',           py: 'Zhèlǐ yǒu Wài-fài ma?',              en: 'Is there Wi-Fi here?',
+      words: buildWords('这里有Wi-Fi吗？','Zhèlǐ yǒu Wifi ma?',['here','place','have','WiFi','particle','?']) },
+    { id: '8_2', zh: '密码是多少？',               py: 'Mìmǎ shì duōshao?',                   en: "What's the password?",
+      words: buildWords('密码是多少？','Mìmǎ shì duōshao?',['secret','code','is','how much','?']) },
+    { id: '8_3', zh: '手机没电了。',               py: 'Shǒujī méi diàn le.',                  en: 'My phone is out of battery.',
+      words: buildWords('手机没电了。','Shǒujī méi diàn le.',['hand','machine','no','electricity','particle','']) },
+    { id: '8_4', zh: '有充电宝吗？',               py: 'Yǒu chōngdiànbǎo ma?',                 en: 'Is there a power bank?',
+      words: buildWords('有充电宝吗？','Yǒu chōngdiànbǎo ma?',['have','charge electricity treasure','particle','?']) },
+    { id: '8_5', zh: '我扫你，还是你扫我？',       py: 'Wǒ sǎo nǐ, háishì nǐ sǎo wǒ?',         en: 'Should I scan you, or you scan me? (QR payment)',
+      words: buildWords('我扫你还是你扫我？','Wǒ sǎo nǐ háishì nǐ sǎo wǒ?',['I','scan','you','or','you','scan','me','?']) },
+    { id: '8_6', zh: '我微信/支付宝支付。',        py: 'Wǒ Wēixìn / Zhīfùbǎo zhīfù.',          en: 'I pay with WeChat / Alipay.',
+      words: buildWords('我微信支付宝支付。','Wǒ Wēixìn Zhīfùbǎo zhīfù.',['I','WeChat','Alipay','pay','']) },
+    { id: '8_7', zh: '信号不好。',                 py: 'Xìnhào bù hǎo.',                        en: 'The signal is bad.',
+      words: buildWords('信号不好。','Xìnhào bù hǎo.',['signal','number','not','good','']) },
+    { id: '8_8', zh: '请给我拍照。',               py: 'Qǐng gěi wǒ pāizhào.',                  en: 'Please take a photo of me.',
+      words: buildWords('请给我拍照。','Qǐng gěi wǒ pāizhào.',['please','give','me','pat photo','']) },
+    { id: '8_9', zh: '照片可以发给我吗？',         py: 'Zhàopiàn kěyǐ fā gěi wǒ ma?',          en: 'Can you send me the photo?',
+      words: buildWords('照片可以发给我吗？','Zhàopiàn kěyǐ fā gěi wǒ ma?',['photo','can','send','give','me','particle','?']) },
+    { id: '8_10',zh: '我连不上网络。',             py: 'Wǒ lián bù shàng wǎngluò.',             en: "I can't connect to the internet.",
+      words: buildWords('我连不上网络。','Wǒ lián bù shàng wǎngluò.',['I','connect','not','on','net network','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 9: Hotel Check-in & Room Service (PAID)
+  // ============================================================
+  var T9_CULTURE = '华人酒店前台通常很有礼貌，多说"请"和"谢谢"会得到更好的服务。中国和新加坡一般不用给小费，酒店服务费已包含在房价中。如果空调太冷，直接说"调高一点"即可。退房时房卡归还就行，一般不查房（除非贵重物品报失）。';
+
+  var t9 = [
+    { id: '9_1', zh: '我订了房间。',             py: 'Wǒ dìng le fángjiān.',                  en: 'I booked a room.',
+      words: buildWords('我订了房间。','Wǒ dìng le fángjiān.',['I','book/reserve','particle','room room','']) },
+    { id: '9_2', zh: '请给我房卡。',             py: 'Qǐng gěi wǒ fángkǎ.',                    en: 'Please give me the room key/card.',
+      words: buildWords('请给我房卡。','Qǐng gěi wǒ fángkǎ.',['please','give','me','room card','']) },
+    { id: '9_3', zh: '房间号是多少？',           py: 'Fángjiān hào shì duōshao?',             en: 'What is the room number?',
+      words: buildWords('房间号是多少？','Fángjiān hào shì duōshao?',['room','number','is','how much','?']) },
+    { id: '9_4', zh: '我要双床房/大床房。',      py: 'Wǒ yào shuāngchuáng fáng / dàchuáng fáng.',en: 'I want twin beds / a king-size bed.',
+      words: buildWords('我要双床房大床房。','Wǒ yào shuāngchuáng fáng dàchuáng fáng.',['I','want','twin bed room','king bed room','']) },
+    { id: '9_5', zh: '浴巾在哪里？',             py: 'Yùjīn zài nǎli?',                        en: 'Where is the bath towel?',
+      words: buildWords('浴巾在哪里？','Yùjīn zài nǎli?',['bath','towel','at','where','?']) },
+    { id: '9_6', zh: '房间很干净。',             py: 'Fángjiān hěn gānjìng.',                  en: 'The room is very clean.',
+      words: buildWords('房间很干净。','Fángjiān hěn gānjìng.',['room','very','dry clean','']) },
+    { id: '9_7', zh: '空调太冷了。',             py: 'Kōngtiáo tài lěng le.',                   en: 'The AC is too cold.',
+      words: buildWords('空调太冷了。','Kōngtiáo tài lěng le.',['air','adjust','too','cold','particle','']) },
+    { id: '9_8', zh: '我需要多一个枕头。',       py: 'Wǒ xūyào duō yīgè zhěntou.',             en: 'I need one more pillow.',
+      words: buildWords('我需要多一个枕头。','Wǒ xūyào duō yīgè zhěntou.',['I','need','more','one','measure','pillow','']) },
+    { id: '9_9', zh: '早餐几点开始？',           py: 'Zǎocān jǐ diǎn kāishǐ?',                 en: 'What time does breakfast start?',
+      words: buildWords('早餐几点开始？','Zǎocān jǐ diǎn kāishǐ?',['morning','meal','how many','o\'clock','begin start','?']) },
+    { id: '9_10',zh: '我要退房。',               py: 'Wǒ yào tuìfáng.',                        en: 'I want to check out.',
+      words: buildWords('我要退房。','Wǒ yào tuìfáng.',['I','want','return room','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 10: Inviting Friends & Social Life (PAID)
+  // ============================================================
+  var T10_CULTURE = '华人朋友间"抢着买单"是常见社交礼仪，说"我请客"会非常受欢迎。去朋友家做客一定带点水果或小礼物——空手上门是失礼。聚会结束发"我到家了"是必备安全礼貌，对方会觉得你靠谱。见面和告别时简单寒暄两句很重要。';
+
+  var t10 = [
+    { id: '10_1', zh: '你周末有空吗？',              py: 'Nǐ zhōumò yǒu kòng ma?',                en: 'Are you free this weekend?',
+      words: buildWords('你周末有空吗？','Nǐ zhōumò yǒu kòng ma?',['you','week end','have','free time','particle','?']) },
+    { id: '10_2', zh: '我们一起吃晚饭吧！',          py: 'Wǒmen yīqǐ chī wǎnfàn ba!',             en: "Let's have dinner together!",
+      words: buildWords('我们一起吃晚饭吧！','Wǒmen yīqǐ chī wǎnfàn ba!',['we','together','eat','evening meal','particle','']) },
+    { id: '10_3', zh: '你想吃什么？',                py: 'Nǐ xiǎng chī shénme?',                   en: 'What do you want to eat?',
+      words: buildWords('你想吃什么？','Nǐ xiǎng chī shénme?',['you','want','eat','what','?']) },
+    { id: '10_4', zh: '我请客！',                    py: 'Wǒ qǐngkè!',                              en: 'My treat! (I\'ll pay)',
+      words: buildWords('我请客！','Wǒ qǐngkè!',['I','invite guest','']) },
+    { id: '10_5', zh: '来我家玩吧。',                py: 'Lái wǒ jiā wán ba.',                      en: 'Come over to my place to hang out.',
+      words: buildWords('来我家玩吧。','Lái wǒ jiā wán ba.',['come','my','home','play','particle','']) },
+    { id: '10_6', zh: '需要我带什么吗？',            py: 'Xūyào wǒ dài shénme ma?',                 en: 'Do you need me to bring anything?',
+      words: buildWords('需要我带什么吗？','Xūyào wǒ dài shénme ma?',['need','I','bring','what','particle','?']) },
+    { id: '10_7', zh: '你要喝什么？茶还是咖啡？',    py: 'Nǐ yào hē shénme? Chá háishì kāfēi?',     en: 'What would you like to drink? Tea or coffee?',
+      words: buildWords('你要喝什么茶还是咖啡？','Nǐ yào hē shénme Chá háishì kāfēi?',['you','want','drink','what','tea','or','coffee','?']) },
+    { id: '10_8', zh: '玩得很开心！',                py: 'Wán de hěn kāixīn!',                      en: 'I had a lot of fun!',
+      words: buildWords('玩得很开心！','Wán de hěn kāixīn!',['play','particle','very','happy','']) },
+    { id: '10_9', zh: '下次再约！',                  py: 'Xià cì zài yuē!',                         en: "Let's plan again next time!",
+      words: buildWords('下次再约！','Xià cì zài yuē!',['next','time','again','appoint','']) },
+    { id: '10_10',zh: '我到家了。',                  py: 'Wǒ dào jiā le.',                          en: "I'm home (text to let them know you're safe).",
+      words: buildWords('我到家了。','Wǒ dào jiā le.',['I','arrive','home','particle','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 11: Bank, Exchange & Numbers (PAID)
+  // ============================================================
+  var T11_CULTURE = '银行工作人员大多会讲英语，但用中文说"换钱"会更亲切。去银行先取号（qǔ hào），等叫号办理，千万不要插队。ATM取钱时遮挡输入密码。如果卡被吞，立刻找柜员说"我的卡被吞了"——他们会帮你取出。';
+
+  var t11 = [
+    { id: '11_1', zh: '银行在哪里？',               py: 'Yínháng zài nǎli?',                      en: 'Where is the bank?',
+      words: buildWords('银行在哪里？','Yínháng zài nǎli?',['silver','bank','at','where','?']) },
+    { id: '11_2', zh: '我要换钱。',                 py: 'Wǒ yào huàn qián.',                      en: 'I want to exchange money.',
+      words: buildWords('我要换钱。','Wǒ yào huàn qián.',['I','want','exchange','money','']) },
+    { id: '11_3', zh: '今天汇率是多少？',           py: 'Jīntiān huìlǜ shì duōshao?',             en: "What's the exchange rate today?",
+      words: buildWords('今天汇率是多少？','Jīntiān huìlǜ shì duōshao?',['today','exchange rate','is','how much','?']) },
+    { id: '11_4', zh: '请给我换一些零钱。',         py: 'Qǐng gěi wǒ huàn yīxiē língqián.',       en: 'Please give me some small change.',
+      words: buildWords('请给我换一些零钱。','Qǐng gěi wǒ huàn yīxiē língqián.',['please','give','me','exchange','some','zero small','money','']) },
+    { id: '11_5', zh: '我要开一个账户。',           py: 'Wǒ yào kāi yīgè zhànghù.',               en: 'I want to open an account.',
+      words: buildWords('我要开一个账户。','Wǒ yào kāi yīgè zhànghù.',['I','want','open','one','measure','account door','']) },
+    { id: '11_6', zh: '我忘记密码了。',             py: 'Wǒ wàngjì mìmǎ le.',                      en: 'I forgot my password / PIN.',
+      words: buildWords('我忘记密码了。','Wǒ wàngjì mìmǎ le.',['I','forget remember','secret code','particle','']) },
+    { id: '11_7', zh: '汇款需要手续费吗？',         py: 'Huìkuǎn xūyào shǒuxùfèi ma?',            en: 'Is there a fee for transferring money?',
+      words: buildWords('汇款需要手续费吗？','Huìkuǎn xūyào shǒuxùfèi ma?',['remit money','need','hand procedure fee','particle','?']) },
+    { id: '11_8', zh: '我取一千块。',               py: 'Wǒ qǔ yīqiān kuài.',                      en: 'I want to withdraw 1,000 (local currency).',
+      words: buildWords('我取一千块。','Wǒ qǔ yīqiān kuài.',['I','take out','one thousand','dollar/yuan','']) },
+    { id: '11_9', zh: '我的银行卡被吞了。',         py: 'Wǒ de yínhángkǎ bèi tūn le.',             en: 'My bank card was swallowed by the ATM.',
+      words: buildWords('我的银行卡被吞了。','Wǒ de yínhángkǎ bèi tūn le.',['I','possessive','bank card','passive','swallow','particle','']) },
+    { id: '11_10',zh: '谢谢，不用了。',             py: 'Xièxie, bùyòng le.',                       en: 'Thanks, no need (polite decline).',
+      words: buildWords('谢谢，不用了。','Xièxie bùyòng le.',['thank','thank','','no need','particle','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 12: Time, Date & Appointments (PAID)
+  // ============================================================
+  var T12_CULTURE = '华人社会"准时"被视为尊重，商务会议必须准时。社交场合（如饭局）可能允许迟到10分钟。说"哦"（ó）是友好语气词，让对话更亲切。约会确认时补一句"到时见"（dàoshí jiàn）会让对方觉得你很靠谱。';
+
+  var t12 = [
+    { id: '12_1', zh: '现在几点了？',                 py: 'Xiànzài jǐ diǎn le?',                   en: 'What time is it now?',
+      words: buildWords('现在几点了？','Xiànzài jǐ diǎn le?',['now','present','how many','o\'clock','particle','?']) },
+    { id: '12_2', zh: '今天几号？',                   py: 'Jīntiān jǐ hào?',                        en: "What's today's date?",
+      words: buildWords('今天几号？','Jīntiān jǐ hào?',['today','day','how many','number/date','?']) },
+    { id: '12_3', zh: '明天是星期几？',               py: 'Míngtiān shì xīngqī jǐ?',                en: 'What day is tomorrow?',
+      words: buildWords('明天是星期几？','Míngtiān shì xīngqī jǐ?',['tomorrow','is','week period','how many','?']) },
+    { id: '12_4', zh: '我们约两点半，好吗？',         py: 'Wǒmen yuē liǎng diǎn bàn, hǎo ma?',       en: "Let's meet at 2:30, okay?",
+      words: buildWords('我们约两点半好吗？','Wǒmen yuē liǎng diǎn bàn hǎo ma?',['we','appoint','two','o\'clock','half','good','particle','?']) },
+    { id: '12_5', zh: '我迟到了五分钟。',             py: 'Wǒ chídào le wǔ fēnzhōng.',               en: "I'm five minutes late.",
+      words: buildWords('我迟到了五分钟。','Wǒ chídào le wǔ fēnzhōng.',['I','late arrive','particle','five','minute clock','']) },
+    { id: '12_6', zh: '提前十分钟到。',               py: 'Tíqián shí fēnzhōng dào.',                en: 'Arrive ten minutes early.',
+      words: buildWords('提前十分钟到。','Tíqián shí fēnzhōng dào.',['lift/advance','before','ten','minute','arrive','']) },
+    { id: '12_7', zh: '这个月很忙。',                 py: 'Zhège yuè hěn máng.',                      en: 'This month is very busy.',
+      words: buildWords('这个月很忙。','Zhège yuè hěn máng.',['this','measure','moon/month','very','busy','']) },
+    { id: '12_8', zh: '下个星期我休假。',             py: 'Xià gè xīngqī wǒ xiūjià.',                en: "I'm on vacation next week.",
+      words: buildWords('下个星期我休假。','Xià gè xīngqī wǒ xiūjià.',['next','measure','week period','I','rest holiday','']) },
+    { id: '12_9', zh: '从几点到几点？',               py: 'Cóng jǐ diǎn dào jǐ diǎn?',               en: 'From what time to what time?',
+      words: buildWords('从几点到几点？','Cóng jǐ diǎn dào jǐ diǎn?',['from','how many','o\'clock','to','how many','o\'clock','?']) },
+    { id: '12_10',zh: '记得准时哦！',                 py: 'Jìde zhǔnshí ó!',                         en: 'Remember to be on time! (casual)',
+      words: buildWords('记得准时哦！','Jìde zhǔnshí ó!',['remember','must','accurate time','particle','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 13: Weather, Seasons & Dressing (PAID)
+  // ============================================================
+  var T13_CULTURE = '和华人聊天气是最安全的破冰话题——比聊政治、宗教安全得多。在新加坡，大家常抱怨"太热"和"下雨"；在中国北方则聊"冷"。说"带伞了吗"是关心，显得贴心。天气话题永远不会冷场。';
+
+  var t13 = [
+    { id: '13_1', zh: '今天天气真好！',                 py: 'Jīntiān tiānqì zhēn hǎo!',               en: "The weather is so nice today!",
+      words: buildWords('今天天气真好！','Jīntiān tiānqì zhēn hǎo!',['today','weather','true/really','good','']) },
+    { id: '13_2', zh: '太热了！',                        py: 'Tài rè le!',                               en: "It's too hot!",
+      words: buildWords('太热了！','Tài rè le!',['too','hot','particle','']) },
+    { id: '13_3', zh: '冷死了。',                        py: 'Lěng sǐ le.',                               en: "It's freezing.",
+      words: buildWords('冷死了。','Lěng sǐ le.',['cold','die','particle','']) },
+    { id: '13_4', zh: '天气预报说下午有雨。',            py: 'Tiānqì yùbào shuō xiàwǔ yǒu yǔ.',          en: 'The forecast says rain this afternoon.',
+      words: buildWords('天气预报说下午有雨。','Tiānqì yùbào shuō xiàwǔ yǒu yǔ.',['weather','forecast report','say','afternoon','have','rain','']) },
+    { id: '13_5', zh: '带伞了吗？',                      py: 'Dài sǎn le ma?',                            en: 'Did you bring an umbrella?',
+      words: buildWords('带伞了吗？','Dài sǎn le ma?',['carry','umbrella','particle','particle','?']) },
+    { id: '13_6', zh: '外面风很大。',                    py: 'Wàimiàn fēng hěn dà.',                       en: "It's very windy outside.",
+      words: buildWords('外面风很大。','Wàimiàn fēng hěn dà.',['outside','face','wind','very','big','']) },
+    { id: '13_7', zh: '今天穿什么好呢？',                py: 'Jīntiān chuān shénme hǎo ne?',              en: 'What should I wear today?',
+      words: buildWords('今天穿什么好呢？','Jīntiān chuān shénme hǎo ne?',['today','wear','what','good','particle','?']) },
+    { id: '13_8', zh: '多穿一点吧。',                    py: 'Duō chuān yīdiǎn ba.',                       en: 'Wear more clothes.',
+      words: buildWords('多穿一点吧。','Duō chuān yīdiǎn ba.',['more','wear','one','a bit','particle','']) },
+    { id: '13_9', zh: '这里冬天冷吗？',                  py: 'Zhèlǐ dōngtiān lěng ma?',                    en: 'Is it cold here in winter?',
+      words: buildWords('这里冬天冷吗？','Zhèlǐ dōngtiān lěng ma?',['here','winter sky','cold','particle','?']) },
+    { id: '13_10',zh: '我最喜欢秋天。',                  py: 'Wǒ zuì xǐhuān qiūtiān.',                     en: 'I like autumn the most.',
+      words: buildWords('我最喜欢秋天。','Wǒ zuì xǐhuān qiūtiān.',['I','most','like happy','autumn sky','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 14: Learning Chinese & Asking for Help (PAID)
+  // ============================================================
+  var T14_CULTURE = '当你说"我的中文不太好"时，华人通常会鼓励你，并自动放慢语速。大胆问"什么意思"是学习的好习惯。说"慢慢说"比"请说慢一点"更简短自然。听到生词随时问，没有人会嫌你烦。';
+
+  var t14 = [
+    { id: '14_1', zh: '这个字怎么读？',                 py: 'Zhège zì zěnme dú?',                      en: 'How do you pronounce this character?',
+      words: buildWords('这个字怎么读？','Zhège zì zěnme dú?',['this','measure','character/word','how','read','?']) },
+    { id: '14_2', zh: '什么意思？',                      py: 'Shénme yìsi?',                             en: 'What does it mean?',
+      words: buildWords('什么意思？','Shénme yìsi?',['what','meaning thought','?']) },
+    { id: '14_3', zh: '请慢慢说。',                      py: 'Qǐng màn man shuō.',                        en: 'Please speak slowly.',
+      words: buildWords('请慢慢说。','Qǐng màn man shuō.',['please','slow','slow','speak','']) },
+    { id: '14_4', zh: '请再说一遍。',                    py: 'Qǐng zài shuō yī biàn.',                    en: 'Please say it again.',
+      words: buildWords('请再说一遍。','Qǐng zài shuō yī biàn.',['please','again','speak','one','time','']) },
+    { id: '14_5', zh: '我的中文不太好。',                py: 'Wǒ de Zhōngwén bù tài hǎo.',                en: 'My Chinese is not very good.',
+      words: buildWords('我的中文不太好。','Wǒ de Zhōngwén bù tài hǎo.',['I','possessive','Chinese language','not','too','good','']) },
+    { id: '14_6', zh: '你说得很快。',                    py: 'Nǐ shuō de hěn kuài.',                       en: 'You speak very fast.',
+      words: buildWords('你说得很快。','Nǐ shuō de hěn kuài.',['you','speak','particle','very','fast','']) },
+    { id: '14_7', zh: '我写对了吗？',                    py: 'Wǒ xiě duì le ma?',                          en: 'Did I write it correctly?',
+      words: buildWords('我写对了吗？','Wǒ xiě duì le ma?',['I','write','correct','particle','particle','?']) },
+    { id: '14_8', zh: '这个和那个一样吗？',              py: 'Zhège hé nàge yīyàng ma?',                   en: 'Is this and that the same?',
+      words: buildWords('这个和那个一样吗？','Zhège hé nàge yīyàng ma?',['this','measure','and','that','measure','one same','particle','?']) },
+    { id: '14_9', zh: '我想练习口语。',                  py: 'Wǒ xiǎng liànxí kǒuyǔ.',                    en: 'I want to practice spoken Chinese.',
+      words: buildWords('我想练习口语。','Wǒ xiǎng liànxí kǒuyǔ.',['I','want','practice','mouth language','']) },
+    { id: '14_10',zh: '我学了一年了。',                  py: 'Wǒ xué le yī nián le.',                       en: "I've been learning for a year.",
+      words: buildWords('我学了一年了。','Wǒ xué le yī nián le.',['I','study','particle','one','year','particle','']) }
+  ];
+
+  // ============================================================
+  // TOPIC 15: Emergency & Lost Items (PAID)
+  // ============================================================
+  var T15_CULTURE = '报警时先说"帮帮我"吸引注意。中国报警电话110，新加坡999，急救分别120和995。华人警察或路人通常愿意协助，但尽量保持冷静。护照丢失立即联系大使馆，说"补办护照"。最后"别担心，我没事"用来安抚他人，也让自己镇定。';
+
+  var t15 = [
+    { id: '15_1', zh: '帮帮我！',                        py: 'Bāng bāng wǒ!',                              en: 'Help me!',
+      words: buildWords('帮帮我！','Bāng bāng wǒ!',['help','help','me','']) },
+    { id: '15_2', zh: '我丢了护照。',                    py: 'Wǒ diū le hùzhào.',                           en: 'I lost my passport.',
+      words: buildWords('我丢了护照。','Wǒ diū le hùzhào.',['I','lose','particle','protect passport','']) },
+    { id: '15_3', zh: '我的钱包不见了。',                py: 'Wǒ de qiánbāo bùjiàn le.',                    en: 'My wallet is missing.',
+      words: buildWords('我的钱包不见了。','Wǒ de qiánbāo bùjiàn le.',['I','possessive','money bag','not see','particle','']) },
+    { id: '15_4', zh: '请马上叫警察。',                  py: 'Qǐng mǎshàng jiào jǐngchá.',                  en: 'Please call the police immediately.',
+      words: buildWords('请马上叫警察。','Qǐng mǎshàng jiào jǐngchá.',['please','horse on/immediately','call','police observe','']) },
+    { id: '15_5', zh: '我被抢劫了。',                    py: 'Wǒ bèi qiǎngjié le.',                          en: 'I was robbed.',
+      words: buildWords('我被抢劫了。','Wǒ bèi qiǎngjié le.',['I','passive','rob plunder','particle','']) },
+    { id: '15_6', zh: '我的手机丢了。',                  py: 'Wǒ de shǒujī diū le.',                         en: 'My phone is lost.',
+      words: buildWords('我的手机丢了。','Wǒ de shǒujī diū le.',['I','possessive','hand machine','lose','particle','']) },
+    { id: '15_7', zh: '最近的大使馆在哪里？',            py: 'Zuìjìn de dàshǐguǎn zài nǎli?',               en: 'Where is the nearest embassy?',
+      words: buildWords('最近的大使馆在哪里？','Zuìjìn de dàshǐguǎn zài nǎli?',['most','near','particle','big embassy official','at','where','?']) },
+    { id: '15_8', zh: '我需要帮助。',                    py: 'Wǒ xūyào bāngzhù.',                            en: 'I need help.',
+      words: buildWords('我需要帮助。','Wǒ xūyào bāngzhù.',['I','need','help','']) },
+    { id: '15_9', zh: '请帮我联系我的朋友。',            py: 'Qǐng bāng wǒ liánxì wǒ de péngyou.',           en: 'Please help me contact my friend.',
+      words: buildWords('请帮我联系我的朋友。','Qǐng bāng wǒ liánxì wǒ de péngyou.',['please','help','me','contact','I','possessive','friend','']) },
+    { id: '15_10',zh: '别担心，我没事。',                py: 'Bié dānxīn, wǒ méishì.',                        en: "Don't worry, I'm okay.",
+      words: buildWords('别担心我没事。','Bié dānxīn wǒ méishì.',['don\'t','worry heart','','I','no matter','']) }
+  ];
+
+  // ============================================================
+  // ASSEMBLE: topics metadata + topicPhrases
+  // ============================================================
+  var TOPICS_META = [
+    { key: 'topic-01', icon: '??', title: 'Daily Politeness & Icebreakers', desc: 'Greet, thank, apologize, introduce yourself — make a great first impression.', cultureTip: T1_CULTURE },
+    { key: 'topic-02', icon: '???', title: 'Numbers, Paying & Shopping',      desc: 'Ask price, bargain, pay with card — avoid getting overcharged.', cultureTip: T2_CULTURE },
+    { key: 'topic-03', icon: '??', title: 'Dining Out & Food Preferences',   desc: 'Order food, avoid allergies, ask for the bill — eat with confidence.', cultureTip: T3_CULTURE },
+    { key: 'topic-04', icon: '???', title: 'Getting Around',                   desc: 'Ask directions, take taxi/bus, never get lost in a Chinese city.', cultureTip: T4_CULTURE },
+    { key: 'topic-05', icon: '??', title: 'Work & Office Greetings',          desc: 'Thank colleagues, talk schedules, cheer the team — fit right in.', cultureTip: T5_CULTURE },
+    { key: 'topic-06', icon: '??', title: 'Feeling Sick & Doctor Visit',     desc: 'Describe pain, allergies, ask for medicine — critical travel words.', cultureTip: T6_CULTURE },
+    { key: 'topic-07', icon: '??', title: 'Real Feelings & Emotions',        desc: 'Move past "I\'m fine" — share joy, stress, tiredness naturally.', cultureTip: T7_CULTURE },
+    { key: 'topic-08', icon: '??', title: 'Phone, Wi-Fi & Digital Pay',      desc: 'Ask for Wi-Fi, scan QR pay, charge battery — modern daily essentials.', cultureTip: T8_CULTURE },
+    { key: 'topic-09', icon: '??', title: 'Hotel Check-in & Room Service',   desc: 'Book in, request amenities, check out smoothly — handle the front desk.', cultureTip: T9_CULTURE },
+    { key: 'topic-10', icon: '??', title: 'Inviting Friends & Social Life',  desc: 'Plan dinner, invite people over, say "my treat" — make real friends.', cultureTip: T10_CULTURE },
+    { key: 'topic-11', icon: '??', title: 'Bank, Exchange & Numbers',        desc: 'Exchange money, withdraw, open account — big transactions with calm.', cultureTip: T11_CULTURE },
+    { key: 'topic-12', icon: '??', title: 'Time, Date & Appointments',       desc: 'Ask the time, set meetings, reschedule gracefully — punctuality wins.', cultureTip: T12_CULTURE },
+    { key: 'topic-13', icon: '?', title: 'Weather, Seasons & Dressing',     desc: 'Small-talk like a local — the safest icebreaker in any Chinese context.', cultureTip: T13_CULTURE },
+    { key: 'topic-14', icon: '??', title: 'Learning Chinese & Asking Help',  desc: 'Survival phrases for learning itself — slow down, repeat, ask meaning.', cultureTip: T14_CULTURE },
+    { key: 'topic-15', icon: '??', title: 'Emergency & Lost Items',          desc: 'Call for help, report theft, find embassy — hope you never need these.', cultureTip: T15_CULTURE }
+  ];
+
+  var TOPIC_PHRASES = {
+    'topic-01': t1,
+    'topic-02': t2,
+    'topic-03': t3,
+    'topic-04': t4,
+    'topic-05': t5,
+    'topic-06': t6,
+    'topic-07': t7,
+    'topic-08': t8,
+    'topic-09': t9,
+    'topic-10': t10,
+    'topic-11': t11,
+    'topic-12': t12,
+    'topic-13': t13,
+    'topic-14': t14,
+    'topic-15': t15
+  };
+
+  // For each phrase, attach the topic-level cultural note so the Big Card can display it.
+  Object.keys(TOPIC_PHRASES).forEach(function(key, ti) {
+    var cultureTip = (TOPICS_META[ti] && TOPICS_META[ti].cultureTip) ? TOPICS_META[ti].cultureTip : '';
+    TOPIC_PHRASES[key].forEach(function(p) {
+      p.culture = cultureTip;
+    });
+  });
+
+  // Build flat PHRASE_DATA map (pid -> phrase object)
+  var PHRASE_DATA = {};
+  Object.keys(TOPIC_PHRASES).forEach(function(key) {
+    TOPIC_PHRASES[key].forEach(function(p) {
+      if (p.id) PHRASE_DATA[p.id] = p;
+    });
+  });
+
+  // TOPIC_KEYS: ordered array of topic keys
+  var TOPIC_KEYS = TOPICS_META.map(function(t) { return t.key; });
+
+  // TOPIC_LABELS: key -> title label for Big Card tag display
+  var TOPIC_LABELS = {};
+  TOPICS_META.forEach(function(t) {
+    TOPIC_LABELS[t.key] = t.title;
+  });
+
+  // Export globally
+  window.HANLINGO_DATA = {
+    topics: TOPICS_META,
+    topicPhrases: TOPIC_PHRASES
+  };
+  window.PHRASE_DATA = PHRASE_DATA;
+  window.TOPIC_KEYS = TOPIC_KEYS;
+  window.TOPIC_LABELS = TOPIC_LABELS;
+
+  console.log('? HanLingo DATA (15 topics · 150 phrases) loaded successfully.');
+})();

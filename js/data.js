@@ -1,5 +1,5 @@
 // ============================================================
-// HanLingo ¡ª Complete 15-Topic 150-Phrase Database
+// HanLingo â€” Complete 15-Topic 150-Phrase Database
 // Topics 1-4: FREE (all 10 phrases unlocked)
 // Topics 5-15: PAID (preview first 2, then unlock)
 // Audio: ./audio/{topicNum}_{phraseNum}.mp3
@@ -18,9 +18,9 @@
     var i;
     for (i = 0; i < zhText.length; i++) {
       var c = zhText.charAt(i);
-      if (c.trim() === '' || /[£¬¡££¡£¿¡¢£»£º""''£¨£©¡­¡ª¡¤\!\?,\.]/.test(c)) {
+      if (c.trim() === '' || /[ï¼Œã€‚ï¼ï¼Ÿã€ï¼›ï¼š""''ï¼ˆï¼‰â€¦â€”Â·\!\?,\.]/.test(c)) {
         // Skip most punctuation as word units, add as spacer with empty mn
-        if (/[£¬¡££¡£¿¡¢£»£º£¡£¿\.\,]/.test(c)) {
+        if (/[ï¼Œã€‚ï¼ï¼Ÿã€ï¼›ï¼šï¼ï¼Ÿ\.\,]/.test(c)) {
           zhChars.push({ ch: c, punc: true });
         }
       } else {
@@ -28,7 +28,7 @@
       }
     }
     // Split pinyin by whitespace to get rough tokens, then distribute to chars
-    var pyTokens = (pyText || '').replace(/[£¬¡££¡£¿\!\?,\.]/g, '').trim().split(/\s+/);
+    var pyTokens = (pyText || '').replace(/[ï¼Œã€‚ï¼ï¼Ÿ\!\?,\.]/g, '').trim().split(/\s+/);
     var tokenIdx = 0;
     var charPerTokenRatio = zhChars.filter(function(z){return !z.punc;}).length / Math.max(1, pyTokens.length);
     var charCount = 0;
@@ -36,9 +36,9 @@
       if (zc.punc) {
         units.push({ w: zc.ch, py: '', mn: '' });
       } else {
-        // assign a pinyin token (rough alignment ¡ª the karaoke visual uses ordered highlighting)
+        // assign a pinyin token (rough alignment â€” the karaoke visual uses ordered highlighting)
         var pyFrag = pyTokens[tokenIdx] || '';
-        // For tones carried by characters (e.g., Du¨¬buq¨« = ¶Ô ²» Æð), we split if token has hyphen or no space
+        // For tones carried by characters (e.g., DuÃ¬buqÇ = å¯¹ ä¸ èµ·), we split if token has hyphen or no space
         // For simplicity, we assign full token and advance based on ratio
         units.push({
           w: zc.ch,
@@ -57,442 +57,442 @@
   // ============================================================
   // TOPIC 1: Daily Politeness & Icebreakers (FREE)
   // ============================================================
-  var T1_CULTURE = '»ªÈË¼ûÃæ²»Ï°¹ßÓµ±§»òÌùÃæ£¬ÎÕÊÖÊÇ×î°²È«µÃÌåµÄÀñÒÇ£¬Î¢Ð¦µãÍ·Ò²·Ç³£ºÏÊÊ¡£³õ´Î¼ûÃæµÝÃûÆ¬Ê±£¬Ë«ÊÖ·îÉÏÇÒÎÄ×Ö³¯Ïò¶Ô·½£¬ÔÚÐÂ¼ÓÆÂºÍÌ¨ÍåÍ¬ÑùÊÊÓÃ¡£ÎÊ"ÄãÔõÃ´Ñù£¿"Ê±£¬¶Ô·½Èô»Ø´ð"»¹ÐÐ"±íÊ¾"so-so"£¬²»±Ø×·ÎÊÏ¸½Ú£¬ÕâÖ»ÊÇ¿ÍÌ×º®êÑ¡£';
+  var T1_CULTURE = 'åŽäººè§é¢ä¸ä¹ æƒ¯æ‹¥æŠ±æˆ–è´´é¢ï¼Œæ¡æ‰‹æ˜¯æœ€å®‰å…¨å¾—ä½“çš„ç¤¼ä»ªï¼Œå¾®ç¬‘ç‚¹å¤´ä¹Ÿéžå¸¸åˆé€‚ã€‚åˆæ¬¡è§é¢é€’åç‰‡æ—¶ï¼ŒåŒæ‰‹å¥‰ä¸Šä¸”æ–‡å­—æœå‘å¯¹æ–¹ï¼Œåœ¨æ–°åŠ å¡å’Œå°æ¹¾åŒæ ·é€‚ç”¨ã€‚é—®"ä½ æ€Žä¹ˆæ ·ï¼Ÿ"æ—¶ï¼Œå¯¹æ–¹è‹¥å›žç­”"è¿˜è¡Œ"è¡¨ç¤º"so-so"ï¼Œä¸å¿…è¿½é—®ç»†èŠ‚ï¼Œè¿™åªæ˜¯å®¢å¥—å¯’æš„ã€‚';
 
   var t1 = [
-    { id: '1_1', zh: 'ÄãºÃ£¡',           py: 'N¨« h¨£o!',                       en: 'Hello!',
-      words: buildWords('ÄãºÃ£¡','N¨« h¨£o!',['you','good','']) },
-    { id: '1_2', zh: 'Ð»Ð»£¡',           py: 'Xi¨¨xie!',                       en: 'Thank you!',
-      words: buildWords('Ð»Ð»£¡','Xi¨¨xie!',['thank','thank','']) },
-    { id: '1_3', zh: '¶Ô²»Æð¡£',         py: 'Du¨¬buq¨«.',                      en: 'Sorry / Excuse me.',
-      words: buildWords('¶Ô²»Æð¡£','Du¨¬buq¨«.',['correct/face','not','rise','']) },
-    { id: '1_4', zh: 'Ã»¹ØÏµ¡£',         py: 'M¨¦i gu¨¡nxi.',                    en: "It's okay / No problem.",
-      words: buildWords('Ã»¹ØÏµ¡£','M¨¦i gu¨¡nxi.',['no','relation/matter','','']) },
-    { id: '1_5', zh: 'ÔÙ¼û£¡',           py: 'Z¨¤iji¨¤n!',                       en: 'Goodbye!',
-      words: buildWords('ÔÙ¼û£¡','Z¨¤iji¨¤n!',['again','see','']) },
-    { id: '1_6', zh: 'ÄãÔõÃ´Ñù£¿',       py: 'N¨« z¨§nmey¨¤ng?',                  en: 'How are you doing?',
-      words: buildWords('ÄãÔõÃ´Ñù£¿','N¨« z¨§nmey¨¤ng?',['you','how','appearance','?']) },
-    { id: '1_7', zh: 'ÎÒºÜºÃ£¬ÄãÄØ£¿',   py: 'W¨¯ h¨§n h¨£o, n¨« ne?',             en: "I'm fine, and you?",
-      words: buildWords('ÎÒºÜºÃ£¬ÄãÄØ£¿','W¨¯ h¨§n h¨£o n¨« ne',['I','very','good','','you','particle','?']) },
-    { id: '1_8', zh: 'Äã½ÐÊ²Ã´Ãû×Ö£¿',   py: 'N¨« ji¨¤o sh¨¦nme m¨ªngzi?',         en: "What's your name?",
-      words: buildWords('Äã½ÐÊ²Ã´Ãû×Ö£¿','N¨« ji¨¤o sh¨¦nme m¨ªngzi?',['you','be called','what','name','word','?']) },
-    { id: '1_9', zh: 'ÎÒ½Ð´óÎÀ¡£',       py: 'W¨¯ ji¨¤o D¨¤w¨¨i.',                 en: 'My name is David.',
-      words: buildWords('ÎÒ½Ð´óÎÀ¡£','W¨¯ ji¨¤o D¨¤w¨¨i.',['I','be called','Da','wei','']) },
-    { id: '1_10',zh: 'ÈÏÊ¶ÄãºÜ¸ßÐË¡£',   py: 'R¨¨nshi n¨« h¨§n g¨¡ox¨¬ng.',          en: 'Nice to meet you.',
-      words: buildWords('ÈÏÊ¶ÄãºÜ¸ßÐË¡£','R¨¨nshi n¨« h¨§n g¨¡ox¨¬ng.',['know/recognize','you','very','happy','','']) }
+    { id: '1_1', zh: 'ä½ å¥½ï¼',           py: 'NÇ hÇŽo!',                       en: 'Hello!',
+      words: buildWords('ä½ å¥½ï¼','NÇ hÇŽo!',['you','good','']) },
+    { id: '1_2', zh: 'è°¢è°¢ï¼',           py: 'XiÃ¨xie!',                       en: 'Thank you!',
+      words: buildWords('è°¢è°¢ï¼','XiÃ¨xie!',['thank','thank','']) },
+    { id: '1_3', zh: 'å¯¹ä¸èµ·ã€‚',         py: 'DuÃ¬buqÇ.',                      en: 'Sorry / Excuse me.',
+      words: buildWords('å¯¹ä¸èµ·ã€‚','DuÃ¬buqÇ.',['correct/face','not','rise','']) },
+    { id: '1_4', zh: 'æ²¡å…³ç³»ã€‚',         py: 'MÃ©i guÄnxi.',                    en: "It's okay / No problem.",
+      words: buildWords('æ²¡å…³ç³»ã€‚','MÃ©i guÄnxi.',['no','relation/matter','','']) },
+    { id: '1_5', zh: 'å†è§ï¼',           py: 'ZÃ ijiÃ n!',                       en: 'Goodbye!',
+      words: buildWords('å†è§ï¼','ZÃ ijiÃ n!',['again','see','']) },
+    { id: '1_6', zh: 'ä½ æ€Žä¹ˆæ ·ï¼Ÿ',       py: 'NÇ zÄ›nmeyÃ ng?',                  en: 'How are you doing?',
+      words: buildWords('ä½ æ€Žä¹ˆæ ·ï¼Ÿ','NÇ zÄ›nmeyÃ ng?',['you','how','appearance','?']) },
+    { id: '1_7', zh: 'æˆ‘å¾ˆå¥½ï¼Œä½ å‘¢ï¼Ÿ',   py: 'WÇ’ hÄ›n hÇŽo, nÇ ne?',             en: "I'm fine, and you?",
+      words: buildWords('æˆ‘å¾ˆå¥½ï¼Œä½ å‘¢ï¼Ÿ','WÇ’ hÄ›n hÇŽo nÇ ne',['I','very','good','','you','particle','?']) },
+    { id: '1_8', zh: 'ä½ å«ä»€ä¹ˆåå­—ï¼Ÿ',   py: 'NÇ jiÃ o shÃ©nme mÃ­ngzi?',         en: "What's your name?",
+      words: buildWords('ä½ å«ä»€ä¹ˆåå­—ï¼Ÿ','NÇ jiÃ o shÃ©nme mÃ­ngzi?',['you','be called','what','name','word','?']) },
+    { id: '1_9', zh: 'æˆ‘å«å¤§å«ã€‚',       py: 'WÇ’ jiÃ o DÃ wÃ¨i.',                 en: 'My name is David.',
+      words: buildWords('æˆ‘å«å¤§å«ã€‚','WÇ’ jiÃ o DÃ wÃ¨i.',['I','be called','Da','wei','']) },
+    { id: '1_10',zh: 'è®¤è¯†ä½ å¾ˆé«˜å…´ã€‚',   py: 'RÃ¨nshi nÇ hÄ›n gÄoxÃ¬ng.',          en: 'Nice to meet you.',
+      words: buildWords('è®¤è¯†ä½ å¾ˆé«˜å…´ã€‚','RÃ¨nshi nÇ hÄ›n gÄoxÃ¬ng.',['know/recognize','you','very','happy','','']) }
   ];
 
   // ============================================================
   // TOPIC 2: Numbers, Paying & Shopping (FREE)
   // ============================================================
-  var T2_CULTURE = 'ÔÚÒ¹ÊÐºÍÐ¡··ÖÐÐÄÌÖ¼Û»¹¼ÛÊÇ³£¼ûÏÖÏó£¬µ«Á¬ËøµêºÍÉÌ³¡Ã÷Âë±ê¼Û²»ÄÜ»¹¼Û¡£ÐÂ¼ÓÆÂÐ¡··ÖÐÐÄÒ»°ãÒ²²»»¹¼Û£¬Ì¯Î»¼Û¸ñÒÑ¹Ì¶¨¡£Ëµ"Ì«¹óÁË"ºóÂô¼ÒÈô²»ÈÃ¼Û£¬±íÊ¾ÒÑµ½µ×¼Û¡£¿é£¨ku¨¤i£©ºÍÃ«£¨m¨¢o£©ÊÇ¿ÚÓïÖÐµÄ"Ôª"ºÍ"½Ç"£¬ÐÂ¼ÓÆÂÈËÒ²ÓÃ"¿é"Ö¸´úÐÂ¼ÓÆÂÔª¡£';
+  var T2_CULTURE = 'åœ¨å¤œå¸‚å’Œå°è´©ä¸­å¿ƒè®¨ä»·è¿˜ä»·æ˜¯å¸¸è§çŽ°è±¡ï¼Œä½†è¿žé”åº—å’Œå•†åœºæ˜Žç æ ‡ä»·ä¸èƒ½è¿˜ä»·ã€‚æ–°åŠ å¡å°è´©ä¸­å¿ƒä¸€èˆ¬ä¹Ÿä¸è¿˜ä»·ï¼Œæ‘Šä½ä»·æ ¼å·²å›ºå®šã€‚è¯´"å¤ªè´µäº†"åŽå–å®¶è‹¥ä¸è®©ä»·ï¼Œè¡¨ç¤ºå·²åˆ°åº•ä»·ã€‚å—ï¼ˆkuÃ iï¼‰å’Œæ¯›ï¼ˆmÃ¡oï¼‰æ˜¯å£è¯­ä¸­çš„"å…ƒ"å’Œ"è§’"ï¼Œæ–°åŠ å¡äººä¹Ÿç”¨"å—"æŒ‡ä»£æ–°åŠ å¡å…ƒã€‚';
 
   var t2 = [
-    { id: '2_1', zh: 'Õâ¸ö¶àÉÙÇ®£¿',       py: 'Zh¨¨ge du¨­shao qi¨¢n?',            en: 'How much is this?',
-      words: buildWords('Õâ¸ö¶àÉÙÇ®£¿','Zh¨¨ge du¨­shao qi¨¢n?',['this','measure','how much','money','?']) },
-    { id: '2_2', zh: 'Ì«¹óÁË£¡',           py: 'T¨¤i gu¨¬ le!',                    en: 'Too expensive!',
-      words: buildWords('Ì«¹óÁË£¡','T¨¤i gu¨¬ le!',['too','expensive','particle','']) },
-    { id: '2_3', zh: '±ãÒËÒ»µã°É¡£',       py: 'Pi¨¢nyi y¨©di¨£n ba.',              en: 'A little cheaper, please.',
-      words: buildWords('±ãÒËÒ»µã°É¡£','Pi¨¢nyi y¨©di¨£n ba.',['cheap','inexpensive','one','a bit','particle','']) },
-    { id: '2_4', zh: 'ÎÒÒªÕâ¸ö¡£',         py: 'W¨¯ y¨¤o zh¨¨ge.',                  en: "I'll take this one.",
-      words: buildWords('ÎÒÒªÕâ¸ö¡£','W¨¯ y¨¤o zh¨¨ge.',['I','want','this','measure','']) },
-    { id: '2_5', zh: 'Ò»¹²¶àÉÙÇ®£¿',       py: 'Y¨©g¨°ng du¨­shao qi¨¢n?',           en: 'How much in total?',
-      words: buildWords('Ò»¹²¶àÉÙÇ®£¿','Y¨©g¨°ng du¨­shao qi¨¢n?',['one','total','how much','money','?']) },
-    { id: '2_6', zh: '¿ÉÒÔË¢¿¨Âð£¿',       py: 'K¨§y¨« shu¨¡ k¨£ ma?',               en: 'Can I pay by card?',
-      words: buildWords('¿ÉÒÔË¢¿¨Âð£¿','K¨§y¨« shu¨¡ k¨£ ma?',['can','may','swipe','card','particle','?']) },
-    { id: '2_7', zh: 'ÎÒÃ»ÓÐÏÖ½ð¡£',       py: 'W¨¯ m¨¦iy¨¯u xi¨¤nj¨©n.',             en: "I don't have cash.",
-      words: buildWords('ÎÒÃ»ÓÐÏÖ½ð¡£','W¨¯ m¨¦iy¨¯u xi¨¤nj¨©n.',['I','not have','cash','money','']) },
-    { id: '2_8', zh: 'ÇëÕÒÎÒÇ®¡£',         py: 'Q¨«ng zh¨£o w¨¯ qi¨¢n.',              en: 'Please give me my change.',
-      words: buildWords('ÇëÕÒÎÒÇ®¡£','Q¨«ng zh¨£o w¨¯ qi¨¢n.',['please','find/give change','me','money','']) },
-    { id: '2_9', zh: 'Ö»ÒªÕâ¸ö¡£',         py: 'Zh¨«y¨¤o zh¨¨ge.',                  en: 'Only this one, please.',
-      words: buildWords('Ö»ÒªÕâ¸ö¡£','Zh¨«y¨¤o zh¨¨ge.',['only','want','this','measure','']) },
-    { id: '2_10',zh: 'Ê®¿éÎåÃ«¡£',         py: 'Sh¨ª ku¨¤i w¨³ m¨¢o.',               en: 'Ten dollars fifty cents (local currency).',
-      words: buildWords('Ê®¿éÎåÃ«¡£','Sh¨ª ku¨¤i w¨³ m¨¢o.',['ten','dollar/yuan','five','dime/mao','']) }
+    { id: '2_1', zh: 'è¿™ä¸ªå¤šå°‘é’±ï¼Ÿ',       py: 'ZhÃ¨ge duÅshao qiÃ¡n?',            en: 'How much is this?',
+      words: buildWords('è¿™ä¸ªå¤šå°‘é’±ï¼Ÿ','ZhÃ¨ge duÅshao qiÃ¡n?',['this','measure','how much','money','?']) },
+    { id: '2_2', zh: 'å¤ªè´µäº†ï¼',           py: 'TÃ i guÃ¬ le!',                    en: 'Too expensive!',
+      words: buildWords('å¤ªè´µäº†ï¼','TÃ i guÃ¬ le!',['too','expensive','particle','']) },
+    { id: '2_3', zh: 'ä¾¿å®œä¸€ç‚¹å§ã€‚',       py: 'PiÃ¡nyi yÄ«diÇŽn ba.',              en: 'A little cheaper, please.',
+      words: buildWords('ä¾¿å®œä¸€ç‚¹å§ã€‚','PiÃ¡nyi yÄ«diÇŽn ba.',['cheap','inexpensive','one','a bit','particle','']) },
+    { id: '2_4', zh: 'æˆ‘è¦è¿™ä¸ªã€‚',         py: 'WÇ’ yÃ o zhÃ¨ge.',                  en: "I'll take this one.",
+      words: buildWords('æˆ‘è¦è¿™ä¸ªã€‚','WÇ’ yÃ o zhÃ¨ge.',['I','want','this','measure','']) },
+    { id: '2_5', zh: 'ä¸€å…±å¤šå°‘é’±ï¼Ÿ',       py: 'YÄ«gÃ²ng duÅshao qiÃ¡n?',           en: 'How much in total?',
+      words: buildWords('ä¸€å…±å¤šå°‘é’±ï¼Ÿ','YÄ«gÃ²ng duÅshao qiÃ¡n?',['one','total','how much','money','?']) },
+    { id: '2_6', zh: 'å¯ä»¥åˆ·å¡å—ï¼Ÿ',       py: 'KÄ›yÇ shuÄ kÇŽ ma?',               en: 'Can I pay by card?',
+      words: buildWords('å¯ä»¥åˆ·å¡å—ï¼Ÿ','KÄ›yÇ shuÄ kÇŽ ma?',['can','may','swipe','card','particle','?']) },
+    { id: '2_7', zh: 'æˆ‘æ²¡æœ‰çŽ°é‡‘ã€‚',       py: 'WÇ’ mÃ©iyÇ’u xiÃ njÄ«n.',             en: "I don't have cash.",
+      words: buildWords('æˆ‘æ²¡æœ‰çŽ°é‡‘ã€‚','WÇ’ mÃ©iyÇ’u xiÃ njÄ«n.',['I','not have','cash','money','']) },
+    { id: '2_8', zh: 'è¯·æ‰¾æˆ‘é’±ã€‚',         py: 'QÇng zhÇŽo wÇ’ qiÃ¡n.',              en: 'Please give me my change.',
+      words: buildWords('è¯·æ‰¾æˆ‘é’±ã€‚','QÇng zhÇŽo wÇ’ qiÃ¡n.',['please','find/give change','me','money','']) },
+    { id: '2_9', zh: 'åªè¦è¿™ä¸ªã€‚',         py: 'ZhÇyÃ o zhÃ¨ge.',                  en: 'Only this one, please.',
+      words: buildWords('åªè¦è¿™ä¸ªã€‚','ZhÇyÃ o zhÃ¨ge.',['only','want','this','measure','']) },
+    { id: '2_10',zh: 'åå—äº”æ¯›ã€‚',         py: 'ShÃ­ kuÃ i wÇ” mÃ¡o.',               en: 'Ten dollars fifty cents (local currency).',
+      words: buildWords('åå—äº”æ¯›ã€‚','ShÃ­ kuÃ i wÇ” mÃ¡o.',['ten','dollar/yuan','five','dime/mao','']) }
   ];
 
   // ============================================================
   // TOPIC 3: Dining Out & Food Preferences (FREE)
   // ============================================================
-  var T3_CULTURE = 'ÔÚÖÐ¹ú´óÂ½ºÍÌ¨Íå£¬"Âòµ¥"ÊÇ×îÍ¨ÓÃµÄËµ·¨¡£ÔÚÐÂ¼ÓÆÂ£¬"Âòµ¥"Ò²ÍêÈ«Í¨ÓÃ£¬²¿·ÖÀÏÒ»±²»áËµ"½áÕË"¡£Èç¹ûÄã²»³ÔÀ±£¬Ò»¶¨ÒªÇ¿µ÷"²»ÒªÀ±"»ò"²»À±"£¬ÒòÎªºÜ¶à²ËÄ¬ÈÏ·ÅÀ±½·¡£ÓÃ¿ê×ÓÊ±£¬Ç§Íò²»Òª°Ñ¿ê×ÓÊú²åÔÚÃ×·¹ÉÏ¡ª¡ªÕâÏñ¼À°Ý£¬ÊÇ´ó¼É¡£µÈ´ó¼Ò¶¼Èë×ùºóÔÙ¿ªÊ¼³ÔÊÇ»ù±¾ÀñÃ²¡£';
+  var T3_CULTURE = 'åœ¨ä¸­å›½å¤§é™†å’Œå°æ¹¾ï¼Œ"ä¹°å•"æ˜¯æœ€é€šç”¨çš„è¯´æ³•ã€‚åœ¨æ–°åŠ å¡ï¼Œ"ä¹°å•"ä¹Ÿå®Œå…¨é€šç”¨ï¼Œéƒ¨åˆ†è€ä¸€è¾ˆä¼šè¯´"ç»“è´¦"ã€‚å¦‚æžœä½ ä¸åƒè¾£ï¼Œä¸€å®šè¦å¼ºè°ƒ"ä¸è¦è¾£"æˆ–"ä¸è¾£"ï¼Œå› ä¸ºå¾ˆå¤šèœé»˜è®¤æ”¾è¾£æ¤’ã€‚ç”¨ç­·å­æ—¶ï¼Œåƒä¸‡ä¸è¦æŠŠç­·å­ç«–æ’åœ¨ç±³é¥­ä¸Šâ€”â€”è¿™åƒç¥­æ‹œï¼Œæ˜¯å¤§å¿Œã€‚ç­‰å¤§å®¶éƒ½å…¥åº§åŽå†å¼€å§‹åƒæ˜¯åŸºæœ¬ç¤¼è²Œã€‚';
 
   var t3 = [
-    { id: '3_1', zh: 'ÎÒ¶öÁË£¡',                 py: 'W¨¯ ¨¨ le!',                        en: "I'm hungry!",
-      words: buildWords('ÎÒ¶öÁË£¡','W¨¯ ¨¨ le!',['I','hungry','particle','']) },
-    { id: '3_2', zh: 'Çë¸øÎÒ²Ëµ¥¡£',             py: 'Q¨«ng g¨§i w¨¯ c¨¤id¨¡n.',              en: 'Please give me the menu.',
-      words: buildWords('Çë¸øÎÒ²Ëµ¥¡£','Q¨«ng g¨§i w¨¯ c¨¤id¨¡n.',['please','give','me','menu','','']) },
-    { id: '3_3', zh: 'ÎÒÒªÒ»±­Ë®¡£',             py: 'W¨¯ y¨¤o y¨© b¨¥i shu¨«.',              en: 'I want a glass of water.',
-      words: buildWords('ÎÒÒªÒ»±­Ë®¡£','W¨¯ y¨¤o y¨© b¨¥i shu¨«.',['I','want','one','cup/glass','water','']) },
-    { id: '3_4', zh: '²»ÒªÀ±£¡',                 py: 'B¨´y¨¤o l¨¤!',                        en: 'No spicy, please!',
-      words: buildWords('²»ÒªÀ±£¡','B¨´y¨¤o l¨¤!',['not want','spicy','']) },
-    { id: '3_5', zh: 'ÎÒ²»³ÔÖíÈâ¡£',             py: 'W¨¯ b¨´ ch¨© zh¨±r¨°u.',                en: "I don't eat pork.",
-      words: buildWords('ÎÒ²»³ÔÖíÈâ¡£','W¨¯ b¨´ ch¨© zh¨±r¨°u.',['I','not','eat','pig','meat','']) },
-    { id: '3_6', zh: 'ÓÐËØÊ³Âð£¿',               py: 'Y¨¯u s¨´sh¨ª ma?',                    en: 'Do you have vegetarian food?',
-      words: buildWords('ÓÐËØÊ³Âð£¿','Y¨¯u s¨´sh¨ª ma?',['have','vegetarian','food','particle','?']) },
-    { id: '3_7', zh: 'Õâ¸öºÜºÃ³Ô£¡',             py: 'Zh¨¨ge h¨§n h¨£och¨©!',                en: 'This is delicious!',
-      words: buildWords('Õâ¸öºÜºÃ³Ô£¡','Zh¨¨ge h¨§n h¨£och¨©!',['this','measure','very','good eat','']) },
-    { id: '3_8', zh: 'Âòµ¥£¡',                   py: 'M¨£id¨¡n!',                          en: 'Check, please!',
-      words: buildWords('Âòµ¥£¡','M¨£id¨¡n!',['buy','bill','']) },
-    { id: '3_9', zh: 'Çë¸øÎÒ´ò°ü¡£',             py: 'Q¨«ng g¨§i w¨¯ d¨£b¨¡o.',               en: 'Please pack this to go.',
-      words: buildWords('Çë¸øÎÒ´ò°ü¡£','Q¨«ng g¨§i w¨¯ d¨£b¨¡o.',['please','give','me','pack','bag','']) },
-    { id: '3_10',zh: 'Çë¸øÎÒ²æ×Ó/¿ê×Ó¡£',        py: 'Q¨«ng g¨§i w¨¯ ch¨¡zi / ku¨¤izi.',       en: 'Please give me a fork / chopsticks.',
-      words: buildWords('Çë¸øÎÒ²æ×Ó¿ê×Ó¡£','Q¨«ng g¨§i w¨¯ ch¨¡zi ku¨¤izi.',['please','give','me','fork','chopsticks','']) }
+    { id: '3_1', zh: 'æˆ‘é¥¿äº†ï¼',                 py: 'WÇ’ Ã¨ le!',                        en: "I'm hungry!",
+      words: buildWords('æˆ‘é¥¿äº†ï¼','WÇ’ Ã¨ le!',['I','hungry','particle','']) },
+    { id: '3_2', zh: 'è¯·ç»™æˆ‘èœå•ã€‚',             py: 'QÇng gÄ›i wÇ’ cÃ idÄn.',              en: 'Please give me the menu.',
+      words: buildWords('è¯·ç»™æˆ‘èœå•ã€‚','QÇng gÄ›i wÇ’ cÃ idÄn.',['please','give','me','menu','','']) },
+    { id: '3_3', zh: 'æˆ‘è¦ä¸€æ¯æ°´ã€‚',             py: 'WÇ’ yÃ o yÄ« bÄ“i shuÇ.',              en: 'I want a glass of water.',
+      words: buildWords('æˆ‘è¦ä¸€æ¯æ°´ã€‚','WÇ’ yÃ o yÄ« bÄ“i shuÇ.',['I','want','one','cup/glass','water','']) },
+    { id: '3_4', zh: 'ä¸è¦è¾£ï¼',                 py: 'BÃ¹yÃ o lÃ !',                        en: 'No spicy, please!',
+      words: buildWords('ä¸è¦è¾£ï¼','BÃ¹yÃ o lÃ !',['not want','spicy','']) },
+    { id: '3_5', zh: 'æˆ‘ä¸åƒçŒªè‚‰ã€‚',             py: 'WÇ’ bÃ¹ chÄ« zhÅ«rÃ²u.',                en: "I don't eat pork.",
+      words: buildWords('æˆ‘ä¸åƒçŒªè‚‰ã€‚','WÇ’ bÃ¹ chÄ« zhÅ«rÃ²u.',['I','not','eat','pig','meat','']) },
+    { id: '3_6', zh: 'æœ‰ç´ é£Ÿå—ï¼Ÿ',               py: 'YÇ’u sÃ¹shÃ­ ma?',                    en: 'Do you have vegetarian food?',
+      words: buildWords('æœ‰ç´ é£Ÿå—ï¼Ÿ','YÇ’u sÃ¹shÃ­ ma?',['have','vegetarian','food','particle','?']) },
+    { id: '3_7', zh: 'è¿™ä¸ªå¾ˆå¥½åƒï¼',             py: 'ZhÃ¨ge hÄ›n hÇŽochÄ«!',                en: 'This is delicious!',
+      words: buildWords('è¿™ä¸ªå¾ˆå¥½åƒï¼','ZhÃ¨ge hÄ›n hÇŽochÄ«!',['this','measure','very','good eat','']) },
+    { id: '3_8', zh: 'ä¹°å•ï¼',                   py: 'MÇŽidÄn!',                          en: 'Check, please!',
+      words: buildWords('ä¹°å•ï¼','MÇŽidÄn!',['buy','bill','']) },
+    { id: '3_9', zh: 'è¯·ç»™æˆ‘æ‰“åŒ…ã€‚',             py: 'QÇng gÄ›i wÇ’ dÇŽbÄo.',               en: 'Please pack this to go.',
+      words: buildWords('è¯·ç»™æˆ‘æ‰“åŒ…ã€‚','QÇng gÄ›i wÇ’ dÇŽbÄo.',['please','give','me','pack','bag','']) },
+    { id: '3_10',zh: 'è¯·ç»™æˆ‘å‰å­/ç­·å­ã€‚',        py: 'QÇng gÄ›i wÇ’ chÄzi / kuÃ izi.',       en: 'Please give me a fork / chopsticks.',
+      words: buildWords('è¯·ç»™æˆ‘å‰å­ç­·å­ã€‚','QÇng gÄ›i wÇ’ chÄzi kuÃ izi.',['please','give','me','fork','chopsticks','']) }
   ];
 
   // ============================================================
   // TOPIC 4: Getting Around (FREE)
   // ============================================================
-  var T4_CULTURE = 'ÔÚÐÂ¼ÓÆÂ£¬Ëµ"°ÍÊ¿"±È"¹«½»³µ"¸üÆÕ±é£»ÔÚÌ¨ÍåËµ"¹«³µ"£»ÔÚÖÐ¹ú´óÂ½Ëµ"¹«½»³µ"¡£ÎÊÂ·Ê±×îºÃÏÈÎ¢Ð¦Ëµ"´òÈÅÒ»ÏÂ"ÒÔÊ¾ÀñÃ²¡£³ö×â³µË¾»ú´ó¶à»á½²¼òµ¥Ó¢Óï£¬µ«ËµÖÐÎÄ¸üÈÝÒ×µÃµ½Ç×ÇÐ»ØÓ¦¡£×øµØÌúÊ±"ÏÈÏÂºóÉÏ"£¨xi¨¡n xi¨¤ h¨°u sh¨¤ng£©ÊÇ»ù±¾ÖÈÐò¡£';
+  var T4_CULTURE = 'åœ¨æ–°åŠ å¡ï¼Œè¯´"å·´å£«"æ¯”"å…¬äº¤è½¦"æ›´æ™®éï¼›åœ¨å°æ¹¾è¯´"å…¬è½¦"ï¼›åœ¨ä¸­å›½å¤§é™†è¯´"å…¬äº¤è½¦"ã€‚é—®è·¯æ—¶æœ€å¥½å…ˆå¾®ç¬‘è¯´"æ‰“æ‰°ä¸€ä¸‹"ä»¥ç¤ºç¤¼è²Œã€‚å‡ºç§Ÿè½¦å¸æœºå¤§å¤šä¼šè®²ç®€å•è‹±è¯­ï¼Œä½†è¯´ä¸­æ–‡æ›´å®¹æ˜“å¾—åˆ°äº²åˆ‡å›žåº”ã€‚ååœ°é“æ—¶"å…ˆä¸‹åŽä¸Š"ï¼ˆxiÄn xiÃ  hÃ²u shÃ ngï¼‰æ˜¯åŸºæœ¬ç§©åºã€‚';
 
   var t4 = [
-    { id: '4_1', zh: '²ÞËùÔÚÄÄÀï£¿',         py: 'C¨¨su¨¯ z¨¤i n¨£li?',                    en: 'Where is the restroom?',
-      words: buildWords('²ÞËùÔÚÄÄÀï£¿','C¨¨su¨¯ z¨¤i n¨£li?',['toilet/restroom','at','where','?']) },
-    { id: '4_2', zh: 'ÎÒÏëÈ¥Õâ¸öµØ·½¡£',     py: 'W¨¯ xi¨£ng q¨´ zh¨¨ge d¨¬fang.',          en: 'I want to go to this place (show address).',
-      words: buildWords('ÎÒÏëÈ¥Õâ¸öµØ·½¡£','W¨¯ xi¨£ng q¨´ zh¨¨ge d¨¬fang.',['I','want to','go','this','measure','place','']) },
-    { id: '4_3', zh: 'ÔõÃ´×ß£¿',             py: 'Z¨§nme z¨¯u?',                          en: 'How do I get there?',
-      words: buildWords('ÔõÃ´×ß£¿','Z¨§nme z¨¯u?',['how','walk/go','?']) },
-    { id: '4_4', zh: 'Íù×ó×ª¡£',             py: 'W¨£ng zu¨¯ zhu¨£n.',                     en: 'Turn left.',
-      words: buildWords('Íù×ó×ª¡£','W¨£ng zu¨¯ zhu¨£n.',['toward','left','turn','']) },
-    { id: '4_5', zh: 'ÍùÓÒ×ª¡£',             py: 'W¨£ng y¨°u zhu¨£n.',                     en: 'Turn right.',
-      words: buildWords('ÍùÓÒ×ª¡£','W¨£ng y¨°u zhu¨£n.',['toward','right','turn','']) },
-    { id: '4_6', zh: 'Ò»Ö±ÍùÇ°×ß¡£',         py: 'Y¨©zh¨ª w¨£ng qi¨¢n z¨¯u.',                en: 'Go straight ahead.',
-      words: buildWords('Ò»Ö±ÍùÇ°×ß¡£','Y¨©zh¨ª w¨£ng qi¨¢n z¨¯u.',['always','straight','toward','front','walk','']) },
-    { id: '4_7', zh: 'ºÜ½ü£¬×ßÂ·Îå·ÖÖÓ¡£',   py: 'H¨§n j¨¬n, z¨¯ul¨´ w¨³ f¨¥nzh¨­ng.',         en: 'Very close, 5-minute walk.',
-      words: buildWords('ºÜ½ü£¬×ßÂ·Îå·ÖÖÓ¡£','H¨§n j¨¬n z¨¯ul¨´ w¨³ f¨¥nzh¨­ng.',['very','close','','walk road','five','minute','','']) },
-    { id: '4_8', zh: '×øµØÌú/°ÍÊ¿¡£',        py: 'Zu¨° d¨¬ti¨§ / b¨¡sh¨¬.',                 en: 'Take the subway / bus.',
-      words: buildWords('×øµØÌú°ÍÊ¿¡£','Zu¨° d¨¬ti¨§ b¨¡sh¨¬.',['sit/take','subway iron','bus','']) },
-    { id: '4_9', zh: 'ÎÒÃÔÂ·ÁË¡£',           py: 'W¨¯ m¨ªl¨´ le.',                         en: "I'm lost.",
-      words: buildWords('ÎÒÃÔÂ·ÁË¡£','W¨¯ m¨ªl¨´ le.',['I','lost road','particle','']) },
-    { id: '4_10',zh: 'ÇëÔÚÕâÀïÍ£¡£',         py: 'Q¨«ng z¨¤i zh¨¨li t¨ªng.',                en: 'Please stop here (to taxi driver).',
-      words: buildWords('ÇëÔÚÕâÀïÍ£¡£','Q¨«ng z¨¤i zh¨¨li t¨ªng.',['please','at','here','stop','']) }
+    { id: '4_1', zh: 'åŽ•æ‰€åœ¨å“ªé‡Œï¼Ÿ',         py: 'CÃ¨suÇ’ zÃ i nÇŽli?',                    en: 'Where is the restroom?',
+      words: buildWords('åŽ•æ‰€åœ¨å“ªé‡Œï¼Ÿ','CÃ¨suÇ’ zÃ i nÇŽli?',['toilet/restroom','at','where','?']) },
+    { id: '4_2', zh: 'æˆ‘æƒ³åŽ»è¿™ä¸ªåœ°æ–¹ã€‚',     py: 'WÇ’ xiÇŽng qÃ¹ zhÃ¨ge dÃ¬fang.',          en: 'I want to go to this place (show address).',
+      words: buildWords('æˆ‘æƒ³åŽ»è¿™ä¸ªåœ°æ–¹ã€‚','WÇ’ xiÇŽng qÃ¹ zhÃ¨ge dÃ¬fang.',['I','want to','go','this','measure','place','']) },
+    { id: '4_3', zh: 'æ€Žä¹ˆèµ°ï¼Ÿ',             py: 'ZÄ›nme zÇ’u?',                          en: 'How do I get there?',
+      words: buildWords('æ€Žä¹ˆèµ°ï¼Ÿ','ZÄ›nme zÇ’u?',['how','walk/go','?']) },
+    { id: '4_4', zh: 'å¾€å·¦è½¬ã€‚',             py: 'WÇŽng zuÇ’ zhuÇŽn.',                     en: 'Turn left.',
+      words: buildWords('å¾€å·¦è½¬ã€‚','WÇŽng zuÇ’ zhuÇŽn.',['toward','left','turn','']) },
+    { id: '4_5', zh: 'å¾€å³è½¬ã€‚',             py: 'WÇŽng yÃ²u zhuÇŽn.',                     en: 'Turn right.',
+      words: buildWords('å¾€å³è½¬ã€‚','WÇŽng yÃ²u zhuÇŽn.',['toward','right','turn','']) },
+    { id: '4_6', zh: 'ä¸€ç›´å¾€å‰èµ°ã€‚',         py: 'YÄ«zhÃ­ wÇŽng qiÃ¡n zÇ’u.',                en: 'Go straight ahead.',
+      words: buildWords('ä¸€ç›´å¾€å‰èµ°ã€‚','YÄ«zhÃ­ wÇŽng qiÃ¡n zÇ’u.',['always','straight','toward','front','walk','']) },
+    { id: '4_7', zh: 'å¾ˆè¿‘ï¼Œèµ°è·¯äº”åˆ†é’Ÿã€‚',   py: 'HÄ›n jÃ¬n, zÇ’ulÃ¹ wÇ” fÄ“nzhÅng.',         en: 'Very close, 5-minute walk.',
+      words: buildWords('å¾ˆè¿‘ï¼Œèµ°è·¯äº”åˆ†é’Ÿã€‚','HÄ›n jÃ¬n zÇ’ulÃ¹ wÇ” fÄ“nzhÅng.',['very','close','','walk road','five','minute','','']) },
+    { id: '4_8', zh: 'ååœ°é“/å·´å£«ã€‚',        py: 'ZuÃ² dÃ¬tiÄ› / bÄshÃ¬.',                 en: 'Take the subway / bus.',
+      words: buildWords('ååœ°é“å·´å£«ã€‚','ZuÃ² dÃ¬tiÄ› bÄshÃ¬.',['sit/take','subway iron','bus','']) },
+    { id: '4_9', zh: 'æˆ‘è¿·è·¯äº†ã€‚',           py: 'WÇ’ mÃ­lÃ¹ le.',                         en: "I'm lost.",
+      words: buildWords('æˆ‘è¿·è·¯äº†ã€‚','WÇ’ mÃ­lÃ¹ le.',['I','lost road','particle','']) },
+    { id: '4_10',zh: 'è¯·åœ¨è¿™é‡Œåœã€‚',         py: 'QÇng zÃ i zhÃ¨li tÃ­ng.',                en: 'Please stop here (to taxi driver).',
+      words: buildWords('è¯·åœ¨è¿™é‡Œåœã€‚','QÇng zÃ i zhÃ¨li tÃ­ng.',['please','at','here','stop','']) }
   ];
 
   // ============================================================
   // TOPIC 5: Work & Office Greetings (PAID)
   // ============================================================
-  var T5_CULTURE = '"ÄãÐÁ¿àÁË"ÊÇÖ°³¡Íò½ðÓÍ£¬ÓÃÓÚ¸ÐÐ»Í¬ÊÂ¼Ó°à»òÐ­Öú£¬²»ÊÇ¿ÍÆø£¬¶øÊÇ¹²Çé¡ª¡ªÔÚÁ½°¶ÈýµØ¼°ÐÂ¼ÓÆÂ¶¼¹ã·ºÊ¹ÓÃ¡£»ªÈËÖ°³¡ºÜÖØÊÓ"×¼Ê±"£¬³Ùµ½ÒªÖ÷¶¯µÀÇ¸¡£Ëµ"¼ÓÓÍ"ÊÇÈÈÑª¹ÄÀø£¬±È"Good luck"¸üÓÐÁ¦Á¿£¬ÔÚÖÐÎÄÊÀ½çÍ¨ÓÃ¡£';
+  var T5_CULTURE = '"ä½ è¾›è‹¦äº†"æ˜¯èŒåœºä¸‡é‡‘æ²¹ï¼Œç”¨äºŽæ„Ÿè°¢åŒäº‹åŠ ç­æˆ–ååŠ©ï¼Œä¸æ˜¯å®¢æ°”ï¼Œè€Œæ˜¯å…±æƒ…â€”â€”åœ¨ä¸¤å²¸ä¸‰åœ°åŠæ–°åŠ å¡éƒ½å¹¿æ³›ä½¿ç”¨ã€‚åŽäººèŒåœºå¾ˆé‡è§†"å‡†æ—¶"ï¼Œè¿Ÿåˆ°è¦ä¸»åŠ¨é“æ­‰ã€‚è¯´"åŠ æ²¹"æ˜¯çƒ­è¡€é¼“åŠ±ï¼Œæ¯”"Good luck"æ›´æœ‰åŠ›é‡ï¼Œåœ¨ä¸­æ–‡ä¸–ç•Œé€šç”¨ã€‚';
 
   var t5 = [
-    { id: '5_1', zh: 'ÄãÐÁ¿àÁË£¡',               py: 'N¨« x¨©nk¨³ le!',                     en: 'Thanks for your hard work! (said to colleagues)',
-      words: buildWords('ÄãÐÁ¿àÁË£¡','N¨« x¨©nk¨³ le!',['you','hard work','bitter','particle','']) },
-    { id: '5_2', zh: '½ñÌìÃ¦²»Ã¦£¿',             py: 'J¨©nti¨¡n m¨¢ng b¨´ m¨¢ng?',              en: 'Are you busy today?',
-      words: buildWords('½ñÌìÃ¦²»Ã¦£¿','J¨©nti¨¡n m¨¢ng b¨´ m¨¢ng?',['today sky','busy','not','busy','?']) },
-    { id: '5_3', zh: 'ÎÒÒªÈ¥¿ª»áÁË¡£',           py: 'W¨¯ y¨¤o q¨´ k¨¡ihu¨¬ le.',               en: "I'm going to a meeting now.",
-      words: buildWords('ÎÒÒªÈ¥¿ª»áÁË¡£','W¨¯ y¨¤o q¨´ k¨¡ihu¨¬ le.',['I','want to','go','open meeting','particle','']) },
-    { id: '5_4', zh: 'Äã¼¸µãÏÂ°à£¿',             py: 'N¨« j¨« di¨£n xi¨¤b¨¡n?',                 en: 'What time do you get off work?',
-      words: buildWords('Äã¼¸µãÏÂ°à£¿','N¨« j¨« di¨£n xi¨¤b¨¡n?',['you','how many','o\'clock','off work','?']) },
-    { id: '5_5', zh: 'ÎÒ¾ÅµãÉÏ°à¡£',             py: 'W¨¯ ji¨³ di¨£n sh¨¤ngb¨¡n.',              en: 'I start work at 9.',
-      words: buildWords('ÎÒ¾ÅµãÉÏ°à¡£','W¨¯ ji¨³ di¨£n sh¨¤ngb¨¡n.',['I','nine','o\'clock','on work','']) },
-    { id: '5_6', zh: 'ÎÒÃÇÐÝÏ¢Ò»ÏÂ°É¡£',         py: 'W¨¯men xi¨±xi y¨©xi¨¤ ba.',              en: "Let's take a break.",
-      words: buildWords('ÎÒÃÇÐÝÏ¢Ò»ÏÂ°É¡£','W¨¯men xi¨±xi y¨©xi¨¤ ba.',['we','rest','one','a bit','particle','']) },
-    { id: '5_7', zh: 'Õâ¸ö±¨¸æºÜÖØÒª¡£',         py: 'Zh¨¨ge b¨¤og¨¤o h¨§n zh¨°ngy¨¤o.',         en: 'This report is very important.',
-      words: buildWords('Õâ¸ö±¨¸æºÜÖØÒª¡£','Zh¨¨ge b¨¤og¨¤o h¨§n zh¨°ngy¨¤o.',['this','measure','report tell','very','important','']) },
-    { id: '5_8', zh: '¶Ô²»Æð£¬ÎÒ³Ùµ½ÁË¡£',       py: 'Du¨¬buq¨«, w¨¯ ch¨ªd¨¤o le.',             en: "Sorry, I'm late.",
-      words: buildWords('¶Ô²»Æð£¬ÎÒ³Ùµ½ÁË¡£','Du¨¬buq¨« w¨¯ ch¨ªd¨¤o le.',['sorry','','I','late arrive','particle','']) },
-    { id: '5_9', zh: '´ó¼Ò¼ÓÓÍ£¡',               py: 'D¨¤ji¨¡ ji¨¡y¨®u!',                      en: 'Everyone, keep it up! (cheering)',
-      words: buildWords('´ó¼Ò¼ÓÓÍ£¡','D¨¤ji¨¡ ji¨¡y¨®u!',['big','everyone','add oil','']) },
-    { id: '5_10',zh: 'Ã÷Ìì¼û£¡',                 py: 'M¨ªngti¨¡n ji¨¤n!',                     en: 'See you tomorrow.',
-      words: buildWords('Ã÷Ìì¼û£¡','M¨ªngti¨¡n ji¨¤n!',['tomorrow sky','see','']) }
+    { id: '5_1', zh: 'ä½ è¾›è‹¦äº†ï¼',               py: 'NÇ xÄ«nkÇ” le!',                     en: 'Thanks for your hard work! (said to colleagues)',
+      words: buildWords('ä½ è¾›è‹¦äº†ï¼','NÇ xÄ«nkÇ” le!',['you','hard work','bitter','particle','']) },
+    { id: '5_2', zh: 'ä»Šå¤©å¿™ä¸å¿™ï¼Ÿ',             py: 'JÄ«ntiÄn mÃ¡ng bÃ¹ mÃ¡ng?',              en: 'Are you busy today?',
+      words: buildWords('ä»Šå¤©å¿™ä¸å¿™ï¼Ÿ','JÄ«ntiÄn mÃ¡ng bÃ¹ mÃ¡ng?',['today sky','busy','not','busy','?']) },
+    { id: '5_3', zh: 'æˆ‘è¦åŽ»å¼€ä¼šäº†ã€‚',           py: 'WÇ’ yÃ o qÃ¹ kÄihuÃ¬ le.',               en: "I'm going to a meeting now.",
+      words: buildWords('æˆ‘è¦åŽ»å¼€ä¼šäº†ã€‚','WÇ’ yÃ o qÃ¹ kÄihuÃ¬ le.',['I','want to','go','open meeting','particle','']) },
+    { id: '5_4', zh: 'ä½ å‡ ç‚¹ä¸‹ç­ï¼Ÿ',             py: 'NÇ jÇ diÇŽn xiÃ bÄn?',                 en: 'What time do you get off work?',
+      words: buildWords('ä½ å‡ ç‚¹ä¸‹ç­ï¼Ÿ','NÇ jÇ diÇŽn xiÃ bÄn?',['you','how many','o\'clock','off work','?']) },
+    { id: '5_5', zh: 'æˆ‘ä¹ç‚¹ä¸Šç­ã€‚',             py: 'WÇ’ jiÇ” diÇŽn shÃ ngbÄn.',              en: 'I start work at 9.',
+      words: buildWords('æˆ‘ä¹ç‚¹ä¸Šç­ã€‚','WÇ’ jiÇ” diÇŽn shÃ ngbÄn.',['I','nine','o\'clock','on work','']) },
+    { id: '5_6', zh: 'æˆ‘ä»¬ä¼‘æ¯ä¸€ä¸‹å§ã€‚',         py: 'WÇ’men xiÅ«xi yÄ«xiÃ  ba.',              en: "Let's take a break.",
+      words: buildWords('æˆ‘ä»¬ä¼‘æ¯ä¸€ä¸‹å§ã€‚','WÇ’men xiÅ«xi yÄ«xiÃ  ba.',['we','rest','one','a bit','particle','']) },
+    { id: '5_7', zh: 'è¿™ä¸ªæŠ¥å‘Šå¾ˆé‡è¦ã€‚',         py: 'ZhÃ¨ge bÃ ogÃ o hÄ›n zhÃ²ngyÃ o.',         en: 'This report is very important.',
+      words: buildWords('è¿™ä¸ªæŠ¥å‘Šå¾ˆé‡è¦ã€‚','ZhÃ¨ge bÃ ogÃ o hÄ›n zhÃ²ngyÃ o.',['this','measure','report tell','very','important','']) },
+    { id: '5_8', zh: 'å¯¹ä¸èµ·ï¼Œæˆ‘è¿Ÿåˆ°äº†ã€‚',       py: 'DuÃ¬buqÇ, wÇ’ chÃ­dÃ o le.',             en: "Sorry, I'm late.",
+      words: buildWords('å¯¹ä¸èµ·ï¼Œæˆ‘è¿Ÿåˆ°äº†ã€‚','DuÃ¬buqÇ wÇ’ chÃ­dÃ o le.',['sorry','','I','late arrive','particle','']) },
+    { id: '5_9', zh: 'å¤§å®¶åŠ æ²¹ï¼',               py: 'DÃ jiÄ jiÄyÃ³u!',                      en: 'Everyone, keep it up! (cheering)',
+      words: buildWords('å¤§å®¶åŠ æ²¹ï¼','DÃ jiÄ jiÄyÃ³u!',['big','everyone','add oil','']) },
+    { id: '5_10',zh: 'æ˜Žå¤©è§ï¼',                 py: 'MÃ­ngtiÄn jiÃ n!',                     en: 'See you tomorrow.',
+      words: buildWords('æ˜Žå¤©è§ï¼','MÃ­ngtiÄn jiÃ n!',['tomorrow sky','see','']) }
   ];
 
   // ============================================================
   // TOPIC 6: Feeling Sick & Doctor Visit (PAID)
   // ============================================================
-  var T6_CULTURE = 'ÔÚÖÐ¹ú´óÂ½È¥Ò½Ôº£¬ÏÈµ½¹ÒºÅ´¦£¨gu¨¤h¨¤o£©¹ÒºÅ£¬ÔÙ¿´Ò½Éú¡£»ªÈËÆÕ±éÏàÐÅ"ºÈÈÈË®"¶Ô¸ÐÃ°ÓÐÒæ£¬Òª±ùË®Ò½Éú¿ÉÄÜ»á²»½â¡£Ëµ"¹ýÃô"Ê±ÒªÇåÎú£¬ÓÈÆä»¨Éú¡¢º£ÏÊ¡ª¡ªÖÐ²Í³£ÓÃÕâÐ©Ê³²Ä¡£ÔÚÒ©·¿¿ÉÒÔËµ"ÓÐÒ©Âð"£¬Ò©¼ÁÊ¦»á°ïÃ¦¡£';
+  var T6_CULTURE = 'åœ¨ä¸­å›½å¤§é™†åŽ»åŒ»é™¢ï¼Œå…ˆåˆ°æŒ‚å·å¤„ï¼ˆguÃ hÃ oï¼‰æŒ‚å·ï¼Œå†çœ‹åŒ»ç”Ÿã€‚åŽäººæ™®éç›¸ä¿¡"å–çƒ­æ°´"å¯¹æ„Ÿå†’æœ‰ç›Šï¼Œè¦å†°æ°´åŒ»ç”Ÿå¯èƒ½ä¼šä¸è§£ã€‚è¯´"è¿‡æ•"æ—¶è¦æ¸…æ™°ï¼Œå°¤å…¶èŠ±ç”Ÿã€æµ·é²œâ€”â€”ä¸­é¤å¸¸ç”¨è¿™äº›é£Ÿæã€‚åœ¨è¯æˆ¿å¯ä»¥è¯´"æœ‰è¯å—"ï¼Œè¯å‰‚å¸ˆä¼šå¸®å¿™ã€‚';
 
   var t6 = [
-    { id: '6_1', zh: 'ÎÒ²»Êæ·þ¡£',                 py: 'W¨¯ b¨´ sh¨±fu.',                        en: "I don't feel well.",
-      words: buildWords('ÎÒ²»Êæ·þ¡£','W¨¯ b¨´ sh¨±fu.',['I','not','comfortable','']) },
-    { id: '6_2', zh: 'ÎÒ¶Ç×ÓÌÛ¡£',                 py: 'W¨¯ d¨´zi t¨¦ng.',                        en: 'I have a stomachache.',
-      words: buildWords('ÎÒ¶Ç×ÓÌÛ¡£','W¨¯ d¨´zi t¨¦ng.',['I','belly','ache','']) },
-    { id: '6_3', zh: 'ÎÒÉ¤×ÓÌÛ¡£',                 py: 'W¨¯ s¨£ngzi t¨¦ng.',                       en: 'I have a sore throat.',
-      words: buildWords('ÎÒÉ¤×ÓÌÛ¡£','W¨¯ s¨£ngzi t¨¦ng.',['I','throat voice','ache','']) },
-    { id: '6_4', zh: 'ÎÒÓÐÒ»µã·¢ÉÕ¡£',             py: 'W¨¯ y¨¯u y¨©di¨£n f¨¡sh¨¡o.',                en: 'I have a slight fever.',
-      words: buildWords('ÎÒÓÐÒ»µã·¢ÉÕ¡£','W¨¯ y¨¯u y¨©di¨£n f¨¡sh¨¡o.',['I','have','one','a bit','emit burn','']) },
-    { id: '6_5', zh: 'ÎÒ¶Ô»¨Éú¹ýÃô¡£',             py: 'W¨¯ du¨¬ hu¨¡sh¨¥ng gu¨°m¨«n.',              en: "I'm allergic to peanuts.",
-      words: buildWords('ÎÒ¶Ô»¨Éú¹ýÃô¡£','W¨¯ du¨¬ hu¨¡sh¨¥ng gu¨°m¨«n.',['I','toward','flower birth','cross sensitivity','']) },
-    { id: '6_6', zh: 'ÎÒÐèÒª¿´Ò½Éú¡£',             py: 'W¨¯ x¨±y¨¤o k¨¤n y¨©sh¨¥ng.',                en: 'I need to see a doctor.',
-      words: buildWords('ÎÒÐèÒª¿´Ò½Éú¡£','W¨¯ x¨±y¨¤o k¨¤n y¨©sh¨¥ng.',['I','need','see','medicine life','']) },
-    { id: '6_7', zh: 'ÎÒ³ÔÁËÒ©¡£',                 py: 'W¨¯ ch¨© le y¨¤o.',                        en: 'I took some medicine.',
-      words: buildWords('ÎÒ³ÔÁËÒ©¡£','W¨¯ ch¨© le y¨¤o.',['I','ate','particle','medicine','']) },
-    { id: '6_8', zh: 'ÎÒÒªºÈÈÈË®¡£',               py: 'W¨¯ y¨¤o h¨¥ r¨¨ shu¨«.',                    en: 'I want to drink hot water.',
-      words: buildWords('ÎÒÒªºÈÈÈË®¡£','W¨¯ y¨¤o h¨¥ r¨¨ shu¨«.',['I','want','drink','hot','water','']) },
-    { id: '6_9', zh: 'Äã¶àÐÝÏ¢¡£',                 py: 'N¨« du¨­ xi¨±xi.',                        en: 'Get more rest.',
-      words: buildWords('Äã¶àÐÝÏ¢¡£','N¨« du¨­ xi¨±xi.',['you','more','rest','']) },
-    { id: '6_10',zh: 'ÎÒºÃÁËºÜ¶à¡£',               py: 'W¨¯ h¨£o le h¨§ndu¨­.',                     en: "I'm much better.",
-      words: buildWords('ÎÒºÃÁËºÜ¶à¡£','W¨¯ h¨£o le h¨§ndu¨­.',['I','good','particle','very much','']) }
+    { id: '6_1', zh: 'æˆ‘ä¸èˆ’æœã€‚',                 py: 'WÇ’ bÃ¹ shÅ«fu.',                        en: "I don't feel well.",
+      words: buildWords('æˆ‘ä¸èˆ’æœã€‚','WÇ’ bÃ¹ shÅ«fu.',['I','not','comfortable','']) },
+    { id: '6_2', zh: 'æˆ‘è‚šå­ç–¼ã€‚',                 py: 'WÇ’ dÃ¹zi tÃ©ng.',                        en: 'I have a stomachache.',
+      words: buildWords('æˆ‘è‚šå­ç–¼ã€‚','WÇ’ dÃ¹zi tÃ©ng.',['I','belly','ache','']) },
+    { id: '6_3', zh: 'æˆ‘å—“å­ç–¼ã€‚',                 py: 'WÇ’ sÇŽngzi tÃ©ng.',                       en: 'I have a sore throat.',
+      words: buildWords('æˆ‘å—“å­ç–¼ã€‚','WÇ’ sÇŽngzi tÃ©ng.',['I','throat voice','ache','']) },
+    { id: '6_4', zh: 'æˆ‘æœ‰ä¸€ç‚¹å‘çƒ§ã€‚',             py: 'WÇ’ yÇ’u yÄ«diÇŽn fÄshÄo.',                en: 'I have a slight fever.',
+      words: buildWords('æˆ‘æœ‰ä¸€ç‚¹å‘çƒ§ã€‚','WÇ’ yÇ’u yÄ«diÇŽn fÄshÄo.',['I','have','one','a bit','emit burn','']) },
+    { id: '6_5', zh: 'æˆ‘å¯¹èŠ±ç”Ÿè¿‡æ•ã€‚',             py: 'WÇ’ duÃ¬ huÄshÄ“ng guÃ²mÇn.',              en: "I'm allergic to peanuts.",
+      words: buildWords('æˆ‘å¯¹èŠ±ç”Ÿè¿‡æ•ã€‚','WÇ’ duÃ¬ huÄshÄ“ng guÃ²mÇn.',['I','toward','flower birth','cross sensitivity','']) },
+    { id: '6_6', zh: 'æˆ‘éœ€è¦çœ‹åŒ»ç”Ÿã€‚',             py: 'WÇ’ xÅ«yÃ o kÃ n yÄ«shÄ“ng.',                en: 'I need to see a doctor.',
+      words: buildWords('æˆ‘éœ€è¦çœ‹åŒ»ç”Ÿã€‚','WÇ’ xÅ«yÃ o kÃ n yÄ«shÄ“ng.',['I','need','see','medicine life','']) },
+    { id: '6_7', zh: 'æˆ‘åƒäº†è¯ã€‚',                 py: 'WÇ’ chÄ« le yÃ o.',                        en: 'I took some medicine.',
+      words: buildWords('æˆ‘åƒäº†è¯ã€‚','WÇ’ chÄ« le yÃ o.',['I','ate','particle','medicine','']) },
+    { id: '6_8', zh: 'æˆ‘è¦å–çƒ­æ°´ã€‚',               py: 'WÇ’ yÃ o hÄ“ rÃ¨ shuÇ.',                    en: 'I want to drink hot water.',
+      words: buildWords('æˆ‘è¦å–çƒ­æ°´ã€‚','WÇ’ yÃ o hÄ“ rÃ¨ shuÇ.',['I','want','drink','hot','water','']) },
+    { id: '6_9', zh: 'ä½ å¤šä¼‘æ¯ã€‚',                 py: 'NÇ duÅ xiÅ«xi.',                        en: 'Get more rest.',
+      words: buildWords('ä½ å¤šä¼‘æ¯ã€‚','NÇ duÅ xiÅ«xi.',['you','more','rest','']) },
+    { id: '6_10',zh: 'æˆ‘å¥½äº†å¾ˆå¤šã€‚',               py: 'WÇ’ hÇŽo le hÄ›nduÅ.',                     en: "I'm much better.",
+      words: buildWords('æˆ‘å¥½äº†å¾ˆå¤šã€‚','WÇ’ hÇŽo le hÄ›nduÅ.',['I','good','particle','very much','']) }
   ];
 
   // ============================================================
   // TOPIC 7: Real Feelings & Emotions (PAID)
   // ============================================================
-  var T7_CULTURE = '»ªÈËÎÄ»¯ÖÐÇéÐ÷±í´ïÏà¶ÔÄÚÁ²£¬µ«"ÀÛËÀÁË"ÊÇ¿äÕÅÓÄÄ¬ÐÞ´Ç£¬´ó¼ÒÄÜ½ÓÊÜ¡£Ëµ"·³ÈË"Ê±ÓïÆøÒªÇá£¬·ñÔòÏÔµÃ¹¥»÷ÐÔ¡£"ÎÒÏëÄã"Ö»ÓÃÓÚÇ×ÃÜ¹ØÏµ£¨¼ÒÈË¡¢ÁµÈË£©£¬¶ÔÆÕÍ¨ÅóÓÑËµ»áÌ«ÈâÂé£¬É÷ÓÃ¡£±í´ïÇéÐ÷Ê±ÅäºÏÊÊµ±ÓïÆø£¬Ð§¹û¸üºÃ¡£';
+  var T7_CULTURE = 'åŽäººæ–‡åŒ–ä¸­æƒ…ç»ªè¡¨è¾¾ç›¸å¯¹å†…æ•›ï¼Œä½†"ç´¯æ­»äº†"æ˜¯å¤¸å¼ å¹½é»˜ä¿®è¾žï¼Œå¤§å®¶èƒ½æŽ¥å—ã€‚è¯´"çƒ¦äºº"æ—¶è¯­æ°”è¦è½»ï¼Œå¦åˆ™æ˜¾å¾—æ”»å‡»æ€§ã€‚"æˆ‘æƒ³ä½ "åªç”¨äºŽäº²å¯†å…³ç³»ï¼ˆå®¶äººã€æ‹äººï¼‰ï¼Œå¯¹æ™®é€šæœ‹å‹è¯´ä¼šå¤ªè‚‰éº»ï¼Œæ…Žç”¨ã€‚è¡¨è¾¾æƒ…ç»ªæ—¶é…åˆé€‚å½“è¯­æ°”ï¼Œæ•ˆæžœæ›´å¥½ã€‚';
 
   var t7 = [
-    { id: '7_1', zh: 'ÎÒ¸ßÐË¼«ÁË£¡',           py: 'W¨¯ g¨¡ox¨¬ng j¨ª le!',                   en: "I'm extremely happy!",
-      words: buildWords('ÎÒ¸ßÐË¼«ÁË£¡','W¨¯ g¨¡ox¨¬ng j¨ª le!',['I','happy','extreme','particle','']) },
-    { id: '7_2', zh: 'ÎÒºÜµ£ÐÄ¡£',             py: 'W¨¯ h¨§n d¨¡nx¨©n.',                       en: "I'm very worried.",
-      words: buildWords('ÎÒºÜµ£ÐÄ¡£','W¨¯ h¨§n d¨¡nx¨©n.',['I','very','worry heart','']) },
-    { id: '7_3', zh: 'ÕâÌ«ÎÞÁÄÁË¡£',           py: 'Zh¨¨ t¨¤i w¨²li¨¢o le.',                    en: 'This is so boring.',
-      words: buildWords('ÕâÌ«ÎÞÁÄÁË¡£','Zh¨¨ t¨¤i w¨²li¨¢o le.',['this','too','no chat','particle','']) },
-    { id: '7_4', zh: 'ÎÒÀÛËÀÁË¡£',             py: 'W¨¯ l¨¨i s¨« le.',                         en: "I'm exhausted (lit. tired to death).",
-      words: buildWords('ÎÒÀÛËÀÁË¡£','W¨¯ l¨¨i s¨« le.',['I','tired','die','particle','']) },
-    { id: '7_5', zh: 'Õæ·³ÈË£¡',               py: 'Zh¨¥n f¨¢nr¨¦n!',                          en: 'So annoying!',
-      words: buildWords('Õæ·³ÈË£¡','Zh¨¥n f¨¢nr¨¦n!',['truly','annoying','person','']) },
-    { id: '7_6', zh: 'ÎÒ¾õµÃºÜ½ôÕÅ¡£',         py: 'W¨¯ ju¨¦de h¨§n j¨«nzh¨¡ng.',                en: 'I feel very nervous.',
-      words: buildWords('ÎÒ¾õµÃºÜ½ôÕÅ¡£','W¨¯ ju¨¦de h¨§n j¨«nzh¨¡ng.',['I','feel think','very','tight tense','']) },
-    { id: '7_7', zh: '±ð×Å¼±¡£',               py: 'Bi¨¦ zh¨¡oj¨ª.',                           en: "Don't worry / Take your time.",
-      words: buildWords('±ð×Å¼±¡£','Bi¨¦ zh¨¡oj¨ª.',['don\'t','anxious hurry','']) },
-    { id: '7_8', zh: 'ÎÒÓÐµãÊ§Íû¡£',           py: 'W¨¯ y¨¯udi¨£n sh¨©w¨¤ng.',                   en: "I'm a little disappointed.",
-      words: buildWords('ÎÒÓÐµãÊ§Íû¡£','W¨¯ y¨¯udi¨£n sh¨©w¨¤ng.',['I','have a bit','lose hope','']) },
-    { id: '7_9', zh: 'ºÃºÃÐ¦£¡',               py: 'H¨£oh¨£o xi¨¤o!',                          en: "That's so funny!",
-      words: buildWords('ºÃºÃÐ¦£¡','H¨£oh¨£o xi¨¤o!',['good','good','laugh','']) },
-    { id: '7_10',zh: 'ÎÒºÜÏëÄã¡£',             py: 'W¨¯ h¨§n xi¨£ng n¨«.',                      en: 'I miss you very much.',
-      words: buildWords('ÎÒºÜÏëÄã¡£','W¨¯ h¨§n xi¨£ng n¨«.',['I','very','miss/think','you','']) }
+    { id: '7_1', zh: 'æˆ‘é«˜å…´æžäº†ï¼',           py: 'WÇ’ gÄoxÃ¬ng jÃ­ le!',                   en: "I'm extremely happy!",
+      words: buildWords('æˆ‘é«˜å…´æžäº†ï¼','WÇ’ gÄoxÃ¬ng jÃ­ le!',['I','happy','extreme','particle','']) },
+    { id: '7_2', zh: 'æˆ‘å¾ˆæ‹…å¿ƒã€‚',             py: 'WÇ’ hÄ›n dÄnxÄ«n.',                       en: "I'm very worried.",
+      words: buildWords('æˆ‘å¾ˆæ‹…å¿ƒã€‚','WÇ’ hÄ›n dÄnxÄ«n.',['I','very','worry heart','']) },
+    { id: '7_3', zh: 'è¿™å¤ªæ— èŠäº†ã€‚',           py: 'ZhÃ¨ tÃ i wÃºliÃ¡o le.',                    en: 'This is so boring.',
+      words: buildWords('è¿™å¤ªæ— èŠäº†ã€‚','ZhÃ¨ tÃ i wÃºliÃ¡o le.',['this','too','no chat','particle','']) },
+    { id: '7_4', zh: 'æˆ‘ç´¯æ­»äº†ã€‚',             py: 'WÇ’ lÃ¨i sÇ le.',                         en: "I'm exhausted (lit. tired to death).",
+      words: buildWords('æˆ‘ç´¯æ­»äº†ã€‚','WÇ’ lÃ¨i sÇ le.',['I','tired','die','particle','']) },
+    { id: '7_5', zh: 'çœŸçƒ¦äººï¼',               py: 'ZhÄ“n fÃ¡nrÃ©n!',                          en: 'So annoying!',
+      words: buildWords('çœŸçƒ¦äººï¼','ZhÄ“n fÃ¡nrÃ©n!',['truly','annoying','person','']) },
+    { id: '7_6', zh: 'æˆ‘è§‰å¾—å¾ˆç´§å¼ ã€‚',         py: 'WÇ’ juÃ©de hÄ›n jÇnzhÄng.',                en: 'I feel very nervous.',
+      words: buildWords('æˆ‘è§‰å¾—å¾ˆç´§å¼ ã€‚','WÇ’ juÃ©de hÄ›n jÇnzhÄng.',['I','feel think','very','tight tense','']) },
+    { id: '7_7', zh: 'åˆ«ç€æ€¥ã€‚',               py: 'BiÃ© zhÄojÃ­.',                           en: "Don't worry / Take your time.",
+      words: buildWords('åˆ«ç€æ€¥ã€‚','BiÃ© zhÄojÃ­.',['don\'t','anxious hurry','']) },
+    { id: '7_8', zh: 'æˆ‘æœ‰ç‚¹å¤±æœ›ã€‚',           py: 'WÇ’ yÇ’udiÇŽn shÄ«wÃ ng.',                   en: "I'm a little disappointed.",
+      words: buildWords('æˆ‘æœ‰ç‚¹å¤±æœ›ã€‚','WÇ’ yÇ’udiÇŽn shÄ«wÃ ng.',['I','have a bit','lose hope','']) },
+    { id: '7_9', zh: 'å¥½å¥½ç¬‘ï¼',               py: 'HÇŽohÇŽo xiÃ o!',                          en: "That's so funny!",
+      words: buildWords('å¥½å¥½ç¬‘ï¼','HÇŽohÇŽo xiÃ o!',['good','good','laugh','']) },
+    { id: '7_10',zh: 'æˆ‘å¾ˆæƒ³ä½ ã€‚',             py: 'WÇ’ hÄ›n xiÇŽng nÇ.',                      en: 'I miss you very much.',
+      words: buildWords('æˆ‘å¾ˆæƒ³ä½ ã€‚','WÇ’ hÄ›n xiÇŽng nÇ.',['I','very','miss/think','you','']) }
   ];
 
   // ============================================================
   // TOPIC 8: Phone, Wi-Fi & Digital Pay (PAID)
   // ============================================================
-  var T8_CULTURE = 'ÔÚÖÐ¹úºÍÐÂ¼ÓÆÂ£¬É¨ÂëÖ§¸¶·Ç³£ÆÕ±é¡ª¡ªÖ§¸¶±¦ºÍÎ¢ÐÅÖ§¸¶ÔÚ¶«ÄÏÑÇÒ²Ô½À´Ô½³£¼û¡£Ö÷¶¯ÎÊ"ÎÒÉ¨Äã"ÊÇ±ê×¼²Ù×÷£¬Èç¹û¶Ô·½Ëµ"É¨ÎÒ"£¬¾ÍÊÇÈÃÄãÉ¨ËûµÄ¶þÎ¬Âë¡£ÒªÇø·Ö"Wi-Fi"ºÍ"Á÷Á¿"£¨li¨²li¨¤ng ÒÆ¶¯Êý¾Ý£©£¬Ç°ÕßÃâ·ÑºóÕß»¨Ç®¡£';
+  var T8_CULTURE = 'åœ¨ä¸­å›½å’Œæ–°åŠ å¡ï¼Œæ‰«ç æ”¯ä»˜éžå¸¸æ™®éâ€”â€”æ”¯ä»˜å®å’Œå¾®ä¿¡æ”¯ä»˜åœ¨ä¸œå—äºšä¹Ÿè¶Šæ¥è¶Šå¸¸è§ã€‚ä¸»åŠ¨é—®"æˆ‘æ‰«ä½ "æ˜¯æ ‡å‡†æ“ä½œï¼Œå¦‚æžœå¯¹æ–¹è¯´"æ‰«æˆ‘"ï¼Œå°±æ˜¯è®©ä½ æ‰«ä»–çš„äºŒç»´ç ã€‚è¦åŒºåˆ†"Wi-Fi"å’Œ"æµé‡"ï¼ˆliÃºliÃ ng ç§»åŠ¨æ•°æ®ï¼‰ï¼Œå‰è€…å…è´¹åŽè€…èŠ±é’±ã€‚';
 
   var t8 = [
-    { id: '8_1', zh: 'ÕâÀïÓÐWi-FiÂð£¿',           py: 'Zh¨¨l¨« y¨¯u W¨¤i-f¨¤i ma?',              en: 'Is there Wi-Fi here?',
-      words: buildWords('ÕâÀïÓÐWi-FiÂð£¿','Zh¨¨l¨« y¨¯u Wifi ma?',['here','place','have','WiFi','particle','?']) },
-    { id: '8_2', zh: 'ÃÜÂëÊÇ¶àÉÙ£¿',               py: 'M¨¬m¨£ sh¨¬ du¨­shao?',                   en: "What's the password?",
-      words: buildWords('ÃÜÂëÊÇ¶àÉÙ£¿','M¨¬m¨£ sh¨¬ du¨­shao?',['secret','code','is','how much','?']) },
-    { id: '8_3', zh: 'ÊÖ»úÃ»µçÁË¡£',               py: 'Sh¨¯uj¨© m¨¦i di¨¤n le.',                  en: 'My phone is out of battery.',
-      words: buildWords('ÊÖ»úÃ»µçÁË¡£','Sh¨¯uj¨© m¨¦i di¨¤n le.',['hand','machine','no','electricity','particle','']) },
-    { id: '8_4', zh: 'ÓÐ³äµç±¦Âð£¿',               py: 'Y¨¯u ch¨­ngdi¨¤nb¨£o ma?',                 en: 'Is there a power bank?',
-      words: buildWords('ÓÐ³äµç±¦Âð£¿','Y¨¯u ch¨­ngdi¨¤nb¨£o ma?',['have','charge electricity treasure','particle','?']) },
-    { id: '8_5', zh: 'ÎÒÉ¨Äã£¬»¹ÊÇÄãÉ¨ÎÒ£¿',       py: 'W¨¯ s¨£o n¨«, h¨¢ish¨¬ n¨« s¨£o w¨¯?',         en: 'Should I scan you, or you scan me? (QR payment)',
-      words: buildWords('ÎÒÉ¨Äã»¹ÊÇÄãÉ¨ÎÒ£¿','W¨¯ s¨£o n¨« h¨¢ish¨¬ n¨« s¨£o w¨¯?',['I','scan','you','or','you','scan','me','?']) },
-    { id: '8_6', zh: 'ÎÒÎ¢ÐÅ/Ö§¸¶±¦Ö§¸¶¡£',        py: 'W¨¯ W¨¥ix¨¬n / Zh¨©f¨´b¨£o zh¨©f¨´.',          en: 'I pay with WeChat / Alipay.',
-      words: buildWords('ÎÒÎ¢ÐÅÖ§¸¶±¦Ö§¸¶¡£','W¨¯ W¨¥ix¨¬n Zh¨©f¨´b¨£o zh¨©f¨´.',['I','WeChat','Alipay','pay','']) },
-    { id: '8_7', zh: 'ÐÅºÅ²»ºÃ¡£',                 py: 'X¨¬nh¨¤o b¨´ h¨£o.',                        en: 'The signal is bad.',
-      words: buildWords('ÐÅºÅ²»ºÃ¡£','X¨¬nh¨¤o b¨´ h¨£o.',['signal','number','not','good','']) },
-    { id: '8_8', zh: 'Çë¸øÎÒÅÄÕÕ¡£',               py: 'Q¨«ng g¨§i w¨¯ p¨¡izh¨¤o.',                  en: 'Please take a photo of me.',
-      words: buildWords('Çë¸øÎÒÅÄÕÕ¡£','Q¨«ng g¨§i w¨¯ p¨¡izh¨¤o.',['please','give','me','pat photo','']) },
-    { id: '8_9', zh: 'ÕÕÆ¬¿ÉÒÔ·¢¸øÎÒÂð£¿',         py: 'Zh¨¤opi¨¤n k¨§y¨« f¨¡ g¨§i w¨¯ ma?',          en: 'Can you send me the photo?',
-      words: buildWords('ÕÕÆ¬¿ÉÒÔ·¢¸øÎÒÂð£¿','Zh¨¤opi¨¤n k¨§y¨« f¨¡ g¨§i w¨¯ ma?',['photo','can','send','give','me','particle','?']) },
-    { id: '8_10',zh: 'ÎÒÁ¬²»ÉÏÍøÂç¡£',             py: 'W¨¯ li¨¢n b¨´ sh¨¤ng w¨£nglu¨°.',             en: "I can't connect to the internet.",
-      words: buildWords('ÎÒÁ¬²»ÉÏÍøÂç¡£','W¨¯ li¨¢n b¨´ sh¨¤ng w¨£nglu¨°.',['I','connect','not','on','net network','']) }
+    { id: '8_1', zh: 'è¿™é‡Œæœ‰Wi-Fiå—ï¼Ÿ',           py: 'ZhÃ¨lÇ yÇ’u WÃ i-fÃ i ma?',              en: 'Is there Wi-Fi here?',
+      words: buildWords('è¿™é‡Œæœ‰Wi-Fiå—ï¼Ÿ','ZhÃ¨lÇ yÇ’u Wifi ma?',['here','place','have','WiFi','particle','?']) },
+    { id: '8_2', zh: 'å¯†ç æ˜¯å¤šå°‘ï¼Ÿ',               py: 'MÃ¬mÇŽ shÃ¬ duÅshao?',                   en: "What's the password?",
+      words: buildWords('å¯†ç æ˜¯å¤šå°‘ï¼Ÿ','MÃ¬mÇŽ shÃ¬ duÅshao?',['secret','code','is','how much','?']) },
+    { id: '8_3', zh: 'æ‰‹æœºæ²¡ç”µäº†ã€‚',               py: 'ShÇ’ujÄ« mÃ©i diÃ n le.',                  en: 'My phone is out of battery.',
+      words: buildWords('æ‰‹æœºæ²¡ç”µäº†ã€‚','ShÇ’ujÄ« mÃ©i diÃ n le.',['hand','machine','no','electricity','particle','']) },
+    { id: '8_4', zh: 'æœ‰å……ç”µå®å—ï¼Ÿ',               py: 'YÇ’u chÅngdiÃ nbÇŽo ma?',                 en: 'Is there a power bank?',
+      words: buildWords('æœ‰å……ç”µå®å—ï¼Ÿ','YÇ’u chÅngdiÃ nbÇŽo ma?',['have','charge electricity treasure','particle','?']) },
+    { id: '8_5', zh: 'æˆ‘æ‰«ä½ ï¼Œè¿˜æ˜¯ä½ æ‰«æˆ‘ï¼Ÿ',       py: 'WÇ’ sÇŽo nÇ, hÃ¡ishÃ¬ nÇ sÇŽo wÇ’?',         en: 'Should I scan you, or you scan me? (QR payment)',
+      words: buildWords('æˆ‘æ‰«ä½ è¿˜æ˜¯ä½ æ‰«æˆ‘ï¼Ÿ','WÇ’ sÇŽo nÇ hÃ¡ishÃ¬ nÇ sÇŽo wÇ’?',['I','scan','you','or','you','scan','me','?']) },
+    { id: '8_6', zh: 'æˆ‘å¾®ä¿¡/æ”¯ä»˜å®æ”¯ä»˜ã€‚',        py: 'WÇ’ WÄ“ixÃ¬n / ZhÄ«fÃ¹bÇŽo zhÄ«fÃ¹.',          en: 'I pay with WeChat / Alipay.',
+      words: buildWords('æˆ‘å¾®ä¿¡æ”¯ä»˜å®æ”¯ä»˜ã€‚','WÇ’ WÄ“ixÃ¬n ZhÄ«fÃ¹bÇŽo zhÄ«fÃ¹.',['I','WeChat','Alipay','pay','']) },
+    { id: '8_7', zh: 'ä¿¡å·ä¸å¥½ã€‚',                 py: 'XÃ¬nhÃ o bÃ¹ hÇŽo.',                        en: 'The signal is bad.',
+      words: buildWords('ä¿¡å·ä¸å¥½ã€‚','XÃ¬nhÃ o bÃ¹ hÇŽo.',['signal','number','not','good','']) },
+    { id: '8_8', zh: 'è¯·ç»™æˆ‘æ‹ç…§ã€‚',               py: 'QÇng gÄ›i wÇ’ pÄizhÃ o.',                  en: 'Please take a photo of me.',
+      words: buildWords('è¯·ç»™æˆ‘æ‹ç…§ã€‚','QÇng gÄ›i wÇ’ pÄizhÃ o.',['please','give','me','pat photo','']) },
+    { id: '8_9', zh: 'ç…§ç‰‡å¯ä»¥å‘ç»™æˆ‘å—ï¼Ÿ',         py: 'ZhÃ opiÃ n kÄ›yÇ fÄ gÄ›i wÇ’ ma?',          en: 'Can you send me the photo?',
+      words: buildWords('ç…§ç‰‡å¯ä»¥å‘ç»™æˆ‘å—ï¼Ÿ','ZhÃ opiÃ n kÄ›yÇ fÄ gÄ›i wÇ’ ma?',['photo','can','send','give','me','particle','?']) },
+    { id: '8_10',zh: 'æˆ‘è¿žä¸ä¸Šç½‘ç»œã€‚',             py: 'WÇ’ liÃ¡n bÃ¹ shÃ ng wÇŽngluÃ².',             en: "I can't connect to the internet.",
+      words: buildWords('æˆ‘è¿žä¸ä¸Šç½‘ç»œã€‚','WÇ’ liÃ¡n bÃ¹ shÃ ng wÇŽngluÃ².',['I','connect','not','on','net network','']) }
   ];
 
   // ============================================================
   // TOPIC 9: Hotel Check-in & Room Service (PAID)
   // ============================================================
-  var T9_CULTURE = '»ªÈË¾ÆµêÇ°Ì¨Í¨³£ºÜÓÐÀñÃ²£¬¶àËµ"Çë"ºÍ"Ð»Ð»"»áµÃµ½¸üºÃµÄ·þÎñ¡£ÖÐ¹úºÍÐÂ¼ÓÆÂÒ»°ã²»ÓÃ¸øÐ¡·Ñ£¬¾Æµê·þÎñ·ÑÒÑ°üº¬ÔÚ·¿¼ÛÖÐ¡£Èç¹û¿Õµ÷Ì«Àä£¬Ö±½ÓËµ"µ÷¸ßÒ»µã"¼´¿É¡£ÍË·¿Ê±·¿¿¨¹é»¹¾ÍÐÐ£¬Ò»°ã²»²é·¿£¨³ý·Ç¹óÖØÎïÆ·±¨Ê§£©¡£';
+  var T9_CULTURE = 'åŽäººé…’åº—å‰å°é€šå¸¸å¾ˆæœ‰ç¤¼è²Œï¼Œå¤šè¯´"è¯·"å’Œ"è°¢è°¢"ä¼šå¾—åˆ°æ›´å¥½çš„æœåŠ¡ã€‚ä¸­å›½å’Œæ–°åŠ å¡ä¸€èˆ¬ä¸ç”¨ç»™å°è´¹ï¼Œé…’åº—æœåŠ¡è´¹å·²åŒ…å«åœ¨æˆ¿ä»·ä¸­ã€‚å¦‚æžœç©ºè°ƒå¤ªå†·ï¼Œç›´æŽ¥è¯´"è°ƒé«˜ä¸€ç‚¹"å³å¯ã€‚é€€æˆ¿æ—¶æˆ¿å¡å½’è¿˜å°±è¡Œï¼Œä¸€èˆ¬ä¸æŸ¥æˆ¿ï¼ˆé™¤éžè´µé‡ç‰©å“æŠ¥å¤±ï¼‰ã€‚';
 
   var t9 = [
-    { id: '9_1', zh: 'ÎÒ¶©ÁË·¿¼ä¡£',             py: 'W¨¯ d¨¬ng le f¨¢ngji¨¡n.',                  en: 'I booked a room.',
-      words: buildWords('ÎÒ¶©ÁË·¿¼ä¡£','W¨¯ d¨¬ng le f¨¢ngji¨¡n.',['I','book/reserve','particle','room room','']) },
-    { id: '9_2', zh: 'Çë¸øÎÒ·¿¿¨¡£',             py: 'Q¨«ng g¨§i w¨¯ f¨¢ngk¨£.',                    en: 'Please give me the room key/card.',
-      words: buildWords('Çë¸øÎÒ·¿¿¨¡£','Q¨«ng g¨§i w¨¯ f¨¢ngk¨£.',['please','give','me','room card','']) },
-    { id: '9_3', zh: '·¿¼äºÅÊÇ¶àÉÙ£¿',           py: 'F¨¢ngji¨¡n h¨¤o sh¨¬ du¨­shao?',             en: 'What is the room number?',
-      words: buildWords('·¿¼äºÅÊÇ¶àÉÙ£¿','F¨¢ngji¨¡n h¨¤o sh¨¬ du¨­shao?',['room','number','is','how much','?']) },
-    { id: '9_4', zh: 'ÎÒÒªË«´²·¿/´ó´²·¿¡£',      py: 'W¨¯ y¨¤o shu¨¡ngchu¨¢ng f¨¢ng / d¨¤chu¨¢ng f¨¢ng.',en: 'I want twin beds / a king-size bed.',
-      words: buildWords('ÎÒÒªË«´²·¿´ó´²·¿¡£','W¨¯ y¨¤o shu¨¡ngchu¨¢ng f¨¢ng d¨¤chu¨¢ng f¨¢ng.',['I','want','twin bed room','king bed room','']) },
-    { id: '9_5', zh: 'Ô¡½íÔÚÄÄÀï£¿',             py: 'Y¨´j¨©n z¨¤i n¨£li?',                        en: 'Where is the bath towel?',
-      words: buildWords('Ô¡½íÔÚÄÄÀï£¿','Y¨´j¨©n z¨¤i n¨£li?',['bath','towel','at','where','?']) },
-    { id: '9_6', zh: '·¿¼äºÜ¸É¾»¡£',             py: 'F¨¢ngji¨¡n h¨§n g¨¡nj¨¬ng.',                  en: 'The room is very clean.',
-      words: buildWords('·¿¼äºÜ¸É¾»¡£','F¨¢ngji¨¡n h¨§n g¨¡nj¨¬ng.',['room','very','dry clean','']) },
-    { id: '9_7', zh: '¿Õµ÷Ì«ÀäÁË¡£',             py: 'K¨­ngti¨¢o t¨¤i l¨§ng le.',                   en: 'The AC is too cold.',
-      words: buildWords('¿Õµ÷Ì«ÀäÁË¡£','K¨­ngti¨¢o t¨¤i l¨§ng le.',['air','adjust','too','cold','particle','']) },
-    { id: '9_8', zh: 'ÎÒÐèÒª¶àÒ»¸öÕíÍ·¡£',       py: 'W¨¯ x¨±y¨¤o du¨­ y¨©g¨¨ zh¨§ntou.',             en: 'I need one more pillow.',
-      words: buildWords('ÎÒÐèÒª¶àÒ»¸öÕíÍ·¡£','W¨¯ x¨±y¨¤o du¨­ y¨©g¨¨ zh¨§ntou.',['I','need','more','one','measure','pillow','']) },
-    { id: '9_9', zh: 'Ôç²Í¼¸µã¿ªÊ¼£¿',           py: 'Z¨£oc¨¡n j¨« di¨£n k¨¡ish¨«?',                 en: 'What time does breakfast start?',
-      words: buildWords('Ôç²Í¼¸µã¿ªÊ¼£¿','Z¨£oc¨¡n j¨« di¨£n k¨¡ish¨«?',['morning','meal','how many','o\'clock','begin start','?']) },
-    { id: '9_10',zh: 'ÎÒÒªÍË·¿¡£',               py: 'W¨¯ y¨¤o tu¨¬f¨¢ng.',                        en: 'I want to check out.',
-      words: buildWords('ÎÒÒªÍË·¿¡£','W¨¯ y¨¤o tu¨¬f¨¢ng.',['I','want','return room','']) }
+    { id: '9_1', zh: 'æˆ‘è®¢äº†æˆ¿é—´ã€‚',             py: 'WÇ’ dÃ¬ng le fÃ¡ngjiÄn.',                  en: 'I booked a room.',
+      words: buildWords('æˆ‘è®¢äº†æˆ¿é—´ã€‚','WÇ’ dÃ¬ng le fÃ¡ngjiÄn.',['I','book/reserve','particle','room room','']) },
+    { id: '9_2', zh: 'è¯·ç»™æˆ‘æˆ¿å¡ã€‚',             py: 'QÇng gÄ›i wÇ’ fÃ¡ngkÇŽ.',                    en: 'Please give me the room key/card.',
+      words: buildWords('è¯·ç»™æˆ‘æˆ¿å¡ã€‚','QÇng gÄ›i wÇ’ fÃ¡ngkÇŽ.',['please','give','me','room card','']) },
+    { id: '9_3', zh: 'æˆ¿é—´å·æ˜¯å¤šå°‘ï¼Ÿ',           py: 'FÃ¡ngjiÄn hÃ o shÃ¬ duÅshao?',             en: 'What is the room number?',
+      words: buildWords('æˆ¿é—´å·æ˜¯å¤šå°‘ï¼Ÿ','FÃ¡ngjiÄn hÃ o shÃ¬ duÅshao?',['room','number','is','how much','?']) },
+    { id: '9_4', zh: 'æˆ‘è¦åŒåºŠæˆ¿/å¤§åºŠæˆ¿ã€‚',      py: 'WÇ’ yÃ o shuÄngchuÃ¡ng fÃ¡ng / dÃ chuÃ¡ng fÃ¡ng.',en: 'I want twin beds / a king-size bed.',
+      words: buildWords('æˆ‘è¦åŒåºŠæˆ¿å¤§åºŠæˆ¿ã€‚','WÇ’ yÃ o shuÄngchuÃ¡ng fÃ¡ng dÃ chuÃ¡ng fÃ¡ng.',['I','want','twin bed room','king bed room','']) },
+    { id: '9_5', zh: 'æµ´å·¾åœ¨å“ªé‡Œï¼Ÿ',             py: 'YÃ¹jÄ«n zÃ i nÇŽli?',                        en: 'Where is the bath towel?',
+      words: buildWords('æµ´å·¾åœ¨å“ªé‡Œï¼Ÿ','YÃ¹jÄ«n zÃ i nÇŽli?',['bath','towel','at','where','?']) },
+    { id: '9_6', zh: 'æˆ¿é—´å¾ˆå¹²å‡€ã€‚',             py: 'FÃ¡ngjiÄn hÄ›n gÄnjÃ¬ng.',                  en: 'The room is very clean.',
+      words: buildWords('æˆ¿é—´å¾ˆå¹²å‡€ã€‚','FÃ¡ngjiÄn hÄ›n gÄnjÃ¬ng.',['room','very','dry clean','']) },
+    { id: '9_7', zh: 'ç©ºè°ƒå¤ªå†·äº†ã€‚',             py: 'KÅngtiÃ¡o tÃ i lÄ›ng le.',                   en: 'The AC is too cold.',
+      words: buildWords('ç©ºè°ƒå¤ªå†·äº†ã€‚','KÅngtiÃ¡o tÃ i lÄ›ng le.',['air','adjust','too','cold','particle','']) },
+    { id: '9_8', zh: 'æˆ‘éœ€è¦å¤šä¸€ä¸ªæž•å¤´ã€‚',       py: 'WÇ’ xÅ«yÃ o duÅ yÄ«gÃ¨ zhÄ›ntou.',             en: 'I need one more pillow.',
+      words: buildWords('æˆ‘éœ€è¦å¤šä¸€ä¸ªæž•å¤´ã€‚','WÇ’ xÅ«yÃ o duÅ yÄ«gÃ¨ zhÄ›ntou.',['I','need','more','one','measure','pillow','']) },
+    { id: '9_9', zh: 'æ—©é¤å‡ ç‚¹å¼€å§‹ï¼Ÿ',           py: 'ZÇŽocÄn jÇ diÇŽn kÄishÇ?',                 en: 'What time does breakfast start?',
+      words: buildWords('æ—©é¤å‡ ç‚¹å¼€å§‹ï¼Ÿ','ZÇŽocÄn jÇ diÇŽn kÄishÇ?',['morning','meal','how many','o\'clock','begin start','?']) },
+    { id: '9_10',zh: 'æˆ‘è¦é€€æˆ¿ã€‚',               py: 'WÇ’ yÃ o tuÃ¬fÃ¡ng.',                        en: 'I want to check out.',
+      words: buildWords('æˆ‘è¦é€€æˆ¿ã€‚','WÇ’ yÃ o tuÃ¬fÃ¡ng.',['I','want','return room','']) }
   ];
 
   // ============================================================
   // TOPIC 10: Inviting Friends & Social Life (PAID)
   // ============================================================
-  var T10_CULTURE = '»ªÈËÅóÓÑ¼ä"ÇÀ×ÅÂòµ¥"ÊÇ³£¼ûÉç½»ÀñÒÇ£¬Ëµ"ÎÒÇë¿Í"»á·Ç³£ÊÜ»¶Ó­¡£È¥ÅóÓÑ¼Ò×ö¿ÍÒ»¶¨´øµãË®¹û»òÐ¡ÀñÎï¡ª¡ª¿ÕÊÖÉÏÃÅÊÇÊ§Àñ¡£¾Û»á½áÊø·¢"ÎÒµ½¼ÒÁË"ÊÇ±Ø±¸°²È«ÀñÃ²£¬¶Ô·½»á¾õµÃÄã¿¿Æ×¡£¼ûÃæºÍ¸æ±ðÊ±¼òµ¥º®êÑÁ½¾äºÜÖØÒª¡£';
+  var T10_CULTURE = 'åŽäººæœ‹å‹é—´"æŠ¢ç€ä¹°å•"æ˜¯å¸¸è§ç¤¾äº¤ç¤¼ä»ªï¼Œè¯´"æˆ‘è¯·å®¢"ä¼šéžå¸¸å—æ¬¢è¿Žã€‚åŽ»æœ‹å‹å®¶åšå®¢ä¸€å®šå¸¦ç‚¹æ°´æžœæˆ–å°ç¤¼ç‰©â€”â€”ç©ºæ‰‹ä¸Šé—¨æ˜¯å¤±ç¤¼ã€‚èšä¼šç»“æŸå‘"æˆ‘åˆ°å®¶äº†"æ˜¯å¿…å¤‡å®‰å…¨ç¤¼è²Œï¼Œå¯¹æ–¹ä¼šè§‰å¾—ä½ é è°±ã€‚è§é¢å’Œå‘Šåˆ«æ—¶ç®€å•å¯’æš„ä¸¤å¥å¾ˆé‡è¦ã€‚';
 
   var t10 = [
-    { id: '10_1', zh: 'ÄãÖÜÄ©ÓÐ¿ÕÂð£¿',              py: 'N¨« zh¨­um¨° y¨¯u k¨°ng ma?',                en: 'Are you free this weekend?',
-      words: buildWords('ÄãÖÜÄ©ÓÐ¿ÕÂð£¿','N¨« zh¨­um¨° y¨¯u k¨°ng ma?',['you','week end','have','free time','particle','?']) },
-    { id: '10_2', zh: 'ÎÒÃÇÒ»Æð³ÔÍí·¹°É£¡',          py: 'W¨¯men y¨©q¨« ch¨© w¨£nf¨¤n ba!',             en: "Let's have dinner together!",
-      words: buildWords('ÎÒÃÇÒ»Æð³ÔÍí·¹°É£¡','W¨¯men y¨©q¨« ch¨© w¨£nf¨¤n ba!',['we','together','eat','evening meal','particle','']) },
-    { id: '10_3', zh: 'ÄãÏë³ÔÊ²Ã´£¿',                py: 'N¨« xi¨£ng ch¨© sh¨¦nme?',                   en: 'What do you want to eat?',
-      words: buildWords('ÄãÏë³ÔÊ²Ã´£¿','N¨« xi¨£ng ch¨© sh¨¦nme?',['you','want','eat','what','?']) },
-    { id: '10_4', zh: 'ÎÒÇë¿Í£¡',                    py: 'W¨¯ q¨«ngk¨¨!',                              en: 'My treat! (I\'ll pay)',
-      words: buildWords('ÎÒÇë¿Í£¡','W¨¯ q¨«ngk¨¨!',['I','invite guest','']) },
-    { id: '10_5', zh: 'À´ÎÒ¼ÒÍæ°É¡£',                py: 'L¨¢i w¨¯ ji¨¡ w¨¢n ba.',                      en: 'Come over to my place to hang out.',
-      words: buildWords('À´ÎÒ¼ÒÍæ°É¡£','L¨¢i w¨¯ ji¨¡ w¨¢n ba.',['come','my','home','play','particle','']) },
-    { id: '10_6', zh: 'ÐèÒªÎÒ´øÊ²Ã´Âð£¿',            py: 'X¨±y¨¤o w¨¯ d¨¤i sh¨¦nme ma?',                 en: 'Do you need me to bring anything?',
-      words: buildWords('ÐèÒªÎÒ´øÊ²Ã´Âð£¿','X¨±y¨¤o w¨¯ d¨¤i sh¨¦nme ma?',['need','I','bring','what','particle','?']) },
-    { id: '10_7', zh: 'ÄãÒªºÈÊ²Ã´£¿²è»¹ÊÇ¿§·È£¿',    py: 'N¨« y¨¤o h¨¥ sh¨¦nme? Ch¨¢ h¨¢ish¨¬ k¨¡f¨¥i?',     en: 'What would you like to drink? Tea or coffee?',
-      words: buildWords('ÄãÒªºÈÊ²Ã´²è»¹ÊÇ¿§·È£¿','N¨« y¨¤o h¨¥ sh¨¦nme Ch¨¢ h¨¢ish¨¬ k¨¡f¨¥i?',['you','want','drink','what','tea','or','coffee','?']) },
-    { id: '10_8', zh: 'ÍæµÃºÜ¿ªÐÄ£¡',                py: 'W¨¢n de h¨§n k¨¡ix¨©n!',                      en: 'I had a lot of fun!',
-      words: buildWords('ÍæµÃºÜ¿ªÐÄ£¡','W¨¢n de h¨§n k¨¡ix¨©n!',['play','particle','very','happy','']) },
-    { id: '10_9', zh: 'ÏÂ´ÎÔÙÔ¼£¡',                  py: 'Xi¨¤ c¨¬ z¨¤i yu¨¥!',                         en: "Let's plan again next time!",
-      words: buildWords('ÏÂ´ÎÔÙÔ¼£¡','Xi¨¤ c¨¬ z¨¤i yu¨¥!',['next','time','again','appoint','']) },
-    { id: '10_10',zh: 'ÎÒµ½¼ÒÁË¡£',                  py: 'W¨¯ d¨¤o ji¨¡ le.',                          en: "I'm home (text to let them know you're safe).",
-      words: buildWords('ÎÒµ½¼ÒÁË¡£','W¨¯ d¨¤o ji¨¡ le.',['I','arrive','home','particle','']) }
+    { id: '10_1', zh: 'ä½ å‘¨æœ«æœ‰ç©ºå—ï¼Ÿ',              py: 'NÇ zhÅumÃ² yÇ’u kÃ²ng ma?',                en: 'Are you free this weekend?',
+      words: buildWords('ä½ å‘¨æœ«æœ‰ç©ºå—ï¼Ÿ','NÇ zhÅumÃ² yÇ’u kÃ²ng ma?',['you','week end','have','free time','particle','?']) },
+    { id: '10_2', zh: 'æˆ‘ä»¬ä¸€èµ·åƒæ™šé¥­å§ï¼',          py: 'WÇ’men yÄ«qÇ chÄ« wÇŽnfÃ n ba!',             en: "Let's have dinner together!",
+      words: buildWords('æˆ‘ä»¬ä¸€èµ·åƒæ™šé¥­å§ï¼','WÇ’men yÄ«qÇ chÄ« wÇŽnfÃ n ba!',['we','together','eat','evening meal','particle','']) },
+    { id: '10_3', zh: 'ä½ æƒ³åƒä»€ä¹ˆï¼Ÿ',                py: 'NÇ xiÇŽng chÄ« shÃ©nme?',                   en: 'What do you want to eat?',
+      words: buildWords('ä½ æƒ³åƒä»€ä¹ˆï¼Ÿ','NÇ xiÇŽng chÄ« shÃ©nme?',['you','want','eat','what','?']) },
+    { id: '10_4', zh: 'æˆ‘è¯·å®¢ï¼',                    py: 'WÇ’ qÇngkÃ¨!',                              en: 'My treat! (I\'ll pay)',
+      words: buildWords('æˆ‘è¯·å®¢ï¼','WÇ’ qÇngkÃ¨!',['I','invite guest','']) },
+    { id: '10_5', zh: 'æ¥æˆ‘å®¶çŽ©å§ã€‚',                py: 'LÃ¡i wÇ’ jiÄ wÃ¡n ba.',                      en: 'Come over to my place to hang out.',
+      words: buildWords('æ¥æˆ‘å®¶çŽ©å§ã€‚','LÃ¡i wÇ’ jiÄ wÃ¡n ba.',['come','my','home','play','particle','']) },
+    { id: '10_6', zh: 'éœ€è¦æˆ‘å¸¦ä»€ä¹ˆå—ï¼Ÿ',            py: 'XÅ«yÃ o wÇ’ dÃ i shÃ©nme ma?',                 en: 'Do you need me to bring anything?',
+      words: buildWords('éœ€è¦æˆ‘å¸¦ä»€ä¹ˆå—ï¼Ÿ','XÅ«yÃ o wÇ’ dÃ i shÃ©nme ma?',['need','I','bring','what','particle','?']) },
+    { id: '10_7', zh: 'ä½ è¦å–ä»€ä¹ˆï¼ŸèŒ¶è¿˜æ˜¯å’–å•¡ï¼Ÿ',    py: 'NÇ yÃ o hÄ“ shÃ©nme? ChÃ¡ hÃ¡ishÃ¬ kÄfÄ“i?',     en: 'What would you like to drink? Tea or coffee?',
+      words: buildWords('ä½ è¦å–ä»€ä¹ˆèŒ¶è¿˜æ˜¯å’–å•¡ï¼Ÿ','NÇ yÃ o hÄ“ shÃ©nme ChÃ¡ hÃ¡ishÃ¬ kÄfÄ“i?',['you','want','drink','what','tea','or','coffee','?']) },
+    { id: '10_8', zh: 'çŽ©å¾—å¾ˆå¼€å¿ƒï¼',                py: 'WÃ¡n de hÄ›n kÄixÄ«n!',                      en: 'I had a lot of fun!',
+      words: buildWords('çŽ©å¾—å¾ˆå¼€å¿ƒï¼','WÃ¡n de hÄ›n kÄixÄ«n!',['play','particle','very','happy','']) },
+    { id: '10_9', zh: 'ä¸‹æ¬¡å†çº¦ï¼',                  py: 'XiÃ  cÃ¬ zÃ i yuÄ“!',                         en: "Let's plan again next time!",
+      words: buildWords('ä¸‹æ¬¡å†çº¦ï¼','XiÃ  cÃ¬ zÃ i yuÄ“!',['next','time','again','appoint','']) },
+    { id: '10_10',zh: 'æˆ‘åˆ°å®¶äº†ã€‚',                  py: 'WÇ’ dÃ o jiÄ le.',                          en: "I'm home (text to let them know you're safe).",
+      words: buildWords('æˆ‘åˆ°å®¶äº†ã€‚','WÇ’ dÃ o jiÄ le.',['I','arrive','home','particle','']) }
   ];
 
   // ============================================================
   // TOPIC 11: Bank, Exchange & Numbers (PAID)
   // ============================================================
-  var T11_CULTURE = 'ÒøÐÐ¹¤×÷ÈËÔ±´ó¶à»á½²Ó¢Óï£¬µ«ÓÃÖÐÎÄËµ"»»Ç®"»á¸üÇ×ÇÐ¡£È¥ÒøÐÐÏÈÈ¡ºÅ£¨q¨³ h¨¤o£©£¬µÈ½ÐºÅ°ìÀí£¬Ç§Íò²»Òª²å¶Ó¡£ATMÈ¡Ç®Ê±ÕÚµ²ÊäÈëÃÜÂë¡£Èç¹û¿¨±»ÍÌ£¬Á¢¿ÌÕÒ¹ñÔ±Ëµ"ÎÒµÄ¿¨±»ÍÌÁË"¡ª¡ªËûÃÇ»á°ïÄãÈ¡³ö¡£';
+  var T11_CULTURE = 'é“¶è¡Œå·¥ä½œäººå‘˜å¤§å¤šä¼šè®²è‹±è¯­ï¼Œä½†ç”¨ä¸­æ–‡è¯´"æ¢é’±"ä¼šæ›´äº²åˆ‡ã€‚åŽ»é“¶è¡Œå…ˆå–å·ï¼ˆqÇ” hÃ oï¼‰ï¼Œç­‰å«å·åŠžç†ï¼Œåƒä¸‡ä¸è¦æ’é˜Ÿã€‚ATMå–é’±æ—¶é®æŒ¡è¾“å…¥å¯†ç ã€‚å¦‚æžœå¡è¢«åžï¼Œç«‹åˆ»æ‰¾æŸœå‘˜è¯´"æˆ‘çš„å¡è¢«åžäº†"â€”â€”ä»–ä»¬ä¼šå¸®ä½ å–å‡ºã€‚';
 
   var t11 = [
-    { id: '11_1', zh: 'ÒøÐÐÔÚÄÄÀï£¿',               py: 'Y¨ªnh¨¢ng z¨¤i n¨£li?',                      en: 'Where is the bank?',
-      words: buildWords('ÒøÐÐÔÚÄÄÀï£¿','Y¨ªnh¨¢ng z¨¤i n¨£li?',['silver','bank','at','where','?']) },
-    { id: '11_2', zh: 'ÎÒÒª»»Ç®¡£',                 py: 'W¨¯ y¨¤o hu¨¤n qi¨¢n.',                      en: 'I want to exchange money.',
-      words: buildWords('ÎÒÒª»»Ç®¡£','W¨¯ y¨¤o hu¨¤n qi¨¢n.',['I','want','exchange','money','']) },
-    { id: '11_3', zh: '½ñÌì»ãÂÊÊÇ¶àÉÙ£¿',           py: 'J¨©nti¨¡n hu¨¬l¨¸ sh¨¬ du¨­shao?',             en: "What's the exchange rate today?",
-      words: buildWords('½ñÌì»ãÂÊÊÇ¶àÉÙ£¿','J¨©nti¨¡n hu¨¬l¨¸ sh¨¬ du¨­shao?',['today','exchange rate','is','how much','?']) },
-    { id: '11_4', zh: 'Çë¸øÎÒ»»Ò»Ð©ÁãÇ®¡£',         py: 'Q¨«ng g¨§i w¨¯ hu¨¤n y¨©xi¨¥ l¨ªngqi¨¢n.',       en: 'Please give me some small change.',
-      words: buildWords('Çë¸øÎÒ»»Ò»Ð©ÁãÇ®¡£','Q¨«ng g¨§i w¨¯ hu¨¤n y¨©xi¨¥ l¨ªngqi¨¢n.',['please','give','me','exchange','some','zero small','money','']) },
-    { id: '11_5', zh: 'ÎÒÒª¿ªÒ»¸öÕË»§¡£',           py: 'W¨¯ y¨¤o k¨¡i y¨©g¨¨ zh¨¤ngh¨´.',               en: 'I want to open an account.',
-      words: buildWords('ÎÒÒª¿ªÒ»¸öÕË»§¡£','W¨¯ y¨¤o k¨¡i y¨©g¨¨ zh¨¤ngh¨´.',['I','want','open','one','measure','account door','']) },
-    { id: '11_6', zh: 'ÎÒÍü¼ÇÃÜÂëÁË¡£',             py: 'W¨¯ w¨¤ngj¨¬ m¨¬m¨£ le.',                      en: 'I forgot my password / PIN.',
-      words: buildWords('ÎÒÍü¼ÇÃÜÂëÁË¡£','W¨¯ w¨¤ngj¨¬ m¨¬m¨£ le.',['I','forget remember','secret code','particle','']) },
-    { id: '11_7', zh: '»ã¿îÐèÒªÊÖÐø·ÑÂð£¿',         py: 'Hu¨¬ku¨£n x¨±y¨¤o sh¨¯ux¨´f¨¨i ma?',            en: 'Is there a fee for transferring money?',
-      words: buildWords('»ã¿îÐèÒªÊÖÐø·ÑÂð£¿','Hu¨¬ku¨£n x¨±y¨¤o sh¨¯ux¨´f¨¨i ma?',['remit money','need','hand procedure fee','particle','?']) },
-    { id: '11_8', zh: 'ÎÒÈ¡Ò»Ç§¿é¡£',               py: 'W¨¯ q¨³ y¨©qi¨¡n ku¨¤i.',                      en: 'I want to withdraw 1,000 (local currency).',
-      words: buildWords('ÎÒÈ¡Ò»Ç§¿é¡£','W¨¯ q¨³ y¨©qi¨¡n ku¨¤i.',['I','take out','one thousand','dollar/yuan','']) },
-    { id: '11_9', zh: 'ÎÒµÄÒøÐÐ¿¨±»ÍÌÁË¡£',         py: 'W¨¯ de y¨ªnh¨¢ngk¨£ b¨¨i t¨±n le.',             en: 'My bank card was swallowed by the ATM.',
-      words: buildWords('ÎÒµÄÒøÐÐ¿¨±»ÍÌÁË¡£','W¨¯ de y¨ªnh¨¢ngk¨£ b¨¨i t¨±n le.',['I','possessive','bank card','passive','swallow','particle','']) },
-    { id: '11_10',zh: 'Ð»Ð»£¬²»ÓÃÁË¡£',             py: 'Xi¨¨xie, b¨´y¨°ng le.',                       en: 'Thanks, no need (polite decline).',
-      words: buildWords('Ð»Ð»£¬²»ÓÃÁË¡£','Xi¨¨xie b¨´y¨°ng le.',['thank','thank','','no need','particle','']) }
+    { id: '11_1', zh: 'é“¶è¡Œåœ¨å“ªé‡Œï¼Ÿ',               py: 'YÃ­nhÃ¡ng zÃ i nÇŽli?',                      en: 'Where is the bank?',
+      words: buildWords('é“¶è¡Œåœ¨å“ªé‡Œï¼Ÿ','YÃ­nhÃ¡ng zÃ i nÇŽli?',['silver','bank','at','where','?']) },
+    { id: '11_2', zh: 'æˆ‘è¦æ¢é’±ã€‚',                 py: 'WÇ’ yÃ o huÃ n qiÃ¡n.',                      en: 'I want to exchange money.',
+      words: buildWords('æˆ‘è¦æ¢é’±ã€‚','WÇ’ yÃ o huÃ n qiÃ¡n.',['I','want','exchange','money','']) },
+    { id: '11_3', zh: 'ä»Šå¤©æ±‡çŽ‡æ˜¯å¤šå°‘ï¼Ÿ',           py: 'JÄ«ntiÄn huÃ¬lÇœ shÃ¬ duÅshao?',             en: "What's the exchange rate today?",
+      words: buildWords('ä»Šå¤©æ±‡çŽ‡æ˜¯å¤šå°‘ï¼Ÿ','JÄ«ntiÄn huÃ¬lÇœ shÃ¬ duÅshao?',['today','exchange rate','is','how much','?']) },
+    { id: '11_4', zh: 'è¯·ç»™æˆ‘æ¢ä¸€äº›é›¶é’±ã€‚',         py: 'QÇng gÄ›i wÇ’ huÃ n yÄ«xiÄ“ lÃ­ngqiÃ¡n.',       en: 'Please give me some small change.',
+      words: buildWords('è¯·ç»™æˆ‘æ¢ä¸€äº›é›¶é’±ã€‚','QÇng gÄ›i wÇ’ huÃ n yÄ«xiÄ“ lÃ­ngqiÃ¡n.',['please','give','me','exchange','some','zero small','money','']) },
+    { id: '11_5', zh: 'æˆ‘è¦å¼€ä¸€ä¸ªè´¦æˆ·ã€‚',           py: 'WÇ’ yÃ o kÄi yÄ«gÃ¨ zhÃ nghÃ¹.',               en: 'I want to open an account.',
+      words: buildWords('æˆ‘è¦å¼€ä¸€ä¸ªè´¦æˆ·ã€‚','WÇ’ yÃ o kÄi yÄ«gÃ¨ zhÃ nghÃ¹.',['I','want','open','one','measure','account door','']) },
+    { id: '11_6', zh: 'æˆ‘å¿˜è®°å¯†ç äº†ã€‚',             py: 'WÇ’ wÃ ngjÃ¬ mÃ¬mÇŽ le.',                      en: 'I forgot my password / PIN.',
+      words: buildWords('æˆ‘å¿˜è®°å¯†ç äº†ã€‚','WÇ’ wÃ ngjÃ¬ mÃ¬mÇŽ le.',['I','forget remember','secret code','particle','']) },
+    { id: '11_7', zh: 'æ±‡æ¬¾éœ€è¦æ‰‹ç»­è´¹å—ï¼Ÿ',         py: 'HuÃ¬kuÇŽn xÅ«yÃ o shÇ’uxÃ¹fÃ¨i ma?',            en: 'Is there a fee for transferring money?',
+      words: buildWords('æ±‡æ¬¾éœ€è¦æ‰‹ç»­è´¹å—ï¼Ÿ','HuÃ¬kuÇŽn xÅ«yÃ o shÇ’uxÃ¹fÃ¨i ma?',['remit money','need','hand procedure fee','particle','?']) },
+    { id: '11_8', zh: 'æˆ‘å–ä¸€åƒå—ã€‚',               py: 'WÇ’ qÇ” yÄ«qiÄn kuÃ i.',                      en: 'I want to withdraw 1,000 (local currency).',
+      words: buildWords('æˆ‘å–ä¸€åƒå—ã€‚','WÇ’ qÇ” yÄ«qiÄn kuÃ i.',['I','take out','one thousand','dollar/yuan','']) },
+    { id: '11_9', zh: 'æˆ‘çš„é“¶è¡Œå¡è¢«åžäº†ã€‚',         py: 'WÇ’ de yÃ­nhÃ¡ngkÇŽ bÃ¨i tÅ«n le.',             en: 'My bank card was swallowed by the ATM.',
+      words: buildWords('æˆ‘çš„é“¶è¡Œå¡è¢«åžäº†ã€‚','WÇ’ de yÃ­nhÃ¡ngkÇŽ bÃ¨i tÅ«n le.',['I','possessive','bank card','passive','swallow','particle','']) },
+    { id: '11_10',zh: 'è°¢è°¢ï¼Œä¸ç”¨äº†ã€‚',             py: 'XiÃ¨xie, bÃ¹yÃ²ng le.',                       en: 'Thanks, no need (polite decline).',
+      words: buildWords('è°¢è°¢ï¼Œä¸ç”¨äº†ã€‚','XiÃ¨xie bÃ¹yÃ²ng le.',['thank','thank','','no need','particle','']) }
   ];
 
   // ============================================================
   // TOPIC 12: Time, Date & Appointments (PAID)
   // ============================================================
-  var T12_CULTURE = '»ªÈËÉç»á"×¼Ê±"±»ÊÓÎª×ðÖØ£¬ÉÌÎñ»áÒé±ØÐë×¼Ê±¡£Éç½»³¡ºÏ£¨Èç·¹¾Ö£©¿ÉÄÜÔÊÐí³Ùµ½10·ÖÖÓ¡£Ëµ"Å¶"£¨¨®£©ÊÇÓÑºÃÓïÆø´Ê£¬ÈÃ¶Ô»°¸üÇ×ÇÐ¡£Ô¼»áÈ·ÈÏÊ±²¹Ò»¾ä"µ½Ê±¼û"£¨d¨¤osh¨ª ji¨¤n£©»áÈÃ¶Ô·½¾õµÃÄãºÜ¿¿Æ×¡£';
+  var T12_CULTURE = 'åŽäººç¤¾ä¼š"å‡†æ—¶"è¢«è§†ä¸ºå°Šé‡ï¼Œå•†åŠ¡ä¼šè®®å¿…é¡»å‡†æ—¶ã€‚ç¤¾äº¤åœºåˆï¼ˆå¦‚é¥­å±€ï¼‰å¯èƒ½å…è®¸è¿Ÿåˆ°10åˆ†é’Ÿã€‚è¯´"å“¦"ï¼ˆÃ³ï¼‰æ˜¯å‹å¥½è¯­æ°”è¯ï¼Œè®©å¯¹è¯æ›´äº²åˆ‡ã€‚çº¦ä¼šç¡®è®¤æ—¶è¡¥ä¸€å¥"åˆ°æ—¶è§"ï¼ˆdÃ oshÃ­ jiÃ nï¼‰ä¼šè®©å¯¹æ–¹è§‰å¾—ä½ å¾ˆé è°±ã€‚';
 
   var t12 = [
-    { id: '12_1', zh: 'ÏÖÔÚ¼¸µãÁË£¿',                 py: 'Xi¨¤nz¨¤i j¨« di¨£n le?',                   en: 'What time is it now?',
-      words: buildWords('ÏÖÔÚ¼¸µãÁË£¿','Xi¨¤nz¨¤i j¨« di¨£n le?',['now','present','how many','o\'clock','particle','?']) },
-    { id: '12_2', zh: '½ñÌì¼¸ºÅ£¿',                   py: 'J¨©nti¨¡n j¨« h¨¤o?',                        en: "What's today's date?",
-      words: buildWords('½ñÌì¼¸ºÅ£¿','J¨©nti¨¡n j¨« h¨¤o?',['today','day','how many','number/date','?']) },
-    { id: '12_3', zh: 'Ã÷ÌìÊÇÐÇÆÚ¼¸£¿',               py: 'M¨ªngti¨¡n sh¨¬ x¨©ngq¨© j¨«?',                en: 'What day is tomorrow?',
-      words: buildWords('Ã÷ÌìÊÇÐÇÆÚ¼¸£¿','M¨ªngti¨¡n sh¨¬ x¨©ngq¨© j¨«?',['tomorrow','is','week period','how many','?']) },
-    { id: '12_4', zh: 'ÎÒÃÇÔ¼Á½µã°ë£¬ºÃÂð£¿',         py: 'W¨¯men yu¨¥ li¨£ng di¨£n b¨¤n, h¨£o ma?',       en: "Let's meet at 2:30, okay?",
-      words: buildWords('ÎÒÃÇÔ¼Á½µã°ëºÃÂð£¿','W¨¯men yu¨¥ li¨£ng di¨£n b¨¤n h¨£o ma?',['we','appoint','two','o\'clock','half','good','particle','?']) },
-    { id: '12_5', zh: 'ÎÒ³Ùµ½ÁËÎå·ÖÖÓ¡£',             py: 'W¨¯ ch¨ªd¨¤o le w¨³ f¨¥nzh¨­ng.',               en: "I'm five minutes late.",
-      words: buildWords('ÎÒ³Ùµ½ÁËÎå·ÖÖÓ¡£','W¨¯ ch¨ªd¨¤o le w¨³ f¨¥nzh¨­ng.',['I','late arrive','particle','five','minute clock','']) },
-    { id: '12_6', zh: 'ÌáÇ°Ê®·ÖÖÓµ½¡£',               py: 'T¨ªqi¨¢n sh¨ª f¨¥nzh¨­ng d¨¤o.',                en: 'Arrive ten minutes early.',
-      words: buildWords('ÌáÇ°Ê®·ÖÖÓµ½¡£','T¨ªqi¨¢n sh¨ª f¨¥nzh¨­ng d¨¤o.',['lift/advance','before','ten','minute','arrive','']) },
-    { id: '12_7', zh: 'Õâ¸öÔÂºÜÃ¦¡£',                 py: 'Zh¨¨ge yu¨¨ h¨§n m¨¢ng.',                      en: 'This month is very busy.',
-      words: buildWords('Õâ¸öÔÂºÜÃ¦¡£','Zh¨¨ge yu¨¨ h¨§n m¨¢ng.',['this','measure','moon/month','very','busy','']) },
-    { id: '12_8', zh: 'ÏÂ¸öÐÇÆÚÎÒÐÝ¼Ù¡£',             py: 'Xi¨¤ g¨¨ x¨©ngq¨© w¨¯ xi¨±ji¨¤.',                en: "I'm on vacation next week.",
-      words: buildWords('ÏÂ¸öÐÇÆÚÎÒÐÝ¼Ù¡£','Xi¨¤ g¨¨ x¨©ngq¨© w¨¯ xi¨±ji¨¤.',['next','measure','week period','I','rest holiday','']) },
-    { id: '12_9', zh: '´Ó¼¸µãµ½¼¸µã£¿',               py: 'C¨®ng j¨« di¨£n d¨¤o j¨« di¨£n?',               en: 'From what time to what time?',
-      words: buildWords('´Ó¼¸µãµ½¼¸µã£¿','C¨®ng j¨« di¨£n d¨¤o j¨« di¨£n?',['from','how many','o\'clock','to','how many','o\'clock','?']) },
-    { id: '12_10',zh: '¼ÇµÃ×¼Ê±Å¶£¡',                 py: 'J¨¬de zh¨³nsh¨ª ¨®!',                         en: 'Remember to be on time! (casual)',
-      words: buildWords('¼ÇµÃ×¼Ê±Å¶£¡','J¨¬de zh¨³nsh¨ª ¨®!',['remember','must','accurate time','particle','']) }
+    { id: '12_1', zh: 'çŽ°åœ¨å‡ ç‚¹äº†ï¼Ÿ',                 py: 'XiÃ nzÃ i jÇ diÇŽn le?',                   en: 'What time is it now?',
+      words: buildWords('çŽ°åœ¨å‡ ç‚¹äº†ï¼Ÿ','XiÃ nzÃ i jÇ diÇŽn le?',['now','present','how many','o\'clock','particle','?']) },
+    { id: '12_2', zh: 'ä»Šå¤©å‡ å·ï¼Ÿ',                   py: 'JÄ«ntiÄn jÇ hÃ o?',                        en: "What's today's date?",
+      words: buildWords('ä»Šå¤©å‡ å·ï¼Ÿ','JÄ«ntiÄn jÇ hÃ o?',['today','day','how many','number/date','?']) },
+    { id: '12_3', zh: 'æ˜Žå¤©æ˜¯æ˜ŸæœŸå‡ ï¼Ÿ',               py: 'MÃ­ngtiÄn shÃ¬ xÄ«ngqÄ« jÇ?',                en: 'What day is tomorrow?',
+      words: buildWords('æ˜Žå¤©æ˜¯æ˜ŸæœŸå‡ ï¼Ÿ','MÃ­ngtiÄn shÃ¬ xÄ«ngqÄ« jÇ?',['tomorrow','is','week period','how many','?']) },
+    { id: '12_4', zh: 'æˆ‘ä»¬çº¦ä¸¤ç‚¹åŠï¼Œå¥½å—ï¼Ÿ',         py: 'WÇ’men yuÄ“ liÇŽng diÇŽn bÃ n, hÇŽo ma?',       en: "Let's meet at 2:30, okay?",
+      words: buildWords('æˆ‘ä»¬çº¦ä¸¤ç‚¹åŠå¥½å—ï¼Ÿ','WÇ’men yuÄ“ liÇŽng diÇŽn bÃ n hÇŽo ma?',['we','appoint','two','o\'clock','half','good','particle','?']) },
+    { id: '12_5', zh: 'æˆ‘è¿Ÿåˆ°äº†äº”åˆ†é’Ÿã€‚',             py: 'WÇ’ chÃ­dÃ o le wÇ” fÄ“nzhÅng.',               en: "I'm five minutes late.",
+      words: buildWords('æˆ‘è¿Ÿåˆ°äº†äº”åˆ†é’Ÿã€‚','WÇ’ chÃ­dÃ o le wÇ” fÄ“nzhÅng.',['I','late arrive','particle','five','minute clock','']) },
+    { id: '12_6', zh: 'æå‰ååˆ†é’Ÿåˆ°ã€‚',               py: 'TÃ­qiÃ¡n shÃ­ fÄ“nzhÅng dÃ o.',                en: 'Arrive ten minutes early.',
+      words: buildWords('æå‰ååˆ†é’Ÿåˆ°ã€‚','TÃ­qiÃ¡n shÃ­ fÄ“nzhÅng dÃ o.',['lift/advance','before','ten','minute','arrive','']) },
+    { id: '12_7', zh: 'è¿™ä¸ªæœˆå¾ˆå¿™ã€‚',                 py: 'ZhÃ¨ge yuÃ¨ hÄ›n mÃ¡ng.',                      en: 'This month is very busy.',
+      words: buildWords('è¿™ä¸ªæœˆå¾ˆå¿™ã€‚','ZhÃ¨ge yuÃ¨ hÄ›n mÃ¡ng.',['this','measure','moon/month','very','busy','']) },
+    { id: '12_8', zh: 'ä¸‹ä¸ªæ˜ŸæœŸæˆ‘ä¼‘å‡ã€‚',             py: 'XiÃ  gÃ¨ xÄ«ngqÄ« wÇ’ xiÅ«jiÃ .',                en: "I'm on vacation next week.",
+      words: buildWords('ä¸‹ä¸ªæ˜ŸæœŸæˆ‘ä¼‘å‡ã€‚','XiÃ  gÃ¨ xÄ«ngqÄ« wÇ’ xiÅ«jiÃ .',['next','measure','week period','I','rest holiday','']) },
+    { id: '12_9', zh: 'ä»Žå‡ ç‚¹åˆ°å‡ ç‚¹ï¼Ÿ',               py: 'CÃ³ng jÇ diÇŽn dÃ o jÇ diÇŽn?',               en: 'From what time to what time?',
+      words: buildWords('ä»Žå‡ ç‚¹åˆ°å‡ ç‚¹ï¼Ÿ','CÃ³ng jÇ diÇŽn dÃ o jÇ diÇŽn?',['from','how many','o\'clock','to','how many','o\'clock','?']) },
+    { id: '12_10',zh: 'è®°å¾—å‡†æ—¶å“¦ï¼',                 py: 'JÃ¬de zhÇ”nshÃ­ Ã³!',                         en: 'Remember to be on time! (casual)',
+      words: buildWords('è®°å¾—å‡†æ—¶å“¦ï¼','JÃ¬de zhÇ”nshÃ­ Ã³!',['remember','must','accurate time','particle','']) }
   ];
 
   // ============================================================
   // TOPIC 13: Weather, Seasons & Dressing (PAID)
   // ============================================================
-  var T13_CULTURE = 'ºÍ»ªÈËÁÄÌìÆøÊÇ×î°²È«µÄÆÆ±ù»°Ìâ¡ª¡ª±ÈÁÄÕþÖÎ¡¢×Ú½Ì°²È«µÃ¶à¡£ÔÚÐÂ¼ÓÆÂ£¬´ó¼Ò³£±§Ô¹"Ì«ÈÈ"ºÍ"ÏÂÓê"£»ÔÚÖÐ¹ú±±·½ÔòÁÄ"Àä"¡£Ëµ"´øÉ¡ÁËÂð"ÊÇ¹ØÐÄ£¬ÏÔµÃÌùÐÄ¡£ÌìÆø»°ÌâÓÀÔ¶²»»áÀä³¡¡£';
+  var T13_CULTURE = 'å’ŒåŽäººèŠå¤©æ°”æ˜¯æœ€å®‰å…¨çš„ç ´å†°è¯é¢˜â€”â€”æ¯”èŠæ”¿æ²»ã€å®—æ•™å®‰å…¨å¾—å¤šã€‚åœ¨æ–°åŠ å¡ï¼Œå¤§å®¶å¸¸æŠ±æ€¨"å¤ªçƒ­"å’Œ"ä¸‹é›¨"ï¼›åœ¨ä¸­å›½åŒ—æ–¹åˆ™èŠ"å†·"ã€‚è¯´"å¸¦ä¼žäº†å—"æ˜¯å…³å¿ƒï¼Œæ˜¾å¾—è´´å¿ƒã€‚å¤©æ°”è¯é¢˜æ°¸è¿œä¸ä¼šå†·åœºã€‚';
 
   var t13 = [
-    { id: '13_1', zh: '½ñÌìÌìÆøÕæºÃ£¡',                 py: 'J¨©nti¨¡n ti¨¡nq¨¬ zh¨¥n h¨£o!',               en: "The weather is so nice today!",
-      words: buildWords('½ñÌìÌìÆøÕæºÃ£¡','J¨©nti¨¡n ti¨¡nq¨¬ zh¨¥n h¨£o!',['today','weather','true/really','good','']) },
-    { id: '13_2', zh: 'Ì«ÈÈÁË£¡',                        py: 'T¨¤i r¨¨ le!',                               en: "It's too hot!",
-      words: buildWords('Ì«ÈÈÁË£¡','T¨¤i r¨¨ le!',['too','hot','particle','']) },
-    { id: '13_3', zh: 'ÀäËÀÁË¡£',                        py: 'L¨§ng s¨« le.',                               en: "It's freezing.",
-      words: buildWords('ÀäËÀÁË¡£','L¨§ng s¨« le.',['cold','die','particle','']) },
-    { id: '13_4', zh: 'ÌìÆøÔ¤±¨ËµÏÂÎçÓÐÓê¡£',            py: 'Ti¨¡nq¨¬ y¨´b¨¤o shu¨­ xi¨¤w¨³ y¨¯u y¨³.',          en: 'The forecast says rain this afternoon.',
-      words: buildWords('ÌìÆøÔ¤±¨ËµÏÂÎçÓÐÓê¡£','Ti¨¡nq¨¬ y¨´b¨¤o shu¨­ xi¨¤w¨³ y¨¯u y¨³.',['weather','forecast report','say','afternoon','have','rain','']) },
-    { id: '13_5', zh: '´øÉ¡ÁËÂð£¿',                      py: 'D¨¤i s¨£n le ma?',                            en: 'Did you bring an umbrella?',
-      words: buildWords('´øÉ¡ÁËÂð£¿','D¨¤i s¨£n le ma?',['carry','umbrella','particle','particle','?']) },
-    { id: '13_6', zh: 'ÍâÃæ·çºÜ´ó¡£',                    py: 'W¨¤imi¨¤n f¨¥ng h¨§n d¨¤.',                       en: "It's very windy outside.",
-      words: buildWords('ÍâÃæ·çºÜ´ó¡£','W¨¤imi¨¤n f¨¥ng h¨§n d¨¤.',['outside','face','wind','very','big','']) },
-    { id: '13_7', zh: '½ñÌì´©Ê²Ã´ºÃÄØ£¿',                py: 'J¨©nti¨¡n chu¨¡n sh¨¦nme h¨£o ne?',              en: 'What should I wear today?',
-      words: buildWords('½ñÌì´©Ê²Ã´ºÃÄØ£¿','J¨©nti¨¡n chu¨¡n sh¨¦nme h¨£o ne?',['today','wear','what','good','particle','?']) },
-    { id: '13_8', zh: '¶à´©Ò»µã°É¡£',                    py: 'Du¨­ chu¨¡n y¨©di¨£n ba.',                       en: 'Wear more clothes.',
-      words: buildWords('¶à´©Ò»µã°É¡£','Du¨­ chu¨¡n y¨©di¨£n ba.',['more','wear','one','a bit','particle','']) },
-    { id: '13_9', zh: 'ÕâÀï¶¬ÌìÀäÂð£¿',                  py: 'Zh¨¨l¨« d¨­ngti¨¡n l¨§ng ma?',                    en: 'Is it cold here in winter?',
-      words: buildWords('ÕâÀï¶¬ÌìÀäÂð£¿','Zh¨¨l¨« d¨­ngti¨¡n l¨§ng ma?',['here','winter sky','cold','particle','?']) },
-    { id: '13_10',zh: 'ÎÒ×îÏ²»¶ÇïÌì¡£',                  py: 'W¨¯ zu¨¬ x¨«hu¨¡n qi¨±ti¨¡n.',                     en: 'I like autumn the most.',
-      words: buildWords('ÎÒ×îÏ²»¶ÇïÌì¡£','W¨¯ zu¨¬ x¨«hu¨¡n qi¨±ti¨¡n.',['I','most','like happy','autumn sky','']) }
+    { id: '13_1', zh: 'ä»Šå¤©å¤©æ°”çœŸå¥½ï¼',                 py: 'JÄ«ntiÄn tiÄnqÃ¬ zhÄ“n hÇŽo!',               en: "The weather is so nice today!",
+      words: buildWords('ä»Šå¤©å¤©æ°”çœŸå¥½ï¼','JÄ«ntiÄn tiÄnqÃ¬ zhÄ“n hÇŽo!',['today','weather','true/really','good','']) },
+    { id: '13_2', zh: 'å¤ªçƒ­äº†ï¼',                        py: 'TÃ i rÃ¨ le!',                               en: "It's too hot!",
+      words: buildWords('å¤ªçƒ­äº†ï¼','TÃ i rÃ¨ le!',['too','hot','particle','']) },
+    { id: '13_3', zh: 'å†·æ­»äº†ã€‚',                        py: 'LÄ›ng sÇ le.',                               en: "It's freezing.",
+      words: buildWords('å†·æ­»äº†ã€‚','LÄ›ng sÇ le.',['cold','die','particle','']) },
+    { id: '13_4', zh: 'å¤©æ°”é¢„æŠ¥è¯´ä¸‹åˆæœ‰é›¨ã€‚',            py: 'TiÄnqÃ¬ yÃ¹bÃ o shuÅ xiÃ wÇ” yÇ’u yÇ”.',          en: 'The forecast says rain this afternoon.',
+      words: buildWords('å¤©æ°”é¢„æŠ¥è¯´ä¸‹åˆæœ‰é›¨ã€‚','TiÄnqÃ¬ yÃ¹bÃ o shuÅ xiÃ wÇ” yÇ’u yÇ”.',['weather','forecast report','say','afternoon','have','rain','']) },
+    { id: '13_5', zh: 'å¸¦ä¼žäº†å—ï¼Ÿ',                      py: 'DÃ i sÇŽn le ma?',                            en: 'Did you bring an umbrella?',
+      words: buildWords('å¸¦ä¼žäº†å—ï¼Ÿ','DÃ i sÇŽn le ma?',['carry','umbrella','particle','particle','?']) },
+    { id: '13_6', zh: 'å¤–é¢é£Žå¾ˆå¤§ã€‚',                    py: 'WÃ imiÃ n fÄ“ng hÄ›n dÃ .',                       en: "It's very windy outside.",
+      words: buildWords('å¤–é¢é£Žå¾ˆå¤§ã€‚','WÃ imiÃ n fÄ“ng hÄ›n dÃ .',['outside','face','wind','very','big','']) },
+    { id: '13_7', zh: 'ä»Šå¤©ç©¿ä»€ä¹ˆå¥½å‘¢ï¼Ÿ',                py: 'JÄ«ntiÄn chuÄn shÃ©nme hÇŽo ne?',              en: 'What should I wear today?',
+      words: buildWords('ä»Šå¤©ç©¿ä»€ä¹ˆå¥½å‘¢ï¼Ÿ','JÄ«ntiÄn chuÄn shÃ©nme hÇŽo ne?',['today','wear','what','good','particle','?']) },
+    { id: '13_8', zh: 'å¤šç©¿ä¸€ç‚¹å§ã€‚',                    py: 'DuÅ chuÄn yÄ«diÇŽn ba.',                       en: 'Wear more clothes.',
+      words: buildWords('å¤šç©¿ä¸€ç‚¹å§ã€‚','DuÅ chuÄn yÄ«diÇŽn ba.',['more','wear','one','a bit','particle','']) },
+    { id: '13_9', zh: 'è¿™é‡Œå†¬å¤©å†·å—ï¼Ÿ',                  py: 'ZhÃ¨lÇ dÅngtiÄn lÄ›ng ma?',                    en: 'Is it cold here in winter?',
+      words: buildWords('è¿™é‡Œå†¬å¤©å†·å—ï¼Ÿ','ZhÃ¨lÇ dÅngtiÄn lÄ›ng ma?',['here','winter sky','cold','particle','?']) },
+    { id: '13_10',zh: 'æˆ‘æœ€å–œæ¬¢ç§‹å¤©ã€‚',                  py: 'WÇ’ zuÃ¬ xÇhuÄn qiÅ«tiÄn.',                     en: 'I like autumn the most.',
+      words: buildWords('æˆ‘æœ€å–œæ¬¢ç§‹å¤©ã€‚','WÇ’ zuÃ¬ xÇhuÄn qiÅ«tiÄn.',['I','most','like happy','autumn sky','']) }
   ];
 
   // ============================================================
   // TOPIC 14: Learning Chinese & Asking for Help (PAID)
   // ============================================================
-  var T14_CULTURE = 'µ±ÄãËµ"ÎÒµÄÖÐÎÄ²»Ì«ºÃ"Ê±£¬»ªÈËÍ¨³£»á¹ÄÀøÄã£¬²¢×Ô¶¯·ÅÂýÓïËÙ¡£´óµ¨ÎÊ"Ê²Ã´ÒâË¼"ÊÇÑ§Ï°µÄºÃÏ°¹ß¡£Ëµ"ÂýÂýËµ"±È"ÇëËµÂýÒ»µã"¸ü¼ò¶Ì×ÔÈ»¡£Ìýµ½Éú´ÊËæÊ±ÎÊ£¬Ã»ÓÐÈË»áÏÓÄã·³¡£';
+  var T14_CULTURE = 'å½“ä½ è¯´"æˆ‘çš„ä¸­æ–‡ä¸å¤ªå¥½"æ—¶ï¼ŒåŽäººé€šå¸¸ä¼šé¼“åŠ±ä½ ï¼Œå¹¶è‡ªåŠ¨æ”¾æ…¢è¯­é€Ÿã€‚å¤§èƒ†é—®"ä»€ä¹ˆæ„æ€"æ˜¯å­¦ä¹ çš„å¥½ä¹ æƒ¯ã€‚è¯´"æ…¢æ…¢è¯´"æ¯”"è¯·è¯´æ…¢ä¸€ç‚¹"æ›´ç®€çŸ­è‡ªç„¶ã€‚å¬åˆ°ç”Ÿè¯éšæ—¶é—®ï¼Œæ²¡æœ‰äººä¼šå«Œä½ çƒ¦ã€‚';
 
   var t14 = [
-    { id: '14_1', zh: 'Õâ¸ö×ÖÔõÃ´¶Á£¿',                 py: 'Zh¨¨ge z¨¬ z¨§nme d¨²?',                      en: 'How do you pronounce this character?',
-      words: buildWords('Õâ¸ö×ÖÔõÃ´¶Á£¿','Zh¨¨ge z¨¬ z¨§nme d¨²?',['this','measure','character/word','how','read','?']) },
-    { id: '14_2', zh: 'Ê²Ã´ÒâË¼£¿',                      py: 'Sh¨¦nme y¨¬si?',                             en: 'What does it mean?',
-      words: buildWords('Ê²Ã´ÒâË¼£¿','Sh¨¦nme y¨¬si?',['what','meaning thought','?']) },
-    { id: '14_3', zh: 'ÇëÂýÂýËµ¡£',                      py: 'Q¨«ng m¨¤n man shu¨­.',                        en: 'Please speak slowly.',
-      words: buildWords('ÇëÂýÂýËµ¡£','Q¨«ng m¨¤n man shu¨­.',['please','slow','slow','speak','']) },
-    { id: '14_4', zh: 'ÇëÔÙËµÒ»±é¡£',                    py: 'Q¨«ng z¨¤i shu¨­ y¨© bi¨¤n.',                    en: 'Please say it again.',
-      words: buildWords('ÇëÔÙËµÒ»±é¡£','Q¨«ng z¨¤i shu¨­ y¨© bi¨¤n.',['please','again','speak','one','time','']) },
-    { id: '14_5', zh: 'ÎÒµÄÖÐÎÄ²»Ì«ºÃ¡£',                py: 'W¨¯ de Zh¨­ngw¨¦n b¨´ t¨¤i h¨£o.',                en: 'My Chinese is not very good.',
-      words: buildWords('ÎÒµÄÖÐÎÄ²»Ì«ºÃ¡£','W¨¯ de Zh¨­ngw¨¦n b¨´ t¨¤i h¨£o.',['I','possessive','Chinese language','not','too','good','']) },
-    { id: '14_6', zh: 'ÄãËµµÃºÜ¿ì¡£',                    py: 'N¨« shu¨­ de h¨§n ku¨¤i.',                       en: 'You speak very fast.',
-      words: buildWords('ÄãËµµÃºÜ¿ì¡£','N¨« shu¨­ de h¨§n ku¨¤i.',['you','speak','particle','very','fast','']) },
-    { id: '14_7', zh: 'ÎÒÐ´¶ÔÁËÂð£¿',                    py: 'W¨¯ xi¨§ du¨¬ le ma?',                          en: 'Did I write it correctly?',
-      words: buildWords('ÎÒÐ´¶ÔÁËÂð£¿','W¨¯ xi¨§ du¨¬ le ma?',['I','write','correct','particle','particle','?']) },
-    { id: '14_8', zh: 'Õâ¸öºÍÄÇ¸öÒ»ÑùÂð£¿',              py: 'Zh¨¨ge h¨¦ n¨¤ge y¨©y¨¤ng ma?',                   en: 'Is this and that the same?',
-      words: buildWords('Õâ¸öºÍÄÇ¸öÒ»ÑùÂð£¿','Zh¨¨ge h¨¦ n¨¤ge y¨©y¨¤ng ma?',['this','measure','and','that','measure','one same','particle','?']) },
-    { id: '14_9', zh: 'ÎÒÏëÁ·Ï°¿ÚÓï¡£',                  py: 'W¨¯ xi¨£ng li¨¤nx¨ª k¨¯uy¨³.',                    en: 'I want to practice spoken Chinese.',
-      words: buildWords('ÎÒÏëÁ·Ï°¿ÚÓï¡£','W¨¯ xi¨£ng li¨¤nx¨ª k¨¯uy¨³.',['I','want','practice','mouth language','']) },
-    { id: '14_10',zh: 'ÎÒÑ§ÁËÒ»ÄêÁË¡£',                  py: 'W¨¯ xu¨¦ le y¨© ni¨¢n le.',                       en: "I've been learning for a year.",
-      words: buildWords('ÎÒÑ§ÁËÒ»ÄêÁË¡£','W¨¯ xu¨¦ le y¨© ni¨¢n le.',['I','study','particle','one','year','particle','']) }
+    { id: '14_1', zh: 'è¿™ä¸ªå­—æ€Žä¹ˆè¯»ï¼Ÿ',                 py: 'ZhÃ¨ge zÃ¬ zÄ›nme dÃº?',                      en: 'How do you pronounce this character?',
+      words: buildWords('è¿™ä¸ªå­—æ€Žä¹ˆè¯»ï¼Ÿ','ZhÃ¨ge zÃ¬ zÄ›nme dÃº?',['this','measure','character/word','how','read','?']) },
+    { id: '14_2', zh: 'ä»€ä¹ˆæ„æ€ï¼Ÿ',                      py: 'ShÃ©nme yÃ¬si?',                             en: 'What does it mean?',
+      words: buildWords('ä»€ä¹ˆæ„æ€ï¼Ÿ','ShÃ©nme yÃ¬si?',['what','meaning thought','?']) },
+    { id: '14_3', zh: 'è¯·æ…¢æ…¢è¯´ã€‚',                      py: 'QÇng mÃ n man shuÅ.',                        en: 'Please speak slowly.',
+      words: buildWords('è¯·æ…¢æ…¢è¯´ã€‚','QÇng mÃ n man shuÅ.',['please','slow','slow','speak','']) },
+    { id: '14_4', zh: 'è¯·å†è¯´ä¸€éã€‚',                    py: 'QÇng zÃ i shuÅ yÄ« biÃ n.',                    en: 'Please say it again.',
+      words: buildWords('è¯·å†è¯´ä¸€éã€‚','QÇng zÃ i shuÅ yÄ« biÃ n.',['please','again','speak','one','time','']) },
+    { id: '14_5', zh: 'æˆ‘çš„ä¸­æ–‡ä¸å¤ªå¥½ã€‚',                py: 'WÇ’ de ZhÅngwÃ©n bÃ¹ tÃ i hÇŽo.',                en: 'My Chinese is not very good.',
+      words: buildWords('æˆ‘çš„ä¸­æ–‡ä¸å¤ªå¥½ã€‚','WÇ’ de ZhÅngwÃ©n bÃ¹ tÃ i hÇŽo.',['I','possessive','Chinese language','not','too','good','']) },
+    { id: '14_6', zh: 'ä½ è¯´å¾—å¾ˆå¿«ã€‚',                    py: 'NÇ shuÅ de hÄ›n kuÃ i.',                       en: 'You speak very fast.',
+      words: buildWords('ä½ è¯´å¾—å¾ˆå¿«ã€‚','NÇ shuÅ de hÄ›n kuÃ i.',['you','speak','particle','very','fast','']) },
+    { id: '14_7', zh: 'æˆ‘å†™å¯¹äº†å—ï¼Ÿ',                    py: 'WÇ’ xiÄ› duÃ¬ le ma?',                          en: 'Did I write it correctly?',
+      words: buildWords('æˆ‘å†™å¯¹äº†å—ï¼Ÿ','WÇ’ xiÄ› duÃ¬ le ma?',['I','write','correct','particle','particle','?']) },
+    { id: '14_8', zh: 'è¿™ä¸ªå’Œé‚£ä¸ªä¸€æ ·å—ï¼Ÿ',              py: 'ZhÃ¨ge hÃ© nÃ ge yÄ«yÃ ng ma?',                   en: 'Is this and that the same?',
+      words: buildWords('è¿™ä¸ªå’Œé‚£ä¸ªä¸€æ ·å—ï¼Ÿ','ZhÃ¨ge hÃ© nÃ ge yÄ«yÃ ng ma?',['this','measure','and','that','measure','one same','particle','?']) },
+    { id: '14_9', zh: 'æˆ‘æƒ³ç»ƒä¹ å£è¯­ã€‚',                  py: 'WÇ’ xiÇŽng liÃ nxÃ­ kÇ’uyÇ”.',                    en: 'I want to practice spoken Chinese.',
+      words: buildWords('æˆ‘æƒ³ç»ƒä¹ å£è¯­ã€‚','WÇ’ xiÇŽng liÃ nxÃ­ kÇ’uyÇ”.',['I','want','practice','mouth language','']) },
+    { id: '14_10',zh: 'æˆ‘å­¦äº†ä¸€å¹´äº†ã€‚',                  py: 'WÇ’ xuÃ© le yÄ« niÃ¡n le.',                       en: "I've been learning for a year.",
+      words: buildWords('æˆ‘å­¦äº†ä¸€å¹´äº†ã€‚','WÇ’ xuÃ© le yÄ« niÃ¡n le.',['I','study','particle','one','year','particle','']) }
   ];
 
   // ============================================================
   // TOPIC 15: Emergency & Lost Items (PAID)
   // ============================================================
-  var T15_CULTURE = '±¨¾¯Ê±ÏÈËµ"°ï°ïÎÒ"ÎüÒý×¢Òâ¡£ÖÐ¹ú±¨¾¯µç»°110£¬ÐÂ¼ÓÆÂ999£¬¼±¾È·Ö±ð120ºÍ995¡£»ªÈË¾¯²ì»òÂ·ÈËÍ¨³£Ô¸ÒâÐ­Öú£¬µ«¾¡Á¿±£³ÖÀä¾²¡£»¤ÕÕ¶ªÊ§Á¢¼´ÁªÏµ´óÊ¹¹Ý£¬Ëµ"²¹°ì»¤ÕÕ"¡£×îºó"±ðµ£ÐÄ£¬ÎÒÃ»ÊÂ"ÓÃÀ´°²¸§ËûÈË£¬Ò²ÈÃ×Ô¼ºÕò¶¨¡£';
+  var T15_CULTURE = 'æŠ¥è­¦æ—¶å…ˆè¯´"å¸®å¸®æˆ‘"å¸å¼•æ³¨æ„ã€‚ä¸­å›½æŠ¥è­¦ç”µè¯110ï¼Œæ–°åŠ å¡999ï¼Œæ€¥æ•‘åˆ†åˆ«120å’Œ995ã€‚åŽäººè­¦å¯Ÿæˆ–è·¯äººé€šå¸¸æ„¿æ„ååŠ©ï¼Œä½†å°½é‡ä¿æŒå†·é™ã€‚æŠ¤ç…§ä¸¢å¤±ç«‹å³è”ç³»å¤§ä½¿é¦†ï¼Œè¯´"è¡¥åŠžæŠ¤ç…§"ã€‚æœ€åŽ"åˆ«æ‹…å¿ƒï¼Œæˆ‘æ²¡äº‹"ç”¨æ¥å®‰æŠšä»–äººï¼Œä¹Ÿè®©è‡ªå·±é•‡å®šã€‚';
 
   var t15 = [
-    { id: '15_1', zh: '°ï°ïÎÒ£¡',                        py: 'B¨¡ng b¨¡ng w¨¯!',                              en: 'Help me!',
-      words: buildWords('°ï°ïÎÒ£¡','B¨¡ng b¨¡ng w¨¯!',['help','help','me','']) },
-    { id: '15_2', zh: 'ÎÒ¶ªÁË»¤ÕÕ¡£',                    py: 'W¨¯ di¨± le h¨´zh¨¤o.',                           en: 'I lost my passport.',
-      words: buildWords('ÎÒ¶ªÁË»¤ÕÕ¡£','W¨¯ di¨± le h¨´zh¨¤o.',['I','lose','particle','protect passport','']) },
-    { id: '15_3', zh: 'ÎÒµÄÇ®°ü²»¼ûÁË¡£',                py: 'W¨¯ de qi¨¢nb¨¡o b¨´ji¨¤n le.',                    en: 'My wallet is missing.',
-      words: buildWords('ÎÒµÄÇ®°ü²»¼ûÁË¡£','W¨¯ de qi¨¢nb¨¡o b¨´ji¨¤n le.',['I','possessive','money bag','not see','particle','']) },
-    { id: '15_4', zh: 'ÇëÂíÉÏ½Ð¾¯²ì¡£',                  py: 'Q¨«ng m¨£sh¨¤ng ji¨¤o j¨«ngch¨¢.',                  en: 'Please call the police immediately.',
-      words: buildWords('ÇëÂíÉÏ½Ð¾¯²ì¡£','Q¨«ng m¨£sh¨¤ng ji¨¤o j¨«ngch¨¢.',['please','horse on/immediately','call','police observe','']) },
-    { id: '15_5', zh: 'ÎÒ±»ÇÀ½ÙÁË¡£',                    py: 'W¨¯ b¨¨i qi¨£ngji¨¦ le.',                          en: 'I was robbed.',
-      words: buildWords('ÎÒ±»ÇÀ½ÙÁË¡£','W¨¯ b¨¨i qi¨£ngji¨¦ le.',['I','passive','rob plunder','particle','']) },
-    { id: '15_6', zh: 'ÎÒµÄÊÖ»ú¶ªÁË¡£',                  py: 'W¨¯ de sh¨¯uj¨© di¨± le.',                         en: 'My phone is lost.',
-      words: buildWords('ÎÒµÄÊÖ»ú¶ªÁË¡£','W¨¯ de sh¨¯uj¨© di¨± le.',['I','possessive','hand machine','lose','particle','']) },
-    { id: '15_7', zh: '×î½üµÄ´óÊ¹¹ÝÔÚÄÄÀï£¿',            py: 'Zu¨¬j¨¬n de d¨¤sh¨«gu¨£n z¨¤i n¨£li?',               en: 'Where is the nearest embassy?',
-      words: buildWords('×î½üµÄ´óÊ¹¹ÝÔÚÄÄÀï£¿','Zu¨¬j¨¬n de d¨¤sh¨«gu¨£n z¨¤i n¨£li?',['most','near','particle','big embassy official','at','where','?']) },
-    { id: '15_8', zh: 'ÎÒÐèÒª°ïÖú¡£',                    py: 'W¨¯ x¨±y¨¤o b¨¡ngzh¨´.',                            en: 'I need help.',
-      words: buildWords('ÎÒÐèÒª°ïÖú¡£','W¨¯ x¨±y¨¤o b¨¡ngzh¨´.',['I','need','help','']) },
-    { id: '15_9', zh: 'Çë°ïÎÒÁªÏµÎÒµÄÅóÓÑ¡£',            py: 'Q¨«ng b¨¡ng w¨¯ li¨¢nx¨¬ w¨¯ de p¨¦ngyou.',           en: 'Please help me contact my friend.',
-      words: buildWords('Çë°ïÎÒÁªÏµÎÒµÄÅóÓÑ¡£','Q¨«ng b¨¡ng w¨¯ li¨¢nx¨¬ w¨¯ de p¨¦ngyou.',['please','help','me','contact','I','possessive','friend','']) },
-    { id: '15_10',zh: '±ðµ£ÐÄ£¬ÎÒÃ»ÊÂ¡£',                py: 'Bi¨¦ d¨¡nx¨©n, w¨¯ m¨¦ish¨¬.',                        en: "Don't worry, I'm okay.",
-      words: buildWords('±ðµ£ÐÄÎÒÃ»ÊÂ¡£','Bi¨¦ d¨¡nx¨©n w¨¯ m¨¦ish¨¬.',['don\'t','worry heart','','I','no matter','']) }
+    { id: '15_1', zh: 'å¸®å¸®æˆ‘ï¼',                        py: 'BÄng bÄng wÇ’!',                              en: 'Help me!',
+      words: buildWords('å¸®å¸®æˆ‘ï¼','BÄng bÄng wÇ’!',['help','help','me','']) },
+    { id: '15_2', zh: 'æˆ‘ä¸¢äº†æŠ¤ç…§ã€‚',                    py: 'WÇ’ diÅ« le hÃ¹zhÃ o.',                           en: 'I lost my passport.',
+      words: buildWords('æˆ‘ä¸¢äº†æŠ¤ç…§ã€‚','WÇ’ diÅ« le hÃ¹zhÃ o.',['I','lose','particle','protect passport','']) },
+    { id: '15_3', zh: 'æˆ‘çš„é’±åŒ…ä¸è§äº†ã€‚',                py: 'WÇ’ de qiÃ¡nbÄo bÃ¹jiÃ n le.',                    en: 'My wallet is missing.',
+      words: buildWords('æˆ‘çš„é’±åŒ…ä¸è§äº†ã€‚','WÇ’ de qiÃ¡nbÄo bÃ¹jiÃ n le.',['I','possessive','money bag','not see','particle','']) },
+    { id: '15_4', zh: 'è¯·é©¬ä¸Šå«è­¦å¯Ÿã€‚',                  py: 'QÇng mÇŽshÃ ng jiÃ o jÇngchÃ¡.',                  en: 'Please call the police immediately.',
+      words: buildWords('è¯·é©¬ä¸Šå«è­¦å¯Ÿã€‚','QÇng mÇŽshÃ ng jiÃ o jÇngchÃ¡.',['please','horse on/immediately','call','police observe','']) },
+    { id: '15_5', zh: 'æˆ‘è¢«æŠ¢åŠ«äº†ã€‚',                    py: 'WÇ’ bÃ¨i qiÇŽngjiÃ© le.',                          en: 'I was robbed.',
+      words: buildWords('æˆ‘è¢«æŠ¢åŠ«äº†ã€‚','WÇ’ bÃ¨i qiÇŽngjiÃ© le.',['I','passive','rob plunder','particle','']) },
+    { id: '15_6', zh: 'æˆ‘çš„æ‰‹æœºä¸¢äº†ã€‚',                  py: 'WÇ’ de shÇ’ujÄ« diÅ« le.',                         en: 'My phone is lost.',
+      words: buildWords('æˆ‘çš„æ‰‹æœºä¸¢äº†ã€‚','WÇ’ de shÇ’ujÄ« diÅ« le.',['I','possessive','hand machine','lose','particle','']) },
+    { id: '15_7', zh: 'æœ€è¿‘çš„å¤§ä½¿é¦†åœ¨å“ªé‡Œï¼Ÿ',            py: 'ZuÃ¬jÃ¬n de dÃ shÇguÇŽn zÃ i nÇŽli?',               en: 'Where is the nearest embassy?',
+      words: buildWords('æœ€è¿‘çš„å¤§ä½¿é¦†åœ¨å“ªé‡Œï¼Ÿ','ZuÃ¬jÃ¬n de dÃ shÇguÇŽn zÃ i nÇŽli?',['most','near','particle','big embassy official','at','where','?']) },
+    { id: '15_8', zh: 'æˆ‘éœ€è¦å¸®åŠ©ã€‚',                    py: 'WÇ’ xÅ«yÃ o bÄngzhÃ¹.',                            en: 'I need help.',
+      words: buildWords('æˆ‘éœ€è¦å¸®åŠ©ã€‚','WÇ’ xÅ«yÃ o bÄngzhÃ¹.',['I','need','help','']) },
+    { id: '15_9', zh: 'è¯·å¸®æˆ‘è”ç³»æˆ‘çš„æœ‹å‹ã€‚',            py: 'QÇng bÄng wÇ’ liÃ¡nxÃ¬ wÇ’ de pÃ©ngyou.',           en: 'Please help me contact my friend.',
+      words: buildWords('è¯·å¸®æˆ‘è”ç³»æˆ‘çš„æœ‹å‹ã€‚','QÇng bÄng wÇ’ liÃ¡nxÃ¬ wÇ’ de pÃ©ngyou.',['please','help','me','contact','I','possessive','friend','']) },
+    { id: '15_10',zh: 'åˆ«æ‹…å¿ƒï¼Œæˆ‘æ²¡äº‹ã€‚',                py: 'BiÃ© dÄnxÄ«n, wÇ’ mÃ©ishÃ¬.',                        en: "Don't worry, I'm okay.",
+      words: buildWords('åˆ«æ‹…å¿ƒæˆ‘æ²¡äº‹ã€‚','BiÃ© dÄnxÄ«n wÇ’ mÃ©ishÃ¬.',['don\'t','worry heart','','I','no matter','']) }
   ];
 
   // ============================================================
   // ASSEMBLE: topics metadata + topicPhrases
   // ============================================================
   var TOPICS_META = [
-    { key: 'topic-01', icon: '??', title: 'Daily Politeness & Icebreakers', desc: 'Greet, thank, apologize, introduce yourself ¡ª make a great first impression.', cultureTip: T1_CULTURE },
-    { key: 'topic-02', icon: '???', title: 'Numbers, Paying & Shopping',      desc: 'Ask price, bargain, pay with card ¡ª avoid getting overcharged.', cultureTip: T2_CULTURE },
-    { key: 'topic-03', icon: '??', title: 'Dining Out & Food Preferences',   desc: 'Order food, avoid allergies, ask for the bill ¡ª eat with confidence.', cultureTip: T3_CULTURE },
-    { key: 'topic-04', icon: '???', title: 'Getting Around',                   desc: 'Ask directions, take taxi/bus, never get lost in a Chinese city.', cultureTip: T4_CULTURE },
-    { key: 'topic-05', icon: '??', title: 'Work & Office Greetings',          desc: 'Thank colleagues, talk schedules, cheer the team ¡ª fit right in.', cultureTip: T5_CULTURE },
-    { key: 'topic-06', icon: '??', title: 'Feeling Sick & Doctor Visit',     desc: 'Describe pain, allergies, ask for medicine ¡ª critical travel words.', cultureTip: T6_CULTURE },
-    { key: 'topic-07', icon: '??', title: 'Real Feelings & Emotions',        desc: 'Move past "I\'m fine" ¡ª share joy, stress, tiredness naturally.', cultureTip: T7_CULTURE },
-    { key: 'topic-08', icon: '??', title: 'Phone, Wi-Fi & Digital Pay',      desc: 'Ask for Wi-Fi, scan QR pay, charge battery ¡ª modern daily essentials.', cultureTip: T8_CULTURE },
-    { key: 'topic-09', icon: '??', title: 'Hotel Check-in & Room Service',   desc: 'Book in, request amenities, check out smoothly ¡ª handle the front desk.', cultureTip: T9_CULTURE },
-    { key: 'topic-10', icon: '??', title: 'Inviting Friends & Social Life',  desc: 'Plan dinner, invite people over, say "my treat" ¡ª make real friends.', cultureTip: T10_CULTURE },
-    { key: 'topic-11', icon: '??', title: 'Bank, Exchange & Numbers',        desc: 'Exchange money, withdraw, open account ¡ª big transactions with calm.', cultureTip: T11_CULTURE },
-    { key: 'topic-12', icon: '??', title: 'Time, Date & Appointments',       desc: 'Ask the time, set meetings, reschedule gracefully ¡ª punctuality wins.', cultureTip: T12_CULTURE },
-    { key: 'topic-13', icon: '?', title: 'Weather, Seasons & Dressing',     desc: 'Small-talk like a local ¡ª the safest icebreaker in any Chinese context.', cultureTip: T13_CULTURE },
-    { key: 'topic-14', icon: '??', title: 'Learning Chinese & Asking Help',  desc: 'Survival phrases for learning itself ¡ª slow down, repeat, ask meaning.', cultureTip: T14_CULTURE },
-    { key: 'topic-15', icon: '??', title: 'Emergency & Lost Items',          desc: 'Call for help, report theft, find embassy ¡ª hope you never need these.', cultureTip: T15_CULTURE }
+    { key: 'topic-01', icon: 'ðŸ‘‹', title: 'Daily Politeness & Icebreakers', desc: 'Greet, thank, apologize, introduce yourself â€” make a great first impression.', cultureTip: T1_CULTURE },
+    { key: 'topic-02', icon: 'ðŸ’°', title: 'Numbers, Paying & Shopping',      desc: 'Ask price, bargain, pay with card â€” avoid getting overcharged.', cultureTip: T2_CULTURE },
+    { key: 'topic-03', icon: 'ðŸœ', title: 'Dining Out & Food Preferences',   desc: 'Order food, avoid allergies, ask for the bill â€” eat with confidence.', cultureTip: T3_CULTURE },
+    { key: 'topic-04', icon: 'ðŸš•', title: 'Getting Around',                   desc: 'Ask directions, take taxi/bus, never get lost in a Chinese city.', cultureTip: T4_CULTURE },
+    { key: 'topic-05', icon: 'ðŸ’¼', title: 'Work & Office Greetings',          desc: 'Thank colleagues, talk schedules, cheer the team â€” fit right in.', cultureTip: T5_CULTURE },
+    { key: 'topic-06', icon: 'ðŸ¥', title: 'Feeling Sick & Doctor Visit',     desc: 'Describe pain, allergies, ask for medicine â€” critical travel words.', cultureTip: T6_CULTURE },
+    { key: 'topic-07', icon: 'â¤ï¸', title: 'Real Feelings & Emotions',        desc: 'Move past "I\'m fine" â€” share joy, stress, tiredness naturally.', cultureTip: T7_CULTURE },
+    { key: 'topic-08', icon: 'ðŸ“±', title: 'Phone, Wi-Fi & Digital Pay',      desc: 'Ask for Wi-Fi, scan QR pay, charge battery â€” modern daily essentials.', cultureTip: T8_CULTURE },
+    { key: 'topic-09', icon: 'ðŸ¨', title: 'Hotel Check-in & Room Service',   desc: 'Book in, request amenities, check out smoothly â€” handle the front desk.', cultureTip: T9_CULTURE },
+    { key: 'topic-10', icon: 'ðŸ»', title: 'Inviting Friends & Social Life',  desc: 'Plan dinner, invite people over, say "my treat" â€” make real friends.', cultureTip: T10_CULTURE },
+    { key: 'topic-11', icon: 'ðŸ¦', title: 'Bank, Exchange & Numbers',        desc: 'Exchange money, withdraw, open account â€” big transactions with calm.', cultureTip: T11_CULTURE },
+    { key: 'topic-12', icon: 'â°', title: 'Time, Date & Appointments',       desc: 'Ask the time, set meetings, reschedule gracefully â€” punctuality wins.', cultureTip: T12_CULTURE },
+    { key: 'topic-13', icon: 'ðŸŒ¤ï¸', title: 'Weather, Seasons & Dressing',     desc: 'Small-talk like a local â€” the safest icebreaker in any Chinese context.', cultureTip: T13_CULTURE },
+    { key: 'topic-14', icon: 'ðŸ“š', title: 'Learning Chinese & Asking Help',  desc: 'Survival phrases for learning itself â€” slow down, repeat, ask meaning.', cultureTip: T14_CULTURE },
+    { key: 'topic-15', icon: 'ðŸš¨', title: 'Emergency & Lost Items',          desc: 'Call for help, report theft, find embassy â€” hope you never need these.', cultureTip: T15_CULTURE }
   ];
 
   var TOPIC_PHRASES = {
@@ -547,5 +547,5 @@
   window.TOPIC_KEYS = TOPIC_KEYS;
   window.TOPIC_LABELS = TOPIC_LABELS;
 
-  console.log('? HanLingo DATA (15 topics ¡¤ 150 phrases) loaded successfully.');
+  console.log('? HanLingo DATA (15 topics Â· 150 phrases) loaded successfully.');
 })();
