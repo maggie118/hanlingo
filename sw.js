@@ -1,70 +1,70 @@
-// service鈥憌orker.js - 閽堝鍗曢〉闈笌楂橀闊抽娣卞害浼樺寲
-const CACHE_NAME = 'hanlingo-cache-v16'; // 涓婄嚎鏇存柊鐗堟湰鍙凤細姣忔鏀逛唬鐮?1锛屼緥 v16
+// service-worker.js - 针对单页面与高频音频深度优化
+const CACHE_NAME = 'hanlingo-cache-v16'; // 上线更新版本号：每次改代码+1，例 v16
 
 const PRE_CACHE_ASSETS = [
- './',
- './index.html',
- './js/data.js',
- './manifest.json',
- './images/logo鈥慺ounder.png'
+  './',
+  './index.html',
+  './js/data.js',
+  './manifest.json',
+  './images/logo-founder.png'
 ];
 
 self.addEventListener('install', event => {
- event.waitUntil(
-   caches.open(CACHE_NAME).then(cache => {
-     return cache.addAll(PRE_CACHE_ASSETS);
-   })
- );
- self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(PRE_CACHE_ASSETS);
+    })
+  );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
- event.waitUntil(
-   caches.keys().then(keys => Promise.all(
-     keys.map(key => {
-       if (key !== CACHE_NAME) return caches.delete(key);
-     })
-   ))
- );
- return self.clients.claim();
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.map(key => {
+        if (key !== CACHE_NAME) return caches.delete(key);
+      })
+    ))
+  );
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // 馃敶 瀹屽叏璺宠繃锛氭墍鏈?/api/* 鎺ュ彛 + stripe鍩熷悕锛屼笉缁忚繃SW缂撳瓨锛岀洿鎺ョ綉缁?
-  if(url.pathname.startsWith('/api/') || event.request.url.includes('://stripe.com')){
+  // 完全跳过：所有 /api/* 接口 + stripe域名，不经过SW缓存，直接网络
+  if (url.pathname.startsWith('/api/') || event.request.url.includes('://stripe.com')) {
     return;
   }
 
-  // POST璇锋眰涓�寰嬩笉璧扮紦瀛橈紝鐩存帴鏀捐
-  if(event.request.method !== 'GET'){
+  // POST请求一律不走缓存，直接放行
+  if (event.request.method !== 'GET') {
     return;
   }
 
- event.respondWith(
-   caches.match(event.request).then(cachedResponse => {
-     if (cachedResponse) {
-       return cachedResponse;
-     }
-     return fetch(event.request).then(networkResponse => {
-       // 鍙湁2xx鎴愬姛鍝嶅簲鎵嶅啓鍏ョ紦瀛橈紝闃叉缂撳瓨404/500閿欒椤?
-       if(networkResponse.ok && (event.request.url.includes('.mp3') || event.request.url.includes('.png'))){
-         const responseToCache = networkResponse.clone();
-         caches.open(CACHE_NAME).then(cache => {
-           cache.put(event.request, responseToCache).catch(err=>{
-             // 缂撳瓨澶辫触闈欓粯鍚炴帀锛屼笉鎵撴柇椤甸潰
-             console.warn('SW cache put skip',err);
-           });
-         });
-       }
-       return networkResponse;
-     }).catch(() => {
-       // 绂荤嚎锛氬鑸被璇锋眰杩斿洖涓诲３瀛?index.html
-       if (event.request.mode === 'navigate') {
-         return caches.match('./index.html');
-       }
-     })
-   })
- );
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request).then(networkResponse => {
+        // 只有2xx成功响应才写入缓存，防止缓存404/500错误页面
+        if (networkResponse.ok && (event.request.url.includes('.mp3') || event.request.url.includes('.png'))) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache).catch(err => {
+              // 缓存失败静默吞掉，不打断页面
+              console.warn('SW cache put skip', err);
+            });
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        // 离线：导航类请求返回主壳页面 index.html
+        if (event.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
+      });
+    })
+  );
 });
