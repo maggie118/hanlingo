@@ -3,8 +3,18 @@
   "cleanUrls": true,
   "builds": [
     {
-      "src": "api/**/*.js",
+      "src": "api/*.js",
       "use": "@vercel/node"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -35,9 +45,9 @@
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access‑Control‑Allow‑Origin", "value": "https://hanlingo.app" },
-        { "key": "Access‑Control‑Allow‑Methods", "value": "POST, OPTIONS" },
-        { "key": "Access‑Control‑Allow‑Headers", "value": "Content‑Type" }
+        { "key": "Access-Control-Allow-Origin", "value": "https://hanlingo.app" },
+        { "key": "Access-Control-Allow-Methods", "value": "POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
       ]
     }
   ]
