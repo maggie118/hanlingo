@@ -1607,7 +1607,7 @@
                 <ul>
                     <li>Full lifetime access to all 15 everyday scenarios</li>
                     <li>All 150+ essential expressions &amp; future content updates</li>
-                    <li>Crystal-clear native audio + Slow Mode for easy practice</li>
+                    <li>Browser‑based text‑to‑speech + Slow Mode for easy practice</li>
                     <li>Intuitive Pinyin guides &amp; practical cultural insights</li>
                     <li>No subscriptions. No recurring fees. One payment forever.</li>
                 </ul>
@@ -2473,6 +2473,19 @@
             window.promptInstallApp = promptInstallApp;
 
             console.log('✅ HanLingo · Card Flow ready — character breakdown with pinyin and meaning now fully working.');
+
+            // ============================================================
+            //  配套：读取本地权限标记，解锁全部 phase‑2 卡片
+            // ============================================================
+            if (localStorage.getItem('hanlingo_lifetime_access') === 'true') {
+                var lockedCards = document.querySelectorAll('.phase2-card');
+                for (var i = 0; i < lockedCards.length; i++) {
+                    lockedCards[i].classList.remove('phase2-card');
+                    var lockIcon = lockedCards[i].querySelector('.lock-indicator');
+                    if (lockIcon) lockIcon.remove();
+                }
+                console.log('🔓 HanLingo · Lifetime access detected — all ' + lockedCards.length + ' phase‑2 topics unlocked.');
+            }
         })();
     </script>
 	<script type="application/ld+json">

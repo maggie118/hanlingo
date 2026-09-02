@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Restore Access · HanLingo</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="favicon" href="/favicon.ico">
+    <meta name="theme-color" content="#1A1A1A">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cinnabar: #B82222;
+            --cinnabar-glow: rgba(184, 34, 34, 0.15);
+            --cinnabar-hover: #9A1D1D;
+            --charcoal: #111111;
+            --stone: #555555;
+            --border-light: #E5E7EB;
+            --white: #ffffff;
+            --radius-full: 999px;
+            --radius: 20px;
+            --shadow-md: 0 8px 28px rgba(0,0,0,0.05);
+        }
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Inter',-apple-system,sans-serif;
+        }
+        body{
+            background:#f9f9f9;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:24px 16px;
+            color:var(--charcoal);
+        }
+        .box{
+            width:100%;
+            max-width:480px;
+            background:var(--white);
+            border-radius:var(--radius);
+            padding:40px 32px;
+            box-shadow:var(--shadow-md);
+            text-align:center;
+        }
+        h1{
+            font-size:26px;
+            font-weight:800;
+            margin-bottom:12px;
+        }
+        .desc{
+            color:var(--stone);
+            font-size:15px;
+            margin-bottom:28px;
+            line-height:1.6;
+        }
+        .form-row{
+            text-align:left;
+            margin-bottom:20px;
+        }
+        label{
+            display:block;
+            font-size:14px;
+            font-weight:600;
+            margin-bottom:8px;
+        }
+        input[type="email"]{
+            width:100%;
+            padding:14px 16px;
+            border:1px solid var(--border-light);
+            border-radius:12px;
+            font-size:16px;
+        }
+        input[type="email"]:focus{
+            outline:none;
+            border-color:var(--cinnabar);
+        }
+        .btn-primary{
+            width:100%;
+            background:var(--cinnabar);
+            color:#fff;
+            border:none;
+            border-radius:var(--radius-full);
+            padding:14px;
+            font-size:16px;
+            font-weight:700;
+            cursor:pointer;
+            box-shadow:0 4px 16px var(--cinnabar-glow);
+            transition:all 0.25s;
+        }
+        .btn-primary:hover{
+            background:var(--cinnabar-hover);
+            transform:translateY(-1px);
+        }
+        .btn-primary:disabled{
+            opacity:0.6;
+            cursor:not-allowed;
+            transform:none;
+        }
+        .msg{
+            margin-top:20px;
+            padding:14px 16px;
+            border-radius:12px;
+            font-size:14px;
+            line-height:1.6;
+            display:none;
+        }
+        .msg.success{
+            background:#ECFDF3;
+            color:#065f46;
+            display:block;
+        }
+        .msg.error{
+            background:#FEF2F2;
+            color:#991b1b;
+            display:block;
+        }
+        .back-link{
+            display:inline-block;
+            margin-top:24px;
+            font-size:14px;
+            color:var(--stone);
+            text-decoration:none;
+        }
+        .back-link:hover{
+            color:var(--cinnabar);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Restore HanLingo Access</h1>
+        <p class="desc">Lost local access after clearing browser data or switching devices. Enter your purchase‑time email to check your order record.</p>
+
+        <div class="form-row">
+            <label for="emailInput">Purchase Email</label>
+            <input id="emailInput" type="email" placeholder="your@email.com">
+        </div>
+
+        <button id="submitBtn" class="btn-primary">Check Purchase Record</button>
+
+        <div id="messageBox" class="msg"></div>
+
+        <a href="/" class="back-link">← Back to HanLingo homepage</a>
+    </div>
+
+<script>
+const emailInput = document.getElementById('emailInput');
+const submitBtn = document.getElementById('submitBtn');
+const messageBox = document.getElementById('messageBox');
+
+function showMessage(text, type){
+    messageBox.textContent = text;
+    messageBox.className = 'msg ' + type;
+}
+function hideMessage(){
+    messageBox.style.display = 'none';
+}
+
+submitBtn.addEventListener('click', async ()=>{
+    const email = emailInput.value.trim();
+    if(!email){
+        showMessage("Please enter your email address.","error");
+        return;
+    }
+    hideMessage();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Checking…";
+
+    try{
+        const res = await fetch("/api/recover‑access",{
+            method:"POST",
+            headers:{"Content‑Type":"application/json"},
+            body: JSON.stringify({email})
+        });
+        const data = await res.json();
+
+        if(data.hasPurchase){
+            showMessage("✅ Purchase record found! Please open the original Stripe payment‑success email and click its success‑page link to restore your local lifetime access.","success");
+        }else{
+            showMessage("❌ No matching purchase record found. Double‑check your email, or contact support@hanlingo.app for help.","error");
+        }
+    }catch(err){
+        showMessage("⚠️ Network error. Please try again later.","error");
+    }finally{
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Check Purchase Record";
+    }
+});
+
+// enter key submit
+emailInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') submitBtn.click();
+})
+</script>
+</body>
+</html>
+

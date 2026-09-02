@@ -6,14 +6,13 @@
     <title>Payment Successful · HanLingo Lifetime Access</title>
     <meta name="robots" content="noindex, follow">
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="favicon" href="/favicon.ico">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#162B3A" />
+      <meta name="theme-color" content="#1A1A1A">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap');
-
         :root {
             --bg-main: #F1F5F9;
             --white: #ffffff;
@@ -26,7 +25,6 @@
             --radius-sm: 16px;
             --radius-full: 99px;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, sans-serif;
@@ -39,7 +37,6 @@
             padding: 24px 20px 40px;
             -webkit-font-smoothing: antialiased;
         }
-
         .success-card {
             max-width: 540px;
             width: 100%;
@@ -53,7 +50,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .success-card::before {
             content: '';
             position: absolute;
@@ -65,17 +61,14 @@
             background-size: 200% 100%;
             animation: shimmerBar 4s ease-in-out infinite;
         }
-
         @keyframes shimmerBar { 0%, 100% { background-position: 0% 0%; } 50% { background-position: 100% 0%; } }
         @keyframes cardFadeUp { 0% { opacity: 0; transform: translateY(36px) scale(0.97); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-
         .success-icon-wrap {
             position: relative;
             width: 88px;
             height: 88px;
             margin: 0 auto 16px;
         }
-
         .success-icon {
             width: 100%;
             height: 100%;
@@ -87,13 +80,10 @@
             font-size: 42px;
             animation: iconPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
         }
-
         @keyframes iconPop { 0% { transform: scale(0) rotate(-8deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
-
         h1 { font-size: 28px; font-weight: 900; margin-bottom: 6px; }
         .subtitle { font-size: 15px; color: #475569; margin-bottom: 20px; }
         .subtitle strong { color: var(--struct-dark); }
-
         .highlight-box {
             background: #FFFAF5;
             border: 1px solid #FDE8D0;
@@ -105,7 +95,6 @@
         .highlight-box .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #B45309; }
         .highlight-box .content { font-size: 14.5px; font-weight: 600; color: var(--struct-dark); line-height: 1.7; }
         .highlight-box .content .accent { color: var(--cta-orange); }
-
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -126,7 +115,6 @@
             font-weight: 800;
             flex-shrink: 0;
         }
-
         .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
         .btn-primary {
             display: inline-flex;
@@ -147,7 +135,6 @@
             text-decoration: none;
         }
         .btn-primary:hover { background: var(--cta-orange-hover); transform: translateY(-2px); }
-
         .btn-secondary {
             display: inline-flex;
             align-items: center;
@@ -166,24 +153,19 @@
             text-decoration: none;
         }
         .btn-secondary:hover { border-color: var(--struct-dark); color: var(--struct-dark); background: #F8FAFC; }
-
         .fine-print { margin-top: 18px; font-size: 12.5px; color: #94A3B8; }
         .fine-print a { color: var(--cta-orange); font-weight: 600; text-decoration: none; }
         .fine-print a:hover { text-decoration: underline; }
-
         /* ===== 验证失败 ===== */
         .error-state { display: none; }
         .error-state .error-icon { font-size: 48px; margin-bottom: 12px; }
         .error-state h2 { font-size: 22px; font-weight: 800; color: #b91c1c; }
         .error-state p { color: #475569; font-size: 15px; margin-top: 8px; }
-
         .loading-state { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px 0; }
         .spinner { width: 40px; height: 40px; border: 4px solid #E2E8F0; border-top-color: var(--cta-orange); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         .content-unlocked { display: none; }
         .content-unlocked.show { display: block; }
-
         /* ===== 管理员提示 (仅开发可见) ===== */
         .admin-hint {
             margin-top: 20px;
@@ -216,7 +198,6 @@
             margin-left: 6px;
         }
         .admin-hint .copy-btn:hover { background: #78350f; }
-
         @media (max-width: 520px) {
             .success-card { padding: 28px 18px 24px; border-radius: 24px; }
             h1 { font-size: 22px; }
@@ -225,15 +206,12 @@
     </style>
 </head>
 <body>
-
     <div class="success-card" id="app">
-
         <!-- 加载状态 -->
         <div class="loading-state" id="loadingState">
             <div class="spinner"></div>
             <p style="color:#475569;font-weight:500;">Verifying your access...</p>
         </div>
-
         <!-- 错误状态 -->
         <div class="error-state" id="errorState">
             <div class="error-icon">🔒</div>
@@ -242,163 +220,131 @@
             <br>
             <a href="/" class="btn-secondary" style="display:inline-flex;width:auto;padding:10px 28px;">← Return to Home</a>
         </div>
-
         <!-- 成功解锁 -->
         <div class="content-unlocked" id="unlockedContent">
-
             <div class="success-icon-wrap">
                 <div class="success-icon">✅</div>
             </div>
-
             <h1>You're All Set! 🎉</h1>
             <p class="subtitle">
                 Your <strong>Lifetime Access</strong> is now active.<br>
                 Start learning Chinese — <strong>anywhere, even offline</strong>.
             </p>
-
             <div class="highlight-box">
                 <div class="label">📦 Your Library Includes</div>
                 <div class="content">
-                    ✅ <span class="accent">15 Real-Life Topics</span> · 150+ Phrases<br />
+                    ✅ <span class="accent">15 Real‑Life Topics</span> · 150+ Phrases<br />
                     ✅ <span class="accent">Travel</span> · Food · Hotels · Shopping · Emergencies · And more
                 </div>
             </div>
-
             <div class="feature-grid">
                 <div class="feature-item"><span class="check">✓</span> Offline Audio Playback</div>
                 <div class="feature-item"><span class="check">✓</span> Add to Home Screen</div>
                 <div class="feature-item"><span class="check">✓</span> Lifetime Free Updates</div>
                 <div class="feature-item"><span class="check">✓</span> Printable PDF Phrasebook</div>
             </div>
-
             <div class="btn-group">
-                <a href="survival-topics.html" class="btn-primary">
+                <a href="/#topics" class="btn-primary">
                     🚀 Start Learning Now →
                 </a>
                 <button class="btn-secondary" onclick="window.print()">
                     🖨️ Print PDF Phrasebook
                 </button>
             </div>
-
             <div class="fine-print">
                 <span>💡 Questions? <a href="mailto:support@hanlingo.app">support@hanlingo.app</a></span>
                 <br>
                 <span style="font-size:11px;opacity:0.6;">Payment confirmed · Lifetime access</span>
             </div>
-
         </div>
-
         <!-- ===== 管理员提示：当 URL 包含 ?admin=true 时显示 ===== -->
         <div class="admin-hint" id="adminHint">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                <span>🔑 <strong>Admin:</strong> Current access code</span>
+                <span>🔑 <strong>Admin:</strong> Stripe session_id</span>
                 <button class="copy-btn" onclick="copyCode()">📋 Copy</button>
             </div>
             <code id="currentCodeDisplay" style="display:block;margin-top:6px;background:#fff;padding:6px 10px;border-radius:4px;font-size:12px;word-break:break-all;"></code>
             <p style="margin-top:6px;font-size:11px;color:#78350f;">
-                💡 Add this code to <code>VALID_CODES</code> array in success.html
+                💡 For debug only. Real validation requires backend Stripe API call.
             </p>
         </div>
-
     </div>
+   <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
 
-    <script>
-        (function() {
-            'use strict';
+    const loadingState = document.getElementById('loadingState');
+    const errorState = document.getElementById('errorState');
+    const unlockedContent = document.getElementById('unlockedContent');
+    const adminHint = document.getElementById('adminHint');
+    const currentCodeDisplay = document.getElementById('currentCodeDisplay');
 
-            // ================================================================
-            // 🔑 有效访问码清单 — 手动维护
-            // 每次有新用户付款，将 Stripe Session ID 添加到这里
-            // 格式: cs_test_xxx 或 cs_live_xxx
-            // ================================================================
-            const VALID_CODES = [
-                // ⬇️ 在这里添加有效的 Session ID
-                // 'cs_test_abc123def456',
-                // 'cs_live_xyz789uvw012',
-            ];
+    const isAdmin = urlParams.get('admin') === 'true';
+    if(isAdmin && sessionId){
+        adminHint.classList.add('show');
+        currentCodeDisplay.textContent = sessionId;
+    }
 
-            // ================================================================
-            // 页面逻辑
-            // ================================================================
-            const loadingState = document.getElementById('loadingState');
-            const errorState = document.getElementById('errorState');
-            const unlockedContent = document.getElementById('unlockedContent');
-            const adminHint = document.getElementById('adminHint');
-            const currentCodeDisplay = document.getElementById('currentCodeDisplay');
+    function showUnlocked(){
+        loadingState.style.display = 'none';
+        errorState.style.display = 'none';
+        unlockedContent.classList.add('show');
+        localStorage.setItem("hanlingo_lifetime_access", "true");
+        console.log("✅ Backend verified, access granted");
+    }
+    function showError(){
+        loadingState.style.display = 'none';
+        errorState.style.display = 'block';
+        unlockedContent.classList.remove('show');
+    }
 
-            function showError() {
-                loadingState.style.display = 'none';
-                errorState.style.display = 'block';
-                unlockedContent.classList.remove('show');
+    // 1. 先检查本地是否已经拥有权限（用户刷新成功页）
+    const alreadyPurchased = localStorage.getItem("hanlingo_lifetime_access");
+    if(alreadyPurchased === "true"){
+        showUnlocked();
+        return;
+    }
+
+    // 2. URL没有session_id，直接报错
+    if (!sessionId || !sessionId.startsWith('cs_')) {
+        console.warn("❌ No valid session_id");
+        showError();
+        return;
+    }
+
+    // 3. 向后端Vercel Serverless接口POST校验session_id
+    (async function verifyFromBackend(){
+        try {
+            const resp = await fetch("/api/verify‑checkout", {
+                method:"POST",
+                headers: {
+                    "Content‑Type":"application/json"
+                },
+                body: JSON.stringify({ session_id: sessionId })
+            });
+            const result = await resp.json();
+            if(result.paid === true){
+                showUnlocked();
+            }else{
+                showError();
             }
+        }catch(err){
+            console.error("API fetch fail", err);
+            showError();
+        }
+    })();
 
-            function showUnlocked() {
-                loadingState.style.display = 'none';
-                errorState.style.display = 'none';
-                unlockedContent.classList.add('show');
-            }
-
-            function verifyCode() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const code = urlParams.get('code');
-                const isAdmin = urlParams.get('admin') === 'true';
-
-                // 管理员模式：显示当前 code
-                if (isAdmin && code) {
-                    adminHint.classList.add('show');
-                    currentCodeDisplay.textContent = code;
-                }
-
-                // 如果没有 code 参数
-                if (!code) {
-                    console.warn('❌ No access code found in URL');
-                    showError();
-                    return;
-                }
-
-                console.log('🔑 Verifying code:', code);
-
-                // 检查是否在有效清单中
-                const isValid = VALID_CODES.includes(code);
-
-                if (isValid) {
-                    console.log('✅ Code verified!');
-                    showUnlocked();
-                } else {
-                    console.warn('❌ Invalid code:', code);
-                    showError();
-                }
-            }
-
-            // 复制 code 到剪贴板
-            window.copyCode = function() {
-                const code = currentCodeDisplay.textContent;
-                if (!code) return;
-                navigator.clipboard.writeText(code).then(() => {
-                    const btn = document.querySelector('.copy-btn');
-                    const original = btn.textContent;
-                    btn.textContent = '✅ Copied!';
-                    setTimeout(() => { btn.textContent = original; }, 2000);
-                }).catch(() => {
-                    // 降级方案
-                    const textarea = document.createElement('textarea');
-                    textarea.value = code;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textarea);
-                    const btn = document.querySelector('.copy-btn');
-                    const original = btn.textContent;
-                    btn.textContent = '✅ Copied!';
-                    setTimeout(() => { btn.textContent = original; }, 2000);
-                });
-            };
-
-            // 页面加载后执行验证
-            verifyCode();
-
-        })();
-    </script>
-
+    window.copyCode = function(){
+        const txt = currentCodeDisplay.textContent;
+        navigator.clipboard.writeText(txt).then(()=>{
+            const btn = document.querySelector('.copy‑btn');
+            const oldText = btn.textContent;
+            btn.textContent = "✅ Copied!";
+            setTimeout(()=> btn.textContent = oldText,2000);
+        });
+    }
+});
+</script>
 </body>
 </html>
