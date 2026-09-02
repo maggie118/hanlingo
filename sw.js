@@ -1,172 +1,63 @@
-// ============================================================
-// HanLingo Service Worker ¡ª v2.2
-// ²ßÂÔ: Cache First (with network fallback) + ×Ô¶¯°æ±¾¹ÜÀí
-// ============================================================
+// service-worker.js - é’ˆå¯¹å•é¡µé¢ä¸é«˜é¢‘éŸ³é¢‘æ·±åº¦ä¼˜åŒ–
+const CACHE_NAME = 'hanlingo-cache-v15'; // v15ï¼šFounder å¤´åƒæ”¹ç”¨ images/logo-founder.pngï¼ˆ1300Ã—1300 æµ·è±šå®Œæ•´å…¥åœ†ï¼‰ï¼Œå®¹å™¨æ”¾å¤§åˆ° 160pxï¼›v14ï¼šç§»é™¤é¢å¤– 0.78 ç¼©æ”¾
 
-const CACHE_VERSION = 'v2.2';
-const CACHE_NAME = `hanlingo-${CACHE_VERSION}`;
-
-// ĞèÒª»º´æµÄ¾²Ì¬×ÊÔ´ (½öºËĞÄÎÄ¼ş, CSS/JS Í¨¹ı°æ±¾ºÅ¿ØÖÆ¸üĞÂ)
-const STATIC_ASSETS = [
-  './',
-  './index.html',
-  './survival-topics.html',
-  './success.html',
-  './manifest.json',
-  './favicon.ico'
+// å¼ºåˆ¶å¯åŠ¨é¢„ç¼“å­˜æ¸…å•
+const PRE_CACHE_ASSETS = [
+ './',
+ './index.html',
+ './js/data.js',
+ './manifest.json',
+ './images/logo-founder.png'
 ];
 
-// ĞèÒª»º´æµÄ CSS/JS (´ø°æ±¾ºÅ, È·±£¸üĞÂÊ±Ç¿ÖÆË¢ĞÂ)
-// ×¢Òâ: Ã¿´Î²¿Êğ¸üĞÂÊ±, ĞŞ¸Ä°æ±¾ºÅ¼´¿É
-const VERSIONED_ASSETS = [
-  './style.css?v=2.2',
-  './script.js?v=2.2'
-];
-
-// ºÏ²¢ËùÓĞĞèÒªÔ¤»º´æµÄ×ÊÔ´
-const PRECACHE_ASSETS = [...STATIC_ASSETS, ...VERSIONED_ASSETS];
-
-// ============================================================
-// 1. INSTALL ¡ª Ô¤»º´æºËĞÄ×ÊÔ´
-// ============================================================
-self.addEventListener('install', (event) => {
-  console.log(`[SW] Installing ${CACHE_NAME}...`);
-
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[SW] Pre-caching assets...');
-        return cache.addAll(PRECACHE_ASSETS);
-      })
-      .then(() => {
-        console.log('[SW] Pre-cache complete.');
-        // Ç¿ÖÆĞÂ SW Á¢¼´¼¤»î
-        return self.skipWaiting();
-      })
-      .catch((error) => {
-        console.error('[SW] Pre-cache failed:', error);
-      })
-  );
+self.addEventListener('install', event => {
+ event.waitUntil(
+ caches.open(CACHE_NAME).then(cache => {
+ return cache.addAll(PRE_CACHE_ASSETS);
+ })
+ );
+ self.skipWaiting();
 });
 
-// ============================================================
-// 2. ACTIVATE ¡ª ÇåÀí¾É»º´æ
-// ============================================================
-self.addEventListener('activate', (event) => {
-  console.log(`[SW] Activating ${CACHE_NAME}...`);
-
-  const cacheWhitelist = [CACHE_NAME];
-
-  event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (!cacheWhitelist.includes(cacheName)) {
-              console.log(`[SW] Deleting old cache: ${cacheName}`);
-              return caches.delete(cacheName);
-            }
-            return null;
-          })
-        );
-      })
-      .then(() => {
-        console.log('[SW] Activation complete. Taking control...');
-        // Á¢¼´¿ØÖÆËùÓĞ´ò¿ªµÄÒ³Ãæ
-        return self.clients.claim();
-      })
-  );
+self.addEventListener('activate', event => {
+ event.waitUntil(
+ caches.keys().then(keys => Promise.all(
+ keys.map(key => {
+ if (key !== CACHE_NAME) return caches.delete(key);
+ })
+ ))
+ );
+ return self.clients.claim();
 });
 
-// ============================================================
-// 3. FETCH ¡ª »º´æÓÅÏÈ²ßÂÔ (´øÍøÂç»ØÍË)
-// ============================================================
-self.addEventListener('fetch', (event) => {
-  const request = event.request;
+// æ ¸å¿ƒï¼šæ™ºèƒ½å•é¡µé¢è¯·æ±‚æ‹¦æˆªä¸éŸ³é¢‘æœ¬åœ°åŠ¨æ€å›ºåŒ–
+self.addEventListener('fetch', event => {
+ // æ’é™¤ Stripe æ”¯ä»˜å®‰å…¨é¡µé¢çš„ç¼“å­˜å¹²æ‰°ï¼Œç¡®ä¿ä»˜æ¬¾æµç¨‹èµ°å®æ—¶çº¿ä¸Š
+ if (event.request.url.includes('://stripe.com') || event.request.url.includes('api/webhook')) {
+ return;
+ }
 
-  // Ìø¹ı·Ç GET ÇëÇó (Èç POST µÈ)
-  if (request.method !== 'GET') {
-    event.respondWith(fetch(request));
-    return;
-  }
+ event.respondWith(
+ caches.match(event.request).then(cachedResponse => {
+ if (cachedResponse) {
+ return cachedResponse; // æœ¬åœ°å­˜åœ¨ï¼Œç›´æ¥ç§’å¼€ç§’æ”¾éŸ³é¢‘
+ }
 
-  // Ìø¹ıä¯ÀÀÆ÷À©Õ¹»ò·Ç HTTP ÇëÇó
-  if (!request.url.startsWith('http')) {
-    event.respondWith(fetch(request));
-    return;
-  }
-
-  // ¶ÔÓÚ HTML Ò³Ãæ, ÓÅÏÈÊ¹ÓÃÍøÂç (È·±£×îĞÂÄÚÈİ)
-  if (request.headers.get('accept')?.includes('text/html')) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // ¿ËÂ¡ÏìÓ¦ÒÔ´æÈë»º´æ
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, responseClone);
-          });
-          return response;
-        })
-        .catch(() => {
-          // ÍøÂçÊ§°ÜÊ±»ØÍËµ½»º´æ
-          return caches.match(request);
-        })
-    );
-    return;
-  }
-
-  // ¶ÔÓÚ CSS/JS µÈ¾²Ì¬×ÊÔ´: ÏÈ²é»º´æ, ÈôÃ»ÓĞÔòÍøÂçÇëÇó
-  event.respondWith(
-    caches.match(request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          // »º´æÃüÖĞ ¡ª ·µ»Ø»º´æÄÚÈİ
-          return cachedResponse;
-        }
-
-        // »º´æÎ´ÃüÖĞ ¡ª ÇëÇóÍøÂç
-        return fetch(request)
-          .then((response) => {
-            // Ö»»º´æ³É¹¦µÄÏìÓ¦
-            if (!response || response.status !== 200) {
-              return response;
-            }
-
-            // ¿ËÂ¡ÏìÓ¦ÒÔ´æÈë»º´æ
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, responseClone);
-            });
-
-            return response;
-          })
-          .catch((error) => {
-            console.warn('[SW] Fetch failed:', request.url, error);
-            // ·µ»ØÒ»¸ö¼òµ¥µÄÀëÏß»ØÍËÒ³Ãæ (¿ÉÑ¡)
-            // ¶ÔÓÚÍ¼Æ¬, ¿ÉÒÔ·µ»ØÒ»¸öÕ¼Î»Í¼
-            if (request.url.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i)) {
-              return new Response(
-                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="#f0f0f0"/><text x="50%" y="50%" font-family="sans-serif" font-size="14" fill="#999" text-anchor="middle" dy=".3em">?? Offline</text></svg>',
-                { headers: { 'Content-Type': 'image/svg+xml' } }
-              );
-            }
-            return new Response('Offline ¡ª please check your connection.', { status: 503 });
-          });
-      })
-  );
+ return fetch(event.request).then(networkResponse => {
+ // å¦‚æœæ˜¯éŸ³é¢‘èµ„äº§ï¼Œæˆ–è€…å‰ç«¯å…¶ä»–å›¾ç‰‡ã€JSï¼Œä¸€è¾¹æ’­æ”¾ä¸€è¾¹è‡ªåŠ¨å¡è¿›æœ¬åœ°ç¼“å­˜
+ if (event.request.url.includes('.mp3') || event.request.url.includes('.png')) {
+ const responseToCache = networkResponse.clone();
+ caches.open(CACHE_NAME).then(cache => {
+ cache.put(event.request, responseToCache);
+ });
+ }
+ return networkResponse;
+ });
+ }).catch(() => {
+ // ç¦»çº¿çŠ¶æ€ä¸‹ï¼Œæ‰€æœ‰è·³è½¬è·¯ç”±å…¨éƒ¨å¼ºåˆ¶æ˜ å°„å› index.html å•é¡µé¢ä¸­
+ if (event.request.mode === 'navigate') {
+ return caches.match('./index.html');
+ }
+ })
+ );
 });
-
-// ============================================================
-// 4. MESSAGE ¡ª ¼àÌı¿Í»§¶ËÏûÏ¢ (¿ÉÑ¡, ÓÃÓÚ´¥·¢¸üĞÂ)
-// ============================================================
-self.addEventListener('message', (event) => {
-  if (event.data === 'skipWaiting') {
-    self.skipWaiting();
-  }
-});
-
-// ============================================================
-// 5. ÈÕÖ¾ (½ö¿ª·¢»·¾³)
-// ============================================================
-console.log(`[SW] HanLingo Service Worker ${CACHE_VERSION} initialized.`);
