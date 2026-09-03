@@ -1,10 +1,11 @@
-// service-worker.js - Õë¶Ôµ¥Ò³ÃæÓë¸ßÆµÒôÆµÉî¶ÈÓÅ»¯
-const CACHE_NAME = 'hanlingo-cache-v16'; // ÉÏÏß¸üĞÂ°æ±¾ºÅ£ºÃ¿´Î¸Ä´úÂë+1£¬Àı v16
+// service-worker.js - é’ˆå¯¹å•é¡µé¢ä¸é«˜é¢‘éŸ³é¢‘æ·±åº¦ä¼˜åŒ–
+const CACHE_NAME = 'hanlingo-cache-v21'; // ä¸Šçº¿æ›´æ–°ç‰ˆæœ¬å·ï¼šæ¯æ¬¡æ”¹ä»£ç  +1ï¼Œä¾‹ v17
 
 const PRE_CACHE_ASSETS = [
   './',
   './index.html',
   './js/data.js',
+  './js/wordseg.js',
   './manifest.json',
   './images/logo-founder.png'
 ];
@@ -32,12 +33,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // ÍêÈ«Ìø¹ı£ºËùÓĞ /api/* ½Ó¿Ú + stripeÓòÃû£¬²»¾­¹ıSW»º´æ£¬Ö±½ÓÍøÂç
+  // å®Œå…¨è·³è¿‡ï¼šæ‰€æœ‰ /api/* æ¥å£ + stripe åŸŸåï¼Œä¸ç» SW ç¼“å­˜ï¼Œç›´è¿ç½‘ç»œ
   if (url.pathname.startsWith('/api/') || event.request.url.includes('://stripe.com')) {
     return;
   }
 
-  // POSTÇëÇóÒ»ÂÉ²»×ß»º´æ£¬Ö±½Ó·ÅĞĞ
+  // POST è¯·æ±‚ä¸€å¾‹ä¸èµ°ç¼“å­˜ï¼Œç›´æ¥æ”¾è¡Œ
   if (event.request.method !== 'GET') {
     return;
   }
@@ -48,23 +49,23 @@ self.addEventListener('fetch', event => {
         return cachedResponse;
       }
       return fetch(event.request).then(networkResponse => {
-        // Ö»ÓĞ2xx³É¹¦ÏìÓ¦²ÅĞ´Èë»º´æ£¬·ÀÖ¹»º´æ404/500´íÎóÒ³Ãæ
+        // åªæœ‰ 2xx æˆåŠŸå“åº”æ‰å†™å…¥ç¼“å­˜ï¼Œé˜²æ­¢ç¼“å­˜ 404/500 é”™è¯¯é¡µ
         if (networkResponse.ok && (event.request.url.includes('.mp3') || event.request.url.includes('.png'))) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, responseToCache).catch(err => {
-              // »º´æÊ§°Ü¾²Ä¬ÍÌµô£¬²»´ò¶ÏÒ³Ãæ
+              // ç¼“å­˜å¤±è´¥é™é»˜åæ‰ï¼Œä¸æ‰“æ–­é¡µé¢
               console.warn('SW cache put skip', err);
             });
           });
         }
         return networkResponse;
       }).catch(() => {
-        // ÀëÏß£ºµ¼º½ÀàÇëÇó·µ»ØÖ÷¿ÇÒ³Ãæ index.html
+        // ç¦»çº¿ï¼šå¯¼èˆªç±»è¯·æ±‚è¿”å›ä¸»å£³é¡µ index.html
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
-      });
+      })
     })
   );
 });
