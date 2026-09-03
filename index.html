@@ -1492,6 +1492,82 @@
                 font-size: 1rem;
             }
         }
+        /* ---- 正面：词级跟读单元（wordseg） ---- */
+        .card-front .char-unit .char-wrap {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        .card-front .char-unit.word-unit .char {
+            letter-spacing: 1px;
+        }
+        .card-front .char-unit .char-punc {
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            font-weight: 400;
+            color: #c3c6cc;
+            margin-left: 2px;
+            transition: color 0.15s ease;
+        }
+        .card-front .char-unit.active .char-punc {
+            color: #c3c6cc; /* 标点不参与"跟读点亮"，保持浅灰 */
+        }
+        /* ---- 背面：词对齐三行（汉字词 / 拼音词 / 英文词义） ---- */
+        .card-back .breakdown.wseg {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 4px 10px;
+            margin: 6px 0 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .card-back .w-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 2px 2px;
+            min-width: 0;
+        }
+        .card-back .w-col .w-top {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        .card-back .w-col .w-hanzi {
+            font-size: clamp(1.2rem, 4.4vw, 1.55rem);
+            font-weight: 700;
+            color: var(--charcoal);
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .card-back .w-col .w-punc {
+            font-size: 0.9rem;
+            color: #c3c6cc;
+            font-weight: 400;
+            margin-left: 1px;
+        }
+        .card-back .w-col .w-py {
+            font-size: clamp(0.8rem, 2.6vw, 0.95rem);
+            color: var(--stone);
+            font-weight: 500;
+            margin-top: 1px;
+            line-height: 1.35;
+            min-height: 1.3em;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .card-back .w-col .w-mn {
+            font-size: clamp(0.72rem, 2.4vw, 0.84rem);
+            color: #9aa0a6;
+            margin-top: 2px;
+            line-height: 1.3;
+            min-height: 1.2em;
+            text-align: center;
+        }
         html {
             scroll-behavior: smooth;
         }
@@ -1659,6 +1735,8 @@
     <!-- ===== DATA ===== -->
     <script src="js/data.js">
     </script>
+    <script src="js/wordseg.js">
+    </script>
 
     <script>
         // ================================================================
@@ -1795,6 +1873,11 @@
                     });
                     // 重新构建 words，保留 meanings
                     p.words = enhancedBuildWords(p.zh, p.py, meanings);
+                    // 词级拆解（词对齐三行 + 正面按词跟读）优先来自 wordseg.js
+                    p.wseg = null;
+                    if (window.HANLINGO_WORDSEG && window.HANLINGO_WORDSEG[p.id]) {
+                        p.wseg = window.HANLINGO_WORDSEG[p.id];
+                    }
                     // 如果有自定义提示，则使用；否则置空
                     if (p.id && CUSTOM_TIPS[p.id]) {
                         p.customCulture = CUSTOM_TIPS[p.id];
@@ -1884,9 +1967,57 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
             var isFlipped = false;
             var isPlaying = false;
             var isSlow = false;
-            var karaokeTimer = null;
+            var karaokeTimers = [];
             var currentCharUnits = [];
             var isMilestoneCardShowing = false;
+
+            // ---- TTS: prefer the gentlest female zh-CN voice on this device ----
+            // Priority: Microsoft Xiaoxiao (Win/Edge, warm) > Xiaoyi > Yaoyao >
+            // Apple Tingting (macOS/iOS) > Google Mandarin (Chrome).
+            // Fallback: any zh voice that is not a known male voice.
+            var cachedZhVoice = null;
+            function isZhVoice(v) {
+                return !!(v && v.lang && v.lang.indexOf('zh') === 0);
+            }
+            function pickGentleZhVoice() {
+                if (!window.speechSynthesis) return null;
+                if (cachedZhVoice) return cachedZhVoice;
+                var voices = window.speechSynthesis.getVoices() || [];
+                if (!voices.length) return null;
+                var prefs = ['Xiaoxiao', 'Xiaoyi', 'Yaoyao', 'Tingting', 'Ting-Ting'];
+                for (var p = 0; p < prefs.length; p++) {
+                    for (var i = 0; i < voices.length; i++) {
+                        var v = voices[i];
+                        if (isZhVoice(v) && v.name.indexOf(prefs[p]) !== -1) {
+                            cachedZhVoice = v;
+                            return v;
+                        }
+                    }
+                }
+                // Google Mandarin (Chrome desktop) - require zh-CN to avoid Cantonese
+                for (var g = 0; g < voices.length; g++) {
+                    var gv = voices[g];
+                    if (isZhVoice(gv) && gv.lang.indexOf('zh-CN') === 0 && gv.name.indexOf('Google') !== -1) {
+                        cachedZhVoice = gv;
+                        return gv;
+                    }
+                }
+                // Fallback: any zh voice whose name is not a known male voice
+                var maleNames = ['Yunxi', 'Yunjian', 'Yunyang', 'Yunye', 'Yunhao', 'Yunfeng', 'Kangkang', 'Danny', 'Liang'];
+                for (var k = 0; k < voices.length; k++) {
+                    var vv = voices[k];
+                    if (!isZhVoice(vv)) continue;
+                    var isMale = false;
+                    for (var m = 0; m < maleNames.length; m++) {
+                        if (vv.name.indexOf(maleNames[m]) !== -1) { isMale = true; break; }
+                    }
+                    if (!isMale) { cachedZhVoice = vv; return vv; }
+                }
+                return null;
+            }
+            if (window.speechSynthesis && window.speechSynthesis.addEventListener) {
+                window.speechSynthesis.addEventListener('voiceschanged', function() { cachedZhVoice = null; });
+            }
 
             var cardModal = document.getElementById('cardModal');
             var cardFlipInner = document.getElementById('cardFlipInner');
@@ -1909,34 +2040,69 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                 return text.replace(/\n/g, '<br>');
             }
 
-            // ---- 构建字符网格 ----
-            function buildCharGrid(phrase) {
+            // ---- 计算一个跟读单元的"时长权重"：按汉字/字母数计，标点不计 ----
+            function unitWeight(unit) {
+                if (!unit || !unit.char) return 0;
+                var n = 0;
+                for (var i = 0; i < unit.char.length; i++) {
+                    var code = unit.char.charCodeAt(i);
+                    var isCjk = (code >= 0x4E00 && code <= 0x9FFF) || (code >= 0x3400 && code <= 0x4DBF);
+                    var isLatin = (unit.char.charAt(i) >= 'A' && unit.char.charAt(i) <= 'Z') ||
+                        (unit.char.charAt(i) >= 'a' && unit.char.charAt(i) <= 'z');
+                    if (isCjk || isLatin) n++;
+                }
+                return Math.max(1, n);
+            }
+
+            // ---- 构建正面跟读单元 ----
+            // 优先词级拆解（wordseg.js）：一个单元 = 一个词（整词汉字 + 整词拼音 + 尾随标点）
+            // 无词级数据时回退到旧的逐字单元。
+            function buildFrontUnits(phrase) {
+                var seg = phrase.wseg;
+                if (seg && seg.cells && seg.cells.length) {
+                    return seg.cells.map(function(c) {
+                        return { word: true, char: c[0], pinyin: c[1], punc: c[3] || '' };
+                    });
+                }
                 var words = phrase.words || [];
                 if (!words.length) {
                     var chars = phrase.zh ? phrase.zh.split('') : [];
                     var pys = phrase.py ? splitPinyinIntoSyllables(phrase.py) : [];
-                    return chars.map(function(ch, i) { return { char: ch, pinyin: pys[i] || '' }; });
+                    return chars.map(function(ch, i) { return { word: false, char: ch, pinyin: pys[i] || '', punc: '' }; });
                 }
-                return words.map(function(w) { return { char: w.w || '', pinyin: w.py || '' }; });
+                return words.map(function(w) { return { word: false, char: w.w || '', pinyin: w.py || '', punc: '' }; });
             }
 
+            // ---- 渲染词级/字级网格（正面） ----
             function renderCharGrid(units) {
                 charGrid.innerHTML = '';
                 currentCharUnits = [];
                 units.forEach(function(u, idx) {
                     var unitDiv = document.createElement('div');
-                    unitDiv.className = 'char-unit';
+                    unitDiv.className = 'char-unit' + (u.word ? ' word-unit' : '');
                     unitDiv.dataset.index = idx;
+
+                    var topWrap = document.createElement('span');
+                    topWrap.className = 'char-wrap';
 
                     var charSpan = document.createElement('span');
                     charSpan.className = 'char';
                     charSpan.textContent = u.char || ' ';
+                    topWrap.appendChild(charSpan);
+
+                    var puncText = u.punc || '';
+                    if (puncText) {
+                        var puncSpan = document.createElement('span');
+                        puncSpan.className = 'char-punc';
+                        puncSpan.textContent = puncText;
+                        topWrap.appendChild(puncSpan);
+                    }
 
                     var pinyinSpan = document.createElement('span');
                     pinyinSpan.className = 'pinyin-syllable';
                     pinyinSpan.textContent = u.pinyin || '';
 
-                    unitDiv.appendChild(charSpan);
+                    unitDiv.appendChild(topWrap);
                     unitDiv.appendChild(pinyinSpan);
                     charGrid.appendChild(unitDiv);
                     currentCharUnits.push(unitDiv);
@@ -1947,52 +2113,64 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                 currentCharUnits.forEach(function(el) { el.classList.remove('active'); });
             }
 
-            // ---- 卡拉OK ----
+            // ---- 卡拉OK（按词点亮跟读） ----
             function startKaraoke() {
                 if (isPlaying) return;
                 var phrase = currentPhrases[currentIndex];
                 if (!phrase || phrase.isMilestone) return;
 
-                var units = buildCharGrid(phrase);
+                var units = buildFrontUnits(phrase);
                 renderCharGrid(units);
+                if (!units.length) return;
 
-                var total = units.length;
-                if (total === 0) return;
-
-                var interval = isSlow ? 800 : 400;
+                var perCharMs = isSlow ? 1000 : 400;
 
                 if (window.speechSynthesis) {
                     var utterance = new SpeechSynthesisUtterance(phrase.zh);
                     utterance.lang = 'zh-CN';
-                    utterance.rate = isSlow ? 0.6 : 0.9;
+                    var zhVoice = pickGentleZhVoice();
+                    if (zhVoice) utterance.voice = zhVoice;
+                    utterance.pitch = 1.05; // slightly softer, warmer tone
+                    utterance.rate = isSlow ? 0.45 : 0.9;
                     window.speechSynthesis.speak(utterance);
                 }
 
                 isPlaying = true;
                 cardPlayBtn.textContent = '⏹';
 
-                var idx = 0;
+                karaokeTimers = [];
                 clearHighlights();
 
-                karaokeTimer = setInterval(function() {
-                    clearHighlights();
-                    if (idx < total) {
-                        currentCharUnits[idx].classList.add('active');
-                        idx++;
-                    } else {
-                        clearInterval(karaokeTimer);
-                        karaokeTimer = null;
-                        isPlaying = false;
-                        cardPlayBtn.textContent = '▶';
+                // 每个词按其汉字数分配时长，逐词依次点亮
+                var cursor = 140;
+                units.forEach(function(u, idx) {
+                    var w = unitWeight(u);
+                    var el = currentCharUnits[idx];
+                    var start = cursor;
+                    var end = start + w * perCharMs;
+                    cursor = end;
+                    if (!el) return;
+                    karaokeTimers.push(setTimeout(function() {
                         clearHighlights();
-                    }
-                }, interval);
+                        el.classList.add('active');
+                    }, start));
+                    karaokeTimers.push(setTimeout(function() {
+                        el.classList.remove('active');
+                    }, end));
+                });
+
+                var finishAt = cursor + 300;
+                karaokeTimers.push(setTimeout(function() {
+                    isPlaying = false;
+                    cardPlayBtn.textContent = '▶';
+                    clearHighlights();
+                }, finishAt));
             }
 
             function stopKaraoke() {
-                if (karaokeTimer) {
-                    clearInterval(karaokeTimer);
-                    karaokeTimer = null;
+                if (karaokeTimers) {
+                    karaokeTimers.forEach(function(t) { clearTimeout(t); });
+                    karaokeTimers = [];
                 }
                 isPlaying = false;
                 cardPlayBtn.textContent = '▶';
@@ -2078,12 +2256,14 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                         e.stopPropagation();
                         togglePlay();
                     });
+                    cardPlayBtn = newPlayBtn; // 每次重建后刷新引用，确保 ⏹/▶ 图标生效
                 }
                 if (newSlowBtn) {
                     newSlowBtn.addEventListener('click', function(e) {
                         e.stopPropagation();
                         toggleSlow();
                     });
+                    cardSlowBtn = newSlowBtn;
                 }
                 var newCharGrid = cardFront.querySelector('.char-grid');
                 if (newCharGrid) {
@@ -2091,33 +2271,50 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                     charGrid = newCharGrid;
                 }
 
-                // ---- 背面：英文 + 逐字拆解（含拼音和含义） + 文化提示 ----
-                // 获取字符、拼音、含义数组（忽略标点）
-                var words = phrase.words || [];
-                var chars = [];
-                var pys = [];
-                var meanings = [];
-                words.forEach(function(w) {
-                    var ch = w.w || '';
-                    var py = w.py || '';
-                    var mn = w.mn || '';
-                    // 忽略标点
-                    if (!ch || /[，。！？、；：""''（）…—·\!\?,\.]/.test(ch)) return;
-                    chars.push(ch);
-                    pys.push(py);
-                    meanings.push(mn || py); // 如果没有含义，用拼音代替
-                });
-
+                // ---- 背面：英文 + 词级拆解（汉字词 / 拼音词 / 英文词义 三行对齐） + 文化提示 ----
                 var breakdownHtml = '';
-                if (chars.length > 0) {
-                    breakdownHtml = `
+                var seg = phrase.wseg;
+                if (seg && seg.cells && seg.cells.length) {
+                    // 词对齐三行：每个词一列，自上而下 汉字词 + 尾随标点 / 拼音词 / 英文词义
+                    var colsHtml = seg.cells.map(function(c) {
+                        var z = c[0] || '';
+                        var p = c[1] || '';
+                        var m = c[2] || '';
+                        var q = c[3] || '';
+                        var topHtml = '<span class="w-hanzi">' + z + '</span>' +
+                            (q ? '<span class="w-punc">' + q + '</span>' : '');
+                        return '<div class="w-col">' +
+                            '<span class="w-top">' + topHtml + '</span>' +
+                            '<span class="w-py">' + p + '</span>' +
+                            '<span class="w-mn">' + m + '</span>' +
+                            '</div>';
+                    }).join('');
+                    breakdownHtml = '<div class="breakdown wseg">' + colsHtml + '</div>';
+                } else {
+                    // 回退：旧的逐字三行
+                    var words = phrase.words || [];
+                    var chars = [];
+                    var pys = [];
+                    var meanings = [];
+                    words.forEach(function(w) {
+                        var ch = w.w || '';
+                        var py = w.py || '';
+                        var mn = w.mn || '';
+                        // 忽略标点
+                        if (!ch || /[，。！？、；：""''（）…—·\!\?,\.]/.test(ch)) return;
+                        chars.push(ch);
+                        pys.push(py);
+                        meanings.push(mn || py); // 如果没有含义，用拼音代替
+                    });
+                    if (chars.length > 0) {
+                        breakdownHtml = `
                             <div class="breakdown">
                                 <div class="hanzi-line">${chars.join(' / ')}</div>
                                 <div class="pinyin-line">${pys.join(' / ')}</div>
                                 <div class="meaning-line">${meanings.join(' / ')}</div>
-
                             </div>
                         `;
+                    }
                 }
 
                 // 文化提示
@@ -2140,8 +2337,8 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                         <div class="flip-hint-back">🔄 Click to Return</div>
                     `;
 
-                // 渲染字符网格（正面）
-                var units = buildCharGrid(phrase);
+                // 渲染词级网格（正面）
+                var units = buildFrontUnits(phrase);
                 renderCharGrid(units);
 
                 stopKaraoke();
