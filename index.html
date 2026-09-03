@@ -1048,6 +1048,15 @@
         .card-front .play-btn:active {
             transform: scale(0.95);
         }
+        /* Playing state: keep the triangle, pulse gently instead of swapping to a stop glyph
+           (U+23F9 renders as a colored emoji square on some systems) */
+        .card-front .play-btn.playing {
+            animation: playPulse 1.2s ease-in-out infinite;
+        }
+        @keyframes playPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 20px var(--cinnabar-glow); }
+            50% { transform: scale(1.07); box-shadow: 0 6px 30px var(--cinnabar-glow); }
+        }
         .card-front .slow-btn {
             width: 44px;
             height: 44px;
@@ -2136,7 +2145,8 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                 }
 
                 isPlaying = true;
-                cardPlayBtn.textContent = '⏹';
+                cardPlayBtn.textContent = '▶';
+                cardPlayBtn.classList.add('playing');
 
                 karaokeTimers = [];
                 clearHighlights();
@@ -2162,7 +2172,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                 var finishAt = cursor + 300;
                 karaokeTimers.push(setTimeout(function() {
                     isPlaying = false;
-                    cardPlayBtn.textContent = '▶';
+                    cardPlayBtn.classList.remove('playing');
                     clearHighlights();
                 }, finishAt));
             }
@@ -2173,7 +2183,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                     karaokeTimers = [];
                 }
                 isPlaying = false;
-                cardPlayBtn.textContent = '▶';
+                cardPlayBtn.classList.remove('playing');
                 clearHighlights();
                 if (window.speechSynthesis) {
                     window.speechSynthesis.cancel();
@@ -2256,7 +2266,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                         e.stopPropagation();
                         togglePlay();
                     });
-                    cardPlayBtn = newPlayBtn; // 每次重建后刷新引用，确保 ⏹/▶ 图标生效
+                    cardPlayBtn = newPlayBtn; // refresh ref after each rebuild so the playing pulse works
                 }
                 if (newSlowBtn) {
                     newSlowBtn.addEventListener('click', function(e) {
