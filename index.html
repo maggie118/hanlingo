@@ -219,6 +219,261 @@
             transform: translateY(-2px);
             box-shadow: 0 12px 32px rgba(200, 50, 50, 0.20);
         }
+        /* ===== Hero Live Card Preview ===== */
+        .preview-section {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 44px 24px 12px;
+            text-align: center;
+        }
+        .preview-pair {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+        }
+        .preview-section .preview-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #b9beca;
+            margin-bottom: 18px;
+        }
+        .preview-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 30px 26px 22px;
+            max-width: 400px;
+            flex: 1 1 320px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .preview-card .char-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: baseline;
+            gap: 6px 12px;
+            width: 100%;
+            max-width: 360px;
+        }
+        .preview-card .char-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 28px;
+            transition: color 0.15s ease;
+        }
+        .preview-card .char-unit .char-wrap {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        .preview-card .char-unit .char {
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            font-weight: 900;
+            color: var(--charcoal);
+            line-height: 1.2;
+            letter-spacing: 1px;
+            transition: color 0.15s ease;
+        }
+        .preview-card .char-unit .char-punc {
+            font-size: clamp(1rem, 2.6vw, 1.5rem);
+            font-weight: 400;
+            color: #c3c6cc;
+            margin-left: 2px;
+        }
+        .preview-card .char-unit .pinyin-syllable {
+            font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+            color: var(--stone);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+            line-height: 1.3;
+            min-height: 1.8rem;
+            transition: color 0.15s ease;
+        }
+        .preview-card .char-unit.active .char,
+        .preview-card .char-unit.active .pinyin-syllable {
+            color: var(--cinnabar);
+        }
+        .preview-card .char-unit.active .pinyin-syllable { font-weight: 700; }
+        .preview-card .preview-en {
+            font-size: 15px;
+            color: #777;
+            font-style: italic;
+            font-weight: 400;
+            margin: 6px 0 20px;
+        }
+        .preview-card .preview-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .preview-card .preview-controls .play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--cinnabar);
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--cinnabar-glow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .preview-card .preview-controls .play-btn:hover {
+            transform: scale(1.06);
+            background: var(--cinnabar-hover);
+            box-shadow: 0 8px 28px rgba(200, 50, 50, 0.25);
+        }
+        .preview-card .preview-controls .play-btn:active { transform: scale(0.95); }
+        .preview-card .preview-controls .play-btn.playing {
+            animation: previewPulse 1.2s ease-in-out infinite;
+        }
+        @keyframes previewPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 20px var(--cinnabar-glow); }
+            50% { transform: scale(1.07); box-shadow: 0 6px 30px var(--cinnabar-glow); }
+        }
+        .preview-card .preview-controls .slow-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border-light);
+            background: transparent;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--stone);
+        }
+        .preview-card .preview-controls .slow-btn:hover {
+            border-color: var(--cinnabar);
+            color: var(--cinnabar);
+        }
+        .preview-card .preview-controls .slow-btn.active {
+            border-color: var(--cinnabar);
+            background: rgba(200, 50, 50, 0.06);
+            color: var(--cinnabar);
+        }
+        .preview-card .preview-controls .btn-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--stone);
+        }
+        .preview-card .preview-controls .dot-sep { color: #c3c6cc; }
+        /* ---- back side of the preview card ---- */
+        .preview-card.back {
+            background: var(--card-back-bg);
+        }
+        .preview-card.back .en {
+            font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+            color: #777;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            padding: 0 4px;
+        }
+        .preview-card.back .breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 4px 10px;
+            margin: 6px 0 10px;
+            max-width: 360px;
+            width: 100%;
+        }
+        .preview-card.back .w-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 2px 2px;
+            min-width: 0;
+        }
+        .preview-card.back .w-col .w-top {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            white-space: nowrap;
+        }
+        .preview-card.back .w-col .w-hanzi {
+            font-size: clamp(1.2rem, 4.4vw, 1.55rem);
+            font-weight: 700;
+            color: var(--charcoal);
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .preview-card.back .w-col .w-punc {
+            font-size: 0.9rem;
+            color: #c3c6cc;
+            font-weight: 400;
+            margin-left: 1px;
+        }
+        .preview-card.back .w-col .w-py {
+            font-size: clamp(0.8rem, 2.6vw, 0.95rem);
+            color: var(--stone);
+            font-weight: 500;
+            margin-top: 1px;
+            line-height: 1.35;
+            min-height: 1.3em;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .preview-card.back .w-col .w-mn {
+            font-size: clamp(0.72rem, 2.4vw, 0.84rem);
+            color: #9aa0a6;
+            margin-top: 2px;
+            line-height: 1.3;
+            min-height: 1.2em;
+            text-align: center;
+        }
+        .preview-card.back .flip-hint-back {
+            margin-top: auto;
+            padding-top: 18px;
+            font-size: 12px;
+            color: #bbb;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+        }
+        /* ===== Access toast (locked-topic / loading feedback) ===== */
+        .hl-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%) translateY(16px);
+            background: #26292f;
+            color: #fff;
+            font-size: 14px;
+            line-height: 1.45;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .25);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease, transform .25s ease;
+            z-index: 9999;
+            max-width: 86vw;
+            text-align: center;
+        }
+        .hl-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
         /* ===== Value Cards ===== */
         .value-grid {
             max-width: 1024px;
@@ -1609,6 +1864,29 @@
         <a href="#topics" class="btn-primary">Explore Topics</a>
     </section>
 
+    <!-- ===== Live Card Preview (real card, not a screenshot) ===== -->
+    <section class="preview-section" id="preview">
+        <p class="preview-label">See how HanLingo works</p>
+        <div class="preview-pair">
+            <div class="preview-card" id="previewCard">
+                <div class="char-grid" id="previewCharGrid"></div>
+                <p class="preview-en" id="previewEn"></p>
+                <div class="preview-controls">
+                    <button class="play-btn" id="previewPlayBtn" aria-label="Play audio">▶</button>
+                    <span class="btn-label">Play</span>
+                    <span class="dot-sep">·</span>
+                    <button class="slow-btn" id="previewSlowBtn" aria-label="Slow speed">🐢</button>
+                    <span class="btn-label">Slow</span>
+                </div>
+            </div>
+            <div class="preview-card back" id="previewBackCard">
+                <div class="en" id="previewBackEn"></div>
+                <div class="breakdown" id="previewBreakdown"></div>
+                <div class="flip-hint-back">🔄 Back of the card</div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== Value 3 Cards ===== -->
     <section id="value" class="value-grid">
         <div class="value-card">
@@ -1650,16 +1928,15 @@
 
     <!-- ===== Pricing ===== -->
     <section id="pricing">
-        <h2>One Payment · Lifetime Access</h2>
+        <h2>Get Lifetime Access</h2>
         <p class="sub">No subscriptions. No hidden fees.</p>
         <div class="pricing-row">
             <div class="plan-card">
-                <span class="badge">⭐ Founding Price: </span>
+                <span class="badge">⭐ Lock in lifetime access at the founding price. </span>
                     <div class="price-block">
                     <div class="price">$59</div>
                     <div class="price-meta">
-                        <span>one‑time payment· Lifetime access</span>
-						   <div class="plan-title">Founding members get lifetime access at $59.</div>
+                    <div class="plan-title">Founding lifetime Price</div>
                         </div>
                 </div>
                 <ul>
@@ -1668,6 +1945,7 @@
                     <li>Pinyin, audio, slow mode & cultural notes</li>
                     <li>Practice by listening, repeating and speaking — not memorizing word lists</li>
                     <li>No subscriptions. No recurring fees. One payment forever.</li>
+					 <li>Secure checkout via Stripe</li>
                 </ul>
                 <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="btn">Unlock Now</a>
                 <div class="trust-badge">🔒 Secure checkout by Stripe</div>
@@ -1844,23 +2122,8 @@
                 '1_10': '🟢 DO: A simple handshake or nod is fine.\n🔴 DON\'T: Hug or kiss on the cheek unless you know the person well.',
                 // topic-03
                 '3_8': '🟢 DO: In mainland China and Taiwan, "买单" is universal. In Singapore, "算账" or "结账" is more common, but "买单" is understood.\n🔴 DON\'T: Say "买单" in a very formal setting where "结账" might be more appropriate.',
-                '3_4': '🟢 DO: Emphasize "不要辣" clearly, as many dishes default to chili.\n🔴 DON\'T: Assume it\'s already non-spicy—ask to be sure.',
-                // topic-05
-                '5_1': '🟢 DO: Use it to thank colleagues for hard work—it\'s empathetic and appreciated.\n🔴 DON\'T: Say it to your boss; it\'s usually said from a position of empathy downward.',
-                '5_9': '🟢 DO: Use it to encourage someone—it\'s more spirited than "good luck".\n🔴 DON\'T: Use it in a very formal business setting where "祝你好运" might be better.',
-                // topic-07
-                '7_4': '🟢 DO: Use this exaggerated expression casually with friends.\n🔴 DON\'T: Use it in formal situations—it\'s too informal.',
-                '7_10': '🟢 DO: Use it for close family or lovers.\n🔴 DON\'T: Say it to casual friends—it\'s too intimate.',
-                // topic-08
-                '8_5': '🟢 DO: Use this when paying by QR code—ask "我扫你" or "你扫我" to clarify.\n🔴 DON\'T: Assume which way—ask politely.',
-                // topic-10
-                '10_4': '🟢 DO: Say this confidently when treating others—it\'s welcomed.\n🔴 DON\'T: Say it if you\'re not prepared to pay.',
-                '10_10': '🟢 DO: Send this text after a gathering—it shows you care and are safe.\n🔴 DON\'T: Forget to send it—it\'s considered thoughtful.',
-                // topic-14
-                '14_5': '🟢 DO: Say this and locals will encourage you and slow down.\n🔴 DON\'T: Be afraid to use it—it invites help.',
-                '14_2': '🟢 DO: Ask this freely—it\'s a good learning habit.\n🔴 DON\'T: Pretend to understand—it\'s better to ask.',
-                // topic-15
-                '15_1': '🟢 DO: Shout this to attract attention in an emergency.\n🔴 DON\'T: Use it in casual situations—it\'s too strong.'
+                '3_4': '🟢 DO: Emphasize "不要辣" clearly, as many dishes default to chili.\n🔴 DON\'T: Assume it\'s already non-spicy—ask to be sure.'
+                // Paid-topic tips (5_1 ... 15_1) moved to api/topic-content.js (server-side)
             };
 
             // ============================================================
@@ -1892,6 +2155,110 @@
                     }
                 });
             });
+
+            // ============================================================
+            //  3.5 Paid access control (server-verified token)
+            //  The old flow trusted localStorage 'hanlingo_lifetime_access'
+            //  which anyone could forge in DevTools. Now a signed token
+            //  (issued by /api/verify-checkout after a real Stripe payment)
+            //  is verified server-side on every page load, and paid content
+            //  is fetched on demand from /api/get-topic instead of shipping
+            //  inside js/data.js / js/wordseg.js.
+            // ============================================================
+            var ACCESS = { verified: false, token: null };
+            var ACCESS_GRACE_MS = 7 * 24 * 60 * 60 * 1000; // offline grace window
+
+            function accessUnlockUI() {
+                var lockedCards = document.querySelectorAll('.phase2-card');
+                for (var i = 0; i < lockedCards.length; i++) {
+                    lockedCards[i].classList.remove('phase2-card');
+                    var lockIcon = lockedCards[i].querySelector('.lock-indicator');
+                    if (lockIcon) lockIcon.remove();
+                }
+            }
+
+            function showHlToast(msg, ms) {
+                var t = document.getElementById('hlToast');
+                if (!t) {
+                    t = document.createElement('div');
+                    t.id = 'hlToast';
+                    t.className = 'hl-toast';
+                    document.body.appendChild(t);
+                }
+                t.textContent = msg;
+                t.classList.add('show');
+                clearTimeout(showHlToast._timer);
+                showHlToast._timer = setTimeout(function () { t.classList.remove('show'); }, ms || 2600);
+            }
+
+            function showLockedNotice() {
+                showHlToast('🔒 This topic is part of the Lifetime Pack ($59).');
+                var p = document.getElementById('pricing');
+                if (p) p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Fetch one paid topic from the server (verified by token),
+            // cache it locally, then open the card flow.
+            function loadPaidTopic(topicKey) {
+                var cacheKey = 'hl_paid_topic_' + topicKey;
+                var cached = null;
+                try { cached = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch (e) { cached = null; }
+                if (cached && cached.length) {
+                    TOPIC_PHRASES[topicKey] = cached;
+                    openCardFlow(topicKey);
+                    return;
+                }
+                showHlToast('⏳ Loading topic…', 8000);
+                fetch('/api/get-topic', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: ACCESS.token, topic: topicKey })
+                }).then(function (r) { return r.json(); }).then(function (d) {
+                    if (d && d.ok && d.phrases && d.phrases.length) {
+                        TOPIC_PHRASES[topicKey] = d.phrases;
+                        try { localStorage.setItem(cacheKey, JSON.stringify(d.phrases)); } catch (e) {}
+                        openCardFlow(topicKey);
+                    } else {
+                        showHlToast('⚠️ ' + ((d && d.error) || 'Could not load this topic.'), 4000);
+                    }
+                }).catch(function () {
+                    showHlToast('⚠️ Network error. Paid topics need a connection the first time.', 4000);
+                });
+            }
+
+            function initAccess() {
+                var token = null;
+                try { token = localStorage.getItem('hanlingo_access_token'); } catch (e) { token = null; }
+                // The legacy 'hanlingo_lifetime_access' flag is deliberately
+                // NOT trusted anymore - it was forgeable with one DevTools line.
+                if (!token) return;
+                ACCESS.token = token;
+                fetch('/api/verify-token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: token })
+                }).then(function (r) { return r.json(); }).then(function (d) {
+                    if (d && d.ok) {
+                        ACCESS.verified = true;
+                        try { localStorage.setItem('hl_verified_at', String(Date.now())); } catch (e) {}
+                        accessUnlockUI();
+                    } else {
+                        ACCESS.token = null;
+                        try {
+                            localStorage.removeItem('hanlingo_access_token');
+                            localStorage.removeItem('hl_verified_at');
+                        } catch (e) {}
+                    }
+                }).catch(function () {
+                    // Offline: keep access if the token was server-verified recently
+                    var last = 0;
+                    try { last = parseInt(localStorage.getItem('hl_verified_at') || '0', 10) || 0; } catch (e) {}
+                    if (Date.now() - last < ACCESS_GRACE_MS) {
+                        ACCESS.verified = true;
+                        accessUnlockUI();
+                    }
+                });
+            }
 
             // ============================================================
             //  4. 里程碑卡片定义
@@ -2354,8 +2721,22 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
 
             // ---- 打开卡片流 ----
             function openCardFlow(topicKey) {
+                // Gate: paid topics require server-verified access.
+                // (Click handlers used to skip this check entirely.)
+                var topicIdx = TOPIC_KEYS.indexOf(topicKey);
+                var isFree = topicIdx > -1 && topicIdx < FREE_COUNT;
+                if (!isFree && !ACCESS.verified) {
+                    showLockedNotice();
+                    return;
+                }
+
                 var phrases = TOPIC_PHRASES[topicKey] || [];
                 if (!phrases.length) {
+                    if (!isFree && ACCESS.verified) {
+                        // Paid content is server-side now: fetch on first open.
+                        loadPaidTopic(topicKey);
+                        return;
+                    }
                     console.warn('No phrases found for topic:', topicKey);
                     return;
                 }
@@ -2565,10 +2946,28 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                         <p>Welcome to HanLingo.app. By accessing or using our services, you agree to be bound by these Terms of Service.</p>
                         <h4>1. INTELLECTUAL PROPERTY & USE LICENSE</h4>
                         <p>All learning materials are the intellectual property of HanLingo.app. You are granted a personal, non-transferable license. You agree NOT to copy, redistribute, resell, or commercially exploit any content without prior written consent.</p>
-                        <h4>2. ONE-TIME BUYOUT & LIFETIME ACCESS</h4>
+                        <h4>2. 
+
+
+
+
+
+
+
+
+BUYOUT & LIFETIME ACCESS</h4>
                         <p>The "Full Lifetime" ($59) is a one-time payment product. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
                         <h4>3. REFUND POLICY</h4>
-                        <p><strong>Digital Nature & Final Sale</strong><br>All sales are final. Try the 4 free topics before purchasing.</p>
+                        <p><strong>Digital Nature & Final Sale</strong><br>Try the first 4 topics free before you buy.</p>
+
+
+
+
+
+
+
+
+
                         <h4>4. EU/UK CONSUMER WAIVER NOTICE</h4>
                         <p>If you reside in the EU or UK, by completing checkout you agree that digital content supply begins immediately.</p>
                         <h4>5. CONTACT</h4>
@@ -2656,26 +3055,202 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
 
             console.log('✅ HanLingo · Card Flow ready — character breakdown with pinyin and meaning now fully working.');
 
-            // ============================================================
-            //  配套：读取本地权限标记，解锁全部 phase‑2 卡片
-            // ============================================================
-            if (localStorage.getItem('hanlingo_lifetime_access') === 'true') {
-                var lockedCards = document.querySelectorAll('.phase2-card');
-                for (var i = 0; i < lockedCards.length; i++) {
-                    lockedCards[i].classList.remove('phase2-card');
-                    var lockIcon = lockedCards[i].querySelector('.lock-indicator');
-                    if (lockIcon) lockIcon.remove();
-                }
-                console.log('🔓 HanLingo · Lifetime access detected — all ' + lockedCards.length + ' phase‑2 topics unlocked.');
-            }
+            // ---- Server-verified paid access (replaces the forgeable localStorage flag) ----
+            initAccess();
         })();
+    </script>
+    <script>
+    // ================================================================
+    //  HanLingo - Hero Live Card Preview
+    //  Renders the REAL card (word units from HANLINGO_WORDSEG, phrase 8_1)
+    //  and plays TTS audio with karaoke highlighting, same engine as the
+    //  card flow modal. Not a screenshot.
+    // ================================================================
+    (function() {
+        var grid = document.getElementById('previewCharGrid');
+        var enEl = document.getElementById('previewEn');
+        var playBtn = document.getElementById('previewPlayBtn');
+        var slowBtn = document.getElementById('previewSlowBtn');
+        if (!grid || !playBtn) return;
+
+        var entry = (window.HANLINGO_WORDSEG && window.HANLINGO_WORDSEG['8_1']) || null;
+        if (!entry || !entry.cells || !entry.cells.length) {
+            var sec = document.getElementById('preview');
+            if (sec) sec.style.display = 'none';
+            return;
+        }
+
+        function charWeight(s) {
+            var n = 0;
+            for (var i = 0; i < s.length; i++) {
+                var code = s.charCodeAt(i);
+                var isCjk = (code >= 0x4E00 && code <= 0x9FFF) || (code >= 0x3400 && code <= 0x4DBF);
+                var ch = s.charAt(i);
+                var isLatin = (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
+                if (isCjk || isLatin) n++;
+            }
+            return Math.max(1, n);
+        }
+
+        // Render word units (same markup as card-front char grid)
+        var units = [];
+        entry.cells.forEach(function(c) {
+            var unitDiv = document.createElement('div');
+            unitDiv.className = 'char-unit word-unit';
+            var topWrap = document.createElement('span');
+            topWrap.className = 'char-wrap';
+            var charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = c[0];
+            topWrap.appendChild(charSpan);
+            if (c[3]) {
+                var puncSpan = document.createElement('span');
+                puncSpan.className = 'char-punc';
+                puncSpan.textContent = c[3];
+                topWrap.appendChild(puncSpan);
+            }
+            var pySpan = document.createElement('span');
+            pySpan.className = 'pinyin-syllable';
+            pySpan.textContent = c[1];
+            unitDiv.appendChild(topWrap);
+            unitDiv.appendChild(pySpan);
+            grid.appendChild(unitDiv);
+            units.push({ el: unitDiv, w: charWeight(c[0]) });
+        });
+        if (enEl) enEl.textContent = entry.en || '';
+
+        // Render the BACK of the card: english + word-by-word breakdown
+        // (three aligned rows: hanzi word / pinyin word / english gloss)
+        var backEn = document.getElementById('previewBackEn');
+        var backBd = document.getElementById('previewBreakdown');
+        if (backBd) {
+            if (backEn) backEn.textContent = entry.en || '';
+            entry.cells.forEach(function(c) {
+                var col = document.createElement('div');
+                col.className = 'w-col';
+                var top = document.createElement('span');
+                top.className = 'w-top';
+                var hz = document.createElement('span');
+                hz.className = 'w-hanzi';
+                hz.textContent = c[0];
+                top.appendChild(hz);
+                if (c[3]) {
+                    var punc = document.createElement('span');
+                    punc.className = 'w-punc';
+                    punc.textContent = c[3];
+                    top.appendChild(punc);
+                }
+                col.appendChild(top);
+                var py = document.createElement('span');
+                py.className = 'w-py';
+                py.textContent = c[1];
+                col.appendChild(py);
+                var mn = document.createElement('span');
+                mn.className = 'w-mn';
+                mn.textContent = c[2];
+                col.appendChild(mn);
+                backBd.appendChild(col);
+            });
+        }
+
+        // Gentle zh-CN voice picker (same preference order as card flow)
+        var cachedVoice = null;
+        function pickVoice() {
+            if (!window.speechSynthesis) return null;
+            if (cachedVoice) return cachedVoice;
+            var voices = window.speechSynthesis.getVoices() || [];
+            if (!voices.length) return null;
+            function isZh(v) { return !!(v && v.lang && v.lang.indexOf('zh') === 0); }
+            var prefs = ['Xiaoxiao', 'Xiaoyi', 'Yaoyao', 'Tingting', 'Ting-Ting'];
+            for (var p = 0; p < prefs.length; p++) {
+                for (var i = 0; i < voices.length; i++) {
+                    if (isZh(voices[i]) && voices[i].name.indexOf(prefs[p]) !== -1) { cachedVoice = voices[i]; return cachedVoice; }
+                }
+            }
+            for (var g = 0; g < voices.length; g++) {
+                if (isZh(voices[g]) && voices[g].lang.indexOf('zh-CN') === 0 && voices[g].name.indexOf('Google') !== -1) { cachedVoice = voices[g]; return cachedVoice; }
+            }
+            var maleNames = ['Yunxi', 'Yunjian', 'Yunyang', 'Yunye', 'Yunhao', 'Yunfeng', 'Kangkang', 'Danny', 'Liang'];
+            for (var k = 0; k < voices.length; k++) {
+                if (!isZh(voices[k])) continue;
+                var isMale = false;
+                for (var m = 0; m < maleNames.length; m++) { if (voices[k].name.indexOf(maleNames[m]) !== -1) { isMale = true; break; } }
+                if (!isMale) { cachedVoice = voices[k]; return cachedVoice; }
+            }
+            return null;
+        }
+        if (window.speechSynthesis && window.speechSynthesis.addEventListener) {
+            window.speechSynthesis.addEventListener('voiceschanged', function() { cachedVoice = null; });
+        }
+
+        var isSlow = false;
+        var isPlaying = false;
+        var timers = [];
+
+        function clearHighlights() {
+            units.forEach(function(u) { u.el.classList.remove('active'); });
+        }
+
+        function stop() {
+            timers.forEach(function(t) { clearTimeout(t); });
+            timers = [];
+            isPlaying = false;
+            playBtn.classList.remove('playing');
+            clearHighlights();
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+        }
+
+        function play() {
+            if (isPlaying) { stop(); return; }
+            if (window.speechSynthesis) {
+                var utterance = new SpeechSynthesisUtterance(entry.zh);
+                utterance.lang = 'zh-CN';
+                var v = pickVoice();
+                if (v) utterance.voice = v;
+                utterance.pitch = 1.05;
+                utterance.rate = isSlow ? 0.45 : 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+            isPlaying = true;
+            playBtn.classList.add('playing');
+            clearHighlights();
+
+            var perCharMs = isSlow ? 1000 : 400;
+            var cursor = 140;
+            units.forEach(function(unit) {
+                var start = cursor;
+                var end = start + unit.w * perCharMs;
+                cursor = end;
+                timers.push(setTimeout(function() {
+                    clearHighlights();
+                    unit.el.classList.add('active');
+                }, start));
+                timers.push(setTimeout(function() {
+                    unit.el.classList.remove('active');
+                }, end));
+            });
+            timers.push(setTimeout(function() {
+                isPlaying = false;
+                playBtn.classList.remove('playing');
+                clearHighlights();
+            }, cursor + 300));
+        }
+
+        playBtn.addEventListener('click', play);
+        if (slowBtn) {
+            slowBtn.addEventListener('click', function() {
+                isSlow = !isSlow;
+                slowBtn.classList.toggle('active', isSlow);
+            });
+        }
+    })();
     </script>
     <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"SoftwareApplication",
   "name":"HanLingo",
-  "description":"Practical real‑life Chinese speaking tool for beginners and expats. 150+ everyday Mandarin phrases with pinyin, native audio and cultural tips.",
+  "description":"Practical real‑life Chinese speaking tool for beginners and expats. 150+ everyday Mandarin phrases with pinyin, Mandarin audio + Slow Mode and cultural tips.",
   "applicationCategory":"EducationalApplication",
   "operatingSystem":"Web Browser, PWA",
   "offers":{
