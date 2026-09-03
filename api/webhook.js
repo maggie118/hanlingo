@@ -1,8 +1,13 @@
+// api/webhook.js - Stripe webhook with signature verification
+// NOTE: raw body is REQUIRED for signature verification, so we must disable
+// Vercel's built-in JSON body parsing via `export const config` below.
 import Stripe from 'stripe';
 import { kv } from '@vercel/kv';
 
+export const config = { api: { bodyParser: false } };
+
 export default async function handler(req, res) {
-  // webhook 只接受 POST
+  // webhook only accepts POST
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
   }
@@ -20,28 +25,35 @@ export default async function handler(req, res) {
   let event;
 
   try {
-    // 读取原始body，webhook必须用raw payload，不能json解析后的对象
-    const rawBody = Buffer.from(req.body);
+    // Read the raw request stream byte-by-byte so the payload matches
+    // exactly what Stripe signed. (req.body would be a parsed object here
+    // and Buffer.from(object) yields "[object Object]" -> sig check fails.)
+    const rawBody = await new Promise((resolve, reject) => {
+      const chunks = [];
+      req.on('data', (chunk) => chunks.push(chunk));
+      req.on('end', () => resolve(Buffer.concat(chunks)));
+      req.on('error', reject);
+    });
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
   } catch (err) {
     console.error(`Webhook signature verify failed: ${err.message}`);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // 只处理结账完成事件
+  // Only handle completed checkout sessions
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
 
     try {
       const paymentStatus = session.payment_status;
       const customerEmail = session.customer_details?.email;
-      const isLive = !session.livemode ? 'TEST?MODE' : 'LIVE?MODE';
+      const isLive = session.livemode ? 'LIVE-MODE' : 'TEST-MODE';
 
-      console.log(`[${isLive}] checkout.session.completed | payment_status:${paymentStatus} | email:${customerEmail ?? 'no?email'}`);
+      console.log(`[${isLive}] checkout.session.completed | payment_status:${paymentStatus} | email:${customerEmail ?? 'no-email'}`);
 
-      // 仅支付成功才存入KV
+      // Store in KV only when payment actually succeeded
       if (paymentStatus === 'paid' && customerEmail) {
-        // KV存储：邮箱为key，保存订单信息，设置过期时间不限制；可以后续用来给用户发找回指引邮件
+        // KV: email as key -> order info, used later by recover-access lookup
         await kv.set(`paid:${customerEmail.toLowerCase()}`, JSON.stringify({
           session_id: session.id,
           amount_total: session.amount_total,
@@ -52,10 +64,10 @@ export default async function handler(req, res) {
       }
     } catch (e) {
       console.error('Process checkout.session.completed error', e);
-      // webhook内部业务出错依然返回200，防止Stripe无限重试
+      // Business logic failure still returns 200 to stop Stripe retry storms
     }
   }
 
-  // 其他事件直接200接收，不做处理
+  // All other events: acknowledge with 200, no action
   return res.status(200).json({ received: true });
 }
