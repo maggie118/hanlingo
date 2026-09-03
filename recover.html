@@ -171,9 +171,9 @@ submitBtn.addEventListener('click', async ()=>{
     submitBtn.textContent = "Checking…";
 
     try{
-        const res = await fetch("/api/recover‑access",{
+        const res = await fetch("/api/recover-access",{
             method:"POST",
-            headers:{"Content‑Type":"application/json"},
+            headers:{"Content-Type":"application/json"},
             body: JSON.stringify({email})
         });
         const data = await res.json();

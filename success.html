@@ -286,11 +286,18 @@ document.addEventListener("DOMContentLoaded", () => {
         currentCodeDisplay.textContent = sessionId;
     }
 
-    function showUnlocked(){
+    function showUnlocked(token){
         loadingState.style.display = 'none';
         errorState.style.display = 'none';
         unlockedContent.classList.add('show');
-        localStorage.setItem("hanlingo_lifetime_access", "true");
+        // Store the SERVER-SIGNED access token (HMAC), not a bare flag that
+        // anyone could forge with one DevTools line.
+        if (token) {
+            try {
+                localStorage.setItem("hanlingo_access_token", token);
+                localStorage.setItem("hl_verified_at", String(Date.now()));
+            } catch (e) {}
+        }
         console.log("✅ Backend verified, access granted");
     }
     function showError(){
@@ -299,33 +306,47 @@ document.addEventListener("DOMContentLoaded", () => {
         unlockedContent.classList.remove('show');
     }
 
-    // 1. 先检查本地是否已经拥有权限（用户刷新成功页）
-    const alreadyPurchased = localStorage.getItem("hanlingo_lifetime_access");
-    if(alreadyPurchased === "true"){
-        showUnlocked();
-        return;
-    }
+    (async function initSuccess(){
+        // 1) Existing token: re-verify with the server instead of trusting local state
+        let existingToken = null;
+        try { existingToken = localStorage.getItem("hanlingo_access_token"); } catch (e) {}
+        if (existingToken) {
+            try {
+                const r = await fetch("/api/verify-token", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token: existingToken })
+                });
+                const d = await r.json();
+                if (d && d.ok) { showUnlocked(null); return; }
+                // invalid token -> clear it and fall through to the session check
+                localStorage.removeItem("hanlingo_access_token");
+                localStorage.removeItem("hl_verified_at");
+            } catch (e) {
+                // network down: only allow within the 7-day offline grace window
+                const last = parseInt(localStorage.getItem("hl_verified_at") || "0", 10) || 0;
+                if (Date.now() - last < 7 * 24 * 3600 * 1000) { showUnlocked(null); return; }
+            }
+        }
 
-    // 2. URL没有session_id，直接报错
-    if (!sessionId || !sessionId.startsWith('cs_')) {
-        console.warn("❌ No valid session_id");
-        showError();
-        return;
-    }
-
-    // 3. 向后端Vercel Serverless接口POST校验session_id
-    (async function verifyFromBackend(){
+        // 2) No token yet: verify the Stripe Checkout session server-side,
+        //    then store the signed token issued by the backend.
+        if (!sessionId || !sessionId.startsWith('cs_')) {
+            console.warn("❌ No valid session_id");
+            showError();
+            return;
+        }
         try {
-            const resp = await fetch("/api/verify‑checkout", {
+            const resp = await fetch("/api/verify-checkout", {
                 method:"POST",
                 headers: {
-                    "Content‑Type":"application/json"
+                    "Content-Type":"application/json"
                 },
                 body: JSON.stringify({ session_id: sessionId })
             });
             const result = await resp.json();
-            if(result.paid === true){
-                showUnlocked();
+            if(result.paid === true && result.token){
+                showUnlocked(result.token);
             }else{
                 showError();
             }
