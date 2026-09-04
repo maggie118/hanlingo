@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HanLingo: Practical Real‑Life Chinese Speaking Tool for Beginners</title>
+    <title>HanLingo — Speak Practical Mandarin for Real Life</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="favicon" href="/favicon.ico">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1A1A1A">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="HanLingo is a practical Mandarin speaking tool for beginners and expats. Learn real-life Chinese expressions with pinyin, audio and cultural tips. Four topics are free. One-time lifetime access.">
+    <meta name="description" content="Learn practical Mandarin phrases for travel, work and everyday life. Pinyin, audio, cultural tips and 4 free topics. No subscription.">
     <meta name="keywords" content="practical Chinese, conversational Mandarin, real‑life Chinese phrases, Mandarin for expats, Chinese speaking tool for beginners, everyday Mandarin, travel Chinese pinyin audio">
     <link rel="canonical" href="https://hanlingo.app/">
 
@@ -874,6 +874,75 @@
             color: var(--stone);
             font-size: 16px;
             margin-bottom: 48px;
+        }
+        /* ===== FAQ ===== */
+        #faq {
+            padding: 80px 20px 100px;
+            background: var(--bg, #FAF7F2);
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+        }
+        #faq h2 {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            color: var(--charcoal);
+        }
+        #faq .sub {
+            color: var(--stone);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: left;
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--border-light);
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item summary {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--charcoal);
+            cursor: pointer;
+            list-style: none;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.15s;
+        }
+        .faq-item summary:hover {
+            background: var(--bg, #FAF7F2);
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after {
+            content: '+';
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--stone);
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+        .faq-item[open] summary::after {
+            content: '\2212';
+        }
+        .faq-item > p {
+            margin: 0;
+            padding: 0 24px 22px;
+            color: var(--stone);
+            font-size: 15px;
+            line-height: 1.65;
         }
         .pricing-row {
             display: flex;
@@ -1892,17 +1961,17 @@
         <div class="value-card">
             <span class="emoji">🎯</span>
             <h3>Speak from Day One</h3>
-            <p>No prior experience needed. With intuitive Pinyin and English translations, you can just pick a scenario and start speaking instantly.</p>
+            <p>Start with complete sentences you can actually use — with Pinyin, English and audio to guide you.</p>
         </div>
         <div class="value-card">
             <span class="emoji">🗣️</span>
-            <h3>Real Chinese, Not Textbook Chinese</h3>
-            <p>Ditch outdated, stiff textbook phrases. Learn practical expressions people actually use in everyday situations.</p>
+            <h3>Real Chinese for Real Situations</h3>
+            <p>Learn practical expressions for eating, getting around, shopping, meeting people and everyday life.</p>
         </div>
         <div class="value-card">
             <span class="emoji">💡</span>
-            <h3>Cultural Context Built-In</h3>
-            <p>Go beyond words. Our bite-sized cultural notes guide you on exactly what to say, what to avoid, and how to blend in smoothly.</p>
+            <h3>Know What to Say</h3>
+            <p>Short cultural notes show you what sounds natural — and what to avoid.</p>
         </div>
     </section>
 
@@ -1911,13 +1980,15 @@
 
         <!-- FOUNDER WRAPPER REMOVED -->
         <h2>15 Scenarios You'll Actually Need</h2>
-        <p class="sub-desc">Try Phase 1 for free (first 4 topics included). Unlock the remaining 11 premium topics whenever you're ready with a simple, one-time payment.</p>
+        <p class="sub-desc"><strong> Start Free </strong>Your first 4 topics are completely free.</p>
 
         <div id="phase1Container" class="scenarios-grid phase1-grid"></div>
 
         <div class="phase2-wrapper" id="phase2Wrapper">
             <div class="phase-intro">
-                <p class="phase-quote">Ready to go beyond the basics? Explore 11 more practical topics for social life, work, everyday problems, and natural conversations.</p>
+                <p class="phase-quote"><strong>Keep Going</strong>
+
+Unlock all 15 topics with one payment.</p>
             </div>
             <div id="phase2Container" class="scenarios-grid phase2-grid"></div>
             <div class="unlock-cta-wrapper">
@@ -1928,28 +1999,51 @@
 
     <!-- ===== Pricing ===== -->
     <section id="pricing">
-        <h2>Get Lifetime Access</h2>
-        <p class="sub">No subscriptions. No hidden fees.</p>
-        <div class="pricing-row">
+            <div class="pricing-row">
             <div class="plan-card">
                 <span class="badge">⭐ Lock in lifetime access at the founding price. </span>
                     <div class="price-block">
                     <div class="price">$59</div>
                     <div class="price-meta">
-                    <div class="plan-title">Founding lifetime Price</div>
+                    <div class="plan-title">Founding Lifetime</div>
                         </div>
                 </div>
                 <ul>
-                    <li>Learn practical Chinese you can actually use in everyday situations</li>
-                    <li>All current topics + future content updates</li>
-                    <li>Pinyin, audio, slow mode & cultural notes</li>
-                    <li>Practice by listening, repeating and speaking — not memorizing word lists</li>
-                    <li>No subscriptions. No recurring fees. One payment forever.</li>
-					 <li>Secure checkout via Stripe</li>
-                </ul>
-                <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="btn">Unlock Now</a>
+                    <li>All 15 practical topics</li>
+                    <li>Pinyin + Mandarin audio + Slow Mode</li>
+                    <li>Cultural notes & interactive practice</li>
+                    <li>Future content updates</li>
+					
+                    <p><strong>One payment. No subscription. </strong></p>
+					 </ul>
+               
+                <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="btn">Get Lifetime Access — $59</a>
                 <div class="trust-badge">🔒 Secure checkout by Stripe</div>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq">
+        <h2>FAQ</h2>
+        <p class="sub">Quick answers before you start.</p>
+        <div class="faq-list">
+            <details class="faq-item" open>
+                <summary>Do I need to know Chinese?</summary>
+                <p>No. HanLingo is designed for complete beginners. Pinyin, English translations and audio help you start speaking from day one.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Is this a subscription?</summary>
+                <p>No. Pay once and get lifetime access.</p>
+            </details>
+            <details class="faq-item">
+                <summary>What do I get for $59?</summary>
+                <p>All 15 topics, current content and future content updates.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I try it first?</summary>
+                <p>Yes. The first 4 topics are completely free.</p>
+            </details>
         </div>
     </section>
 
@@ -2290,9 +2384,9 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                             { label: '03 / Build Muscle Memory', desc: 'Read each sentence aloud 10 times until it becomes second nature.' }
                         ],
                         finalNote: 'The last 11 themes hold the true value of this kit—covering the deep social depth and critical, unexpected situations that the first 4 themes don\'t.',
-                        ctaHeadline: '🚀 Ready to Move Beyond Mere Practical Chinese?',
-                        buttonText: 'Unlock All Topics • $59',
-                        priceAnchor: 'Regular $149 · Lifetime Access',
+                        ctaHeadline: '🚀 Keep Going',
+                        buttonText: 'Unlock remaining 11 premium topics  with one payment • $59',
+                        priceAnchor: 'Lifetime Access',
                         security: 'Secure Checkout by Stripe'
                     }
                 }
@@ -2943,7 +3037,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
             var legalTexts = {
                 'terms': `
                         <span class="update-date">Last Updated: August 2026</span>
-                        <p>Welcome to HanLingo.app. By accessing or using our services, you agree to be bound by these Terms of Service.</p>
+                        <p>Welcome to HanLingo. Thank you for using our service. These Terms explain the basic rules for using HanLingo and purchasing our digital learning content.</p>
                         <h4>1. INTELLECTUAL PROPERTY & USE LICENSE</h4>
                         <p>All learning materials are the intellectual property of HanLingo.app. You are granted a personal, non-transferable license. You agree NOT to copy, redistribute, resell, or commercially exploit any content without prior written consent.</p>
                         <h4>2. 
@@ -2956,9 +3050,11 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
 
 
 BUYOUT & LIFETIME ACCESS</h4>
-                        <p>The "Full Lifetime" ($59) is a one-time payment product. "Lifetime Access" refers to the product's lifetime as long as the Website remains operational.</p>
+                        <p>The $59 Founding Lifetime purchase is a one-time payment and does not require a subscription.
+
+“Lifetime Access” means continued access to the HanLingo product and the content included with your purchase while HanLingo continues to offer and maintain the product.</p>
                         <h4>3. REFUND POLICY</h4>
-                        <p><strong>Digital Nature & Final Sale</strong><br>Try the first 4 topics free before you buy.</p>
+                        <p>Try the first 4 topics free before you buy.</p>
 
 
 
@@ -2995,8 +3091,8 @@ BUYOUT & LIFETIME ACCESS</h4>
                     `,
                 'refund': `
                         <span class="update-date">Last Updated: August 2026</span>
-                        <h4>1. DIGITAL NATURE & FINAL SALE</h4>
-                        <p>All sales are final. Try the 4 free topics before purchasing.</p>
+                        <h4>1. DIGITAL NATURE </h4>
+                        <p>Try the 4 free topics before purchasing.</p>
                         <h4>2. EU/UK CONSUMER WAIVER NOTICE</h4>
                         <p>If you reside in the EU or UK, by completing checkout you agree that the supply of digital content begins immediately.</p>
                         <h4>3. DISPUTES</h4>
@@ -3250,7 +3346,7 @@ BUYOUT & LIFETIME ACCESS</h4>
   "@context":"https://schema.org",
   "@type":"SoftwareApplication",
   "name":"HanLingo",
-  "description":"Practical real‑life Chinese speaking tool for beginners and expats. 150+ everyday Mandarin phrases with pinyin, Mandarin audio + Slow Mode and cultural tips.",
+  "description":"Practical real‑life Chinese speaking tool for beginners and expats. 150 everyday Mandarin phrases with pinyin, Mandarin audio + Slow Mode and cultural tips.",
   "applicationCategory":"EducationalApplication",
   "operatingSystem":"Web Browser, PWA",
   "offers":{
@@ -3269,26 +3365,34 @@ BUYOUT & LIFETIME ACCESS</h4>
   "mainEntity":[
     {
       "@type":"Question",
-      "name":"Do I need to know Chinese to use HanLingo?",
+      "name":"Do I need to know Chinese?",
       "acceptedAnswer":{
         "@type":"Answer",
-        "text":"No prior Chinese knowledge is required. HanLingo uses pinyin and English translations so beginners can start speaking Mandarin on day one."
+        "text":"No. HanLingo is designed for complete beginners. Pinyin, English translations and audio help you start speaking from day one."
       }
     },
     {
       "@type":"Question",
-      "name":"Is HanLingo a subscription service?",
+      "name":"Is this a subscription?",
       "acceptedAnswer":{
         "@type":"Answer",
-        "text":"No. HanLingo is one‑time payment for lifetime access. Four scenarios are free to try without purchase."
+        "text":"No. Pay once and get lifetime access."
       }
     },
     {
       "@type":"Question",
-      "name":"Does HanLingo teach textbook Chinese?",
+      "name":"What do I get for $59?",
       "acceptedAnswer":{
         "@type":"Answer",
-        "text":"HanLingo focuses on authentic local everyday Mandarin expressions instead of stiff textbook phrases, with built‑in cultural do‑and‑don’t guidance."
+        "text":"All 15 topics, current content and future content updates."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Can I try it first?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Yes. The first 4 topics are completely free."
       }
     }
   ]
