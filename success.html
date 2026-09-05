@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.copyCode = function(){
         const txt = currentCodeDisplay.textContent;
         navigator.clipboard.writeText(txt).then(()=>{
-            const btn = document.querySelector('.copy‑btn');
+            const btn = document.querySelector('.copy-btn');
             const oldText = btn.textContent;
             btn.textContent = "✅ Copied!";
             setTimeout(()=> btn.textContent = oldText,2000);
