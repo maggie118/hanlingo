@@ -1,13 +1,12 @@
 // service-worker.js - 针对单页面与高频音频深度优化
-const CACHE_NAME = 'hanlingo-cache-v25'; // 上线更新版本号：每次改代码 +1，例 v17
+const CACHE_NAME = 'hanlingo-cache-v26'; // 上线更新版本号：每次改代码 +1，例 v17
 
 const PRE_CACHE_ASSETS = [
   './',
   './index.html',
   './js/data.js',
   './js/wordseg.js',
-  './manifest.json',
-  './images/logo-founder.png'
+  './manifest.json'
 ];
 
 self.addEventListener('install', event => {
