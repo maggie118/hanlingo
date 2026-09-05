@@ -1675,7 +1675,14 @@
             font-size: clamp(1.0rem, 2.2vw, 1.2rem);
             font-weight: 700;
             color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+        .card-face.milestone-back .cta-section .cta-subhead {
+            font-size: clamp(0.9rem, 2vw, 1.05rem);
+            font-weight: 400;
+            color: #666;
             margin-bottom: 12px;
+            line-height: 1.5;
         }
         .card-face.milestone-back .milestone-btn {
             display: inline-block;
@@ -1702,7 +1709,6 @@
         .card-face.milestone-back .milestone-price-anchor {
             font-size: 14px;
             color: #999;
-            text-decoration: line-through;
             margin-bottom: 6px;
         }
         .card-face.milestone-back .milestone-security {
@@ -2420,10 +2426,11 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                             { label: '02 / Master the Tones', desc: 'Listen to the slow pronunciation first. Copy the sentences into Google Translate, tap the speaker icon, and catch every nuance perfectly.' },
                             { label: '03 / Build Muscle Memory', desc: 'Read each sentence aloud 10 times until it becomes second nature.' }
                         ],
-                        ctaHeadline: '🚀 Ready to keep going?',
-                        buttonText: 'Unlock the remaining 11 topics with one payment • $59',
-                        priceAnchor: 'Founding Lifetime Access',
-                        security: 'Secure Checkout by Stripe'
+                        ctaHeadline: 'Keep Going',
+                        ctaSubhead: 'Unlock the remaining 11 topics with Lifetime Access.',
+                        buttonText: 'Get Lifetime Access — $59',
+                        priceAnchor: 'One payment · No subscription',
+                        security: '🔒 Secure checkout by Stripe'
                     }
                 }
             };
@@ -2727,10 +2734,9 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                                 ${stepsHtml}
                             </div>
 
-                            <div class="final-note">${data.back.finalNote}</div>
-
                             <div class="cta-section">
                                 <div class="cta-headline">${data.back.ctaHeadline}</div>
+                                <div class="cta-subhead">${data.back.ctaSubhead}</div>
                                 <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="milestone-btn" onclick="event.stopPropagation();">${data.back.buttonText}</a>
                                 <div class="milestone-price-anchor">${data.back.priceAnchor}</div>
                                 <div class="milestone-security">${data.back.security}</div>
@@ -2959,7 +2965,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                 if (phrase && phrase.isMilestone) {
                     if (isFlipped) {
                         cardNav.classList.add('hidden-nav');
-                        cardProgress.textContent = '💳 Upgrade';
+                        cardProgress.innerHTML = '<a href="#" style="color:inherit;text-decoration:none;cursor:pointer;" onclick="event.preventDefault();document.querySelector(\'.milestone-btn\')?.scrollIntoView({behavior:\'smooth\',block:\'center\'});">💳 Upgrade</a>';
                         navProgressText.textContent = '';
                     } else {
                         cardNav.classList.remove('hidden-nav');
