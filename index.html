@@ -16,7 +16,7 @@
 
     <!-- Open Graph / Facebook -->
    <meta property="og:title" content="HanLingo — Speak Real‑Life Chinese">
-<meta property="og:description" content="Learn practical Mandarin expressions for real life — with pinyin, audio and cultural tips. Four topics free. One-time lifetime access.">
+<meta property="og:description" content="Learn practical Mandarin expressions for real life — with pinyin, audio and cultural tips. Four topics free. One-time Founding Lifetime access.">
 <meta property="og:image" content="/og‑banner‑1200‑630.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,7 +26,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="HanLingo: Practical Real‑Life Chinese Speaking Tool for Beginners">
-    <meta name="twitter:description" content="Authentic everyday Mandarin phrases for expats and beginners. Pinyin, audio, cultural notes. Lifetime one‑time purchase.">
+    <meta name="twitter:description" content="Authentic everyday Mandarin phrases for expats and beginners. Pinyin, audio, cultural notes. Founding Lifetime one‑time purchase.">
     <meta name="twitter:image" content="https://hanlingo.app/og‑banner‑1200‑630.png">
 
     <!-- Inter Font -->
@@ -2054,7 +2054,7 @@ Unlock all 15 topics with one payment.</p>
                     <p><strong>One payment. No subscription. </strong></p>
 					 </ul>
                
-                <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="btn">Get Lifetime Access — $59</a>
+                <a href="https://buy.stripe.com/6oUaEZ2Mm5P37RygZqb7y01" target="_blank" class="btn">Get Founding Lifetime Access — $59</a>
                 <div class="trust-badge">🔒 Secure checkout by Stripe</div>
             </div>
         </div>
@@ -2071,7 +2071,7 @@ Unlock all 15 topics with one payment.</p>
             </details>
             <details class="faq-item">
                 <summary>Is this a subscription?</summary>
-                <p>No. Pay once and get lifetime access.</p>
+                <p>No. Pay once and get Founding Lifetime access.</p>
             </details>
             <details class="faq-item">
                 <summary>What do I get for $59?</summary>
@@ -2289,7 +2289,7 @@ Unlock all 15 topics with one payment.</p>
 
             // ============================================================
             //  3.5 Paid access control (server-verified token)
-            //  The old flow trusted localStorage 'hanlingo_lifetime_access'
+            //  The old flow trusted localStorage 'hanlingo_Founding Lifetime_access'
             //  which anyone could forge in DevTools. Now a signed token
             //  (issued by /api/verify-checkout after a real Stripe payment)
             //  is verified server-side on every page load, and paid content
@@ -2323,7 +2323,7 @@ Unlock all 15 topics with one payment.</p>
             }
 
             function showLockedNotice() {
-                showHlToast('🔒 This topic is included with Lifetime Access.');
+                showHlToast('🔒 This topic is included with Founding Lifetime Access.');
                 var p = document.getElementById('pricing');
                 if (p) p.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -2360,7 +2360,7 @@ Unlock all 15 topics with one payment.</p>
             function initAccess() {
                 var token = null;
                 try { token = localStorage.getItem('hanlingo_access_token'); } catch (e) { token = null; }
-                // The legacy 'hanlingo_lifetime_access' flag is deliberately
+                // The legacy 'hanlingo_Founding Lifetime_access' flag is deliberately
                 // NOT trusted anymore - it was forgeable with one DevTools line.
                 if (!token) return;
                 ACCESS.token = token;
@@ -2422,7 +2422,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                         ],
                         ctaHeadline: '🚀 Ready to keep going?',
                         buttonText: 'Unlock the remaining 11 topics with one payment • $59',
-                        priceAnchor: 'Lifetime Access',
+                        priceAnchor: 'Founding Lifetime Access',
                         security: 'Secure Checkout by Stripe'
                     }
                 }
@@ -3456,7 +3456,7 @@ We will be happy to review the issue and help where we can.</h4>
       "name":"Is this a subscription?",
       "acceptedAnswer":{
         "@type":"Answer",
-        "text":"No. Pay once and get lifetime access."
+        "text":"No. Pay once and get Founding Lifetime access."
       }
     },
     {
@@ -3481,7 +3481,7 @@ We will be happy to review the issue and help where we can.</h4>
 <!-- HanLingo SEO hidden text block for search engine crawlers only -->
 <div class="seo‑hidden‑content" aria‑hidden="true">
 <h2>HanLingo – Practical Real‑Life Mandarin for Expats & Beginners</h2>
-<p>HanLingo is a web‑based Mandarin Chinese learning tool. Learn practical daily‑use Chinese phrases and complete sentences, not single characters. Each entry includes Chinese characters, pinyin pronunciation, English translation and cultural usage tips. 4 scenarios are free to try, one‑time lifetime access, no recurring subscriptions.</p>
+<p>HanLingo is a web‑based Mandarin Chinese learning tool. Learn practical daily‑use Chinese phrases and complete sentences, not single characters. Each entry includes Chinese characters, pinyin pronunciation, English translation and cultural usage tips. 4 scenarios are free to try, one‑time Founding Lifetime access, no recurring subscriptions.</p>
 
 <h3>Available Learning Topics</h3>
 <ul>
@@ -3503,7 +3503,7 @@ We will be happy to review the issue and help where we can.</h4>
 </ul>
 
 <h3>About HanLingo</h3>
-<p>Target audience: foreigners living or travelling, expats, absolute beginners with zero Chinese knowledge. Focus on usable spoken sentences you can use immediately in real‑world situations, not textbook‑style memorization. Each flash‑card shows Chinese sentence, pinyin, English meaning plus cultural do‑and‑don’t hints. Four topics are accessible for free without payment. Purchase grants permanent lifetime access to all 15 topic sets.</p>
+<p>Target audience: foreigners living or travelling, expats, absolute beginners with zero Chinese knowledge. Focus on usable spoken sentences you can use immediately in real‑world situations, not textbook‑style memorization. Each flash‑card shows Chinese sentence, pinyin, English meaning plus cultural do‑and‑don’t hints. Four topics are accessible for free without payment. Purchase grants permanent Founding Lifetime access to all 15 topic sets.</p>
 </div>
 
 <style>
