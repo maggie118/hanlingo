@@ -444,6 +444,14 @@
             min-height: 1.2em;
             text-align: center;
         }
+        .preview-card .flip-hint {
+            margin-top: auto;
+            padding-top: 18px;
+            font-size: 12px;
+            color: #bbb;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+        }
         .preview-card.back .flip-hint-back {
             margin-top: auto;
             padding-top: 18px;
@@ -451,6 +459,30 @@
             color: #bbb;
             letter-spacing: 0.3px;
             font-weight: 400;
+        }
+        .preview-card.back .note-box {
+            background: var(--rice-paper);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px 12px;
+            width: 100%;
+            max-width: 360px;
+            text-align: left;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            margin: 4px 0 8px;
+        }
+        .preview-card.back .note-box .note-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+            font-family: 'Inter', sans-serif;
+        }
+        .preview-card.back .note-box .note-body {
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--stone);
+            font-family: 'Inter', sans-serif;
         }
         /* ===== Access toast (locked-topic / loading feedback) ===== */
         .hl-toast {
@@ -1924,7 +1956,7 @@
     <!-- ===== Hero ===== -->
     <section class="hero" id="hero">
         <h1>Speak Chinese <span class="accent">for Real Life</span></h1>
-        <p class="sub">Learn practical Mandarin phrases you can actually use — from your very first day.</p>
+        <p class="sub">Learn the Chinese you actually need for everyday life.</p>
         <div class="stats">
             <span>Practical phrases</span>
             <span>Pinyin + audio</span>
@@ -1947,11 +1979,16 @@
                     <button class="slow-btn" id="previewSlowBtn" aria-label="Slow speed">🐢</button>
                     <span class="btn-label">Slow</span>
                 </div>
+                <div class="flip-hint">🔄 Click Card to Flip</div>
             </div>
             <div class="preview-card back" id="previewBackCard">
                 <div class="en" id="previewBackEn"></div>
                 <div class="breakdown" id="previewBreakdown"></div>
-                <div class="flip-hint-back">🔄 Back of the card</div>
+                <div class="note-box" id="previewNoteBox">
+                    <div class="note-title">💡 CULTURAL TIPS</div>
+                    <div class="note-body" id="previewNoteBody"></div>
+                </div>
+                <div class="flip-hint-back">🔄 Click to Return</div>
             </div>
         </div>
     </section>
@@ -2375,17 +2412,16 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                     back: {
                         title: '🎉 PHASE 1 COMPLETE!',
                         subtitle: 'You\'ve completed your first 4 topics.',
-                        coachTitle: '💡 A FINAL WORD FROM YOUR TEACHER',
-                        coachText: `"Don’t try to memorize everything at once. Pick one topic, listen, repeat, and use the phrases in real situations. Consistent practice is what turns useful phrases into natural speech."`,
+                        coachTitle: '💡 A Quick Tip',
+                        coachText: `"Don't try to memorize everything at once. Pick one topic, listen, repeat, and use the phrases in real situations."`,
                         coachSignature: '—— Lead Consultant & Founder of HanLingo',
                         steps: [
                             { label: '01 / One Theme per Day', desc: 'Focus on just 1 theme (10 sentences) a day. Keep it bite-sized and effortless.' },
                             { label: '02 / Master the Tones', desc: 'Listen to the slow pronunciation first. Copy the sentences into Google Translate, tap the speaker icon, and catch every nuance perfectly.' },
                             { label: '03 / Build Muscle Memory', desc: 'Read each sentence aloud 10 times until it becomes second nature.' }
                         ],
-                        finalNote: 'The last 11 themes hold the true value of this kit—covering the deep social depth and critical, unexpected situations that the first 4 themes don\'t.',
-                        ctaHeadline: '🚀 Keep Going',
-                        buttonText: 'Unlock remaining 11 premium topics  with one payment • $59',
+                        ctaHeadline: '🚀 Ready to keep going?',
+                        buttonText: 'Unlock the remaining 11 topics with one payment • $59',
                         priceAnchor: 'Lifetime Access',
                         security: 'Secure Checkout by Stripe'
                     }
@@ -3051,10 +3087,10 @@ Your purchase gives you a personal, non-transferable right to access and use the
 
 
 
-Lifetime Access</h4>
-                        <p>The $59 Founding Lifetime purchase is a one-time payment and does not require a subscription.
+Founding Lifetime Access</h4>
+                        <p>The $59 Founding Lifetime Access purchase is a one-time payment and does not require a subscription.
 
-“Lifetime Access” means continued access to the HanLingo product and the content included with your purchase while HanLingo continues to offer and maintain the product.</p>
+“Founding Lifetime Access” means continued access to the HanLingo product and the content included with your purchase while HanLingo continues to offer and maintain the product.</p>
                         <h4>3. Product Updates</h4>
                         <p>We may improve, update, or add content to HanLingo from time to time. Future updates may include new learning content, improvements, and other product enhancements.</p>
 
@@ -3191,7 +3227,7 @@ We will be happy to review the issue and help where we can.</h4>
     <script>
     // ================================================================
     //  HanLingo - Hero Live Card Preview
-    //  Renders the REAL card (word units from HANLINGO_WORDSEG, phrase 8_1)
+    //  Renders the REAL card (word units from HANLINGO_WORDSEG, phrase 1_10)
     //  and plays TTS audio with karaoke highlighting, same engine as the
     //  card flow modal. Not a screenshot.
     // ================================================================
@@ -3202,7 +3238,7 @@ We will be happy to review the issue and help where we can.</h4>
         var slowBtn = document.getElementById('previewSlowBtn');
         if (!grid || !playBtn) return;
 
-        var entry = (window.HANLINGO_WORDSEG && window.HANLINGO_WORDSEG['8_1']) || null;
+        var entry = (window.HANLINGO_WORDSEG && window.HANLINGO_WORDSEG['1_10']) || null;
         if (!entry || !entry.cells || !entry.cells.length) {
             var sec = document.getElementById('preview');
             if (sec) sec.style.display = 'none';
@@ -3280,6 +3316,17 @@ We will be happy to review the issue and help where we can.</h4>
                 col.appendChild(mn);
                 backBd.appendChild(col);
             });
+        }
+
+        // Render Cultural Tip (matches Big Card .note-box structure, sourced from CUSTOM_TIPS['1_10'])
+        var noteBox = document.getElementById('previewNoteBox');
+        var noteBody = document.getElementById('previewNoteBody');
+        var cultureTip = '🟢 DO: A simple handshake or nod is fine.\n🔴 DON\'T: Hug or kiss on the cheek unless you know the person well.';
+        if (noteBox && noteBody && cultureTip) {
+            noteBody.innerHTML = cultureTip.replace(/\n/g, '<br>');
+            noteBox.style.display = '';
+        } else if (noteBox) {
+            noteBox.style.display = 'none';
         }
 
         // Gentle zh-CN voice picker (same preference order as card flow)
