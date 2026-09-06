@@ -1,6 +1,5 @@
 User‑agent: *
 Allow: /
-Disallow: /success.html
 Disallow: /recover.html
 Disallow: /api/
 
