@@ -1961,7 +1961,7 @@
 
     <!-- ===== Hero ===== -->
     <section class="hero" id="hero">
-        <h1>Speak Chinese <span class="accent">for Real Life</span></h1>
+        <h1>Speak Chinese <span class="accent"> - in Real Life</span></h1>
         <p class="sub">Learn the Chinese you actually need for everyday life.</p>
         <div class="stats">
             <span>Practical phrases</span>
@@ -2100,6 +2100,7 @@ Unlock all 15 topics with one payment.</p>
             <a href="javascript:void(0)" onclick="openLegal('terms')">Terms</a>
             <a href="javascript:void(0)" onclick="openLegal('privacy')">Privacy</a>
             <a href="javascript:void(0)" onclick="openLegal('refund')">Refund Policy</a>
+            <a href="/recover">Restore Access</a>
             <a href="mailto:support@hanlingo.app">support@hanlingo.app</a>
         </div>
     </footer>
@@ -2714,6 +2715,7 @@ flipHint: '🔄 Click Card to Reveal Your Next Step'
                                     <span class="step-dot">●</span>
                                     <span class="step-label">${step.label}</span>
                                     <span class="step-desc">${step.desc}</span>
+
                                 </div>
                             `;
                     }).join('');
@@ -3526,6 +3528,17 @@ We will be happy to review the issue and help where we can.</h4>
 }
 </style>
 <!-- /End HanLingo SEO hidden block -->
+
+<script>
+// Register Service Worker (PWA offline support + asset caching)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function (err) {
+            console.warn('SW registration failed:', err);
+        });
+    });
+}
+</script>
 
 </body>
 </html>
