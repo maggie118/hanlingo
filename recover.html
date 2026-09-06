@@ -176,9 +176,11 @@ submitBtn.addEventListener('click', async ()=>{
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify({email})
         });
-        const data = await res.json();
+        const data = await res.json().catch(()=>({}));
 
-        if(data.hasPurchase){
+        if(!res.ok || !data.ok){
+            showMessage("⚠️ "+(data.error || "Server error. Please try again later."),"error");
+        }else if(data.hasPurchase){
             showMessage("✅ Purchase record found! Please open the original Stripe payment‑success email and click its success‑page link to restore your local lifetime access.","success");
         }else{
             showMessage("❌ No matching purchase record found. Double‑check your email, or contact support@hanlingo.app for help.","error");
@@ -195,6 +197,15 @@ submitBtn.addEventListener('click', async ()=>{
 emailInput.addEventListener('keydown', (e)=>{
     if(e.key === 'Enter') submitBtn.click();
 })
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function (err) {
+            console.warn('SW registration failed:', err);
+        });
+    });
+}
 </script>
 </body>
 </html>
