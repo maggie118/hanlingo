@@ -3227,7 +3227,49 @@ We will be happy to review the issue and help where we can.</h4>
             window.promptInstallApp = promptInstallApp;
 
             console.log('✅ HanLingo · Card Flow ready — character breakdown with pinyin and meaning now fully working.');
+// ================================================================
+//  支付成功回调处理：获取 session_id 并兑换 Token
+//  (在 Stripe 付款成功后，会跳转回本页面并带上 session_id 参数)
+// ================================================================
+(function handleStripeSuccess() {
+    // 获取 URL 中的 session_id
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
 
+    if (sessionId && sessionId.startsWith('cs_')) {
+        // 显示加载提示
+        showHlToast('⏳ 正在验证您的购买...', 8000);
+
+        // 请求后端兑换 Token
+        fetch('/api/verify-checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_id: sessionId })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.ok && data.token) {
+                // 拿到 Token 后存到 localStorage
+                localStorage.setItem('hanlingo_access_token', data.token);
+                localStorage.setItem('hl_verified_at', String(Date.now()));
+                
+                // 清除 URL 上的参数（避免刷新重复调用）
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                // 强制更新访问状态并解锁 UI
+                ACCESS.token = data.token;
+                ACCESS.verified = true;
+                accessUnlockUI();
+                showHlToast('🎉 购买成功！所有话题已解锁！', 3000);
+            } else {
+                showHlToast('⚠️ 验证失败，请稍后重试或联系客服。', 4000);
+            }
+        })
+        .catch(() => {
+            showHlToast('⚠️ 网络连接错误，请稍后重试。', 4000);
+        });
+    }
+})();
             // ---- Server-verified paid access (replaces the forgeable localStorage flag) ----
             initAccess();
         })();
