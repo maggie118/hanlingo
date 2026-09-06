@@ -1,12 +1,20 @@
 // api/verify-checkout.js - server-side Checkout Session verification + access token issuance
 import Stripe from 'stripe';
-import { kv } from '@vercel/kv';
 import crypto from 'crypto';
+import { put, get } from '@vercel/blob';
 
-// HMAC-signed access token: base64url(payload) + '.' + base64url(hmac)
-// Payload: { e: email, i: issuedAtUnix, l: livemode }
-// The token has no expiry (lifetime product). Rotating HANLINGO_ACCESS_SECRET
-// in Vercel invalidates every issued token at once.
+// Blob 辅助函数
+async function readDB() {
+    try {
+        const result = await get('purchases.json', { access: 'private' });
+        if (result) return JSON.parse(result.text);
+    } catch (e) {}
+    return {};
+}
+async function writeDB(data) {
+    await put('purchases.json', JSON.stringify(data, null, 2), { access: 'private', allowOverwrite: true });
+}
+
 function issueAccessToken(email, livemode) {
     const secret = process.env.HANLINGO_ACCESS_SECRET;
     const payload = Buffer.from(JSON.stringify({
@@ -17,60 +25,42 @@ function issueAccessToken(email, livemode) {
 }
 
 export default async function handler(req, res) {
-    // CORS preflight
-    if (req.method === 'OPTIONS') {
-        return res.status(204).end();
-    }
-
-    // POST only
-    if (req.method !== 'POST') {
-        return res.status(405).json({ ok: false, error: "Method not allowed" });
-    }
+    if (req.method === 'OPTIONS') return res.status(204).end();
+    if (req.method !== 'POST') return res.status(405).json({ ok: false, error: "Method not allowed" });
 
     const stripeSecret = process.env.STRIPE_SECRET_KEY;
-    if (!stripeSecret) {
-        return res.status(500).json({ ok: false, error: "Server config missing" });
-    }
-
+    if (!stripeSecret) return res.status(500).json({ ok: false, error: "Server config missing" });
     const stripe = new Stripe(stripeSecret);
 
     const { session_id } = req.body || {};
-    if (!session_id || !session_id.startsWith('cs_')) {
-        return res.status(400).json({ ok: false, error: "Invalid session_id" });
-    }
+    if (!session_id || !session_id.startsWith('cs_')) return res.status(400).json({ ok: false, error: "Invalid session_id" });
 
     try {
-        // Retrieve the real session state from Stripe's backend
         const session = await stripe.checkout.sessions.retrieve(session_id);
         const isPaid = session.payment_status === 'paid';
         const email = session.customer_details?.email || null;
 
-        // Self-healing backfill: the webhook used to fail signature checks,
-        // so KV may lack records for already-paid customers. Every time a
-        // paying user opens their success link we re-write the paid:email
-        // record here, which makes recover-access work retroactively.
-        // Idempotent and harmless on repeats.
         if (isPaid && email) {
             try {
                 const key = `paid:${email.toLowerCase()}`;
-                if (!(await kv.get(key))) {
-                    await kv.set(key, JSON.stringify({
+                const db = await readDB();
+                if (!db[key]) {
+                    db[key] = JSON.stringify({
                         session_id: session.id,
                         amount_total: session.amount_total,
                         currency: session.currency,
                         created: new Date().toISOString(),
                         livemode: session.livemode,
                         source: 'verify-checkout'
-                    }));
+                    });
+                    await writeDB(db);
                 }
             } catch (e) {
-                // Backfill failure must not break the verification response
-                console.error('KV backfill failed:', e.message);
+                console.error('Blob backfill failed:', e.message);
             }
         }
 
         if (isPaid && email && !process.env.HANLINGO_ACCESS_SECRET) {
-            // Refuse to hand out access without a real server-verified token
             console.error('HANLINGO_ACCESS_SECRET is not configured');
             return res.status(500).json({ ok: false, error: "Server config missing" });
         }
