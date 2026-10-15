@@ -14,22 +14,22 @@
   const CATEGORY_META = {
     strange: {
       title: 'Liaozhai Tales',
-      vertical: '聊',
-      seal: '斋',
+      vertical: '聊斋',
+      seal: '志异',
       highlight: 'Classic ghost stories with atmosphere and texture.',
       description: 'Explore the strange, the eerie, and the mythical at a measured pace with story-first Mandarin practice.'
     },
     daily: {
       title: 'Daily Life',
-      vertical: '生',
-      seal: '活',
+    vertical: '日常',
+    seal: '生活',
       highlight: 'Real-life Mandarin for everyday conversation.',
       description: 'Learn how to greet people, order food, travel, shop, and chat naturally in daily situations.'
     },
     business: {
       title: 'Business & Workplace',
-      vertical: '商',
-      seal: '务',
+      vertical: '商务',
+      seal: '职场',
       highlight: 'Polite, clear Mandarin for everyday work.',
       description: 'Practice beginner-friendly phrases for introductions, meetings, calls, client visits, and daily office life.'
     }
@@ -47,6 +47,7 @@
     plan: store.get('hanlingo_plan', 'b'),
     settings: Object.assign({ hsk: 'HSK 3-4', pinyin: false, translation: false }, store.get('hanlingo_settings', {}))
   };
+  let deferredInstallPrompt = null;
 
   function saveSubscriptionState() {
     store.set('hanlingo_pro', state.pro);
@@ -140,45 +141,120 @@
     return out;
   }
 
-  function splitWordPinyin(word, pinyin) {
-    const chars = Array.from(word);
-    const trimmed = (pinyin || '').trim();
-    if (!trimmed) return Array.from({ length: chars.length }, () => '');
+  const PINYIN_SYLLABLES = new Set(('a ai an ang ao ba bai ban bang bao bei ben beng bi bian biao bie bin bing bo bu ' +
+    'ca cai can cang cao ce cen ceng cha chai chan chang chao che chen cheng chi chong chou chu chua chuai chuan chuang chui chun chuo ci cong cou cu cuan cui cun cuo ' +
+    'da dai dan dang dao de dei den deng di dia dian diao die ding diu dong dou du duan dui dun duo e ei en eng er fa fan fang fei fen feng fo fou fu ' +
+    'ga gai gan gang gao ge gei gen geng gong gou gu gua guai guan guang gui gun guo ha hai han hang hao he hei hen heng hong hou hu hua huai huan huang hui hun huo ' +
+    'ji jia jian jiang jiao jie jin jing jiong jiu ju juan jue jun ka kai kan kang kao ke ken keng kong kou ku kua kuai kuan kuang kui kun kuo ' +
+    'la lai lan lang lao le lei leng li lia lian liang liao lie lin ling liu long lou lu luan lun lv lve luo ma mai man mang mao me mei men meng mi mian miao mie min ming miu mo mou mu ' +
+    'na nai nan nang nao ne nei nen neng ni nian niang niao nie nin ning niu nong nou nu nuan nv nve nuo nar zher o ou ' +
+    'pa pai pan pang pao pei pen peng pi pian piao pie pin ping po pou pu qi qia qian qiang qiao qie qin qing qiong qiu qu quan que qun ' +
+    'ran rang rao re ren reng ri rong rou ru rua ruan rui run ruo sa sai san sang sao se sen seng sha shai shan shang shao she shei shen sheng shi shou shu shua shuai shuan shuang shui shun shuo si song sou su suan sui sun suo ' +
+    'ta tai tan tang tao te teng ti tian tiao tie ting tong tou tu tuan tui tun tuo wa wai wan wang wei wen weng wo wu ' +
+    'xi xia xian xiang xiao xie xin xing xiong xiu xu xuan xue xun ya yan yang yao ye yi yin ying yo yong you yu yuan yue yun ' +
+    'za zai zan zang zao ze zei zen zeng zha zhai zhan zhang zhao zhe zhei zhen zheng zhi zhong zhou zhu zhua zhuai zhuan zhuang zhui zhun zhuo zi zong zou zu zuan zui zun zuo').split(/\s+/));
+  const isHanzi = (ch) => /^[\u3400-\u9fff]$/u.test(ch);
 
-    const syllables = trimmed.split(/\s+/).filter(Boolean);
-    if (syllables.length === chars.length) return syllables;
-
-    const compact = trimmed.replace(/\s+/g, '');
-    if (chars.length === 2) {
-      if (compact.length <= 5) return [compact.slice(0, 2), compact.slice(2)];
-      return [compact.slice(0, Math.ceil(compact.length / 2)), compact.slice(Math.ceil(compact.length / 2))];
+  function pinyinLetters(value) {
+    const result = [];
+    for (const char of value) {
+      const base = /[üǖǘǚǜÜǕǗǙǛ]/.test(char)
+        ? 'v'
+        : char.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      if (/^[a-z]$/.test(base)) result.push({ base, display: char });
     }
-    if (chars.length === 3 && compact.length <= 9) {
-      return [compact.slice(0, 3), compact.slice(3, 5), compact.slice(5)];
-    }
-
-    const fallback = [];
-    let cursor = 0;
-    for (let i = 0; i < chars.length; i++) {
-      const remaining = chars.length - i;
-      const take = remaining === 1 ? compact.length - cursor : Math.max(1, Math.round((compact.length - cursor) / remaining));
-      fallback.push(compact.slice(cursor, cursor + take));
-      cursor += take;
-    }
-    if (fallback.length && fallback.length === chars.length && cursor >= compact.length) return fallback;
-
-    return Array.from({ length: chars.length }, (_, i) => (syllables[i] || ''));
+    return result;
   }
 
-  function charWrap(ch, py, showPinyin) {
-    const wrap = h('span', { class: 'char-wrap' + (/^[，。！？；：、,.!?;:]+$/.test(ch) ? ' punctuation' : '') });
+  function splitPinyinSyllables(sentence, pinyin) {
+    const latinWords = new Set((sentence.match(/[a-z]+/gi) || []).map((word) => word.toLowerCase()));
+    const tokens = (pinyin || '').trim().split(/[\s'’]+/).filter(Boolean)
+      .filter((token) => !latinWords.has(token.toLowerCase()));
+    const letters = tokens.flatMap(pinyinLetters);
+    const compact = letters.map((letter) => letter.base).join('');
+    const boundaries = new Set();
+    let position = 0;
+    tokens.forEach((token) => {
+      position += pinyinLetters(token).length;
+      boundaries.add(position);
+    });
+
+    const hanziCount = Array.from(sentence).filter(isHanzi).length;
+    const erhuaCount = tokens.filter((token) =>
+      ['nar', 'zher'].includes(pinyinLetters(token).map((letter) => letter.base).join(''))).length;
+    const targetCount = hanziCount - erhuaCount;
+    const memo = new Map();
+    function splitAt(index, remaining) {
+      const key = index + ':' + remaining;
+      if (memo.has(key)) return memo.get(key);
+      if (!remaining) return index === compact.length ? { score: 0, parts: [] } : null;
+
+      let best = null;
+      for (let end = index + 1; end <= Math.min(compact.length, index + 6); end++) {
+        const base = compact.slice(index, end);
+        if (!PINYIN_SYLLABLES.has(base)) continue;
+        const rest = splitAt(end, remaining - 1);
+        if (!rest) continue;
+        const score = rest.score + (end === compact.length || boundaries.has(end) ? 0 : 1);
+        if (!best || score < best.score) {
+          best = {
+            score,
+            parts: [{ base, reading: letters.slice(index, end).map((letter) => letter.display).join('') }, ...rest.parts]
+          };
+        }
+      }
+      memo.set(key, best);
+      return best;
+    }
+
+    const result = splitAt(0, targetCount);
+    if (!result) return null;
+    const aligned = [];
+    let hanziIndex = 0;
+    for (const part of result.parts) {
+      aligned[hanziIndex] = part.reading;
+      if (part.base.endsWith('r') && sentenceHanzi(sentence)[hanziIndex + 1] === '儿') {
+        aligned[hanziIndex + 1] = '';
+        hanziIndex += 2;
+      } else {
+        hanziIndex++;
+      }
+    }
+    return aligned;
+  }
+
+  function sentenceHanzi(sentence) {
+    return Array.from(sentence).filter(isHanzi);
+  }
+
+  function charWrap(ch, py, showPinyin, extraClass = '') {
+    const punctuation = /^[，。！？；：、,.!?;:]+$/.test(ch);
+    const wrap = h('span', { class: 'char-wrap' + (punctuation ? ' punctuation' : '') + (extraClass ? ' ' + extraClass : '') });
     if (showPinyin && py) wrap.append(h('span', { class: 'pinyin' }, py));
     wrap.append(h('span', { class: 'hanzi' }, ch));
     return wrap;
   }
 
-  function plainCharGroup(chars, showPinyin) {
-    return h('span', { class: 'char-group' }, ...chars.map((ch) => charWrap(ch, '', showPinyin)));
+  function renderAlignedChars(chars, alignment, alignmentStart) {
+    const rendered = [];
+    let hanziOffset = alignmentStart;
+    for (let i = 0; i < chars.length; i++) {
+      const ch = chars[i];
+      if (!isHanzi(ch)) {
+        rendered.push(charWrap(ch, '', true));
+        continue;
+      }
+      const pinyin = alignment[hanziOffset] || '';
+      if (pinyin && /r$/i.test(pinyin) && chars[i + 1] === '儿') {
+        rendered.push(charWrap(ch + chars[i + 1], pinyin, true, 'erhua'));
+        i++;
+        hanziOffset += 2;
+      } else {
+        rendered.push(charWrap(ch, pinyin, true));
+        hanziOffset++;
+      }
+    }
+    return { nodes: rendered, nextHanzi: hanziOffset };
   }
 
   function getCardSegments(card) {
@@ -296,44 +372,44 @@
 
     const root = h('section', { class: 'player-shell', 'aria-label': 'Audio player' });
     const sub = h('div', { class: 'audio-sub', 'aria-live': 'polite' });
-    const playBtn = h('button', { class: 'play-btn', type: 'button', 'aria-label': '播放' }, icons.play);
-    const muteBtn = h('button', { class: 'mute-btn', type: 'button', 'aria-label': '静音' }, icons.vol);
-    const seek = h('input', { class: 'seek-range', id: uid + '-seek', type: 'range', min: '0', max: '1000', value: '0', 'aria-label': '播放进度' });
-    const vol = h('input', { class: 'volume-range', id: uid + '-vol', type: 'range', min: '0', max: '100', value: '100', 'aria-label': '音量' });
+    const playBtn = h('button', { class: 'play-btn', type: 'button', 'aria-label': 'Play' }, icons.play);
+    const muteBtn = h('button', { class: 'mute-btn', type: 'button', 'aria-label': 'Mute' }, icons.vol);
+    const seek = h('input', { class: 'seek-range', id: uid + '-seek', type: 'range', min: '0', max: '1000', value: '0', 'aria-label': 'Playback position' });
+    const vol = h('input', { class: 'volume-range', id: uid + '-vol', type: 'range', min: '0', max: '100', value: '100', 'aria-label': 'Volume' });
     const time = h('span', { class: 'time-tag' }, '0:00 / 0:00');
     const seekWrap = h('div', { class: 'seek-wrap' }, seek);
     const topBar = h('div', { class: 'player-bar' }, playBtn, seekWrap, time, muteBtn, vol);
-    const abBtn = h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'ab', id: uid + '-ab' }, 'A-B循环');
+    const abBtn = h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'ab', id: uid + '-ab' }, 'A-B Loop');
     const dictInput = h('input', { type: 'checkbox', id: uid + '-dict' });
 
-    const modeRow = h('div', { class: 'player-row', role: 'group', 'aria-label': '播放模式' },
+    const modeRow = h('div', { class: 'player-row', role: 'group', 'aria-label': 'Playback mode' },
       abBtn,
-      h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'continuous' }, '连续播放'),
-      h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'sentence' }, '单句循环'),
-      h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'once' }, '单次播放'),
+      h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'continuous' }, 'Continuous'),
+      h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'sentence' }, 'Sentence Loop'),
+      h('button', { class: 'chip', type: 'button', 'data-kind': 'mode', 'data-value': 'once' }, 'Play Once'),
       h('label', { class: 'toggle' },
         dictInput,
         h('span', { class: 'toggle-track' }),
-        h('span', { class: 'toggle-label' }, '听写模式')));
+        h('span', { class: 'toggle-label' }, 'Dictation Mode')));
 
-    const speedRow = h('div', { class: 'player-row', role: 'group', 'aria-label': '倍速' },
+    const speedRow = h('div', { class: 'player-row', role: 'group', 'aria-label': 'Playback speed' },
       h('button', { class: 'chip sm', type: 'button', 'data-kind': 'speed', 'data-value': '0.6' }, '0.6x'),
       h('button', { class: 'chip sm', type: 'button', 'data-kind': 'speed', 'data-value': '0.8' }, '0.8x'),
       h('button', { class: 'chip sm', type: 'button', 'data-kind': 'speed', 'data-value': '1' }, '1x'),
       h('button', { class: 'chip sm', type: 'button', 'data-kind': 'speed', 'data-value': '1.2' }, '1.2x'),
       h('button', { class: 'chip sm', type: 'button', 'data-kind': 'speed', 'data-value': '1.5' }, '1.5x'));
 
-    const subsRow = h('div', { class: 'player-row', role: 'group', 'aria-label': '字幕显示' },
-      h('button', { class: 'chip', type: 'button', 'data-kind': 'subs', 'data-value': 'both' }, '中英'),
-      h('button', { class: 'chip', type: 'button', 'data-kind': 'subs', 'data-value': 'en' }, '英文'),
-      h('button', { class: 'chip', type: 'button', 'data-kind': 'subs', 'data-value': 'zh' }, '中文'));
+    const subsRow = h('div', { class: 'player-row', role: 'group', 'aria-label': 'Subtitle display' },
+      h('button', { class: 'chip', type: 'button', 'data-kind': 'subs', 'data-value': 'both' }, 'Chinese + English'),
+      h('button', { class: 'chip', type: 'button', 'data-kind': 'subs', 'data-value': 'en' }, 'English'),
+      h('button', { class: 'chip', type: 'button', 'data-kind': 'subs', 'data-value': 'zh' }, 'Chinese'));
 
     const dictBox = h('textarea', {
       class: 'dict-input',
       rows: '2',
       maxlength: '120',
-      placeholder: '请输入中文句子',
-      'aria-label': '听写：请输入中文句子'
+      placeholder: 'Type the Chinese sentence you hear',
+      'aria-label': 'Dictation: type the Chinese sentence you hear'
     });
 
     const setSeekFill = (el) => {
@@ -367,9 +443,9 @@
 
     function syncPlayState() {
       playBtn.innerHTML = media.paused ? icons.play : icons.pause;
-      playBtn.setAttribute('aria-label', media.paused ? '播放' : '暂停');
+      playBtn.setAttribute('aria-label', media.paused ? 'Play' : 'Pause');
       muteBtn.innerHTML = media.muted || media.volume === 0 ? icons.muted : icons.vol;
-      muteBtn.setAttribute('aria-label', media.muted || media.volume === 0 ? '取消静音' : '静音');
+      muteBtn.setAttribute('aria-label', media.muted || media.volume === 0 ? 'Unmute' : 'Mute');
     }
 
     function drawMarkers() {
@@ -390,10 +466,10 @@
       if (st.dict) {
         const hint = document.createElement('p');
         hint.className = 'sub-hint';
-        hint.textContent = '听写模式：输入中文句子，按语音内容书写';
+        hint.textContent = 'Dictation mode: type the Chinese sentence you hear.';
         wrapper.appendChild(hint);
         dictBox.value = st.dictText;
-        dictBox.placeholder = '请输入中文句子';
+        dictBox.placeholder = 'Type the Chinese sentence you hear';
         dictBox.hidden = false;
       } else {
         dictBox.hidden = true;
@@ -430,8 +506,8 @@
         chip.classList.toggle('on', active);
         chip.setAttribute('aria-pressed', String(active));
       });
-      if (st.A == null) abBtn.textContent = 'A-B循环';
-      else if (st.B == null) abBtn.textContent = 'A ' + formatClock(st.A) + ' · 设B';
+      if (st.A == null) abBtn.textContent = 'A-B Loop';
+      else if (st.B == null) abBtn.textContent = 'A ' + formatClock(st.A) + ' · Set B';
       else abBtn.textContent = formatClock(st.A) + '–' + formatClock(st.B);
       dictInput.checked = st.dict;
     }
@@ -584,21 +660,23 @@
     const c = state.cards[state.idx];
     const total = state.cards.length;
     const last = state.idx === total - 1;
-    const showPinyin = !!state.settings.pinyin;
+    const pinyinAlignment = splitPinyinSyllables(c.sentence, c.pinyin);
+    if (!pinyinAlignment) console.error('Could not align card pinyin:', c.id);
+    let hanziOffset = 0;
     const sentence = h('p', { class: 'sentence', lang: 'zh-CN' },
       ...tokenize(c.sentence, c.vocabList).map((tk) => {
+        const aligned = renderAlignedChars(Array.from(tk.t), pinyinAlignment || [], hanziOffset);
+        hanziOffset = aligned.nextHanzi;
         if (tk.v) {
-          const chars = Array.from(tk.t);
-          const pinyinByChar = splitWordPinyin(tk.v.word, tk.v.pinyin);
           return h('button', {
             class: 'word' + (hasWord(tk.v.word) ? ' saved' : ''),
             type: 'button',
             onclick: () => openWord(tk.v)
-          }, ...chars.map((ch, idx) => charWrap(ch, pinyinByChar[idx] || '', showPinyin)));
+          }, ...aligned.nodes);
         }
-        return plainCharGroup(Array.from(tk.t), showPinyin);
+        return h('span', { class: 'char-group' }, ...aligned.nodes);
       }));
-    const sentencePinyin = showPinyin && (!Array.isArray(c.vocabList) || c.vocabList.length === 0)
+    const unalignedPinyin = !pinyinAlignment
       ? h('p', { class: 'sentence-pinyin', lang: 'zh-Latn' }, c.pinyin)
       : null;
 
@@ -611,9 +689,9 @@
         h('div', { class: 'bar' }, h('i', { style: `width:${((state.idx + 1) / total) * 100}%` })),
         h('div', { class: 'r-title' }, c.title),
         h('div', { class: 'card-subtitle' },
+          unalignedPinyin,
           sentence,
-          sentencePinyin,
-          state.settings.translation ? h('p', { class: 'trans' }, c.translation) : null,
+          h('p', { class: 'trans' }, c.translation),
           c.grammarPoint ? h('p', { class: 'grammar-note' },
             h('strong', {}, 'HSK 5–6 focus · '), c.grammarPoint) : null),
         renderAudioPlayer(c),
@@ -665,22 +743,29 @@
 
   function renderCategoryHero() {
     const advancedStories = state.settings.hsk === 'HSK 5-6';
-    const meta = advancedStories && state.currentCategory === 'strange' ? {
+    const journeyWestStories = state.settings.hsk === 'HSK 1-2' && state.currentCategory === 'strange';
+    const meta = journeyWestStories ? {
+      title: 'Journey to the West',
+      vertical: '西游记',
+      seal: '孙悟空',
+      highlight: 'Magic, adventure, and memorable characters.',
+      description: 'Follow the Monkey King and his companions through eight classic adventures in beginner-friendly Mandarin.'
+    } : advancedStories && state.currentCategory === 'strange' ? {
       title: 'The Art of War',
-      vertical: '战',
-      seal: '略',
+      vertical: '孙子',
+      seal: '兵法',
       highlight: 'Strategy, human nature, and dramatic turns.',
       description: 'Explore Sun Tzu through thirteen advanced story packs with classic lines and HSK 5–6 language.'
     } : advancedStories && state.currentCategory === 'daily' ? {
       title: 'Advanced Daily Life',
-      vertical: '日',
-      seal: '常',
+      vertical: '日常',
+      seal: '生活',
       highlight: 'Modern life, expressed with advanced Mandarin.',
       description: 'Explore thirteen story packs on relationships, wellbeing, culture, and more with HSK 5–6 language.'
     } : advancedStories && state.currentCategory === 'business' ? {
       title: 'Advanced Business & Workplace',
-      vertical: '商',
-      seal: '务',
+      vertical: '商务',
+      seal: '职场',
       highlight: 'Strategic, polished Mandarin for the modern workplace.',
       description: 'Explore eight advanced packs on markets, investment, negotiation, talent, leadership, and crisis communication.'
     } : CATEGORY_META[state.currentCategory] || CATEGORY_META.strange;
@@ -688,6 +773,7 @@
     const subEl = document.querySelector('#view-learn .hero .sub');
     const verticalEl = document.querySelector('.hero-title-v');
     const sealTextEl = document.querySelector('.seal-text');
+    const sealEl = document.querySelector('.seal');
     const metaList = document.querySelector('#view-learn .hero .meta');
     const visible = state.stories.filter((story) =>
       (story.category || 'strange') === state.currentCategory &&
@@ -695,8 +781,15 @@
 
     if (titleEl) titleEl.textContent = meta.title;
     if (subEl) subEl.innerHTML = '<strong>' + meta.highlight + '</strong><br>' + meta.description;
-    if (verticalEl) verticalEl.textContent = meta.vertical;
-    if (sealTextEl) sealTextEl.textContent = meta.seal;
+    if (verticalEl) {
+      verticalEl.textContent = meta.vertical;
+      verticalEl.className = 'hero-title-v title-length-' + Array.from(meta.vertical).length;
+    }
+    if (sealTextEl) {
+      sealTextEl.textContent = meta.seal;
+      sealTextEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
+    }
+    if (sealEl) sealEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
     if (metaList) {
       const cardCount = visible.reduce((total, story) => total + story.cards.length, 0);
       const freeCount = visible.reduce((total, story) => total + story.cards.filter((card) => card.isFree).length, 0);
@@ -858,23 +951,12 @@
         : h('p', { class: 'empty' }, 'No saved words yet. Tap an underlined word while reading to save it.'));
   }
 
-  function toggleRow(label, hint, key) {
-    return h('label', { class: 'row' },
-      h('span', {}, label, h('small', {}, hint)),
-      h('input', {
-        type: 'checkbox', checked: state.settings[key],
-        onchange: (e) => { state.settings[key] = e.target.checked; saveSettings(); }
-      }));
-  }
-
   function renderProfile() {
     $('#view-profile').replaceChildren(
       h('h2', { class: 'page-title' }, 'Profile'),
       h('div', { class: 'row' },
         h('span', {}, 'Plan', h('small', {}, state.pro ? 'HanLingo Pro' : 'Free: cards 1-4 of each story')),
         state.pro ? h('button', { class: 'btn ghost', type: 'button', onclick: openPaywall }, 'Manage') : h('button', { class: 'btn primary', type: 'button', onclick: openPaywall }, 'Upgrade')),
-      toggleRow('Pinyin', 'Show pinyin while reading', 'pinyin'),
-      toggleRow('Translation', 'Show English translations while reading', 'translation'),
       h('div', { class: 'row' },
         h('span', {}, 'Clear saved data', h('small', {}, 'Removes your vocab and settings from this device')),
         h('button', {
@@ -891,9 +973,48 @@
   }
 
   /* ---------- Boot ---------- */
+  function showInstallHelp() {
+    $('#sheet').replaceChildren(
+      h('div', { class: 'sheet-card install-help', role: 'dialog', 'aria-label': 'Install HanLingo' },
+        h('button', { class: 'icon-btn install-help-close', type: 'button', 'aria-label': 'Close', onclick: closeOverlays }, '×'),
+        h('h2', { class: 'page-title' }, 'Install HanLingo'),
+        h('p', {}, 'Add HanLingo to your home screen for quick access and an app-like experience.'),
+        h('p', {}, 'On iPhone or iPad, open this page in Safari, tap Share, then choose “Add to Home Screen.”'),
+        h('p', {}, 'On Android or desktop, use the Install app option in your browser menu or address bar.'),
+        h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Close')));
+    $('#sheet').hidden = false;
+  }
+
+  async function installApp() {
+    if (!deferredInstallPrompt) {
+      showInstallHelp();
+      return;
+    }
+
+    const installPrompt = deferredInstallPrompt;
+    deferredInstallPrompt = null;
+    try {
+      await installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      if (choice.outcome === 'accepted') $('#install-app').hidden = true;
+    } catch (error) {
+      console.error('Could not open the install prompt:', error);
+      showInstallHelp();
+    }
+  }
+
   function bind() {
-    document.querySelectorAll('.bottom-nav button').forEach((b) =>
+    document.querySelectorAll('.bottom-nav button[data-view]').forEach((b) =>
       b.addEventListener('click', () => show(b.dataset.view)));
+    $('#install-app').addEventListener('click', installApp);
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+    });
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      $('#install-app').hidden = true;
+    });
     document.querySelectorAll('[data-open]').forEach((b) =>
       b.addEventListener('click', () => openStory(Number(b.dataset.open) || 0)));
     document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
@@ -944,6 +1065,9 @@
     renderStream();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch((e) => console.log('SW:', e)));
+    }
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+      $('#install-app').hidden = true;
     }
   }
 

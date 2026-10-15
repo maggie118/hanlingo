@@ -101,7 +101,7 @@
       introZh: '学习在会议中礼貌提问、表达想法和回应同事。',
       cards: [
         ['大家都到了吗？会议开始了。', 'Dàjiā dōu dào le ma? Huìyì kāishǐ le.', 'Is everyone here? The meeting has started.', ['会议', '开始']],
-        ['今天我们要讨论新项目。', 'Jīntiān wǒmen yào tǎolùn xīn xiàngmù.', 'Today we’re going to discuss a new project.', ['今天', '项目']],
+        ['今天我们要讨论新项目。', 'Jīn tiān wǒ men yào tǎo lùn xīn xiàng mù.', 'Today we’re going to discuss a new project.', ['今天', '项目']],
         ['请问，大家有什么问题？', 'Qǐngwèn, dàjiā yǒu shénme wèntí?', 'May I ask, does anyone have any questions?', ['请问', '问题']],
         ['我觉得这个想法很好。', 'Wǒ juéde zhège xiǎngfǎ hěn hǎo.', 'I think this is a very good idea.', ['觉得', '好']],
         ['我同意你的意见。', 'Wǒ tóngyì nǐ de yìjiàn.', 'I agree with your opinion.', ['同意']],

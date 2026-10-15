@@ -972,7 +972,7 @@ window.STORIES_DATA = {
           "title": "10. 车空轮坏 | Empty Cart, Broken Wheel",
           "isFree": false,
           "sentence": "卖梨人回头一看，车已经空了，轮子也坏了。",
-          "pinyin": "Mài lí rén huí tóu yī kàn，chē yǐ jīng kōng le，lún zi yě huài le。",
+          "pinyin": "Mài lí rén huí tóu yí kàn, chē yǐ jīng kōng le, lún zi yě huài le.",
           "translation": "The seller looked back — the cart was empty, and the wheel was broken too.",
           "vocabList": [
             {
@@ -2021,7 +2021,7 @@ window.STORIES_DATA = {
           "title": "10. 邻居的麻烦 | Trouble Next Door",
           "isFree": false,
           "sentence": "邻居家的儿子想对婴宁做坏事，结果自己受伤了。",
-          "pinyin": "Línjū jiā de érzi xiǎng duì Yīngníng zuò huàishì, jiéguǒ zìjǐ shòushāng le.",
+          "pinyin": "Lín jū jiā de ér zi xiǎng duì Yīng Níng zuò huài shì jié guǒ zì jǐ shòu shāng le.",
           "translation": "The neighbor's son tried to do something bad to Yingning, and ended up getting hurt himself.",
           "vocabList": [
             {
@@ -2426,7 +2426,7 @@ window.STORIES_DATA = {
           "title": "12. 团圆 | Together Again",
           "isFree": false,
           "sentence": "回到家，小狐狸变成了青凤，两人高兴地住在了一起。",
-          "pinyin": "Huí dào jiā, xiǎo húli biàn chéng le Qīngfèng, liǎng ge rén gāoxìng de zhù zài le yìqǐ.",
+          "pinyin": "Huí dào jiā, xiǎo hú lí biàn chéng le Qīng Fèng, liǎng rén gāo xìng de zhù zài le yì qǐ.",
           "translation": "Back home, the little fox turned into Qingfeng, and the two happily lived together.",
           "vocabList": [
             {
@@ -2551,7 +2551,7 @@ window.STORIES_DATA = {
           "title": "04. 今晚的喜事 | A Wedding Tonight",
           "isFree": true,
           "sentence": "他听见有人说：“今天晚上，老爷的女儿要结婚了！”",
-          "pinyin": "Tā tīngjiàn yǒu rén shuō: “Jīntiān wǎnshang, lǎoye de nǚ'ér yào jiéhūn le!”",
+          "pinyin": "Tā tīng jiàn yǒu rén shuō jīn tiān wǎn shàng lǎo ye de nǚ ér yào jié hūn le.",
           "translation": "He heard someone say, “Tonight the master's daughter is getting married!”",
           "vocabList": [
             {
@@ -3000,7 +3000,7 @@ window.STORIES_DATA = {
           "title": "02. 会议安排 | Meeting Schedule",
           "isFree": true,
           "sentence": "这个星期三上午十点，我们开会讨论项目进度。",
-          "pinyin": "Zhège xīngqísān shàngwǔ shí diǎn, wǒmen kāihuì tǎolùn xiàngmù jìndù.",
+          "pinyin": "Zhè ge xīng qī sān shàng wǔ shí diǎn, wǒ men kāi huì tǎo lùn xiàng mù jìn dù.",
           "translation": "We will have a meeting at 10 a.m. on Wednesday to discuss the project progress.",
           "vocabList": [
             {"word": "项目", "pinyin": "xiàngmù", "translation": "project", "hskLevel": 4},
@@ -3170,8 +3170,8 @@ window.STORIES_DATA = {
           "title": "02. 会议通知 | Meeting Notice",
           "isFree": true,
           "sentence": "明天上午九点，我们开会讨论新项目的安排。",
-          "pinyin": "Míngtiān shàngwǔ jiǔ diǎn, wǒmen kāihuì tǎolùn xīn xiàngmù de ānpái.",
-          "translation": "Tomorrow at 9 a.m., we will have a meeting to discuss the arrangement of the new project.",
+          "pinyin": "Míng tiān shàng wǔ jiǔ diǎn, wǒ men kāi huì tǎo lùn xīn xiàng mù de ān pái.",
+          "translation": "We'll meet at 9 tomorrow morning to discuss plans for the new project.",
           "vocabList": [
             {"word": "通知", "pinyin": "tōngzhī", "translation": "notice; inform", "hskLevel": 4},
             {"word": "项目", "pinyin": "xiàngmù", "translation": "project", "hskLevel": 4},
@@ -3183,7 +3183,7 @@ window.STORIES_DATA = {
           "title": "03. 提建议 | Suggestion",
           "isFree": true,
           "sentence": "我建议我们先做一个简短的方案，然后再讨论细节。",
-          "pinyin": "Wǒ jiànyì wǒmen xiān zuò yí gè jiǎnduǎn de fāng'àn, ránhòu zài tǎolùn xìjié.",
+          "pinyin": "Wǒ jiàn yì wǒ men xiān zuò yí ge jiǎn duǎn de fāng àn, rán hòu zài tǎo lùn xì jié.",
           "translation": "I suggest that we first create a brief plan and then discuss the details.",
           "vocabList": [
             {"word": "建议", "pinyin": "jiànyì", "translation": "suggestion; to suggest", "hskLevel": 3},
@@ -3412,8 +3412,8 @@ window.STORIES_DATA = {
       "cards": [
         {"id":"d5_01","title":"01. 报名课程 | Course Registration","isFree":true,"sentence":"我想报名汉语口语课，下周一开始，晚上上课更方便。","pinyin":"Wǒ xiǎng bàomíng Hànyǔ kǒuyǔ kè, xià zhōu yī kāishǐ, wǎnshang shàngkè gèng fāngbiàn.","translation":"I want to sign up for a Mandarin speaking class; it starts next Monday and evening classes are more convenient.","vocabList":[{"word":"报名","pinyin":"bàomíng","translation":"to register","hskLevel":4},{"word":"口语","pinyin":"kǒuyǔ","translation":"spoken language","hskLevel":4},{"word":"方便","pinyin":"fāngbiàn","translation":"convenient","hskLevel":3}]},
         {"id":"d5_02","title":"02. 约朋友聊聊 | Asking to Meet Up","isFree":true,"sentence":"你周末有空吗？我们一起喝咖啡，聊聊最近的工作和生活。","pinyin":"Nǐ zhōumò yǒu kòng ma? Wǒmen yìqǐ hē kāfēi, liáo liáo zuìjìn de gōngzuò hé shēnghuó.","translation":"Are you free this weekend? Let’s have coffee together and talk about work and life lately.","vocabList":[{"word":"咖啡","pinyin":"kāfēi","translation":"coffee","hskLevel":3},{"word":"最近","pinyin":"zuìjìn","translation":"recently","hskLevel":3},{"word":"生活","pinyin":"shēnghuó","translation":"life","hskLevel":3}]},
-        {"id":"d5_03","title":"03. 语言交换 | Language Exchange","isFree":false,"sentence":"我想和你交换语言学习，我们轮流用中文和英文交流。","pinyin":"Wǒ xiǎng hé nǐ jiāohuàn yǔyán xuéxí, wǒmen lúnliú yòng Zhōngwén hé Yīngwén jiāoliú.","translation":"I want to do a language exchange with you; we can take turns using Chinese and English to practice.","vocabList":[{"word":"交换","pinyin":"jiāohuàn","translation":"to exchange","hskLevel":4},{"word":"语言","pinyin":"yǔyán","translation":"language","hskLevel":3},{"word":"交流","pinyin":"jiāoliú","translation":"to communicate; exchange","hskLevel":4}]},
-        {"id":"d5_04","title":"04. 课堂讨论 | Group Discussion","isFree":false,"sentence":"老师说今天我们要分组讨论，然后每个人发言两分钟。","pinyin":"Lǎoshī shuō jīntiān wǒmen yào fēnzǔ tǎolùn, ránhòu měi gèrén fāyán liǎng fēnzhōng.","translation":"The teacher said that today we will be divided into groups to discuss, and then each person will speak for two minutes.","vocabList":[{"word":"分组","pinyin":"fēnzǔ","translation":"to divide into groups","hskLevel":4},{"word":"讨论","pinyin":"tǎolùn","translation":"to discuss","hskLevel":3},{"word":"发言","pinyin":"fāyán","translation":"to speak; to make a remark","hskLevel":4}]} 
+        {"id":"d5_03","title":"03. 语言交换 | Language Exchange","isFree":false,"sentence":"我想和你交换语言学习，我们轮流用中文和英文交流。","pinyin":"Wǒ xiǎng hé nǐ jiāo huàn yǔ yán xué xí, wǒ men lún liú yòng Zhōng wén hé Yīng wén jiāo liú.","translation":"I'd like to practice languages with you. We can take turns speaking Chinese and English.","vocabList":[{"word":"交换","pinyin":"jiāohuàn","translation":"to exchange","hskLevel":4},{"word":"语言","pinyin":"yǔyán","translation":"language","hskLevel":3},{"word":"交流","pinyin":"jiāoliú","translation":"to communicate; exchange","hskLevel":4}]},
+        {"id":"d5_04","title":"04. 课堂讨论 | Group Discussion","isFree":false,"sentence":"老师说今天我们要分组讨论，然后每个人发言两分钟。","pinyin":"Lǎo shī shuō jīn tiān wǒ men yào fēn zǔ tǎo lùn, rán hòu měi ge rén fā yán liǎng fēn zhōng.","translation":"The teacher said we'd split into groups today, then each person would speak for two minutes.","vocabList":[{"word":"分组","pinyin":"fēnzǔ","translation":"to divide into groups","hskLevel":4},{"word":"讨论","pinyin":"tǎolùn","translation":"to discuss","hskLevel":3},{"word":"发言","pinyin":"fāyán","translation":"to speak; to make a remark","hskLevel":4}]} 
       ]
     },
     {
@@ -3554,9 +3554,9 @@ window.STORIES_DATA = {
       "intro": "Brand, campaign, and market communication for positioning, promotion, and customer engagement.",
       "introZh": "市场推广与品牌沟通：定位、活动宣传和用户互动。",
       "cards": [
-        {"id":"b8_01","title":"01. 市场调研 | Market Research","isFree":true,"sentence":"我们先做一轮市场调研，了解目标用户的需求和偏好。","pinyin":"Wǒmen xiān zuò yì lún shìchǎng diàochá, liǎojiě mùbiāo yònghù de xūqiú hé piānhào.","translation":"We will first conduct a round of market research to understand the needs and preferences of the target users.","vocabList":[{"word":"调研","pinyin":"diàochá","translation":"market research","hskLevel":4},{"word":"目标","pinyin":"mùbiāo","translation":"target","hskLevel":4},{"word":"偏好","pinyin":"piānhào","translation":"preference","hskLevel":4}]},
+        {"id":"b8_01","title":"01. 市场调研 | Market Research","isFree":true,"sentence":"我们先做一轮市场调研，了解目标用户的需求和偏好。","pinyin":"Wǒ men xiān zuò yì lún shì chǎng diào chá, liǎo jiě mù biāo yòng hù de xū qiú hé piān hào.","translation":"We will first conduct a round of market research to understand the needs and preferences of the target users.","vocabList":[{"word":"调研","pinyin":"diàochá","translation":"market research","hskLevel":4},{"word":"目标","pinyin":"mùbiāo","translation":"target","hskLevel":4},{"word":"偏好","pinyin":"piānhào","translation":"preference","hskLevel":4}]},
         {"id":"b8_02","title":"02. 推广计划 | Promotion Plan","isFree":true,"sentence":"我们会在不同渠道同步推广，先吸引潜在客户，再转化成长期合作。","pinyin":"Wǒmen huì zài bùtóng qúdào tóngbù tuīguǎng, xiān xīyǐn qiánzài kèhù, zài zhuǎnhuà chéng chángqī hézuò.","translation":"We will promote across different channels at the same time, first attracting potential customers and then converting them into long-term partners.","vocabList":[{"word":"渠道","pinyin":"qúdào","translation":"channel","hskLevel":4},{"word":"潜在","pinyin":"qiánzài","translation":"potential","hskLevel":4},{"word":"转化","pinyin":"zhuǎnhuà","translation":"to convert; transformation","hskLevel":4}]},
-        {"id":"b8_03","title":"03. 线上活动 | Online Campaign","isFree":false,"sentence":"这次线上活动重点是提高品牌曝光率，并鼓励用户参与互动。","pinyin":"Zhè cì xiànshàng huódòng zhòngdiǎn shì tígāo píppài guāngbào lǜ, bìng gǔlì yònghù cānyù hùdòng.","translation":"This online campaign focuses on increasing brand exposure and encouraging user participation and interaction.","vocabList":[{"word":"曝光","pinyin":"guāngbào","translation":"exposure / to expose","hskLevel":4},{"word":"品牌","pinyin":"pǐnpái","translation":"brand","hskLevel":4},{"word":"互动","pinyin":"hùdòng","translation":"interaction","hskLevel":4}]},
+        {"id":"b8_03","title":"03. 线上活动 | Online Campaign","isFree":false,"sentence":"这次线上活动重点是提高品牌曝光率，并鼓励用户参与互动。","pinyin":"Zhè cì xiàn shàng huó dòng zhòng diǎn shì tí gāo pǐn pái guāng bào lǜ, bìng gǔ lì yòng hù cān yǔ hù dòng.","translation":"This online campaign focuses on increasing brand exposure and encouraging user participation and interaction.","vocabList":[{"word":"曝光","pinyin":"guāngbào","translation":"exposure / to expose","hskLevel":4},{"word":"品牌","pinyin":"pǐnpái","translation":"brand","hskLevel":4},{"word":"互动","pinyin":"hùdòng","translation":"interaction","hskLevel":4}]},
         {"id":"b8_04","title":"04. 客户反馈 | User Feedback","isFree":false,"sentence":"用户反馈普遍认为界面清晰、内容实用，接下来我们会继续优化体验。","pinyin":"Yònghù fǎnkǒu pǔbiàn rènwéi jièmiàn qīngxī, nèiróng shíyòng, jiēxiàlái wǒmen huì jìxù yōuhǎo tiyàn.","translation":"User feedback generally indicates that the interface is clear and the content is practical, so we will continue optimizing the experience next.","vocabList":[{"word":"反馈","pinyin":"fǎnkǒu","translation":"feedback","hskLevel":4},{"word":"界面","pinyin":"jièmiàn","translation":"interface","hskLevel":4},{"word":"体验","pinyin":"tǐyàn","translation":"experience","hskLevel":4}]} 
       ]
     }

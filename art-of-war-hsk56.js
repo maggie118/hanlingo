@@ -26,8 +26,8 @@
     "cards": [
       {
         "sentence": "孙子指出：“凡用兵之法，驰车千驷……千里馈粮。”",
-        "pinyin": "Sūn Zǐ zhǐ chū: \"Fán yòng bīng zhī fǎ, chí chē qiān sì... qiān lǐ kuì liáng.",
-        "translation": "Sun Tzu pointed out: \"In warfare, 1,000 swift chariots... provisions sent a thousand li.",
+        "pinyin": "Sūn Zǐ zhǐ chū Fán yòng bīng zhī fǎ chí chē qiān sì qiān lǐ kuì liáng.",
+        "translation": "Sun Tzu wrote, “In war, a thousand swift chariots and provisions carried a thousand li...”",
         "grammarPoint": "经典引文与历史背景"
       },
       {
@@ -158,8 +158,8 @@
       },
       {
         "sentence": "“与其玉石俱焚，不如体面地归降。”使者诚恳地说。\"",
-        "pinyin": "Yǔ qí yù shí jù fén, bù rú tǐ miàn de guī jiàng.",
-        "translation": "Shǐ zhě chéng kěn de shuō.\"Rather than mutual destruction, better surrender honorably,\" the envoy said earnestly.",
+        "pinyin": "Yǔ qí yù shí jù fén bù rú tǐ miàn de guī xiáng shǐ zhě chéng kěn de shuō.",
+        "translation": "“Better to surrender with dignity than destroy both sides,” the envoy said earnestly.",
         "grammarPoint": "抉择句式 (与其……不如……)"
       },
       {
@@ -200,8 +200,8 @@
       },
       {
         "sentence": "不可胜在己，可胜在敌。主动权永远掌握在自己手中。",
-        "pinyin": "Bù kě shèng zài jǐ, kě shèng zài dí.",
-        "translation": "Zhǔ dòng quán yǒng yuǎn zhǎng wò zài zì jǐ shǒu zhōng.Invincibility lies in oneself; vulnerability in the enemy. Initiative is in your hands.",
+        "pinyin": "Bù kě shèng zài jǐ kě shèng zài dí zhǔ dòng quán yǒng yuǎn zhǎng wò zài zì jǐ shǒu zhōng.",
+        "translation": "You can make yourself impossible to defeat, but victory depends on your opponent. The initiative is always in your hands.",
         "grammarPoint": "哲理对比句"
       },
       {
@@ -806,14 +806,14 @@
       },
       {
         "sentence": "然而，孙子神色平静，大声宣布：“今日我们无路可退！”",
-        "pinyin": "Rán ér, Sūn Zǐ shén sè píng jìng, dà shēng xuān bù: \"Jīn rì wǒ men wú lù kě tuì!",
-        "translation": "Yet Sun Tzu remained calm, loudly declaring: \"Today we have no retreat!",
+        "pinyin": "Rán ér Sūn Zǐ shén sè píng jìng dà shēng xuān bù Jīn rì wǒ men wú lù kě tuì.",
+        "translation": "Yet Sun Tzu remained calm and announced loudly, “Today, there is no turning back!”",
         "grammarPoint": "转折连词与高级词汇 (神色平静)"
       },
       {
         "sentence": "退缩者斩！只有向前冲锋，方能杀出一条血路！",
-        "pinyin": "Tuì suō zhě zhǎn!",
-        "translation": "Zhǐ yǒu xiàng qián chōng fēng, fāng néng shā chū yī tiáo xuè lù!Cowards be beheaded! Only charging forward can carve a path of blood!",
+        "pinyin": "Tuì suō zhě zhǎn zhǐ yǒu xiàng qián chōng fēng fāng néng shā chū yì tiáo xuè lù.",
+        "translation": "“Anyone who retreats will be executed! We must charge ahead to fight our way out!”",
         "grammarPoint": "严厉军纪与高级表达 (方能)"
       },
       {
@@ -867,7 +867,7 @@
       {
         "sentence": "“凡火攻有五：一曰火人，二曰火积，三曰火辎，四曰火库，五曰火队。”\"",
         "pinyin": "Fán huǒ gōng yǒu wǔ: yī yuē huǒ rén, èr yuē huǒ jī, sān yuē huǒ zī, sì yuē huǒ kù, wǔ yuē huǒ duì.",
-        "translation": "Five fire attacks: burn enemy camp, provisions, supplies, arsenals, troop transports.",
+        "translation": "There are five kinds of fire attack: against troops, supplies, baggage, storehouses, and transport units.",
         "grammarPoint": "五种经典火攻分类"
       },
       {
@@ -1022,8 +1022,8 @@
       },
       {
         "sentence": "孙子收起竹简，望向远方。千年的兵法，化作了一缕历史的清风。",
-        "pinyin": "Sūn Zǐ shōu qǐ zhú jiǎn, wàng xiàng yuǎn fāng.",
-        "translation": "Qiān nián de bīng fǎ, huà zuò le yī lǚ lì shǐ de qīng fēng.Sun Tzu packed his slips and gazed afar. Millennial military art dissolved into history's breeze.",
+        "pinyin": "Sūn Zǐ shōu qǐ zhú jiǎn wàng xiàng yuǎn fāng qiān nián de bīng fǎ huà zuò le yì lǚ lì shǐ de qīng fēng.",
+        "translation": "Sun Tzu put away the bamboo slips and gazed into the distance. His ancient art of war became a gentle breeze through history.",
         "grammarPoint": "史诗感诗意收尾"
       }
     ]

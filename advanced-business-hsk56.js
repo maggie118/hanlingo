@@ -183,7 +183,7 @@
         "isFree": true,
         "sentence": "由于估值分歧过大，本轮并购谈判陷入了僵局。",
         "pinyin": "Yóu yú gū zhí fēn qí guò dà, běn lùn bìng gòu tán pàn xiàn rù le jiāng jú.",
-        "translation": "Due to massive valuation divergence, this M&A negotiation stalled.",
+        "translation": "The two sides were so far apart on valuation that the merger talks reached a deadlock.",
         "grammarPoint": "高级词汇 (估值分歧/陷入僵局)",
         "vocabList": []
       },
@@ -211,8 +211,8 @@
         "id": "biz56_019",
         "title": "07. 投融资与资本运作",
         "isFree": false,
-        "sentence": "随着宏观流动性收紧，?????????机构的投资态度日趋谨慎。",
-        "pinyin": "Suí zhe hóng guān liú dòng xìng shōu jǐn, VC/PE jī gòu de tóu zī tài dù rì qū jǐn shèn.",
+        "sentence": "随着宏观流动性收紧，风投机构的投资态度日趋谨慎。",
+        "pinyin": "Suí zhe hóng guān liú dòng xìng shōu jǐn fēng tóu jī gòu de tóu zī tài dù rì qū jǐn shèn.",
         "translation": "As macro liquidity tightens, VC/PE investment attitudes grow increasingly cautious.",
         "grammarPoint": "专业词汇 (流动性收紧/日趋谨慎)",
         "vocabList": []
@@ -955,9 +955,9 @@
         "id": "biz56_085",
         "title": "01. 危机公关与公信力重塑",
         "isFree": true,
-        "sentence": "黄金24小时是危机公关的生死线，绝不能有半点迟疑与掩饰。",
+        "sentence": "黄金二十四小时是危机公关的生死线，绝不能有半点迟疑与掩饰。",
         "pinyin": "Huáng jīn èr shí sì xiǎo shí shì wēi jī gōng guān de shēng sǐ xiàn, jué bù néng yǒu bàn diǎn chí yí yǔ yǎn shì.",
-        "translation": "The golden 24 hours is the PR death-line; zero hesitation or whitewashing allowed.",
+        "translation": "The first 24 hours are critical in crisis communications; there is no room for hesitation or a cover-up.",
         "grammarPoint": "商务专业词汇 (生死线/黄金24小时)",
         "vocabList": []
       },

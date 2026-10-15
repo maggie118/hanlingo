@@ -346,8 +346,8 @@
         "title": "07. 商务谈判与合同博弈",
         "isFree": false,
         "sentence": "经过几轮艰难的博弈，双方终于在价格上达成妥协。",
-        "pinyin": "Jīng guò jǐ lún jiān nán de bó yì, shuāng fāng zhōng yú zài jià gé shang dǎ chéng tuǒ xié.",
-        "translation": "After rounds of tough gaming, both sides finally compromised on price.",
+        "pinyin": "Jīng guò jǐ lún jiān nán de bó yì shuāng fāng zhōng yú zài jià gé shàng dǎ chéng tuǒ xié.",
+        "translation": "After several tough rounds of negotiation, both sides finally reached a compromise on price.",
         "grammarPoint": "高级词汇 (博弈/妥协)",
         "vocabList": []
       },
@@ -1190,7 +1190,7 @@
         "title": "11. 城市生活与应对压力",
         "isFree": false,
         "sentence": "无论生活多么琐碎，内心都要保留一片诗意的自留地。",
-        "pinyin": "Wù lùn shēng huó duō me suǒ suì, nèi xīn dōu yào bǎo liú yī piàn shī yì de zì liú dì.",
+        "pinyin": "Wú lùn shēng huó duō me suǒ suì nèi xīn dōu yào bǎo liú yì piàn shī yì de zì liú dì.",
         "translation": "No matter how trivial life is, keep a poetic sanctuary in your heart.",
         "grammarPoint": "高级词汇 (琐碎/自留地)",
         "vocabList": []
@@ -1379,7 +1379,7 @@
         "isFree": true,
         "sentence": "面对网络上的恶意评论，他选择冷处理，不与水军纠缠。",
         "pinyin": "Miàn duì wǎng luò shang de è yì píng lùn, tā xuǎn zé lěng chǔ lǐ, bù yǔ shuǐ jūn jiū chán.",
-        "translation": "Facing malicious online comments, he stays cold, avoiding troll tangles.",
+        "translation": "Faced with abusive comments online, he chose not to engage or get drawn into arguments with trolls.",
         "grammarPoint": "现代网络词 (水军/冷处理)",
         "vocabList": []
       },
@@ -1493,7 +1493,7 @@
         "isFree": true,
         "sentence": "面对突如其来的舆论危机，公关团队必须第一时间介入。",
         "pinyin": "Miàn duì tū rú qí lái de yú lùn wēi jī, gōng guān tuán duì bì xū dì yī shí jiān jiè rù.",
-        "translation": "Facing sudden public opinion crisis, PR teams must intervene immediately.",
+        "translation": "When a public-opinion crisis breaks out, the PR team must step in right away.",
         "grammarPoint": "专业词汇 (舆论危机/公关团队/介入)",
         "vocabList": []
       },

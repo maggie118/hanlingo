@@ -1,5 +1,5 @@
 // HanLingo Service Worker
-const CACHE_NAME = 'hanlingo-v14';
+const CACHE_NAME = 'hanlingo-v18';
 const APP_SHELL = [
   './',
   'index.html',
@@ -7,6 +7,7 @@ const APP_SHELL = [
   'app.js',
   'daily-life.js',
   'business-hsk12.js',
+  'journey-west-hsk12.js',
   'art-of-war-hsk56.js',
   'advanced-daily-hsk56.js',
   'advanced-business-hsk56.js',
