@@ -1,2 +1,0 @@
-# hanlingo
-&lt;meta name="description" content="Hanlingo is a practical, sentence-based Mandarin learning platform designed for real-life communication. Forget rigid memorization — learn natural, usable Chinese sentences for daily conversations, travel scenarios, business workplaces, and professional communication. Our gamified practice helps global learners speak confidently with authentic modern Chinese expressions, through themed scenario packs and concise micro sentence collections. Suitable for beginners, travelers, and professionals.">
