@@ -652,7 +652,7 @@
     refresh();
     time.textContent = formatClock(0) + ' / ' + formatClock(duration);
 
-    root.append(topBar, modeRow, speedRow, subsRow, dictBox);
+    root.append(topBar, sub, modeRow, speedRow, subsRow, dictBox);
     return root;
   }
 
@@ -732,7 +732,8 @@
         h('div', { class: 'cover big ' + (s.coverClass || 'c1'), 'aria-hidden': 'true' }, s.cover || zh.slice(0, 1)),
         h('h2', { class: 'intro-title' }, en),
         h('p', { class: 'intro-zh', lang: 'zh-CN' }, zh),
-        s.intro ? h('p', { class: 'intro-text' }, s.intro) : null,
+        s.introEn ? h('p', { class: 'intro-text intro-text-en' }, s.introEn) : null,
+        s.intro ? h('p', { class: 'intro-text intro-text-zh', lang: 'zh-CN' }, s.intro) : null,
         s.introZh ? h('p', { class: 'intro-sent', lang: 'zh-CN' }, s.introZh) : null,
         h('div', { class: 'tags' },
           h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
@@ -788,8 +789,12 @@
     if (sealTextEl) {
       sealTextEl.textContent = meta.seal;
       sealTextEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
+      sealTextEl.classList.toggle('seal-three', Array.from(meta.seal).length > 2);
     }
-    if (sealEl) sealEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
+    if (sealEl) {
+      sealEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
+      sealEl.classList.toggle('seal-three', Array.from(meta.seal).length > 2);
+    }
     if (metaList) {
       const cardCount = visible.reduce((total, story) => total + story.cards.length, 0);
       const freeCount = visible.reduce((total, story) => total + story.cards.filter((card) => card.isFree).length, 0);
@@ -823,7 +828,7 @@
           h('div', {},
             h('h3', {}, en),
             h('p', {}, zh + ' · ' + s.totalCards + ' cards'),
-            s.intro ? h('p', { class: 'blurb' }, s.intro) : null,
+            (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
             h('div', { class: 'tags' },
               h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
               h('span', { class: 'tag free' }, 'Cards 1-' + s.freeCards + ' Free'),

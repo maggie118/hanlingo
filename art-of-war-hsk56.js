@@ -4,6 +4,7 @@
   {
     "title": "始计篇——庙算与胜负之源 · Calculations Before Battle",
     "intro": "诸侯召集谋士，正要为开战拍板。孙子没有先谈刀剑，反而铺开竹简，算起一场战争会让国库少掉多少银子。",
+    "introEn": "Rulers gather their advisers to decide whether to go to war. Sun Tzu sets aside talk of weapons, unrolls his bamboo slips, and calculates how much a war would drain from the treasury.",
     "cards": [
       {"sentence":"孙子曰：“兵者，国之大事也。”","pinyin":"Sūn Zǐ yuē: \"Bīng zhě, guó zhī dà shì yě.\"","translation":"Sun Tzu said, \"War is a matter of vital importance to the state.\"","grammarPoint":"经典引文；“者……也”是文言判断句式。"},
       {"sentence":"战争不仅关系百姓的生死，更决定国家的存亡。","pinyin":"Zhànzhēng bùjǐn guānxì bǎixìng de shēngsǐ, gèng juédìng guójiā de cúnwáng.","translation":"War concerns not only the lives of ordinary people, but also the survival of the state.","grammarPoint":"递进结构：“不仅……更……”。"},
@@ -23,6 +24,7 @@
   {
     "title": "作战篇——兵贵神速与后勤博弈 · Speed and Logistics",
     "intro": "远征的大军在泥泞的官道上缓慢前进，粮草车陷入泥潭。将领面对巨大的财政赤字，正面临是否继续推进的痛苦抉择。",
+    "introEn": "An expeditionary army struggles along a muddy road as supply carts sink into the mire. Facing a mounting deficit, the commanders must decide whether to press on.",
     "cards": [
       {
         "sentence": "孙子指出：“凡用兵之法，驰车千驷……千里馈粮。”",
@@ -107,6 +109,7 @@
   {
     "title": "谋攻篇——不战而屈人之兵 · Subduing the Enemy Without Fighting",
     "intro": "两军在城下对峙。孙子没有选择强攻城池，而是派了一名使者，带了一封信和几坛好酒，走进敌营。",
+    "introEn": "Two armies face each other beneath a city wall. Instead of ordering an assault, Sun Tzu sends an envoy into the enemy camp with a letter and several jars of fine wine.",
     "cards": [
       {
         "sentence": "“凡用兵之法，全国为上，破国次之。”\"",
@@ -191,6 +194,7 @@
   {
     "title": "军形篇——立于不败之地 · Formations and Invincibility",
     "intro": "营帐内，年轻的副将向孙子请教防御与进攻的辩证关系。孙子在沙盘上用水流比喻军队的形态。",
+    "introEn": "Inside the command tent, a young deputy asks Sun Tzu how defense and attack depend on each other. Using a sand table, Sun Tzu compares the shape of an army to the flow of water.",
     "cards": [
       {
         "sentence": "“昔之善战者，先为不可胜，以待敌之可胜。”\"",
@@ -275,6 +279,7 @@
   {
     "title": "兵势篇——势如彍弩与奇正相生 · Momentum and Unorthodox Tactics",
     "intro": "两军在峡谷隘口遭遇。敌众我寡，孙子命令部队占据险要高地，摆出奇正相生的阵型，蓄势待发。",
+    "introEn": "Two armies meet at a narrow mountain pass. Outnumbered, Sun Tzu's troops seize the high ground and prepare a formation that blends conventional and unexpected tactics.",
     "cards": [
       {
         "sentence": "“凡治众如治寡，分数是也。”\"",
@@ -359,6 +364,7 @@
   {
     "title": "虚实篇——避实击虚与主动权 · Vacuity, Substance, and Initiative",
     "intro": "敌军倾巢而出攻打我方坚固的正面营地，却发现营内空无一人。正当敌军错愕时，孙子率奇兵直捣敌军空虚的大本营。",
+    "introEn": "The enemy attacks a heavily fortified camp, only to find it empty. While they are still bewildered, Sun Tzu leads a surprise force against their undefended base.",
     "cards": [
       {
         "sentence": "“故善战者，致人而不致于人。”\"",
@@ -443,6 +449,7 @@
   {
     "title": "军争篇——以迂为直与后发先至 · Maneuvering and Indirect Approaches",
     "intro": "两军争夺战略要地。敌军选择了一条看似最近但布满陷阱的直路，而孙子则率领大军从一条看似绕远的山路急行军。",
+    "introEn": "Two armies race for a strategic position. The enemy takes the seemingly shortest road, unaware of its traps, while Sun Tzu leads his troops along a longer-looking mountain route.",
     "cards": [
       {
         "sentence": "“军争之难者，以迂为直，以患为利。”\"",
@@ -527,6 +534,7 @@
   {
     "title": "九变篇——灵活应变与将帅之道 · Nine Variations and Leadership",
     "intro": "突发暴雨导致河水暴涨，原本制定的作战计划被迫全部推翻。将领们惊慌失措，孙子冷静地给出了九变的原则。",
+    "introEn": "A sudden storm sends the river surging and makes the original battle plan useless. As the commanders panic, Sun Tzu calmly explains the principles of adapting to changing circumstances.",
     "cards": [
       {
         "sentence": "“是故智者之虑，必杂于利害。”\"",
@@ -611,6 +619,7 @@
   {
     "title": "行军篇——观察敌情与树立军威 · Marching and Assessing the Enemy",
     "intro": "军队开拔进入山地。孙子骑在马上，仔细观察沿途的飞鸟、树木动静以及敌军留下的蛛丝马迹。",
+    "introEn": "The army marches into the mountains. From horseback, Sun Tzu watches the birds, the movement among the trees, and every trace the enemy has left behind.",
     "cards": [
       {
         "sentence": "行军作战，对地形和敌情细致的观察至关重要。",
@@ -695,6 +704,7 @@
   {
     "title": "地形篇——六种险地与将领过失 · Terrain Types and General's Flaws",
     "intro": "军队开进一片复杂诡异的峡谷地带。孙子指着前方的地形，给将领们详细剖析可能导致全军覆没的六种地形绝境。",
+    "introEn": "The army enters a maze of unfamiliar canyons. Pointing ahead, Sun Tzu explains six dangerous kinds of terrain—and the commander's mistakes that could cost an entire army.",
     "cards": [
       {
         "sentence": "“地形有通者、有挂者、有散者、有险者、有阻者、有远者。”\"",
@@ -779,6 +789,7 @@
   {
     "title": "九地篇——投之亡地然后存 · Nine Terrains and Desperate Strategy",
     "intro": "军队被逼入绝境，退路被大火封死。绝望之中，孙子下达了一道让所有人震惊的命令：全军背水一战，向死而生！",
+    "introEn": "The army is trapped, with fire cutting off its retreat. In the midst of despair, Sun Tzu gives a startling order: stand with your backs to the river and fight as if survival depends on it.",
     "cards": [
       {
         "sentence": "孙子将战场细分为九种地形，其中最奇妙的是“死地”。",
@@ -863,6 +874,7 @@
   {
     "title": "火攻篇——天时地利与五种火攻 · Fire Attacks and Environmental Control",
     "intro": "夜晚，狂风大作。干燥的芦苇荡旁，孙子下令将事先准备好的火油坛砸碎，一场改变战局的大火即将点燃。",
+    "introEn": "A fierce wind rises at night beside a field of dry reeds. Sun Tzu orders the prepared jars of oil to be broken open, and a fire that could change the course of the battle is about to begin.",
     "cards": [
       {
         "sentence": "“凡火攻有五：一曰火人，二曰火积，三曰火辎，四曰火库，五曰火队。”\"",
@@ -947,6 +959,7 @@
   {
     "title": "用间篇——间谍情报与最高智慧 · Espionage and the Ultimate Wisdom",
     "intro": "战争彻底胜利后，孙子独自站在高台上。他向年轻的谋士揭示了《孙子兵法》全书最核心、也最神秘的收官篇章——间谍与情报的秘密。",
+    "introEn": "After victory is secured, Sun Tzu stands alone on a high platform. He reveals to a young adviser the book's final and most mysterious lesson: the power of spies and intelligence.",
     "cards": [
       {
         "sentence": "《孙子兵法》的终极篇章，聚焦于决定战争成败的间谍。\"",
@@ -1040,6 +1053,7 @@
     cover: theme.title.slice(0, 1),
     coverClass: `c${(themeIndex % 10) + 1}`,
     intro: theme.intro,
+    introEn: theme.introEn,
     cards: theme.cards.map((card, cardIndex) => ({
       id: `aow56_${String(themeIndex * 13 + cardIndex + 1).padStart(3, '0')}`,
       title: `${String(cardIndex + 1).padStart(2, '0')}. ${theme.title.split(String.fromCharCode(183))[1].trim()}`,
