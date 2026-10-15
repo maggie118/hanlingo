@@ -1,0 +1,868 @@
+{
+  "cards": [
+    {
+      "id": "theme01_card01",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "猴子在山里玩。",
+      "pinyin": "Hóuzi zài shān lǐ wán.",
+      "en": "The monkey plays in the mountain.",
+      "grammar_point": "HSK 1: 在 + place shows location."
+    },
+    {
+      "id": "theme01_card02",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "他看见一棵大树。",
+      "pinyin": "Tā kànjiàn yì kē dà shù.",
+      "en": "He sees a big tree.",
+      "grammar_point": "HSK 1: 看见 + object means 'to see'."
+    },
+    {
+      "id": "theme01_card03",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "他想要一把棍子。",
+      "pinyin": "Tā xiǎng yào yì bǎ gùnzi.",
+      "en": "He wants a stick.",
+      "grammar_point": "HSK 1: 想要 + noun = 'want'."
+    },
+    {
+      "id": "theme01_card04",
+      "theme_id": 1,
+      "hsk_level": 2,
+      "cn": "他一出生，就会变化。",
+      "pinyin": "Tā yì chūshēng, jiù huì biànhuà.",
+      "en": "As soon as he is born, he can change.",
+      "grammar_point": "HSK 2: 一…就… shows a quick result."
+    },
+    {
+      "id": "theme01_card05",
+      "theme_id": 1,
+      "hsk_level": 2,
+      "cn": "他学会了飞。",
+      "pinyin": "Tā xuéhuì le fēi.",
+      "en": "He learns to fly.",
+      "grammar_point": "HSK 2: 学会 + verb means 'learn how to'."
+    },
+    {
+      "id": "theme01_card06",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "他想去天宫。",
+      "pinyin": "Tā xiǎng qù tiān gōng.",
+      "en": "He wants to go to heaven.",
+      "grammar_point": "HSK 1: 想 + verb = 'want to'."
+    },
+    {
+      "id": "theme01_card07",
+      "theme_id": 1,
+      "hsk_level": 2,
+      "cn": "他看见了很多仙人。",
+      "pinyin": "Tā kànjiàn le hěn duō xiānrén.",
+      "en": "He sees many immortals.",
+      "grammar_point": "HSK 2: 很多 + noun means 'many'."
+    },
+    {
+      "id": "theme01_card08",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "他很高兴。",
+      "pinyin": "Tā hěn gāoxìng.",
+      "en": "He is very happy.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme01_card09",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "他想学本领。",
+      "pinyin": "Tā xiǎng xué běnlǐng.",
+      "en": "He wants to learn skills.",
+      "grammar_point": "HSK 1: 想学 = 'want to learn'."
+    },
+    {
+      "id": "theme01_card10",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "这只猴子真聪明。",
+      "pinyin": "Zhè zhī hóuzi zhēn cōngmíng.",
+      "en": "This monkey is really smart.",
+      "grammar_point": "HSK 1: 真 + adjective = 'really'."
+    },
+    {
+      "id": "theme01_card11",
+      "theme_id": 1,
+      "hsk_level": 1,
+      "cn": "他想找师父。",
+      "pinyin": "Tā xiǎng zhǎo shīfu.",
+      "en": "He wants to find a teacher.",
+      "grammar_point": "HSK 1: 找 + person = 'to look for'."
+    },
+    {
+      "id": "theme01_card12",
+      "theme_id": 1,
+      "hsk_level": 2,
+      "cn": "他站在山顶，大声说：‘我会变！’",
+      "pinyin": "Tā zhàn zài shāndǐng, dàshēng shuō: ‘Wǒ huì biàn!’",
+      "en": "He stands on the mountain top and shouts, ‘I can transform!’",
+      "grammar_point": "HSK 2: 大声 + verb adds a vivid scene."
+    },
+    {
+      "id": "theme02_card01",
+      "theme_id": 2,
+      "hsk_level": 1,
+      "cn": "天宫里有很多人。",
+      "pinyin": "Tiān gōng lǐ yǒu hěn duō rén.",
+      "en": "There are many people in heaven.",
+      "grammar_point": "HSK 1: 有 + noun means 'there is/are'."
+    },
+    {
+      "id": "theme02_card02",
+      "theme_id": 2,
+      "hsk_level": 2,
+      "cn": "老天爷开会了。",
+      "pinyin": "Lǎo tiān yé kāihuì le.",
+      "en": "The Jade Emperor is holding a meeting.",
+      "grammar_point": "HSK 2: 了 marks a completed action."
+    },
+    {
+      "id": "theme02_card03",
+      "theme_id": 2,
+      "hsk_level": 1,
+      "cn": "猴子想吃桃子。",
+      "pinyin": "Hóuzi xiǎng chī táozi.",
+      "en": "The monkey wants to eat peaches.",
+      "grammar_point": "HSK 1: 想 + verb = 'want to'."
+    },
+    {
+      "id": "theme02_card04",
+      "theme_id": 2,
+      "hsk_level": 1,
+      "cn": "他去摘仙桃。",
+      "pinyin": "Tā qù zhāi xiāntáo.",
+      "en": "He goes to pick the peach of immortality.",
+      "grammar_point": "HSK 1: 去 + verb = 'go to do'."
+    },
+    {
+      "id": "theme02_card05",
+      "theme_id": 2,
+      "hsk_level": 1,
+      "cn": "桃子很大，很好吃。",
+      "pinyin": "Táozi hěn dà, hěn hǎochī.",
+      "en": "The peaches are very big and delicious.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme02_card06",
+      "theme_id": 2,
+      "hsk_level": 2,
+      "cn": "他一口气吃了很多。",
+      "pinyin": "Tā yì kǒuqì chī le hěn duō.",
+      "en": "He eats a lot in one breath.",
+      "grammar_point": "HSK 2: 一口气 shows a quick action."
+    },
+    {
+      "id": "theme02_card07",
+      "theme_id": 2,
+      "hsk_level": 1,
+      "cn": "天上很乱。",
+      "pinyin": "Tiānshàng hěn luàn.",
+      "en": "Heaven is in chaos.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme02_card08",
+      "theme_id": 2,
+      "hsk_level": 2,
+      "cn": "众神都很生气。",
+      "pinyin": "Zhòngshén dōu hěn shēngqì.",
+      "en": "All the gods are very angry.",
+      "grammar_point": "HSK 2: 都 + verb = 'all'."
+    },
+    {
+      "id": "theme02_card09",
+      "theme_id": 2,
+      "hsk_level": 1,
+      "cn": "猴子跳上云彩。",
+      "pinyin": "Hóuzi tiào shàng yúncǎi.",
+      "en": "The monkey jumps onto the clouds.",
+      "grammar_point": "HSK 1: 上 + place = 'on'."
+    },
+    {
+      "id": "theme02_card10",
+      "theme_id": 2,
+      "hsk_level": 2,
+      "cn": "他打翻了酒。",
+      "pinyin": "Tā dǎfān le jiǔ.",
+      "en": "He spills the wine.",
+      "grammar_point": "HSK 2: 了 marks a completed action."
+    },
+    {
+      "id": "theme02_card11",
+      "theme_id": 2,
+      "hsk_level": 2,
+      "cn": "他想做大事。",
+      "pinyin": "Tā xiǎng zuò dàshì.",
+      "en": "He wants to do big things.",
+      "grammar_point": "HSK 2: 想 + verb phrase = 'want to'."
+    },
+    {
+      "id": "theme02_card12",
+      "theme_id": 2,
+      "hsk_level": 2,
+      "cn": "天宫里开始乱了。",
+      "pinyin": "Tiāngōng lǐ kāishǐ luàn le.",
+      "en": "Heaven starts to fall into disorder.",
+      "grammar_point": "HSK 2: 开始 + verb = 'begin to'."
+    },
+    {
+      "id": "theme03_card01",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "猴子拿到一根金箍棒。",
+      "pinyin": "Hóuzi ná dào yì gēn jīngū bàng.",
+      "en": "The monkey gets a golden staff.",
+      "grammar_point": "HSK 1: 拿到 + noun = 'to get'."
+    },
+    {
+      "id": "theme03_card02",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "它很重。",
+      "pinyin": "Tā hěn zhòng.",
+      "en": "It is very heavy.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme03_card03",
+      "theme_id": 3,
+      "hsk_level": 2,
+      "cn": "他一挥手，地上就有变化。",
+      "pinyin": "Tā yì huīshǒu, dìshàng jiù yǒu biànhuà.",
+      "en": "With one wave of his hand, the ground changes.",
+      "grammar_point": "HSK 2: 一…就… shows a quick change."
+    },
+    {
+      "id": "theme03_card04",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "他拿出一把刀。",
+      "pinyin": "Tā ná chū yì bǎ dāo.",
+      "en": "He takes out a knife.",
+      "grammar_point": "HSK 1: 拿出 + object means 'take out'."
+    },
+    {
+      "id": "theme03_card05",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "这把刀很亮。",
+      "pinyin": "Zhè bǎ dāo hěn liàng.",
+      "en": "This knife is very bright.",
+      "grammar_point": "HSK 1: 这 + noun = 'this'."
+    },
+    {
+      "id": "theme03_card06",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "他想去找师父。",
+      "pinyin": "Tā xiǎng qù zhǎo shīfu.",
+      "en": "He wants to find his teacher.",
+      "grammar_point": "HSK 1: 想 + verb = 'want to'."
+    },
+    {
+      "id": "theme03_card07",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "长安很远。",
+      "pinyin": "Cháng'ān hěn yuǎn.",
+      "en": "Chang'an is far away.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme03_card08",
+      "theme_id": 3,
+      "hsk_level": 2,
+      "cn": "他坐云去找人。",
+      "pinyin": "Tā zuò yún qù zhǎo rén.",
+      "en": "He rides a cloud to look for people.",
+      "grammar_point": "HSK 2: 坐 + transport = 'ride'."
+    },
+    {
+      "id": "theme03_card09",
+      "theme_id": 3,
+      "hsk_level": 2,
+      "cn": "他看见了很多宝物。",
+      "pinyin": "Tā kànjiàn le hěn duō bǎowù.",
+      "en": "He sees many treasures.",
+      "grammar_point": "HSK 2: 很多 + noun means 'many'."
+    },
+    {
+      "id": "theme03_card10",
+      "theme_id": 3,
+      "hsk_level": 2,
+      "cn": "他想要一把更好用的刀。",
+      "pinyin": "Tā xiǎng yào yì bǎ gèng hǎoyòng de dāo.",
+      "en": "He wants a better knife.",
+      "grammar_point": "HSK 2: 更 + adjective = 'more'."
+    },
+    {
+      "id": "theme03_card11",
+      "theme_id": 3,
+      "hsk_level": 2,
+      "cn": "他告诉师父：我要上路。",
+      "pinyin": "Tā gàosu shīfu: Wǒ yào shànglù.",
+      "en": "He tells his teacher: I am leaving.",
+      "grammar_point": "HSK 2: 告诉 + person = 'tell someone'."
+    },
+    {
+      "id": "theme03_card12",
+      "theme_id": 3,
+      "hsk_level": 1,
+      "cn": "他们一起出发了。",
+      "pinyin": "Tāmen yìqǐ chūfā le.",
+      "en": "They set off together.",
+      "grammar_point": "HSK 1: 一起 = 'together'."
+    },
+    {
+      "id": "theme04_card01",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "山上有一棵树。",
+      "pinyin": "Shānshàng yǒu yì kē shù.",
+      "en": "There is a tree on the mountain.",
+      "grammar_point": "HSK 1: 有 + noun = 'there is'."
+    },
+    {
+      "id": "theme04_card02",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "树上有很多果子。",
+      "pinyin": "Shù shàng yǒu hěn duō guǒzi.",
+      "en": "There are many fruits on the tree.",
+      "grammar_point": "HSK 1: 有 + noun = 'there is/are'."
+    },
+    {
+      "id": "theme04_card03",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "这些果子很红。",
+      "pinyin": "Zhèxiē guǒzi hěn hóng.",
+      "en": "These fruits are very red.",
+      "grammar_point": "HSK 1: 这些 = 'these'."
+    },
+    {
+      "id": "theme04_card04",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "猴子想吃一个。",
+      "pinyin": "Hóuzi xiǎng chī yí gè.",
+      "en": "The monkey wants to eat one.",
+      "grammar_point": "HSK 1: 想 + verb = 'want to'."
+    },
+    {
+      "id": "theme04_card05",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "他先闻一闻。",
+      "pinyin": "Tā xiān wén yì wén.",
+      "en": "He smells it first.",
+      "grammar_point": "HSK 1: 先 + verb = 'first'."
+    },
+    {
+      "id": "theme04_card06",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "它很香。",
+      "pinyin": "Tā hěn xiāng.",
+      "en": "It smells very good.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme04_card07",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "他咬了一口。",
+      "pinyin": "Tā yǎo le yì kǒu.",
+      "en": "He takes a bite.",
+      "grammar_point": "HSK 1: 一口 = 'one bite'."
+    },
+    {
+      "id": "theme04_card08",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "这果子真甜。",
+      "pinyin": "Zhè guǒzi zhēn tián.",
+      "en": "This fruit is really sweet.",
+      "grammar_point": "HSK 1: 真 + adjective = 'really'."
+    },
+    {
+      "id": "theme04_card09",
+      "theme_id": 4,
+      "hsk_level": 1,
+      "cn": "他吃了很多。",
+      "pinyin": "Tā chī le hěn duō.",
+      "en": "He eats a lot.",
+      "grammar_point": "HSK 1: 很多 = 'many'."
+    },
+    {
+      "id": "theme04_card10",
+      "theme_id": 4,
+      "hsk_level": 2,
+      "cn": "他觉得自己很强。",
+      "pinyin": "Tā juéde zìjǐ hěn qiáng.",
+      "en": "He feels very strong.",
+      "grammar_point": "HSK 2: 觉得 + adjective = 'feel'."
+    },
+    {
+      "id": "theme04_card11",
+      "theme_id": 4,
+      "hsk_level": 2,
+      "cn": "他站起来了。",
+      "pinyin": "Tā zhàn qǐlái le.",
+      "en": "He stands up.",
+      "grammar_point": "HSK 2: 起来 shows a change in state."
+    },
+    {
+      "id": "theme04_card12",
+      "theme_id": 4,
+      "hsk_level": 2,
+      "cn": "他笑着说：‘我变强了！’",
+      "pinyin": "Tā xiào zhe shuō: ‘Wǒ biàn qiáng le!’",
+      "en": "He smiles and says, ‘I am stronger now!’",
+      "grammar_point": "HSK 2: 着 shows an ongoing action."
+    },
+    {
+      "id": "theme05_card01",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "山里有个骨魔。",
+      "pinyin": "Shān lǐ yǒu gè gúmó.",
+      "en": "There is a bone demon in the mountain.",
+      "grammar_point": "HSK 1: 有 + noun = 'there is'."
+    },
+    {
+      "id": "theme05_card02",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "他站在洞口。",
+      "pinyin": "Tā zhàn zài dòngkǒu.",
+      "en": "He stands at the cave entrance.",
+      "grammar_point": "HSK 1: 在 + place = 'at/in'."
+    },
+    {
+      "id": "theme05_card03",
+      "theme_id": 5,
+      "hsk_level": 2,
+      "cn": "朋友们都很怕。",
+      "pinyin": "Péngyoumen dōu hěn pà.",
+      "en": "His friends are all very afraid.",
+      "grammar_point": "HSK 2: 都 + verb = 'all'."
+    },
+    {
+      "id": "theme05_card04",
+      "theme_id": 5,
+      "hsk_level": 2,
+      "cn": "猴子冲过去了。",
+      "pinyin": "Hóuzi chōng guòqù le.",
+      "en": "The monkey charges forward.",
+      "grammar_point": "HSK 2: 过 + verb shows a motion across."
+    },
+    {
+      "id": "theme05_card05",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "他打了第一仗。",
+      "pinyin": "Tā dǎ le dì yī zhàng.",
+      "en": "He fights the first battle.",
+      "grammar_point": "HSK 1: 第 + number = 'the first'."
+    },
+    {
+      "id": "theme05_card06",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "骨魔跑了。",
+      "pinyin": "Gúmó pǎo le.",
+      "en": "The bone demon runs away.",
+      "grammar_point": "HSK 1: 跑 = 'run'."
+    },
+    {
+      "id": "theme05_card07",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "他说：‘我不怕！’",
+      "pinyin": "Tā shuō: ‘Wǒ bù pà!’",
+      "en": "He says, ‘I am not afraid!’",
+      "grammar_point": "HSK 1: 不 + adjective = 'not'."
+    },
+    {
+      "id": "theme05_card08",
+      "theme_id": 5,
+      "hsk_level": 2,
+      "cn": "他又打了第二仗。",
+      "pinyin": "Tā yòu dǎ le dì èr zhàng.",
+      "en": "He fights the second battle again.",
+      "grammar_point": "HSK 2: 又 + verb = 'again'."
+    },
+    {
+      "id": "theme05_card09",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "骨魔很强。",
+      "pinyin": "Gúmó hěn qiáng.",
+      "en": "The bone demon is very strong.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme05_card10",
+      "theme_id": 5,
+      "hsk_level": 1,
+      "cn": "猴子很累。",
+      "pinyin": "Hóuzi hěn lèi.",
+      "en": "The monkey is very tired.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme05_card11",
+      "theme_id": 5,
+      "hsk_level": 2,
+      "cn": "他又打了第三仗。",
+      "pinyin": "Tā yòu dǎ le dì sān zhàng.",
+      "en": "He fights the third battle again.",
+      "grammar_point": "HSK 2: 第 + number = ordinal order."
+    },
+    {
+      "id": "theme05_card12",
+      "theme_id": 5,
+      "hsk_level": 2,
+      "cn": "最后，骨魔输了。",
+      "pinyin": "Zuìhòu, gúmó shū le.",
+      "en": "In the end, the bone demon loses.",
+      "grammar_point": "HSK 2: 最后 = 'finally / in the end'."
+    },
+    {
+      "id": "theme06_card01",
+      "theme_id": 6,
+      "hsk_level": 1,
+      "cn": "猴子想借一把扇子。",
+      "pinyin": "Hóuzi xiǎng jiè yì bǎ shànzi.",
+      "en": "The monkey wants to borrow a fan.",
+      "grammar_point": "HSK 1: 想 + verb = 'want to'."
+    },
+    {
+      "id": "theme06_card02",
+      "theme_id": 6,
+      "hsk_level": 1,
+      "cn": "他去找芭蕉扇。",
+      "pinyin": "Tā qù zhǎo Bājiāo shàn.",
+      "en": "He goes to find the banana-leaf fan.",
+      "grammar_point": "HSK 1: 去 + verb = 'go to'."
+    },
+    {
+      "id": "theme06_card03",
+      "theme_id": 6,
+      "hsk_level": 1,
+      "cn": "芭蕉扇很大。",
+      "pinyin": "Bājiāo shàn hěn dà.",
+      "en": "The banana-leaf fan is very big.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme06_card04",
+      "theme_id": 6,
+      "hsk_level": 1,
+      "cn": "他看见了扇子。",
+      "pinyin": "Tā kànjiàn le shànzi.",
+      "en": "He sees the fan.",
+      "grammar_point": "HSK 1: 看见 = 'to see'."
+    },
+    {
+      "id": "theme06_card05",
+      "theme_id": 6,
+      "hsk_level": 2,
+      "cn": "扇子轻又大。",
+      "pinyin": "Shànzi qīng yòu dà.",
+      "en": "The fan is light and big.",
+      "grammar_point": "HSK 2: 又…又… = 'both ... and ...'."
+    },
+    {
+      "id": "theme06_card06",
+      "theme_id": 6,
+      "hsk_level": 1,
+      "cn": "猴子说：‘谢谢你。’",
+      "pinyin": "Hóuzi shuō: ‘Xièxie nǐ.’",
+      "en": "The monkey says, ‘Thank you.’",
+      "grammar_point": "HSK 1: 谢谢 = 'thank you'."
+    },
+    {
+      "id": "theme06_card07",
+      "theme_id": 6,
+      "hsk_level": 2,
+      "cn": "扇子一动，风就来了。",
+      "pinyin": "Shànzi yì dòng, fēng jiù lái le.",
+      "en": "When the fan moves, the wind comes.",
+      "grammar_point": "HSK 2: 一…就… shows quick result."
+    },
+    {
+      "id": "theme06_card08",
+      "theme_id": 6,
+      "hsk_level": 2,
+      "cn": "他赶紧挥扇。",
+      "pinyin": "Tā gǎnjǐn huī shàn.",
+      "en": "He quickly waves the fan.",
+      "grammar_point": "HSK 2: 赶紧 = 'hurry up'."
+    },
+    {
+      "id": "theme06_card09",
+      "theme_id": 6,
+      "hsk_level": 1,
+      "cn": "这风很凉快。",
+      "pinyin": "Zhè fēng hěn liángkuai.",
+      "en": "This wind is very cool.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme06_card10",
+      "theme_id": 6,
+      "hsk_level": 2,
+      "cn": "他非常高兴。",
+      "pinyin": "Tā fēicháng gāoxìng.",
+      "en": "He is very happy.",
+      "grammar_point": "HSK 2: 非常 = 'very / extremely'."
+    },
+    {
+      "id": "theme06_card11",
+      "theme_id": 6,
+      "hsk_level": 2,
+      "cn": "他带着扇子走了。",
+      "pinyin": "Tā dàizhe shànzi zǒu le.",
+      "en": "He leaves with the fan.",
+      "grammar_point": "HSK 2: 带着 + noun = 'carrying'."
+    },
+    {
+      "id": "theme06_card12",
+      "theme_id": 6,
+      "hsk_level": 2,
+      "cn": "他要回去找师父。",
+      "pinyin": "Tā yào huíqù zhǎo shīfu.",
+      "en": "He wants to return and find his teacher.",
+      "grammar_point": "HSK 2: 要 + verb = 'want to / will'."
+    },
+    {
+      "id": "theme07_card01",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "他们来到了山洞。",
+      "pinyin": "Tāmen láidào le shāndòng.",
+      "en": "They arrive at the mountain cave.",
+      "grammar_point": "HSK 1: 到了 = 'arrived'."
+    },
+    {
+      "id": "theme07_card02",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "洞里有很多网。",
+      "pinyin": "Dòng lǐ yǒu hěn duō wǎng.",
+      "en": "There are many webs in the cave.",
+      "grammar_point": "HSK 1: 有 + noun = 'there is'."
+    },
+    {
+      "id": "theme07_card03",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "猴子看见了蜘蛛。",
+      "pinyin": "Hóuzi kànjiàn le zhīzhū.",
+      "en": "The monkey sees a spider.",
+      "grammar_point": "HSK 1: 看见 = 'to see'."
+    },
+    {
+      "id": "theme07_card04",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "蜘蛛很大。",
+      "pinyin": "Zhīzhū hěn dà.",
+      "en": "The spider is very big.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme07_card05",
+      "theme_id": 7,
+      "hsk_level": 2,
+      "cn": "它跳起来了。",
+      "pinyin": "Tā tiào qǐlái le.",
+      "en": "It jumps up.",
+      "grammar_point": "HSK 2: 起来 shows a change."
+    },
+    {
+      "id": "theme07_card06",
+      "theme_id": 7,
+      "hsk_level": 2,
+      "cn": "猴子一拳打过去。",
+      "pinyin": "Hóuzi yì quán dǎ guòqù.",
+      "en": "The monkey punches it away.",
+      "grammar_point": "HSK 2: 一 + measure word = one ..."
+    },
+    {
+      "id": "theme07_card07",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "小妖怕了。",
+      "pinyin": "Xiǎo yāo pà le.",
+      "en": "The little demon is scared.",
+      "grammar_point": "HSK 1: 怕 = 'to fear'."
+    },
+    {
+      "id": "theme07_card08",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "他们一起跑。",
+      "pinyin": "Tāmen yìqǐ pǎo.",
+      "en": "They run together.",
+      "grammar_point": "HSK 1: 一起 = 'together'."
+    },
+    {
+      "id": "theme07_card09",
+      "theme_id": 7,
+      "hsk_level": 2,
+      "cn": "猴子想抓住它。",
+      "pinyin": "Hóuzi xiǎng zhuāzhù tā.",
+      "en": "The monkey wants to catch it.",
+      "grammar_point": "HSK 2: 想 + verb = 'want to'."
+    },
+    {
+      "id": "theme07_card10",
+      "theme_id": 7,
+      "hsk_level": 1,
+      "cn": "他拿起棍子。",
+      "pinyin": "Tā ná qǐ gùnzi.",
+      "en": "He picks up a stick.",
+      "grammar_point": "HSK 1: 拿起 = 'pick up'."
+    },
+    {
+      "id": "theme07_card11",
+      "theme_id": 7,
+      "hsk_level": 2,
+      "cn": "终于，蜘蛛跑了。",
+      "pinyin": "Zhōngyú, zhīzhū pǎo le.",
+      "en": "At last, the spider runs away.",
+      "grammar_point": "HSK 2: 终于 = 'at last / finally'."
+    },
+    {
+      "id": "theme07_card12",
+      "theme_id": 7,
+      "hsk_level": 2,
+      "cn": "山洞里安静了。",
+      "pinyin": "Shāndòng lǐ ānjìng le.",
+      "en": "The cave becomes quiet.",
+      "grammar_point": "HSK 2: 安静 = 'quiet'."
+    },
+    {
+      "id": "theme08_card01",
+      "theme_id": 8,
+      "hsk_level": 2,
+      "cn": "他们终于到了西天。",
+      "pinyin": "Tāmen zhōngyú dào le xītiān.",
+      "en": "They finally reach the Western Heaven.",
+      "grammar_point": "HSK 2: 终于 = 'at last'."
+    },
+    {
+      "id": "theme08_card02",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "山路很长。",
+      "pinyin": "Shānlù hěn cháng.",
+      "en": "The mountain road is very long.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme08_card03",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "他们很累。",
+      "pinyin": "Tāmen hěn lèi.",
+      "en": "They are very tired.",
+      "grammar_point": "HSK 1: 很 + adjective = 'very'."
+    },
+    {
+      "id": "theme08_card04",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "他们看见了寺庙。",
+      "pinyin": "Tāmen kànjiàn le sìmiào.",
+      "en": "They see the temple.",
+      "grammar_point": "HSK 1: 看见 = 'to see'."
+    },
+    {
+      "id": "theme08_card05",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "唐僧笑了。",
+      "pinyin": "Tángsēng xiào le.",
+      "en": "Tang Monk smiles.",
+      "grammar_point": "HSK 1: 笑 = 'to smile'."
+    },
+    {
+      "id": "theme08_card06",
+      "theme_id": 8,
+      "hsk_level": 2,
+      "cn": "猴子站得很直。",
+      "pinyin": "Hóuzi zhàn de hěn zhí.",
+      "en": "The monkey stands very straight.",
+      "grammar_point": "HSK 2: 得 + adjective = 'to be ...'."
+    },
+    {
+      "id": "theme08_card07",
+      "theme_id": 8,
+      "hsk_level": 2,
+      "cn": "他们学到很多道理。",
+      "pinyin": "Tāmen xué dào hěn duō dàolǐ.",
+      "en": "They learn many lessons.",
+      "grammar_point": "HSK 2: 学到 = 'learn / gain'."
+    },
+    {
+      "id": "theme08_card08",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "他们要回去。",
+      "pinyin": "Tāmen yào huíqù.",
+      "en": "They want to go back.",
+      "grammar_point": "HSK 1: 要 + verb = 'want to'."
+    },
+    {
+      "id": "theme08_card09",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "他们走在路上。",
+      "pinyin": "Tāmen zǒu zài lùshàng.",
+      "en": "They walk on the road.",
+      "grammar_point": "HSK 1: 在 + place = 'at / on'."
+    },
+    {
+      "id": "theme08_card10",
+      "theme_id": 8,
+      "hsk_level": 2,
+      "cn": "山风吹着他们。",
+      "pinyin": "Shānfēng chuī zhe tāmen.",
+      "en": "The mountain wind blows over them.",
+      "grammar_point": "HSK 2: 着 marks a continuing action."
+    },
+    {
+      "id": "theme08_card11",
+      "theme_id": 8,
+      "hsk_level": 2,
+      "cn": "回到家时，大家很开心。",
+      "pinyin": "Huí dào jiā shí, dàjiā hěn kāixīn.",
+      "en": "When they get home, everyone is very happy.",
+      "grammar_point": "HSK 2: 时 = 'when'."
+    },
+    {
+      "id": "theme08_card12",
+      "theme_id": 8,
+      "hsk_level": 1,
+      "cn": "这次旅行真好。",
+      "pinyin": "Zhè cì lǚxíng zhēn hǎo.",
+      "en": "This trip is really good.",
+      "grammar_point": "HSK 1: 真 + adjective = 'really'."
+    }
+  ]
+}

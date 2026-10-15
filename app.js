@@ -11,6 +11,30 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
   };
 
+  const CATEGORY_META = {
+    strange: {
+      title: 'Liaozhai Tales',
+      vertical: '聊',
+      seal: '斋',
+      highlight: 'Classic ghost stories with atmosphere and texture.',
+      description: 'Explore the strange, the eerie, and the mythical at a measured pace with story-first Mandarin practice.'
+    },
+    daily: {
+      title: 'Daily Life',
+      vertical: '生',
+      seal: '活',
+      highlight: 'Real-life Mandarin for everyday conversation.',
+      description: 'Learn how to greet people, order food, travel, shop, and chat naturally in daily situations.'
+    },
+    business: {
+      title: 'Business & Workplace',
+      vertical: '商',
+      seal: '务',
+      highlight: 'Polite, clear Mandarin for everyday work.',
+      description: 'Practice beginner-friendly phrases for introductions, meetings, calls, client visits, and daily office life.'
+    }
+  };
+
   const state = {
     stories: [],
     cards: [],
@@ -574,6 +598,9 @@
         }
         return plainCharGroup(Array.from(tk.t), showPinyin);
       }));
+    const sentencePinyin = showPinyin && (!Array.isArray(c.vocabList) || c.vocabList.length === 0)
+      ? h('p', { class: 'sentence-pinyin', lang: 'zh-Latn' }, c.pinyin)
+      : null;
 
     $('#view-reader').replaceChildren(
       h('div', { class: 'reader' },
@@ -585,7 +612,10 @@
         h('div', { class: 'r-title' }, c.title),
         h('div', { class: 'card-subtitle' },
           sentence,
-          state.settings.translation ? h('p', { class: 'trans' }, c.translation) : null),
+          sentencePinyin,
+          state.settings.translation ? h('p', { class: 'trans' }, c.translation) : null,
+          c.grammarPoint ? h('p', { class: 'grammar-note' },
+            h('strong', {}, 'HSK 5–6 focus · '), c.grammarPoint) : null),
         renderAudioPlayer(c),
         h('div', { class: 'r-nav' },
           h('button', { class: 'btn', type: 'button', disabled: state.idx === 0, onclick: () => go(state.idx - 1) }, 'Previous'),
@@ -633,11 +663,53 @@
         h('button', { class: 'btn primary start', type: 'button', onclick: () => go(0) }, 'Start reading')));
   }
 
+  function renderCategoryHero() {
+    const advancedStories = state.settings.hsk === 'HSK 5-6';
+    const meta = advancedStories && state.currentCategory === 'strange' ? {
+      title: 'The Art of War',
+      vertical: '战',
+      seal: '略',
+      highlight: 'Strategy, human nature, and dramatic turns.',
+      description: 'Explore Sun Tzu through thirteen advanced story packs with classic lines and HSK 5–6 language.'
+    } : advancedStories && state.currentCategory === 'daily' ? {
+      title: 'Advanced Daily Life',
+      vertical: '日',
+      seal: '常',
+      highlight: 'Modern life, expressed with advanced Mandarin.',
+      description: 'Explore thirteen story packs on relationships, wellbeing, culture, and more with HSK 5–6 language.'
+    } : CATEGORY_META[state.currentCategory] || CATEGORY_META.strange;
+    const titleEl = document.getElementById('hero-title');
+    const subEl = document.querySelector('#view-learn .hero .sub');
+    const verticalEl = document.querySelector('.hero-title-v');
+    const sealTextEl = document.querySelector('.seal-text');
+    const metaList = document.querySelector('#view-learn .hero .meta');
+    const visible = state.stories.filter((story) =>
+      (story.category || 'strange') === state.currentCategory &&
+      (story.hskRange || 'HSK 3-4') === state.settings.hsk);
+
+    if (titleEl) titleEl.textContent = meta.title;
+    if (subEl) subEl.innerHTML = '<strong>' + meta.highlight + '</strong><br>' + meta.description;
+    if (verticalEl) verticalEl.textContent = meta.vertical;
+    if (sealTextEl) sealTextEl.textContent = meta.seal;
+    if (metaList) {
+      const cardCount = visible.reduce((total, story) => total + story.cards.length, 0);
+      const freeCount = visible.reduce((total, story) => total + story.cards.filter((card) => card.isFree).length, 0);
+      metaList.replaceChildren(
+        h('li', {}, state.settings.hsk),
+        h('li', {}, visible.length + ' Story Packs'),
+        h('li', {}, cardCount + ' Cards'),
+        h('li', { class: 'free' }, freeCount + ' Free Cards'));
+    }
+  }
+
   function renderStream() {
+    renderCategoryHero();
     const root = $('#stream');
-    const visible = state.stories.filter((s) => (s.category || 'strange') === state.currentCategory);
+    const visible = state.stories.filter((s) =>
+      (s.category || 'strange') === state.currentCategory &&
+      (s.hskRange || 'HSK 3-4') === state.settings.hsk);
     if (!visible.length) {
-      root.replaceChildren(h('p', { class: 'empty' }, 'New stories are on the way.'));
+      root.replaceChildren();
       $('#soon').hidden = false;
       return;
     }
@@ -781,6 +853,8 @@
       h('div', { class: 'row' },
         h('span', {}, 'Plan', h('small', {}, state.pro ? 'HanLingo Pro' : 'Free: cards 1-4 of each story')),
         state.pro ? h('button', { class: 'btn ghost', type: 'button', onclick: openPaywall }, 'Manage') : h('button', { class: 'btn primary', type: 'button', onclick: openPaywall }, 'Upgrade')),
+      toggleRow('Pinyin', 'Show pinyin while reading', 'pinyin'),
+      toggleRow('Translation', 'Show English translations while reading', 'translation'),
       h('div', { class: 'row' },
         h('span', {}, 'Clear saved data', h('small', {}, 'Removes your vocab and settings from this device')),
         h('button', {
@@ -806,10 +880,20 @@
       document.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
       state.currentCategory = t.dataset.cat || 'strange';
       $('#stream').hidden = false;
+      renderCategoryHero();
       renderStream();
     }));
-    $('#hsk').value = state.settings.hsk;
-    $('#hsk').addEventListener('change', (e) => { state.settings.hsk = e.target.value; saveSettings(); });
+    const hsk = $('#hsk');
+    if (!Array.from(hsk.options).some((option) => option.value === state.settings.hsk)) {
+      state.settings.hsk = hsk.value;
+      saveSettings();
+    }
+    hsk.value = state.settings.hsk;
+    $('#hsk').addEventListener('change', (e) => {
+      state.settings.hsk = e.target.value;
+      saveSettings();
+      renderStream();
+    });
     $('#pro-btn').addEventListener('click', () => (state.pro ? show('profile') : openPaywall()));
     [$('#sheet'), $('#paywall')].forEach((o) => o.addEventListener('click', (e) => { if (e.target === o) closeOverlays(); }));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlays(); });
@@ -834,6 +918,7 @@
     if (!state.stories.length) {
       $('#view-learn').append(h('p', { class: 'empty' }, 'Could not load stories. Check the files and reload.'));
     }
+    renderCategoryHero();
     renderStream();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch((e) => console.log('SW:', e)));

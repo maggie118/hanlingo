@@ -121,6 +121,7 @@ button{cursor:pointer}
 .r-title{color:var(--muted);font-size:14px}
 .card-subtitle{display:grid;gap:10px;margin:14px 0 16px}
 .sentence{display:flex;flex-wrap:wrap;gap:.18em .05em;align-items:flex-end;font-family:var(--serif);font-size:28px;line-height:1.2;letter-spacing:.04em}
+.sentence-pinyin{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
 .word{display:inline-flex;align-items:flex-end;gap:0;background:none;border:0;border-bottom:2px dotted var(--ochre);padding:0 1px 2px;font:inherit;color:inherit;letter-spacing:inherit;vertical-align:bottom}
 .word.saved{border-bottom:2px solid var(--sage);color:var(--sage)}
 .char-wrap{display:inline-flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:.75em;line-height:1;margin:0 .02em}
@@ -128,6 +129,7 @@ button{cursor:pointer}
 .pinyin{display:block;font-family:var(--sans);font-size:11px;line-height:1.1;letter-spacing:0;color:rgba(232,224,211,.72);margin-bottom:4px;white-space:nowrap;transform:translateY(1px)}
 .hanzi{display:block;font-family:var(--serif);font-size:1em;line-height:1;color:var(--text);letter-spacing:0}
 .trans{color:var(--muted);margin-top:0;padding-top:0;border-top:none}
+.grammar-note{color:var(--ochre);font-size:14px;line-height:1.6;padding:10px 12px;border-left:2px solid var(--ochre);background:rgba(192,175,153,.06)}
 .r-nav{display:flex;gap:10px;margin-top:32px}
 .r-nav .btn:last-child{margin-left:auto}
 
