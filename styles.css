@@ -26,7 +26,10 @@ button{cursor:pointer}
 /* Header */
 .header{position:sticky;top:0;z-index:10;background:rgba(42,39,36,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .header .wrap{display:flex;align-items:center;gap:12px;height:56px}
-.logo{font-family:var(--serif);font-size:20px;letter-spacing:.04em;margin-right:auto}
+.logo{font-family:var(--serif);font-size:20px;letter-spacing:.04em;margin-right:auto;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);transition:transform .2s ease, opacity .2s ease}
+.logo:hover{transform:translateY(-1px) scale(1.01);opacity:.95}
+.logo-img{width:40px;height:40px;border-radius:8px;object-fit:contain;display:block;image-rendering:auto;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-1px) scale(1.02)}}
 .hsk{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:14px}
 .pro-btn{background:var(--ochre);color:#2a2724;border:0;border-radius:8px;padding:7px 14px;font-weight:600;font-size:14px}
 
@@ -229,8 +232,10 @@ button{cursor:pointer}
 @media (min-width:720px){ .hero h1{font-size:34px} .hero-title-v{font-size:88px} .overlay{align-items:center} .sheet-card{border-radius:18px} }
 
 /* Header logo */
-.logo{display:inline-flex;align-items:center;gap:8px}
-.logo-img{width:40px;height:40px;border-radius:8px;object-fit:contain;display:block;image-rendering:auto;flex-shrink:0}
+.logo{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);transition:transform .2s ease, opacity .2s ease}
+.logo:hover{transform:translateY(-1px) scale(1.01);opacity:.95}
+.logo-img{width:40px;height:40px;border-radius:8px;object-fit:contain;display:block;image-rendering:auto;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-1px) scale(1.02)}}
 .section-title{font-family:var(--serif);font-size:18px;margin:20px 0 0}
 
 /* More cover colours */
