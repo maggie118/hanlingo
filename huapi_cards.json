@@ -1,0 +1,387 @@
+{
+  "columnId": "painted_skin",
+  "title": "画皮 · The Painted Skin",
+  "hskRange": "HSK 3-4",
+  "totalCards": 12,
+  "freeCards": 4,
+  "cards": [
+    {
+      "id": "card_01",
+      "title": "书生遇美女 | The Scholar Meets a Girl",
+      "isFree": true,
+      "sentence": "一天晚上，王生在路上遇到了一个年轻的女孩。",
+      "pinyin": "Yì tiān wǎnshang, Wáng shēng zài lùshang yùdào le yí ge niánqīng de nǚhái.",
+      "translation": "One evening, Wang the scholar met a young girl on the road.",
+      "vocabList": [
+        {
+          "word": "遇到",
+          "pinyin": "yùdào",
+          "translation": "to run into; to come across",
+          "hskLevel": 4
+        },
+        {
+          "word": "年轻",
+          "pinyin": "niánqīng",
+          "translation": "young",
+          "hskLevel": 3
+        },
+        {
+          "word": "女孩",
+          "pinyin": "nǚhái",
+          "translation": "girl",
+          "hskLevel": 3
+        }
+      ]
+    },
+    {
+      "id": "card_02",
+      "title": "路边的哭声 | Crying by the Road",
+      "isFree": true,
+      "sentence": "她一个人坐在路边哭，看起来很难过。",
+      "pinyin": "Tā yí ge rén zuò zài lùbiān kū, kàn qǐlái hěn nánguò.",
+      "translation": "She sat alone by the road, crying. She looked very sad.",
+      "vocabList": [
+        {
+          "word": "哭",
+          "pinyin": "kū",
+          "translation": "to cry",
+          "hskLevel": 3
+        },
+        {
+          "word": "看起来",
+          "pinyin": "kàn qǐlái",
+          "translation": "to look (like); it seems",
+          "hskLevel": 3
+        },
+        {
+          "word": "难过",
+          "pinyin": "nánguò",
+          "translation": "sad; upset",
+          "hskLevel": 3
+        }
+      ]
+    },
+    {
+      "id": "card_03",
+      "title": "无家可归 | Nowhere to Go",
+      "isFree": true,
+      "sentence": "她说：“家里人要把我卖给别人，我只好跑出来了。”",
+      "pinyin": "Tā shuō: “Jiālǐ rén yào bǎ wǒ mài gěi biérén, wǒ zhǐhǎo pǎo chūlái le.”",
+      "translation": "She said, “My family wanted to sell me to someone else, so I had no choice but to run away.”",
+      "vocabList": [
+        {
+          "word": "卖",
+          "pinyin": "mài",
+          "translation": "to sell",
+          "hskLevel": 3
+        },
+        {
+          "word": "别人",
+          "pinyin": "biérén",
+          "translation": "other people; someone else",
+          "hskLevel": 3
+        },
+        {
+          "word": "只好",
+          "pinyin": "zhǐhǎo",
+          "translation": "to have no choice but to",
+          "hskLevel": 4
+        }
+      ]
+    },
+    {
+      "id": "card_04",
+      "title": "带回家 | A Stranger at Home",
+      "isFree": true,
+      "sentence": "王生很担心她，就带她回了自己的家。",
+      "pinyin": "Wáng shēng hěn dānxīn tā, jiù dài tā huí le zìjǐ de jiā.",
+      "translation": "Wang worried about her, so he took her to his own home.",
+      "vocabList": [
+        {
+          "word": "担心",
+          "pinyin": "dānxīn",
+          "translation": "to worry about",
+          "hskLevel": 3
+        },
+        {
+          "word": "带",
+          "pinyin": "dài",
+          "translation": "to bring; to take along",
+          "hskLevel": 3
+        },
+        {
+          "word": "自己",
+          "pinyin": "zìjǐ",
+          "translation": "oneself; own",
+          "hskLevel": 3
+        }
+      ]
+    },
+    {
+      "id": "card_05",
+      "title": "窗外的秘密 | The Secret at the Window",
+      "isFree": false,
+      "sentence": "那天夜里，王生怎么也睡不着，他走到女孩的房间外面，从窗户往里看。",
+      "pinyin": "Nà tiān yè lǐ, Wáng shēng zěnme yě shuì bù zháo, tā zǒudào nǚhái de fángjiān wàimian, cóng chuānghu wǎng lǐ kàn.",
+      "translation": "That night, Wang couldn't fall asleep. He walked to the outside of the girl's room and looked in through the window.",
+      "vocabList": [
+        {
+          "word": "睡不着",
+          "pinyin": "shuì bù zháo",
+          "translation": "unable to fall asleep",
+          "hskLevel": 4
+        },
+        {
+          "word": "窗户",
+          "pinyin": "chuānghu",
+          "translation": "window",
+          "hskLevel": 4
+        },
+        {
+          "word": "往",
+          "pinyin": "wǎng",
+          "translation": "toward; in the direction of",
+          "hskLevel": 3
+        }
+      ]
+    },
+    {
+      "id": "card_06",
+      "title": "06. Hidden Truth / 惊悚真面目",
+      "isFree": false,
+      "sentence": "半夜里，他醒来一看，床上坐着一个面目可怕的鬼。",
+      "pinyin": "bànyè lǐ, tā xǐng lái yīkàn, chuáng shàng zuòzhe yīgè miànmù kěpà de guǐ.",
+      "translation": "In the middle of the night, he woke up and saw a terrifying ghost sitting on the bed.",
+      "vocabList": [
+        {
+          "word": "半夜",
+          "pinyin": "bànyè",
+          "translation": "midnight",
+          "hskLevel": 4
+        },
+        {
+          "word": "醒",
+          "pinyin": "xǐng",
+          "translation": "to wake up",
+          "hskLevel": 4
+        },
+        {
+          "word": "可怕",
+          "pinyin": "kěpà",
+          "translation": "terrifying / scary",
+          "hskLevel": 3
+        },
+        {
+          "word": "鬼",
+          "pinyin": "guǐ",
+          "translation": "ghost",
+          "hskLevel": 4
+        }
+      ]
+    },
+    {
+      "id": "card_07",
+      "title": "07. The Painted Skin / 绘制人皮",
+      "isFree": false,
+      "sentence": "桌上有一张画着美女的人皮，她正拿着笔在上面涂画。",
+      "pinyin": "zhuō shàng yǒuyī zhāng huàzhe měinǚ de rénpí, tā zhèng názhe bǐ zài shàngmiàn túhuà.",
+      "translation": "On the table was a human skin painted with the likeness of a beautiful woman, and she was painting on it with a brush.",
+      "vocabList": [
+        {
+          "word": "张",
+          "pinyin": "zhāng",
+          "translation": "measure word for flat objects",
+          "hskLevel": 2
+        },
+        {
+          "word": "美女",
+          "pinyin": "měinǚ",
+          "translation": "beautiful woman",
+          "hskLevel": 3
+        },
+        {
+          "word": "人皮",
+          "pinyin": "rénpí",
+          "translation": "human skin",
+          "hskLevel": 4
+        },
+        {
+          "word": "笔",
+          "pinyin": "bǐ",
+          "translation": "pen / brush",
+          "hskLevel": 2
+        }
+      ]
+    },
+    {
+      "id": "card_08",
+      "title": "08. Extreme Fear / 惊恐逃离",
+      "isFree": false,
+      "sentence": "王生吓得差点晕过去，连衣服都来不及穿好就跑了出去。",
+      "pinyin": "wáng shēng xià de chàdiǎn yūn guòqù, lián yīfú dōu láibují chuān hǎo jiù pǎo le chūqù.",
+      "translation": "Mr. Wang was so scared that he almost fainted, and he ran out without even having time to put on his clothes properly.",
+      "vocabList": [
+        {
+          "word": "吓",
+          "pinyin": "xià",
+          "translation": "to frighten / to scare",
+          "hskLevel": 3
+        },
+        {
+          "word": "差点",
+          "pinyin": "chàdiǎn",
+          "translation": "almost",
+          "hskLevel": 3
+        },
+        {
+          "word": "晕",
+          "pinyin": "yūn",
+          "translation": "to faint / dizzy",
+          "hskLevel": 4
+        },
+        {
+          "word": "来不及",
+          "pinyin": "láibují",
+          "translation": "there's not enough time",
+          "hskLevel": 4
+        }
+      ]
+    },
+    {
+      "id": "card_09",
+      "title": "09. Seeking Help / 寻找道士",
+      "isFree": false,
+      "sentence": "为了保护家人，他决定去外面寻找有法力的道士帮忙。",
+      "pinyin": "wèile bǎohù jiārén, tā juédìng qù wàimiàn xúnzhǎo yǒu fālì de dàoshi bāngmáng.",
+      "translation": "In order to protect his family, he decided to go outside to look for a Taoist priest with magical powers for help.",
+      "vocabList": [
+        {
+          "word": "保护",
+          "pinyin": "bǎohù",
+          "translation": "to protect",
+          "hskLevel": 4
+        },
+        {
+          "word": "家人",
+          "pinyin": "jiārén",
+          "translation": "family members",
+          "hskLevel": 3
+        },
+        {
+          "word": "决定",
+          "pinyin": "juédìng",
+          "translation": "to decide",
+          "hskLevel": 3
+        },
+        {
+          "word": "道士",
+          "pinyin": "dàoshi",
+          "translation": "Taoist priest",
+          "hskLevel": 4
+        }
+      ]
+    },
+    {
+      "id": "card_10",
+      "title": "10. The Priest's Advice / 道士授计",
+      "isFree": false,
+      "sentence": "道士给了他一面特殊的镜子，并告诉他如何应对妖怪。",
+      "pinyin": "dàoshi gěi le tā yīmiàn tèshū de jìngzi, bìng gàosù tā rúhé yìngduì yàoguài.",
+      "translation": "The Taoist priest gave him a special mirror and told him how to deal with the monster.",
+      "vocabList": [
+        {
+          "word": "特殊",
+          "pinyin": "tèshū",
+          "translation": "special",
+          "hskLevel": 4
+        },
+        {
+          "word": "镜子",
+          "pinyin": "jìngzi",
+          "translation": "mirror",
+          "hskLevel": 3
+        },
+        {
+          "word": "告诉",
+          "pinyin": "gàosù",
+          "translation": "to tell",
+          "hskLevel": 2
+        },
+        {
+          "word": "妖怪",
+          "pinyin": "yàoguài",
+          "translation": "monster / demon",
+          "hskLevel": 4
+        }
+      ]
+    },
+    {
+      "id": "card_11",
+      "title": "11. The Confrontation / 正面交锋",
+      "isFree": false,
+      "sentence": "回到家里，王生再次面对那个可怕的怪物，心中虽然害怕却很坚定。",
+      "pinyin": "huí dào jiālǐ, wáng shēng zàicì miànduì nàgè kěpà de guàiwù, xīnzhōng suīrán hàipà què hěn jiāndìng.",
+      "translation": "Returning home, Wang Sheng faced the terrifying monster once again; although he was afraid in his heart, he was very determined.",
+      "vocabList": [
+        {
+          "word": "再次",
+          "pinyin": "zàicì",
+          "translation": "once again",
+          "hskLevel": 4
+        },
+        {
+          "word": "面对",
+          "pinyin": "miànduì",
+          "translation": "to face / confront",
+          "hskLevel": 4
+        },
+        {
+          "word": "虽然",
+          "pinyin": "suīrán",
+          "translation": "although",
+          "hskLevel": 3
+        },
+        {
+          "word": "坚定",
+          "pinyin": "jiāndìng",
+          "translation": "firm / resolute",
+          "hskLevel": 4
+        }
+      ]
+    },
+    {
+      "id": "card_12",
+      "title": "12. Resolution / 故事结局",
+      "isFree": false,
+      "sentence": "最终，在道士的帮助下，邪恶的妖怪被收服，家里恢复了平静。",
+      "pinyin": "zuìzhōng, zài dàoshi de bāngzhù xià, xié'è de yàoguài bèi shōufú, jiālǐ huīfù le píngjìng.",
+      "translation": "In the end, with the help of the Taoist priest, the evil monster was subdued, and peace was restored to the home.",
+      "vocabList": [
+        {
+          "word": "最终",
+          "pinyin": "zuìzhōng",
+          "translation": "finally / ultimate",
+          "hskLevel": 4
+        },
+        {
+          "word": "帮助",
+          "pinyin": "bāngzhù",
+          "translation": "help",
+          "hskLevel": 3
+        },
+        {
+          "word": "恢复",
+          "pinyin": "huīfù",
+          "translation": "to recover / restore",
+          "hskLevel": 4
+        },
+        {
+          "word": "平静",
+          "pinyin": "píngjìng",
+          "translation": "calm / peaceful",
+          "hskLevel": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1782 @@
+{
+  "collection": "Liaozhai Tales · HSK 3-4",
+  "stories": [
+    {
+      "columnId": "painted_skin",
+      "title": "画皮 · The Painted Skin",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cards": [
+        {
+          "id": "card_01",
+          "title": "书生遇美女 | The Scholar Meets a Girl",
+          "isFree": true,
+          "sentence": "一天晚上，王生在路上遇到了一个年轻的女孩。",
+          "pinyin": "Yì tiān wǎnshang, Wáng shēng zài lùshang yùdào le yí ge niánqīng de nǚhái.",
+          "translation": "One evening, Wang the scholar met a young girl on the road.",
+          "vocabList": [
+            {
+              "word": "遇到",
+              "pinyin": "yùdào",
+              "translation": "to run into; to come across",
+              "hskLevel": 4
+            },
+            {
+              "word": "年轻",
+              "pinyin": "niánqīng",
+              "translation": "young",
+              "hskLevel": 3
+            },
+            {
+              "word": "女孩",
+              "pinyin": "nǚhái",
+              "translation": "girl",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "card_02",
+          "title": "路边的哭声 | Crying by the Road",
+          "isFree": true,
+          "sentence": "她一个人坐在路边哭，看起来很难过。",
+          "pinyin": "Tā yí ge rén zuò zài lùbiān kū, kàn qǐlái hěn nánguò.",
+          "translation": "She sat alone by the road, crying. She looked very sad.",
+          "vocabList": [
+            {
+              "word": "哭",
+              "pinyin": "kū",
+              "translation": "to cry",
+              "hskLevel": 3
+            },
+            {
+              "word": "看起来",
+              "pinyin": "kàn qǐlái",
+              "translation": "to look (like); it seems",
+              "hskLevel": 3
+            },
+            {
+              "word": "难过",
+              "pinyin": "nánguò",
+              "translation": "sad; upset",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "card_03",
+          "title": "无家可归 | Nowhere to Go",
+          "isFree": true,
+          "sentence": "她说：“家里人要把我卖给别人，我只好跑出来了。”",
+          "pinyin": "Tā shuō: “Jiālǐ rén yào bǎ wǒ mài gěi biérén, wǒ zhǐhǎo pǎo chūlái le.”",
+          "translation": "She said, “My family wanted to sell me to someone else, so I had no choice but to run away.”",
+          "vocabList": [
+            {
+              "word": "卖",
+              "pinyin": "mài",
+              "translation": "to sell",
+              "hskLevel": 3
+            },
+            {
+              "word": "别人",
+              "pinyin": "biérén",
+              "translation": "other people; someone else",
+              "hskLevel": 3
+            },
+            {
+              "word": "只好",
+              "pinyin": "zhǐhǎo",
+              "translation": "to have no choice but to",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "card_04",
+          "title": "带回家 | A Stranger at Home",
+          "isFree": true,
+          "sentence": "王生很担心她，就带她回了自己的家。",
+          "pinyin": "Wáng shēng hěn dānxīn tā, jiù dài tā huí le zìjǐ de jiā.",
+          "translation": "Wang worried about her, so he took her to his own home.",
+          "vocabList": [
+            {
+              "word": "担心",
+              "pinyin": "dānxīn",
+              "translation": "to worry about",
+              "hskLevel": 3
+            },
+            {
+              "word": "带",
+              "pinyin": "dài",
+              "translation": "to bring; to take along",
+              "hskLevel": 3
+            },
+            {
+              "word": "自己",
+              "pinyin": "zìjǐ",
+              "translation": "oneself; own",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "card_05",
+          "title": "窗外的秘密 | The Secret at the Window",
+          "isFree": false,
+          "sentence": "那天夜里，王生怎么也睡不着，他走到女孩的房间外面，从窗户往里看。",
+          "pinyin": "Nà tiān yè lǐ, Wáng shēng zěnme yě shuì bù zháo, tā zǒudào nǚhái de fángjiān wàimian, cóng chuānghu wǎng lǐ kàn.",
+          "translation": "That night, Wang couldn't fall asleep. He walked to the outside of the girl's room and looked in through the window.",
+          "vocabList": [
+            {
+              "word": "睡不着",
+              "pinyin": "shuì bù zháo",
+              "translation": "unable to fall asleep",
+              "hskLevel": 4
+            },
+            {
+              "word": "窗户",
+              "pinyin": "chuānghu",
+              "translation": "window",
+              "hskLevel": 4
+            },
+            {
+              "word": "往",
+              "pinyin": "wǎng",
+              "translation": "toward; in the direction of",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "card_06",
+          "title": "06. Hidden Truth / 惊悚真面目",
+          "isFree": false,
+          "sentence": "半夜里，他醒来一看，床上坐着一个面目可怕的鬼。",
+          "pinyin": "bànyè lǐ, tā xǐng lái yīkàn, chuáng shàng zuòzhe yīgè miànmù kěpà de guǐ.",
+          "translation": "In the middle of the night, he woke up and saw a terrifying ghost sitting on the bed.",
+          "vocabList": [
+            {
+              "word": "半夜",
+              "pinyin": "bànyè",
+              "translation": "midnight",
+              "hskLevel": 4
+            },
+            {
+              "word": "醒",
+              "pinyin": "xǐng",
+              "translation": "to wake up",
+              "hskLevel": 4
+            },
+            {
+              "word": "可怕",
+              "pinyin": "kěpà",
+              "translation": "terrifying / scary",
+              "hskLevel": 3
+            },
+            {
+              "word": "鬼",
+              "pinyin": "guǐ",
+              "translation": "ghost",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "card_07",
+          "title": "07. The Painted Skin / 绘制人皮",
+          "isFree": false,
+          "sentence": "桌上有一张画着美女的人皮，她正拿着笔在上面涂画。",
+          "pinyin": "zhuō shàng yǒuyī zhāng huàzhe měinǚ de rénpí, tā zhèng názhe bǐ zài shàngmiàn túhuà.",
+          "translation": "On the table was a human skin painted with the likeness of a beautiful woman, and she was painting on it with a brush.",
+          "vocabList": [
+            {
+              "word": "张",
+              "pinyin": "zhāng",
+              "translation": "measure word for flat objects",
+              "hskLevel": 2
+            },
+            {
+              "word": "美女",
+              "pinyin": "měinǚ",
+              "translation": "beautiful woman",
+              "hskLevel": 3
+            },
+            {
+              "word": "人皮",
+              "pinyin": "rénpí",
+              "translation": "human skin",
+              "hskLevel": 4
+            },
+            {
+              "word": "笔",
+              "pinyin": "bǐ",
+              "translation": "pen / brush",
+              "hskLevel": 2
+            }
+          ]
+        },
+        {
+          "id": "card_08",
+          "title": "08. Extreme Fear / 惊恐逃离",
+          "isFree": false,
+          "sentence": "王生吓得差点晕过去，连衣服都来不及穿好就跑了出去。",
+          "pinyin": "wáng shēng xià de chàdiǎn yūn guòqù, lián yīfú dōu láibují chuān hǎo jiù pǎo le chūqù.",
+          "translation": "Mr. Wang was so scared that he almost fainted, and he ran out without even having time to put on his clothes properly.",
+          "vocabList": [
+            {
+              "word": "吓",
+              "pinyin": "xià",
+              "translation": "to frighten / to scare",
+              "hskLevel": 3
+            },
+            {
+              "word": "差点",
+              "pinyin": "chàdiǎn",
+              "translation": "almost",
+              "hskLevel": 3
+            },
+            {
+              "word": "晕",
+              "pinyin": "yūn",
+              "translation": "to faint / dizzy",
+              "hskLevel": 4
+            },
+            {
+              "word": "来不及",
+              "pinyin": "láibují",
+              "translation": "there's not enough time",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "card_09",
+          "title": "09. Seeking Help / 寻找道士",
+          "isFree": false,
+          "sentence": "为了保护家人，他决定去外面寻找有法力的道士帮忙。",
+          "pinyin": "wèile bǎohù jiārén, tā juédìng qù wàimiàn xúnzhǎo yǒu fālì de dàoshi bāngmáng.",
+          "translation": "In order to protect his family, he decided to go outside to look for a Taoist priest with magical powers for help.",
+          "vocabList": [
+            {
+              "word": "保护",
+              "pinyin": "bǎohù",
+              "translation": "to protect",
+              "hskLevel": 4
+            },
+            {
+              "word": "家人",
+              "pinyin": "jiārén",
+              "translation": "family members",
+              "hskLevel": 3
+            },
+            {
+              "word": "决定",
+              "pinyin": "juédìng",
+              "translation": "to decide",
+              "hskLevel": 3
+            },
+            {
+              "word": "道士",
+              "pinyin": "dàoshi",
+              "translation": "Taoist priest",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "card_10",
+          "title": "10. The Priest's Advice / 道士授计",
+          "isFree": false,
+          "sentence": "道士给了他一面特殊的镜子，并告诉他如何应对妖怪。",
+          "pinyin": "dàoshi gěi le tā yīmiàn tèshū de jìngzi, bìng gàosù tā rúhé yìngduì yàoguài.",
+          "translation": "The Taoist priest gave him a special mirror and told him how to deal with the monster.",
+          "vocabList": [
+            {
+              "word": "特殊",
+              "pinyin": "tèshū",
+              "translation": "special",
+              "hskLevel": 4
+            },
+            {
+              "word": "镜子",
+              "pinyin": "jìngzi",
+              "translation": "mirror",
+              "hskLevel": 3
+            },
+            {
+              "word": "告诉",
+              "pinyin": "gàosù",
+              "translation": "to tell",
+              "hskLevel": 2
+            },
+            {
+              "word": "妖怪",
+              "pinyin": "yàoguài",
+              "translation": "monster / demon",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "card_11",
+          "title": "11. The Confrontation / 正面交锋",
+          "isFree": false,
+          "sentence": "回到家里，王生再次面对那个可怕的怪物，心中虽然害怕却很坚定。",
+          "pinyin": "huí dào jiālǐ, wáng shēng zàicì miànduì nàgè kěpà de guàiwù, xīnzhōng suīrán hàipà què hěn jiāndìng.",
+          "translation": "Returning home, Wang Sheng faced the terrifying monster once again; although he was afraid in his heart, he was very determined.",
+          "vocabList": [
+            {
+              "word": "再次",
+              "pinyin": "zàicì",
+              "translation": "once again",
+              "hskLevel": 4
+            },
+            {
+              "word": "面对",
+              "pinyin": "miànduì",
+              "translation": "to face / confront",
+              "hskLevel": 4
+            },
+            {
+              "word": "虽然",
+              "pinyin": "suīrán",
+              "translation": "although",
+              "hskLevel": 3
+            },
+            {
+              "word": "坚定",
+              "pinyin": "jiāndìng",
+              "translation": "firm / resolute",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "card_12",
+          "title": "12. Resolution / 故事结局",
+          "isFree": false,
+          "sentence": "最终，在道士的帮助下，邪恶的妖怪被收服，家里恢复了平静。",
+          "pinyin": "zuìzhōng, zài dàoshi de bāngzhù xià, xié'è de yàoguài bèi shōufú, jiālǐ huīfù le píngjìng.",
+          "translation": "In the end, with the help of the Taoist priest, the evil monster was subdued, and peace was restored to the home.",
+          "vocabList": [
+            {
+              "word": "最终",
+              "pinyin": "zuìzhōng",
+              "translation": "finally / ultimate",
+              "hskLevel": 4
+            },
+            {
+              "word": "帮助",
+              "pinyin": "bāngzhù",
+              "translation": "help",
+              "hskLevel": 3
+            },
+            {
+              "word": "恢复",
+              "pinyin": "huīfù",
+              "translation": "to recover / restore",
+              "hskLevel": 4
+            },
+            {
+              "word": "平静",
+              "pinyin": "píngjìng",
+              "translation": "calm / peaceful",
+              "hskLevel": 4
+            }
+          ]
+        }
+      ],
+      "cover": "画",
+      "coverClass": "c1"
+    },
+    {
+      "columnId": "laoshan_daoshi",
+      "title": "崂山道士 · The Taoist of Mount Laoshan",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "道",
+      "coverClass": "c2",
+      "cards": [
+        {
+          "id": "l_01",
+          "title": "01. 富家子弟 | A Spoiled Son",
+          "isFree": true,
+          "sentence": "王七是一个有钱人家的孩子，每天什么都不用做。",
+          "pinyin": "Wáng Qī shì yī gè yǒu qián rén jiā de hái zi，měi tiān shén me dōu bù yòng zuò。",
+          "translation": "Wang Qi was the son of a wealthy family; he had nothing to do every day.",
+          "vocabList": [
+            {
+              "word": "有钱",
+              "pinyin": "yǒu qián",
+              "translation": "wealthy; rich",
+              "hskLevel": 4
+            },
+            {
+              "word": "孩子",
+              "pinyin": "hái zi",
+              "translation": "child",
+              "hskLevel": 3
+            },
+            {
+              "word": "每天",
+              "pinyin": "měi tiān",
+              "translation": "every day",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "l_02",
+          "title": "02. 听说法术 | Tales of Magic",
+          "isFree": true,
+          "sentence": "有一天，他听说崂山上有一位道士，会很多神奇的法术。",
+          "pinyin": "Yǒu yī tiān，tā tīng shuō láo shān shàng yǒu yī wèi dào shì，huì hěn duō shén qí de fǎ shù。",
+          "translation": "One day, he heard that on Mount Laoshan there lived a Taoist priest who knew many magical skills.",
+          "vocabList": [
+            {
+              "word": "听说",
+              "pinyin": "tīng shuō",
+              "translation": "to hear that",
+              "hskLevel": 3
+            },
+            {
+              "word": "道士",
+              "pinyin": "dào shì",
+              "translation": "Taoist priest",
+              "hskLevel": 4
+            },
+            {
+              "word": "神奇",
+              "pinyin": "shén qí",
+              "translation": "magical; amazing",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "l_03",
+          "title": "03. 上山拜师 | Off to the Mountain",
+          "isFree": true,
+          "sentence": "王七很想去学，于是收拾行李，一个人上了山。",
+          "pinyin": "Wáng Qī hěn xiǎng qù xué，yú shì shōu shí xíng lǐ，yī gè rén shàng le shān。",
+          "translation": "Wang Qi really wanted to learn, so he packed his bags and went up the mountain alone.",
+          "vocabList": [
+            {
+              "word": "收拾",
+              "pinyin": "shōu shí",
+              "translation": "to pack; to tidy up",
+              "hskLevel": 4
+            },
+            {
+              "word": "行李",
+              "pinyin": "xíng lǐ",
+              "translation": "luggage",
+              "hskLevel": 4
+            },
+            {
+              "word": "于是",
+              "pinyin": "yú shì",
+              "translation": "thereupon; so",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "l_04",
+          "title": "04. 喝酒聊天 | Drinking and Chatting",
+          "isFree": true,
+          "sentence": "到了山上，他看见道士正和几个徒弟一起喝酒、聊天。",
+          "pinyin": "Dào le shān shàng，tā kàn jiàn dào shì zhèng hé jǐ gè tú dì yī qǐ hē jiǔ、liáo tiān。",
+          "translation": "At the mountain, he saw the Taoist drinking and chatting with several disciples.",
+          "vocabList": [
+            {
+              "word": "徒弟",
+              "pinyin": "tú dì",
+              "translation": "disciple; apprentice",
+              "hskLevel": 4
+            },
+            {
+              "word": "一起",
+              "pinyin": "yì qǐ",
+              "translation": "together",
+              "hskLevel": 3
+            },
+            {
+              "word": "喝酒",
+              "pinyin": "hē jiǔ",
+              "translation": "to drink (alcohol)",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "l_05",
+          "title": "05. 跪求拜师 | Begging to Learn",
+          "isFree": false,
+          "sentence": "王七跪下请求：“请您教我法术吧！”",
+          "pinyin": "Wáng Qī guì xià qǐng qiú：“qǐng nín jiāo wǒ fǎ shù ba！”",
+          "translation": "Wang Qi knelt and begged, \"Please teach me magic!\"",
+          "vocabList": [
+            {
+              "word": "请求",
+              "pinyin": "qǐng qiú",
+              "translation": "to request; to beg",
+              "hskLevel": 4
+            },
+            {
+              "word": "教",
+              "pinyin": "jiāo",
+              "translation": "to teach",
+              "hskLevel": 3
+            },
+            {
+              "word": "请",
+              "pinyin": "qǐng",
+              "translation": "please; to invite",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "l_06",
+          "title": "06. 先砍柴 | Chop Wood First",
+          "isFree": false,
+          "sentence": "道士答应了，却先让他每天上山砍柴。",
+          "pinyin": "Dào shì dá yīng le，què xiān ràng tā měi tiān shàng shān kǎn chái。",
+          "translation": "The Taoist agreed, but first made him chop wood on the mountain every day.",
+          "vocabList": [
+            {
+              "word": "答应",
+              "pinyin": "dā yìng",
+              "translation": "to agree",
+              "hskLevel": 4
+            },
+            {
+              "word": "却",
+              "pinyin": "què",
+              "translation": "but; yet",
+              "hskLevel": 4
+            },
+            {
+              "word": "砍柴",
+              "pinyin": "kǎn chái",
+              "translation": "to chop firewood",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "l_07",
+          "title": "07. 辛苦一月 | A Hard Month",
+          "isFree": false,
+          "sentence": "一个月过去了，王七的手磨出了血，累得走不动路。",
+          "pinyin": "Yī gè yuè guò qù le，Wáng Qī de shǒu mó chū le xuè，lèi de zǒu bù dòng lù。",
+          "translation": "A month passed; Wang Qi's hands bled from the work, and he was so tired he could not walk.",
+          "vocabList": [
+            {
+              "word": "过去",
+              "pinyin": "guò qù",
+              "translation": "to pass; to go by",
+              "hskLevel": 3
+            },
+            {
+              "word": "血",
+              "pinyin": "xuè",
+              "translation": "blood",
+              "hskLevel": 4
+            },
+            {
+              "word": "累",
+              "pinyin": "lèi",
+              "translation": "tired",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "l_08",
+          "title": "08. 想回家 | Wanting to Quit",
+          "isFree": false,
+          "sentence": "他心里想：“学法术这么辛苦，我还是回家吧。”",
+          "pinyin": "Tā xīn lǐ xiǎng：“xué fǎ shù zhè me xīn kǔ，wǒ hái shì huí jiā ba。”",
+          "translation": "He thought to himself, \"Learning magic is so hard; I had better go home.\"",
+          "vocabList": [
+            {
+              "word": "心里",
+              "pinyin": "xīn lǐ",
+              "translation": "in one's heart",
+              "hskLevel": 3
+            },
+            {
+              "word": "辛苦",
+              "pinyin": "xīn kǔ",
+              "translation": "hard; tiring",
+              "hskLevel": 4
+            },
+            {
+              "word": "还是",
+              "pinyin": "hái shì",
+              "translation": "still; had better",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "l_09",
+          "title": "09. 穿墙术 | The Wall-Walking Skill",
+          "isFree": false,
+          "sentence": "道士看出他想走，就说：“我教你一个穿墙的本领。”",
+          "pinyin": "Dào shì kàn chū tā xiǎng zǒu，jiù shuō：“wǒ jiào nǐ yī gè chuān qiáng de běn lǐng。”",
+          "translation": "The Taoist saw he wanted to leave and said, \"I will teach you a skill to pass through walls.\"",
+          "vocabList": [
+            {
+              "word": "看出",
+              "pinyin": "kàn chū",
+              "translation": "to see; to perceive",
+              "hskLevel": 4
+            },
+            {
+              "word": "本领",
+              "pinyin": "běn lǐng",
+              "translation": "skill; ability",
+              "hskLevel": 4
+            },
+            {
+              "word": "穿墙",
+              "pinyin": "chuān qiáng",
+              "translation": "to pass through a wall",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "l_10",
+          "title": "10. 真的穿过了 | It Works!",
+          "isFree": false,
+          "sentence": "道士念了几句咒语，王七真的穿过了墙壁，没有受伤。",
+          "pinyin": "Dào shì niàn le jǐ jù zhòu yǔ，Wáng Qī zhēn de chuān guò le qiáng bì，méi yǒu shòu shāng。",
+          "translation": "The Taoist chanted a few spells, and Wang Qi really passed through the wall without getting hurt.",
+          "vocabList": [
+            {
+              "word": "念",
+              "pinyin": "niàn",
+              "translation": "to recite; to chant",
+              "hskLevel": 4
+            },
+            {
+              "word": "墙壁",
+              "pinyin": "qiáng bì",
+              "translation": "wall",
+              "hskLevel": 4
+            },
+            {
+              "word": "受伤",
+              "pinyin": "shòu shāng",
+              "translation": "to get injured",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "l_11",
+          "title": "11. 回家炫耀 | Showing Off",
+          "isFree": false,
+          "sentence": "王七高兴地回家，对妻子说：“我会法术了，看我穿墙！”",
+          "pinyin": "Wáng Qī gāo xīng dì huí jiā，duì qī zi shuō：“wǒ huì fǎ shù le，kàn wǒ chuān qiáng！”",
+          "translation": "Wang Qi went home happily and said to his wife, \"I know magic now — watch me go through the wall!\"",
+          "vocabList": [
+            {
+              "word": "高兴",
+              "pinyin": "gāo xìng",
+              "translation": "happy",
+              "hskLevel": 3
+            },
+            {
+              "word": "妻子",
+              "pinyin": "qī zǐ",
+              "translation": "wife",
+              "hskLevel": 4
+            },
+            {
+              "word": "炫耀",
+              "pinyin": "xuàn yào",
+              "translation": "to show off",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "l_12",
+          "title": "12. 撞了满头包 | A Bumpy End",
+          "isFree": false,
+          "sentence": "他闭上眼睛朝墙冲过去，结果一头撞在墙上，肿了个大包。",
+          "pinyin": "Tā bì shàng yǎn jīng cháo qiáng chōng guò qù，jié guǒ yī tóu zhuàng zài qiáng shàng，zhǒng le gè dà bāo。",
+          "translation": "He closed his eyes and rushed at the wall — but ended up bumping his head on it, leaving a big lump.",
+          "vocabList": [
+            {
+              "word": "闭上",
+              "pinyin": "bì shàng",
+              "translation": "to close (eyes)",
+              "hskLevel": 4
+            },
+            {
+              "word": "结果",
+              "pinyin": "jié guǒ",
+              "translation": "result; as a result",
+              "hskLevel": 3
+            },
+            {
+              "word": "撞",
+              "pinyin": "zhuàng",
+              "translation": "to bump; to collide",
+              "hskLevel": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "zhong_li",
+      "title": "种梨 · Planting a Pear",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "梨",
+      "coverClass": "c4",
+      "cards": [
+        {
+          "id": "z_01",
+          "title": "01. 叫卖甜梨 | Selling Pears",
+          "isFree": true,
+          "sentence": "集市上，一个卖梨的人正在大声叫卖，梨又大又甜。",
+          "pinyin": "Jí shì shàng，yī gè mài lí de rén zhèng zài dà shēng jiào mài，lí yòu dà yòu tián。",
+          "translation": "At the market, a pear seller was shouting his wares; his pears were big and sweet.",
+          "vocabList": [
+            {
+              "word": "集市",
+              "pinyin": "jí shì",
+              "translation": "market",
+              "hskLevel": 4
+            },
+            {
+              "word": "卖",
+              "pinyin": "mài",
+              "translation": "to sell",
+              "hskLevel": 3
+            },
+            {
+              "word": "大声",
+              "pinyin": "dà shēng",
+              "translation": "loudly",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "z_02",
+          "title": "02. 讨梨被拒 | A Refused Request",
+          "isFree": true,
+          "sentence": "一位穿得破旧的道士走过来，说：“给我一个梨吧。”",
+          "pinyin": "Yī wèi chuān dé pò jiù de dào shì zǒu guò lái，shuō：“gěi wǒ yī gè lí ba。”",
+          "translation": "A shabbily dressed Taoist came over and said, \"Give me a pear.\"",
+          "vocabList": [
+            {
+              "word": "破旧",
+              "pinyin": "pò jiù",
+              "translation": "worn-out; shabby",
+              "hskLevel": 4
+            },
+            {
+              "word": "道士",
+              "pinyin": "dào shì",
+              "translation": "Taoist priest",
+              "hskLevel": 4
+            },
+            {
+              "word": "过来",
+              "pinyin": "guò lái",
+              "translation": "to come over",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_03",
+          "title": "03. 小气商人 | The Stingy Seller",
+          "isFree": true,
+          "sentence": "卖梨的人很生气，摇头说：“不卖！一个也不给。”",
+          "pinyin": "Mài lí de rén hěn shēng qì，yáo tóu shuō：“bù mài！yī gè yě bù gěi。”",
+          "translation": "The pear seller was angry and shook his head, \"Not for sale! I won't give you one.\"",
+          "vocabList": [
+            {
+              "word": "生气",
+              "pinyin": "shēng qì",
+              "translation": "angry",
+              "hskLevel": 3
+            },
+            {
+              "word": "摇头",
+              "pinyin": "yáo tóu",
+              "translation": "to shake one's head",
+              "hskLevel": 4
+            },
+            {
+              "word": "给",
+              "pinyin": "gěi",
+              "translation": "to give",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_04",
+          "title": "04. 旁人相助 | A Kind Bystander",
+          "isFree": true,
+          "sentence": "旁边的人看不过去，花钱买了一个梨送给道士。",
+          "pinyin": "Páng biān de rén kàn bù guò qù，huā qián mǎi le yī gè lí sòng gěi dào shì。",
+          "translation": "A bystander, unable to bear it, paid for a pear and gave it to the Taoist.",
+          "vocabList": [
+            {
+              "word": "旁边",
+              "pinyin": "páng biān",
+              "translation": "beside; nearby",
+              "hskLevel": 3
+            },
+            {
+              "word": "花钱",
+              "pinyin": "huā qián",
+              "translation": "to spend money",
+              "hskLevel": 3
+            },
+            {
+              "word": "送",
+              "pinyin": "sòng",
+              "translation": "to give; to present",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_05",
+          "title": "05. 种下梨核 | Planting the Core",
+          "isFree": false,
+          "sentence": "道士吃完梨，把梨核种在了地上的土里。",
+          "pinyin": "Dào shì chī wán lí，bǎ lí hé zhǒng zài le dì shàng de tǔ lǐ。",
+          "translation": "After eating the pear, the Taoist planted the core in the soil.",
+          "vocabList": [
+            {
+              "word": "吃完",
+              "pinyin": "chī wán",
+              "translation": "to finish eating",
+              "hskLevel": 3
+            },
+            {
+              "word": "种",
+              "pinyin": "zhǒng",
+              "translation": "to plant",
+              "hskLevel": 3
+            },
+            {
+              "word": "土",
+              "pinyin": "tǔ",
+              "translation": "soil; earth",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_06",
+          "title": "06. 瞬间长树 | A Tree Appears",
+          "isFree": false,
+          "sentence": "奇怪的事发生了：小苗很快长成了一棵大树。",
+          "pinyin": "Qí guài de shì fā shēng le：xiǎo miáo hěn kuài zhǎng chéng le yī kē dà shù。",
+          "translation": "Something strange happened: the small sprout quickly grew into a big tree.",
+          "vocabList": [
+            {
+              "word": "奇怪",
+              "pinyin": "qí guài",
+              "translation": "strange",
+              "hskLevel": 3
+            },
+            {
+              "word": "发生",
+              "pinyin": "fā shēng",
+              "translation": "to happen",
+              "hskLevel": 3
+            },
+            {
+              "word": "长",
+              "pinyin": "zhǎng",
+              "translation": "to grow",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_07",
+          "title": "07. 开花结果 | Blossoms and Fruit",
+          "isFree": false,
+          "sentence": "树上开满了白色的花，接着又结出了很多梨。",
+          "pinyin": "Shù shàng kāi mǎn le bái sè de huā，jiē zhe yòu jiē chū le hěn duō lí。",
+          "translation": "The tree was covered with white blossoms, and then bore many pears.",
+          "vocabList": [
+            {
+              "word": "白色",
+              "pinyin": "bái sè",
+              "translation": "white",
+              "hskLevel": 3
+            },
+            {
+              "word": "花",
+              "pinyin": "huā",
+              "translation": "flower",
+              "hskLevel": 3
+            },
+            {
+              "word": "结",
+              "pinyin": "jiē",
+              "translation": "to bear (fruit)",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "z_08",
+          "title": "08. 分梨给大家 | Sharing the Pears",
+          "isFree": false,
+          "sentence": "道士把梨摘下来，分给看热闹的人吃，大家都很高兴。",
+          "pinyin": "Dào shì bǎ lí zhāi xià lái，fēn gěi kàn rè nào de rén chī，dà jiā dōu hěn gāo xīng。",
+          "translation": "The Taoist picked the pears and shared them with the onlookers; everyone was happy.",
+          "vocabList": [
+            {
+              "word": "摘",
+              "pinyin": "zhāi",
+              "translation": "to pick",
+              "hskLevel": 4
+            },
+            {
+              "word": "分给",
+              "pinyin": "fēn gěi",
+              "translation": "to divide and give",
+              "hskLevel": 3
+            },
+            {
+              "word": "大家",
+              "pinyin": "dà jiā",
+              "translation": "everyone",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_09",
+          "title": "09. 梨不见了 | The Pears Vanish",
+          "isFree": false,
+          "sentence": "这时，卖梨人车上的梨，正一个一个地变少。",
+          "pinyin": "Zhè shí，mài lí rén chē shàng de lí，zhèng yī gè yī gè dì biàn shǎo。",
+          "translation": "At that moment, the pears on the seller's cart were disappearing one by one.",
+          "vocabList": [
+            {
+              "word": "车上",
+              "pinyin": "chē shàng",
+              "translation": "on the cart",
+              "hskLevel": 3
+            },
+            {
+              "word": "变少",
+              "pinyin": "biàn shǎo",
+              "translation": "to become fewer",
+              "hskLevel": 3
+            },
+            {
+              "word": "一个一个",
+              "pinyin": "yí gè yí gè",
+              "translation": "one by one",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_10",
+          "title": "10. 车空轮坏 | Empty Cart, Broken Wheel",
+          "isFree": false,
+          "sentence": "卖梨人回头一看，车已经空了，轮子也坏了。",
+          "pinyin": "Mài lí rén huí tóu yī kàn，chē yǐ jīng kōng le，lún zi yě huài le。",
+          "translation": "The seller looked back — the cart was empty, and the wheel was broken too.",
+          "vocabList": [
+            {
+              "word": "回头",
+              "pinyin": "huí tóu",
+              "translation": "to look back",
+              "hskLevel": 4
+            },
+            {
+              "word": "空",
+              "pinyin": "kōng",
+              "translation": "empty",
+              "hskLevel": 3
+            },
+            {
+              "word": "轮子",
+              "pinyin": "lún zi",
+              "translation": "wheel",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "z_11",
+          "title": "11. 原来如此 | The Truth",
+          "isFree": false,
+          "sentence": "原来，道士分给大家的梨，就是卖梨人车上的那些。",
+          "pinyin": "Yuán lái，dào shì fēn gěi dà jiā de lí，jiù shì mài lí rén chē shàng de nà xiē。",
+          "translation": "It turned out the pears the Taoist gave everyone were exactly those from the seller's cart.",
+          "vocabList": [
+            {
+              "word": "原来",
+              "pinyin": "yuán lái",
+              "translation": "it turns out",
+              "hskLevel": 3
+            },
+            {
+              "word": "分给",
+              "pinyin": "fēn gěi",
+              "translation": "to divide and give",
+              "hskLevel": 3
+            },
+            {
+              "word": "那些",
+              "pinyin": "nà xiē",
+              "translation": "those",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "z_12",
+          "title": "12. 又气又悔 | Anger and Regret",
+          "isFree": false,
+          "sentence": "卖梨人又气又后悔，知道自己太小气了。",
+          "pinyin": "Mài lí rén yòu qì yòu hòu huǐ，zhī dào zì jǐ tài xiǎo qì le。",
+          "translation": "The seller was both angry and regretful, realizing he had been too stingy.",
+          "vocabList": [
+            {
+              "word": "后悔",
+              "pinyin": "hòu huǐ",
+              "translation": "to regret",
+              "hskLevel": 4
+            },
+            {
+              "word": "知道",
+              "pinyin": "zhī dào",
+              "translation": "to know",
+              "hskLevel": 3
+            },
+            {
+              "word": "小气",
+              "pinyin": "xiǎo qì",
+              "translation": "stingy",
+              "hskLevel": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "lang_wolf",
+      "title": "狼 · The Wolf",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "狼",
+      "coverClass": "c5",
+      "cards": [
+        {
+          "id": "w_01",
+          "title": "01. 晚归的屠夫 | The Butcher Heads Home",
+          "isFree": true,
+          "sentence": "从前有个屠夫，每天傍晚卖完肉才回家。",
+          "pinyin": "Cóng qián yǒu gè tú fū，měi tiān bàng wǎn mài wán ròu cái huí jiā。",
+          "translation": "Once there was a butcher who went home only after selling his meat each evening.",
+          "vocabList": [
+            {
+              "word": "屠夫",
+              "pinyin": "tú fū",
+              "translation": "butcher",
+              "hskLevel": 4
+            },
+            {
+              "word": "傍晚",
+              "pinyin": "bàng wǎn",
+              "translation": "dusk; evening",
+              "hskLevel": 4
+            },
+            {
+              "word": "卖完",
+              "pinyin": "mài wán",
+              "translation": "to sell out",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_02",
+          "title": "02. 天黑上路 | Dark Road Home",
+          "isFree": true,
+          "sentence": "这天，天快黑了，他挑着空担子往家走。",
+          "pinyin": "Zhè tiān，tiān kuài hēi le，tā tiāo zhe kōng dān zi wǎng jiā zǒu。",
+          "translation": "This day, as it grew dark, he walked home carrying an empty load on a pole.",
+          "vocabList": [
+            {
+              "word": "快黑",
+              "pinyin": "kuài hēi",
+              "translation": "to get dark",
+              "hskLevel": 3
+            },
+            {
+              "word": "挑",
+              "pinyin": "tiāo",
+              "translation": "to carry on a pole",
+              "hskLevel": 4
+            },
+            {
+              "word": "空",
+              "pinyin": "kōng",
+              "translation": "empty",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_03",
+          "title": "03. 两狼尾随 | Two Wolves Follow",
+          "isFree": true,
+          "sentence": "半路上，两只狼悄悄跟在他后面，走了很远。",
+          "pinyin": "Bàn lù shàng，liǎng zhī láng qiāo qiāo gēn zài tā hòu miàn，zǒu le hěn yuǎn。",
+          "translation": "On the way, two wolves quietly followed behind him for a long distance.",
+          "vocabList": [
+            {
+              "word": "半路",
+              "pinyin": "bàn lù",
+              "translation": "midway",
+              "hskLevel": 4
+            },
+            {
+              "word": "狼",
+              "pinyin": "láng",
+              "translation": "wolf",
+              "hskLevel": 4
+            },
+            {
+              "word": "悄悄",
+              "pinyin": "qiāo qiāo",
+              "translation": "quietly",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "w_04",
+          "title": "04. 扔骨吓狼 | Bones to the Wolves",
+          "isFree": true,
+          "sentence": "屠夫很害怕，就把骨头扔给它们，想让它们停下。",
+          "pinyin": "Tú fū hěn hài pà，jiù bǎ gǔ tóu rēng gěi tā men，xiǎng ràng tā men tíng xià。",
+          "translation": "The butcher was scared and threw bones to them, hoping to make them stop.",
+          "vocabList": [
+            {
+              "word": "害怕",
+              "pinyin": "hài pà",
+              "translation": "afraid; scared",
+              "hskLevel": 3
+            },
+            {
+              "word": "骨头",
+              "pinyin": "gǔ tou",
+              "translation": "bone",
+              "hskLevel": 4
+            },
+            {
+              "word": "停下",
+              "pinyin": "tíng xià",
+              "translation": "to stop",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_05",
+          "title": "05. 一停一跟 | One Stops, One Follows",
+          "isFree": false,
+          "sentence": "一只狼停下吃骨头，另一只却还跟着他。",
+          "pinyin": "Yī zhī láng tíng xià chī gǔ tóu，lìng yī zhī què hái gēn zhe tā。",
+          "translation": "One wolf stopped to eat the bone, but the other kept following him.",
+          "vocabList": [
+            {
+              "word": "停下",
+              "pinyin": "tíng xià",
+              "translation": "to stop",
+              "hskLevel": 3
+            },
+            {
+              "word": "吃",
+              "pinyin": "chī",
+              "translation": "to eat",
+              "hskLevel": 3
+            },
+            {
+              "word": "却",
+              "pinyin": "què",
+              "translation": "but; yet",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "w_06",
+          "title": "06. 吃完又跟 | They Regroup",
+          "isFree": false,
+          "sentence": "等他再扔骨头，先前的狼吃完又跟了上来。",
+          "pinyin": "Děng tā zài rēng gǔ tóu，xiān qián de láng chī wán yòu gēn le shàng lái。",
+          "translation": "When he threw more bones, the first wolf finished eating and followed again.",
+          "vocabList": [
+            {
+              "word": "先前",
+              "pinyin": "xiān qián",
+              "translation": "previous; earlier",
+              "hskLevel": 4
+            },
+            {
+              "word": "吃完",
+              "pinyin": "chī wán",
+              "translation": "to finish eating",
+              "hskLevel": 3
+            },
+            {
+              "word": "跟上来",
+              "pinyin": "gēn shàng lái",
+              "translation": "to follow up",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_07",
+          "title": "07. 骨尽狼随 | Out of Bones",
+          "isFree": false,
+          "sentence": "骨头扔光了，两只狼还像原来一样一起跟着他。",
+          "pinyin": "Gǔ tóu rēng guāng le，liǎng zhī láng hái xiàng yuán lái yī yàng yī qǐ gēn zhe tā。",
+          "translation": "The bones were all thrown, yet both wolves still followed him together as before.",
+          "vocabList": [
+            {
+              "word": "扔光",
+              "pinyin": "rēng guāng",
+              "translation": "to throw all away",
+              "hskLevel": 4
+            },
+            {
+              "word": "还",
+              "pinyin": "hái",
+              "translation": "still",
+              "hskLevel": 3
+            },
+            {
+              "word": "一起",
+              "pinyin": "yì qǐ",
+              "translation": "together",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_08",
+          "title": "08. 前后夹击 | A Pincer Plan",
+          "isFree": false,
+          "sentence": "屠夫心想：它们是要前后夹击我啊！",
+          "pinyin": "Tú fū xīn xiǎng：tā men shì yào qián hòu jiā jī wǒ a！",
+          "translation": "The butcher thought: they mean to attack me from front and back!",
+          "vocabList": [
+            {
+              "word": "心想",
+              "pinyin": "xīn xiǎng",
+              "translation": "to think to oneself",
+              "hskLevel": 3
+            },
+            {
+              "word": "前后",
+              "pinyin": "qián hòu",
+              "translation": "front and back",
+              "hskLevel": 3
+            },
+            {
+              "word": "夹击",
+              "pinyin": "jiā jī",
+              "translation": "pincer attack",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "w_09",
+          "title": "09. 背靠柴堆 | Back to the Brushwood",
+          "isFree": false,
+          "sentence": "他看见路边有堆柴草，就跑过去背靠柴堆站着。",
+          "pinyin": "Tā kàn jiàn lù biān yǒu duī chái cǎo，jiù pǎo guò qù bèi kào chái duī zhàn zhe。",
+          "translation": "He saw a pile of brushwood by the road and ran to stand with his back against it.",
+          "vocabList": [
+            {
+              "word": "柴草",
+              "pinyin": "chái cǎo",
+              "translation": "brushwood; firewood",
+              "hskLevel": 4
+            },
+            {
+              "word": "背靠",
+              "pinyin": "bèi kào",
+              "translation": "to lean one's back on",
+              "hskLevel": 4
+            },
+            {
+              "word": "站着",
+              "pinyin": "zhàn zhe",
+              "translation": "to stand",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_10",
+          "title": "10. 一睡一挖 | One Sleeps, One Digs",
+          "isFree": false,
+          "sentence": "两只狼不敢靠近，一只假装睡觉，一只去柴堆下打洞。",
+          "pinyin": "Liǎng zhī láng bù gǎn kào jìn，yī zhī jiǎ zhuāng shuì jué，yī zhī qù chái duī xià dǎ dòng。",
+          "translation": "The two wolves dared not approach; one pretended to sleep, the other went to dig a hole under the pile.",
+          "vocabList": [
+            {
+              "word": "靠近",
+              "pinyin": "kào jìn",
+              "translation": "to approach",
+              "hskLevel": 4
+            },
+            {
+              "word": "假装",
+              "pinyin": "jiǎ zhuāng",
+              "translation": "to pretend",
+              "hskLevel": 4
+            },
+            {
+              "word": "睡觉",
+              "pinyin": "shuì jiào",
+              "translation": "to sleep",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "w_11",
+          "title": "11. 暴起杀狼 | He Strikes",
+          "isFree": false,
+          "sentence": "屠夫突然跳起来，用刀杀死了那只打洞的狼。",
+          "pinyin": "Tú fū tū rán tiào qǐ lái，yòng dāo shā sǐ le nà zhǐ dǎ dòng de láng。",
+          "translation": "The butcher suddenly jumped up and killed the digging wolf with his knife.",
+          "vocabList": [
+            {
+              "word": "突然",
+              "pinyin": "tū rán",
+              "translation": "suddenly",
+              "hskLevel": 3
+            },
+            {
+              "word": "跳",
+              "pinyin": "tiào",
+              "translation": "to jump",
+              "hskLevel": 3
+            },
+            {
+              "word": "杀死",
+              "pinyin": "shā sǐ",
+              "translation": "to kill",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "w_12",
+          "title": "12. 斩草除根 | The Second Wolf",
+          "isFree": false,
+          "sentence": "他回头看，睡觉的狼也正要偷袭，也被他一刀结果了。",
+          "pinyin": "Tā huí tóu kàn，shuì jué de láng yě zhèng yào tōu xí，yě bèi tā yī dāo jié guǒ le。",
+          "translation": "He looked back; the sleeping wolf was about to sneak-attack, and was also finished off with one stroke.",
+          "vocabList": [
+            {
+              "word": "回头",
+              "pinyin": "huí tóu",
+              "translation": "to look back",
+              "hskLevel": 4
+            },
+            {
+              "word": "偷袭",
+              "pinyin": "tōu xí",
+              "translation": "sneak attack",
+              "hskLevel": 4
+            },
+            {
+              "word": "结果",
+              "pinyin": "jié guǒ",
+              "translation": "to finish off",
+              "hskLevel": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "nie_xiaoqian",
+      "title": "聂小倩 · Nie Xiaoqian",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "倩",
+      "coverClass": "c3",
+      "cards": [
+        {
+          "id": "n_01",
+          "title": "01. 正直书生 | An Honest Scholar",
+          "isFree": true,
+          "sentence": "书生宁采臣家里穷，但为人正直，从不贪心。",
+          "pinyin": "Shū shēng níng cǎi chén jiā lǐ qióng，dàn wèi rén zhèng zhí，cóng bù tān xīn。",
+          "translation": "The scholar Ning Caichen was poor but honest, and never greedy.",
+          "vocabList": [
+            {
+              "word": "书生",
+              "pinyin": "shū shēng",
+              "translation": "scholar",
+              "hskLevel": 4
+            },
+            {
+              "word": "穷",
+              "pinyin": "qióng",
+              "translation": "poor",
+              "hskLevel": 4
+            },
+            {
+              "word": "正直",
+              "pinyin": "zhèng zhí",
+              "translation": "upright; honest",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_02",
+          "title": "02. 古庙过夜 | A Night at the Temple",
+          "isFree": true,
+          "sentence": "一天，他路过一座荒凉的古庙，决定进去过夜。",
+          "pinyin": "Yī tiān，tā lù guò yī zuò huāng liáng de gǔ miào，jué dìng jìn qù guò yè。",
+          "translation": "One day, he passed a desolate old temple and decided to stay the night.",
+          "vocabList": [
+            {
+              "word": "路过",
+              "pinyin": "lù guò",
+              "translation": "to pass by",
+              "hskLevel": 4
+            },
+            {
+              "word": "荒凉",
+              "pinyin": "huāng liáng",
+              "translation": "desolate; bleak",
+              "hskLevel": 4
+            },
+            {
+              "word": "过夜",
+              "pinyin": "guò yè",
+              "translation": "to stay overnight",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_03",
+          "title": "03. 夜访佳人 | A Girl at Midnight",
+          "isFree": true,
+          "sentence": "半夜，一个美丽的姑娘走进他的房间，名叫聂小倩。",
+          "pinyin": "Bàn yè，yī gè měi lì de gū niáng zǒu jìn tā de fáng jiān，míng jiào niè xiǎo qiàn。",
+          "translation": "At midnight, a beautiful girl entered his room; her name was Nie Xiaoqian.",
+          "vocabList": [
+            {
+              "word": "半夜",
+              "pinyin": "bàn yè",
+              "translation": "midnight",
+              "hskLevel": 4
+            },
+            {
+              "word": "美丽",
+              "pinyin": "měi lì",
+              "translation": "beautiful",
+              "hskLevel": 3
+            },
+            {
+              "word": "姑娘",
+              "pinyin": "gū niáng",
+              "translation": "girl",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "n_04",
+          "title": "04. 温柔搭话 | A Gentle Approach",
+          "isFree": true,
+          "sentence": "小倩笑着对他说：“我喜欢你，想和你做朋友。”",
+          "pinyin": "Xiǎo qiàn xiào zhe duì tā shuō：“wǒ xǐ huān nǐ，xiǎng hé nǐ zuò péng yǒu。”",
+          "translation": "Xiaoqian said with a smile, \"I like you and want to be friends.\"",
+          "vocabList": [
+            {
+              "word": "笑",
+              "pinyin": "xiào",
+              "translation": "to smile; to laugh",
+              "hskLevel": 3
+            },
+            {
+              "word": "喜欢",
+              "pinyin": "xǐ huān",
+              "translation": "to like",
+              "hskLevel": 3
+            },
+            {
+              "word": "朋友",
+              "pinyin": "péng yǒu",
+              "translation": "friend",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "n_05",
+          "title": "05. 不为所动 | He Resists",
+          "isFree": false,
+          "sentence": "宁采臣知道夜里来的姑娘不简单，没有答应她。",
+          "pinyin": "Níng cǎi chén zhī dào yè lǐ lái de gū niáng bù jiǎn dān，méi yǒu dá yīng tā。",
+          "translation": "Ning knew a girl coming at night was not ordinary, and did not agree.",
+          "vocabList": [
+            {
+              "word": "知道",
+              "pinyin": "zhī dào",
+              "translation": "to know",
+              "hskLevel": 3
+            },
+            {
+              "word": "夜里",
+              "pinyin": "yè lǐ",
+              "translation": "at night",
+              "hskLevel": 3
+            },
+            {
+              "word": "答应",
+              "pinyin": "dā yìng",
+              "translation": "to agree",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_06",
+          "title": "06. 自陈是鬼 | The Truth About Her",
+          "isFree": false,
+          "sentence": "小倩叹了口气，说：“其实我是鬼，被妖怪逼着害你。”",
+          "pinyin": "Xiǎo qiàn tàn le kǒu qì，shuō：“qí shí wǒ shì guǐ，bèi yāo guài bī zhe hài nǐ。”",
+          "translation": "Xiaoqian sighed and said, \"Actually I am a ghost, forced by a demon to harm you.\"",
+          "vocabList": [
+            {
+              "word": "叹气",
+              "pinyin": "tàn qì",
+              "translation": "to sigh",
+              "hskLevel": 4
+            },
+            {
+              "word": "其实",
+              "pinyin": "qí shí",
+              "translation": "actually; in fact",
+              "hskLevel": 3
+            },
+            {
+              "word": "鬼",
+              "pinyin": "guǐ",
+              "translation": "ghost",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_07",
+          "title": "07. 好心提醒 | A Kind Warning",
+          "isFree": false,
+          "sentence": "她好心提醒：“明天你一定要和房里的剑客做朋友。”",
+          "pinyin": "Tā hǎo xīn tí xǐng：“míng tiān nǐ yī dìng yào hé fáng lǐ de jiàn kè zuò péng yǒu。”",
+          "translation": "She kindly warned, \"Tomorrow you must befriend the swordsman in the room.\"",
+          "vocabList": [
+            {
+              "word": "提醒",
+              "pinyin": "tí xǐng",
+              "translation": "to remind",
+              "hskLevel": 4
+            },
+            {
+              "word": "一定",
+              "pinyin": "yí dìng",
+              "translation": "certainly; must",
+              "hskLevel": 3
+            },
+            {
+              "word": "剑客",
+              "pinyin": "jiàn kè",
+              "translation": "swordsman",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_08",
+          "title": "08. 结交剑客 | Meeting Yan Chixia",
+          "isFree": false,
+          "sentence": "第二天，宁采臣认识了那位叫燕赤霞的剑客，两人成了好朋友。",
+          "pinyin": "Dì èr tiān，níng cǎi chén rèn shí le nà wèi jiào yàn chì xiá de jiàn kè，liǎng rén chéng le hǎo péng yǒu。",
+          "translation": "The next day, Ning met the swordsman named Yan Chixia, and the two became good friends.",
+          "vocabList": [
+            {
+              "word": "认识",
+              "pinyin": "rèn shí",
+              "translation": "to meet; to know",
+              "hskLevel": 3
+            },
+            {
+              "word": "成",
+              "pinyin": "chéng",
+              "translation": "to become",
+              "hskLevel": 3
+            },
+            {
+              "word": "好朋友",
+              "pinyin": "hǎo péng yǒu",
+              "translation": "good friend",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "n_09",
+          "title": "09. 剑斩妖魔 | The Demon Is Slain",
+          "isFree": false,
+          "sentence": "夜里，妖怪来杀宁采臣，燕赤霞用宝剑把它打败了。",
+          "pinyin": "Yè lǐ，yāo guài lái shā níng cǎi chén，yàn chì xiá yòng bǎo jiàn bǎ tā dǎ bài le。",
+          "translation": "At night, the demon came to kill Ning, and Yan Chixia defeated it with his magic sword.",
+          "vocabList": [
+            {
+              "word": "妖怪",
+              "pinyin": "yāo guài",
+              "translation": "demon; monster",
+              "hskLevel": 4
+            },
+            {
+              "word": "杀",
+              "pinyin": "shā",
+              "translation": "to kill",
+              "hskLevel": 4
+            },
+            {
+              "word": "打败",
+              "pinyin": "dǎ bài",
+              "translation": "to defeat",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_10",
+          "title": "10. 托骨归乡 | Taking Her Bones Home",
+          "isFree": false,
+          "sentence": "小倩得救了，她请求宁采臣把她的骨头带回故乡安葬。",
+          "pinyin": "Xiǎo qiàn dé jiù le，tā qǐng qiú níng cǎi chén bǎ tā de gǔ tóu dài huí gù xiāng ān zàng。",
+          "translation": "Xiaoqian was saved; she asked Ning to take her bones back to her hometown to bury.",
+          "vocabList": [
+            {
+              "word": "得救",
+              "pinyin": "dé jiù",
+              "translation": "to be saved",
+              "hskLevel": 4
+            },
+            {
+              "word": "故乡",
+              "pinyin": "gù xiāng",
+              "translation": "hometown",
+              "hskLevel": 4
+            },
+            {
+              "word": "安葬",
+              "pinyin": "ān zàng",
+              "translation": "to bury",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "n_11",
+          "title": "11. 魂魄相随 | Her Spirit Follows",
+          "isFree": false,
+          "sentence": "宁采臣答应了她，把骨头带回家，小倩的魂魄也跟着他。",
+          "pinyin": "Níng cǎi chén dá yīng le tā，bǎ gǔ tóu dài huí jiā，xiǎo qiàn de hún pò yě gēn zhe tā。",
+          "translation": "Ning agreed, took the bones home, and Xiaoqian's spirit followed him.",
+          "vocabList": [
+            {
+              "word": "答应",
+              "pinyin": "dā yìng",
+              "translation": "to agree",
+              "hskLevel": 4
+            },
+            {
+              "word": "骨头",
+              "pinyin": "gǔ tou",
+              "translation": "bone",
+              "hskLevel": 4
+            },
+            {
+              "word": "跟着",
+              "pinyin": "gēn zhe",
+              "translation": "to follow",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "n_12",
+          "title": "12. 幸福相守 | A Happy Home",
+          "isFree": false,
+          "sentence": "后来，小倩在宁家安心生活，两人像家人一样幸福。",
+          "pinyin": "Hòu lái，xiǎo qiàn zài níng jiā ān xīn shēng huó，liǎng rén xiàng jiā rén yī yàng xìng fú。",
+          "translation": "Later, Xiaoqian lived peacefully in Ning's home, and the two were happy like family.",
+          "vocabList": [
+            {
+              "word": "后来",
+              "pinyin": "hòu lái",
+              "translation": "later",
+              "hskLevel": 3
+            },
+            {
+              "word": "安心",
+              "pinyin": "ān xīn",
+              "translation": "at ease; peaceful",
+              "hskLevel": 4
+            },
+            {
+              "word": "幸福",
+              "pinyin": "xìng fú",
+              "translation": "happy; blessed",
+              "hskLevel": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
