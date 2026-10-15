@@ -17,10 +17,11 @@
     idx: 0,
     pending: null,
     currentStoryTitle: '',
+    currentCategory: 'strange',
     vocab: store.get('hanlingo_vocab', []),
     pro: store.get('hanlingo_pro', false),
-    plan: store.get('hanlingo_plan', 'monthly'),
-    settings: Object.assign({ hsk: 'HSK 3-4', pinyin: true, translation: true }, store.get('hanlingo_settings', {}))
+    plan: store.get('hanlingo_plan', 'b'),
+    settings: Object.assign({ hsk: 'HSK 3-4', pinyin: false, translation: false }, store.get('hanlingo_settings', {}))
   };
 
   function saveSubscriptionState() {
@@ -634,11 +635,19 @@
 
   function renderStream() {
     const root = $('#stream');
+    const visible = state.stories.filter((s) => (s.category || 'strange') === state.currentCategory);
+    if (!visible.length) {
+      root.replaceChildren(h('p', { class: 'empty' }, 'New stories are on the way.'));
+      $('#soon').hidden = false;
+      return;
+    }
+
     root.replaceChildren(
-      ...state.stories.map((s, i) => {
+      ...visible.map((s, i) => {
         const zh = (s.title.split('·')[0] || '').trim();
         const en = (s.title.split('·')[1] || s.title).trim();
-        return h('button', { class: 'pack', type: 'button', 'data-open': i, onclick: () => openStory(i) },
+        const storyIndex = state.stories.findIndex((item) => item === s);
+        return h('button', { class: 'pack', type: 'button', 'data-open': storyIndex, onclick: () => openStory(storyIndex) },
           h('div', { class: 'cover ' + (s.coverClass || 'c1'), 'aria-hidden': 'true' }, s.cover || zh.slice(0, 1)),
           h('div', {},
             h('h3', {}, en),
@@ -649,6 +658,7 @@
               h('span', { class: 'tag free' }, 'Cards 1-' + s.freeCards + ' Free'),
               h('span', { class: 'tag pro' }, 'Pro'))));
       }));
+    $('#soon').hidden = true;
   }
 
   /* ---------- Overlays ---------- */
@@ -681,13 +691,16 @@
 
   function openPaywall() {
     const plans = [
-      { key: 'monthly', label: 'Monthly', price: '$6.99', detail: '/ month', recommended: true },
-      { key: 'yearly', label: 'Yearly', price: '$59.99', detail: '/ year', recommended: false }
+      { key: 'a', label: 'A', price: '$1.99', detail: 'Single deck • one-time', badge: null, description: 'Unlock this 12-card deck', recommended: false },
+      { key: 'b', label: 'B', price: '$12.99', detail: 'Category pass • one-time', badge: 'MOST POPULAR', description: 'Unlock this category and all future deck updates', recommended: true },
+      { key: 'c', label: 'C', price: '$49.99', detail: 'Lifetime all-access • one-time', badge: 'BEST VALUE • FOUNDING MEMBER', description: 'Unlock the full site, current + future packs', recommended: false }
     ];
+
+    const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans[1];
 
     const planButtons = plans.map((plan) =>
       h('button', {
-        class: 'plan-option' + (state.plan === plan.key ? ' active' : ''),
+        class: 'plan-option' + (state.plan === plan.key ? ' active' : '') + (plan.recommended ? ' popular' : ''),
         type: 'button',
         'data-plan': plan.key,
         onclick: () => {
@@ -695,29 +708,35 @@
           openPaywall();
         }
       },
-        h('span', { class: 'plan-label' }, plan.label),
+        h('span', { class: 'plan-topline' },
+          h('span', { class: 'plan-label' }, plan.label),
+          plan.badge ? h('em', { class: 'plan-badge' }, plan.badge) : null),
         h('span', { class: 'plan-price' }, plan.price),
         h('small', { class: 'plan-detail' }, plan.detail),
-        plan.recommended ? h('em', { class: 'plan-badge' }, 'Best value') : null));
+        h('span', { class: 'plan-description' }, plan.description)));
 
     $('#paywall').replaceChildren(
       h('div', { class: 'dialog', role: 'dialog', 'aria-labelledby': 'pw-title' },
-        h('h2', { id: 'pw-title' }, 'Upgrade to HanLingo Pro'),
-        h('p', {}, 'Unlock every story, full audio, and new lessons as they arrive.'),
+        h('div', { class: 'dialog-head' },
+          h('button', { class: 'close-x', type: 'button', 'aria-label': 'Close pricing', onclick: closeOverlays }, '×'),
+          h('div', { class: 'dialog-copy' },
+            h('h2', { id: 'pw-title' }, 'Unlock Full HanLingo Experience'),
+            h('p', {}, 'Master Chinese sentence by sentence, with zero subscription fatigue.'))),
         h('div', { class: 'plan-grid' }, ...planButtons),
+        h('div', { class: 'trust-row' }, 'One-time payment • No monthly recurring fees • Instant access'),
+        h('div', { class: 'price' }, selectedPlan.price + ' ', h('small', {}, selectedPlan.detail)),
         h('ul', {},
-          h('li', {}, 'All ' + (state.cards.length || 12) + ' cards' + (state.currentStoryTitle ? ' of ' + state.currentStoryTitle : ' in every story')),
-          h('li', {}, 'Audio for every card and sentence replay'),
-          h('li', {}, 'New Chinese tales added as the library grows')),
-        h('div', { class: 'price' }, plans.find((p) => p.key === state.plan).price + ' ', h('small', {}, plans.find((p) => p.key === state.plan).detail)),
-        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : 'Unlock Pro now'),
+          h('li', {}, 'Stripe: Credit Card / Apple Pay / Google Pay'),
+          h('li', {}, 'PayNow accepted in Singapore'),
+          h('li', {}, 'Unlock ' + (selectedPlan.key === 'a' ? 'this 12-card deck' : selectedPlan.key === 'b' ? 'this category and future updates' : 'the full site and all future content'))),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : 'Unlock now'),
         h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Not now'),
         CHECKOUT_URL ? null : h('p', { class: 'note' }, 'Demo mode: the checkout link is not connected yet, so this unlocks locally on this device.')));
     $('#paywall').hidden = false;
   }
 
   function subscribe(planKey = state.plan) {
-    state.plan = planKey || 'monthly';
+    state.plan = planKey || 'b';
     if (CHECKOUT_URL) {
       window.location.href = CHECKOUT_URL;
       return;
@@ -762,8 +781,6 @@
       h('div', { class: 'row' },
         h('span', {}, 'Plan', h('small', {}, state.pro ? 'HanLingo Pro' : 'Free: cards 1-4 of each story')),
         state.pro ? h('button', { class: 'btn ghost', type: 'button', onclick: openPaywall }, 'Manage') : h('button', { class: 'btn primary', type: 'button', onclick: openPaywall }, 'Upgrade')),
-      toggleRow('Show pinyin', 'Under each sentence', 'pinyin'),
-      toggleRow('Show translation', 'English, under each sentence', 'translation'),
       h('div', { class: 'row' },
         h('span', {}, 'Clear saved data', h('small', {}, 'Removes your vocab and settings from this device')),
         h('button', {
@@ -772,7 +789,7 @@
             if (!confirm('Remove all saved words and settings?')) return;
             ['hanlingo_vocab', 'hanlingo_settings', 'hanlingo_pro', 'hanlingo_plan'].forEach((k) => localStorage.removeItem(k));
             state.pro = false;
-            state.plan = 'monthly';
+            state.plan = 'b';
             saveSubscriptionState();
             location.reload();
           }
@@ -787,9 +804,9 @@
       b.addEventListener('click', () => openStory(Number(b.dataset.open) || 0)));
     document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
-      const strange = t.dataset.cat === 'strange';
-      $('#stream').hidden = !strange;
-      $('#soon').hidden = strange;
+      state.currentCategory = t.dataset.cat || 'strange';
+      $('#stream').hidden = false;
+      renderStream();
     }));
     $('#hsk').value = state.settings.hsk;
     $('#hsk').addEventListener('change', (e) => { state.settings.hsk = e.target.value; saveSettings(); });

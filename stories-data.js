@@ -3309,6 +3309,256 @@ window.STORIES_DATA = {
           ]
         }
       ]
+    },
+    {
+      "columnId": "daily_city_life",
+      "title": "城市生活 · City Life",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "城",
+      "coverClass": "c7",
+      "intro": "Realistic city-life Mandarin for commuting, banking, errands, social plans, and everyday adult routines.",
+      "introZh": "真实城市生活中文：通勤、银行、跑腿、社交安排和成人日常事务交流。",
+      "cards": [
+        {"id":"dl2_01","title":"01. 迟到说明 | Late Arrival","isFree":true,"sentence":"我刚刚在地铁上被临时停运困住了，所以会迟到几分钟。","pinyin":"Wǒ gānggāng zài dìtiě shàng bèi línshí tíngyùn kùzhù le, suǒyǐ huì chídào jǐ fēnzhōng.","translation":"I was stuck by a temporary subway outage just now, so I will be a few minutes late.","vocabList":[{"word":"地铁","pinyin":"dìtiě","translation":"subway","hskLevel":3},{"word":"停运","pinyin":"tíngyùn","translation":"to suspend operation","hskLevel":4},{"word":"迟到","pinyin":"chídào","translation":"to be late","hskLevel":4}]},
+        {"id":"dl2_02","title":"02. 办理银行 | Banking","isFree":true,"sentence":"我去银行办卡，工作人员告诉我需要先填一份表格。","pinyin":"Wǒ qù yínháng bàn kǎ, gōngzuò rényuán gàosù wǒ xūyào xiān tián yì fèn biǎogé.","translation":"I went to the bank to apply for a card, and the staff told me I needed to fill out a form first.","vocabList":[{"word":"银行","pinyin":"yínháng","translation":"bank","hskLevel":3},{"word":"表格","pinyin":"biǎogé","translation":"form","hskLevel":4},{"word":"工作人员","pinyin":"gōngzuò rényuán","translation":"staff member","hskLevel":4}]},
+        {"id":"dl2_03","title":"03. 买药 | Buying Medicine","isFree":true,"sentence":"药店的老板建议我先吃药，再观察两天是否恢复正常。","pinyin":"Yàodiàn de lǎobǎn jiànyì wǒ xiān chī yào, zài guānchá liǎng tiān shìfǒu huīfù zhèngcháng.","translation":"The pharmacist suggested that I take my medicine first and then observe for two days to see if I recover normally.","vocabList":[{"word":"药店","pinyin":"yàodiàn","translation":"pharmacy","hskLevel":4},{"word":"老板","pinyin":"lǎobǎn","translation":"boss; shop owner","hskLevel":3},{"word":"恢复","pinyin":"huīfù","translation":"to recover","hskLevel":4}]},
+        {"id":"dl2_04","title":"04. 看手机 | Checking Phone","isFree":true,"sentence":"我先看一下消息，确认今天晚上能不能一起吃饭。","pinyin":"Wǒ xiān kàn yíxià xiāoxī, quèrèn jīntiān wǎnshang néng bu néng yìqǐ chīfàn.","translation":"I’ll check the messages first to confirm whether we can have dinner together tonight.","vocabList":[{"word":"消息","pinyin":"xiāoxī","translation":"message","hskLevel":3},{"word":"确认","pinyin":"quèrèn","translation":"to confirm","hskLevel":4},{"word":"一起","pinyin":"yìqǐ","translation":"together","hskLevel":3}]},
+        {"id":"dl2_05","title":"05. 场地租赁 | Renting a Space","isFree":false,"sentence":"我们想租一个小办公室，离地铁站近一点比较方便。","pinyin":"Wǒmen xiǎng zū yí gè xiǎo bàngōngshì, lí dìtiě zhàn jìn yìdiǎn bǐjiào fāngbiàn.","translation":"We want to rent a small office; it is more convenient if it is a little closer to the subway station.","vocabList":[{"word":"租","pinyin":"zū","translation":"to rent","hskLevel":4},{"word":"办公室","pinyin":"bàngōngshì","translation":"office","hskLevel":3},{"word":"方便","pinyin":"fāngbiàn","translation":"convenient","hskLevel":3}]},
+        {"id":"dl2_06","title":"06. 紧急修理 | Emergency Repair","isFree":false,"sentence":"我的手机屏幕裂了，我得马上去维修店修一下。","pinyin":"Wǒ de shǒujī píngmù liè le, wǒ děi mǎshàng qù wéixiū diàn xiū yíxià.","translation":"My phone screen cracked, so I need to go to the repair shop immediately.","vocabList":[{"word":"屏幕","pinyin":"píngmù","translation":"screen","hskLevel":4},{"word":"维修","pinyin":"wéixiū","translation":"to repair","hskLevel":4},{"word":"马上","pinyin":"mǎshàng","translation":"immediately","hskLevel":3}]},
+        {"id":"dl2_07","title":"07. 健身计划 | Fitness Plan","isFree":false,"sentence":"我最近想开始健身，每周三次比较稳定，身体也更有精神。","pinyin":"Wǒ zuìjìn xiǎng kāishǐ jiànshēn, měi zhōu sān cì bǐjiào wěndìng, shēntǐ yě gèng yǒu jīngshén.","translation":"I want to start exercising recently; three times a week is more stable and keeps me feeling more energetic.","vocabList":[{"word":"健身","pinyin":"jiànshēn","translation":"to exercise; fitness","hskLevel":4},{"word":"稳定","pinyin":"wěndìng","translation":"stable","hskLevel":4},{"word":"精神","pinyin":"jīngshén","translation":"energy; spirit","hskLevel":4}]},
+        {"id":"dl2_08","title":"08. 朋友聚会 | Friend Gathering","isFree":false,"sentence":"我们这周末会在公园附近聚会，大家一起带点零食。","pinyin":"Wǒmen zhè zhōumò huì zài gōngyuán fùjìn jùhuì, dàjiā yìqǐ dài diǎn língshí.","translation":"We will have a gathering near the park this weekend, and everyone will bring some snacks together.","vocabList":[{"word":"聚会","pinyin":"jùhuì","translation":"gathering; social meeting","hskLevel":4},{"word":"公园","pinyin":"gōngyuán","translation":"park","hskLevel":3},{"word":"零食","pinyin":"língshí","translation":"snack","hskLevel":4}]},
+        {"id":"dl2_09","title":"09. 旅行准备 | Travel Preparation","isFree":false,"sentence":"我明天准备去新加坡旅行，需要提前买好机票和行李箱。","pinyin":"Wǒ míngtiān zhǔnbèi qù Xīnjiābō lǚxíng, xūyào tíqián mǎi hǎo jīpiào hé xínglǐxiāng.","translation":"I am preparing to travel to Singapore tomorrow and need to buy the flight ticket and suitcase in advance.","vocabList":[{"word":"旅行","pinyin":"lǚxíng","translation":"travel","hskLevel":3},{"word":"机票","pinyin":"jīpiào","translation":"flight ticket","hskLevel":4},{"word":"行李箱","pinyin":"xínglǐxiāng","translation":"suitcase","hskLevel":4}]},
+        {"id":"dl2_10","title":"10. 家庭沟通 | Family Communication","isFree":false,"sentence":"我和家人商量过后，决定这个周末一起去看电影。","pinyin":"Wǒ hé jiārén shāngliàng guò hòu, juédìng zhège zhōumò yìqǐ qù kàn diànyǐng.","translation":"After discussing with my family, we decided to go see a movie together this weekend.","vocabList":[{"word":"家人","pinyin":"jiārén","translation":"family member","hskLevel":3},{"word":"商量","pinyin":"shāngliàng","translation":"to discuss; to consult","hskLevel":4},{"word":"电影","pinyin":"diànyǐng","translation":"movie","hskLevel":3}]},
+        {"id":"dl2_11","title":"11. 逛街 | Shopping","isFree":false,"sentence":"我们在商场逛了一圈，决定买一件合适的外套。","pinyin":"Wǒmen zài shāngchǎng guàng le yí quān, juédìng mǎi yí jiàn héshì de wàitào.","translation":"We walked around the mall and decided to buy a suitable coat.","vocabList":[{"word":"商场","pinyin":"shāngchǎng","translation":"shopping mall","hskLevel":4},{"word":"逛","pinyin":"guàng","translation":"to stroll; to browse","hskLevel":3},{"word":"外套","pinyin":"wàitào","translation":"coat; jacket","hskLevel":4}]},
+        {"id":"dl2_12","title":"12. 结尾收尾 | Closing the Day","isFree":false,"sentence":"今天很忙，但我也终于把所有事情都处理好了，准备休息了。","pinyin":"Jīntiān hěn máng, dàn wǒ yě zhōngyú bǎ suǒyǒu shìqíng dōu chǔlǐ hǎo le, zhǔnbèi xiūxí le.","translation":"It was a very busy day, but I finally handled everything and am ready to rest.","vocabList":[{"word":"事情","pinyin":"shìqing","translation":"matter; thing","hskLevel":3},{"word":"处理","pinyin":"chǔlǐ","translation":"to handle; to deal with","hskLevel":4},{"word":"休息","pinyin":"xiūxi","translation":"to rest","hskLevel":3}]} 
+      ]
+    },
+    {
+      "columnId": "business_corporate",
+      "title": "商务沟通 · Business Communication",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "商",
+      "coverClass": "c10",
+      "intro": "Professional, everyday business communication: sales, negotiation, HR, client follow-up, and cross-team coordination.",
+      "introZh": "职业化的真实商务交流：销售、谈判、人事、客户跟进和跨团队协作。",
+      "cards": [
+        {"id":"b2_01","title":"01. 价格沟通 | Price Discussion","isFree":true,"sentence":"根据市场情况，我们可以把价格再调整到一个更合理的范围。","pinyin":"Gēnjù shìchǎng qíngkuàng, wǒmen kěyǐ bǎ jiàgé zài tiáozhěng dào yí gè gèng hélǐ de fànwéi.","translation":"Based on market conditions, we can adjust the price to a more reasonable range.","vocabList":[{"word":"市场","pinyin":"shìchǎng","translation":"market","hskLevel":3},{"word":"合理","pinyin":"hélǐ","translation":"reasonable","hskLevel":4},{"word":"范围","pinyin":"fànwéi","translation":"range","hskLevel":4}]},
+        {"id":"b2_02","title":"02. 客户回访 | Follow-up Call","isFree":true,"sentence":"我刚刚给客户打了电话，确认下周的采样计划。","pinyin":"Wǒ gānggāng gěi kèhù dǎ le diànhuà, quèrèn xià zhōu de cǎiyàng jìhuà.","translation":"I just called the client to confirm next week’s sampling plan.","vocabList":[{"word":"客户","pinyin":"kèhù","translation":"client","hskLevel":4},{"word":"回访","pinyin":"huífǎng","translation":"follow-up visit/call","hskLevel":4},{"word":"采样","pinyin":"cǎiyàng","translation":"sampling","hskLevel":4}]},
+        {"id":"b2_03","title":"03. 招聘面试 | Job Interview","isFree":true,"sentence":"面试官问我为什么想加入这个团队，我详细介绍了自己的背景。","pinyin":"Miànshìguān wèn wǒ wèishénme xiǎng jiārù zhège tuánduì, wǒ xiángxì jièshào le zìjǐ de bèijǐng.","translation":"The interviewer asked why I wanted to join the team, and I explained my background in detail.","vocabList":[{"word":"面试","pinyin":"miànshì","translation":"interview","hskLevel":4},{"word":"加入","pinyin":"jiārù","translation":"to join","hskLevel":3},{"word":"背景","pinyin":"bèijǐng","translation":"background","hskLevel":4}]},
+        {"id":"b2_04","title":"04. 预算说明 | Budget Explain","isFree":true,"sentence":"这次预算我们会分成研发、培训和推广三个部分。","pinyin":"Zhè cì yùsuàn wǒmen huì fēn chéng yánfā, péixùn hé tuīguǎng sān gè bùfèn.","translation":"This budget will be divided into three parts: research and development, training, and promotion.","vocabList":[{"word":"预算","pinyin":"yùsuàn","translation":"budget","hskLevel":4},{"word":"研发","pinyin":"yánfā","translation":"research and development","hskLevel":4},{"word":"推广","pinyin":"tuīguǎng","translation":"promotion","hskLevel":4}]},
+        {"id":"b2_05","title":"05. 日程调整 | Schedule Adjustment","isFree":false,"sentence":"由于对方临时改期，我们需要重新安排今天的会议日程。","pinyin":"Yóuyú duìfāng línshí gǎiqī, wǒmen xūyào chóngxīn ānpái jīntiān de huìyì rìchéng.","translation":"Because the other party changed the schedule at short notice, we need to rearrange today’s meeting agenda.","vocabList":[{"word":"日程","pinyin":"rìchéng","translation":"schedule; agenda","hskLevel":4},{"word":"临时","pinyin":"línshí","translation":"at short notice","hskLevel":4},{"word":"重新","pinyin":"chóngxīn","translation":"again; anew","hskLevel":3}]},
+        {"id":"b2_06","title":"06. 解决问题 | Solving an Issue","isFree":false,"sentence":"我已经与技术支持联系过了，正在等待修复结果。","pinyin":"Wǒ yǐjīng yǔ jìshù zhīchí liánxì guò le, zhèngzài děngdài xiūfù jiéguǒ.","translation":"I have already contacted technical support and am waiting for the repair result.","vocabList":[{"word":"技术支持","pinyin":"jìshù zhīchí","translation":"technical support","hskLevel":4},{"word":"联系","pinyin":"liánxì","translation":"to contact","hskLevel":3},{"word":"修复","pinyin":"xiūfù","translation":"to repair; restoration","hskLevel":4}]},
+        {"id":"b2_07","title":"07. 采购确认 | Procurement Confirmation","isFree":false,"sentence":"供应商发来确认函，说明货物会按时送达。","pinyin":"Gōngyìngshāng fā lái quèrèn hán, shuōmíng huòwù huì ànshí sòngdá.","translation":"The supplier sent a confirmation letter stating that the goods will be delivered on time.","vocabList":[{"word":"供应商","pinyin":"gōngyìngshāng","translation":"supplier","hskLevel":4},{"word":"确认函","pinyin":"quèrèn hán","translation":"confirmation letter","hskLevel":4},{"word":"送达","pinyin":"sòngdá","translation":"to deliver","hskLevel":4}]},
+        {"id":"b2_08","title":"08. 送礼致谢 | Thank-you Gift","isFree":false,"sentence":"为了感谢对方的帮助，我们准备了一个小礼物。","pinyin":"Wèile gǎnxiè duìfāng de bāngzhù, wǒmen zhǔnbèi le yí gè xiǎo lǐwù.","translation":"To thank the other party for their help, we prepared a small gift.","vocabList":[{"word":"礼物","pinyin":"lǐwù","translation":"gift","hskLevel":3},{"word":"感谢","pinyin":"gǎnxiè","translation":"to thank","hskLevel":3},{"word":"帮助","pinyin":"bāngzhù","translation":"to help","hskLevel":3}]},
+        {"id":"b2_09","title":"09. 会议纪要 | Meeting Minutes","isFree":false,"sentence":"我先整理会议纪要，再发送给所有负责人。","pinyin":"Wǒ xiān zhěnglǐ huìyì jìyào, zài fāsòng gěi suǒyǒu fùzérén.","translation":"I will organize the meeting minutes first and then send them to all the responsible parties.","vocabList":[{"word":"纪要","pinyin":"jìyào","translation":"minutes; summary","hskLevel":4},{"word":"整理","pinyin":"zhěnglǐ","translation":"to sort out; organize","hskLevel":4},{"word":"负责人","pinyin":"fùzérén","translation":"person in charge","hskLevel":4}]},
+        {"id":"b2_10","title":"10. 跨国沟通 | Cross-border Communication","isFree":false,"sentence":"我们和海外团队沟通时，需要注意时间差和文化差异。","pinyin":"Wǒmen hé hǎiwài tuánduì gōutōng shí, xūyào zhùyì shíjiānchā hé wénhuà chāyì.","translation":"When communicating with our overseas team, we need to pay attention to time differences and cultural differences.","vocabList":[{"word":"海外","pinyin":"hǎiwài","translation":"overseas","hskLevel":4},{"word":"时间差","pinyin":"shíjiānchā","translation":"time difference","hskLevel":4},{"word":"文化差异","pinyin":"wénhuà chāyì","translation":"cultural differences","hskLevel":4}]},
+        {"id":"b2_11","title":"11. 合作意向 | Cooperation Intent","isFree":false,"sentence":"双方都表示愿意继续深度合作，接下来会签署框架协议。","pinyin":"Shuāngfāng dōu biǎoshì yuànyì jìxù shēndù hézuò, jiēxiàlái huì qiānshǔ kuàngjià xiéyì.","translation":"Both parties expressed willingness to continue deep cooperation, and a framework agreement will be signed next.","vocabList":[{"word":"合作","pinyin":"hézuò","translation":"cooperation","hskLevel":3},{"word":"意向","pinyin":"yìxiàng","translation":"intention; intent","hskLevel":4},{"word":"协议","pinyin":"xiéyì","translation":"agreement","hskLevel":4}]},
+        {"id":"b2_12","title":"12. 总结汇报 | Closing Summary","isFree":false,"sentence":"今天的工作已经完成，我会在下午汇报总结并提出下一步计划。","pinyin":"Jīntiān de gōngzuò yǐjīng wánchéng, wǒ huì zài xiàwǔ huìbào zǒngjié bìng tíchū xià yībù jìhuà.","translation":"Today's work is complete, and I will summarize it this afternoon and propose the next steps.","vocabList":[{"word":"总结","pinyin":"zǒngjié","translation":"summary","hskLevel":4},{"word":"汇报","pinyin":"huìbào","translation":"to report; to summarize","hskLevel":4},{"word":"计划","pinyin":"jìhuà","translation":"plan","hskLevel":3}]} 
+      ]
+    },
+    {
+      "columnId": "daily_family_chat",
+      "title": "家庭沟通 · Family Conversation",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "家",
+      "coverClass": "c7",
+      "intro": "Everyday family communication for adults: planning, caring, housework, and conversations at home.",
+      "introZh": "成人家庭日常沟通：安排、照顾、家务和家中交流。",
+      "cards": [
+        {"id":"d3_01","title":"01. 晚饭安排 | Dinner Plan","isFree":true,"sentence":"今天晚上我来做饭，你负责收拾桌子和洗碗。","pinyin":"Jīntiān wǎnshang wǒ lái zuòfàn, nǐ fùzé shōushí zhuōzi hé xǐwǎn.","translation":"I will cook tonight; you are responsible for clearing the table and washing the dishes.","vocabList":[{"word":"做饭","pinyin":"zuòfàn","translation":"to cook","hskLevel":3},{"word":"收拾","pinyin":"shōushí","translation":"to tidy up","hskLevel":4},{"word":"洗碗","pinyin":"xǐwǎn","translation":"to wash dishes","hskLevel":4}]},
+        {"id":"d3_02","title":"02. 关心家人 | Checking In","isFree":true,"sentence":"你今天工作太累了，晚上早点回家，别太熬夜。","pinyin":"Nǐ jīntiān gōngzuò tài lèi le, wǎnshang zǎo diǎn huíjiā, bié tài áo yè.","translation":"You worked too hard today; go home early tonight and don’t stay up too late.","vocabList":[{"word":"关心","pinyin":"guānxīn","translation":"to care about; to be concerned","hskLevel":4},{"word":"熬夜","pinyin":"áoyè","translation":"to stay up late","hskLevel":4},{"word":"回家","pinyin":"huíjiā","translation":"to go home","hskLevel":3}]},
+        {"id":"d3_03","title":"03. 生活安排 | Home Schedule","isFree":false,"sentence":"这个周末我们一起去超市，然后把家里整理一下。","pinyin":"Zhège zhōumò wǒmen yìqǐ qù chāoshì, ránhòu bǎ jiālǐ zhěnglǐ yíxià.","translation":"This weekend we will go to the supermarket together and then tidy the house.","vocabList":[{"word":"整理","pinyin":"zhěnglǐ","translation":"to organize; tidy up","hskLevel":4},{"word":"家里","pinyin":"jiālǐ","translation":"at home","hskLevel":3},{"word":"周末","pinyin":"zhōumò","translation":"weekend","hskLevel":3}]},
+        {"id":"d3_04","title":"04. 争吵后和解 | After a Dispute","isFree":false,"sentence":"我们昨天有点生气，但我想把事情说清楚，继续好好相处。","pinyin":"Wǒmen zuótiān yǒudiǎn shēngqì, dàn wǒ xiǎng bǎ shìqing shuō qīngchu, jìxù hǎohǎo xiāngchǔ.","translation":"We were a little angry yesterday, but I want to explain things clearly and continue getting along well.","vocabList":[{"word":"生气","pinyin":"shēngqì","translation":"angry","hskLevel":3},{"word":"说清楚","pinyin":"shuō qīngchu","translation":"to explain clearly","hskLevel":4},{"word":"相处","pinyin":"xiāngchǔ","translation":"to get along with each other","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "daily_travel_plans",
+      "title": "旅行与出行 · Travel & Getting Around",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "旅",
+      "coverClass": "c8",
+      "intro": "Travel conversations for flights, taxi rides, hotel checks, and exploring a new city as an adult learner.",
+      "introZh": "旅行与出行场景：机票、打车、入住酒店和新城市探索交流。",
+      "cards": [
+        {"id":"d4_01","title":"01. 机票预订 | Booking a Flight","isFree":true,"sentence":"我想订一张明天到新加坡的机票，尽量选靠窗的座位。","pinyin":"Wǒ xiǎng dìng yì zhāng míngtiān dào Xīnjiābō de jīpiào, jǐnliàng xuǎn kàochuāng de zuòwèi.","translation":"I want to book a flight to Singapore tomorrow and try to choose a window seat.","vocabList":[{"word":"机票","pinyin":"jīpiào","translation":"flight ticket","hskLevel":4},{"word":"座位","pinyin":"zuòwèi","translation":"seat","hskLevel":4},{"word":"靠窗","pinyin":"kàochuāng","translation":"by the window","hskLevel":4}]},
+        {"id":"d4_02","title":"02. 打车 | Taking a Taxi","isFree":true,"sentence":"师傅，我想去市中心，能先走高速路吗？","pinyin":"Shīfu, wǒ xiǎng qù shìzhōngxīn, néng xiān zǒu gāosùlù ma?","translation":"Driver, I want to go downtown. Can we take the expressway first?","vocabList":[{"word":"师傅","pinyin":"shīfu","translation":"driver; master","hskLevel":3},{"word":"市中心","pinyin":"shìzhōngxīn","translation":"city center","hskLevel":4},{"word":"高速路","pinyin":"gāosùlù","translation":"expressway","hskLevel":4}]},
+        {"id":"d4_03","title":"03. 入住酒店 | Checking In","isFree":false,"sentence":"您好，我预订了两晚的房间，想问一下是否能提前办理入住。","pinyin":"Nín hǎo, wǒ yùdìng le liǎng wǎn de fángjiān, xiǎng wèn yíxià shìfǒu néng tíqián bànlǐ rùzhù.","translation":"Hello, I booked a room for two nights and would like to know if I can check in early.","vocabList":[{"word":"预订","pinyin":"yùdìng","translation":"to book in advance","hskLevel":4},{"word":"提前","pinyin":"tíqián","translation":"in advance","hskLevel":4},{"word":"入住","pinyin":"rùzhù","translation":"to check in","hskLevel":4}]},
+        {"id":"d4_04","title":"04. 旅游推荐 | Travel Recommendation","isFree":false,"sentence":"如果你有时间，我推荐去老城区逛一逛，晚上还有灯会。","pinyin":"Rúguǒ nǐ yǒu shíjiān, wǒ tuījiàn qù lǎochéngqū guàng yíguàng, wǎnshang hái yǒu dēnghuì.","translation":"If you have time, I recommend visiting the old town and walking around; there is also a lantern festival at night.","vocabList":[{"word":"推荐","pinyin":"tuījiàn","translation":"to recommend","hskLevel":4},{"word":"老城区","pinyin":"lǎochéngqū","translation":"old town district","hskLevel":4},{"word":"灯会","pinyin":"dēnghuì","translation":"lantern festival / lights display","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "daily_study_social",
+      "title": "学习与社交 · Study & Social Life",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "学",
+      "coverClass": "c6",
+      "intro": "Adult learning and social conversations for language practice, courses, and community connections.",
+      "introZh": "成人学习与社交场景：语言练习、课程学习和社区交流。",
+      "cards": [
+        {"id":"d5_01","title":"01. 报名课程 | Course Registration","isFree":true,"sentence":"我想报名汉语口语课，下周一开始，晚上上课更方便。","pinyin":"Wǒ xiǎng bàomíng Hànyǔ kǒuyǔ kè, xià zhōu yī kāishǐ, wǎnshang shàngkè gèng fāngbiàn.","translation":"I want to sign up for a Mandarin speaking class; it starts next Monday and evening classes are more convenient.","vocabList":[{"word":"报名","pinyin":"bàomíng","translation":"to register","hskLevel":4},{"word":"口语","pinyin":"kǒuyǔ","translation":"spoken language","hskLevel":4},{"word":"方便","pinyin":"fāngbiàn","translation":"convenient","hskLevel":3}]},
+        {"id":"d5_02","title":"02. 约朋友聊聊 | Asking to Meet Up","isFree":true,"sentence":"你周末有空吗？我们一起喝咖啡，聊聊最近的工作和生活。","pinyin":"Nǐ zhōumò yǒu kòng ma? Wǒmen yìqǐ hē kāfēi, liáo liáo zuìjìn de gōngzuò hé shēnghuó.","translation":"Are you free this weekend? Let’s have coffee together and talk about work and life lately.","vocabList":[{"word":"咖啡","pinyin":"kāfēi","translation":"coffee","hskLevel":3},{"word":"最近","pinyin":"zuìjìn","translation":"recently","hskLevel":3},{"word":"生活","pinyin":"shēnghuó","translation":"life","hskLevel":3}]},
+        {"id":"d5_03","title":"03. 语言交换 | Language Exchange","isFree":false,"sentence":"我想和你交换语言学习，我们轮流用中文和英文交流。","pinyin":"Wǒ xiǎng hé nǐ jiāohuàn yǔyán xuéxí, wǒmen lúnliú yòng Zhōngwén hé Yīngwén jiāoliú.","translation":"I want to do a language exchange with you; we can take turns using Chinese and English to practice.","vocabList":[{"word":"交换","pinyin":"jiāohuàn","translation":"to exchange","hskLevel":4},{"word":"语言","pinyin":"yǔyán","translation":"language","hskLevel":3},{"word":"交流","pinyin":"jiāoliú","translation":"to communicate; exchange","hskLevel":4}]},
+        {"id":"d5_04","title":"04. 课堂讨论 | Group Discussion","isFree":false,"sentence":"老师说今天我们要分组讨论，然后每个人发言两分钟。","pinyin":"Lǎoshī shuō jīntiān wǒmen yào fēnzǔ tǎolùn, ránhòu měi gèrén fāyán liǎng fēnzhōng.","translation":"The teacher said that today we will be divided into groups to discuss, and then each person will speak for two minutes.","vocabList":[{"word":"分组","pinyin":"fēnzǔ","translation":"to divide into groups","hskLevel":4},{"word":"讨论","pinyin":"tǎolùn","translation":"to discuss","hskLevel":3},{"word":"发言","pinyin":"fāyán","translation":"to speak; to make a remark","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "business_sales",
+      "title": "销售沟通 · Sales Conversation",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "销",
+      "coverClass": "c9",
+      "intro": "Sales-driven workplace language: product pitches, negotiation, quotations, and closing the deal.",
+      "introZh": "销售场景中的实用商务中文：产品介绍、报价、谈判和成交沟通。",
+      "cards": [
+        {"id":"b3_01","title":"01. 产品介绍 | Product Intro","isFree":true,"sentence":"这个产品适合日常办公和团队协作，功能非常实用。","pinyin":"Zhège chǎnpǐn shìhé rìcháng bàngōng hé tuánduì xiézuò, gōngnéng fēicháng shíyòng.","translation":"This product is suitable for daily office work and team collaboration, and the functions are very practical.","vocabList":[{"word":"产品","pinyin":"chǎnpǐn","translation":"product","hskLevel":3},{"word":"办公","pinyin":"bàngōng","translation":"office work","hskLevel":3},{"word":"实用","pinyin":"shíyòng","translation":"practical; useful","hskLevel":4}]},
+        {"id":"b3_02","title":"02. 报价说明 | Quotation","isFree":true,"sentence":"我们可以按数量给你一个更优惠的报价，您看是否合适。","pinyin":"Wǒmen kěyǐ àn shùliàng gěi nǐ yí gè gèng yōuhuì de bàojià, nín kàn shìfǒu héshì.","translation":"We can give you a more favorable quotation based on quantity; please let us know if it works for you.","vocabList":[{"word":"报价","pinyin":"bàojià","translation":"quoted price","hskLevel":4},{"word":"数量","pinyin":"shùliàng","translation":"quantity","hskLevel":3},{"word":"优惠","pinyin":"yōuhuì","translation":"discount","hskLevel":4}]},
+        {"id":"b3_03","title":"03. 价格谈判 | Negotiation","isFree":false,"sentence":"我理解您的预算压力，但如果按长期合作来计算，我们可以再给您更好的条件。","pinyin":"Wǒ lǐjiě nín de yùsuàn yālì, dàn rúguǒ àn chángqī hézuò lái jìsuàn, wǒmen kěyǐ zài gěi nín gèng hǎo de tiáojiàn.","translation":"I understand your budget pressure, but if we calculate it as long-term cooperation, we can offer you better terms.","vocabList":[{"word":"预算","pinyin":"yùsuàn","translation":"budget","hskLevel":4},{"word":"长期","pinyin":"chángqī","translation":"long-term","hskLevel":4},{"word":"条件","pinyin":"tiáojiàn","translation":"conditions; terms","hskLevel":4}]},
+        {"id":"b3_04","title":"04. 成交确认 | Closing the Deal","isFree":false,"sentence":"我们已经达成一致，接下来就按这个方案推进，感谢您的信任。","pinyin":"Wǒmen yǐjīng dáchéng yìzhì, jiēxiàlái jiù àn zhège fāng'àn tuījìn, gǎnxiè nín de xìnrèn.","translation":"We have reached an agreement, and we will proceed according to this plan. Thank you for your trust.","vocabList":[{"word":"达成","pinyin":"dáchéng","translation":"to reach an agreement","hskLevel":4},{"word":"方案","pinyin":"fāng'àn","translation":"plan","hskLevel":4},{"word":"信任","pinyin":"xìnrèn","translation":"trust","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "business_hr",
+      "title": "人事沟通 · HR & Hiring",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "人",
+      "coverClass": "c6",
+      "intro": "Human resources and hiring conversations: onboarding, leave, policy, and team support.",
+      "introZh": "人事与招聘沟通：入职、请假、政策和团队支持。",
+      "cards": [
+        {"id":"b4_01","title":"01. 入职说明 | Onboarding","isFree":true,"sentence":"欢迎加入公司，我们会安排培训，帮助你尽快适应工作环境。","pinyin":"Huānyíng jiārù gōngsī, wǒmen huì ānpái péixùn, bāngzhù nǐ jìnkù shìyìng gōngzuò huánjìng.","translation":"Welcome to the company. We will arrange training to help you adapt to the working environment quickly.","vocabList":[{"word":"加入","pinyin":"jiārù","translation":"to join","hskLevel":3},{"word":"安排","pinyin":"ānpái","translation":"to arrange","hskLevel":3},{"word":"适应","pinyin":"shìyìng","translation":"to adapt","hskLevel":4}]},
+        {"id":"b4_02","title":"02. 请假申请 | Leave Request","isFree":true,"sentence":"我想申请两天年假，方便的话希望在下周一前批准。","pinyin":"Wǒ xiǎng shēnqǐng liǎng tiān niánjià, fāngbiàn dehuà xīwàng zài xià zhōu yī qián pīzhǔn.","translation":"I would like to apply for two days of annual leave; if possible, I hope it can be approved before next Monday.","vocabList":[{"word":"申请","pinyin":"shēnqǐng","translation":"to apply","hskLevel":4},{"word":"年假","pinyin":"niánjià","translation":"annual leave","hskLevel":4},{"word":"批准","pinyin":"pīzhǔn","translation":"to approve","hskLevel":4}]},
+        {"id":"b4_03","title":"03. 团队支持 | Team Support","isFree":false,"sentence":"如果你在工作中有困难，可以随时向经理或者团队成员寻求帮助。","pinyin":"Rúguǒ nǐ zài gōngzuò zhōng yǒu kùnnán, kěyǐ suíshí xiàng jīnglǐ huòzhě tuánduì chéngyuán xúnqiú bāngzhù.","translation":"If you encounter difficulties at work, you can always ask the manager or team members for help.","vocabList":[{"word":"团队","pinyin":"tuánduì","translation":"team","hskLevel":3},{"word":"困难","pinyin":"kùnnán","translation":"difficulty; problem","hskLevel":3},{"word":"寻求","pinyin":"xúnqiú","translation":"to seek","hskLevel":4}]},
+        {"id":"b4_04","title":"04. 合作评价 | Performance Review","isFree":false,"sentence":"这段时间的工作进展不错，接下来要继续提高沟通和执行效率。","pinyin":"Zhè duàn shíjiān de gōngzuò jìnzǎn búcuò, jiēxiàlái yào jìxù tígāo gōutōng hé zhíxíng xiàolǜ.","translation":"The work progress over this period has been good; next, we need to continue improving communication and execution efficiency.","vocabList":[{"word":"进展","pinyin":"jìnzǎn","translation":"progress","hskLevel":4},{"word":"沟通","pinyin":"gōutōng","translation":"communication","hskLevel":4},{"word":"效率","pinyin":"xiàolǜ","translation":"efficiency","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "business_procurement",
+      "title": "采购与供应 · Procurement",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "采",
+      "coverClass": "c10",
+      "intro": "Procurement and supplier communication for orders, delivery, quality checks, and contract follow-ups.",
+      "introZh": "采购和供应链沟通：订单、交付、质量检查和合同跟进。",
+      "cards": [
+        {"id":"b5_01","title":"01. 订单下单 | Place an Order","isFree":true,"sentence":"我们需要再补一批材料，麻烦您尽快确认数量和交付时间。","pinyin":"Wǒmen xūyào zài bǔ yì pī cáiliào, máfan nín jǐnkuài quèrèn shùliàng hé jiāofù shíjiān.","translation":"We need to order another batch of materials; could you please confirm the quantity and delivery time as soon as possible.","vocabList":[{"word":"材料","pinyin":"cáiliào","translation":"materials","hskLevel":4},{"word":"数量","pinyin":"shùliàng","translation":"quantity","hskLevel":3},{"word":"交付","pinyin":"jiāofù","translation":"delivery / to deliver","hskLevel":4}]},
+        {"id":"b5_02","title":"02. 检查货物 | Quality Check","isFree":true,"sentence":"货物到达后，我们会先检查包装和数量，再确认是否合格。","pinyin":"Huòwù dàodá hòu, wǒmen huì xiān jiǎnchá bāozhuāng hé shùliàng, zài quèrèn shìfǒu hégé.","translation":"After the goods arrive, we will first check the packaging and quantity before confirming quality.","vocabList":[{"word":"包装","pinyin":"bāozhuāng","translation":"packaging","hskLevel":4},{"word":"数量","pinyin":"shùliàng","translation":"quantity","hskLevel":3},{"word":"合格","pinyin":"hégé","translation":"qualified; up to standard","hskLevel":4}]},
+        {"id":"b5_03","title":"03. 物流追踪 | Tracking Delivery","isFree":false,"sentence":"我在物流平台上看到货物还在运输中，预计明天可以送达。","pinyin":"Wǒ zài wùliú píngtái shàng kàn dào huòwù hái zài yùnshū zhōng, yùjì míngtiān kěyǐ sòngdá.","translation":"I see on the logistics platform that the goods are still in transit and are expected to be delivered tomorrow.","vocabList":[{"word":"物流","pinyin":"wùliú","translation":"logistics","hskLevel":4},{"word":"运输","pinyin":"yùnshū","translation":"transportation","hskLevel":4},{"word":"预计","pinyin":"yùjì","translation":"to estimate","hskLevel":4}]},
+        {"id":"b5_04","title":"04. 供货延期 | Delay Notice","isFree":false,"sentence":"由于天气原因，供应商暂时无法按时发货，我们会尽快通知您。","pinyin":"Yóuyú tiānqì yuányīn, gōngyìngshāng zànshí wúfǎ ànshí fāhuò, wǒmen huì jìnkù tōngzhī nín.","translation":"Due to weather conditions, the supplier cannot ship on time for the moment, and we will notify you as soon as possible.","vocabList":[{"word":"供应商","pinyin":"gōngyìngshāng","translation":"supplier","hskLevel":4},{"word":"延期","pinyin":"yánqī","translation":"delay; postpone","hskLevel":4},{"word":"通知","pinyin":"tōngzhī","translation":"to notify","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "business_remote",
+      "title": "远程协作 · Remote Collaboration",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "远",
+      "coverClass": "c8",
+      "intro": "Remote workplace communication for meetings, follow-ups, status checks, and digital collaboration.",
+      "introZh": "远程办公沟通：会议、进度跟踪和数字协作协同。",
+      "cards": [
+        {"id":"b6_01","title":"01. 在线会议 | Video Meeting","isFree":true,"sentence":"我们今天晚上开在线会议，大家记得提前登录并确认设备正常。","pinyin":"Wǒmen jīntiān wǎnshang kāi zàixiàn huìyì, dàjiā jìde tíqián dēnglù bìng quèrèn shèbèi zhèngcháng.","translation":"We are having an online meeting tonight; everyone please log in early and confirm that the equipment is working properly.","vocabList":[{"word":"在线","pinyin":"zàixiàn","translation":"online","hskLevel":4},{"word":"会议","pinyin":"huìyì","translation":"meeting","hskLevel":3},{"word":"确认","pinyin":"quèrèn","translation":"confirm","hskLevel":4}]},
+        {"id":"b6_02","title":"02. 进度同步 | Status Sync","isFree":true,"sentence":"我先同步一下今天的进度，然后把文件放到共享盘里。","pinyin":"Wǒ xiān tóngbù yíxià jīntiān de jìndù, ránhòu bǎ wénjiàn fàng dào gòngxiǎngpán lǐ.","translation":"I will sync today’s progress first and then place the files in the shared drive.","vocabList":[{"word":"同步","pinyin":"tóngbù","translation":"to synchronize","hskLevel":4},{"word":"进度","pinyin":"jìndù","translation":"progress","hskLevel":4},{"word":"共享盘","pinyin":"gòngxiǎngpán","translation":"shared drive","hskLevel":4}]},
+        {"id":"b6_03","title":"03. 任务分配 | Task Assignment","isFree":false,"sentence":"这部分工作分给小李和小周，大家在今天内完成初稿。","pinyin":"Zhè bùfèn gōngzuò fēn gěi Xiǎo Lǐ hé Xiǎo Zhōu, dàjiā zài jīntiān nèi wánchéng chūgǎo.","translation":"This part of the work will be assigned to Xiao Li and Xiao Zhou; everyone should complete the first draft today.","vocabList":[{"word":"分配","pinyin":"fēnpèi","translation":"to assign; distribute","hskLevel":4},{"word":"任务","pinyin":"rènwu","translation":"task","hskLevel":3},{"word":"初稿","pinyin":"chūgǎo","translation":"first draft","hskLevel":4}]},
+        {"id":"b6_04","title":"04. 结果反馈 | Feedback on Result","isFree":false,"sentence":"我看了文档，整体顺畅，但还需要把部分说明再补充得更清楚。","pinyin":"Wǒ kàn le wénjiàn, zǒngtǐ shùnliàng, dàn hái xūyào bǎ bùfèn shuōmíng zài bǔchōng dé gèng qīngchu.","translation":"I reviewed the document; it is generally smooth, but some explanations still need to be added more clearly.","vocabList":[{"word":"文档","pinyin":"wéndàng","translation":"document","hskLevel":4},{"word":"整体","pinyin":"zǒngtǐ","translation":"overall","hskLevel":4},{"word":"补充","pinyin":"bǔchōng","translation":"to supplement","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "daily_health_shopping",
+      "title": "健康与消费 · Health & Shopping",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "健",
+      "coverClass": "c8",
+      "intro": "Health routines, medication, appointments, and daily purchases for adult life outside work.",
+      "introZh": "成人生活中的健康安排、看病买药和日常消费场景。",
+      "cards": [
+        {"id":"d6_01","title":"01. 看医生 | Doctor Visit","isFree":true,"sentence":"我最近总是头晕，想去医院做一下检查，看看是否需要休息。","pinyin":"Wǒ zuìjìn zǒng shì tóu yūn, xiǎng qù yīyuàn zuò yíxià jiǎnchá, kàn kàn shìfǒu xūyào xiūxi.","translation":"I have been feeling dizzy lately and want to go to the hospital for a checkup to see whether I need to rest.","vocabList":[{"word":"头晕","pinyin":"tóuyūn","translation":"dizzy","hskLevel":4},{"word":"检查","pinyin":"jiǎnchá","translation":"check-up; to inspect","hskLevel":4},{"word":"休息","pinyin":"xiūxi","translation":"to rest","hskLevel":3}]},
+        {"id":"d6_02","title":"02. 购买药品 | Buying Medicine","isFree":true,"sentence":"药店里有很多种药，我想先问清楚哪一种适合我的情况。","pinyin":"Yàodiàn lǐ yǒu hěn duō zhǒng yào, wǒ xiǎng xiān wèn qīngchu nǎ yì zhǒng shìhé wǒ de qíngkuàng.","translation":"There are many kinds of medicine in the pharmacy. I want to ask clearly which one suits my condition first.","vocabList":[{"word":"药店","pinyin":"yàodiàn","translation":"pharmacy","hskLevel":4},{"word":"适合","pinyin":"shìhé","translation":"to suit; to fit","hskLevel":4},{"word":"情况","pinyin":"qíngkuàng","translation":"situation; condition","hskLevel":4}]},
+        {"id":"d6_03","title":"03. 购物清单 | Shopping List","isFree":false,"sentence":"我这次去超市要买米、鸡蛋、牛奶和一些日用品。","pinyin":"Wǒ zhè cì qù chāoshì yào mǎi mǐ, jīdàn, niúnǎi hé yìxiē rìyòngpǐn.","translation":"This time I am going to the supermarket to buy rice, eggs, milk, and some daily necessities.","vocabList":[{"word":"清单","pinyin":"qīngdān","translation":"shopping list","hskLevel":4},{"word":"牛奶","pinyin":"niúnǎi","translation":"milk","hskLevel":3},{"word":"日用品","pinyin":"rìyòngpǐn","translation":"daily necessities","hskLevel":4}]},
+        {"id":"d6_04","title":"04. 预算消费 | Spending Plan","isFree":false,"sentence":"我先列一个本月的消费清单，再看看哪些开支可以减少。","pinyin":"Wǒ xiān liè yí gè běn yuè de xiāofèi qīngdān, zài kàn kàn nǎxiē kāizhī kěyǐ jiǎnshǎo.","translation":"I will make a budget list for this month first and see which expenses can be reduced.","vocabList":[{"word":"预算","pinyin":"yùsuàn","translation":"budget","hskLevel":4},{"word":"消费","pinyin":"xiāofèi","translation":"consumption; spending","hskLevel":4},{"word":"开支","pinyin":"kāizhī","translation":"expenses","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "daily_community_life",
+      "title": "社区与生活 · Community Life",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "社",
+      "coverClass": "c9",
+      "intro": "Local community life: neighbors, events, support, and everyday social routines around home.",
+      "introZh": "社区生活场景：邻里沟通、活动安排和日常支持交流。",
+      "cards": [
+        {"id":"d7_01","title":"01. 邻里问候 | Greeting a Neighbor","isFree":true,"sentence":"早上我看到邻居在门口晒衣服，顺便打个招呼聊聊天。","pinyin":"Zǎoshang wǒ kàn dào línjū zài ménkǒu shài yīfu, shùnbiàn dǎ gè zhāohu liáo liáotiān.","translation":"I saw my neighbor hanging clothes outside in the morning and greeted them while chatting for a bit.","vocabList":[{"word":"邻居","pinyin":"línjū","translation":"neighbor","hskLevel":3},{"word":"晒衣服","pinyin":"shài yīfu","translation":"to hang clothes to dry","hskLevel":4},{"word":"招呼","pinyin":"zhāohu","translation":"to greet; greeting","hskLevel":3}]},
+        {"id":"d7_02","title":"02. 社区活动 | Community Event","isFree":true,"sentence":"这个周末社区有一场读书分享会，你愿意一起去听一下吗？","pinyin":"Zhège zhōumò shèqiú yǒu yì chǎng dúshū fēnxiǎnghuì, nǐ yuànyì yìqǐ qù tīng yíxià ma?","translation":"There is a community book-sharing event this weekend. Are you willing to go together and listen?","vocabList":[{"word":"社区","pinyin":"shèqiú","translation":"community","hskLevel":4},{"word":"分享","pinyin":"fēnxiǎng","translation":"to share","hskLevel":4},{"word":"活动","pinyin":"huódòng","translation":"event; activity","hskLevel":3}]},
+        {"id":"d7_03","title":"03. 帮忙照顾 | Helping with a Child","isFree":false,"sentence":"我今天晚上需要临时帮朋友照看孩子，可能会晚一点回家。","pinyin":"Wǒ jīntiān wǎnshang xūyào línshí bāng péngyou zhàokàn háizi, kěnéng huì wǎn yìdiǎn huíjiā.","translation":"I need to help a friend watch their child temporarily tonight, so I may get home a little later.","vocabList":[{"word":"照顾","pinyin":"zhàogù","translation":"to care for; look after","hskLevel":4},{"word":"孩子","pinyin":"háizi","translation":"child","hskLevel":3},{"word":"临时","pinyin":"línshí","translation":"temporary; at short notice","hskLevel":4}]},
+        {"id":"d7_04","title":"04. 社区投诉 | Filing a Complaint","isFree":false,"sentence":"我想反映一下小区停车问题，麻烦物业尽快处理。","pinyin":"Wǒ xiǎng fǎnyìng yíxià xiǎoqū tíchéng wèntí, máfan wùyè jǐnkuài chǔlǐ.","translation":"I would like to raise an issue about parking in the community and ask the property management to deal with it promptly.","vocabList":[{"word":"投诉","pinyin":"tóusù","translation":"to complain; complaint","hskLevel":4},{"word":"停车","pinyin":"tíngchē","translation":"to park a car","hskLevel":4},{"word":"物业","pinyin":"wùyè","translation":"property management","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "business_negotiation",
+      "title": "谈判与合作 · Negotiation & Partnership",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "谈",
+      "coverClass": "c7",
+      "intro": "Negotiation and partnership conversations for deals, cooperation, and cross-company alignment.",
+      "introZh": "商务谈判与合作：合作条件、延迟沟通和跨公司协同。",
+      "cards": [
+        {"id":"b7_01","title":"01. 谈判立场 | Positioning in Negotiation","isFree":true,"sentence":"我们的立场是先保证质量，再根据需求调整价格和交付周期。","pinyin":"Wǒmen de lìchǎng shì xiān bǎozhèng zhìliàng, zài gēnjù xūqiú tiáozhěng jiàgé hé jiāofù zhōuqī.","translation":"Our position is to ensure quality first, and then adjust the price and delivery cycle according to demand.","vocabList":[{"word":"立场","pinyin":"lìchǎng","translation":"position; stance","hskLevel":4},{"word":"质量","pinyin":"zhìliàng","translation":"quality","hskLevel":4},{"word":"周期","pinyin":"zhōuqī","translation":"cycle; period","hskLevel":4}]},
+        {"id":"b7_02","title":"02. 调整条件 | Revising Terms","isFree":true,"sentence":"如果对方希望更长的付款周期，我们可以考虑适当调整条款。","pinyin":"Rúguǒ duìfāng xīwàng gèng cháng de fùkuǎn zhōuqī, wǒmen kěyǐ kǎolǜ shìdàng tiáozhěng tiáokuǎn.","translation":"If the other party wants a longer payment cycle, we can consider adjusting the terms appropriately.","vocabList":[{"word":"付款","pinyin":"fùkuǎn","translation":"payment","hskLevel":4},{"word":"条款","pinyin":"tiáokuǎn","translation":"terms; clause","hskLevel":4},{"word":"适当","pinyin":"shìdàng","translation":"appropriate","hskLevel":4}]},
+        {"id":"b7_03","title":"03. 合作方案 | Partnership Plan","isFree":false,"sentence":"我们准备从试点合作开始，先做一阶段测试，再逐步扩大规模。","pinyin":"Wǒmen zhǔnbèi cóng shìdiǎn hézuò kāishǐ, xiān zuò yí jiànduàn cèshì, zài zhúbù kuòdà guīmó.","translation":"We plan to start with a pilot partnership, test in one phase first, and then gradually expand the scale.","vocabList":[{"word":"试点","pinyin":"shìdiǎn","translation":"pilot / trial point","hskLevel":4},{"word":"规模","pinyin":"guīmó","translation":"scale; scope","hskLevel":4},{"word":"逐步","pinyin":"zhúbù","translation":"gradually","hskLevel":4}]},
+        {"id":"b7_04","title":"04. 结果跟进 | Follow-up After Negotiation","isFree":false,"sentence":"谈判已经基本达成一致，现在需要把细节确认清楚并尽快执行。","pinyin":"Tǎnlàn yǐjīng jīběn dáchéng yìzhì, xiànzài xūyào bǎ xìjié quèrèn qīngchu bìng jìnkù zhíxíng.","translation":"The negotiation has basically reached agreement; now we need to confirm the details clearly and execute them as soon as possible.","vocabList":[{"word":"达成","pinyin":"dáchéng","translation":"to reach an agreement","hskLevel":4},{"word":"确认","pinyin":"quèrèn","translation":"to confirm","hskLevel":4},{"word":"执行","pinyin":"zhíxíng","translation":"to implement; execute","hskLevel":4}]} 
+      ]
+    },
+    {
+      "columnId": "business_marketing",
+      "title": "市场与营销 · Marketing & Brand",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 4,
+      "freeCards": 2,
+      "cover": "市",
+      "coverClass": "c10",
+      "intro": "Brand, campaign, and market communication for positioning, promotion, and customer engagement.",
+      "introZh": "市场推广与品牌沟通：定位、活动宣传和用户互动。",
+      "cards": [
+        {"id":"b8_01","title":"01. 市场调研 | Market Research","isFree":true,"sentence":"我们先做一轮市场调研，了解目标用户的需求和偏好。","pinyin":"Wǒmen xiān zuò yì lún shìchǎng diàochá, liǎojiě mùbiāo yònghù de xūqiú hé piānhào.","translation":"We will first conduct a round of market research to understand the needs and preferences of the target users.","vocabList":[{"word":"调研","pinyin":"diàochá","translation":"market research","hskLevel":4},{"word":"目标","pinyin":"mùbiāo","translation":"target","hskLevel":4},{"word":"偏好","pinyin":"piānhào","translation":"preference","hskLevel":4}]},
+        {"id":"b8_02","title":"02. 推广计划 | Promotion Plan","isFree":true,"sentence":"我们会在不同渠道同步推广，先吸引潜在客户，再转化成长期合作。","pinyin":"Wǒmen huì zài bùtóng qúdào tóngbù tuīguǎng, xiān xīyǐn qiánzài kèhù, zài zhuǎnhuà chéng chángqī hézuò.","translation":"We will promote across different channels at the same time, first attracting potential customers and then converting them into long-term partners.","vocabList":[{"word":"渠道","pinyin":"qúdào","translation":"channel","hskLevel":4},{"word":"潜在","pinyin":"qiánzài","translation":"potential","hskLevel":4},{"word":"转化","pinyin":"zhuǎnhuà","translation":"to convert; transformation","hskLevel":4}]},
+        {"id":"b8_03","title":"03. 线上活动 | Online Campaign","isFree":false,"sentence":"这次线上活动重点是提高品牌曝光率，并鼓励用户参与互动。","pinyin":"Zhè cì xiànshàng huódòng zhòngdiǎn shì tígāo píppài guāngbào lǜ, bìng gǔlì yònghù cānyù hùdòng.","translation":"This online campaign focuses on increasing brand exposure and encouraging user participation and interaction.","vocabList":[{"word":"曝光","pinyin":"guāngbào","translation":"exposure / to expose","hskLevel":4},{"word":"品牌","pinyin":"pǐnpái","translation":"brand","hskLevel":4},{"word":"互动","pinyin":"hùdòng","translation":"interaction","hskLevel":4}]},
+        {"id":"b8_04","title":"04. 客户反馈 | User Feedback","isFree":false,"sentence":"用户反馈普遍认为界面清晰、内容实用，接下来我们会继续优化体验。","pinyin":"Yònghù fǎnkǒu pǔbiàn rènwéi jièmiàn qīngxī, nèiróng shíyòng, jiēxiàlái wǒmen huì jìxù yōuhǎo tiyàn.","translation":"User feedback generally indicates that the interface is clear and the content is practical, so we will continue optimizing the experience next.","vocabList":[{"word":"反馈","pinyin":"fǎnkǒu","translation":"feedback","hskLevel":4},{"word":"界面","pinyin":"jièmiàn","translation":"interface","hskLevel":4},{"word":"体验","pinyin":"tǐyàn","translation":"experience","hskLevel":4}]} 
+      ]
     }
   ]
 };
