@@ -1,7 +1,8 @@
-User‑agent: *
+User-agent: *
 Allow: /
-Disallow: /recover.html
-Disallow: /api/
 
 Sitemap: https://hanlingo.app/sitemap.xml
 
+# Optional: block temp or admin-only paths if they appear later
+Disallow: /tmp/
+Disallow: /private/
