@@ -19,8 +19,14 @@
     currentStoryTitle: '',
     vocab: store.get('hanlingo_vocab', []),
     pro: store.get('hanlingo_pro', false),
+    plan: store.get('hanlingo_plan', 'monthly'),
     settings: Object.assign({ hsk: 'HSK 3-4', pinyin: true, translation: true }, store.get('hanlingo_settings', {}))
   };
+
+  function saveSubscriptionState() {
+    store.set('hanlingo_pro', state.pro);
+    store.set('hanlingo_plan', state.plan);
+  }
 
   // Tiny DOM builder; strings are appended as text nodes, so nothing is parsed as HTML.
   function h(tag, props, ...kids) {
@@ -674,22 +680,50 @@
   }
 
   function openPaywall() {
+    const plans = [
+      { key: 'monthly', label: 'Monthly', price: '$6.99', detail: '/ month', recommended: true },
+      { key: 'yearly', label: 'Yearly', price: '$59.99', detail: '/ year', recommended: false }
+    ];
+
+    const planButtons = plans.map((plan) =>
+      h('button', {
+        class: 'plan-option' + (state.plan === plan.key ? ' active' : ''),
+        type: 'button',
+        'data-plan': plan.key,
+        onclick: () => {
+          state.plan = plan.key;
+          openPaywall();
+        }
+      },
+        h('span', { class: 'plan-label' }, plan.label),
+        h('span', { class: 'plan-price' }, plan.price),
+        h('small', { class: 'plan-detail' }, plan.detail),
+        plan.recommended ? h('em', { class: 'plan-badge' }, 'Best value') : null));
+
     $('#paywall').replaceChildren(
       h('div', { class: 'dialog', role: 'dialog', 'aria-labelledby': 'pw-title' },
         h('h2', { id: 'pw-title' }, 'Upgrade to HanLingo Pro'),
-        h('p', {}, 'Unlock the full story and exclusive audio.'),
-        h('ul', {}, h('li', {}, 'All ' + (state.cards.length || 12) + ' cards' + (state.currentStoryTitle ? ' of ' + state.currentStoryTitle : ' in every story')), h('li', {}, 'Audio for every card'), h('li', {}, 'New tales as they arrive')),
-        h('div', { class: 'price' }, '$6.99 ', h('small', {}, '/ month')),
-        h('button', { class: 'btn primary', type: 'button', onclick: subscribe }, 'Subscribe with Stripe'),
+        h('p', {}, 'Unlock every story, full audio, and new lessons as they arrive.'),
+        h('div', { class: 'plan-grid' }, ...planButtons),
+        h('ul', {},
+          h('li', {}, 'All ' + (state.cards.length || 12) + ' cards' + (state.currentStoryTitle ? ' of ' + state.currentStoryTitle : ' in every story')),
+          h('li', {}, 'Audio for every card and sentence replay'),
+          h('li', {}, 'New Chinese tales added as the library grows')),
+        h('div', { class: 'price' }, plans.find((p) => p.key === state.plan).price + ' ', h('small', {}, plans.find((p) => p.key === state.plan).detail)),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : 'Unlock Pro now'),
         h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Not now'),
-        CHECKOUT_URL ? null : h('p', { class: 'note' }, 'Demo mode: no Stripe link configured, so this unlocks locally.')));
+        CHECKOUT_URL ? null : h('p', { class: 'note' }, 'Demo mode: the checkout link is not connected yet, so this unlocks locally on this device.')));
     $('#paywall').hidden = false;
   }
 
-  function subscribe() {
-    if (CHECKOUT_URL) { window.location.href = CHECKOUT_URL; return; }
+  function subscribe(planKey = state.plan) {
+    state.plan = planKey || 'monthly';
+    if (CHECKOUT_URL) {
+      window.location.href = CHECKOUT_URL;
+      return;
+    }
     state.pro = true;
-    store.set('hanlingo_pro', true);
+    saveSubscriptionState();
     closeOverlays();
     if (state.pending != null) go(state.pending);
   }
@@ -727,7 +761,7 @@
       h('h2', { class: 'page-title' }, 'Profile'),
       h('div', { class: 'row' },
         h('span', {}, 'Plan', h('small', {}, state.pro ? 'HanLingo Pro' : 'Free: cards 1-4 of each story')),
-        state.pro ? null : h('button', { class: 'btn primary', type: 'button', onclick: openPaywall }, 'Upgrade')),
+        state.pro ? h('button', { class: 'btn ghost', type: 'button', onclick: openPaywall }, 'Manage') : h('button', { class: 'btn primary', type: 'button', onclick: openPaywall }, 'Upgrade')),
       toggleRow('Show pinyin', 'Under each sentence', 'pinyin'),
       toggleRow('Show translation', 'English, under each sentence', 'translation'),
       h('div', { class: 'row' },
@@ -736,7 +770,10 @@
           class: 'btn', type: 'button',
           onclick: () => {
             if (!confirm('Remove all saved words and settings?')) return;
-            ['hanlingo_vocab', 'hanlingo_settings', 'hanlingo_pro'].forEach((k) => localStorage.removeItem(k));
+            ['hanlingo_vocab', 'hanlingo_settings', 'hanlingo_pro', 'hanlingo_plan'].forEach((k) => localStorage.removeItem(k));
+            state.pro = false;
+            state.plan = 'monthly';
+            saveSubscriptionState();
             location.reload();
           }
         }, 'Clear')));
