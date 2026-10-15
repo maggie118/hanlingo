@@ -2799,6 +2799,516 @@ window.STORIES_DATA = {
           ]
         }
       ]
+    },
+    {
+      "columnId": "daily_adult",
+      "title": "成人日常交流 · Daily Conversation",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "日",
+      "coverClass": "c6",
+      "intro": "Practical adult communication for everyday life: work, commuting, errands, health, social plans, and travel. Built for learners in China, Europe, the US, and Singapore.",
+      "introZh": "适合成人学习的实用日常交流：通勤、工作、购物、健康、社交和旅行，适用于中国、欧美和新加坡等中文学习环境。",
+      "cards": [
+        {
+          "id": "d_01",
+          "title": "01. 早起上班 | Early Start",
+          "isFree": true,
+          "sentence": "我早上七点半起床，洗漱后按时去上班。",
+          "pinyin": "Wǒ zǎoshang qī diǎn bàn qǐchuáng, xǐshuò hòu ànshí qù shàngbān.",
+          "translation": "I got up at 7:30 in the morning, washed up, and went to work on time.",
+          "vocabList": [
+            {"word": "起床", "pinyin": "qǐchuáng", "translation": "to get up", "hskLevel": 3},
+            {"word": "洗漱", "pinyin": "xǐshuò", "translation": "to wash up", "hskLevel": 4},
+            {"word": "按时", "pinyin": "ànshí", "translation": "on time", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d_02",
+          "title": "02. 通勤路上 | On the Commute",
+          "isFree": true,
+          "sentence": "我在地铁站等车，顺便看了一下手机里的邮件。",
+          "pinyin": "Wǒ zài dìtiě zhàn děng chē, shùnbiàn kàn le yíxià shǒujī lǐ de yóujiàn.",
+          "translation": "I was waiting for the subway at the station and checked my email on my phone.",
+          "vocabList": [
+            {"word": "地铁", "pinyin": "dìtiě", "translation": "subway", "hskLevel": 3},
+            {"word": "顺便", "pinyin": "shùnbiàn", "translation": "incidentally; while at it", "hskLevel": 4},
+            {"word": "邮件", "pinyin": "yóujiàn", "translation": "email", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d_03",
+          "title": "03. 确认会议 | Confirm the Meeting",
+          "isFree": true,
+          "sentence": "你能不能帮我确认一下会议时间？我可能会晚一点。",
+          "pinyin": "Nǐ néng bu néng bāng wǒ quèrèn yíxià huìyì shíjiān? Wǒ kěnéng huì wǎn yìdiǎn.",
+          "translation": "Could you help me confirm the meeting time? I may be a little late.",
+          "vocabList": [
+            {"word": "确认", "pinyin": "quèrèn", "translation": "to confirm", "hskLevel": 4},
+            {"word": "会议", "pinyin": "huìyì", "translation": "meeting", "hskLevel": 3},
+            {"word": "时间", "pinyin": "shíjiān", "translation": "time", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d_04",
+          "title": "04. 请假 | Asking for Leave",
+          "isFree": true,
+          "sentence": "我想请一天假，去医院看一下身体，不方便和大家说太多。",
+          "pinyin": "Wǒ xiǎng qǐng yì tiān jià, qù yīyuàn kàn yíxià shēntǐ, bù fāngbiàn hé dàjiā shuō tài duō.",
+          "translation": "I would like to take one day off to go to the hospital and check my health. It is inconvenient to explain too much to everyone.",
+          "vocabList": [
+            {"word": "请假", "pinyin": "qǐngjià", "translation": "to ask for leave", "hskLevel": 4},
+            {"word": "医院", "pinyin": "yīyuàn", "translation": "hospital", "hskLevel": 3},
+            {"word": "身体", "pinyin": "shēntǐ", "translation": "health; body", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d_05",
+          "title": "05. 买菜 | Grocery Shopping",
+          "isFree": false,
+          "sentence": "我去超市买了蔬菜、牛奶和面包，顺便买了洗发水。",
+          "pinyin": "Wǒ qù chāoshì mǎi le shūcài, niúnǎi hé miànbāo, shùnbiàn mǎi le xǐfàshuǐ.",
+          "translation": "I went to the supermarket and bought vegetables, milk, and bread, and also picked up shampoo.",
+          "vocabList": [
+            {"word": "超市", "pinyin": "chāoshì", "translation": "supermarket", "hskLevel": 3},
+            {"word": "蔬菜", "pinyin": "shūcài", "translation": "vegetables", "hskLevel": 4},
+            {"word": "洗发水", "pinyin": "xǐfàshuǐ", "translation": "shampoo", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d_06",
+          "title": "06. 订餐 | Order Food",
+          "isFree": false,
+          "sentence": "这个周末我们想点外卖，先看看菜单，选一个不太辣的。",
+          "pinyin": "Zhège zhōumò wǒmen xiǎng diǎn wàimài, xiān kàn kàn càidān, xuǎn yí gè bù tài là de.",
+          "translation": "This weekend we want to order takeout, so first we will look at the menu and choose something not too spicy.",
+          "vocabList": [
+            {"word": "外卖", "pinyin": "wàimài", "translation": "takeout; food delivery", "hskLevel": 4},
+            {"word": "菜单", "pinyin": "càidān", "translation": "menu", "hskLevel": 4},
+            {"word": "辣", "pinyin": "là", "translation": "spicy", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d_07",
+          "title": "07. 健康建议 | Health Advice",
+          "isFree": false,
+          "sentence": "医生说我最近睡眠不好，建议我规律作息，少熬夜。",
+          "pinyin": "Yīshēng shuō wǒ zuìjìn shuìmián bù hǎo, jiànyì wǒ guīlǜ zuòxī, shǎo áo yè.",
+          "translation": "The doctor said I have been sleeping poorly recently and suggested that I keep a regular schedule and stay up less late.",
+          "vocabList": [
+            {"word": "睡眠", "pinyin": "shuìmián", "translation": "sleep", "hskLevel": 4},
+            {"word": "建议", "pinyin": "jiànyì", "translation": "to suggest; suggestion", "hskLevel": 3},
+            {"word": "规律", "pinyin": "guīlǜ", "translation": "regular; law-like", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d_08",
+          "title": "08. 约饭 | Dinner Plans",
+          "isFree": false,
+          "sentence": "你明天有空吗？我想请你一起吃饭，聊聊工作和生活。",
+          "pinyin": "Nǐ míngtiān yǒu kòng ma? Wǒ xiǎng qǐng nǐ yìqǐ chīfàn, liáo liáo gōngzuò hé shēnghuó.",
+          "translation": "Are you free tomorrow? I want to invite you to dinner to talk about work and life.",
+          "vocabList": [
+            {"word": "有空", "pinyin": "yǒu kòng", "translation": "to be free", "hskLevel": 3},
+            {"word": "工作", "pinyin": "gōngzuò", "translation": "work", "hskLevel": 3},
+            {"word": "生活", "pinyin": "shēnghuó", "translation": "life", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d_09",
+          "title": "09. 合同签字 | Sign the Contract",
+          "isFree": false,
+          "sentence": "这份合同我已经看了一遍，明天可以签字。",
+          "pinyin": "Zhè fèn hétóng wǒ yǐjīng kàn le yì biàn, míngtiān kěyǐ qiānzì.",
+          "translation": "I have already read through this contract and can sign it tomorrow.",
+          "vocabList": [
+            {"word": "合同", "pinyin": "hétóng", "translation": "contract", "hskLevel": 4},
+            {"word": "看一遍", "pinyin": "kàn yí biàn", "translation": "to read once through", "hskLevel": 4},
+            {"word": "签字", "pinyin": "qiānzì", "translation": "to sign a name", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d_10",
+          "title": "10. 问路 | Asking for Directions",
+          "isFree": false,
+          "sentence": "这条路怎么走？离地铁站不远，往前走两分钟就到了。",
+          "pinyin": "Zhè tiáo lù zěnme zǒu? Lí dìtiě zhàn bù yuǎn, wǎng qián zǒu liǎng fēnzhōng jiù dào le.",
+          "translation": "How do I get to this road? It is not far from the subway station; just walk forward for two minutes and you will get there.",
+          "vocabList": [
+            {"word": "怎么", "pinyin": "zěnme", "translation": "how; how come", "hskLevel": 3},
+            {"word": "路", "pinyin": "lù", "translation": "road; way", "hskLevel": 3},
+            {"word": "分钟", "pinyin": "fēnzhōng", "translation": "minute", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d_11",
+          "title": "11. 晚上休息 | Evening Rest",
+          "isFree": false,
+          "sentence": "我今天有点累，晚上想早点休息，准备明天继续工作。",
+          "pinyin": "Wǒ jīntiān yǒudiǎn lèi, wǎnshang xiǎng zǎo diǎn xiūxi, zhǔnbèi míngtiān jìxù gōngzuò.",
+          "translation": "I am a little tired today, so I want to rest early tonight and prepare to continue working tomorrow.",
+          "vocabList": [
+            {"word": "累", "pinyin": "lèi", "translation": "tired", "hskLevel": 3},
+            {"word": "休息", "pinyin": "xiūxi", "translation": "to rest", "hskLevel": 3},
+            {"word": "继续", "pinyin": "jìxù", "translation": "to continue", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d_12",
+          "title": "12. 周末安排 | Weekend Plan",
+          "isFree": false,
+          "sentence": "这个周末我们一起去公园散步，顺便打电话给朋友。",
+          "pinyin": "Zhège zhōumò wǒmen yìqǐ qù gōngyuán sànbù, shùnbiàn dǎ diànhuà gěi péngyou.",
+          "translation": "This weekend we will go for a walk in the park together and call a friend while we are at it.",
+          "vocabList": [
+            {"word": "周末", "pinyin": "zhōumò", "translation": "weekend", "hskLevel": 3},
+            {"word": "公园", "pinyin": "gōngyuán", "translation": "park", "hskLevel": 3},
+            {"word": "散步", "pinyin": "sànbù", "translation": "to take a walk", "hskLevel": 4}
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "daily_worklife",
+      "title": "工作与生活 · Work and Life",
+      "category": "daily",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "工",
+      "coverClass": "c8",
+      "intro": "Everyday adult communication for work, social plans, travel, and family matters. Practical, natural, and suitable for learners in China, Europe, and Singapore.",
+      "introZh": "面向成人的真实沟通场景：工作、社交、旅行和家庭安排，适合中国、欧美和新加坡等地学习者。",
+      "cards": [
+        {
+          "id": "d2_01",
+          "title": "01. 迟到说明 | Late Arrival",
+          "isFree": true,
+          "sentence": "我因为交通堵塞，今天会晚十分钟到公司。",
+          "pinyin": "Wǒ yīnwèi jiāotōng dǔsāi, jīntiān huì wǎn shí fēnzhōng dào gōngsī.",
+          "translation": "Because of traffic congestion, I will arrive at the company ten minutes late today.",
+          "vocabList": [
+            {"word": "迟到", "pinyin": "chídào", "translation": "to be late", "hskLevel": 4},
+            {"word": "交通", "pinyin": "jiāotōng", "translation": "traffic", "hskLevel": 4},
+            {"word": "堵塞", "pinyin": "dǔsāi", "translation": "to be congested", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_02",
+          "title": "02. 会议安排 | Meeting Schedule",
+          "isFree": true,
+          "sentence": "这个星期三上午十点，我们开会讨论项目进度。",
+          "pinyin": "Zhège xīngqísān shàngwǔ shí diǎn, wǒmen kāihuì tǎolùn xiàngmù jìndù.",
+          "translation": "We will have a meeting at 10 a.m. on Wednesday to discuss the project progress.",
+          "vocabList": [
+            {"word": "项目", "pinyin": "xiàngmù", "translation": "project", "hskLevel": 4},
+            {"word": "进度", "pinyin": "jìndù", "translation": "progress; schedule", "hskLevel": 4},
+            {"word": "讨论", "pinyin": "tǎolùn", "translation": "to discuss", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d2_03",
+          "title": "03. 提意见 | Giving Feedback",
+          "isFree": true,
+          "sentence": "我觉得这个方案还不错，但需要再调整一下细节。",
+          "pinyin": "Wǒ juéde zhège fāng'àn hái búcuò, dàn xūyào zài tiáozhěng yíxià xìjié.",
+          "translation": "I think this plan is not bad, but we need to adjust the details a bit more.",
+          "vocabList": [
+            {"word": "方案", "pinyin": "fāng'àn", "translation": "plan; proposal", "hskLevel": 4},
+            {"word": "细节", "pinyin": "xìjié", "translation": "details", "hskLevel": 4},
+            {"word": "调整", "pinyin": "tiáozhěng", "translation": "to adjust", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_04",
+          "title": "04. 请客吃饭 | Treating Someone to a Meal",
+          "isFree": true,
+          "sentence": "这次我请客，我们一起去吃日式料理，顺便庆祝一下。",
+          "pinyin": "Zhè cì wǒ qǐngkè, wǒmen yìqǐ qù chī rìshì liàolǐ, shùnbiàn qìngzhù yíxià.",
+          "translation": "This time I’m treating you—let’s go eat Japanese food together and celebrate a bit.",
+          "vocabList": [
+            {"word": "请客", "pinyin": "qǐngkè", "translation": "to treat someone to a meal", "hskLevel": 4},
+            {"word": "料理", "pinyin": "liàolǐ", "translation": "cuisine; dishes", "hskLevel": 4},
+            {"word": "庆祝", "pinyin": "qìngzhù", "translation": "to celebrate", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_05",
+          "title": "05. 预约看病 | Book a Doctor Appointment",
+          "isFree": false,
+          "sentence": "我想预约一位皮肤科医生，明天上午最好可以看。",
+          "pinyin": "Wǒ xiǎng yùyuē yí wèi pífūkē yīshēng, míngtiān shàngwǔ zuìhǎo kěyǐ kàn.",
+          "translation": "I want to make an appointment with a dermatologist; tomorrow morning would be best if possible.",
+          "vocabList": [
+            {"word": "预约", "pinyin": "yùyuē", "translation": "to make an appointment", "hskLevel": 4},
+            {"word": "医生", "pinyin": "yīshēng", "translation": "doctor", "hskLevel": 3},
+            {"word": "最好", "pinyin": "zuìhǎo", "translation": "best; ideally", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d2_06",
+          "title": "06. 逛超市 | Grocery Shopping",
+          "isFree": false,
+          "sentence": "我今天去超市，顺便买了一些水果和清洁用品。",
+          "pinyin": "Wǒ jīntiān qù chāoshì, shùnbiàn mǎi le yìxiē shuǐguǒ hé qīngjié yòngpǐn.",
+          "translation": "I went to the supermarket today and picked up some fruit and cleaning supplies while I was there.",
+          "vocabList": [
+            {"word": "水果", "pinyin": "shuǐguǒ", "translation": "fruit", "hskLevel": 3},
+            {"word": "清洁", "pinyin": "qīngjié", "translation": "clean; cleanly", "hskLevel": 4},
+            {"word": "用品", "pinyin": "yòngpǐn", "translation": "supplies; items", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_07",
+          "title": "07. 银行办理 | Banking",
+          "isFree": false,
+          "sentence": "我去银行办了银行卡，工作人员说办理很顺利。",
+          "pinyin": "Wǒ qù yínháng bàn le yínhángkǎ, gōngzuò rényuán shuō bànlǐ hěn shùnlì.",
+          "translation": "I went to the bank to apply for a bank card, and the staff said the process went smoothly.",
+          "vocabList": [
+            {"word": "银行", "pinyin": "yínháng", "translation": "bank", "hskLevel": 3},
+            {"word": "办理", "pinyin": "bànlǐ", "translation": "to handle; to process", "hskLevel": 4},
+            {"word": "顺利", "pinyin": "shùnlì", "translation": "smoothly; successful", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_08",
+          "title": "08. 课程报名 | Enrolling in a Course",
+          "isFree": false,
+          "sentence": "我想报名一门汉语口语课，周末上课比较方便。",
+          "pinyin": "Wǒ xiǎng bàomíng yì mén Hànyǔ kǒuyǔ kè, zhōumò shàngkè bǐjiào fāngbiàn.",
+          "translation": "I want to enroll in a Mandarin speaking course; weekend classes are more convenient.",
+          "vocabList": [
+            {"word": "报名", "pinyin": "bàomíng", "translation": "to register; to sign up", "hskLevel": 4},
+            {"word": "课程", "pinyin": "kèchéng", "translation": "course; class", "hskLevel": 3},
+            {"word": "方便", "pinyin": "fāngbiàn", "translation": "convenient", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d2_09",
+          "title": "09. 聊天气候 | Talking About the Weather",
+          "isFree": false,
+          "sentence": "最近这几天天气有点变化，早晚温差比较大。",
+          "pinyin": "Zuìjìn zhè jǐ tiān tiānqì yǒudiǎn biànhuà, zǎowǎn wēnchā bǐjiào dà.",
+          "translation": "The weather has changed a bit these last few days; the temperature difference between morning and night is quite large.",
+          "vocabList": [
+            {"word": "天气", "pinyin": "tiānqì", "translation": "weather", "hskLevel": 3},
+            {"word": "变化", "pinyin": "biànhuà", "translation": "change", "hskLevel": 4},
+            {"word": "温差", "pinyin": "wēnchā", "translation": "temperature difference", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_10",
+          "title": "10. 周末出行 | Weekend Travel",
+          "isFree": false,
+          "sentence": "周末我们准备去海边散步，顺便拍一些照片。",
+          "pinyin": "Zhōumò wǒmen zhǔnbèi qù hǎibiān sànbù, shùnbiàn pāi yìxiē zhàopiàn.",
+          "translation": "This weekend we plan to walk by the seaside and take some photos while we are there.",
+          "vocabList": [
+            {"word": "周末", "pinyin": "zhōumò", "translation": "weekend", "hskLevel": 3},
+            {"word": "海边", "pinyin": "hǎibiān", "translation": "seaside", "hskLevel": 4},
+            {"word": "照片", "pinyin": "zhàopiàn", "translation": "photos; picture", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "d2_11",
+          "title": "11. 邻里沟通 | Neighbourly Talk",
+          "isFree": false,
+          "sentence": "我和邻居打招呼，说明今天晚上会有点吵，请大家谅解。",
+          "pinyin": "Wǒ hé línjū dǎ zhāohu, shuōmíng jīntiān wǎnshang huì yǒudiǎn chǎo, qǐng dàjiā liàngjiě.",
+          "translation": "I greeted my neighbour and explained that there may be some noise tonight; I hope everyone can understand.",
+          "vocabList": [
+            {"word": "邻居", "pinyin": "línjū", "translation": "neighbour", "hskLevel": 3},
+            {"word": "吵", "pinyin": "chǎo", "translation": "noisy; to make noise", "hskLevel": 3},
+            {"word": "谅解", "pinyin": "liàngjiě", "translation": "to understand and forgive", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "d2_12",
+          "title": "12. 收拾家务 | Housework",
+          "isFree": false,
+          "sentence": "我今天晚上会收拾房间，洗衣服，然后早点休息。",
+          "pinyin": "Wǒ jīntiān wǎnshang huì shōushí fángjiān, xǐ yīfu, ránhòu zǎo diǎn xiūxi.",
+          "translation": "Tonight I will clean the room, do the laundry, and then rest early.",
+          "vocabList": [
+            {"word": "收拾", "pinyin": "shōushí", "translation": "to tidy up", "hskLevel": 4},
+            {"word": "房间", "pinyin": "fángjiān", "translation": "room", "hskLevel": 3},
+            {"word": "衣服", "pinyin": "yīfu", "translation": "clothes", "hskLevel": 3}
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "business_office",
+      "title": "职场中文 · Business Chinese",
+      "category": "business",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "职",
+      "coverClass": "c9",
+      "intro": "Practical workplace Chinese for meetings, communication, email, travel, and collaboration in real business life.",
+      "introZh": "适用于真实职场沟通的中文：会议、邮件、协作、商务旅行和日常办公交流。",
+      "cards": [
+        {
+          "id": "b_01",
+          "title": "01. 迟到说明 | Late Arrival",
+          "isFree": true,
+          "sentence": "因为交通堵塞，我今天会晚十分钟到办公室。",
+          "pinyin": "Yīnwèi jiāotōng dǔsāi, wǒ jīntiān huì wǎn shí fēnzhōng dào bàngōngshì.",
+          "translation": "Because of traffic congestion, I will arrive at the office ten minutes late today.",
+          "vocabList": [
+            {"word": "交通", "pinyin": "jiāotōng", "translation": "traffic", "hskLevel": 4},
+            {"word": "堵塞", "pinyin": "dǔsāi", "translation": "to be blocked; congested", "hskLevel": 4},
+            {"word": "办公室", "pinyin": "bàngōngshì", "translation": "office", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "b_02",
+          "title": "02. 会议通知 | Meeting Notice",
+          "isFree": true,
+          "sentence": "明天上午九点，我们开会讨论新项目的安排。",
+          "pinyin": "Míngtiān shàngwǔ jiǔ diǎn, wǒmen kāihuì tǎolùn xīn xiàngmù de ānpái.",
+          "translation": "Tomorrow at 9 a.m., we will have a meeting to discuss the arrangement of the new project.",
+          "vocabList": [
+            {"word": "通知", "pinyin": "tōngzhī", "translation": "notice; inform", "hskLevel": 4},
+            {"word": "项目", "pinyin": "xiàngmù", "translation": "project", "hskLevel": 4},
+            {"word": "安排", "pinyin": "ānpái", "translation": "arrangement; plan", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "b_03",
+          "title": "03. 提建议 | Suggestion",
+          "isFree": true,
+          "sentence": "我建议我们先做一个简短的方案，然后再讨论细节。",
+          "pinyin": "Wǒ jiànyì wǒmen xiān zuò yí gè jiǎnduǎn de fāng'àn, ránhòu zài tǎolùn xìjié.",
+          "translation": "I suggest that we first create a brief plan and then discuss the details.",
+          "vocabList": [
+            {"word": "建议", "pinyin": "jiànyì", "translation": "suggestion; to suggest", "hskLevel": 3},
+            {"word": "简短", "pinyin": "jiǎnduǎn", "translation": "brief; concise", "hskLevel": 4},
+            {"word": "细节", "pinyin": "xìjié", "translation": "details", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "b_04",
+          "title": "04. 反馈 | Feedback",
+          "isFree": true,
+          "sentence": "我觉得这个方案很好，主要需要再调整一下时间。",
+          "pinyin": "Wǒ juéde zhège fāng'àn hěn hǎo, zhǔyào xūyào zài tiáozhěng yíxià shíjiān.",
+          "translation": "I think this plan is good; the main thing is that we need to adjust the timing a little.",
+          "vocabList": [
+            {"word": "方案", "pinyin": "fāng'àn", "translation": "plan", "hskLevel": 4},
+            {"word": "主要", "pinyin": "zhǔyào", "translation": "mainly", "hskLevel": 3},
+            {"word": "时间", "pinyin": "shíjiān", "translation": "time", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "b_05",
+          "title": "05. 邮件回复 | Email Reply",
+          "isFree": false,
+          "sentence": "我已经收到你的邮件，明天给你一个详细回复。",
+          "pinyin": "Wǒ yǐjīng shōudào nǐ de yóujiàn, míngtiān gěi nǐ yí gè xiángxì huífù.",
+          "translation": "I have received your email and will give you a detailed reply tomorrow.",
+          "vocabList": [
+            {"word": "收到", "pinyin": "shōudào", "translation": "to receive", "hskLevel": 3},
+            {"word": "邮件", "pinyin": "yóujiàn", "translation": "email", "hskLevel": 4},
+            {"word": "回复", "pinyin": "huífù", "translation": "reply", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "b_06",
+          "title": "06. 合作沟通 | Team Communication",
+          "isFree": false,
+          "sentence": "我们需要保持沟通，及时解决问题，确保进度不拖延。",
+          "pinyin": "Wǒmen xūyào bǎochí gōutōng, jíshí jiějué wèntí, qiǎnzhào jìndù bù tuōyán.",
+          "translation": "We need to keep communicating, solve problems in time, and ensure that the schedule does not get delayed.",
+          "vocabList": [
+            {"word": "沟通", "pinyin": "gōutōng", "translation": "to communicate", "hskLevel": 4},
+            {"word": "及时", "pinyin": "jíshí", "translation": "in time; promptly", "hskLevel": 4},
+            {"word": "进度", "pinyin": "jìndù", "translation": "progress; schedule", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "b_07",
+          "title": "07. 商务旅行 | Business Travel",
+          "isFree": false,
+          "sentence": "我下周要去上海出差，预计三天回来。",
+          "pinyin": "Wǒ xià zhōu yào qù Shànghǎi chūchāi, yùjì sān tiān huílai.",
+          "translation": "I need to travel to Shanghai on business next week and I expect to be back in three days.",
+          "vocabList": [
+            {"word": "出差", "pinyin": "chūchāi", "translation": "to travel on business", "hskLevel": 4},
+            {"word": "预计", "pinyin": "yùjì", "translation": "to estimate; expected", "hskLevel": 4},
+            {"word": "回来", "pinyin": "huílai", "translation": "to return", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "b_08",
+          "title": "08. 客户沟通 | Client Communication",
+          "isFree": false,
+          "sentence": "客户对我们的服务很满意，想再签一个长期合作。",
+          "pinyin": "Kèhù duì wǒmen de fúwù hěn mǎnyì, xiǎng zài qiān yí gè chángqī hézuò.",
+          "translation": "The client is very satisfied with our service and wants to sign a longer-term cooperation agreement.",
+          "vocabList": [
+            {"word": "客户", "pinyin": "kèhù", "translation": "client; customer", "hskLevel": 4},
+            {"word": "满意", "pinyin": "mǎnyì", "translation": "satisfied; pleased", "hskLevel": 3},
+            {"word": "合作", "pinyin": "hézuò", "translation": "cooperation; to work together", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "b_09",
+          "title": "09. 价格咨询 | Price Inquiry",
+          "isFree": false,
+          "sentence": "请问这个服务的价格可以再优惠一点吗？",
+          "pinyin": "Qǐngwèn zhège fúwù de jiàgé kěyǐ zài yōuhuì yìdiǎn ma?",
+          "translation": "Could you tell me if the price of this service can be a little more discounted?",
+          "vocabList": [
+            {"word": "价格", "pinyin": "jiàgé", "translation": "price", "hskLevel": 3},
+            {"word": "服务", "pinyin": "fúwù", "translation": "service", "hskLevel": 3},
+            {"word": "优惠", "pinyin": "yōuhuì", "translation": "discount; preferential offer", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "b_10",
+          "title": "10. 订单确认 | Order Confirmed",
+          "isFree": false,
+          "sentence": "我们已经确认订单，明天会按时发货。",
+          "pinyin": "Wǒmen yǐjīng quèrèn dìngdān, míngtiān huì ànshí fāhuò.",
+          "translation": "We have confirmed the order, and it will be shipped on time tomorrow.",
+          "vocabList": [
+            {"word": "确认", "pinyin": "quèrèn", "translation": "to confirm", "hskLevel": 4},
+            {"word": "订单", "pinyin": "dìngdān", "translation": "order", "hskLevel": 4},
+            {"word": "发货", "pinyin": "fāhuò", "translation": "to ship; to dispatch goods", "hskLevel": 4}
+          ]
+        },
+        {
+          "id": "b_11",
+          "title": "11. 处理问题 | Handling Problems",
+          "isFree": false,
+          "sentence": "我已经联系了技术团队，正在尽快解决这个问题。",
+          "pinyin": "Wǒ yǐjīng liánxì le jìshù tuánduì, zhèngzài jìnkuài jiějué zhège wèntí.",
+          "translation": "I have already contacted the technical team and am working as quickly as possible to solve this problem.",
+          "vocabList": [
+            {"word": "技术", "pinyin": "jìshù", "translation": "technology; technical", "hskLevel": 3},
+            {"word": "团队", "pinyin": "tuánduì", "translation": "team", "hskLevel": 3},
+            {"word": "问题", "pinyin": "wèntí", "translation": "problem; issue", "hskLevel": 3}
+          ]
+        },
+        {
+          "id": "b_12",
+          "title": "12. 结束会议 | Closing the Meeting",
+          "isFree": false,
+          "sentence": "今天的会议就到这里，感谢大家的配合，我们继续推进。",
+          "pinyin": "Jīntiān de huìyì jiù dào zhèlǐ, xièxiè dàjiā de pèihé, wǒmen jìxù tuījìn.",
+          "translation": "Let’s end today’s meeting here. Thank you for everyone’s cooperation; we will continue moving forward.",
+          "vocabList": [
+            {"word": "会议", "pinyin": "huìyì", "translation": "meeting", "hskLevel": 3},
+            {"word": "感谢", "pinyin": "xièxie", "translation": "to thank; thanks", "hskLevel": 3},
+            {"word": "推进", "pinyin": "tuījìn", "translation": "to advance; to promote", "hskLevel": 4}
+          ]
+        }
+      ]
     }
   ]
 };
