@@ -10,7 +10,7 @@
       "cards": [
         {
           "id": "card_01",
-          "title": "书生遇美女 | The Scholar Meets a Girl",
+          "title": "01. 书生遇美女 | The Scholar Meets a Girl",
           "isFree": true,
           "sentence": "一天晚上，王生在路上遇到了一个年轻的女孩。",
           "pinyin": "Yì tiān wǎnshang, Wáng shēng zài lùshang yùdào le yí ge niánqīng de nǚhái.",
@@ -38,7 +38,7 @@
         },
         {
           "id": "card_02",
-          "title": "路边的哭声 | Crying by the Road",
+          "title": "02. 路边的哭声 | Crying by the Road",
           "isFree": true,
           "sentence": "她一个人坐在路边哭，看起来很难过。",
           "pinyin": "Tā yí ge rén zuò zài lùbiān kū, kàn qǐlái hěn nánguò.",
@@ -66,7 +66,7 @@
         },
         {
           "id": "card_03",
-          "title": "无家可归 | Nowhere to Go",
+          "title": "03. 无家可归 | Nowhere to Go",
           "isFree": true,
           "sentence": "她说：“家里人要把我卖给别人，我只好跑出来了。”",
           "pinyin": "Tā shuō: “Jiālǐ rén yào bǎ wǒ mài gěi biérén, wǒ zhǐhǎo pǎo chūlái le.”",
@@ -94,7 +94,7 @@
         },
         {
           "id": "card_04",
-          "title": "带回家 | A Stranger at Home",
+          "title": "04. 带回家 | A Stranger at Home",
           "isFree": true,
           "sentence": "王生很担心她，就带她回了自己的家。",
           "pinyin": "Wáng shēng hěn dānxīn tā, jiù dài tā huí le zìjǐ de jiā.",
@@ -122,7 +122,7 @@
         },
         {
           "id": "card_05",
-          "title": "窗外的秘密 | The Secret at the Window",
+          "title": "05. 窗外的秘密 | The Secret at the Window",
           "isFree": false,
           "sentence": "那天夜里，王生怎么也睡不着，他走到女孩的房间外面，从窗户往里看。",
           "pinyin": "Nà tiān yè lǐ, Wáng shēng zěnme yě shuì bù zháo, tā zǒudào nǚhái de fángjiān wàimian, cóng chuānghu wǎng lǐ kàn.",
@@ -150,45 +150,39 @@
         },
         {
           "id": "card_06",
-          "title": "06. Hidden Truth / 惊悚真面目",
+          "title": "06. 真面目 | The Real Face",
           "isFree": false,
-          "sentence": "半夜里，他醒来一看，床上坐着一个面目可怕的鬼。",
-          "pinyin": "bànyè lǐ, tā xǐng lái yīkàn, chuáng shàng zuòzhe yīgè miànmù kěpà de guǐ.",
-          "translation": "In the middle of the night, he woke up and saw a terrifying ghost sitting on the bed.",
+          "sentence": "屋里坐着的不是女孩，而是一个很可怕的鬼！",
+          "pinyin": "Wū lǐ zuòzhe de bú shì nǚhái, ér shì yí ge hěn kěpà de guǐ!",
+          "translation": "The one sitting in the room was not a girl, but a terrifying ghost!",
           "vocabList": [
             {
-              "word": "半夜",
-              "pinyin": "bànyè",
-              "translation": "midnight",
-              "hskLevel": 4
-            },
-            {
-              "word": "醒",
-              "pinyin": "xǐng",
-              "translation": "to wake up",
-              "hskLevel": 4
+              "word": "坐",
+              "pinyin": "zuò",
+              "translation": "to sit",
+              "hskLevel": 2
             },
             {
               "word": "可怕",
               "pinyin": "kěpà",
-              "translation": "terrifying / scary",
+              "translation": "terrifying; scary",
               "hskLevel": 3
             },
             {
               "word": "鬼",
               "pinyin": "guǐ",
               "translation": "ghost",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
         {
           "id": "card_07",
-          "title": "07. The Painted Skin / 绘制人皮",
+          "title": "07. 画皮 | Painting the Skin",
           "isFree": false,
-          "sentence": "桌上有一张画着美女的人皮，她正拿着笔在上面涂画。",
-          "pinyin": "zhuō shàng yǒuyī zhāng huàzhe měinǚ de rénpí, tā zhèng názhe bǐ zài shàngmiàn túhuà.",
-          "translation": "On the table was a human skin painted with the likeness of a beautiful woman, and she was painting on it with a brush.",
+          "sentence": "桌子上放着一张人皮，鬼拿着笔，在人皮上画漂亮的脸。",
+          "pinyin": "Zhuōzi shàng fàngzhe yì zhāng rénpí, guǐ názhe bǐ, zài rénpí shàng huà piàoliang de liǎn.",
+          "translation": "A human skin lay on the table. The ghost held a brush and painted a pretty face on it.",
           "vocabList": [
             {
               "word": "张",
@@ -197,107 +191,89 @@
               "hskLevel": 2
             },
             {
-              "word": "美女",
-              "pinyin": "měinǚ",
-              "translation": "beautiful woman",
-              "hskLevel": 3
+              "word": "笔",
+              "pinyin": "bǐ",
+              "translation": "pen; brush",
+              "hskLevel": 2
             },
             {
               "word": "人皮",
               "pinyin": "rénpí",
               "translation": "human skin",
-              "hskLevel": 4
-            },
-            {
-              "word": "笔",
-              "pinyin": "bǐ",
-              "translation": "pen / brush",
-              "hskLevel": 2
+              "hskLevel": 0
             }
           ]
         },
         {
           "id": "card_08",
-          "title": "08. Extreme Fear / 惊恐逃离",
+          "title": "08. 逃跑 | Running Away",
           "isFree": false,
-          "sentence": "王生吓得差点晕过去，连衣服都来不及穿好就跑了出去。",
-          "pinyin": "wáng shēng xià de chàdiǎn yūn guòqù, lián yīfú dōu láibují chuān hǎo jiù pǎo le chūqù.",
-          "translation": "Mr. Wang was so scared that he almost fainted, and he ran out without even having time to put on his clothes properly.",
+          "sentence": "王生吓坏了，连衣服都没穿好，就跑了出去。",
+          "pinyin": "Wáng shēng xià huài le, lián yīfu dōu méi chuān hǎo, jiù pǎo le chūqù.",
+          "translation": "Wang was scared out of his wits. He ran out without even putting his clothes on properly.",
           "vocabList": [
             {
               "word": "吓",
               "pinyin": "xià",
-              "translation": "to frighten / to scare",
+              "translation": "to scare; to frighten",
               "hskLevel": 3
             },
             {
-              "word": "差点",
-              "pinyin": "chàdiǎn",
-              "translation": "almost",
-              "hskLevel": 3
-            },
-            {
-              "word": "晕",
-              "pinyin": "yūn",
-              "translation": "to faint / dizzy",
+              "word": "连",
+              "pinyin": "lián",
+              "translation": "even (连…都…)",
               "hskLevel": 4
             },
             {
-              "word": "来不及",
-              "pinyin": "láibují",
-              "translation": "there's not enough time",
-              "hskLevel": 4
+              "word": "穿",
+              "pinyin": "chuān",
+              "translation": "to wear; to put on",
+              "hskLevel": 2
             }
           ]
         },
         {
           "id": "card_09",
-          "title": "09. Seeking Help / 寻找道士",
+          "title": "09. 找道士 | Looking for a Priest",
           "isFree": false,
-          "sentence": "为了保护家人，他决定去外面寻找有法力的道士帮忙。",
-          "pinyin": "wèile bǎohù jiārén, tā juédìng qù wàimiàn xúnzhǎo yǒu fālì de dàoshi bāngmáng.",
-          "translation": "In order to protect his family, he decided to go outside to look for a Taoist priest with magical powers for help.",
+          "sentence": "他不敢回家，想去找一位有名的道士帮忙。",
+          "pinyin": "Tā bù gǎn huí jiā, xiǎng qù zhǎo yí wèi yǒumíng de dàoshi bāngmáng.",
+          "translation": "He did not dare go home. He wanted to find a famous Taoist priest to help him.",
           "vocabList": [
             {
-              "word": "保护",
-              "pinyin": "bǎohù",
-              "translation": "to protect",
+              "word": "敢",
+              "pinyin": "gǎn",
+              "translation": "to dare",
               "hskLevel": 4
             },
             {
-              "word": "家人",
-              "pinyin": "jiārén",
-              "translation": "family members",
-              "hskLevel": 3
-            },
-            {
-              "word": "决定",
-              "pinyin": "juédìng",
-              "translation": "to decide",
+              "word": "有名",
+              "pinyin": "yǒumíng",
+              "translation": "famous",
               "hskLevel": 3
             },
             {
               "word": "道士",
               "pinyin": "dàoshi",
               "translation": "Taoist priest",
-              "hskLevel": 4
+              "hskLevel": 0
+            },
+            {
+              "word": "帮忙",
+              "pinyin": "bāngmáng",
+              "translation": "to help",
+              "hskLevel": 3
             }
           ]
         },
         {
           "id": "card_10",
-          "title": "10. The Priest's Advice / 道士授计",
+          "title": "10. 道士的办法 | The Priest's Plan",
           "isFree": false,
-          "sentence": "道士给了他一面特殊的镜子，并告诉他如何应对妖怪。",
-          "pinyin": "dàoshi gěi le tā yīmiàn tèshū de jìngzi, bìng gàosù tā rúhé yìngduì yàoguài.",
-          "translation": "The Taoist priest gave him a special mirror and told him how to deal with the monster.",
+          "sentence": "道士给了他一面镜子，告诉他：“看到她，就用镜子照她。”",
+          "pinyin": "Dàoshi gěi le tā yí miàn jìngzi, gàosu tā: “Kàndào tā, jiù yòng jìngzi zhào tā.”",
+          "translation": "The priest gave him a mirror and told him, “When you see her, shine the mirror on her.”",
           "vocabList": [
-            {
-              "word": "特殊",
-              "pinyin": "tèshū",
-              "translation": "special",
-              "hskLevel": 4
-            },
             {
               "word": "镜子",
               "pinyin": "jìngzi",
@@ -306,38 +282,26 @@
             },
             {
               "word": "告诉",
-              "pinyin": "gàosù",
+              "pinyin": "gàosu",
               "translation": "to tell",
               "hskLevel": 2
             },
             {
-              "word": "妖怪",
-              "pinyin": "yàoguài",
-              "translation": "monster / demon",
+              "word": "照",
+              "pinyin": "zhào",
+              "translation": "to shine on; to reflect",
               "hskLevel": 4
             }
           ]
         },
         {
           "id": "card_11",
-          "title": "11. The Confrontation / 正面交锋",
+          "title": "11. 面对 | Face to Face",
           "isFree": false,
-          "sentence": "回到家里，王生再次面对那个可怕的怪物，心中虽然害怕却很坚定。",
-          "pinyin": "huí dào jiālǐ, wáng shēng zàicì miànduì nàgè kěpà de guàiwù, xīnzhōng suīrán hàipà què hěn jiāndìng.",
-          "translation": "Returning home, Wang Sheng faced the terrifying monster once again; although he was afraid in his heart, he was very determined.",
+          "sentence": "王生回到家，虽然很害怕，还是拿起镜子，照向那个鬼。",
+          "pinyin": "Wáng shēng huí dào jiā, suīrán hěn hàipà, háishi ná qǐ jìngzi, zhào xiàng nà ge guǐ.",
+          "translation": "Wang went home. Although he was very afraid, he still picked up the mirror and shone it on the ghost.",
           "vocabList": [
-            {
-              "word": "再次",
-              "pinyin": "zàicì",
-              "translation": "once again",
-              "hskLevel": 4
-            },
-            {
-              "word": "面对",
-              "pinyin": "miànduì",
-              "translation": "to face / confront",
-              "hskLevel": 4
-            },
             {
               "word": "虽然",
               "pinyin": "suīrán",
@@ -345,50 +309,52 @@
               "hskLevel": 3
             },
             {
-              "word": "坚定",
-              "pinyin": "jiāndìng",
-              "translation": "firm / resolute",
-              "hskLevel": 4
+              "word": "害怕",
+              "pinyin": "hàipà",
+              "translation": "to be afraid",
+              "hskLevel": 3
+            },
+            {
+              "word": "拿",
+              "pinyin": "ná",
+              "translation": "to take; to hold",
+              "hskLevel": 2
             }
           ]
         },
         {
           "id": "card_12",
-          "title": "12. Resolution / 故事结局",
+          "title": "12. 结局 | The Ending",
           "isFree": false,
-          "sentence": "最终，在道士的帮助下，邪恶的妖怪被收服，家里恢复了平静。",
-          "pinyin": "zuìzhōng, zài dàoshi de bāngzhù xià, xié'è de yàoguài bèi shōufú, jiālǐ huīfù le píngjìng.",
-          "translation": "In the end, with the help of the Taoist priest, the evil monster was subdued, and peace was restored to the home.",
+          "sentence": "镜子一照，鬼变成了一张旧人皮，家里又安静了。",
+          "pinyin": "Jìngzi yí zhào, guǐ biàn chéng le yì zhāng jiù rénpí, jiālǐ yòu ānjìng le.",
+          "translation": "As soon as the mirror shone on it, the ghost turned into an old human skin, and the house was quiet again.",
           "vocabList": [
             {
-              "word": "最终",
-              "pinyin": "zuìzhōng",
-              "translation": "finally / ultimate",
+              "word": "变成",
+              "pinyin": "biàn chéng",
+              "translation": "to turn into",
               "hskLevel": 4
             },
             {
-              "word": "帮助",
-              "pinyin": "bāngzhù",
-              "translation": "help",
+              "word": "旧",
+              "pinyin": "jiù",
+              "translation": "old; used",
               "hskLevel": 3
             },
             {
-              "word": "恢复",
-              "pinyin": "huīfù",
-              "translation": "to recover / restore",
-              "hskLevel": 4
-            },
-            {
-              "word": "平静",
-              "pinyin": "píngjìng",
-              "translation": "calm / peaceful",
-              "hskLevel": 4
+              "word": "安静",
+              "pinyin": "ānjìng",
+              "translation": "quiet",
+              "hskLevel": 3
             }
           ]
         }
       ],
       "cover": "画",
-      "coverClass": "c1"
+      "coverClass": "c1",
+      "intro": "A scholar takes a lonely girl home and learns she is not what she seems. Pu Songling's best-known ghost story.",
+      "introZh": "王生带一个女孩回家，可是她不是人。"
     },
     {
       "columnId": "laoshan_daoshi",
@@ -445,7 +411,7 @@
               "word": "道士",
               "pinyin": "dào shì",
               "translation": "Taoist priest",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "神奇",
@@ -563,7 +529,7 @@
               "word": "砍柴",
               "pinyin": "kǎn chái",
               "translation": "to chop firewood",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
@@ -647,7 +613,7 @@
               "word": "穿墙",
               "pinyin": "chuān qiáng",
               "translation": "to pass through a wall",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
@@ -700,10 +666,10 @@
               "hskLevel": 4
             },
             {
-              "word": "炫耀",
-              "pinyin": "xuàn yào",
-              "translation": "to show off",
-              "hskLevel": 4
+              "word": "穿墙",
+              "pinyin": "chuān qiáng",
+              "translation": "to walk through walls",
+              "hskLevel": 0
             }
           ]
         },
@@ -735,7 +701,9 @@
             }
           ]
         }
-      ]
+      ],
+      "intro": "A rich, lazy young man goes up a mountain to learn magic, but he hates hard work. A funny story about patience.",
+      "introZh": "王七想学法术，可是他不想辛苦。"
     },
     {
       "columnId": "zhong_li",
@@ -792,7 +760,7 @@
               "word": "道士",
               "pinyin": "dào shì",
               "translation": "Taoist priest",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "过来",
@@ -1082,7 +1050,9 @@
             }
           ]
         }
-      ]
+      ],
+      "intro": "A poor priest asks a pear seller for just one pear. What happens next teaches the seller a lesson.",
+      "introZh": "道士想要一个梨，可是卖梨的人不给。"
     },
     {
       "columnId": "lang_wolf",
@@ -1105,7 +1075,7 @@
               "word": "屠夫",
               "pinyin": "tú fū",
               "translation": "butcher",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "傍晚",
@@ -1237,8 +1207,8 @@
           "id": "w_06",
           "title": "06. 吃完又跟 | They Regroup",
           "isFree": false,
-          "sentence": "等他再扔骨头，先前的狼吃完又跟了上来。",
-          "pinyin": "Děng tā zài rēng gǔ tóu，xiān qián de láng chī wán yòu gēn le shàng lái。",
+          "sentence": "等他再扔骨头，先前的狼吃完又跟上来了。",
+          "pinyin": "Děng tā zài rēng gǔ tóu，xiān qián de láng chī wán yòu gēn shàng lái le。",
           "translation": "When he threw more bones, the first wolf finished eating and followed again.",
           "vocabList": [
             {
@@ -1313,7 +1283,7 @@
               "word": "夹击",
               "pinyin": "jiā jī",
               "translation": "pincer attack",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
@@ -1419,7 +1389,7 @@
               "word": "偷袭",
               "pinyin": "tōu xí",
               "translation": "sneak attack",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "结果",
@@ -1429,7 +1399,9 @@
             }
           ]
         }
-      ]
+      ],
+      "intro": "A man walking home at dusk is followed by two wolves. A cool head is his only weapon.",
+      "introZh": "天快黑了，两只狼一直跟着他。"
     },
     {
       "columnId": "nie_xiaoqian",
@@ -1452,7 +1424,7 @@
               "word": "书生",
               "pinyin": "shū shēng",
               "translation": "scholar",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "穷",
@@ -1472,9 +1444,9 @@
           "id": "n_02",
           "title": "02. 古庙过夜 | A Night at the Temple",
           "isFree": true,
-          "sentence": "一天，他路过一座荒凉的古庙，决定进去过夜。",
-          "pinyin": "Yī tiān，tā lù guò yī zuò huāng liáng de gǔ miào，jué dìng jìn qù guò yè。",
-          "translation": "One day, he passed a desolate old temple and decided to stay the night.",
+          "sentence": "一天，他路过一座没有人住的古庙，决定进去过夜。",
+          "pinyin": "Yī tiān，tā lù guò yī zuò méi yǒu rén zhù de gǔ miào，jué dìng jìn qù guò yè。",
+          "translation": "One day, he passed an old temple where no one lived and decided to stay the night.",
           "vocabList": [
             {
               "word": "路过",
@@ -1483,10 +1455,10 @@
               "hskLevel": 4
             },
             {
-              "word": "荒凉",
-              "pinyin": "huāng liáng",
-              "translation": "desolate; bleak",
-              "hskLevel": 4
+              "word": "古庙",
+              "pinyin": "gǔ miào",
+              "translation": "old temple",
+              "hskLevel": 0
             },
             {
               "word": "过夜",
@@ -1589,10 +1561,10 @@
           "translation": "Xiaoqian sighed and said, \"Actually I am a ghost, forced by a demon to harm you.\"",
           "vocabList": [
             {
-              "word": "叹气",
-              "pinyin": "tàn qì",
+              "word": "叹了口气",
+              "pinyin": "tàn le kǒu qì",
               "translation": "to sigh",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "其实",
@@ -1604,7 +1576,7 @@
               "word": "鬼",
               "pinyin": "guǐ",
               "translation": "ghost",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
@@ -1632,7 +1604,7 @@
               "word": "剑客",
               "pinyin": "jiàn kè",
               "translation": "swordsman",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
@@ -1676,7 +1648,7 @@
               "word": "妖怪",
               "pinyin": "yāo guài",
               "translation": "demon; monster",
-              "hskLevel": 4
+              "hskLevel": 0
             },
             {
               "word": "杀",
@@ -1716,7 +1688,7 @@
               "word": "安葬",
               "pinyin": "ān zàng",
               "translation": "to bury",
-              "hskLevel": 4
+              "hskLevel": 0
             }
           ]
         },
@@ -1772,6 +1744,1055 @@
               "word": "幸福",
               "pinyin": "xìng fú",
               "translation": "happy; blessed",
+              "hskLevel": 3
+            }
+          ]
+        }
+      ],
+      "intro": "An honest scholar stays in an old temple and meets a ghost girl who begs for his help. A love story across two worlds.",
+      "introZh": "一个好人在古庙里遇到了一个女鬼。"
+    },
+    {
+      "columnId": "ying_ning",
+      "title": "婴宁 · Ying Ning",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "宁",
+      "coverClass": "c6",
+      "intro": "A young scholar falls for a girl who laughs at everything. Behind her smile is a secret.",
+      "introZh": "一个爱笑的女孩，有一个很大的秘密。",
+      "cards": [
+        {
+          "id": "y_01",
+          "title": "01. 春天出门 | A Spring Outing",
+          "isFree": true,
+          "sentence": "春天到了，年轻人王子服出门去玩。",
+          "pinyin": "Chūntiān dào le, niánqīngrén Wáng Zǐfú chūmén qù wán.",
+          "translation": "Spring arrived, and the young man Wang Zifu went out to have some fun.",
+          "vocabList": [
+            {
+              "word": "春天",
+              "pinyin": "chūntiān",
+              "translation": "spring",
+              "hskLevel": 2
+            },
+            {
+              "word": "出门",
+              "pinyin": "chūmén",
+              "translation": "to go out",
+              "hskLevel": 3
+            },
+            {
+              "word": "玩",
+              "pinyin": "wán",
+              "translation": "to have fun; to play",
+              "hskLevel": 2
+            }
+          ]
+        },
+        {
+          "id": "y_02",
+          "title": "02. 笑着的女孩 | A Smiling Girl",
+          "isFree": true,
+          "sentence": "路上，他看见一个漂亮的女孩，手里拿着一朵花，对他笑了笑。",
+          "pinyin": "Lùshang, tā kànjiàn yí ge piàoliang de nǚhái, shǒu lǐ názhe yì duǒ huā, duì tā xiào le xiào.",
+          "translation": "On the road he saw a pretty girl with a flower in her hand. She smiled at him.",
+          "vocabList": [
+            {
+              "word": "漂亮",
+              "pinyin": "piàoliang",
+              "translation": "pretty",
+              "hskLevel": 2
+            },
+            {
+              "word": "朵",
+              "pinyin": "duǒ",
+              "translation": "measure word for flowers",
+              "hskLevel": 4
+            },
+            {
+              "word": "笑",
+              "pinyin": "xiào",
+              "translation": "to smile; to laugh",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "y_03",
+          "title": "03. 掉下的花 | The Dropped Flower",
+          "isFree": true,
+          "sentence": "女孩走远了，那朵花掉在地上，王子服把它捡了起来。",
+          "pinyin": "Nǚhái zǒu yuǎn le, nà duǒ huā diào zài dìshang, Wáng Zǐfú bǎ tā jiǎn le qǐlái.",
+          "translation": "The girl walked far away. The flower fell on the ground, and Wang Zifu picked it up.",
+          "vocabList": [
+            {
+              "word": "远",
+              "pinyin": "yuǎn",
+              "translation": "far",
+              "hskLevel": 2
+            },
+            {
+              "word": "掉",
+              "pinyin": "diào",
+              "translation": "to fall; to drop",
+              "hskLevel": 4
+            },
+            {
+              "word": "捡",
+              "pinyin": "jiǎn",
+              "translation": "to pick up",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "y_04",
+          "title": "04. 想病了 | Lovesick",
+          "isFree": true,
+          "sentence": "回到家，他天天想那个女孩，吃不下，睡不好，最后生病了。",
+          "pinyin": "Huí dào jiā, tā tiāntiān xiǎng nà ge nǚhái, chī bu xià, shuì bu hǎo, zuìhòu shēngbìng le.",
+          "translation": "Back home, he thought about the girl every day. He couldn't eat or sleep well, and in the end he fell ill.",
+          "vocabList": [
+            {
+              "word": "天天",
+              "pinyin": "tiāntiān",
+              "translation": "every day",
+              "hskLevel": 3
+            },
+            {
+              "word": "最后",
+              "pinyin": "zuìhòu",
+              "translation": "finally; at last",
+              "hskLevel": 3
+            },
+            {
+              "word": "生病",
+              "pinyin": "shēngbìng",
+              "translation": "to get sick",
+              "hskLevel": 2
+            }
+          ]
+        },
+        {
+          "id": "y_05",
+          "title": "05. 表哥来了 | His Cousin Helps",
+          "isFree": false,
+          "sentence": "表哥来看他，问清楚了原因，答应帮他去找那个女孩。",
+          "pinyin": "Biǎogē lái kàn tā, wèn qīngchu le yuányīn, dāying bāng tā qù zhǎo nà ge nǚhái.",
+          "translation": "His cousin came to see him, found out what was wrong, and promised to help him look for the girl.",
+          "vocabList": [
+            {
+              "word": "表哥",
+              "pinyin": "biǎogē",
+              "translation": "older male cousin",
+              "hskLevel": 0
+            },
+            {
+              "word": "原因",
+              "pinyin": "yuányīn",
+              "translation": "reason",
+              "hskLevel": 3
+            },
+            {
+              "word": "答应",
+              "pinyin": "dāying",
+              "translation": "to promise; to agree",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "y_06",
+          "title": "06. 山里的村子 | A Village in the Hills",
+          "isFree": false,
+          "sentence": "他们在山里的一个小村子里，又看见了那个爱笑的女孩。",
+          "pinyin": "Tāmen zài shān lǐ de yí ge xiǎo cūnzi lǐ, yòu kànjiàn le nà ge ài xiào de nǚhái.",
+          "translation": "In a small village in the hills, they saw the girl who loved to laugh once again.",
+          "vocabList": [
+            {
+              "word": "山",
+              "pinyin": "shān",
+              "translation": "mountain; hill",
+              "hskLevel": 2
+            },
+            {
+              "word": "村子",
+              "pinyin": "cūnzi",
+              "translation": "village",
+              "hskLevel": 4
+            },
+            {
+              "word": "又",
+              "pinyin": "yòu",
+              "translation": "again",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "y_07",
+          "title": "07. 她叫婴宁 | Her Name Is Yingning",
+          "isFree": false,
+          "sentence": "女孩说：“我叫婴宁，只有一位老妈妈照顾我。”",
+          "pinyin": "Nǚhái shuō: “Wǒ jiào Yīngníng, zhǐyǒu yí wèi lǎo māma zhàogù wǒ.”",
+          "translation": "The girl said, “My name is Yingning. Only an old lady takes care of me.”",
+          "vocabList": [
+            {
+              "word": "叫",
+              "pinyin": "jiào",
+              "translation": "to be called",
+              "hskLevel": 1
+            },
+            {
+              "word": "只有",
+              "pinyin": "zhǐyǒu",
+              "translation": "only",
+              "hskLevel": 3
+            },
+            {
+              "word": "照顾",
+              "pinyin": "zhàogù",
+              "translation": "to take care of",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "y_08",
+          "title": "08. 爱笑的新娘 | A Bride Who Laughs",
+          "isFree": false,
+          "sentence": "结婚那天，婴宁一直笑个不停，大家也都笑了。",
+          "pinyin": "Jiéhūn nà tiān, Yīngníng yìzhí xiào ge bù tíng, dàjiā yě dōu xiào le.",
+          "translation": "On the wedding day, Yingning kept laughing and couldn't stop, and everyone laughed too.",
+          "vocabList": [
+            {
+              "word": "结婚",
+              "pinyin": "jiéhūn",
+              "translation": "to get married",
+              "hskLevel": 3
+            },
+            {
+              "word": "一直",
+              "pinyin": "yìzhí",
+              "translation": "continuously; all along",
+              "hskLevel": 3
+            },
+            {
+              "word": "不停",
+              "pinyin": "bù tíng",
+              "translation": "nonstop",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "y_09",
+          "title": "09. 满院的花 | A Yard Full of Flowers",
+          "isFree": false,
+          "sentence": "她最爱花，在院子里种了很多很多花。",
+          "pinyin": "Tā zuì ài huā, zài yuànzi lǐ zhòng le hěn duō hěn duō huā.",
+          "translation": "She loved flowers most of all and planted lots and lots of them in the yard.",
+          "vocabList": [
+            {
+              "word": "爱",
+              "pinyin": "ài",
+              "translation": "to love",
+              "hskLevel": 2
+            },
+            {
+              "word": "院子",
+              "pinyin": "yuànzi",
+              "translation": "yard",
+              "hskLevel": 4
+            },
+            {
+              "word": "种",
+              "pinyin": "zhòng",
+              "translation": "to plant",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "y_10",
+          "title": "10. 邻居的麻烦 | Trouble Next Door",
+          "isFree": false,
+          "sentence": "邻居家的儿子想对婴宁做坏事，结果自己受伤了。",
+          "pinyin": "Línjū jiā de érzi xiǎng duì Yīngníng zuò huàishì, jiéguǒ zìjǐ shòushāng le.",
+          "translation": "The neighbor's son tried to do something bad to Yingning, and ended up getting hurt himself.",
+          "vocabList": [
+            {
+              "word": "邻居",
+              "pinyin": "línjū",
+              "translation": "neighbor",
+              "hskLevel": 3
+            },
+            {
+              "word": "坏事",
+              "pinyin": "huàishì",
+              "translation": "bad deed",
+              "hskLevel": 4
+            },
+            {
+              "word": "受伤",
+              "pinyin": "shòushāng",
+              "translation": "to get hurt",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "y_11",
+          "title": "11. 说出秘密 | The Secret",
+          "isFree": false,
+          "sentence": "婴宁哭着说出了秘密：她小时候，是一位鬼妈妈养大了她。",
+          "pinyin": "Yīngníng kūzhe shuōchū le mìmì: tā xiǎoshíhou, shì yí wèi guǐ māma yǎng dà le tā.",
+          "translation": "Crying, Yingning told her secret: when she was little, a ghost mother had raised her.",
+          "vocabList": [
+            {
+              "word": "秘密",
+              "pinyin": "mìmì",
+              "translation": "secret",
+              "hskLevel": 4
+            },
+            {
+              "word": "小时候",
+              "pinyin": "xiǎoshíhou",
+              "translation": "when (one) was young",
+              "hskLevel": 3
+            },
+            {
+              "word": "鬼",
+              "pinyin": "guǐ",
+              "translation": "ghost",
+              "hskLevel": 0
+            }
+          ]
+        },
+        {
+          "id": "y_12",
+          "title": "12. 回山安葬 | Going Home",
+          "isFree": false,
+          "sentence": "王子服陪她回山里，安葬了鬼妈妈，后来他们一家人很幸福。",
+          "pinyin": "Wáng Zǐfú péi tā huí shān lǐ, ānzàng le guǐ māma, hòulái tāmen yì jiārén hěn xìngfú.",
+          "translation": "Wang Zifu went with her back to the hills and laid the ghost mother to rest. Afterwards, the family lived happily.",
+          "vocabList": [
+            {
+              "word": "陪",
+              "pinyin": "péi",
+              "translation": "to accompany",
+              "hskLevel": 4
+            },
+            {
+              "word": "安葬",
+              "pinyin": "ānzàng",
+              "translation": "to bury (with ceremony)",
+              "hskLevel": 0
+            },
+            {
+              "word": "幸福",
+              "pinyin": "xìngfú",
+              "translation": "happy; blessed",
+              "hskLevel": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "qing_feng",
+      "title": "青凤 · Qing Feng",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "凤",
+      "coverClass": "c7",
+      "intro": "A brave young man moves into a haunted house and meets a fox girl. Kindness brings them together again.",
+      "introZh": "他住进一座有鬼的房子，遇到了一位特别的姑娘。",
+      "cards": [
+        {
+          "id": "q_01",
+          "title": "01. 有鬼的大宅 | The Haunted House",
+          "isFree": true,
+          "sentence": "耿去病家有一座大房子，很多年没有人敢住，说里面有鬼。",
+          "pinyin": "Gěng Qùbìng jiā yǒu yí zuò dà fángzi, hěn duō nián méiyǒu rén gǎn zhù, shuō lǐmiàn yǒu guǐ.",
+          "translation": "Geng Qubing's family had a big house that no one had dared to live in for many years. People said it had ghosts.",
+          "vocabList": [
+            {
+              "word": "座",
+              "pinyin": "zuò",
+              "translation": "measure word for buildings",
+              "hskLevel": 3
+            },
+            {
+              "word": "敢",
+              "pinyin": "gǎn",
+              "translation": "to dare",
+              "hskLevel": 4
+            },
+            {
+              "word": "鬼",
+              "pinyin": "guǐ",
+              "translation": "ghost",
+              "hskLevel": 0
+            }
+          ]
+        },
+        {
+          "id": "q_02",
+          "title": "02. 夜里的声音 | Sounds at Night",
+          "isFree": true,
+          "sentence": "耿去病不怕，一个人住进去，半夜听到房子里有说话的声音。",
+          "pinyin": "Gěng Qùbìng bú pà, yí ge rén zhù jìnqù, bànyè tīngdào fángzi lǐ yǒu shuōhuà de shēngyīn.",
+          "translation": "Geng Qubing wasn't afraid. He moved in alone, and in the middle of the night he heard voices in the house.",
+          "vocabList": [
+            {
+              "word": "怕",
+              "pinyin": "pà",
+              "translation": "to be afraid",
+              "hskLevel": 3
+            },
+            {
+              "word": "半夜",
+              "pinyin": "bànyè",
+              "translation": "midnight",
+              "hskLevel": 4
+            },
+            {
+              "word": "声音",
+              "pinyin": "shēngyīn",
+              "translation": "sound; voice",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_03",
+          "title": "03. 院子里的姑娘 | A Girl in the Yard",
+          "isFree": true,
+          "sentence": "一天晚上，他看见院子里有一位姑娘，正在看月亮。",
+          "pinyin": "Yì tiān wǎnshang, tā kànjiàn yuànzi lǐ yǒu yí wèi gūniang, zhèngzài kàn yuèliang.",
+          "translation": "One evening he saw a girl in the yard, looking at the moon.",
+          "vocabList": [
+            {
+              "word": "院子",
+              "pinyin": "yuànzi",
+              "translation": "yard",
+              "hskLevel": 4
+            },
+            {
+              "word": "姑娘",
+              "pinyin": "gūniang",
+              "translation": "girl; young woman",
+              "hskLevel": 3
+            },
+            {
+              "word": "月亮",
+              "pinyin": "yuèliang",
+              "translation": "moon",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_04",
+          "title": "04. 安静地看 | Watching Quietly",
+          "isFree": true,
+          "sentence": "耿去病怕吓到她，就安静地站在旁边，看了很久。",
+          "pinyin": "Gěng Qùbìng pà xià dào tā, jiù ānjìng de zhàn zài pángbiān, kàn le hěn jiǔ.",
+          "translation": "Geng Qubing was afraid of scaring her, so he stood quietly nearby and watched for a long time.",
+          "vocabList": [
+            {
+              "word": "吓",
+              "pinyin": "xià",
+              "translation": "to scare",
+              "hskLevel": 3
+            },
+            {
+              "word": "安静",
+              "pinyin": "ānjìng",
+              "translation": "quiet",
+              "hskLevel": 3
+            },
+            {
+              "word": "旁边",
+              "pinyin": "pángbiān",
+              "translation": "beside",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_05",
+          "title": "05. 老人出现 | An Old Man Appears",
+          "isFree": false,
+          "sentence": "突然，一位老人走了出来，生气地问：“你是谁？这里是我们的家！”",
+          "pinyin": "Tūrán, yí wèi lǎorén zǒu le chūlái, shēngqì de wèn: “Nǐ shì shéi? Zhèlǐ shì wǒmen de jiā!”",
+          "translation": "Suddenly an old man walked out and asked angrily, “Who are you? This is our home!”",
+          "vocabList": [
+            {
+              "word": "突然",
+              "pinyin": "tūrán",
+              "translation": "suddenly",
+              "hskLevel": 3
+            },
+            {
+              "word": "老人",
+              "pinyin": "lǎorén",
+              "translation": "old person",
+              "hskLevel": 3
+            },
+            {
+              "word": "生气",
+              "pinyin": "shēngqì",
+              "translation": "angry",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_06",
+          "title": "06. 有礼貌的回答 | A Polite Answer",
+          "isFree": false,
+          "sentence": "耿去病很有礼貌地说：“对不起，我不是坏人，只是喜欢这里。”",
+          "pinyin": "Gěng Qùbìng hěn yǒu lǐmào de shuō: “Duìbuqǐ, wǒ bú shì huàirén, zhǐshì xǐhuan zhèlǐ.”",
+          "translation": "Geng Qubing said politely, “Sorry. I'm not a bad person. I just like it here.”",
+          "vocabList": [
+            {
+              "word": "礼貌",
+              "pinyin": "lǐmào",
+              "translation": "polite; manners",
+              "hskLevel": 4
+            },
+            {
+              "word": "对不起",
+              "pinyin": "duìbuqǐ",
+              "translation": "sorry",
+              "hskLevel": 1
+            },
+            {
+              "word": "坏人",
+              "pinyin": "huàirén",
+              "translation": "bad person",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_07",
+          "title": "07. 狐狸一家 | A Family of Foxes",
+          "isFree": false,
+          "sentence": "老人看了他很久，才说：“其实，我们是狐狸，在这里住了很多年。”",
+          "pinyin": "Lǎorén kàn le tā hěn jiǔ, cái shuō: “Qíshí, wǒmen shì húli, zài zhèlǐ zhù le hěn duō nián.”",
+          "translation": "The old man looked at him for a long time, then said, “Actually, we are foxes. We have lived here for many years.”",
+          "vocabList": [
+            {
+              "word": "其实",
+              "pinyin": "qíshí",
+              "translation": "actually",
+              "hskLevel": 3
+            },
+            {
+              "word": "狐狸",
+              "pinyin": "húli",
+              "translation": "fox",
+              "hskLevel": 0
+            },
+            {
+              "word": "才",
+              "pinyin": "cái",
+              "translation": "only then",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_08",
+          "title": "08. 搬走了 | Moving Away",
+          "isFree": false,
+          "sentence": "老人怕有麻烦，第二天就带着青凤搬走了。",
+          "pinyin": "Lǎorén pà yǒu máfan, dì-èr tiān jiù dàizhe Qīngfèng bān zǒu le.",
+          "translation": "The old man worried about trouble, so the next day he took Qingfeng and moved away.",
+          "vocabList": [
+            {
+              "word": "麻烦",
+              "pinyin": "máfan",
+              "translation": "trouble",
+              "hskLevel": 4
+            },
+            {
+              "word": "搬",
+              "pinyin": "bān",
+              "translation": "to move (house)",
+              "hskLevel": 4
+            },
+            {
+              "word": "带",
+              "pinyin": "dài",
+              "translation": "to take along",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_09",
+          "title": "09. 想念青凤 | Missing Qingfeng",
+          "isFree": false,
+          "sentence": "耿去病每天都想念青凤，常常一个人坐在院子里，不吃饭。",
+          "pinyin": "Gěng Qùbìng měi tiān dōu xiǎngniàn Qīngfèng, chángcháng yí ge rén zuò zài yuànzi lǐ, bù chī fàn.",
+          "translation": "Geng Qubing missed Qingfeng every day. He often sat alone in the yard and wouldn't eat.",
+          "vocabList": [
+            {
+              "word": "想念",
+              "pinyin": "xiǎngniàn",
+              "translation": "to miss",
+              "hskLevel": 4
+            },
+            {
+              "word": "常常",
+              "pinyin": "chángcháng",
+              "translation": "often",
+              "hskLevel": 3
+            },
+            {
+              "word": "院子",
+              "pinyin": "yuànzi",
+              "translation": "yard",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "q_10",
+          "title": "10. 追赶 | The Chase",
+          "isFree": false,
+          "sentence": "一天，他在外面看见一群狗在追一只小狐狸，小狐狸很害怕。",
+          "pinyin": "Yì tiān, tā zài wàimian kànjiàn yì qún gǒu zài zhuī yì zhī xiǎo húli, xiǎo húli hěn hàipà.",
+          "translation": "One day, outside, he saw a pack of dogs chasing a little fox. The little fox was terrified.",
+          "vocabList": [
+            {
+              "word": "群",
+              "pinyin": "qún",
+              "translation": "group; pack",
+              "hskLevel": 4
+            },
+            {
+              "word": "追",
+              "pinyin": "zhuī",
+              "translation": "to chase",
+              "hskLevel": 4
+            },
+            {
+              "word": "害怕",
+              "pinyin": "hàipà",
+              "translation": "to be afraid",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "q_11",
+          "title": "11. 救下小狐狸 | The Rescue",
+          "isFree": false,
+          "sentence": "耿去病马上跑过去，把小狐狸抱了起来，大声赶走了那些狗。",
+          "pinyin": "Gěng Qùbìng mǎshàng pǎo guòqù, bǎ xiǎo húli bào le qǐlái, dàshēng gǎnzǒu le nàxiē gǒu.",
+          "translation": "Geng Qubing ran over at once, picked up the little fox, and shouted the dogs away.",
+          "vocabList": [
+            {
+              "word": "马上",
+              "pinyin": "mǎshàng",
+              "translation": "at once",
+              "hskLevel": 3
+            },
+            {
+              "word": "抱",
+              "pinyin": "bào",
+              "translation": "to hold in one's arms",
+              "hskLevel": 4
+            },
+            {
+              "word": "赶走",
+              "pinyin": "gǎnzǒu",
+              "translation": "to drive away",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "q_12",
+          "title": "12. 团圆 | Together Again",
+          "isFree": false,
+          "sentence": "回到家，小狐狸变成了青凤，两人高兴地住在了一起。",
+          "pinyin": "Huí dào jiā, xiǎo húli biàn chéng le Qīngfèng, liǎng ge rén gāoxìng de zhù zài le yìqǐ.",
+          "translation": "Back home, the little fox turned into Qingfeng, and the two happily lived together.",
+          "vocabList": [
+            {
+              "word": "变成",
+              "pinyin": "biàn chéng",
+              "translation": "to turn into",
+              "hskLevel": 4
+            },
+            {
+              "word": "高兴",
+              "pinyin": "gāoxìng",
+              "translation": "happy",
+              "hskLevel": 3
+            },
+            {
+              "word": "一起",
+              "pinyin": "yìqǐ",
+              "translation": "together",
+              "hskLevel": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "columnId": "hu_jia_nu",
+      "title": "狐嫁女 · The Fox's Wedding",
+      "hskRange": "HSK 3-4",
+      "totalCards": 12,
+      "freeCards": 4,
+      "cover": "嫁",
+      "coverClass": "c8",
+      "intro": "On a rainy night, a young man stumbles into a fox family's wedding party. Good manners are repaid with kindness.",
+      "introZh": "下雨的夜里，一个年轻人看到了狐狸的婚礼。",
+      "cards": [
+        {
+          "id": "f_01",
+          "title": "01. 雨夜 | A Rainy Night",
+          "isFree": true,
+          "sentence": "下雨了，年轻人殷天官跑进一座旧房子里，在地上睡着了。",
+          "pinyin": "Xià yǔ le, niánqīngrén Yīn Tiānguān pǎo jìn yí zuò jiù fángzi lǐ, zài dìshang shuìzháo le.",
+          "translation": "It started to rain. The young man Yin Tianguan ran into an old house and fell asleep on the floor.",
+          "vocabList": [
+            {
+              "word": "旧",
+              "pinyin": "jiù",
+              "translation": "old; used",
+              "hskLevel": 3
+            },
+            {
+              "word": "地上",
+              "pinyin": "dìshang",
+              "translation": "on the ground",
+              "hskLevel": 3
+            },
+            {
+              "word": "睡着",
+              "pinyin": "shuìzháo",
+              "translation": "to fall asleep",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "f_02",
+          "title": "02. 半夜的灯光 | Lights in the Dark",
+          "isFree": true,
+          "sentence": "半夜，他醒来了，看见房子里到处都是灯，非常亮。",
+          "pinyin": "Bànyè, tā xǐng lái le, kànjiàn fángzi lǐ dàochù dōu shì dēng, fēicháng liàng.",
+          "translation": "In the middle of the night he woke up and saw lamps everywhere in the house. It was very bright.",
+          "vocabList": [
+            {
+              "word": "醒",
+              "pinyin": "xǐng",
+              "translation": "to wake up",
+              "hskLevel": 4
+            },
+            {
+              "word": "到处",
+              "pinyin": "dàochù",
+              "translation": "everywhere",
+              "hskLevel": 3
+            },
+            {
+              "word": "亮",
+              "pinyin": "liàng",
+              "translation": "bright",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "f_03",
+          "title": "03. 客人来了 | Guests Arrive",
+          "isFree": true,
+          "sentence": "很多客人来了，他们穿着漂亮的衣服，高兴地说着话。",
+          "pinyin": "Hěn duō kèrén lái le, tāmen chuānzhe piàoliang de yīfu, gāoxìng de shuōzhe huà.",
+          "translation": "Many guests arrived, dressed in beautiful clothes and chatting happily.",
+          "vocabList": [
+            {
+              "word": "客人",
+              "pinyin": "kèrén",
+              "translation": "guest",
+              "hskLevel": 3
+            },
+            {
+              "word": "穿",
+              "pinyin": "chuān",
+              "translation": "to wear",
+              "hskLevel": 2
+            },
+            {
+              "word": "漂亮",
+              "pinyin": "piàoliang",
+              "translation": "pretty",
+              "hskLevel": 2
+            }
+          ]
+        },
+        {
+          "id": "f_04",
+          "title": "04. 今晚的喜事 | A Wedding Tonight",
+          "isFree": true,
+          "sentence": "他听见有人说：“今天晚上，老爷的女儿要结婚了！”",
+          "pinyin": "Tā tīngjiàn yǒu rén shuō: “Jīntiān wǎnshang, lǎoye de nǚ'ér yào jiéhūn le!”",
+          "translation": "He heard someone say, “Tonight the master's daughter is getting married!”",
+          "vocabList": [
+            {
+              "word": "听见",
+              "pinyin": "tīngjiàn",
+              "translation": "to hear",
+              "hskLevel": 3
+            },
+            {
+              "word": "老爷",
+              "pinyin": "lǎoye",
+              "translation": "master; lord",
+              "hskLevel": 0
+            },
+            {
+              "word": "结婚",
+              "pinyin": "jiéhūn",
+              "translation": "to get married",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "f_05",
+          "title": "05. 被发现了 | Found Out",
+          "isFree": false,
+          "sentence": "他想悄悄走开，却被一个人发现了，那个人大声叫了起来。",
+          "pinyin": "Tā xiǎng qiāoqiāo zǒu kāi, què bèi yí ge rén fāxiàn le, nà ge rén dàshēng jiào le qǐlái.",
+          "translation": "He tried to slip away quietly, but someone spotted him and shouted out loud.",
+          "vocabList": [
+            {
+              "word": "悄悄",
+              "pinyin": "qiāoqiāo",
+              "translation": "quietly",
+              "hskLevel": 4
+            },
+            {
+              "word": "却",
+              "pinyin": "què",
+              "translation": "but; yet",
+              "hskLevel": 4
+            },
+            {
+              "word": "发现",
+              "pinyin": "fāxiàn",
+              "translation": "to discover",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "f_06",
+          "title": "06. 主人的邀请 | An Invitation",
+          "isFree": false,
+          "sentence": "房子的主人笑着说：“别怕，请留下来，喝一杯喜酒吧！”",
+          "pinyin": "Fángzi de zhǔrén xiàozhe shuō: “Bié pà, qǐng liú xiàlái, hē yì bēi xǐjiǔ ba!”",
+          "translation": "The master of the house said with a smile, “Don't be afraid. Please stay and have a cup of wedding wine!”",
+          "vocabList": [
+            {
+              "word": "主人",
+              "pinyin": "zhǔrén",
+              "translation": "host; master",
+              "hskLevel": 3
+            },
+            {
+              "word": "留",
+              "pinyin": "liú",
+              "translation": "to stay; to remain",
+              "hskLevel": 4
+            },
+            {
+              "word": "喜酒",
+              "pinyin": "xǐjiǔ",
+              "translation": "wedding wine",
+              "hskLevel": 0
+            }
+          ]
+        },
+        {
+          "id": "f_07",
+          "title": "07. 热闹的婚礼 | A Lively Wedding",
+          "isFree": false,
+          "sentence": "婚礼上又唱又跳，非常热闹，新娘低着头，一句话也不说。",
+          "pinyin": "Hūnlǐ shàng yòu chàng yòu tiào, fēicháng rènao, xīnniáng dī zhe tóu, yí jù huà yě bù shuō.",
+          "translation": "At the wedding there was singing and dancing, and it was very lively. The bride kept her head down and said not a word.",
+          "vocabList": [
+            {
+              "word": "婚礼",
+              "pinyin": "hūnlǐ",
+              "translation": "wedding",
+              "hskLevel": 4
+            },
+            {
+              "word": "热闹",
+              "pinyin": "rènao",
+              "translation": "lively; bustling",
+              "hskLevel": 4
+            },
+            {
+              "word": "新娘",
+              "pinyin": "xīnniáng",
+              "translation": "bride",
+              "hskLevel": 0
+            }
+          ]
+        },
+        {
+          "id": "f_08",
+          "title": "08. 一起喝酒 | Drinking Together",
+          "isFree": false,
+          "sentence": "他喝了很多酒，觉得很开心，和大家一起聊天。",
+          "pinyin": "Tā hē le hěn duō jiǔ, juéde hěn kāixīn, hé dàjiā yìqǐ liáotiān.",
+          "translation": "He drank a lot of wine, felt very happy, and chatted with everyone.",
+          "vocabList": [
+            {
+              "word": "酒",
+              "pinyin": "jiǔ",
+              "translation": "alcohol; wine",
+              "hskLevel": 3
+            },
+            {
+              "word": "开心",
+              "pinyin": "kāixīn",
+              "translation": "happy",
+              "hskLevel": 3
+            },
+            {
+              "word": "聊天",
+              "pinyin": "liáotiān",
+              "translation": "to chat",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "f_09",
+          "title": "09. 送新娘 | The Bride Leaves",
+          "isFree": false,
+          "sentence": "天快亮了，新娘上了车，大家一起送她出门。",
+          "pinyin": "Tiān kuài liàng le, xīnniáng shàng le chē, dàjiā yìqǐ sòng tā chūmén.",
+          "translation": "Dawn was near. The bride got into the carriage, and everyone saw her off at the door.",
+          "vocabList": [
+            {
+              "word": "亮",
+              "pinyin": "liàng",
+              "translation": "bright; light (of dawn)",
+              "hskLevel": 4
+            },
+            {
+              "word": "送",
+              "pinyin": "sòng",
+              "translation": "to see (someone) off",
+              "hskLevel": 3
+            },
+            {
+              "word": "出门",
+              "pinyin": "chūmén",
+              "translation": "to go out",
+              "hskLevel": 3
+            }
+          ]
+        },
+        {
+          "id": "f_10",
+          "title": "10. 一只金杯 | A Golden Cup",
+          "isFree": false,
+          "sentence": "主人很感谢他，送给他一只金杯，说：“请收下吧！”",
+          "pinyin": "Zhǔrén hěn gǎnxiè tā, sòng gěi tā yì zhī jīnbēi, shuō: “Qǐng shōuxià ba!”",
+          "translation": "The master thanked him warmly and gave him a golden cup, saying, “Please accept it!”",
+          "vocabList": [
+            {
+              "word": "感谢",
+              "pinyin": "gǎnxiè",
+              "translation": "to thank",
+              "hskLevel": 3
+            },
+            {
+              "word": "金杯",
+              "pinyin": "jīnbēi",
+              "translation": "golden cup",
+              "hskLevel": 0
+            },
+            {
+              "word": "收",
+              "pinyin": "shōu",
+              "translation": "to accept; to receive",
+              "hskLevel": 4
+            }
+          ]
+        },
+        {
+          "id": "f_11",
+          "title": "11. 天亮以后 | At Daybreak",
+          "isFree": false,
+          "sentence": "天亮了，旧房子里一个人也没有，只有金杯还在桌子上。",
+          "pinyin": "Tiān liàng le, jiù fángzi lǐ yí ge rén yě méiyǒu, zhǐyǒu jīnbēi hái zài zhuōzi shàng.",
+          "translation": "At daybreak there was no one in the old house. Only the golden cup was still on the table.",
+          "vocabList": [
+            {
+              "word": "只有",
+              "pinyin": "zhǐyǒu",
+              "translation": "only",
+              "hskLevel": 3
+            },
+            {
+              "word": "桌子",
+              "pinyin": "zhuōzi",
+              "translation": "table",
+              "hskLevel": 1
+            },
+            {
+              "word": "金杯",
+              "pinyin": "jīnbēi",
+              "translation": "golden cup",
+              "hskLevel": 0
+            }
+          ]
+        },
+        {
+          "id": "f_12",
+          "title": "12. 狐狸朋友 | Fox Friends",
+          "isFree": false,
+          "sentence": "后来，每次他遇到困难，都有人帮他，原来是那些狐狸朋友。",
+          "pinyin": "Hòulái, měi cì tā yùdào kùnnan, dōu yǒu rén bāng tā, yuánlái shì nàxiē húli péngyou.",
+          "translation": "Later, whenever he ran into difficulty, someone helped him. It turned out to be those fox friends.",
+          "vocabList": [
+            {
+              "word": "困难",
+              "pinyin": "kùnnan",
+              "translation": "difficulty",
+              "hskLevel": 3
+            },
+            {
+              "word": "每次",
+              "pinyin": "měi cì",
+              "translation": "every time",
+              "hskLevel": 3
+            },
+            {
+              "word": "原来",
+              "pinyin": "yuánlái",
+              "translation": "it turns out",
               "hskLevel": 3
             }
           ]

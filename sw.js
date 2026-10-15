@@ -1,16 +1,18 @@
 // HanLingo Service Worker
-const CACHE_NAME = 'hanlingo-v3';
+const CACHE_NAME = 'hanlingo-v4';
 const APP_SHELL = [
   './',
   'index.html',
   'styles.css',
   'app.js',
-  'huapi_cards.json',
+  'stories.json',
+  'stories-data.js',
   'manifest.json',
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/apple-touch-icon.png',
-  'icons/favicon-32.png'
+  'icons/favicon-32.png',
+  'icons/logo.jpg'
 ];
 
 // Install: cache the shell. Each file is added separately so one missing icon doesn't fail the install.
