@@ -677,6 +677,12 @@
       seal: '常',
       highlight: 'Modern life, expressed with advanced Mandarin.',
       description: 'Explore thirteen story packs on relationships, wellbeing, culture, and more with HSK 5–6 language.'
+    } : advancedStories && state.currentCategory === 'business' ? {
+      title: 'Advanced Business & Workplace',
+      vertical: '商',
+      seal: '务',
+      highlight: 'Strategic, polished Mandarin for the modern workplace.',
+      description: 'Explore eight advanced packs on markets, investment, negotiation, talent, leadership, and crisis communication.'
     } : CATEGORY_META[state.currentCategory] || CATEGORY_META.strange;
     const titleEl = document.getElementById('hero-title');
     const subEl = document.querySelector('#view-learn .hero .sub');
@@ -731,6 +737,20 @@
               h('span', { class: 'tag pro' }, 'Pro'))));
       }));
     $('#soon').hidden = true;
+  }
+
+  function syncCategoryWithLevel() {
+    const hasStories = (category) => state.stories.some((story) =>
+      (story.category || 'strange') === category &&
+      (story.hskRange || 'HSK 3-4') === state.settings.hsk);
+    if (!hasStories(state.currentCategory)) {
+      const preferredCategories = state.settings.hsk === 'HSK 1-2'
+        ? ['business', 'daily', 'strange']
+        : ['strange', 'daily', 'business'];
+      state.currentCategory = preferredCategories.find(hasStories) || 'strange';
+    }
+    document.querySelectorAll('.tab').forEach((tab) =>
+      tab.setAttribute('aria-selected', String(tab.dataset.cat === state.currentCategory)));
   }
 
   /* ---------- Overlays ---------- */
@@ -892,6 +912,7 @@
     $('#hsk').addEventListener('change', (e) => {
       state.settings.hsk = e.target.value;
       saveSettings();
+      syncCategoryWithLevel();
       renderStream();
     });
     $('#pro-btn').addEventListener('click', () => (state.pro ? show('profile') : openPaywall()));
@@ -918,6 +939,7 @@
     if (!state.stories.length) {
       $('#view-learn').append(h('p', { class: 'empty' }, 'Could not load stories. Check the files and reload.'));
     }
+    syncCategoryWithLevel();
     renderCategoryHero();
     renderStream();
     if ('serviceWorker' in navigator) {
