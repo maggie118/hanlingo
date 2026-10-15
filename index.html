@@ -16,12 +16,13 @@
 <meta name="apple-mobile-web-app-title" content="HanLingo">
 
 <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
 <header class="header">
   <div class="wrap">
-    <span class="logo">HanLingo</span>
+    <span class="logo"><img class="logo-img" src="icons/logo.jpg" alt="" width="40" height="40">HanLingo</span>
     <label for="hsk" hidden>HSK level</label>
     <select id="hsk" class="hsk">
       <option>HSK 1-2</option>
@@ -37,17 +38,22 @@
   <div id="view-learn">
     <section class="hero" aria-labelledby="hero-title">
       <div>
-        <h1 id="hero-title">聊斋志异 · Liaozhai Tales</h1>
+        <h1 id="hero-title">Liaozhai Tales</h1>
         <p class="sub">Strange tales from a Chinese studio — retold sentence by sentence for HSK 3-4.</p>
         <ul class="meta">
           <li>HSK 3-4</li>
-          <li>5 Stories</li>
-          <li>60 Cards</li>
+          <li>8 Stories</li>
+          <li>96 Cards</li>
           <li class="free">Card 1-4 Free</li>
         </ul>
-        <button class="btn primary" type="button" data-open="0">Start Reading</button>
+        <button class="btn primary" type="button" data-goto="stories">Choose a Story</button>
       </div>
-      <div class="hero-title-v" aria-hidden="true">聊斋</div>
+      <div class="hero-title-stack" aria-hidden="true">
+        <div class="hero-title-v">聊斋</div>
+        <div class="seal">
+          <span class="seal-text">志异</span>
+        </div>
+      </div>
     </section>
 
     <div class="tabs" role="tablist" aria-label="Categories">
@@ -56,6 +62,7 @@
       <button class="tab" role="tab" aria-selected="false" data-cat="business">💼 Business</button>
     </div>
 
+    <h2 id="stories" class="section-title">Choose a story</h2>
     <section id="stream" class="stream"></section>
     <p id="soon" class="empty" hidden>New stories are on the way.</p>
   </div>
@@ -77,6 +84,16 @@
   </ul>
 </nav>
 
+<script src="stories-data.js"></script>
 <script src="app.js"></script>
+<script>
+/* Hero button: scroll to the story list instead of opening a story */
+document.querySelectorAll('[data-goto]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var t = document.getElementById(b.dataset.goto);
+    if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+</script>
 </body>
 </html>
