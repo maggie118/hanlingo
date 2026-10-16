@@ -1,9 +1,29 @@
 (() => {
   'use strict';
 
-  // Stripe Payment Link or your backend's Checkout-session endpoint.
-  // Leave empty for demo mode (the "Subscribe" button just unlocks locally).
-  const CHECKOUT_URL = '';
+  /* ================================================================
+   *  ⭐ 上线配置区 · LAUNCH CONFIG — 上线前只需在这里填
+   *  ================================================================
+   *  1) checkoutUrl   — Stripe Payment Link 或后端 checkout-session 端点。
+   *                     留空 = Demo 模式（"Subscribe" 本地解锁、不收费）。
+   *  2) pushApi/vapid — 每日金句推送服务器（部署见 push-server/README）。
+   *                     pushApi 填服务器域名后自动从 /api/keys 拉 VAPID；
+   *                     vapidPublic 仅作未部署时的兜底。
+   *  3) communityInvite — Exec Circle 私密社群邀请链接（members-only）。
+   *                     填任一个，已解锁会员点 "Join the Exec Circle" 直达；
+   *                     都留空则弹 Demo 提示。
+   *  ----------------------------------------------------------------
+   */
+  const LAUNCH = {
+    checkoutUrl: '',
+    pushApi: '',
+    vapidPublic: '',
+    communityInvite: { whatsapp: '', linkedin: '' }
+  };
+
+  // Internal aliases — do not edit below this line.
+  const CHECKOUT_URL = LAUNCH.checkoutUrl;
+  const COMMUNITY_INVITE = LAUNCH.communityInvite;
 
   const $ = (s) => document.querySelector(s);
   const store = {
@@ -43,8 +63,8 @@
     currentStoryTitle: '',
     currentStoryIdx: -1,
     currentStoryColumn: '',
-    currentCategory: 'strange',
-    currentLevel: 'HSK 1-2',
+    currentBoard: 'survival',
+    hidePinyin: false,
     stories: [],
     vocab: store.get('hanlingo_vocab', []),
     pro: store.get('hanlingo_pro', false),
@@ -118,22 +138,25 @@
   }
 
   /* ---------- Views & bottom nav ---------- */
-  const VIEWS = ['learn', 'reader', 'vocab', 'profile', 'premium'];
+  const VIEWS = ['learn', 'reader', 'vocab', 'profile', 'premium', 'community'];
 
   function show(view) {
     VIEWS.forEach((v) => { $('#view-' + v).hidden = v !== view; });
     document.body.classList.toggle('theme-premium', view === 'premium');
+    document.body.classList.toggle('theme-community', view === 'community');
     const tab = view === 'reader' ? 'learn' : view;
     document.querySelectorAll('.bottom-nav button').forEach((b) => {
       if (b.dataset.view === tab) b.setAttribute('aria-current', 'page');
       else b.removeAttribute('aria-current');
     });
     closeOverlays();
+    if (view === 'learn') renderDashboard();
     if (view === 'vocab') renderVocab();
     if (view === 'profile') renderProfile();
     if (view === 'premium') renderPremium();
-    // Deep-linkable hash for SEO landing views (#premium); reset to root when leaving it.
-    const target = view === 'premium' ? '#premium' : (location.hash === '#premium' ? '' : location.hash);
+    if (view === 'community') renderCommunity();
+    // Deep-linkable hash for SEO landing views (#premium / #community); reset to root when leaving it.
+    const target = view === 'premium' ? '#premium' : (view === 'community' ? '#community' : (location.hash === '#premium' || location.hash === '#community' ? '' : location.hash));
     if (location.hash !== target) {
       try { history.replaceState(null, '', location.pathname + location.search + target); } catch (e) { location.hash = target; }
     }
@@ -703,28 +726,61 @@
         }
         return h('span', { class: 'char-group' }, ...aligned.nodes);
       }));
-    const unalignedPinyin = !pinyinAlignment
-      ? h('p', { class: 'sentence-pinyin', lang: 'zh-Latn' }, c.pinyin)
-      : null;
 
     $('#view-reader').replaceChildren(
-      h('div', { class: 'reader' },
-        h('div', { class: 'r-top' },
-          h('button', { class: 'btn ghost', type: 'button', onclick: () => show('learn') }, 'Back'),
-          h('span', { class: 'count' }, `Card ${state.idx + 1} / ${total}`),
+      h('div', { class: 'cardflow' },
+        h('div', { class: 'cf-top' },
+          h('button', { class: 'cf-back', type: 'button', 'aria-label': 'Back', onclick: () => show('learn') }, '←'),
+          h('span', { class: 'cf-count' }, `${state.idx + 1} / ${total}`),
           h('span', { class: 'tag ' + (c.isFree ? 'free' : 'pro') }, c.isFree ? 'Free' : 'Pro')),
-        h('div', { class: 'bar' }, h('i', { style: `width:${((state.idx + 1) / total) * 100}%` })),
-        h('div', { class: 'r-title' }, c.title),
-        h('div', { class: 'card-subtitle' },
-          unalignedPinyin,
-          sentence,
-          h('p', { class: 'trans' }, c.translation),
-          c.grammarPoint ? h('p', { class: 'grammar-note' },
-            h('strong', {}, 'HSK 5–6 focus · '), c.grammarPoint) : null),
-        renderAudioPlayer(c),
-        h('div', { class: 'r-nav' },
-          h('button', { class: 'btn', type: 'button', disabled: state.idx === 0, onclick: () => go(state.idx - 1) }, 'Previous'),
-          h('button', { class: 'btn primary', type: 'button', onclick: () => (last ? show('learn') : go(state.idx + 1)) }, last ? 'Finish' : 'Next'))));
+        h('div', { class: 'cf-card', 'data-flip': '0', onclick: () => flipCard() },
+          h('div', { class: 'cf-inner' },
+            h('div', { class: 'cf-face cf-front' },
+              h('button', { class: 'cf-audio', type: 'button', 'aria-label': 'Play sentence', onclick: (e) => { e.stopPropagation(); speak(c.sentence); } }, '🔊'),
+              h('div', { class: 'cf-sentence', 'data-hidepy': state.hidePinyin ? '1' : '0' },
+                sentence,
+                h('p', { class: 'cf-pinyin' }, c.pinyin || '')),
+              h('button', { class: 'cf-pinyin-btn', type: 'button', onclick: (e) => { e.stopPropagation(); togglePinyin(); } },
+                state.hidePinyin ? 'Show pinyin' : 'Hide pinyin')),
+            h('div', { class: 'cf-face cf-back' },
+              h('p', { class: 'cf-trans' }, c.translation || ''),
+              (c.context || c.grammarPoint) ? h('div', { class: 'cf-context' },
+                h('span', { class: 'cf-context-label' }, 'Business / Cultural Context'),
+                h('p', {}, ...(c.context ? highlightCtx(c.context) : highlightZh(c.grammarPoint)))) : null,
+              h('p', { class: 'cf-hint' }, 'Tap to flip')))),
+        h('div', { class: 'cf-actions' },
+          h('button', { class: 'cf-btn star' + (isStarred(c.id) ? ' starred' : ''), type: 'button', onclick: () => markStar() }, '★ 错题本'),
+          h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '✓ 完成' : '✓ 已掌握 · Next'))));
+  }
+
+  function flipCard() {
+    const card = document.querySelector('.cf-card');
+    if (!card) return;
+    card.setAttribute('data-flip', card.getAttribute('data-flip') === '1' ? '0' : '1');
+  }
+  function togglePinyin() {
+    state.hidePinyin = !state.hidePinyin;
+    renderReader();
+  }
+  function highlightZh(text) {
+    return String(text).split(/([（(][^（）()]{1,24}[）)])/g)
+      .filter(Boolean)
+      .map((p) => (/^[（(]/.test(p) ? h('mark', {}, p) : p));
+  }
+  function highlightCtx(text) {
+    return String(text).split(/('[^']{2,60}'|"[^"]{2,60}")/g).filter(Boolean)
+      .map((p) => (/^['"]/.test(p) ? h('mark', {}, p) : p));
+  }
+  function loadStars() { try { return store.get('hanlingo_stars', {}); } catch (e) { return {}; } }
+  function saveStars(s) { store.set('hanlingo_stars', s); }
+  function isStarred(id) { return !!loadStars()[id]; }
+  function markStar() {
+    const id = state.cards[state.idx].id;
+    const stars = loadStars();
+    stars[id] = !stars[id];
+    saveStars(stars);
+    const b = document.querySelector('.cf-btn.star');
+    if (b) { b.classList.toggle('starred'); }
   }
 
   // Paywall gate: a locked card is never rendered, so its text never reaches the DOM.
@@ -782,12 +838,352 @@
     return state.access.level || state.access.theme.indexOf(cid) >= 0;
   }
 
+  const BOARD_CAT = { survival: 'daily', business: 'business', mastery: 'strange' };
+  const DAY_GOAL = { survival: 10, business: 5, mastery: 3 };
+  function dayGoal() { return DAY_GOAL[state.currentBoard] || 5; }
+
+  function dailyKey(d) { return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+  function dailyProgress() {
+    const now = new Date();
+    const key = dailyKey(now);
+    const rec = store.get('hanlingo_daily', {});
+    if (rec && rec.date === key) return rec;
+    return { date: key, count: 0 };
+  }
+  function recordDaily() {
+    const rec = dailyProgress();
+    rec.count += 1;
+    store.set('hanlingo_daily', rec);
+    if (rec.count === dayGoal()) maybeShowInstallBanner();
+  }
+  function maybeShowInstallBanner() {
+    if (document.getElementById('install-banner')) return;
+    if (store.get('hanlingo_install_dismiss', false) || store.get('hanlingo_installed', false)) return;
+    if ((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true) return;
+    const banner = h('div', { class: 'install-banner', id: 'install-banner' },
+      h('div', { class: 'install-banner-inner' },
+        h('div', { class: 'ib-art', 'aria-hidden': 'true' }),
+        h('div', { class: 'ib-copy' },
+          h('b', {}, 'Want to learn on the train?'),
+          h('span', {}, 'Add HanLingo to your Home Screen in 1-click. No download required.')),
+        h('button', { class: 'ib-btn', type: 'button', onclick: () => { dismissInstallBanner(true); installApp(); } }, 'Add'),
+        h('button', { class: 'ib-x', type: 'button', 'aria-label': 'Dismiss', onclick: () => dismissInstallBanner(false) }, '×')));
+    document.body.appendChild(banner);
+  }
+  function dismissInstallBanner(installed) {
+    store.set('hanlingo_install_dismiss', true);
+    if (installed) store.set('hanlingo_installed', true);
+    const b = document.getElementById('install-banner');
+    if (b) b.remove();
+  }
+  function todayQuote() {
+    const cat = BOARD_CAT[state.currentBoard];
+    const s = state.stories.find((x) => (x.category || 'strange') === cat && x.cards && x.cards.some((c) => c.isFree));
+    if (!s || !s.cards) return null;
+    return s.cards.find((x) => x.isFree) || s.cards[0] || null;
+  }
+  const VAPID_PUBLIC_KEY = LAUNCH.vapidPublic; // fallback; the push server's /api/keys is preferred
+  const PUSH_API = LAUNCH.pushApi; // push-server URL — set in LAUNCH above
+  function urlB64ToUint8Array(b64) {
+    const pad = '='.repeat((4 - (b64.length % 4)) % 4);
+    const base64 = (b64 + pad).replace(/-/g, '+').replace(/_/g, '/');
+    const raw = atob(base64);
+    return new Uint8Array([].map.call(raw, (ch) => ch.charCodeAt(0)));
+  }
+  function fetchVapidKey() {
+    if (!PUSH_API) return Promise.resolve(VAPID_PUBLIC_KEY);
+    return fetch(PUSH_API + '/api/keys')
+      .then((r) => r.text())
+      .then((k) => (k || '').trim() || VAPID_PUBLIC_KEY)
+      .catch(() => VAPID_PUBLIC_KEY);
+  }
+  function sendSubscription(sub) {
+    if (!PUSH_API) return;
+    fetch(PUSH_API + '/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) }).catch(() => {});
+  }
+  function enableDailyPush() {
+    if (!('Notification' in window)) return;
+    if (Notification.permission !== 'granted') {
+      Notification.requestPermission().then((perm) => { if (perm === 'granted') subscribeDailyPush(); });
+    } else subscribeDailyPush();
+  }
+  function subscribeDailyPush() {
+    if (!navigator.serviceWorker) return;
+    navigator.serviceWorker.ready.then((reg) => {
+      reg.pushManager.getSubscription().then((existing) => {
+        if (existing) { updatePushUI(true); return; }
+        fetchVapidKey().then((vapid) => {
+          const doSub = () => reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToUint8Array(vapid) })
+            .then((sub) => { store.set('hanlingo_push_sub', JSON.stringify(sub)); sendSubscription(sub); updatePushUI(true); showPreviewNotification(); })
+            .catch(() => { store.set('hanlingo_push_demo', true); updatePushUI(true); showPreviewNotification(); });
+          if (vapid) doSub(); else { store.set('hanlingo_push_demo', true); updatePushUI(true); showPreviewNotification(); }
+        });
+      });
+    });
+  }
+  function showPreviewNotification() {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    const q = todayQuote();
+    const body = q ? 'Good morning! Today\'s phrase: ' + q.sentence + '  —  ' + q.translation : 'Good morning! Today\'s phrase is ready.';
+    new Notification('HanLingo · Daily Phrase', { body, icon: 'icons/icon-192.png', badge: 'icons/favicon-32.png', tag: 'hanlingo-daily-preview' });
+  }
+  function updatePushUI(enabled) {
+    const st = $('#dp-state');
+    if (st) st.innerText = enabled ? '✅ Enabled — morning phrase at 8:30 SGT' : 'Off — get a morning sentence at 8:30 SGT, tuned to your level.';
+    const b = $('#dp-toggle');
+    if (b) b.innerText = enabled ? 'Manage' : 'Enable';
+  }
+  function svgRing(pct) {    const r = 34, c = 2 * Math.PI * r;
+    return h('svg', { class: 'ring', viewBox: '0 0 80 80', 'aria-hidden': 'true' },
+      h('circle', { cx: '40', cy: '40', r: String(r), fill: 'none', stroke: 'var(--line)', 'stroke-width': '7' }),
+      h('circle', { cx: '40', cy: '40', r: String(r), fill: 'none', stroke: 'var(--sage)', 'stroke-width': '7', 'stroke-linecap': 'round', 'stroke-dasharray': String(c), 'stroke-dashoffset': String(c * (1 - pct / 100)), transform: 'rotate(-90 40 40)' }));
+  }
+  function boardLabel() {
+    return state.currentBoard === 'survival' ? 'Daily Life' : (state.currentBoard === 'business' ? 'Corporate' : 'Elite');
+  }
+  function bumpStoryProgress() {
+    const col = state.currentStoryColumn; if (!col) return null;
+    const total = state.cards ? state.cards.length : 0;
+    const p = store.get('hanlingo_progress', {});
+    const e = p[col] || { completed: 0, total };
+    e.completed = Math.min(e.completed + 1, e.total || total);
+    e.total = total;
+    p[col] = e;
+    store.set('hanlingo_progress', p);
+    return e;
+  }
+  function boardPercent() {
+    const cat = BOARD_CAT[state.currentBoard];
+    const packs = state.stories.filter((s) => (s.category || 'strange') === cat);
+    const total = packs.reduce((a, s) => a + (s.cards ? s.cards.length : 0), 0);
+    const p = store.get('hanlingo_progress', {});
+    const done = packs.reduce((a, s) => a + ((p[s.columnId] || {}).completed || 0), 0);
+    return total ? Math.min(100, Math.round((done / total) * 100)) : 0;
+  }
+  function boardCapsuleStats(key) {
+    const k = key || state.currentBoard;
+    const cat = BOARD_CAT[k];
+    const packs = state.stories.filter((s) => (s.category || 'strange') === cat);
+    const p = store.get('hanlingo_progress', {});
+    const total = packs.length;
+    const done = packs.filter((s) => {
+      const e = p[s.columnId];
+      const t = (e && e.total) || (s.cards ? s.cards.length : 0);
+      return e && t && e.completed >= t;
+    }).length;
+    return { done, total };
+  }
+  function boardSentenceStats(key) {
+    const k = key || state.currentBoard;
+    const cat = BOARD_CAT[k];
+    const packs = state.stories.filter((s) => (s.category || 'strange') === cat);
+    const p = store.get('hanlingo_progress', {});
+    const total = packs.reduce((a, s) => a + (s.cards ? s.cards.length : 0), 0);
+    const done = packs.reduce((a, s) => a + ((p[s.columnId] || {}).completed || 0), 0);
+    return { done, total };
+  }
+  /* ---------- SRS spaced-repetition (Ebbinghaus) ---------- */
+  function srsGetAll() { return store.get('hanlingo_srs', {}); }
+  function srsSaveAll(m) { store.set('hanlingo_srs', m); }
+  function srsLearn(cardId) {
+    const m = srsGetAll();
+    const e = m[cardId] || { state: 'learning', interval: 1, reps: 0, next: 0 };
+    if (!e.state) { e.state = 'learning'; e.interval = 1; }
+    e.next = Date.now() + (e.interval * 86400000);
+    m[cardId] = e; srsSaveAll(m);
+  }
+  function srsRecall(cardId, recall) {
+    const m = srsGetAll();
+    const e = m[cardId] || { state: 'learning', interval: 1, reps: 0 };
+    const days = [3, 7, 30];
+    if (recall) {
+      e.reps = (e.reps || 0) + 1;
+      e.interval = days[Math.min(e.reps - 1, days.length - 1)] || 30;
+      e.state = e.reps >= 3 ? 'mastered' : 'review';
+    } else {
+      e.reps = 0; e.interval = 1; e.state = 'learning';
+    }
+    e.next = Date.now() + (e.interval * 86400000);
+    m[cardId] = e; srsSaveAll(m);
+  }
+  function srsDueCount() {
+    const m = srsGetAll(); const now = Date.now();
+    return Object.values(m).filter((e) => e.state !== 'mastered' && e.next <= now).length;
+  }
+  function findCardById(id) {
+    for (const s of state.stories) {
+      if (!s.cards) continue;
+      for (const c of s.cards) if (c.id === id) return { story: s, card: c };
+    }
+    return null;
+  }
+  function renderReview() {
+    const m = srsGetAll(); const now = Date.now();
+    const due = Object.entries(m).filter(([id, e]) => e.state !== 'mastered' && e.next <= now).map(([id, e]) => id);
+    if (!due.length) { const o = $('#review'); if (o) o.remove(); return; }
+    let ri = 0;
+    const overlay = h('div', { class: 'review', id: 'review' },
+      h('div', { class: 'review-card' }, h('p', { class: 'rc-progress' }, 'Review 1/' + due.length),
+        h('div', { class: 'rc-body', id: 'rc-body' }),
+        h('div', { class: 'rc-actions' },
+          h('button', { class: 'cf-btn rc-no', type: 'button', onclick: () => { srsRecall(due[ri], false); nextReview(); } }, 'Still Learning'),
+          h('button', { class: 'cf-btn rc-yes', type: 'button', onclick: () => { srsRecall(due[ri], true); nextReview(); } }, 'Got It'))));
+    function paint() {
+      const f = findCardById(due[ri]);
+      const body = overlay.querySelector('#rc-body');
+      if (!f || !body) { nextReview(); return; }
+      const c = f.card;
+      body.replaceChildren(
+        h('div', { class: 'rc-zh', lang: 'zh-CN' }, c.sentence),
+        c.pinyin ? h('div', { class: 'rc-pinyin' }, c.pinyin) : null,
+        h('div', { class: 'rc-en' }, c.translation || ''));
+      overlay.querySelector('.rc-progress').innerText = 'Review ' + (ri + 1) + '/' + due.length;
+    }
+    function nextReview() {
+      ri += 1;
+      if (ri >= due.length) { overlay.remove(); notifyReviewDone(); return; }
+      paint();
+    }
+    paint();
+    document.body.appendChild(overlay);
+  }
+  function notifyReviewDone() {
+    const d = h('div', { class: 'review-done' },
+      h('span', {}, '✅ Review complete'),
+      h('button', { class: 'ib-btn', type: 'button', onclick: () => d.remove() }, 'OK'));
+    document.body.appendChild(d);
+  }
+  function checkSrsReview() { if (srsDueCount() > 0) renderReview(); }
+  function maybeCelebrate() {
+    const col = state.currentStoryColumn; if (!col) return;
+    const total = state.cards ? state.cards.length : 0;
+    const p = store.get('hanlingo_progress', {});
+    const e = p[col];
+    if (!total || !e || e.completed < e.total) return;
+    showCelebrate(boardLabel(), boardCapsuleStats());
+  }
+  function showCelebrate(board, caps) {
+    if (document.getElementById('celebrate')) return;
+    const pct = caps.total ? Math.round((caps.done / caps.total) * 100) : 0;
+    const overlay = h('div', { class: 'celebrate', id: 'celebrate' },
+      h('div', { class: 'celebrate-card' },
+        h('div', { class: 'cel-badge' }, '✅'),
+        h('h2', {}, 'Capsule Complete!'),
+        h('p', {}, 'You\'ve unlocked ' + pct + '% of ' + board + ' Mandarin! (' + caps.done + '/' + caps.total + ' Capsules)'),
+        h('button', { class: 'ib-btn cel-btn', type: 'button', onclick: () => { const c = $('#celebrate'); if (c) c.remove(); } }, 'Keep Going')));
+    document.body.appendChild(overlay);
+  }
+  function capsuleBadge(s) {
+    const p = store.get('hanlingo_progress', {});
+    const e = p[s.columnId];
+    if (!e || !e.completed) return null;
+    const done = e.completed;
+    const total = e.total || (s.cards ? s.cards.length : 0);
+    const full = total && done >= total;
+    return h('span', { class: 'capsule-badge' + (full ? ' done' : '') }, full ? '✅ ' + total + '/' + total : done + '/' + total + ' 句');
+  }
+  function setBoardTabs(key) {
+    document.querySelectorAll('.board-tabs .tab').forEach((b) => {
+      b.setAttribute('aria-selected', b.dataset.board === key ? 'true' : 'false');
+    });
+  }
+  function renderDashboard() {
+    const dash = $('#dashboard');
+    if (!dash) return;
+    const goal = dayGoal();
+    const rec = dailyProgress();
+    const pct = Math.min(100, Math.round((rec.count / goal) * 100));
+    const remaining = Math.max(0, goal - rec.count);
+    const boards = [
+      { key: 'survival', icon: '🌏', title: 'Survival & Daily Life', level: 'HSK 1-3', mins: '≈3 min', scene: '点海底捞 · Grab司机 · 酒吧破冰', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
+      { key: 'business', icon: '💼', title: 'Business & Workplace Pro', level: 'HSK 4-6', mins: '≈5 min', scene: '跨境谈判 · 大厂黑话 · 拒劝酒', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
+      { key: 'mastery', icon: '👑', title: 'Mastery · Culture & Strategy', level: 'HSK 7-9', mins: '≈7 min', scene: '孙子兵法商战 · 高端晚宴', caps: boardCapsuleStats('mastery'), sent: boardSentenceStats('mastery') }
+    ];
+    const q = todayQuote();
+    dash.replaceChildren(
+      h('section', { class: 'dash' },
+        h('div', { class: 'dash-streak' },
+          h('div', { class: 'streak-ring' },
+            svgRing(pct),
+            h('div', { class: 'streak-num' }, h('b', {}, String(rec.count)), h('span', {}, '/ ' + goal + ' 句'))),
+          h('div', { class: 'streak-text' },
+            h('h2', {}, 'Today’s Progress'),
+            h('p', {}, remaining > 0 ? '今日还剩 ' + remaining + ' 句，保持连击 🔥' : '今日目标达成 🎉'))),
+        (srsDueCount() > 0 ? h('button', { class: 'dash-due', type: 'button', onclick: renderReview }, '🔁 ' + srsDueCount() + ' card' + (srsDueCount() > 1 ? 's' : '') + ' due for review — tap to recall') : null),
+        h('div', { class: 'dash-boards' },
+          boards.map((b) => h('button', { class: 'dash-board', type: 'button', onclick: () => {
+            state.currentBoard = b.key;
+            setBoardTabs(b.key);
+            renderStream();
+            const t = document.getElementById('stories');
+            if (t) t.scrollIntoView({ behavior: 'smooth' });
+          } },
+            h('span', { class: 'db-icon' }, b.icon),
+            h('div', {},
+              h('b', {}, b.title),
+              h('span', { class: 'db-level' }, b.level + ' · ' + b.mins),
+              h('span', { class: 'db-scene' }, b.scene),
+              h('span', { class: 'db-caps' },
+                h('i', { class: 'db-caps-fill', style: 'width:' + (b.sent.total ? Math.round((b.sent.done / b.sent.total) * 100) : 0) + '%' }),
+                h('em', {}, '已刷 ' + b.sent.done + '/' + b.sent.total + ' 句 · ' + b.caps.done + '/' + b.caps.total + ' Capsules')))))),
+        q ? h('div', { class: 'dash-quote', role: 'button', tabindex: '0', onclick: () => { const s = state.stories.find((x) => x.cards && x.cards[0] === q); if (s) { state.cards = s.cards; state.currentStoryIdx = state.stories.indexOf(s); state.idx = 0; renderIntro(s); show('reader'); } } },
+          h('span', { class: 'dq-label' }, 'Quote of the Day'),
+          h('p', { class: 'dq-zh', lang: 'zh-CN' }, q.sentence),
+          h('p', { class: 'dq-py' }, q.pinyin || ''),
+          h('p', { class: 'dq-en' }, q.translation || '')) : null,
+        h('div', { class: 'dash-push' },
+          h('div', { class: 'dp-copy' },
+            h('b', {}, '🔔 Daily Phrase Push'),
+            h('span', { class: 'dp-state', id: 'dp-state' }, 'Off — get a morning sentence at 8:30 SGT, tuned to your level.')),
+          h('div', { class: 'dp-actions' },
+            h('button', { class: 'ib-btn', id: 'dp-toggle', type: 'button', onclick: enableDailyPush }, 'Enable'),
+            h('button', { class: 'ib-btn dp-preview', type: 'button', onclick: showPreviewNotification }, 'Preview')))));
+  }
+
+  function renderSkeletons() {
+    const stream = $('#stream');
+    if (stream && !stream.children.length) {
+      stream.replaceChildren(...Array.from({ length: 4 }, () => h('div', { class: 'skeleton-card' },
+        h('div', { class: 'sk-cover' }),
+        h('div', { class: 'sk-lines' }, h('i', { class: 'sk-line w70' }), h('i', { class: 'sk-line w40' }), h('i', { class: 'sk-line w55' })))));
+    }
+    const dash = $('#dashboard');
+    if (dash && !dash.children.length) {
+      dash.replaceChildren(h('div', { class: 'skeleton-dash' },
+        h('div', { class: 'sk-block' }), h('div', { class: 'sk-block' }), h('div', { class: 'sk-block' })));
+    }
+  }
+
+  function modernPlay(s) {
+    const t = (s.title || '') + ' ' + (s.columnId || '') + ' ' + (s.introEn || '');
+    if (/art[-_ ]?of[-_ ]?war|孙子|battle|calculat/i.test(t)) return 'Modern: pre-flight competitive intel for founders';
+    if (/journey[-_ ]?west|西游|monkey king/i.test(t)) return 'Modern: turning the "impossible" into a growth story';
+    if (/liaozhai|聊斋/i.test(t)) return 'Modern: reading the unspoken at work & in society';
+    return 'Modern: apply this classic to today\'s deals & teams';
+  }
+  function classicPack(s, o) {
+    const zh = (s.title.split('·')[0] || '').trim();
+    const en = (s.title.split('·')[1] || s.title).trim();
+    const first = s.cards && s.cards[0];
+    const tag = o.isFree ? '🟢 FREE' : (o.locked ? '🔒 LEVEL PASS' : null);
+    return h('button', { class: 'pack classic' + (o.locked ? ' locked' : ''), type: 'button', onclick: () => (o.locked ? openPaywall('level') : openStory(o.storyIndex)) },
+      o.locked ? h('div', { class: 'blur-layer' }) : null,
+      tag ? h('span', { class: 'story-tag ' + (o.isFree ? 'free' : 'locked') }, tag) : null,
+      h('div', { class: 'classic-origin', lang: 'zh-CN' }, first ? first.sentence : zh),
+      h('div', { class: 'classic-copy' },
+        h('h3', {}, en),
+        (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
+        h('div', { class: 'tags' },
+          h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
+          h('span', { class: 'tag classic-modern' }, '⚔ ' + modernPlay(s)),
+          ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
+          o.isFree ? h('span', { class: 'tag free' }, '100% Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
+  }
+
   function renderStream() {
     const root = $('#stream');
     const visible = state.stories.filter((s) =>
-      (s.category || 'strange') !== 'business' &&
-      (s.category || 'strange') === state.currentCategory &&
-      (s.hskRange || 'HSK 3-4') === state.currentLevel);
+      (s.category || 'strange') === BOARD_CAT[state.currentBoard]);
     visible.sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
     if (!visible.length) {
       root.replaceChildren();
@@ -803,6 +1199,7 @@
         const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2';
         const locked = !isFree && !canOpenStory(s);
         const tag = isFree ? '🟢 FREE' : (locked ? '🔒 LEVEL PASS' : null);
+        if (state.currentBoard === 'mastery') return classicPack(s, { isFree, locked, storyIndex });
         return h('button', { class: 'pack' + (locked ? ' locked' : ''), type: 'button', onclick: () => (locked ? openPaywall('level') : openStory(storyIndex)) },
           locked ? h('div', { class: 'blur-layer' }) : null,
           tag ? h('span', { class: 'story-tag ' + (isFree ? 'free' : 'locked') }, tag) : null,
@@ -813,6 +1210,7 @@
             (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
             h('div', { class: 'tags' },
               h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
+              ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
               isFree ? h('span', { class: 'tag free' }, '100% Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
       }));
     $('#soon').hidden = true;
@@ -850,7 +1248,7 @@
           h('div', { class: 'premium-badge' }, 'Premium Business Chinese'),
           h('h1', {}, 'The Career Upskilling Pack'),
           h('p', { class: 'premium-sub' }, 'Master the unspoken rules of Chinese corporate communication. Turn language barriers into your ultimate global business leverage.'),
-          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · $59.99'),
+          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · S$199'),
           h('ul', { class: 'premium-trust' },
             h('li', {}, '✓ Expense-account friendly'),
             h('li', {}, '✓ First scenario free'),
@@ -935,12 +1333,58 @@
     $('#sheet').hidden = false;
   }
 
+  /* ---------- Community: members-only exec network ---------- */
+  function commCard(ic, t, d) {
+    return h('div', { class: 'comm-card' }, h('div', { class: 'cc-ic' }, ic), h('h4', {}, t), h('p', {}, d));
+  }
+  function renderCommunity() {
+    const access = store.get('hanlingo_access', { level: false, business: false, theme: [] });
+    const unlocked = access.business || (Array.isArray(access.theme) && access.theme.includes('lifetime'));
+    $('#view-community').replaceChildren(
+      h('div', { class: 'comm-wrap' },
+        h('p', { class: 'comm-kicker' }, 'MEMBERS-ONLY NETWORK'),
+        h('h1', { class: 'comm-title' }, 'The HanLingo Exec Circle'),
+        h('p', { class: 'comm-sub' }, 'More than a language app — a private network of professionals doing business across Asia.'),
+        h('div', { class: 'comm-grid' },
+          commCard('🌏', 'Cross-border Network', 'Connect with executives who actually do business in China, Singapore and beyond.'),
+          commCard('💬', 'Live Practice Room', 'Deploy the sentences you just learned in real conversations — not in a vacuum.'),
+          commCard('🎯', 'Weekly Scenario', 'Each week a real business prompt, e.g. “pitch your project using 3 new formulas”.'),
+          commCard('🔒', 'Private & Curated', 'Approval-only. No spam, no tourists — only serious professionals.')),
+        h('div', { class: 'comm-channel' },
+          h('h3', {}, 'Join where Asia actually talks'),
+          h('p', {}, 'A members-only WhatsApp group — the #1 channel for professionals in Singapore & SEA — with a curated LinkedIn Group for longer-form deal talk.'),
+          h('div', { class: 'ch-badges' },
+            h('span', { class: 'ch-badge ch-wa' }, '💬 WhatsApp Group'),
+            h('span', { class: 'ch-badge' }, '🔗 LinkedIn Group'))),
+        h('div', { class: 'comm-steps' },
+          h('h3', {}, 'How to get your invite'),
+          h('ol', {},
+            h('li', {}, 'Unlock Premium Business or Lifetime All-Access'),
+            h('li', {}, 'Verify your subscription (auto, one click)'),
+            h('li', {}, 'Receive your private WhatsApp invite link instantly')),
+          h('div', { class: 'comm-cta' },
+            unlocked
+              ? h('button', { class: 'btn primary', type: 'button', onclick: notifyCommunity }, 'Join the Exec Circle ↗')
+              : h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock the Exec Circle · from S$199')))),
+    );
+  }
+  function notifyCommunity() {
+    const wa = (COMMUNITY_INVITE.whatsapp || '').trim();
+    const li = (COMMUNITY_INVITE.linkedin || '').trim();
+    if (wa) { window.open(wa, '_blank', 'noopener'); return; }
+    if (li) { window.open(li, '_blank', 'noopener'); return; }
+    const n = h('div', { class: 'review-done' },
+      h('span', {}, '✅ Invite link not configured yet. (Fill LAUNCH.communityInvite at the top of app.js — the private WhatsApp/LinkedIn invite URL — and this button takes members straight to the group.)'),
+      h('button', { class: 'ib-btn', type: 'button', onclick: () => n.remove() }, 'OK'));
+    document.body.appendChild(n);
+  }
+
   function openPaywall(prefer) {
     if (prefer) state.plan = prefer;
     const plans = [
-      { key: 'level', label: 'Level Pass', price: '$19.99', detail: 'One-Time Payment', badge: 'FOR EXAM TAKERS', description: 'Unlock 1 specific HSK level completely (e.g. HSK 3–4). Master 200+ structural sentence formulas. Includes all Fun Stories & Daily Life inside this level. Premium Business excluded.', recommended: false },
-      { key: 'biz', label: 'Premium Business Pass', price: '$59.99', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across all levels (HSK 3–6). Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
-      { key: 'life', label: 'Lifetime All-Access', price: '$99.99', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
+      { key: 'level', label: 'Level Pass', price: 'S$69', detail: 'One-Time Payment', badge: 'FOR EXAM TAKERS', description: 'Unlock 1 specific HSK level completely (e.g. HSK 3–4). Master 200+ structural sentence formulas. Includes all Fun Stories & Daily Life inside this level. Premium Business excluded.', recommended: false },
+      { key: 'biz', label: 'Premium Business Pass', price: 'S$199', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across all levels (HSK 3–6). Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
+      { key: 'life', label: 'Lifetime All-Access', price: 'S$399', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
     ];
 
     const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans.find((plan) => plan.recommended) || plans[2];
@@ -1086,14 +1530,16 @@
     document.querySelectorAll('.tabs').forEach((group) => {
       group.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
         group.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
-        if (t.dataset.level) state.currentLevel = t.dataset.level;
-        if (t.dataset.cat) state.currentCategory = t.dataset.cat;
+        if (t.dataset.board) state.currentBoard = t.dataset.board;
         $('#stream').hidden = false;
         renderStream();
+        renderDashboard();
       }));
     });
     document.querySelectorAll('[data-nav="premium"]').forEach((b) =>
       b.addEventListener('click', () => show('premium')));
+    document.querySelectorAll('[data-nav="community"]').forEach((b) =>
+      b.addEventListener('click', () => show('community')));
     document.querySelectorAll('[data-nav="levels"]').forEach((b) =>
       b.addEventListener('click', () => {
         show('learn');
@@ -1107,12 +1553,45 @@
       setTimeout(() => b.classList.remove('speaking'), 900);
     }));
     $('#pro-btn').addEventListener('click', () => (state.pro ? show('profile') : openPaywall()));
+    $('#theme-toggle').addEventListener('click', () => { toggleTheme(); });
+    $('#nav-streak').addEventListener('click', () => { show('learn'); const s = document.getElementById('stories'); if (s) s.scrollIntoView({ behavior: 'smooth' }); });
     [$('#sheet'), $('#paywall')].forEach((o) => o.addEventListener('click', (e) => { if (e.target === o) closeOverlays(); }));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlays(); });
   }
 
+  /* ---------- Theme (manual light/dark toggle, remembers choice) ---------- */
+  function initTheme() {
+    const p = localStorage.getItem('hanlingo_theme');
+    let dark;
+    if (p === 'dark') dark = true;
+    else if (p === 'light') dark = false;
+    else dark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    const t = $('#theme-toggle');
+    if (t) { t.setAttribute('aria-pressed', dark ? 'true' : 'false'); t.innerText = dark ? '☾' : '☀'; t.title = dark ? 'Switch to light mode' : 'Switch to dark mode'; }
+  }
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') === 'dark';
+    localStorage.setItem('hanlingo_theme', cur ? 'light' : 'dark');
+    initTheme();
+  }
+  /* ---------- Navbar daily-progress streak ring ---------- */
+  function renderNavStreak() {
+    const el = $('#nav-streak'); if (!el) return;
+    const d = store.get('hanlingo_daily', { date: '', count: 0 });
+    const today = new Date().toISOString().slice(0, 10);
+    const count = d.date === today ? (d.count || 0) : 0;
+    const goal = dayGoal();
+    const pct = goal ? Math.min(1, count / goal) : 0;
+    const r = 11, c = 2 * Math.PI * r;
+    el.innerHTML = '<svg viewBox="0 0 28 28" width="26" height="26" aria-hidden="true"><circle cx="14" cy="14" r="' + r + '" fill="none" stroke="currentColor" stroke-opacity=".18" stroke-width="3"/><circle cx="14" cy="14" r="' + r + '" fill="none" stroke="var(--ochre)" stroke-width="3" stroke-linecap="round" stroke-dasharray="' + (pct * c) + ' ' + c + '" transform="rotate(-90 14 14)"/><text x="14" y="16" text-anchor="middle" font-size="8.5" fill="currentColor" font-family="Inter,sans-serif">' + Math.min(count, 99) + '</text></svg>';
+  }
+
   async function init() {
+    initTheme();
+    renderNavStreak();
     bind();
+    renderSkeletons();
     let stories = [];
     if (window.STORIES_DATA && Array.isArray(window.STORIES_DATA.stories)) {
       stories = window.STORIES_DATA.stories;
@@ -1131,6 +1610,9 @@
       $('#view-learn').append(h('p', { class: 'empty' }, 'Could not load stories. Check the files and reload.'));
     }
     renderStream();
+    renderDashboard();
+    // Open with a spaced-repetition review if any learned cards are due.
+    checkSrsReview();
     // If the user deep-linked straight into #premium before stories finished loading,
     // re-render the Premium zone now that real story data is available.
     if (location.hash === '#premium' || (document.body && document.body.classList.contains('theme-premium'))) {
@@ -1152,6 +1634,7 @@
   // so repeated calls are safe.
   function bootFromHash() {
     if (location.hash === '#premium') show('premium');
+    else if (location.hash === '#community') show('community');
     else if (location.hash === '#levels') show('learn');
   }
   bootFromHash();

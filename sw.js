@@ -68,3 +68,32 @@ self.addEventListener('fetch', (event) => {
     }))
   );
 });
+
+// Push: show the daily phrase notification (payload from the push server).
+self.addEventListener('push', (event) => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch (e) {}
+  const title = data.title || 'HanLingo · Daily Phrase';
+  const options = {
+    body: data.body || 'Good morning! Today\'s phrase is ready.',
+    icon: 'icons/icon-192.png',
+    badge: 'icons/favicon-32.png',
+    data: { url: data.url || './index.html#learn' },
+    tag: 'hanlingo-daily'
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+// Click: open (or focus) the app on the Learn page.
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || './index.html#learn';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      if (list.length > 0) {
+        return list[0].focus() && list[0].navigate(url);
+      }
+      return self.clients.openWindow(url);
+    })
+  );
+});

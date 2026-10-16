@@ -66,13 +66,20 @@
     <nav class="main-nav" aria-label="Main navigation">
       <button type="button" class="nav-link" data-nav="levels">Levels</button>
       <button type="button" class="nav-link premium-link" data-nav="premium">💼 Premium Business</button>
+      <button type="button" class="nav-link community-link" data-nav="community">👥 Exec Circle</button>
     </nav>
-    <button id="pro-btn" class="pro-btn" type="button">Unlock Pro</button>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">☀</button>
+      <div id="nav-streak" class="nav-streak" role="img" aria-label="Daily progress" title="Today's progress"></div>
+      <button id="pro-btn" class="pro-btn" type="button">Unlock Pro</button>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
   <div id="view-learn">
+    <!-- Zone 0: Personal dashboard (streak ring + boards + quote of the day) -->
+    <section id="dashboard" aria-label="Your dashboard"></section>
     <!-- Zone 1: Marketing hero -->
     <section class="mkt-hero" aria-labelledby="mkt-title">
       <div class="mkt-hero-left">
@@ -103,18 +110,14 @@
       </div>
     </section>
 
-    <!-- Zone 2: Main catalog (3 HSK levels × fun stories / daily life) -->
-    <div class="tabs level-tabs" role="tablist" aria-label="HSK Level">
-      <button class="tab" role="tab" aria-selected="true" data-level="HSK 1-2">HSK 1-2</button>
-      <button class="tab" role="tab" aria-selected="false" data-level="HSK 3-4">HSK 3-4</button>
-      <button class="tab" role="tab" aria-selected="false" data-level="HSK 5-6">HSK 5-6</button>
-    </div>
-    <div class="tabs cat-tabs" role="tablist" aria-label="Content type">
-      <button class="tab" role="tab" aria-selected="true" data-cat="strange">🎬 Fun Stories</button>
-      <button class="tab" role="tab" aria-selected="false" data-cat="daily">💬 Daily Life</button>
+    <!-- Zone 2: Main catalog (3 scene boards, HSK as backend difficulty) -->
+    <div class="tabs board-tabs" role="tablist" aria-label="Track">
+      <button class="tab" role="tab" aria-selected="true" data-board="survival">🌏 Survival &amp; Daily Life</button>
+      <button class="tab" role="tab" aria-selected="false" data-board="business">💼 Business &amp; Workplace Pro</button>
+      <button class="tab" role="tab" aria-selected="false" data-board="mastery">👑 Mastery · Culture &amp; Strategy</button>
     </div>
 
-    <h2 id="stories" class="section-title">Start free — pick a story</h2>
+    <h2 id="stories" class="section-title">Speak it today — pick a track <span class="season-badge">Season 1 Content Library</span></h2>
     <section id="stream" class="stream"></section>
     <p id="soon" class="empty" hidden>New stories are on the way.</p>
   </div>
@@ -123,6 +126,7 @@
   <div id="view-vocab" hidden></div>
   <div id="view-profile" hidden></div>
   <div id="view-premium" hidden></div>
+  <div id="view-community" hidden></div>
 </main>
 
 <!-- Overlays -->

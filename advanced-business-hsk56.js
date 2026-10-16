@@ -21,6 +21,7 @@
         "pinyin": "Miàn duì fù zá duō biàn de hóng guān jīng jì xíng shì, qǐ yè bì xū shěn shí dù shì.",
         "translation": "Facing a complex and changing macroeconomic climate, companies must assess conditions and adapt their strategy.",
         "grammarPoint": "高级成语 (审时度势) 与专业词 (宏观经济)",
+        "context": "审时度势 (assess the times and adapt) is boardroom shorthand for 'we acknowledge the market has shifted.' Using it in a strategy review signals realism and seniority — a subtle power move in Chinese corporate culture.",
         "vocabList": []
       },
       {
@@ -31,6 +32,7 @@
         "pinyin": "Shù zì huà zhuǎn xíng yǐ bù zài shì xuǎn zé tí, ér shì guān hū shēng cún de bì dá tí.",
         "translation": "Digital transformation is no longer optional, but a survival imperative.",
         "grammarPoint": "递进对比结构与高级词 (关乎生存)",
+        "context": "Calling digital transformation a 必答题 (mandatory exam question) reframes an optional upgrade as non-negotiable survival. In Chinese boardrooms this casts tech adoption as crisis prevention, not a nice-to-have.",
         "vocabList": []
       },
       {
@@ -41,6 +43,7 @@
         "pinyin": "Wǒ men xū yào lì zú běn tǔ shì chǎng, tóng shí bǎo chí fàng yǎn quán qiú de zhè lüè shì yě.",
         "translation": "We need to base ourselves locally while maintaining a global strategic vision.",
         "grammarPoint": "高级短语 (立足本土/放眼全球)",
+        "context": "立足本土 while 放眼全球 (grounded locally, looking globally) is the standard 'we are serious about China' line for MNCs — it reassures both local regulators and HQ.",
         "vocabList": []
       },
       {
@@ -51,6 +54,7 @@
         "pinyin": "Háng yè zhōu qī de bō dòng duì wǒ men jì shì yán jùn de tiǎo zhàn, yě shì xǐ pái de qì jī.",
         "translation": "Industry cycle fluctuations are both severe challenges and reshaping opportunities.",
         "grammarPoint": "并列复句 (既是……也是……)",
+        "context": "洗牌 (reshuffle) is executives' favorite metaphor for disruption. Calling a downturn 洗牌的契机 (an opportunity to reshuffle) frames crisis as advantage — a calm-confidence signal.",
         "vocabList": []
       },
       {
@@ -155,6 +159,7 @@
         "pinyin": "Gāi chū chuàng qǐ yè píng jiè diān fù xìng de shāng yè mó shì chéng gōng wán chéng le shǒu lún róng zī.",
         "translation": "The startup successfully completed its first equity funding round through a disruptive business model.",
         "grammarPoint": "财经词汇 (初创企业/A轮融资)",
+        "context": "融资 is the pitch moment. In Chinese startup rooms, saying a company 完成首轮融资 means 'we got a term sheet' — but the real message is traction and unit economics, not vision. Be ready to answer about the 商业闭环 before anyone asks about revenue.",
         "vocabList": []
       },
       {
@@ -165,6 +170,7 @@
         "pinyin": "Tòu zī rén duì xiàng mù de shāng yè bì huán hé xiàn jīn liú zhuàng kuàng tí chū le yán lì zhì xún.",
         "translation": "Investors sharply interrogated the project's business loop and cash flow.",
         "grammarPoint": "专业财经词汇 (商业闭环/现金流/质询)",
+        "context": "商业闭环 (business loop) is the single most asked question in Chinese fundraising — it means 'how does this actually make money, end to end.' When investors 提出质询 (sharply interrogate), they are probing whether the model closes, not attacking the idea.",
         "vocabList": []
       },
       {
@@ -175,6 +181,7 @@
         "pinyin": "Jìn zhí diào chá tuán duì zhèng zài duì mù biāo gōng sī jìn xíng quán fāng wèi de shěn jì.",
         "translation": "The due diligence team is conducting a comprehensive audit of the target company.",
         "grammarPoint": "商务专业词汇 (尽职调查/审计)",
+        "context": "尽职调查 (due diligence) is where deals die quietly. In Chinese M&A the phrase signals 'we are serious, but we will verify everything' — expect a flood of requests for financials, contracts, and founder references.",
         "vocabList": []
       },
       {
@@ -185,6 +192,7 @@
         "pinyin": "Yóu yú gū zhí fēn qí guò dà, běn lùn bìng gòu tán pàn xiàn rù le jiāng jú.",
         "translation": "The two sides were so far apart on valuation that the merger talks reached a deadlock.",
         "grammarPoint": "高级词汇 (估值分歧/陷入僵局)",
+        "context": "估值分歧 (valuation gap) is polite-speak for 'we disagree about the number.' Reaching 僵局 (deadlock) in Chinese negotiation rarely means the end — it is often a staged pause where both sides wait for the other to concede first.",
         "vocabList": []
       },
       {
@@ -289,6 +297,7 @@
         "pinyin": "Zài zhè chǎng duō fāng bó yì de tán pàn zhōng, bǎo chí xìn xī bù duì chèn shì wǒ men de chóu mǎ.",
         "translation": "In this multi-party negotiation, maintaining an information advantage is one of our bargaining chips.",
         "grammarPoint": "经济博弈词汇 (信息不对称/筹码)",
+        "context": "信息不对称 (information asymmetry) is the quiet power source in Chinese negotiations — whoever controls it holds the 筹码 (chips). Stating that you keep your advantage signals you know the other side does not, and you intend to use it.",
         "vocabList": []
       },
       {
@@ -299,6 +308,7 @@
         "pinyin": "Duì fāng zài kāi chǎng shí biàn pāo chū le jí jù yā pò gǎn de dǐ xiàn tiáo jiàn.",
         "translation": "The opponent tossed out extremely oppressive bottom-line terms at the opening.",
         "grammarPoint": "高级词汇 (压迫感/底线条件)",
+        "context": "底线条件 (bottom-line terms) at the opening is a classic pressure move. In Chinese business culture an aggressive first offer is usually a probe, not a real limit — the counterparty expects a counter, so do not fold or overreact.",
         "vocabList": []
       },
       {
@@ -309,6 +319,7 @@
         "pinyin": "Tán pàn zhuān jiā shàn yú yùn yòng \"máo dìng xiào yìng\", xiān fā zhì rén zhǎng kòng yì chéng jié zòu.",
         "translation": "Negotiation experts excel at anchoring effects, seizing initiative on agendas.",
         "grammarPoint": "心理学与商务词汇 (锚定效应/先发制人)",
+        "context": "锚定效应 (anchoring) — naming the first number frames the whole discussion. 先发制人 (seizing the initiative) is prized in Chinese deal-making: whoever anchors first steers the agenda. Walk in with your number ready.",
         "vocabList": []
       },
       {
