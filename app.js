@@ -44,6 +44,8 @@
     currentStoryIdx: -1,
     currentStoryColumn: '',
     currentCategory: 'strange',
+    currentLevel: 'HSK 1-2',
+    stories: [],
     vocab: store.get('hanlingo_vocab', []),
     pro: store.get('hanlingo_pro', false),
     plan: store.get('hanlingo_plan', 'life'),
@@ -130,6 +132,11 @@
     if (view === 'vocab') renderVocab();
     if (view === 'profile') renderProfile();
     if (view === 'premium') renderPremium();
+    // Deep-linkable hash for SEO landing views (#premium); reset to root when leaving it.
+    const target = view === 'premium' ? '#premium' : (location.hash === '#premium' ? '' : location.hash);
+    if (location.hash !== target) {
+      try { history.replaceState(null, '', location.pathname + location.search + target); } catch (e) { location.hash = target; }
+    }
     window.scrollTo(0, 0);
   }
 
@@ -779,7 +786,8 @@
     const root = $('#stream');
     const visible = state.stories.filter((s) =>
       (s.category || 'strange') !== 'business' &&
-      (s.category || 'strange') === state.currentCategory);
+      (s.category || 'strange') === state.currentCategory &&
+      (s.hskRange || 'HSK 3-4') === state.currentLevel);
     visible.sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
     if (!visible.length) {
       root.replaceChildren();
@@ -858,7 +866,45 @@
               h('span', { class: 'q-meta' },
                 h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
                 h('span', {}, story ? story.totalCards + ' cards · HSK ' + (story.hskRange || '').replace('HSK ', '') : '')));
-          }))));
+          })),
+        h('div', { class: 'premium-block' },
+          h('h2', { class: 'biz-section-title' }, 'Explore All Business Packs'),
+          ...buildBizGroups().map((g) =>
+            h('div', { class: 'biz-group' },
+              h('h3', { class: 'biz-group-title' }, g.label + '  (' + g.list.length + ')'),
+              h('div', { class: 'biz-grid' },
+                ...g.list.map((p) => bizCard(p))))))));
+  }
+
+  /* ---------- Premium: all business packs (24) ---------- */
+  function getAllBusinessDecks() {
+    return (state.stories || []).filter((s) => (s.category || '').toLowerCase() === 'business');
+  }
+
+  function buildBizGroups() {
+    const groups = [
+      { range: 'HSK 1-2', label: '职场入门 · Workplace Starter' },
+      { range: 'HSK 3-4', label: '商务沟通 · Business Communication' },
+      { range: 'HSK 5-6', label: '高级商务 · Executive Mandarin' }
+    ];
+    const packs = getAllBusinessDecks();
+    return groups.map((g) => Object.assign({}, g, {
+      list: packs.filter((p) => (p.hskRange || '') === g.range)
+    })).filter((g) => g.list.length > 0);
+  }
+
+  function bizCard(p) {
+    const open = state.access.business;
+    const parts = String(p.title || '').split('·');
+    const zh = (parts[0] || '').trim();
+    const en = (parts[1] || p.title || '').trim();
+    const n = p.totalCards || (p.cards ? p.cards.length : 0);
+    return h('button', { class: 'q-card biz-card', type: 'button', onclick: () => openBizStory(p) },
+      h('span', { class: 'q-zh' }, zh),
+      h('span', { class: 'q-en' }, en),
+      h('span', { class: 'q-meta' },
+        h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
+        h('span', {}, n + ' cards · HSK ' + (p.hskRange || '').replace('HSK ', ''))));
   }
 
   /* ---------- Overlays ---------- */
@@ -1037,12 +1083,15 @@
       deferredInstallPrompt = null;
       $('#install-app').hidden = true;
     });
-    document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
-      state.currentCategory = t.dataset.cat || 'strange';
-      $('#stream').hidden = false;
-      renderStream();
-    }));
+    document.querySelectorAll('.tabs').forEach((group) => {
+      group.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
+        group.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
+        if (t.dataset.level) state.currentLevel = t.dataset.level;
+        if (t.dataset.cat) state.currentCategory = t.dataset.cat;
+        $('#stream').hidden = false;
+        renderStream();
+      }));
+    });
     document.querySelectorAll('[data-nav="premium"]').forEach((b) =>
       b.addEventListener('click', () => show('premium')));
     document.querySelectorAll('[data-nav="levels"]').forEach((b) =>
@@ -1082,6 +1131,11 @@
       $('#view-learn').append(h('p', { class: 'empty' }, 'Could not load stories. Check the files and reload.'));
     }
     renderStream();
+    // If the user deep-linked straight into #premium before stories finished loading,
+    // re-render the Premium zone now that real story data is available.
+    if (location.hash === '#premium' || (document.body && document.body.classList.contains('theme-premium'))) {
+      renderPremium();
+    }
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch((e) => console.log('SW:', e)));
     }
@@ -1091,4 +1145,18 @@
   }
 
   init();
+
+  // Deep-link bootstrap: open #premium / #levels directly.
+  // Runs on several ticks so it works regardless of when the initial hash is
+  // applied or when async story data finishes loading. show() is idempotent,
+  // so repeated calls are safe.
+  function bootFromHash() {
+    if (location.hash === '#premium') show('premium');
+    else if (location.hash === '#levels') show('learn');
+  }
+  bootFromHash();
+  setTimeout(bootFromHash, 0);
+  setTimeout(bootFromHash, 800);
+  setTimeout(bootFromHash, 2500);
+  window.addEventListener('hashchange', bootFromHash);
 })();

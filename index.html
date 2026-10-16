@@ -103,8 +103,13 @@
       </div>
     </section>
 
-    <!-- Zone 2: Main catalog (fun + daily only) -->
-    <div class="tabs" role="tablist" aria-label="Categories">
+    <!-- Zone 2: Main catalog (3 HSK levels × fun stories / daily life) -->
+    <div class="tabs level-tabs" role="tablist" aria-label="HSK Level">
+      <button class="tab" role="tab" aria-selected="true" data-level="HSK 1-2">HSK 1-2</button>
+      <button class="tab" role="tab" aria-selected="false" data-level="HSK 3-4">HSK 3-4</button>
+      <button class="tab" role="tab" aria-selected="false" data-level="HSK 5-6">HSK 5-6</button>
+    </div>
+    <div class="tabs cat-tabs" role="tablist" aria-label="Content type">
       <button class="tab" role="tab" aria-selected="true" data-cat="strange">🎬 Fun Stories</button>
       <button class="tab" role="tab" aria-selected="false" data-cat="daily">💬 Daily Life</button>
     </div>
