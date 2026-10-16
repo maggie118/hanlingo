@@ -883,9 +883,9 @@
 
   function buildBizGroups() {
     const groups = [
-      { range: 'HSK 1-2', label: '职场入门 · Workplace Starter' },
-      { range: 'HSK 3-4', label: '商务沟通 · Business Communication' },
-      { range: 'HSK 5-6', label: '高级商务 · Executive Mandarin' }
+      { range: 'HSK 1-2', label: 'HSK 1-2 · 职场入门 · Workplace Starter' },
+      { range: 'HSK 3-4', label: 'HSK 3-4 · 商务沟通 · Business Communication' },
+      { range: 'HSK 5-6', label: 'HSK 5-6 · 高级商务 · Executive Mandarin' }
     ];
     const packs = getAllBusinessDecks();
     return groups.map((g) => Object.assign({}, g, {
