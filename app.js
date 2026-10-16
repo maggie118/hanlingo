@@ -41,17 +41,21 @@
     idx: 0,
     pending: null,
     currentStoryTitle: '',
+    currentStoryIdx: -1,
+    currentStoryColumn: '',
     currentCategory: 'strange',
     vocab: store.get('hanlingo_vocab', []),
     pro: store.get('hanlingo_pro', false),
-    plan: store.get('hanlingo_plan', 'b'),
-    settings: Object.assign({ hsk: 'HSK 3-4', pinyin: false, translation: false }, store.get('hanlingo_settings', {}))
+    plan: store.get('hanlingo_plan', 'life'),
+    access: store.get('hanlingo_access', { level: false, business: false, theme: [] }),
+    settings: Object.assign({ pinyin: false, translation: false }, store.get('hanlingo_settings', {}))
   };
   let deferredInstallPrompt = null;
 
   function saveSubscriptionState() {
     store.set('hanlingo_pro', state.pro);
     store.set('hanlingo_plan', state.plan);
+    store.set('hanlingo_access', state.access);
   }
 
   // Tiny DOM builder; strings are appended as text nodes, so nothing is parsed as HTML.
@@ -88,29 +92,35 @@
     if (voice) u.voice = voice;
     speechSynthesis.cancel();
 
+    const doSpeak = () => {
+      try { speechSynthesis.speak(u); } catch (e) {}
+    };
+
     if (speechSynthesis.getVoices().length) {
-      speechSynthesis.speak(u);
+      // Chrome: cancel() clears asynchronously; defer so the new utterance is not swallowed.
+      setTimeout(doSpeak, 80);
       return;
     }
 
     const onVoicesReady = () => {
       const readyVoice = pickVoice();
       if (readyVoice) u.voice = readyVoice;
-      speechSynthesis.speak(u);
+      doSpeak();
       window.removeEventListener('voiceschanged', onVoicesReady);
     };
     window.addEventListener('voiceschanged', onVoicesReady, { once: true });
     setTimeout(() => {
-      try { speechSynthesis.speak(u); } catch {}
+      doSpeak();
       window.removeEventListener('voiceschanged', onVoicesReady);
     }, 220);
   }
 
   /* ---------- Views & bottom nav ---------- */
-  const VIEWS = ['learn', 'reader', 'vocab', 'profile'];
+  const VIEWS = ['learn', 'reader', 'vocab', 'profile', 'premium'];
 
   function show(view) {
     VIEWS.forEach((v) => { $('#view-' + v).hidden = v !== view; });
+    document.body.classList.toggle('theme-premium', view === 'premium');
     const tab = view === 'reader' ? 'learn' : view;
     document.querySelectorAll('.bottom-nav button').forEach((b) => {
       if (b.dataset.view === tab) b.setAttribute('aria-current', 'page');
@@ -119,6 +129,7 @@
     closeOverlays();
     if (view === 'vocab') renderVocab();
     if (view === 'profile') renderProfile();
+    if (view === 'premium') renderPremium();
     window.scrollTo(0, 0);
   }
 
@@ -296,6 +307,7 @@
         this._text = text || '';
         this._last = performance.now();
         this._iv = null;
+        this._ttsTimer = null;
       }
       get currentTime() { return this._t; }
       set currentTime(v) {
@@ -311,7 +323,7 @@
         u.pitch = 1.02;
         u.volume = this.muted ? 0 : this.volume;
         if (voice) u.voice = voice;
-        u.onend = () => {
+        const end = () => {
           if (!this.paused) {
             this.paused = true;
             clearInterval(this._iv);
@@ -322,8 +334,15 @@
             this.dispatchEvent(new Event('ended'));
           }
         };
+        u.onend = end;
+        u.onerror = end;
         speechSynthesis.cancel();
-        speechSynthesis.speak(u);
+        clearTimeout(this._ttsTimer);
+        // Chrome: cancel() clears asynchronously; defer so this utterance is not swallowed.
+        this._ttsTimer = setTimeout(() => {
+          if (this.paused) return;
+          try { speechSynthesis.speak(u); } catch (e) {}
+        }, 80);
       }
       play() {
         if (!this.paused) return Promise.resolve();
@@ -348,6 +367,7 @@
         this.paused = true;
         clearInterval(this._iv);
         this._iv = null;
+        clearTimeout(this._ttsTimer);
         if ('speechSynthesis' in window) speechSynthesis.cancel();
         this.dispatchEvent(new Event('pause'));
       }
@@ -704,7 +724,8 @@
   function go(i) {
     if (i < 0 || i >= state.cards.length) return;
     const c = state.cards[i];
-    if (!c.isFree && !state.pro) { state.pending = i; openPaywall(); return; }
+    const s = state.stories[state.currentStoryIdx];
+    if (!c.isFree && !canOpenStory(s)) { state.pending = i; openPaywall(s && s.category === 'business' ? 'biz' : 'level'); return; }
     state.idx = i;
     show('reader');
     renderReader();
@@ -716,6 +737,8 @@
     if (!s) return;
     state.cards = s.cards;
     state.currentStoryTitle = (s.title.split('·')[1] || s.title).trim();
+    state.currentStoryIdx = i;
+    state.currentStoryColumn = s.columnId || '';
     state.idx = 0;
     renderIntro(s);
     show('reader');
@@ -742,76 +765,22 @@
         h('button', { class: 'btn primary start', type: 'button', onclick: () => go(0) }, 'Start reading')));
   }
 
-  function renderCategoryHero() {
-    const advancedStories = state.settings.hsk === 'HSK 5-6';
-    const journeyWestStories = state.settings.hsk === 'HSK 1-2' && state.currentCategory === 'strange';
-    const meta = journeyWestStories ? {
-      title: 'Journey to the West',
-      vertical: '西游记',
-      seal: '孙悟空',
-      highlight: 'Magic, adventure, and memorable characters.',
-      description: 'Follow the Monkey King and his companions through eight classic adventures in beginner-friendly Mandarin.'
-    } : advancedStories && state.currentCategory === 'strange' ? {
-      title: 'The Art of War',
-      vertical: '孙子',
-      seal: '兵法',
-      highlight: 'Strategy, human nature, and dramatic turns.',
-      description: 'Explore Sun Tzu through thirteen advanced story packs with classic lines and HSK 5–6 language.'
-    } : advancedStories && state.currentCategory === 'daily' ? {
-      title: 'Advanced Daily Life',
-      vertical: '日常',
-      seal: '生活',
-      highlight: 'Modern life, expressed with advanced Mandarin.',
-      description: 'Explore thirteen story packs on relationships, wellbeing, culture, and more with HSK 5–6 language.'
-    } : advancedStories && state.currentCategory === 'business' ? {
-      title: 'Advanced Business & Workplace',
-      vertical: '商务',
-      seal: '职场',
-      highlight: 'Strategic, polished Mandarin for the modern workplace.',
-      description: 'Explore eight advanced packs on markets, investment, negotiation, talent, leadership, and crisis communication.'
-    } : CATEGORY_META[state.currentCategory] || CATEGORY_META.strange;
-    const titleEl = document.getElementById('hero-title');
-    const subEl = document.querySelector('#view-learn .hero .sub');
-    const verticalEl = document.querySelector('.hero-title-v');
-    const sealTextEl = document.querySelector('.seal-text');
-    const sealEl = document.querySelector('.seal');
-    const metaList = document.querySelector('#view-learn .hero .meta');
-    const visible = state.stories.filter((story) =>
-      (story.category || 'strange') === state.currentCategory &&
-      (story.hskRange || 'HSK 3-4') === state.settings.hsk);
+  function hskRank(r) { return r === 'HSK 1-2' ? 1 : r === 'HSK 5-6' ? 3 : 2; }
 
-    if (titleEl) titleEl.textContent = meta.title;
-    if (subEl) subEl.innerHTML = '<strong>' + meta.highlight + '</strong><br>' + meta.description;
-    if (verticalEl) {
-      verticalEl.textContent = meta.vertical;
-      verticalEl.className = 'hero-title-v title-length-' + Array.from(meta.vertical).length;
-    }
-    if (sealTextEl) {
-      sealTextEl.textContent = meta.seal;
-      sealTextEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
-      sealTextEl.classList.toggle('seal-three', Array.from(meta.seal).length > 2);
-    }
-    if (sealEl) {
-      sealEl.classList.toggle('seal-long', Array.from(meta.seal).length > 1);
-      sealEl.classList.toggle('seal-three', Array.from(meta.seal).length > 2);
-    }
-    if (metaList) {
-      const cardCount = visible.reduce((total, story) => total + story.cards.length, 0);
-      const freeCount = visible.reduce((total, story) => total + story.cards.filter((card) => card.isFree).length, 0);
-      metaList.replaceChildren(
-        h('li', {}, state.settings.hsk),
-        h('li', {}, visible.length + ' Story Packs'),
-        h('li', {}, cardCount + ' Cards'),
-        h('li', { class: 'free' }, freeCount + ' Free Cards'));
-    }
+  function canOpenStory(s) {
+    if (!s) return true;
+    const cid = s.columnId || '';
+    if (s.category === 'business') return state.access.business || state.access.theme.indexOf(cid) >= 0;
+    if ((s.hskRange || 'HSK 3-4') === 'HSK 1-2') return true;
+    return state.access.level || state.access.theme.indexOf(cid) >= 0;
   }
 
   function renderStream() {
-    renderCategoryHero();
     const root = $('#stream');
     const visible = state.stories.filter((s) =>
-      (s.category || 'strange') === state.currentCategory &&
-      (s.hskRange || 'HSK 3-4') === state.settings.hsk);
+      (s.category || 'strange') !== 'business' &&
+      (s.category || 'strange') === state.currentCategory);
+    visible.sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
     if (!visible.length) {
       root.replaceChildren();
       $('#soon').hidden = false;
@@ -819,11 +788,16 @@
     }
 
     root.replaceChildren(
-      ...visible.map((s, i) => {
+      ...visible.map((s) => {
         const zh = (s.title.split('·')[0] || '').trim();
         const en = (s.title.split('·')[1] || s.title).trim();
         const storyIndex = state.stories.findIndex((item) => item === s);
-        return h('button', { class: 'pack', type: 'button', 'data-open': storyIndex, onclick: () => openStory(storyIndex) },
+        const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2';
+        const locked = !isFree && !canOpenStory(s);
+        const tag = isFree ? '🟢 FREE' : (locked ? '🔒 LEVEL PASS' : null);
+        return h('button', { class: 'pack' + (locked ? ' locked' : ''), type: 'button', onclick: () => (locked ? openPaywall('level') : openStory(storyIndex)) },
+          locked ? h('div', { class: 'blur-layer' }) : null,
+          tag ? h('span', { class: 'story-tag ' + (isFree ? 'free' : 'locked') }, tag) : null,
           h('div', { class: 'cover ' + (s.coverClass || 'c1'), 'aria-hidden': 'true' }, s.cover || zh.slice(0, 1)),
           h('div', {},
             h('h3', {}, en),
@@ -831,24 +805,60 @@
             (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
             h('div', { class: 'tags' },
               h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
-              h('span', { class: 'tag free' }, 'Cards 1-' + s.freeCards + ' Free'),
-              h('span', { class: 'tag pro' }, 'Pro'))));
+              isFree ? h('span', { class: 'tag free' }, '100% Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
       }));
     $('#soon').hidden = true;
   }
 
-  function syncCategoryWithLevel() {
-    const hasStories = (category) => state.stories.some((story) =>
-      (story.category || 'strange') === category &&
-      (story.hskRange || 'HSK 3-4') === state.settings.hsk);
-    if (!hasStories(state.currentCategory)) {
-      const preferredCategories = state.settings.hsk === 'HSK 1-2'
-        ? ['business', 'daily', 'strange']
-        : ['strange', 'daily', 'business'];
-      state.currentCategory = preferredCategories.find(hasStories) || 'strange';
-    }
-    document.querySelectorAll('.tab').forEach((tab) =>
-      tab.setAttribute('aria-selected', String(tab.dataset.cat === state.currentCategory)));
+  /* ---------- Premium Business zone ---------- */
+  const PREMIUM_TOPICS = [
+    { zh: '黑话', en: 'Why Is Everyone Saying “Fù Néng” and “Zhǔ Shǒu”?', hook: 'Decode the big-tech jargon and closed-loop logic insiders expect you to know.', columnId: 'advanced_business_04' },
+    { zh: '生存', en: 'What Do I Say When the Boss Blames Me in a Meeting?', hook: 'High-EQ survival lines that keep your composure — and your job.', columnId: 'advanced_business_07' },
+    { zh: '汇报', en: 'How Do I Explain to HQ Why the Chinese Project Is Delayed?', hook: 'Own the narrative, protect the relationship, and manage the message home.', columnId: 'business_hsk12_progress' },
+    { zh: '拒绝', en: 'How to Softly Reject an Unreasonable Request from a Client?', hook: 'Say no to a client without losing the account — or the face.', columnId: 'advanced_business_03' },
+    { zh: '压价', en: 'What Should I Say to Get a Better Price from the Factory?', hook: 'Supply-chain negotiation lines that actually move the number.', columnId: 'advanced_business_06' },
+    { zh: '路演', en: 'How to Pitch Alibaba/Tencent Without Sounding Like an Amateur?', hook: 'Pitch vocabulary that makes the investors lean in.', columnId: 'advanced_business_02' },
+    { zh: '饭局', en: 'What Am I Supposed to Talk About at a Chinese Business Dinner?', hook: 'Toast, small talk, and the table topics that quietly seal deals.', columnId: 'business_hsk12_dining' },
+    { zh: '挡酒', en: 'How Do I Politely Avoid Drinking Alcohol at a Dinner?', hook: 'Graceful lines to decline the drink without the awkwardness.', columnId: 'business_hsk12_dining' },
+    { zh: '破冰', en: 'How to Gossip Legally with My Chinese Coworkers?', hook: 'Safe banter that builds trust and rapport with your team.', columnId: 'business_hsk12_intro' }
+  ];
+
+  function openBizStory(s) {
+    if (!s) return;
+    state.cards = s.cards;
+    state.currentStoryTitle = (s.title.split('·')[1] || s.title).trim();
+    state.currentStoryIdx = state.stories.findIndex((x) => x === s);
+    state.currentStoryColumn = s.columnId || '';
+    state.idx = 0;
+    renderIntro(s);
+    show('reader');
+  }
+
+  function renderPremium() {
+    const root = $('#view-premium');
+    root.replaceChildren(
+      h('div', { class: 'premium-page' },
+        h('section', { class: 'premium-hero' },
+          h('div', { class: 'premium-badge' }, 'Premium Business Chinese'),
+          h('h1', {}, 'The Career Upskilling Pack'),
+          h('p', { class: 'premium-sub' }, 'Master the unspoken rules of Chinese corporate communication. Turn language barriers into your ultimate global business leverage.'),
+          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · $59.99'),
+          h('ul', { class: 'premium-trust' },
+            h('li', {}, '✓ Expense-account friendly'),
+            h('li', {}, '✓ First scenario free'),
+            h('li', {}, '✓ No HSK limits'))),
+        h('div', { class: 'premium-grid' },
+          ...PREMIUM_TOPICS.map((t) => {
+            const story = state.stories.find((x) => x.columnId === t.columnId);
+            const open = state.access.business;
+            return h('button', { class: 'q-card', type: 'button', onclick: () => openBizStory(story) },
+              h('span', { class: 'q-zh' }, t.zh),
+              h('span', { class: 'q-en' }, t.en),
+              h('span', { class: 'q-hook' }, t.hook),
+              h('span', { class: 'q-meta' },
+                h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
+                h('span', {}, story ? story.totalCards + ' cards · HSK ' + (story.hskRange || '').replace('HSK ', '') : '')));
+          }))));
   }
 
   /* ---------- Overlays ---------- */
@@ -879,18 +889,20 @@
     $('#sheet').hidden = false;
   }
 
-  function openPaywall() {
+  function openPaywall(prefer) {
+    if (prefer) state.plan = prefer;
     const plans = [
-      { key: 'a', label: 'A', price: '$1.99', detail: 'Single deck • one-time', badge: null, description: 'Unlock this 12-card deck', recommended: false },
-      { key: 'b', label: 'B', price: '$12.99', detail: 'Category pass • one-time', badge: 'MOST POPULAR', description: 'Unlock this category and all future deck updates', recommended: true },
-      { key: 'c', label: 'C', price: '$49.99', detail: 'Lifetime all-access • one-time', badge: 'BEST VALUE • FOUNDING MEMBER', description: 'Unlock the full site, current + future packs', recommended: false }
+      { key: 'level', label: 'Level Pass', price: '$19.99', detail: 'One-Time Payment', badge: 'FOR EXAM TAKERS', description: 'Unlock 1 specific HSK level completely (e.g. HSK 3–4). Master 200+ structural sentence formulas. Includes all Fun Stories & Daily Life inside this level. Premium Business excluded.', recommended: false },
+      { key: 'biz', label: 'Premium Business Pass', price: '$59.99', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across all levels (HSK 3–6). Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
+      { key: 'life', label: 'Lifetime All-Access', price: '$99.99', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
     ];
 
-    const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans[1];
+    const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans.find((plan) => plan.recommended) || plans[2];
+    const unlockText = selectedPlan.key === 'level' ? 'Unlock This Level' : selectedPlan.key === 'biz' ? 'Unlock Business Pack' : '👉 GET LIFETIME ACCESS';
 
     const planButtons = plans.map((plan) =>
       h('button', {
-        class: 'plan-option' + (state.plan === plan.key ? ' active' : '') + (plan.recommended ? ' popular' : ''),
+        class: 'plan-option' + (state.plan === plan.key ? ' active' : '') + (plan.recommended ? ' popular' : '') + (plan.premium ? ' premium' : ''),
         type: 'button',
         'data-plan': plan.key,
         onclick: () => {
@@ -900,7 +912,7 @@
       },
         h('span', { class: 'plan-topline' },
           h('span', { class: 'plan-label' }, plan.label),
-          plan.badge ? h('em', { class: 'plan-badge' }, plan.badge) : null),
+          plan.badge ? h('em', { class: 'plan-badge' + (plan.premium ? ' premium' : '') }, plan.badge) : null),
         h('span', { class: 'plan-price' }, plan.price),
         h('small', { class: 'plan-detail' }, plan.detail),
         h('span', { class: 'plan-description' }, plan.description)));
@@ -910,28 +922,33 @@
         h('div', { class: 'dialog-head' },
           h('button', { class: 'close-x', type: 'button', 'aria-label': 'Close pricing', onclick: closeOverlays }, '×'),
           h('div', { class: 'dialog-copy' },
-            h('h2', { id: 'pw-title' }, 'Unlock Full HanLingo Experience'),
-            h('p', {}, 'Master Chinese sentence by sentence, with zero subscription fatigue.'))),
+            h('h2', { id: 'pw-title' }, 'Pay Once. Speak Mandarin Like an Executive.'),
+            h('p', {}, 'No subscription fatigue. Own your learning assets forever.'))),
         h('div', { class: 'plan-grid' }, ...planButtons),
-        h('div', { class: 'trust-row' }, 'One-time payment • No monthly recurring fees • Instant access'),
+        h('div', { class: 'trust-row' }, 'Start free • Cancel anytime • 30-day money-back guarantee'),
         h('div', { class: 'price' }, selectedPlan.price + ' ', h('small', {}, selectedPlan.detail)),
-        h('ul', {},
-          h('li', {}, 'Stripe: Credit Card / Apple Pay / Google Pay'),
-          h('li', {}, 'PayNow accepted in Singapore'),
-          h('li', {}, 'Unlock ' + (selectedPlan.key === 'a' ? 'this 12-card deck' : selectedPlan.key === 'b' ? 'this category and future updates' : 'the full site and all future content'))),
-        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : 'Unlock now'),
+        h('p', { class: 'secure-footer' }, '🔒 Secure Checkout: Powered by Stripe. Your payment info is 256-bit SSL encrypted. A professional tax invoice will be emailed instantly for corporate learning & development reimbursement.'),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : unlockText),
         h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Not now'),
         CHECKOUT_URL ? null : h('p', { class: 'note' }, 'Demo mode: the checkout link is not connected yet, so this unlocks locally on this device.')));
     $('#paywall').hidden = false;
   }
 
   function subscribe(planKey = state.plan) {
-    state.plan = planKey || 'b';
+    state.plan = planKey || 'life';
     if (CHECKOUT_URL) {
       window.location.href = CHECKOUT_URL;
       return;
     }
     state.pro = true;
+    if (planKey === 'level') {
+      state.access.level = true;
+    } else if (planKey === 'biz') {
+      state.access.business = true;
+    } else {
+      state.access.level = true;
+      state.access.business = true;
+    }
     saveSubscriptionState();
     closeOverlays();
     if (state.pending != null) go(state.pending);
@@ -970,7 +987,7 @@
             if (!confirm('Remove all saved words and settings?')) return;
             ['hanlingo_vocab', 'hanlingo_settings', 'hanlingo_pro', 'hanlingo_plan'].forEach((k) => localStorage.removeItem(k));
             state.pro = false;
-            state.plan = 'b';
+            state.plan = 'life';
             saveSubscriptionState();
             location.reload();
           }
@@ -1020,27 +1037,26 @@
       deferredInstallPrompt = null;
       $('#install-app').hidden = true;
     });
-    document.querySelectorAll('[data-open]').forEach((b) =>
-      b.addEventListener('click', () => openStory(Number(b.dataset.open) || 0)));
     document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
       state.currentCategory = t.dataset.cat || 'strange';
       $('#stream').hidden = false;
-      renderCategoryHero();
       renderStream();
     }));
-    const hsk = $('#hsk');
-    if (!Array.from(hsk.options).some((option) => option.value === state.settings.hsk)) {
-      state.settings.hsk = hsk.value;
-      saveSettings();
-    }
-    hsk.value = state.settings.hsk;
-    $('#hsk').addEventListener('change', (e) => {
-      state.settings.hsk = e.target.value;
-      saveSettings();
-      syncCategoryWithLevel();
-      renderStream();
-    });
+    document.querySelectorAll('[data-nav="premium"]').forEach((b) =>
+      b.addEventListener('click', () => show('premium')));
+    document.querySelectorAll('[data-nav="levels"]').forEach((b) =>
+      b.addEventListener('click', () => {
+        show('learn');
+        const s = document.getElementById('stories');
+        if (s) s.scrollIntoView({ behavior: 'smooth' });
+      }));
+    document.querySelectorAll('.lego-brick').forEach((b) => b.addEventListener('click', () => {
+      document.querySelectorAll('.lego-brick').forEach((x) => x.classList.remove('speaking'));
+      b.classList.add('speaking');
+      if (b.dataset.word) speak(b.dataset.word);
+      setTimeout(() => b.classList.remove('speaking'), 900);
+    }));
     $('#pro-btn').addEventListener('click', () => (state.pro ? show('profile') : openPaywall()));
     [$('#sheet'), $('#paywall')].forEach((o) => o.addEventListener('click', (e) => { if (e.target === o) closeOverlays(); }));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlays(); });
@@ -1065,8 +1081,6 @@
     if (!state.stories.length) {
       $('#view-learn').append(h('p', { class: 'empty' }, 'Could not load stories. Check the files and reload.'));
     }
-    syncCategoryWithLevel();
-    renderCategoryHero();
     renderStream();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch((e) => console.log('SW:', e)));

@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HanLingo | Learn Mandarin Through Stories & Everyday Chinese</title>
-<meta name="description" content="Learn Mandarin through classic stories, practical HSK 1-2 workplace Chinese, and advanced HSK 5-6 daily-life, business, and strategy stories.">
+<title>HanLingo | Master Mandarin Through Sentence Formulas</title>
+<meta name="description" content="Learn Mandarin through sentence formulas, not vocabulary lists. Break any sentence into word-bricks, tap, hear and repeat. Free HSK 1-2 stories, daily life packs, and Premium Business Chinese.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://www.hanlingo.app/">
 
 <!-- Open Graph / Social -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="HanLingo | Learn Mandarin Through Stories & Everyday Chinese">
-<meta property="og:description" content="Learn Mandarin through classic stories, practical HSK 1-2 workplace Chinese, and advanced HSK 5-6 daily-life, business, and strategy stories.">
+<meta property="og:title" content="HanLingo | Master Mandarin Through Sentence Formulas">
+<meta property="og:description" content="Break any sentence into word-bricks. Tap, hear, repeat. Free HSK 1-2 stories, daily life packs, and Premium Business Chinese.">
 <meta property="og:url" content="https://www.hanlingo.app/">
 <meta property="og:image" content="https://www.hanlingo.app/icons/icon-512.png">
 <meta property="og:site_name" content="HanLingo">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HanLingo | Learn Mandarin Through Stories & Everyday Chinese">
-<meta name="twitter:description" content="Learn Mandarin through classic stories, practical HSK 1-2 workplace Chinese, and advanced HSK 5-6 daily-life, business, and strategy stories.">
+<meta name="twitter:title" content="HanLingo | Master Mandarin Through Sentence Formulas">
+<meta name="twitter:description" content="Break any sentence into word-bricks. Tap, hear, repeat. Free HSK 1-2 stories, daily life packs, and Premium Business Chinese.">
 <meta name="twitter:image" content="https://www.hanlingo.app/icons/icon-512.png">
 
 <!-- PWA -->
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2a2724">
+<meta name="theme-color" content="#f7f4ef">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,7 +38,7 @@
   "name": "HanLingo",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web",
-  "description": "HanLingo helps English-speaking learners study Mandarin through classic stories, practical HSK 1-2 workplace Chinese, and advanced HSK 5-6 daily-life, business, and strategy stories.",
+  "description": "HanLingo helps English-speaking learners master Mandarin through sentence formulas: story-first packs from free HSK 1-2 through Premium Business Chinese.",
   "url": "https://www.hanlingo.app/",
   "inLanguage": ["en", "zh"],
   "audience": {
@@ -63,47 +63,53 @@
     <a class="logo" href="index.html" aria-label="Go to HanLingo home page">
       <img class="logo-img" src="icons/logo.jpg" alt="HanLingo logo" width="40" height="40">HanLingo
     </a>
-    <label for="hsk" hidden>HSK level</label>
-    <select id="hsk" class="hsk">
-      <option>HSK 1-2</option>
-      <option selected>HSK 3-4</option>
-      <option>HSK 5-6</option>
-    </select>
-    <button id="pro-btn" class="pro-btn" type="button">Pro</button>
+    <nav class="main-nav" aria-label="Main navigation">
+      <button type="button" class="nav-link" data-nav="levels">Levels</button>
+      <button type="button" class="nav-link premium-link" data-nav="premium">💼 Premium Business</button>
+    </nav>
+    <button id="pro-btn" class="pro-btn" type="button">Unlock Pro</button>
   </div>
 </header>
 
 <main class="wrap">
-  <!-- Learn (home) -->
   <div id="view-learn">
-    <section class="hero" aria-labelledby="hero-title">
-      <div>
-        <h1 id="hero-title">Liaozhai Tales</h1>
-        <p class="sub"><strong>Classic ghost stories with atmosphere and texture.</strong><br>Explore the strange, the eerie, and the mythical at a measured pace with story-first Mandarin practice.</p>
-        <ul class="meta">
-          <li>HSK 1-2</li>
-          <li>HSK 3-4</li>
-          <li>8 Stories</li>
-          <li>96 Cards</li>
-          <li class="free">Card 1-4 Free</li>
+    <!-- Zone 1: Marketing hero -->
+    <section class="mkt-hero" aria-labelledby="mkt-title">
+      <div class="mkt-hero-left">
+        <div class="mkt-badge">Sentence-first Mandarin · HSK 1–6</div>
+        <h1 id="mkt-title">Master Mandarin Through Sentence Formulas, Not Vocabulary Lists.</h1>
+        <p class="mkt-sub">Stop memorizing isolated words you’ll never use. Learn high-stakes professional and lifestyle sentence formulas. HSK 1–2 is 100% FREE forever.</p>
+        <div class="mkt-cta">
+          <button class="btn cta-free" type="button" data-goto="stories">Start Learning Free (No Card Required)</button>
+        </div>
+        <p class="mkt-micro">Join thousands of professionals expanding their career leverage.</p>
+        <ul class="mkt-trust">
+          <li>✓ HSK 1–2 free — no card needed</li>
+          <li>✓ Real native audio on every line</li>
+          <li>✓ 30-day money-back guarantee</li>
         </ul>
-        <button class="btn primary" type="button" data-goto="stories">Choose a Story</button>
       </div>
-      <div class="hero-title-stack" aria-hidden="true">
-        <div class="hero-title-v">聊</div>
-        <div class="seal">
-          <span class="seal-text">斋</span>
+      <div class="mkt-hero-right" aria-label="Interactive sentence breakdown demo">
+        <div class="lego-demo" id="lego-demo">
+          <div class="lego-formula">[ Subject ] + [ Verb ] + [ Object ]</div>
+          <div class="lego-line">
+            <button class="lego-brick b-subject" type="button" data-word="我">我<small>I</small></button>
+            <button class="lego-brick b-verb" type="button" data-word="去">去<small>go</small></button>
+            <button class="lego-brick b-object" type="button" data-word="公司">公司<small>office</small></button>
+          </div>
+          <div class="lego-zh">Wǒ qù gōngsī.</div>
+          <div class="lego-sub">“I go to the office.” — tap each brick to hear it</div>
         </div>
       </div>
     </section>
 
+    <!-- Zone 2: Main catalog (fun + daily only) -->
     <div class="tabs" role="tablist" aria-label="Categories">
-      <button class="tab" role="tab" aria-selected="true" data-cat="strange">👻 Strange Tales</button>
-      <button class="tab" role="tab" aria-selected="false" data-cat="daily">☕ Daily Life</button>
-      <button class="tab" role="tab" aria-selected="false" data-cat="business">💼 Business</button>
+      <button class="tab" role="tab" aria-selected="true" data-cat="strange">🎬 Fun Stories</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="daily">💬 Daily Life</button>
     </div>
 
-    <h2 id="stories" class="section-title">Choose a story</h2>
+    <h2 id="stories" class="section-title">Start free — pick a story</h2>
     <section id="stream" class="stream"></section>
     <p id="soon" class="empty" hidden>New stories are on the way.</p>
   </div>
@@ -111,6 +117,7 @@
   <div id="view-reader" hidden></div>
   <div id="view-vocab" hidden></div>
   <div id="view-profile" hidden></div>
+  <div id="view-premium" hidden></div>
 </main>
 
 <!-- Overlays -->
