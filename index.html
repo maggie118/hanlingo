@@ -69,7 +69,6 @@
       <button type="button" class="nav-link" data-nav="levels">Learn</button>
       <button type="button" class="nav-link premium-link" data-nav="premium">Pricing</button>
       <button type="button" class="nav-link community-link" data-nav="community">For Teams</button>
-      <button type="button" class="nav-link" id="save-progress">Save Progress</button>
     </nav>
     <div class="nav-actions">
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">☀</button>
@@ -87,8 +86,8 @@
     <section class="mkt-hero" aria-labelledby="mkt-title">
       <div class="mkt-hero-left">
         <div class="mkt-badge">Executive Mandarin · 915 real sentences · 3-speed audio</div>
-        <h1 id="mkt-title">One sentence today. Confident in tomorrow’s China meeting.</h1>
-        <p class="mkt-sub">Real executive sentences from Sun Tzu’s Art of War to the modern boardroom — negotiation, toasts, WeChat small talk — with native male-voice audio in slow, normal, and fast. No vocab lists. No theory.</p>
+        <h1 id="mkt-title">One sentence today. Confident in every China conversation tomorrow.</h1>
+        <p class="mkt-sub">Real sentences for client calls, supplier chats, and the moments between meetings — from WeChat small talk to the boardroom. Native male-voice audio in slow, normal, and fast. No vocab lists. No theory.</p>
         <div class="mkt-cta">
           <button class="btn cta-free" type="button" data-goto="stories">Start Free — No Sign-Up</button>
           <button class="btn cta-sample" type="button" id="cta-sample">Hear a Sample</button>
@@ -102,11 +101,19 @@
       </div>
       <div class="mkt-hero-right" aria-label="Interactive executive sentence demo">
         <div class="exec-demo" id="exec-demo">
-          <div class="exec-tag">SCENE: CROSS-DEPARTMENT ALIGNMENT | HSK 4-6 EQUIVALENT</div>
+          <div class="exec-tag">SCENE: CROSS-DEPARTMENT ALIGNMENT | B1–B2 · HSK 4–6</div>
           <div class="exec-zh">我们需要对齐一下颗粒度。</div>
           <button class="exec-py-toggle" type="button" id="exec-py-toggle" aria-pressed="true">Hide Pinyin</button>
           <div class="exec-py" id="exec-py">Wǒmen xūyào duìqí yīxià kēlìdù.</div>
           <div class="exec-en">We need to align on the level of detail.</div>
+          <div class="exec-bricks" id="exec-bricks" role="group" aria-label="Tap a word to break it down">
+            <button class="exec-brick" type="button" data-py="wǒmen" data-en="we">我们</button>
+            <button class="exec-brick" type="button" data-py="xūyào" data-en="need">需要</button>
+            <button class="exec-brick" type="button" data-py="duìqí" data-en="align (v.)">对齐</button>
+            <button class="exec-brick" type="button" data-py="yīxià" data-en="a bit (softener)">一下</button>
+            <button class="exec-brick" type="button" data-py="kēlìdù" data-en="granularity / detail">颗粒度</button>
+          </div>
+          <div class="brick-tip" id="brick-tip" hidden></div>
           <p class="exec-register">Register: China tech slang, informal. Use with caution in traditional firms.</p>
           <div class="exec-speed">
             <span class="exec-speed-label">Audio speed</span>
@@ -117,6 +124,10 @@
             </div>
           </div>
           <p class="exec-ai-audio">Audio: AI-generated native voice</p>
+          <div class="exec-win" id="exec-win" hidden>
+            <p class="win-text">Nice — that's one sentence. Start your free track?</p>
+            <button class="btn primary" type="button" id="win-start">Start Free — No Sign-Up</button>
+          </div>
           <div class="exec-intel">
             <div class="intel-head">✦ EXECUTIVE INTEL BRIEF</div>
             <p class="intel-body">Pǎomǎ-quāndì (跑马圈地) and Duìqí (对齐) are the defining boardroom idioms inside Chinese tech moving at breakneck speed. Drop this phrase during a Singapore-China strategic alignment session to instantly establish yourself as a true cultural insider.</p>
@@ -235,6 +246,7 @@ document.querySelectorAll('[data-goto]').forEach(function(b){
     curAudio = a;
     var pr = a.play();
     if (pr && pr.catch) pr.catch(function(){});
+    listened = true; maybeWin();
   }
   pills.forEach(function(p){
     p.addEventListener('click', function(){
@@ -242,6 +254,28 @@ document.querySelectorAll('[data-goto]').forEach(function(b){
       p.classList.add('active');
       play(p.getAttribute('data-rate'));
     });
+  });
+  var listened = false, bricksTapped = 0;
+  var bricks = [].slice.call(demo.querySelectorAll('.exec-brick'));
+  function maybeWin(){
+    var w = document.getElementById('exec-win');
+    if (listened && bricksTapped > 0 && w) w.hidden = false;
+  }
+  bricks.forEach(function(b){
+    b.addEventListener('click', function(){
+      bricks.forEach(function(x){ x.classList.remove('tapped'); });
+      b.classList.add('tapped');
+      bricksTapped++;
+      var t = document.getElementById('brick-tip');
+      t.textContent = b.textContent + '  ·  ' + b.getAttribute('data-py') + ' — ' + b.getAttribute('data-en');
+      t.hidden = false;
+      maybeWin();
+    });
+  });
+  var wStart = document.getElementById('win-start');
+  if (wStart) wStart.addEventListener('click', function(){
+    var s = document.getElementById('stream');
+    if (s) s.scrollIntoView({ behavior:'smooth' });
   });
 })();
 </script>
@@ -251,8 +285,7 @@ document.querySelectorAll('[data-goto]').forEach(function(b){
 <p>HanLingo teaches practical Mandarin through real sentences with native male-voice audio at slow, normal and fast speeds. The Beginner track is free forever; every paid pack includes free preview sentences before you pay.</p>
 <section class="seo-group"><h3>Pricing</h3><ul>
 <li>Beginner track — free forever, no card required</li>
-<li>Premium packs — one-time payment to unlock a level, all Business packs, or a lifetime pass</li>
-<li>Subscription — $12.99/month or $99/year (≈$8.25/month); cancel renewals anytime</li>
+<li>Premium packs — one-time payment to unlock a level, all Business packs, or a lifetime pass — no recurring fees</li>
 <li>Try before you buy — every paid pack includes free preview sentences; purchases are non-refundable</li>
 </ul></section>
 <section class="seo-group"><h3>Survival &amp; Daily Life · Beginner · Free forever</h3><ul>
