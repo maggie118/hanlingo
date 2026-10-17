@@ -243,6 +243,8 @@ button{cursor:pointer}
 .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:10px}
 .footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .15s ease}
 .footer-links a:hover{color:var(--sage)}
+.footer-links button{background:none;border:none;color:var(--muted);font-size:13px;text-decoration:none;cursor:pointer;padding:0;transition:color .15s ease;font-family:inherit}
+.footer-links button:hover{color:var(--sage)}
 .footer-legal{color:var(--muted);font-size:12px;margin:0}
 /* SEO no-JS fallback: visible only to crawlers / users without JavaScript */
 .seo-noscript{margin:40px 0 10px;padding:24px;border-top:1px solid var(--line)}
@@ -297,12 +299,10 @@ button{cursor:pointer}
     </a>
     <nav class="main-nav" aria-label="Main navigation">
       <button type="button" class="nav-link" data-nav="levels">Learn</button>
-      <button type="button" class="nav-link community-link" data-nav="community">For Teams</button>
     </nav>
     <div class="nav-actions">
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">☀</button>
       <div id="nav-streak" class="nav-streak" role="img" aria-label="Daily progress" title="Today's progress"></div>
-      <button id="pro-btn" class="pro-btn" type="button">Price</button>
     </div>
   </div>
 </header>
@@ -311,6 +311,12 @@ button{cursor:pointer}
   <div id="view-learn">
     <!-- Zone 0: Personal dashboard (streak ring + boards + quote of the day) -->
     <section id="dashboard" aria-label="Your dashboard"></section>
+    <!-- Premium Business Chinese promo -->
+    <section class="premium-strip" aria-label="Premium Business Chinese">
+      <div class="premium-strip-badge">Premium Business Chinese</div>
+      <div class="premium-strip-title">The Career Upskilling Pack<small>Salary negotiation · boardroom · supplier chats · 315 executive sentences across HSK 7-9</small></div>
+      <button class="premium-strip-cta" type="button" id="premium-strip-cta">See Price →</button>
+    </section>
     <!-- Zone 1: Marketing hero -->
     <section class="mkt-hero" aria-labelledby="mkt-title">
       <div class="mkt-hero-left">
@@ -364,13 +370,6 @@ button{cursor:pointer}
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Premium Business Chinese promo -->
-    <section class="premium-strip" aria-label="Premium Business Chinese">
-      <div class="premium-strip-badge">Premium Business Chinese</div>
-      <div class="premium-strip-title">The Career Upskilling Pack<small>Salary negotiation · boardroom · supplier chats · 315 executive sentences across HSK 7-9</small></div>
-      <button class="premium-strip-cta" type="button" id="premium-strip-cta">See Price →</button>
     </section>
 
     <!-- Social proof: data + illustrative executive testimonials -->
@@ -436,6 +435,10 @@ button{cursor:pointer}
 </nav>
 
 <footer class="site-footer">
+  <nav class="footer-links" aria-label="Product">
+    <button type="button" data-nav="community">For Teams</button>
+    <button type="button" data-nav="premium">Price</button>
+  </nav>
   <nav class="footer-links" aria-label="Legal">
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Service</a>

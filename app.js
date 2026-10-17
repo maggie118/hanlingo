@@ -1856,7 +1856,6 @@
       window.scrollTo(0, 0);
       if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     });
-    $('#pro-btn').addEventListener('click', () => show('premium'));
     const ps = document.getElementById('premium-strip-cta');
     if (ps) ps.addEventListener('click', () => show('premium'));
     $('#cta-sample').addEventListener('click', () => {
