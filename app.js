@@ -955,10 +955,17 @@
     if (b) b.remove();
   }
   function todayQuote() {
+    // Rotate through every free card that has real TTS audio (audioKey → mp3),
+    // so the daily quote plays the generated voice instead of browser speech.
     const cat = BOARD_CAT[state.currentBoard];
-    const s = state.stories.find((x) => (x.category || 'strange') === cat && x.cards && x.cards.some((c) => c.isFree));
-    if (!s || !s.cards) return null;
-    return s.cards.find((x) => x.isFree) || s.cards[0] || null;
+    const pool = [];
+    for (const x of state.stories) {
+      if ((x.category || 'strange') !== cat || !Array.isArray(x.cards)) continue;
+      for (const c of x.cards) if (c.isFree && c.audioKey) pool.push(c);
+    }
+    if (!pool.length) return null;
+    const day = Math.floor(Date.now() / 86400000);
+    return pool[day % pool.length] || null;
   }
   const VAPID_PUBLIC_KEY = LAUNCH.vapidPublic; // fallback; the push server's /api/keys is preferred
   const PUSH_API = LAUNCH.pushApi; // push-server URL — set in LAUNCH above
