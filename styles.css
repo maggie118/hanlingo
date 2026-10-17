@@ -54,7 +54,6 @@ button{cursor:pointer}
 @media (max-width:560px){
   .header .wrap{gap:6px;height:52px}
   .logo{font-size:16px;gap:5px}
-  .logo span{display:none}
   .logo-img{width:30px;height:30px}
   .main-nav{gap:4px}
   .nav-link{padding:5px 8px;font-size:12px}
