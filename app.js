@@ -1388,15 +1388,6 @@
     const root = $('#view-premium');
     root.replaceChildren(
       h('div', { class: 'premium-page' },
-        h('section', { class: 'premium-hero' },
-          h('div', { class: 'premium-badge' }, 'Premium Business Chinese'),
-          h('h1', {}, 'The Career Upskilling Pack'),
-          h('p', { class: 'premium-sub' }, 'Master the unspoken rules of Chinese corporate communication. Turn language barriers into your ultimate global business leverage.'),
-          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · $129'),
-          h('ul', { class: 'premium-trust' },
-            h('li', {}, '✓ Expense-account friendly'),
-            h('li', {}, '✓ First scenario free'),
-            h('li', {}, '✓ No level limits'))),
         h('section', { class: 'pricing-section' },
           h('h2', { class: 'biz-section-title' }, 'Pick your track'),
           h('p', { class: 'pricing-note' }, 'Try before you buy: every paid pack includes free preview sentences. Paid access is a one-time payment and non-refundable — no recurring fees. Local customers can also pay in SGD at checkout.'),
@@ -1433,6 +1424,15 @@
                 h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
                 h('li', {}, 'Priority access to new packs')),
               h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive')))) ,
+        h('section', { class: 'premium-hero' },
+          h('div', { class: 'premium-badge' }, 'Premium Business Chinese'),
+          h('h1', {}, 'The Career Upskilling Pack'),
+          h('p', { class: 'premium-sub' }, 'Master the unspoken rules of Chinese corporate communication. Turn language barriers into your ultimate global business leverage.'),
+          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · $129'),
+          h('ul', { class: 'premium-trust' },
+            h('li', {}, '✓ Expense-account friendly'),
+            h('li', {}, '✓ First scenario free'),
+            h('li', {}, '✓ No level limits'))),
         h('div', { class: 'premium-grid' },
           ...PREMIUM_TOPICS.map((t) => {
             const story = state.stories.find((x) => x.columnId === t.columnId);

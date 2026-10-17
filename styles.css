@@ -353,6 +353,9 @@ body.theme-premium .premium-link{background:linear-gradient(135deg,#0e1a33,#1626
 body.theme-premium .bottom-nav{background:#0d1626;border-top:1px solid #26344f}
 body.theme-premium .bottom-nav button{color:#8fa0bd}
 body.theme-premium .bottom-nav button[aria-current="page"]{color:#f5c86a}
+/* Fixed-brand views (premium / community) lock their theme; hide the theme toggle there. */
+body.theme-premium .theme-toggle,
+body.theme-community .theme-toggle{display:none}
 
 .premium-page{padding-top:8px}
 .premium-hero{text-align:center;padding:34px 18px;border-radius:18px;margin-bottom:26px;
