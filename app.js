@@ -856,6 +856,7 @@
     state.currentStoryIdx = i;
     state.currentStoryColumn = s.columnId || '';
     state.idx = 0;
+    state.currentBoard = s.category === 'business' ? 'business' : (s.category === 'strange' || s.category === 'mastery' || s.category === 'elite' || s.category === 'hsk79' ? 'mastery' : 'survival');
     renderIntro(s);
     show('reader');
   }
@@ -1380,6 +1381,7 @@
     state.currentStoryIdx = state.stories.findIndex((x) => x === s);
     state.currentStoryColumn = s.columnId || '';
     state.idx = 0;
+    state.currentBoard = 'business';
     renderIntro(s);
     show('reader');
   }
