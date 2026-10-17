@@ -773,7 +773,7 @@
                 ]),
               h('p', { class: 'cf-hint' }, 'Tap to flip')))),
         h('div', { class: 'cf-actions' },
-          h('button', { class: 'cf-btn fav' + (isStarred(c.id) ? ' faved' : ''), type: 'button', onclick: () => markStar() }, isStarred(c.id) ? '♥ 已收藏' : '♡ 收藏'),
+          h('button', { class: 'cf-btn fav' + (isStarred(c.id) ? ' faved' : ''), type: 'button', onclick: () => markStar() }, isStarred(c.id) ? '♥ Saved' : '♡ Save'),
           h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '✓ 完成' : 'Next →'))));
   }
 
@@ -829,7 +829,7 @@
     stars[id] = !stars[id];
     saveStars(stars);
     const b = document.querySelector('.cf-btn.fav');
-    if (b) { b.classList.toggle('faved'); b.innerText = stars[id] ? '♥ 已收藏' : '♡ 收藏'; }
+    if (b) { b.classList.toggle('faved'); b.innerText = stars[id] ? '♥ Saved' : '♡ Save'; }
   }
 
   // Paywall gate: a locked card is never rendered, so its text never reaches the DOM.
@@ -1426,15 +1426,6 @@
                 h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
                 h('li', {}, 'Priority access to new packs')),
               h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive')))) ,
-        h('section', { class: 'premium-hero' },
-          h('div', { class: 'premium-badge' }, 'Premium Business Chinese'),
-          h('h1', {}, 'The Career Upskilling Pack'),
-          h('p', { class: 'premium-sub' }, 'Master the unspoken rules of Chinese corporate communication. Turn language barriers into your ultimate global business leverage.'),
-          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · $129'),
-          h('ul', { class: 'premium-trust' },
-            h('li', {}, '✓ Expense-account friendly'),
-            h('li', {}, '✓ First scenario free'),
-            h('li', {}, '✓ No level limits'))),
         h('div', { class: 'premium-grid' },
           ...PREMIUM_TOPICS.map((t) => {
             const story = state.stories.find((x) => x.columnId === t.columnId);
@@ -1858,6 +1849,13 @@
       if (b.dataset.word) speak(b.dataset.word);
       setTimeout(() => b.classList.remove('speaking'), 900);
     }));
+    const logo = document.querySelector('.logo');
+    if (logo) logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      show('learn');
+      window.scrollTo(0, 0);
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    });
     $('#pro-btn').addEventListener('click', () => show('premium'));
     $('#cta-sample').addEventListener('click', () => {
       const d = document.getElementById('exec-demo');
