@@ -1,24 +1,20 @@
 // HanLingo Service Worker
-const CACHE_NAME = 'hanlingo-v20';
+const CACHE_NAME = 'hanlingo-v21';
 const APP_SHELL = [
   './',
   'index.html',
   'styles.css',
   'app.js',
-  'daily-life.js',
-  'business-hsk12.js',
-  'journey-west-hsk12.js',
-  'art-of-war-hsk56.js',
-  'advanced-daily-hsk56.js',
-  'advanced-business-hsk56.js',
-  'stories.json',
   'stories-data.js',
+  'daily-life.js',
+  'business-workplace.js',
+  'elite-hsk79.js',
+  'advanced-daily-hsk56.js',
   'manifest.json',
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/apple-touch-icon.png',
-  'icons/favicon-32.png',
-  'icons/logo.jpg'
+  'icons/favicon-32.png'
 ];
 
 // Install: cache the shell. Each file is added separately so one missing icon doesn't fail the install.

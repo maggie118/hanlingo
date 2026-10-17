@@ -726,33 +726,82 @@
         }
         return h('span', { class: 'char-group' }, ...aligned.nodes);
       }));
+    let backHanziOffset = 0;
+    const backSentence = h('p', { class: 'sentence back-aligned', lang: 'zh-CN' },
+      ...tokenize(c.sentence, c.vocabList).map((tk) => {
+        const aligned = renderAlignedChars(Array.from(tk.t), pinyinAlignment || [], backHanziOffset);
+        backHanziOffset = aligned.nextHanzi;
+        return h('span', { class: 'char-group' }, ...aligned.nodes);
+      }));
 
     $('#view-reader').replaceChildren(
       h('div', { class: 'cardflow' },
         h('div', { class: 'cf-top' },
           h('button', { class: 'cf-back', type: 'button', 'aria-label': 'Back', onclick: () => show('learn') }, '←'),
-          h('span', { class: 'cf-count' }, `${state.idx + 1} / ${total}`),
-          h('span', { class: 'tag ' + (c.isFree ? 'free' : 'pro') }, c.isFree ? 'Free' : 'Pro')),
+          h('span', { class: 'cf-count' }, '#' + (c.audioKey || String(state.idx + 1))),
+          h('span', { class: 'tag ' + (freeNow(c) ? 'free' : 'pro') }, freeNow(c) ? 'Free' : 'Pro')),
         h('div', { class: 'cf-card', 'data-flip': '0', onclick: () => flipCard() },
           h('div', { class: 'cf-inner' },
             h('div', { class: 'cf-face cf-front' },
-              h('button', { class: 'cf-audio', type: 'button', 'aria-label': 'Play sentence', onclick: (e) => { e.stopPropagation(); speak(c.sentence); } }, '🔊'),
               h('div', { class: 'cf-sentence', 'data-hidepy': state.hidePinyin ? '1' : '0' },
-                sentence,
-                h('p', { class: 'cf-pinyin' }, c.pinyin || '')),
-              h('button', { class: 'cf-pinyin-btn', type: 'button', onclick: (e) => { e.stopPropagation(); togglePinyin(); } },
-                state.hidePinyin ? 'Show pinyin' : 'Hide pinyin')),
+                sentence),
+              h('div', { class: 'cf-audio3' },
+                h('button', { class: 'cf-speed slow', type: 'button', onclick: (e) => { e.stopPropagation(); playAudio(c, 'slow'); } }, '🐢 Slow'),
+                h('button', { class: 'cf-speed normal', type: 'button', onclick: (e) => { e.stopPropagation(); playAudio(c, 'normal'); } }, '▶ Normal'),
+                h('button', { class: 'cf-speed fast', type: 'button', onclick: (e) => { e.stopPropagation(); playAudio(c, 'fast'); } }, '🐇 Fast')),
+              h('p', { class: 'cf-ai-audio' }, 'Audio: AI-generated native voice'),
+              h('p', { class: 'cf-drill' }, '🔁 Repeat: listen Slow → repeat 3× → record & compare → say the Chinese from the English.'),
+              h('div', { class: 'cf-flip' }, '⟳ Tap to flip')),
             h('div', { class: 'cf-face cf-back' },
-              h('p', { class: 'cf-trans' }, c.translation || ''),
-              (c.context || c.grammarPoint) ? h('div', { class: 'cf-context' },
-                h('span', { class: 'cf-context-label' }, 'Business / Cultural Context'),
-                h('p', {}, ...(c.context ? highlightCtx(c.context) : highlightZh(c.grammarPoint)))) : null,
+              backSentence,
+              h('p', { class: 'cf5-en' }, c.translation || ''),
+              ...(c.undercurrent ? [
+                h('div', { class: 'cf5-uc' },
+                  (c.undercurrent.origin ? h('p', { class: 'cf5-idiom' }, '✦ ' + c.undercurrent.origin) : null),
+                  (c.undercurrent.idiom ? h('p', { class: 'cf5-idiom' }, '✦ ' + c.undercurrent.idiom) : null),
+                  (c.undercurrent.source ? h('p', { class: 'cf5-src' }, '📜 ' + c.undercurrent.source) : null),
+                  h('p', { class: 'cf5-ctx' }, '💬 ' + c.undercurrent.context),
+                  h('p', { class: 'cf5-sig' }, '🔑 ' + c.undercurrent.signal))
+                ] : [
+                h('div', { class: 'cf5-note' },
+                  h('b', {}, '💡 Annotation'),
+                  h('p', {}, ...(cardNote(c) ? highlightZh(cardNote(c)) : ['—']))),
+                h('div', { class: 'cf5-reply' },
+                  h('b', {}, '🔁 Likely reply'),
+                  ...(c.replyPinyin ? [h('p', { class: 'cf5-reply-py' }, c.replyPinyin)] : []),
+                  h('p', { class: 'cf5-reply-zh' }, cardReply(c) || '—'))
+                ]),
               h('p', { class: 'cf-hint' }, 'Tap to flip')))),
         h('div', { class: 'cf-actions' },
           h('button', { class: 'cf-btn star' + (isStarred(c.id) ? ' starred' : ''), type: 'button', onclick: () => markStar() }, '★ 错题本'),
           h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '✓ 完成' : '✓ 已掌握 · Next'))));
   }
 
+  function levelIsLow(c) { const r = (c.hskRange || ''); return /1-2|1-3/.test(r); }
+  function cardNote(c) {
+    if (c.note) return c.note;
+    if (c.context) return c.context;
+    if (c.grammarPoint) return c.grammarPoint;
+    return '文化：日常口语，自然亲切。通俗用法：直接套用这个句子。什么时候说：' + (levelIsLow(c) ? '跟朋友、服务员或熟人轻松聊天时。' : '日常对话或轻松场合，开口就能用。');
+  }
+  function cardReply(c) {
+    if (c.reply) return c.reply;
+    return '对方可能回："好的。" / "可以。"（视场景而定）';
+  }
+  function audioPath(c, tag) {
+    const k = c.audioKey;
+    if (!k) return '';
+    const f = tag === 'slow' ? `${k}_slow.mp3` : tag === 'fast' ? `${k}_fast.mp3` : `${k}.mp3`;
+    const dir = { survival: 'survival', business: 'business', mastery: 'elite' }[state.currentBoard] || 'survival';
+    return 'audio/' + dir + '/' + f;
+  }
+  function playAudio(c, tag) {
+    const src = audioPath(c, tag);
+    if (!src) { speak(c.sentence); return; }
+    let a = document.getElementById('hanlingo-speed-audio');
+    if (!a) { a = document.createElement('audio'); a.id = 'hanlingo-speed-audio'; document.body.appendChild(a); }
+    a.src = src; a.play().catch(() => {});
+  }
   function flipCard() {
     const card = document.querySelector('.cf-card');
     if (!card) return;
@@ -784,11 +833,15 @@
   }
 
   // Paywall gate: a locked card is never rendered, so its text never reaches the DOM.
+  function freeNow() {
+    const s = state.stories[state.currentStoryIdx];
+    return !!s && state.idx < (s.freeCards || 0);
+  }
   function go(i) {
     if (i < 0 || i >= state.cards.length) return;
-    const c = state.cards[i];
     const s = state.stories[state.currentStoryIdx];
-    if (!c.isFree && !canOpenStory(s)) { state.pending = i; openPaywall(s && s.category === 'business' ? 'biz' : 'level'); return; }
+    const trialN = (s && s.freeCards) || 0;
+    if (i >= trialN && !canOpenStory(s)) { state.pending = i; openPaywall(s && s.category === 'business' ? 'biz' : 'level'); return; }
     state.idx = i;
     show('reader');
     renderReader();
@@ -814,7 +867,8 @@
     $('#view-reader').replaceChildren(
       h('div', { class: 'intro' },
         h('div', { class: 'r-top' },
-          h('button', { class: 'btn ghost', type: 'button', onclick: () => show('learn') }, 'Back')),
+          h('button', { class: 'btn ghost', type: 'button', onclick: () => show('learn') }, 'Back'),
+          h('button', { class: 'btn ghost', type: 'button', onclick: () => sharePack(s) }, 'Share')),
         h('div', { class: 'cover big ' + (s.coverClass || 'c1'), 'aria-hidden': 'true' }, s.cover || zh.slice(0, 1)),
         h('h2', { class: 'intro-title' }, en),
         h('p', { class: 'intro-zh', lang: 'zh-CN' }, zh),
@@ -822,19 +876,42 @@
         s.intro ? h('p', { class: 'intro-text intro-text-zh', lang: 'zh-CN' }, s.intro) : null,
         s.introZh ? h('p', { class: 'intro-sent', lang: 'zh-CN' }, s.introZh) : null,
         h('div', { class: 'tags' },
-          h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
+          h('span', { class: 'tag' }, levelLabel(s.hskRange)),
+          h('span', { class: 'tag' }, cefrLabel(s.hskRange)),
+          h('span', { class: 'tag' }, '≈' + estMins(s) + ' min'),
           h('span', { class: 'tag' }, s.totalCards + ' cards'),
           h('span', { class: 'tag free' }, 'Cards 1-' + s.freeCards + ' Free')),
         h('button', { class: 'btn primary start', type: 'button', onclick: () => go(0) }, 'Start reading')));
   }
 
-  function hskRank(r) { return r === 'HSK 1-2' ? 1 : r === 'HSK 5-6' ? 3 : 2; }
+  function hskRank(r) { return (r === 'HSK 1-2' || r === 'HSK 1-3') ? 1 : r === 'HSK 5-6' ? 3 : 2; }
+
+  function packSlug(t) { const e = t.indexOf(' · '); const n = e >= 0 ? t.slice(e + 3) : t; return n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'pack'; }
+  function sharePack(s) {
+    const url = 'https://hanlingo.app/story/' + packSlug(s.title) + '.html';
+    function doCopy() {
+      function fallback() { const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showMiniToast('Link copied — share this story'); } catch (e2) { prompt('Copy this link:', url); } ta.remove(); }
+      try { navigator.clipboard.writeText(url).then(() => showMiniToast('Link copied — share this story')).catch(() => fallback()); } catch (e) { fallback(); }
+    }
+    if (navigator.share) { navigator.share({ title: s.title || '', url }).catch(() => {}); } else { doCopy(); }
+  }
+
+  // User-facing level label (avoids the HSK acronym outsiders may not know)
+  function levelLabel(r) {
+    const x = r || '';
+    if (x === 'HSK 1-2' || x === 'HSK 1-3') return 'Beginner · Free forever';
+    if (x === 'HSK 5-6') return 'Advanced · Pro';
+    if (x === 'HSK 4-6') return 'Intermediate · Pro';
+    if (x === 'HSK 7-9') return 'Advanced · Executive';
+    return 'Pro';
+  }
 
   function canOpenStory(s) {
     if (!s) return true;
     const cid = s.columnId || '';
     if (s.category === 'business') return state.access.business || state.access.theme.indexOf(cid) >= 0;
-    if ((s.hskRange || 'HSK 3-4') === 'HSK 1-2') return true;
+    const _r = s.hskRange || 'HSK 3-4';
+    if (_r === 'HSK 1-2' || _r === 'HSK 1-3') return true;
     return state.access.level || state.access.theme.indexOf(cid) >= 0;
   }
 
@@ -854,7 +931,6 @@
     const rec = dailyProgress();
     rec.count += 1;
     store.set('hanlingo_daily', rec);
-    if (rec.count === dayGoal()) maybeShowInstallBanner();
   }
   function maybeShowInstallBanner() {
     if (document.getElementById('install-banner')) return;
@@ -946,11 +1022,33 @@
     const total = state.cards ? state.cards.length : 0;
     const p = store.get('hanlingo_progress', {});
     const e = p[col] || { completed: 0, total };
+    const beforeTotal = Object.keys(p).reduce((a, k) => a + ((p[k] || {}).completed || 0), 0);
     e.completed = Math.min(e.completed + 1, e.total || total);
     e.total = total;
     p[col] = e;
     store.set('hanlingo_progress', p);
+    if (beforeTotal === 0 && e.completed >= 1) {
+      if (!store.get('hanlingo_synctip_shown')) {
+        store.set('hanlingo_synctip_shown', true);
+        showSyncToast();
+      }
+      if (!store.get('hanlingo_install_suggested') && !store.get('hanlingo_installed')) {
+        store.set('hanlingo_install_suggested', true);
+        setTimeout(() => maybeShowInstallBanner(), 7000);
+      }
+    }
     return e;
+  }
+  function showSyncToast() {
+    let t = document.getElementById('sync-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'sync-toast'; t.className = 'sync-toast'; document.body.appendChild(t); }
+    t.replaceChildren(
+      h('span', { class: 'sync-toast-msg' }, 'Progress saved on this device. Want it on your phone too? '),
+      h('button', { class: 'btn', type: 'button', onclick: () => { t.remove(); openSaveProgress(); } }, 'Save it'),
+      h('button', { class: 'sync-toast-x', type: 'button', 'aria-label': 'Dismiss', onclick: () => t.remove() }, '×'));
+    t.hidden = false;
+    clearTimeout(t._t);
+    t._t = setTimeout(() => { if (t.parentNode) t.remove(); }, 8000);
   }
   function boardPercent() {
     const cat = BOARD_CAT[state.currentBoard];
@@ -960,10 +1058,15 @@
     const done = packs.reduce((a, s) => a + ((p[s.columnId] || {}).completed || 0), 0);
     return total ? Math.min(100, Math.round((done / total) * 100)) : 0;
   }
+  function boardPacks(k) {
+    const cat = BOARD_CAT[k];
+    return state.stories.filter((s) =>
+      (s.category || 'strange') === cat &&
+      (k !== 'survival' || (s.hskRange || 'HSK 3-4') === 'HSK 1-2' || (s.hskRange || 'HSK 3-4') === 'HSK 1-3'));
+  }
   function boardCapsuleStats(key) {
     const k = key || state.currentBoard;
-    const cat = BOARD_CAT[k];
-    const packs = state.stories.filter((s) => (s.category || 'strange') === cat);
+    const packs = boardPacks(k);
     const p = store.get('hanlingo_progress', {});
     const total = packs.length;
     const done = packs.filter((s) => {
@@ -975,8 +1078,7 @@
   }
   function boardSentenceStats(key) {
     const k = key || state.currentBoard;
-    const cat = BOARD_CAT[k];
-    const packs = state.stories.filter((s) => (s.category || 'strange') === cat);
+    const packs = boardPacks(k);
     const p = store.get('hanlingo_progress', {});
     const total = packs.reduce((a, s) => a + (s.cards ? s.cards.length : 0), 0);
     const done = packs.reduce((a, s) => a + ((p[s.columnId] || {}).completed || 0), 0);
@@ -1080,7 +1182,7 @@
     const done = e.completed;
     const total = e.total || (s.cards ? s.cards.length : 0);
     const full = total && done >= total;
-    return h('span', { class: 'capsule-badge' + (full ? ' done' : '') }, full ? '✅ ' + total + '/' + total : done + '/' + total + ' 句');
+    return h('span', { class: 'capsule-badge' + (full ? ' done' : '') }, (full ? '✅ ' : '') + done + '/' + total + ' learned');
   }
   function setBoardTabs(key) {
     document.querySelectorAll('.board-tabs .tab').forEach((b) => {
@@ -1090,25 +1192,37 @@
   function renderDashboard() {
     const dash = $('#dashboard');
     if (!dash) return;
+    const prog = store.get('hanlingo_progress', {});
+    let totalLearned = 0;
+    for (const k in prog) totalLearned += (prog[k].completed || 0);
+    if (!totalLearned) { dash.replaceChildren(); return; }
+    const contPack = state.stories.reduce((best, s) => {
+      const e = prog[s.columnId];
+      if (!e || !e.completed) return best;
+      return (!best || e.completed > (prog[best.columnId] || {}).completed) ? s : best;
+    }, null);
     const goal = dayGoal();
     const rec = dailyProgress();
     const pct = Math.min(100, Math.round((rec.count / goal) * 100));
     const remaining = Math.max(0, goal - rec.count);
     const boards = [
-      { key: 'survival', icon: '🌏', title: 'Survival & Daily Life', level: 'HSK 1-3', mins: '≈3 min', scene: '点海底捞 · Grab司机 · 酒吧破冰', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
-      { key: 'business', icon: '💼', title: 'Business & Workplace Pro', level: 'HSK 4-6', mins: '≈5 min', scene: '跨境谈判 · 大厂黑话 · 拒劝酒', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
-      { key: 'mastery', icon: '👑', title: 'Mastery · Culture & Strategy', level: 'HSK 7-9', mins: '≈7 min', scene: '孙子兵法商战 · 高端晚宴', caps: boardCapsuleStats('mastery'), sent: boardSentenceStats('mastery') }
+      { key: 'survival', icon: '🌏', title: 'Survival & Daily Life', level: 'Beginner · Free forever', mins: '≈3 min', scene: '点单 · 结账 · 打包 · 打车 · 周末约朋友', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
+      { key: 'business', icon: '💼', title: 'Business & Workplace Pro', level: 'Intermediate · Pro', mins: '≈5 min', scene: '跨境谈判 · 大厂黑话 · 拒劝酒', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
+      { key: 'mastery', icon: '👑', title: 'Mastery · Sun Tzu Strategy', level: 'Advanced · Executive', mins: '≈7 min', scene: 'Sun Tzu’s Art of War · executive dining & negotiation', caps: boardCapsuleStats('mastery'), sent: boardSentenceStats('mastery') }
     ];
     const q = todayQuote();
     dash.replaceChildren(
       h('section', { class: 'dash' },
+        (contPack ? h('div', { class: 'dash-continue', role: 'button', tabindex: '0', onclick: () => { const s = contPack; state.cards = s.cards; state.currentStoryIdx = state.stories.indexOf(s); state.idx = 0; show('reader'); renderReader(); } },
+          h('b', {}, 'Continue where you left off'),
+          h('span', {}, ((prog[contPack.columnId] || {}).completed || 0) + '/' + (contPack.cards ? contPack.cards.length : 0) + ' sentences · ' + ((contPack.title || '').split('·')[1] || contPack.title).trim())) : null),
         h('div', { class: 'dash-streak' },
           h('div', { class: 'streak-ring' },
             svgRing(pct),
-            h('div', { class: 'streak-num' }, h('b', {}, String(rec.count)), h('span', {}, '/ ' + goal + ' 句'))),
+            h('div', { class: 'streak-num' }, h('b', {}, String(rec.count)), h('span', {}, '/ ' + goal + ' sentences'))),
           h('div', { class: 'streak-text' },
             h('h2', {}, 'Today’s Progress'),
-            h('p', {}, remaining > 0 ? '今日还剩 ' + remaining + ' 句，保持连击 🔥' : '今日目标达成 🎉'))),
+            h('p', {}, remaining > 0 ? remaining + ' sentences left today — keep the streak 🔥' : 'Daily goal reached 🎉'))),
         (srsDueCount() > 0 ? h('button', { class: 'dash-due', type: 'button', onclick: renderReview }, '🔁 ' + srsDueCount() + ' card' + (srsDueCount() > 1 ? 's' : '') + ' due for review — tap to recall') : null),
         h('div', { class: 'dash-boards' },
           boards.map((b) => h('button', { class: 'dash-board', type: 'button', onclick: () => {
@@ -1125,11 +1239,11 @@
               h('span', { class: 'db-scene' }, b.scene),
               h('span', { class: 'db-caps' },
                 h('i', { class: 'db-caps-fill', style: 'width:' + (b.sent.total ? Math.round((b.sent.done / b.sent.total) * 100) : 0) + '%' }),
-                h('em', {}, '已刷 ' + b.sent.done + '/' + b.sent.total + ' 句 · ' + b.caps.done + '/' + b.caps.total + ' Capsules')))))),
-        q ? h('div', { class: 'dash-quote', role: 'button', tabindex: '0', onclick: () => { const s = state.stories.find((x) => x.cards && x.cards[0] === q); if (s) { state.cards = s.cards; state.currentStoryIdx = state.stories.indexOf(s); state.idx = 0; renderIntro(s); show('reader'); } } },
+                h('em', {}, 'Done ' + b.sent.done + '/' + b.sent.total + ' sentences · ' + b.caps.done + '/' + b.caps.total + ' Capsules')))))),
+        q ? h('div', { class: 'dash-quote', role: 'button', tabindex: '0', onclick: () => { const s = state.stories.find((x) => x.cards && x.cards.indexOf(q) >= 0); if (s) { state.cards = s.cards; state.currentStoryIdx = state.stories.indexOf(s); state.idx = s.cards.indexOf(q); show('reader'); renderReader(); } } },
           h('span', { class: 'dq-label' }, 'Quote of the Day'),
-          h('p', { class: 'dq-zh', lang: 'zh-CN' }, q.sentence),
           h('p', { class: 'dq-py' }, q.pinyin || ''),
+          h('p', { class: 'dq-zh', lang: 'zh-CN' }, q.sentence),
           h('p', { class: 'dq-en' }, q.translation || '')) : null,
         h('div', { class: 'dash-push' },
           h('div', { class: 'dp-copy' },
@@ -1155,7 +1269,33 @@
   }
 
   function modernPlay(s) {
-    const t = (s.title || '') + ' ' + (s.columnId || '') + ' ' + (s.introEn || '');
+    const id = s.columnId || '';
+    const t = (s.title || '') + ' ' + id + ' ' + (s.introEn || '');
+    const map = {
+      elite_strategy: 'Modern: Sun Tzu’s rule #1 — have a plan before you enter the room',
+      elite_budget: 'Modern: master the numbers — money talks in every boardroom',
+      elite_sales: 'Modern: the win-the-deal playbook, from first call to signature',
+      elite_team: 'Modern: build alignment the way Sun Tzu builds armies',
+      elite_fund: 'Modern: pitch to investors with the confidence of a general',
+      elite_product: 'Modern: ship a product your customers can’t ignore',
+      elite_crisis: 'Modern: Sun Tzu’s calm — lead when the fire is worst',
+      elite_transform: 'Modern: change before you’re forced to — the art of reinvention',
+      elite_perf: 'Modern: the review-room script that earns respect',
+      elite_crossculture: 'Modern: negotiate across cultures, win everywhere',
+      elite_dining: 'Modern: close deals at the dinner table, toast like a local',
+      elite_visit: 'Modern: host the perfect visit — power is in the details',
+      elite_gifting: 'Modern: the gift that opens doors (and closes them, too)',
+      elite_smalltalk: 'Modern: small talk that builds real relationships',
+      elite_gov: 'Modern: navigate regulation and government with finesse',
+      elite_negotiation: 'Modern: the ten moves of Sun Tzu’s negotiation table',
+      elite_board: 'Modern: run your board the way a general runs his war room',
+      elite_global: 'Modern: going global — Sun Tzu’s strategy for new markets',
+      elite_ai: 'Modern: arm yourself with AI the way generals arm their troops',
+      elite_ethics: 'Modern: win the long game — integrity is the ultimate edge',
+      elite_oriental: 'Modern: the 3,000-year wisdom behind every deal',
+      elite_suntzu: 'Modern: the Art of War, rewritten for today’s boardroom'
+    };
+    if (map[id]) return map[id];
     if (/art[-_ ]?of[-_ ]?war|孙子|battle|calculat/i.test(t)) return 'Modern: pre-flight competitive intel for founders';
     if (/journey[-_ ]?west|西游|monkey king/i.test(t)) return 'Modern: turning the "impossible" into a growth story';
     if (/liaozhai|聊斋/i.test(t)) return 'Modern: reading the unspoken at work & in society';
@@ -1174,16 +1314,17 @@
         h('h3', {}, en),
         (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
         h('div', { class: 'tags' },
-          h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
+          h('span', { class: 'tag' }, levelLabel(s.hskRange)),
+          h('span', { class: 'tag' }, cefrLabel(s.hskRange)),
+          h('span', { class: 'tag' }, '≈' + estMins(s) + ' min'),
           h('span', { class: 'tag classic-modern' }, '⚔ ' + modernPlay(s)),
           ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
-          o.isFree ? h('span', { class: 'tag free' }, '100% Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
+          o.isFree ? h('span', { class: 'tag free' }, 'Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
   }
 
   function renderStream() {
     const root = $('#stream');
-    const visible = state.stories.filter((s) =>
-      (s.category || 'strange') === BOARD_CAT[state.currentBoard]);
+    const visible = boardPacks(state.currentBoard);
     visible.sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
     if (!visible.length) {
       root.replaceChildren();
@@ -1196,8 +1337,9 @@
         const zh = (s.title.split('·')[0] || '').trim();
         const en = (s.title.split('·')[1] || s.title).trim();
         const storyIndex = state.stories.findIndex((item) => item === s);
-        const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2';
-        const locked = !isFree && !canOpenStory(s);
+        const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2' || (s.hskRange || 'HSK 3-4') === 'HSK 1-3';
+        const trial = (s.freeCards || 0) > 0;
+        const locked = !isFree && !canOpenStory(s) && !trial;
         const tag = isFree ? '🟢 FREE' : (locked ? '🔒 LEVEL PASS' : null);
         if (state.currentBoard === 'mastery') return classicPack(s, { isFree, locked, storyIndex });
         return h('button', { class: 'pack' + (locked ? ' locked' : ''), type: 'button', onclick: () => (locked ? openPaywall('level') : openStory(storyIndex)) },
@@ -1209,24 +1351,26 @@
             h('p', {}, zh + ' · ' + s.totalCards + ' cards'),
             (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
             h('div', { class: 'tags' },
-              h('span', { class: 'tag' }, s.hskRange || 'HSK 3-4'),
+              h('span', { class: 'tag' }, levelLabel(s.hskRange)),
+              h('span', { class: 'tag' }, cefrLabel(s.hskRange)),
+              h('span', { class: 'tag' }, '≈' + estMins(s) + ' min'),
               ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
-              isFree ? h('span', { class: 'tag free' }, '100% Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
+              isFree ? null : h('span', { class: 'tag pro' }, 'Level Pass'))));
       }));
     $('#soon').hidden = true;
   }
 
   /* ---------- Premium Business zone ---------- */
   const PREMIUM_TOPICS = [
-    { zh: '黑话', en: 'Why Is Everyone Saying “Fù Néng” and “Zhǔ Shǒu”?', hook: 'Decode the big-tech jargon and closed-loop logic insiders expect you to know.', columnId: 'advanced_business_04' },
-    { zh: '生存', en: 'What Do I Say When the Boss Blames Me in a Meeting?', hook: 'High-EQ survival lines that keep your composure — and your job.', columnId: 'advanced_business_07' },
-    { zh: '汇报', en: 'How Do I Explain to HQ Why the Chinese Project Is Delayed?', hook: 'Own the narrative, protect the relationship, and manage the message home.', columnId: 'business_hsk12_progress' },
-    { zh: '拒绝', en: 'How to Softly Reject an Unreasonable Request from a Client?', hook: 'Say no to a client without losing the account — or the face.', columnId: 'advanced_business_03' },
-    { zh: '压价', en: 'What Should I Say to Get a Better Price from the Factory?', hook: 'Supply-chain negotiation lines that actually move the number.', columnId: 'advanced_business_06' },
-    { zh: '路演', en: 'How to Pitch Alibaba/Tencent Without Sounding Like an Amateur?', hook: 'Pitch vocabulary that makes the investors lean in.', columnId: 'advanced_business_02' },
-    { zh: '饭局', en: 'What Am I Supposed to Talk About at a Chinese Business Dinner?', hook: 'Toast, small talk, and the table topics that quietly seal deals.', columnId: 'business_hsk12_dining' },
-    { zh: '挡酒', en: 'How Do I Politely Avoid Drinking Alcohol at a Dinner?', hook: 'Graceful lines to decline the drink without the awkwardness.', columnId: 'business_hsk12_dining' },
-    { zh: '破冰', en: 'How to Gossip Legally with My Chinese Coworkers?', hook: 'Safe banter that builds trust and rapport with your team.', columnId: 'business_hsk12_intro' }
+    { zh: '黑话', en: 'Why Is Everyone Saying “Fù Néng” and “Zhǔ Shǒu”?', hook: 'Decode the big-tech jargon and closed-loop logic insiders expect you to know.', columnId: 'biz_office' },
+    { zh: '生存', en: 'What Do I Say When the Boss Blames Me in a Meeting?', hook: 'High-EQ survival lines that keep your composure — and your job.', columnId: 'biz_office' },
+    { zh: '汇报', en: 'How Do I Explain to HQ Why the Chinese Project Is Delayed?', hook: 'Own the narrative, protect the relationship, and manage the message home.', columnId: 'biz_meeting' },
+    { zh: '拒绝', en: 'How to Softly Reject an Unreasonable Request from a Client?', hook: 'Say no to a client without losing the account — or the face.', columnId: 'biz_meeting' },
+    { zh: '压价', en: 'What Should I Say to Get a Better Price from the Factory?', hook: 'Supply-chain negotiation lines that actually move the number.', columnId: 'biz_dining' },
+    { zh: '路演', en: 'How to Pitch Alibaba/Tencent Without Sounding Like an Amateur?', hook: 'Pitch vocabulary that makes the investors lean in.', columnId: 'biz_interview' },
+    { zh: '饭局', en: 'What Am I Supposed to Talk About at a Chinese Business Dinner?', hook: 'Toast, small talk, and the table topics that quietly seal deals.', columnId: 'biz_dining' },
+    { zh: '挡酒', en: 'How Do I Politely Avoid Drinking Alcohol at a Dinner?', hook: 'Graceful lines to decline the drink without the awkwardness.', columnId: 'biz_dining' },
+    { zh: '破冰', en: 'How to Gossip Legally with My Chinese Coworkers?', hook: 'Safe banter that builds trust and rapport with your team.', columnId: 'biz_interview' }
   ];
 
   function openBizStory(s) {
@@ -1248,11 +1392,47 @@
           h('div', { class: 'premium-badge' }, 'Premium Business Chinese'),
           h('h1', {}, 'The Career Upskilling Pack'),
           h('p', { class: 'premium-sub' }, 'Master the unspoken rules of Chinese corporate communication. Turn language barriers into your ultimate global business leverage.'),
-          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · S$199'),
+          h('button', { class: 'btn cta-biz', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock Premium Business · $129'),
           h('ul', { class: 'premium-trust' },
             h('li', {}, '✓ Expense-account friendly'),
             h('li', {}, '✓ First scenario free'),
-            h('li', {}, '✓ No HSK limits'))),
+            h('li', {}, '✓ No level limits'))),
+        h('section', { class: 'pricing-section' },
+          h('h2', { class: 'biz-section-title' }, 'Pick your track'),
+          h('p', { class: 'pricing-note' }, 'Try before you buy: every paid pack includes free preview sentences. Paid access is a one-time payment and non-refundable — no recurring fees. Local customers can also pay in SGD at checkout.'),
+          h('div', { class: 'pricing-grid' },
+            h('div', { class: 'price-card free' },
+              h('div', { class: 'price-name' }, 'Free'),
+              h('div', { class: 'price-amt' }, '$0', h('small', {}, 'forever')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'Beginner track free forever — no card'),
+                h('li', {}, 'Free preview sentences in paid packs'),
+                h('li', {}, 'Local-first progress on your device'),
+                h('li', {}, 'Three-speed native audio on free lines'),
+                h('li', {}, 'Export & import your progress JSON')),
+              h('button', { class: 'btn', type: 'button', onclick: () => show('learn') }, 'Start free')),
+            h('div', { class: 'price-card pro' },
+              h('div', { class: 'price-name' }, 'Pro'),
+              h('div', { class: 'price-amt' }, '$129', h('small', {}, 'one-time')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'All Survival & Business packs (60 packs · 300 sentences)'),
+                h('li', {}, 'CEFR A1–C1 mapped to every pack'),
+                h('li', {}, 'Native male three-speed audio on every line'),
+                h('li', {}, 'Offline learning (PWA install)'),
+                h('li', {}, 'AI read-along pronunciation practice'),
+                h('li', {}, 'Cross-device sync via email link')),
+              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Go Pro')),
+            h('div', { class: 'price-card exec' },
+              h('div', { class: 'price-name' }, 'Executive'),
+              h('div', { class: 'price-amt' }, '$249', h('small', {}, 'one-time')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'Everything in Pro'),
+                h('li', {}, 'Mastery · Sun Tzu Strategy (HSK 7-9 · 22 packs · 315 sentences)'),
+                h('li', {}, 'CEFR C1–C2 executive Mandarin'),
+                h('li', {}, 'AI role-play conversation practice'),
+                h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
+                h('li', {}, 'Priority access to new packs')),
+              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive')))) ,
         h('div', { class: 'premium-grid' },
           ...PREMIUM_TOPICS.map((t) => {
             const story = state.stories.find((x) => x.columnId === t.columnId);
@@ -1263,7 +1443,7 @@
               h('span', { class: 'q-hook' }, t.hook),
               h('span', { class: 'q-meta' },
                 h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
-                h('span', {}, story ? story.totalCards + ' cards · HSK ' + (story.hskRange || '').replace('HSK ', '') : '')));
+                h('span', {}, story ? story.totalCards + ' cards · ' + levelLabel(story.hskRange) : '')));
           })),
         h('div', { class: 'premium-block' },
           h('h2', { class: 'biz-section-title' }, 'Explore All Business Packs'),
@@ -1281,9 +1461,10 @@
 
   function buildBizGroups() {
     const groups = [
-      { range: 'HSK 1-2', label: 'HSK 1-2 · 职场入门 · Workplace Starter' },
-      { range: 'HSK 3-4', label: 'HSK 3-4 · 商务沟通 · Business Communication' },
-      { range: 'HSK 5-6', label: 'HSK 5-6 · 高级商务 · Executive Mandarin' }
+      { range: 'HSK 1-2', label: 'Beginner · 职场入门 · Workplace Starter' },
+      { range: 'HSK 3-4', label: 'Intermediate · 商务沟通 · Business Communication' },
+      { range: 'HSK 4-6', label: 'Intermediate · 商务职场 · Workplace Pro' },
+      { range: 'HSK 5-6', label: 'Advanced · 高级商务 · Executive Mandarin' }
     ];
     const packs = getAllBusinessDecks();
     return groups.map((g) => Object.assign({}, g, {
@@ -1302,7 +1483,7 @@
       h('span', { class: 'q-en' }, en),
       h('span', { class: 'q-meta' },
         h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
-        h('span', {}, n + ' cards · HSK ' + (p.hskRange || '').replace('HSK ', ''))));
+        h('span', {}, n + ' cards · ' + levelLabel(p.hskRange))));
   }
 
   /* ---------- Overlays ---------- */
@@ -1329,7 +1510,7 @@
               openWord(v);
             }
           }, saved ? 'Saved (tap to remove)' : '+ Add to Vocab'),
-          h('span', { class: 'lvl' }, v.hskLevel ? 'HSK ' + v.hskLevel : 'Story word'))));
+          h('span', { class: 'lvl' }, v.hskLevel ? 'Level ' + v.hskLevel : 'Story word'))));
     $('#sheet').hidden = false;
   }
 
@@ -1365,7 +1546,7 @@
           h('div', { class: 'comm-cta' },
             unlocked
               ? h('button', { class: 'btn primary', type: 'button', onclick: notifyCommunity }, 'Join the Exec Circle ↗')
-              : h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock the Exec Circle · from S$199')))),
+              : h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock the Exec Circle · from $129')))),
     );
   }
   function notifyCommunity() {
@@ -1382,9 +1563,9 @@
   function openPaywall(prefer) {
     if (prefer) state.plan = prefer;
     const plans = [
-      { key: 'level', label: 'Level Pass', price: 'S$69', detail: 'One-Time Payment', badge: 'FOR EXAM TAKERS', description: 'Unlock 1 specific HSK level completely (e.g. HSK 3–4). Master 200+ structural sentence formulas. Includes all Fun Stories & Daily Life inside this level. Premium Business excluded.', recommended: false },
-      { key: 'biz', label: 'Premium Business Pass', price: 'S$199', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across all levels (HSK 3–6). Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
-      { key: 'life', label: 'Lifetime All-Access', price: 'S$399', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
+      { key: 'level', label: 'Level Pass', price: '$49', detail: 'One-Time Payment', badge: 'FOR EXAM TAKERS', description: 'Unlock 1 specific level completely (Beginner, Intermediate, or Advanced). Master 200+ structural sentence formulas. Includes all Fun Stories & Daily Life inside that level. Premium Business excluded.', recommended: false },
+      { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
+      { key: 'life', label: 'Lifetime All-Access', price: '$249', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
     ];
 
     const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans.find((plan) => plan.recommended) || plans[2];
@@ -1415,7 +1596,7 @@
             h('h2', { id: 'pw-title' }, 'Pay Once. Speak Mandarin Like an Executive.'),
             h('p', {}, 'No subscription fatigue. Own your learning assets forever.'))),
         h('div', { class: 'plan-grid' }, ...planButtons),
-        h('div', { class: 'trust-row' }, 'Start free • Cancel anytime • 30-day money-back guarantee'),
+        h('div', { class: 'trust-row' }, 'Start free • Try before you buy • One-time payment · No refunds on paid access'),
         h('div', { class: 'price' }, selectedPlan.price + ' ', h('small', {}, selectedPlan.detail)),
         h('p', { class: 'secure-footer' }, '🔒 Secure Checkout: Powered by Stripe. Your payment info is 256-bit SSL encrypted. A professional tax invoice will be emailed instantly for corporate learning & development reimbursement.'),
         h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : unlockText),
@@ -1463,28 +1644,142 @@
         : h('p', { class: 'empty' }, 'No saved words yet. Tap an underlined word while reading to save it.'));
   }
 
+  let storagePersist = '';
+  async function ensureStoragePersist() {
+    try {
+      if (!navigator.storage || !navigator.storage.persist || !navigator.storage.persisted) { storagePersist = 'unsupported'; return storagePersist; }
+      const already = await navigator.storage.persisted();
+      if (already) { storagePersist = 'persisted'; return storagePersist; }
+      storagePersist = (await navigator.storage.persist()) ? 'persisted' : 'denied';
+    } catch (e) { storagePersist = 'unsupported'; }
+    return storagePersist;
+  }
+  function cefrLabel(r) {
+    let cefr;
+    if (r === 'HSK 1-2' || r === 'HSK 1-3') cefr = 'CEFR A1–A2';
+    else if (r === 'HSK 5-6' || r === 'HSK 7-9') cefr = 'CEFR C1–C2';
+    else if (r === 'HSK 4-6') cefr = 'CEFR B1–B2';
+    else cefr = 'CEFR B1';
+    return cefr + ' · ' + (r || '') + ' equivalent';
+  }
+  function estMins(s) { const n = s.cards ? s.cards.length : 0; return Math.max(2, Math.round(n / 15 * 5)); }
+  function exportProgress() {
+    const keys = ['hanlingo_progress', 'hanlingo_stars', 'hanlingo_srs', 'hanlingo_daily', 'hanlingo_vocab', 'hanlingo_settings', 'hanlingo_access', 'hanlingo_pro', 'hanlingo_plan'];
+    const data = {};
+    keys.forEach((k) => data[k] = store.get(k, null));
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'hanlingo-progress.json';
+    a.click();
+  }
+  function importProgress() {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'application/json,.json';
+    inp.onchange = () => {
+      const f = inp.files && inp.files[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = () => { try { const d = JSON.parse(r.result); Object.keys(d).forEach((k) => store.set(k, d[k])); location.reload(); } catch (e) { alert('Invalid backup file'); } };
+      r.readAsText(f);
+    };
+    inp.click();
+  }
+  function restorePurchase() {
+    location.reload();
+  }
   function renderProfile() {
+    const prog = store.get('hanlingo_progress', {});
+    let learned = 0;
+    for (const k in prog) learned += (prog[k].completed || 0);
+    const total = state.stories.reduce((a, s) => a + (s.cards ? s.cards.length : 0), 0);
+    const rec = dailyProgress();
     $('#view-profile').replaceChildren(
-      h('h2', { class: 'page-title' }, 'Profile'),
+      h('h2', { class: 'page-title' }, 'Progress'),
       h('div', { class: 'row' },
-        h('span', {}, 'Plan', h('small', {}, state.pro ? 'HanLingo Pro' : 'Free: cards 1-4 of each story')),
-        state.pro ? h('button', { class: 'btn ghost', type: 'button', onclick: openPaywall }, 'Manage') : h('button', { class: 'btn primary', type: 'button', onclick: openPaywall }, 'Upgrade')),
+        h('span', {}, 'Learned on this device', h('small', {}, learned + '/' + total + ' sentences · saved locally, no account needed')),
+        h('button', { class: 'btn', type: 'button', onclick: () => { show('learn'); } }, 'Keep going')),
       h('div', { class: 'row' },
-        h('span', {}, 'Clear saved data', h('small', {}, 'Removes your vocab and settings from this device')),
-        h('button', {
-          class: 'btn', type: 'button',
-          onclick: () => {
-            if (!confirm('Remove all saved words and settings?')) return;
-            ['hanlingo_vocab', 'hanlingo_settings', 'hanlingo_pro', 'hanlingo_plan'].forEach((k) => localStorage.removeItem(k));
-            state.pro = false;
-            state.plan = 'life';
-            saveSubscriptionState();
-            location.reload();
-          }
-        }, 'Clear')));
+        h('span', {}, 'Today’s streak', h('small', {}, rec.count + '/' + dayGoal() + ' sentences today')),
+        h('span', { class: 'row-static' }, '🔥 ' + rec.count)),
+      h('div', { class: 'row' },
+        h('span', {}, 'Storage', h('small', {}, storagePersist === 'persisted' ? 'Persisted — clearing browser data won’t erase your progress here' : 'Best-effort — clearing browser data may erase progress; keep a JSON backup')),
+        h('span', { class: 'row-static' }, storagePersist === 'persisted' ? '✓ Persisted' : '⚠ Best-effort')),
+      h('div', { class: 'row' },
+        h('span', {}, 'Sync across devices', h('small', {}, 'Email yourself a link to carry your progress to your phone & laptop')),
+        h('button', { class: 'btn', type: 'button', onclick: openSaveProgress }, 'Sync')),
+      h('div', { class: 'row row-col' },
+        h('span', {}, 'Get a daily sentence by email', h('small', {}, 'One useful sentence in your inbox each day — no spam, opt in only, opt out anytime.')),
+        h('div', { class: 'row-input' },
+          h('input', { id: 'daily-email', class: 'sv-input', type: 'email', placeholder: 'you@company.com', value: store.get('hanlingo_email', '') }),
+          h('button', { class: 'btn', type: 'button', onclick: saveDailyEmail }, 'Get daily sentence'))),
+      h('div', { class: 'row' },
+        h('span', {}, 'Export progress', h('small', {}, 'Download a JSON backup of your progress, streak & vocab')),
+        h('button', { class: 'btn', type: 'button', onclick: exportProgress }, 'Export JSON')),
+      h('div', { class: 'row' },
+        h('span', {}, 'Import progress', h('small', {}, 'Restore a backup from another device')),
+        h('button', { class: 'btn', type: 'button', onclick: importProgress }, 'Import')),
+      h('div', { class: 'row' },
+        h('span', {}, 'Restore purchase', h('small', {}, 'Purchases are stored on this device — refresh to restore them')),
+        h('button', { class: 'btn', type: 'button', onclick: restorePurchase }, 'Restore')),
+      h('div', { class: 'row' },
+        h('span', {}, 'Save to your phone', h('small', {}, 'Add to home screen for quick, offline access')),
+        h('button', { class: 'btn', type: 'button', onclick: installApp }, 'Install')),
+      h('div', { class: 'row' },
+        h('span', {}, 'Clear local data', h('small', {}, 'Removes progress, streak, vocab & settings from this device')),
+        h('button', { class: 'btn danger', type: 'button', onclick: () => {
+          if (!confirm('Remove all progress and saved data?')) return;
+          ['hanlingo_vocab', 'hanlingo_settings', 'hanlingo_pro', 'hanlingo_plan', 'hanlingo_progress', 'hanlingo_stars', 'hanlingo_srs', 'hanlingo_daily'].forEach((k) => localStorage.removeItem(k));
+          state.pro = false; state.plan = 'life'; saveSubscriptionState(); location.reload();
+        } }, 'Clear')));
+  }
+
+  function saveDailyEmail() {
+    const i = document.getElementById('daily-email');
+    const v = (i && i.value || '').trim();
+    if (!v || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) { alert('Please enter a valid email address.'); return; }
+    store.set('hanlingo_email', v);
+    store.set('hanlingo_daily_optin', '1');
+    showMiniToast('Got it — a daily sentence is on its way. No spam, opt out anytime.');
+  }
+  function showMiniToast(msg) {
+    let t = document.getElementById('mini-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'mini-toast'; t.className = 'mini-toast'; document.body.appendChild(t); }
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(t._t);
+    t._t = setTimeout(() => { if (t.parentNode) t.remove(); }, 4000);
   }
 
   /* ---------- Boot ---------- */
+  function openSaveProgress() {
+    const saved = store.get('hanlingo_email', '');
+    $('#sheet').replaceChildren(
+      h('div', { class: 'sheet-card', role: 'dialog', 'aria-label': 'Save Progress' },
+        h('button', { class: 'icon-btn install-help-close', type: 'button', 'aria-label': 'Close', onclick: closeOverlays }, '×'),
+        h('h2', { class: 'page-title' }, 'Save your progress across devices'),
+        h('p', { class: 'sheet-note' }, 'We’ll email you a link to sync your progress. No marketing emails unless you opt in.'),
+        h('input', { id: 'sv-email', class: 'sv-input', type: 'email', placeholder: 'you@company.com', value: saved, required: 'true' }),
+        h('button', { class: 'btn primary', type: 'button', onclick: saveProgressEmail }, 'Email me the sync link'),
+        h('p', { class: 'sheet-note' }, 'Your progress already saves on this device. Adding an email lets us send you a link to sync it to your phone and laptop. For now the email is stored on this device; the sync link will be sent once sync is enabled.')));
+    $('#sheet').hidden = false;
+    setTimeout(() => { const i = document.getElementById('sv-email'); if (i) i.focus(); }, 50);
+  }
+  function saveProgressEmail() {
+    const i = document.getElementById('sv-email');
+    const v = (i && i.value || '').trim();
+    if (v && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) {
+      store.set('hanlingo_email', v);
+      $('#sheet').replaceChildren(
+        h('div', { class: 'sheet-card', role: 'dialog', 'aria-label': 'Email saved' },
+          h('button', { class: 'icon-btn install-help-close', type: 'button', 'aria-label': 'Close', onclick: closeOverlays }, '×'),
+          h('h2', { class: 'page-title' }, 'Email saved'),
+          h('p', {}, 'We’ll email you a link to sync your progress when sync is enabled. No marketing emails unless you opt in.'),
+          h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Close')));
+      $('#sheet').hidden = false;
+    } else {
+      alert('Please enter a valid email address.');
+    }
+  }
   function showInstallHelp() {
     $('#sheet').replaceChildren(
       h('div', { class: 'sheet-card install-help', role: 'dialog', 'aria-label': 'Install HanLingo' },
@@ -1508,7 +1803,7 @@
     try {
       await installPrompt.prompt();
       const choice = await installPrompt.userChoice;
-      if (choice.outcome === 'accepted') $('#install-app').hidden = true;
+      if (choice.outcome === 'accepted') $('#install-app-footer').hidden = true;
     } catch (error) {
       console.error('Could not open the install prompt:', error);
       showInstallHelp();
@@ -1518,14 +1813,20 @@
   function bind() {
     document.querySelectorAll('.bottom-nav button[data-view]').forEach((b) =>
       b.addEventListener('click', () => show(b.dataset.view)));
-    $('#install-app').addEventListener('click', installApp);
+    $('#install-app-footer').addEventListener('click', installApp);
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault();
       deferredInstallPrompt = event;
     });
     window.addEventListener('appinstalled', () => {
       deferredInstallPrompt = null;
-      $('#install-app').hidden = true;
+      $('#install-app-footer').hidden = true;
+      const b = document.getElementById('install-banner');
+      if (b) b.remove();
+      // Track installs (local-first analytics): timestamp + persist installed state.
+      store.set('hanlingo_app_installed', new Date().toISOString());
+      store.set('hanlingo_installed', true);
+      store.set('hanlingo_install_dismiss', true);
     });
     document.querySelectorAll('.tabs').forEach((group) => {
       group.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
@@ -1553,6 +1854,12 @@
       setTimeout(() => b.classList.remove('speaking'), 900);
     }));
     $('#pro-btn').addEventListener('click', () => (state.pro ? show('profile') : openPaywall()));
+    $('#cta-sample').addEventListener('click', () => {
+      const d = document.getElementById('exec-demo');
+      if (d) d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const norm = d ? d.querySelector('.pill[data-rate="1"]') : null;
+      if (norm) { d.querySelectorAll('.pill').forEach((x) => x.classList.remove('active')); norm.classList.add('active'); norm.click(); }
+    });
     $('#theme-toggle').addEventListener('click', () => { toggleTheme(); });
     $('#nav-streak').addEventListener('click', () => { show('learn'); const s = document.getElementById('stories'); if (s) s.scrollIntoView({ behavior: 'smooth' }); });
     [$('#sheet'), $('#paywall')].forEach((o) => o.addEventListener('click', (e) => { if (e.target === o) closeOverlays(); }));
@@ -1611,6 +1918,7 @@
     }
     renderStream();
     renderDashboard();
+    await ensureStoragePersist();
     // Open with a spaced-repetition review if any learned cards are due.
     checkSrsReview();
     // If the user deep-linked straight into #premium before stories finished loading,
@@ -1622,7 +1930,7 @@
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch((e) => console.log('SW:', e)));
     }
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-      $('#install-app').hidden = true;
+      $('#install-app-footer').hidden = true;
     }
   }
 
