@@ -348,7 +348,7 @@ body.theme-premium .header{background:rgba(10,18,32,.94)}
 body.theme-premium .logo{color:#e7edf8}
 body.theme-premium .nav-link{color:#e7edf8;border-color:#26344f}
 body.theme-premium .premium-link{background:linear-gradient(135deg,#0e1a33,#16263f);color:#f5cd6a;border-color:rgba(245,205,106,.55)}
-#premium-nav{font-size:12px}
+#premium-nav{font-size:11px}
 body.theme-premium .bottom-nav{background:#0d1626;border-top:1px solid #26344f}
 body.theme-premium .bottom-nav button{color:#8fa0bd}
 body.theme-premium .bottom-nav button[aria-current="page"]{color:#f5c86a}
@@ -357,6 +357,7 @@ body.theme-premium .theme-toggle,
 body.theme-community .theme-toggle{display:none}
 
 .premium-page{padding-top:8px}
+.premium-page .pricing-section + .premium-hero{margin-top:96px}
 .premium-hero{margin:18px auto 32px;max-width:1200px;padding:46px 50px;border-radius:20px;background:linear-gradient(180deg,#0d1424,#0a0f1d);border:1px solid rgba(148,163,184,.16);position:relative;overflow:hidden;color:#e6ebf5;display:flex;flex-direction:column;align-items:flex-start;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,.22)}
 .premium-hero::after{content:"";position:absolute;top:0;left:50px;right:50px;height:1px;background:linear-gradient(90deg,transparent,rgba(232,182,76,.55),transparent)}
 .ph-body{position:relative;z-index:1}

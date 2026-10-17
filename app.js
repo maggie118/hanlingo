@@ -1403,12 +1403,49 @@
     const root = $('#view-premium');
     root.replaceChildren(
       h('div', { class: 'premium-page' },
+        h('section', { class: 'pricing-section' },
+          h('h2', { class: 'biz-section-title' }, 'Pick your track'),
+          h('p', { class: 'pricing-note' }, 'Try before you buy: every paid pack includes free preview sentences. Paid access is a one-time payment and non-refundable — no recurring fees. Local customers can also pay in SGD at checkout.'),
+          h('div', { class: 'pricing-grid' },
+            h('div', { class: 'price-card free' },
+              h('div', { class: 'price-name' }, 'Free'),
+              h('div', { class: 'price-amt' }, '$0', h('small', {}, 'forever')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'Beginner track free forever — no card'),
+                h('li', {}, 'Free preview sentences in paid packs'),
+                h('li', {}, 'Local-first progress on your device'),
+                h('li', {}, 'Three-speed native audio on free lines'),
+                h('li', {}, 'Export & import your progress JSON')),
+              h('button', { class: 'btn', type: 'button', onclick: () => show('learn') }, 'Start free')),
+            h('div', { class: 'price-card pro' },
+              h('div', { class: 'price-name' }, 'Pro'),
+              h('div', { class: 'price-amt' }, '$129', h('small', {}, 'one-time')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'The Career Upskilling Pack — salary negotiation · boardroom · supplier'),
+                h('li', {}, 'All Survival & Business packs (60 packs · 300 sentences)'),
+                h('li', {}, 'CEFR A1–C1 mapped to every pack'),
+                h('li', {}, 'Native male three-speed audio on every line'),
+                h('li', {}, 'Offline learning (PWA install)'),
+                h('li', {}, 'AI read-along pronunciation practice'),
+                h('li', {}, 'Cross-device sync via email link')),
+              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Go Pro')),
+            h('div', { class: 'price-card exec' },
+              h('div', { class: 'price-name' }, 'Executive'),
+              h('div', { class: 'price-amt' }, '$249', h('small', {}, 'one-time')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'Everything in Pro'),
+                h('li', {}, 'Mastery · Sun Tzu Strategy (HSK 7-9 · 22 packs · 315 sentences)'),
+                h('li', {}, 'CEFR C1–C2 executive Mandarin'),
+                h('li', {}, 'AI role-play conversation practice'),
+                h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
+                h('li', {}, 'Priority access to new packs')),
+              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive')))),
         h('section', { class: 'premium-hero' },
           h('div', { class: 'ph-body' },
             h('h2', { class: 'ph-title' }, 'The Career Upskilling Pack'),
             h('p', { class: 'ph-sub' }, 'salary negotiation · boardroom · supplier chats'),
             h('p', { class: 'ph-meta' }, '315 executive sentences across HSK 7-9')),
-          h('button', { class: 'ph-cta', type: 'button', onclick: () => show('pricing') }, 'See Pricing')),
+          h('button', { class: 'ph-cta', type: 'button', onclick: () => { const el = root.querySelector('.pricing-section'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }, 'See Pricing')),
         h('div', { class: 'premium-grid' },
           ...PREMIUM_TOPICS.map((t) => {
             const story = state.stories.find((x) => x.columnId === t.columnId);
@@ -1453,6 +1490,7 @@
               h('div', { class: 'price-name' }, 'Pro'),
               h('div', { class: 'price-amt' }, '$129', h('small', {}, 'one-time')),
               h('ul', { class: 'price-feats' },
+                h('li', {}, 'The Career Upskilling Pack — salary negotiation · boardroom · supplier'),
                 h('li', {}, 'All Survival & Business packs (60 packs · 300 sentences)'),
                 h('li', {}, 'CEFR A1–C1 mapped to every pack'),
                 h('li', {}, 'Native male three-speed audio on every line'),
@@ -1863,7 +1901,7 @@
     document.querySelectorAll('[data-nav="premium"]').forEach((b) =>
       b.addEventListener('click', () => show('premium')));
     document.querySelectorAll('[data-nav="pricing"]').forEach((b) =>
-      b.addEventListener('click', () => show('pricing')));
+      b.addEventListener('click', () => show('premium')));
     document.querySelectorAll('[data-nav="community"]').forEach((b) =>
       b.addEventListener('click', () => show('community')));
     document.querySelectorAll('[data-nav="levels"]').forEach((b) =>
@@ -1974,8 +2012,7 @@
   // applied or when async story data finishes loading. show() is idempotent,
   // so repeated calls are safe.
   function bootFromHash() {
-    if (location.hash === '#premium') show('premium');
-    else if (location.hash === '#pricing') show('pricing');
+    if (location.hash === '#premium' || location.hash === '#pricing') show('premium');
     else if (location.hash === '#community') show('community');
     else if (location.hash === '#levels') show('learn');
   }
