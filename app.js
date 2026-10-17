@@ -773,8 +773,8 @@
                 ]),
               h('p', { class: 'cf-hint' }, 'Tap to flip')))),
         h('div', { class: 'cf-actions' },
-          h('button', { class: 'cf-btn star' + (isStarred(c.id) ? ' starred' : ''), type: 'button', onclick: () => markStar() }, '★ 错题本'),
-          h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '✓ 完成' : '✓ 已掌握 · Next'))));
+          h('button', { class: 'cf-btn fav' + (isStarred(c.id) ? ' faved' : ''), type: 'button', onclick: () => markStar() }, isStarred(c.id) ? '♥ 已收藏' : '♡ 收藏'),
+          h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '✓ 完成' : 'Next →'))));
   }
 
   function levelIsLow(c) { const r = (c.hskRange || ''); return /1-2|1-3/.test(r); }
@@ -828,8 +828,8 @@
     const stars = loadStars();
     stars[id] = !stars[id];
     saveStars(stars);
-    const b = document.querySelector('.cf-btn.star');
-    if (b) { b.classList.toggle('starred'); }
+    const b = document.querySelector('.cf-btn.fav');
+    if (b) { b.classList.toggle('faved'); b.innerText = stars[id] ? '♥ 已收藏' : '♡ 收藏'; }
   }
 
   // Paywall gate: a locked card is never rendered, so its text never reaches the DOM.

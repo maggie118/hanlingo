@@ -429,8 +429,8 @@ body.theme-premium .bottom-nav button[aria-current="page"]{color:#f5c86a}
 .cf-actions{display:flex;gap:12px}
 .cf-btn{flex:1;padding:15px;border-radius:12px;font-size:15px;font-weight:600;border:1px solid var(--line);transition:transform .12s ease}
 .cf-btn:active{transform:scale(.97)}
-.cf-btn.star{background:var(--surface-2);color:var(--text)}
-.cf-btn.star.starred{background:var(--ochre);color:#fff;border-color:transparent}
+.cf-btn.fav{background:var(--surface-2);color:var(--text)}
+.cf-btn.fav.faved{background:#e0523b;color:#fff;border-color:transparent}
 .cf-btn.check{background:var(--navy);color:#fff;border-color:transparent}
 @media (max-width:560px){.cf-front .sentence{font-size:25px}.cf-trans{font-size:16px}}
 
