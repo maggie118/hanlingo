@@ -1392,12 +1392,10 @@
     root.replaceChildren(
       h('div', { class: 'premium-page' },
         h('section', { class: 'premium-hero' },
-          h('div', { class: 'ph-badge' }, 'Premium Business Chinese'),
           h('div', { class: 'ph-body' },
             h('h2', { class: 'ph-title' }, 'The Career Upskilling Pack'),
             h('p', { class: 'ph-sub' }, 'salary negotiation · boardroom · supplier chats'),
-            h('p', { class: 'ph-meta' }, '315 executive sentences across HSK 7-9'),
-            h('p', { class: 'ph-price' }, h('b', {}, 'Pro $129'), ' · ', h('b', {}, 'Executive $249'), ' — one-time payment')),
+            h('p', { class: 'ph-meta' }, '315 executive sentences across HSK 7-9')),
           h('button', { class: 'ph-cta', type: 'button', onclick: () => show('pricing') }, 'See Pricing')),
         h('div', { class: 'premium-grid' },
           ...PREMIUM_TOPICS.map((t) => {
