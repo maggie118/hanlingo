@@ -1215,8 +1215,8 @@
     const pct = Math.min(100, Math.round((rec.count / goal) * 100));
     const remaining = Math.max(0, goal - rec.count);
     const boards = [
-      { key: 'survival', icon: '🌏', title: 'Survival & Daily Life', level: 'Beginner · Free forever', mins: '≈3 min', scene: '点单 · 结账 · 打包 · 打车 · 周末约朋友', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
-      { key: 'business', icon: '💼', title: 'Business & Workplace Pro', level: 'Intermediate · Pro', mins: '≈5 min', scene: '跨境谈判 · 大厂黑话 · 拒劝酒', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
+      { key: 'survival', icon: '🌏', title: 'Survival & Daily Life', level: 'Beginner · Free forever', mins: '≈3 min', scene: 'Ordering · Checkout · Takeaway · Taxi · Weekend plans', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
+      { key: 'business', icon: '💼', title: 'Business & Workplace Pro', level: 'Intermediate · Pro', mins: '≈5 min', scene: 'Cross-border negotiation · Tech jargon · Refusing a toast', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
       { key: 'mastery', icon: '👑', title: 'Mastery · Sun Tzu Strategy', level: 'Advanced · Executive', mins: '≈7 min', scene: 'Sun Tzu’s Art of War · executive dining & negotiation', caps: boardCapsuleStats('mastery'), sent: boardSentenceStats('mastery') }
     ];
     const q = todayQuote();
@@ -1341,8 +1341,12 @@
       return;
     }
 
+    if (state.streamBoard !== state.currentBoard) { state.streamBoard = state.currentBoard; state.expandedStream = false; }
+    const showAll = state.expandedStream === true;
+    const shown = showAll ? visible : visible.slice(0, 4);
+    const more = visible.length > 4;
     root.replaceChildren(
-      ...visible.map((s) => {
+      ...shown.map((s) => {
         const zh = (s.title.split('·')[0] || '').trim();
         const en = (s.title.split('·')[1] || s.title).trim();
         const storyIndex = state.stories.findIndex((item) => item === s);
@@ -1366,6 +1370,7 @@
               ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
               isFree ? null : h('span', { class: 'tag pro' }, 'Level Pass'))));
       }));
+    if (more) root.appendChild(h('button', { class: 'stream-toggle', type: 'button', onclick: () => { state.expandedStream = !state.expandedStream; renderStream(); } }, showAll ? 'Show less ▲' : ('Show all ' + visible.length + ' packs ▼')));
     $('#soon').hidden = true;
   }
 
@@ -1510,6 +1515,7 @@
     const saved = hasWord(v.word);
     $('#sheet').replaceChildren(
       h('div', { class: 'sheet-card', role: 'dialog', 'aria-label': v.word },
+        h('button', { class: 'sheet-close', type: 'button', 'aria-label': 'Close', onclick: () => { $('#sheet').hidden = true; } }, '✕'),
         h('div', { class: 'zh', lang: 'zh-CN' }, v.word),
         h('div', { class: 'py' }, v.pinyin),
         h('div', { class: 'en' }, v.translation),
