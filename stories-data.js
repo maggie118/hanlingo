@@ -5,6 +5,7 @@ window.STORIES_DATA = {
     {
       "columnId": "painted_skin",
       "title": "画皮 · The Painted Skin",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -360,6 +361,7 @@ window.STORIES_DATA = {
     {
       "columnId": "laoshan_daoshi",
       "title": "崂山道士 · The Taoist of Mount Laoshan",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -709,6 +711,7 @@ window.STORIES_DATA = {
     {
       "columnId": "zhong_li",
       "title": "种梨 · Planting a Pear",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -1058,6 +1061,7 @@ window.STORIES_DATA = {
     {
       "columnId": "lang_wolf",
       "title": "狼 · The Wolf",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -1407,6 +1411,7 @@ window.STORIES_DATA = {
     {
       "columnId": "nie_xiaoqian",
       "title": "聂小倩 · Nie Xiaoqian",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -1756,6 +1761,7 @@ window.STORIES_DATA = {
     {
       "columnId": "ying_ning",
       "title": "婴宁 · Ying Ning",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -2105,6 +2111,7 @@ window.STORIES_DATA = {
     {
       "columnId": "qing_feng",
       "title": "青凤 · Qing Feng",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -2454,6 +2461,7 @@ window.STORIES_DATA = {
     {
       "columnId": "hu_jia_nu",
       "title": "狐嫁女 · The Fox's Wedding",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -3143,7 +3151,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_office",
       "title": "职场中文 · Business Chinese",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -3339,7 +3347,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_corporate",
       "title": "商务沟通 · Business Communication",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 12,
       "freeCards": 4,
@@ -3419,7 +3427,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_sales",
       "title": "销售沟通 · Sales Conversation",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 4,
       "freeCards": 2,
@@ -3437,7 +3445,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_hr",
       "title": "人事沟通 · HR & Hiring",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 4,
       "freeCards": 2,
@@ -3455,7 +3463,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_procurement",
       "title": "采购与供应 · Procurement",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 4,
       "freeCards": 2,
@@ -3473,7 +3481,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_remote",
       "title": "远程协作 · Remote Collaboration",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 4,
       "freeCards": 2,
@@ -3527,7 +3535,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_negotiation",
       "title": "谈判与合作 · Negotiation & Partnership",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 4,
       "freeCards": 2,
@@ -3545,7 +3553,7 @@ window.STORIES_DATA = {
     {
       "columnId": "business_marketing",
       "title": "市场与营销 · Marketing & Brand",
-      "category": "business",
+      "category": "retired",
       "hskRange": "HSK 3-4",
       "totalCards": 4,
       "freeCards": 2,
