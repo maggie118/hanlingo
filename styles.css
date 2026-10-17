@@ -55,7 +55,25 @@ button{cursor:pointer}
 .nav-streak{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:color .15s ease}
 .nav-streak:hover{color:var(--text)}
 .nav-streak svg{display:block}
-@media (max-width:560px){.nav-actions{gap:6px}.theme-toggle{width:34px;height:34px}.pro-btn{padding:7px 10px;font-size:13px}}
+@media (max-width:560px){
+  .header .wrap{gap:6px;height:52px}
+  .logo{font-size:16px;gap:5px}
+  .logo span{display:none}
+  .logo-img{width:30px;height:30px}
+  .main-nav{gap:4px}
+  .nav-link{padding:5px 8px;font-size:12px}
+  .nav-actions{gap:5px}
+  .theme-toggle{width:30px;height:30px;font-size:14px}
+  .nav-streak{width:26px;height:26px}
+  .pro-btn{padding:6px 9px;font-size:12px}
+}
+@media (max-width:420px){
+  .main-nav{gap:3px}
+  .nav-link{padding:5px 6px;font-size:11px}
+  .nav-actions{gap:3px}
+  .nav-streak{display:none}
+  .pro-btn{padding:6px 7px;font-size:11px}
+}
 
 /* Buttons */
 .btn{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-weight:600}
