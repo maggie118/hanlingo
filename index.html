@@ -231,15 +231,16 @@ button{cursor:pointer}
 .sp-quote footer{font-size:12px;color:var(--muted);font-weight:600}
 @media (max-width:640px){.sp-grid{grid-template-columns:1fr}}
 /* Static SEO block (crawler-visible course catalog) */
-.seo-block{margin:8px 0 28px;padding:22px 24px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
-.seo-title{font-size:19px;font-weight:700;color:var(--text);margin:0 0 8px}
-.seo-intro{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 16px;max-width:64ch}
-.seo-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.seo-list li{font-size:14px;line-height:1.6;color:var(--text);padding-left:14px;border-left:2px solid var(--sage)}
-.seo-list li strong{color:var(--text)}
-.seo-list li em{font-style:normal;color:var(--muted)}
+.seo-block{margin:8px 0 28px;padding:28px 30px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.seo-title{font-size:19px;font-weight:700;color:var(--text);margin:0 0 12px}
+.seo-intro{font-size:14px;color:var(--muted);line-height:1.65;margin:0 0 20px;max-width:66ch}
+.seo-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.seo-list li{display:grid;grid-template-columns:1fr;gap:2px;font-size:14px;line-height:1.5;color:var(--text);padding:4px 0 4px 16px;border-left:2px solid var(--sage)}
+.seo-list li strong{font-size:16px;font-weight:700;color:var(--text)}
+.seo-list li em{font-style:normal;color:var(--muted);font-size:13px}
 .seo-list li span{color:var(--text-soft)}
-.seo-list li small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.seo-list li small{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;margin-top:4px;letter-spacing:.02em}
+.seo-list li small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none}
 /* Continue card (returning users only) */
 .dash-continue{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border:1px solid rgba(63,158,88,.4);border-left:4px solid var(--sage);border-radius:12px;background:rgba(63,158,88,.07);margin-bottom:14px;cursor:pointer;transition:background .15s ease}
 .dash-continue:hover{background:rgba(63,158,88,.13)}
