@@ -1853,7 +1853,7 @@
       if (b.dataset.word) speak(b.dataset.word);
       setTimeout(() => b.classList.remove('speaking'), 900);
     }));
-    $('#pro-btn').addEventListener('click', () => (state.pro ? show('profile') : openPaywall()));
+    $('#pro-btn').addEventListener('click', () => show('premium'));
     $('#cta-sample').addEventListener('click', () => {
       const d = document.getElementById('exec-demo');
       if (d) d.scrollIntoView({ behavior: 'smooth', block: 'center' });
