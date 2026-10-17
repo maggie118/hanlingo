@@ -1563,13 +1563,13 @@
   function openPaywall(prefer) {
     if (prefer) state.plan = prefer;
     const plans = [
-      { key: 'level', label: 'Level Pass', price: '$49', detail: 'One-Time Payment', badge: 'FOR EXAM TAKERS', description: 'Unlock 1 specific level completely (Beginner, Intermediate, or Advanced). Master 200+ structural sentence formulas. Includes all Fun Stories & Daily Life inside that level. Premium Business excluded.', recommended: false },
+      { key: 'level', label: 'Free', price: '$0', detail: 'Forever', badge: 'FREE', description: 'Beginner track free forever — no card required. Upgrade to Pro or Executive anytime to unlock all packs.', recommended: false },
       { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
       { key: 'life', label: 'Lifetime All-Access', price: '$249', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
     ];
 
     const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans.find((plan) => plan.recommended) || plans[2];
-    const unlockText = selectedPlan.key === 'level' ? 'Unlock This Level' : selectedPlan.key === 'biz' ? 'Unlock Business Pack' : '👉 GET LIFETIME ACCESS';
+    const unlockText = selectedPlan.key === 'level' ? 'Start Free' : selectedPlan.key === 'biz' ? 'Unlock Business Pack' : '👉 GET LIFETIME ACCESS';
 
     const planButtons = plans.map((plan) =>
       h('button', {
@@ -1611,10 +1611,13 @@
       window.location.href = CHECKOUT_URL;
       return;
     }
-    state.pro = true;
     if (planKey === 'level') {
-      state.access.level = true;
-    } else if (planKey === 'biz') {
+      closeOverlays();
+      show('learn');
+      return;
+    }
+    state.pro = true;
+    if (planKey === 'biz') {
       state.access.business = true;
     } else {
       state.access.level = true;
