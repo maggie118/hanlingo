@@ -1622,7 +1622,7 @@
     if (prefer) state.plan = prefer;
     const plans = [
       { key: 'level', label: 'Free', price: '$0', detail: 'Forever', badge: 'FREE', description: 'Beginner track free forever — no card required. Upgrade to Pro or Executive anytime to unlock all packs.', recommended: false },
-      { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, salary negotiation, tech slangs, and client management. Native-speed professional audio.', recommended: false },
+      { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'The Career Upskilling Pack — salary negotiation · boardroom · supplier. Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, tech slangs, and client management. Native-speed professional audio.', recommended: false },
       { key: 'life', label: 'Lifetime All-Access', price: '$249', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
     ];
 
