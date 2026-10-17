@@ -761,7 +761,7 @@
                   (c.undercurrent.origin ? h('p', { class: 'cf5-idiom' }, '✦ ' + c.undercurrent.origin) : null),
                   (c.undercurrent.idiom ? h('p', { class: 'cf5-idiom' }, '✦ ' + c.undercurrent.idiom) : null),
                   (c.undercurrent.source ? h('p', { class: 'cf5-src' }, '📜 ' + c.undercurrent.source) : null),
-                  h('p', { class: 'cf5-ctx' }, '💬 ' + c.undercurrent.context),
+                  h('p', { class: 'cf5-ctx' }, c.undercurrent.context),
                   h('p', { class: 'cf5-sig' }, '🔑 ' + c.undercurrent.signal))
                 ] : [
                 h('div', { class: 'cf5-note' },
@@ -775,7 +775,7 @@
               h('p', { class: 'cf-hint' }, 'Tap to flip')))),
         h('div', { class: 'cf-actions' },
           h('button', { class: 'cf-btn fav' + (isStarred(c.id) ? ' faved' : ''), type: 'button', onclick: () => markStar() }, isStarred(c.id) ? '♥ Saved' : '♡ Save'),
-          h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '✓ 完成' : 'Next →'))));
+          h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '完成' : 'Next →'))));
   }
 
   function levelIsLow(c) { const r = (c.hskRange || ''); return /1-2|1-3/.test(r); }
@@ -1215,9 +1215,9 @@
     const pct = Math.min(100, Math.round((rec.count / goal) * 100));
     const remaining = Math.max(0, goal - rec.count);
     const boards = [
-      { key: 'survival', icon: '🌏', title: 'Survival & Daily Life', level: 'Beginner · Free forever', mins: '≈3 min', scene: 'Ordering · Checkout · Takeaway · Taxi · Weekend plans', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
-      { key: 'business', icon: '💼', title: 'Business & Workplace Pro', level: 'Intermediate · Pro', mins: '≈5 min', scene: 'Cross-border negotiation · Tech jargon · Refusing a toast', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
-      { key: 'mastery', icon: '👑', title: 'Mastery · Sun Tzu Strategy', level: 'Advanced · Executive', mins: '≈7 min', scene: 'Sun Tzu’s Art of War · executive dining & negotiation', caps: boardCapsuleStats('mastery'), sent: boardSentenceStats('mastery') }
+      { key: 'survival', icon: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>', title: 'Survival & Daily Life', level: 'Beginner · Free forever', mins: '≈3 min', scene: 'Ordering · Checkout · Takeaway · Taxi · Weekend plans', caps: boardCapsuleStats('survival'), sent: boardSentenceStats('survival') },
+      { key: 'business', icon: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>', title: 'Business & Workplace Pro', level: 'Intermediate · Pro', mins: '≈5 min', scene: 'Cross-border negotiation · Tech jargon · Refusing a toast', caps: boardCapsuleStats('business'), sent: boardSentenceStats('business') },
+      { key: 'mastery', icon: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>', title: 'Mastery · Sun Tzu Strategy', level: 'Advanced · Executive', mins: '≈7 min', scene: 'Sun Tzu’s Art of War · executive dining & negotiation', caps: boardCapsuleStats('mastery'), sent: boardSentenceStats('mastery') }
     ];
     const q = todayQuote();
     dash.replaceChildren(
@@ -1241,7 +1241,7 @@
             const t = document.getElementById('stories');
             if (t) t.scrollIntoView({ behavior: 'smooth' });
           } },
-            h('span', { class: 'db-icon' }, b.icon),
+            (() => { const _ic = document.createElement('span'); _ic.className = 'db-icon'; if (b.icon && b.icon.indexOf('<') === 0) _ic.innerHTML = b.icon; else _ic.textContent = b.icon || ''; return _ic; })(),
             h('div', {},
               h('b', {}, b.title),
               h('span', { class: 'db-level' }, b.level + ' · ' + b.mins),
@@ -1314,7 +1314,7 @@
     const zh = (s.title.split('·')[0] || '').trim();
     const en = (s.title.split('·')[1] || s.title).trim();
     const first = s.cards && s.cards[0];
-    const tag = o.isFree ? '🟢 FREE' : (o.locked ? '🔒 LEVEL PASS' : null);
+    const tag = o.isFree ? 'FREE' : (o.locked ? 'LEVEL PASS' : null);
     return h('button', { class: 'pack classic' + (o.locked ? ' locked' : ''), type: 'button', onclick: () => (o.locked ? openPaywall('level') : openStory(o.storyIndex)) },
       o.locked ? h('div', { class: 'blur-layer' }) : null,
       tag ? h('span', { class: 'story-tag ' + (o.isFree ? 'free' : 'locked') }, tag) : null,
@@ -1353,7 +1353,7 @@
         const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2' || (s.hskRange || 'HSK 3-4') === 'HSK 1-3';
         const trial = (s.freeCards || 0) > 0;
         const locked = !isFree && !canOpenStory(s) && !trial;
-        const tag = isFree ? '🟢 FREE' : (locked ? '🔒 LEVEL PASS' : null);
+        const tag = isFree ? 'FREE' : (locked ? 'LEVEL PASS' : null);
         if (state.currentBoard === 'mastery') return classicPack(s, { isFree, locked, storyIndex });
         return h('button', { class: 'pack' + (locked ? ' locked' : ''), type: 'button', onclick: () => (locked ? openPaywall('level') : openStory(storyIndex)) },
           locked ? h('div', { class: 'blur-layer' }) : null,
@@ -1455,7 +1455,7 @@
               h('span', { class: 'q-en' }, t.en),
               h('span', { class: 'q-hook' }, t.hook),
               h('span', { class: 'q-meta' },
-                h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
+                h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? 'Unlocked' : 'PREMIUM'),
                 h('span', {}, story ? story.totalCards + ' cards · ' + levelLabel(story.hskRange) : '')));
           })),
         h('div', { class: 'premium-block' },
@@ -1539,7 +1539,7 @@
       h('span', { class: 'q-zh' }, zh),
       h('span', { class: 'q-en' }, en),
       h('span', { class: 'q-meta' },
-        h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
+        h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? 'Unlocked' : 'PREMIUM'),
         h('span', {}, n + ' cards · ' + levelLabel(p.hskRange))));
   }
 
@@ -1574,7 +1574,9 @@
 
   /* ---------- Community: members-only exec network ---------- */
   function commCard(ic, t, d) {
-    return h('div', { class: 'comm-card' }, h('div', { class: 'cc-ic' }, ic), h('h4', {}, t), h('p', {}, d));
+    const _ic = document.createElement('div'); _ic.className = 'cc-ic';
+    if (ic && ic.indexOf('<') === 0) _ic.innerHTML = ic; else _ic.textContent = ic || '';
+    return h('div', { class: 'comm-card' }, _ic, h('h4', {}, t), h('p', {}, d));
   }
   function renderCommunity() {
     const access = store.get('hanlingo_access', { level: false, business: false, theme: [] });
@@ -1585,16 +1587,16 @@
         h('h1', { class: 'comm-title' }, 'The HanLingo Exec Circle'),
         h('p', { class: 'comm-sub' }, 'More than a language app — a private network of professionals doing business across Asia.'),
         h('div', { class: 'comm-grid' },
-          commCard('🌏', 'Cross-border Network', 'Connect with executives who actually do business in China, Singapore and beyond.'),
-          commCard('💬', 'Live Practice Room', 'Deploy the sentences you just learned in real conversations — not in a vacuum.'),
-          commCard('🎯', 'Weekly Scenario', 'Each week a real business prompt, e.g. “pitch your project using 3 new formulas”.'),
-          commCard('🔒', 'Private & Curated', 'Approval-only. No spam, no tourists — only serious professionals.')),
+          commCard('<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>', 'Cross-border Network', 'Connect with executives who actually do business in China, Singapore and beyond.'),
+          commCard('<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>', 'Live Practice Room', 'Deploy the sentences you just learned in real conversations — not in a vacuum.'),
+          commCard('<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>', 'Weekly Scenario', 'Each week a real business prompt, e.g. “pitch your project using 3 new formulas”.'),
+          commCard('<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>', 'Private & Curated', 'Approval-only. No spam, no tourists — only serious professionals.')),
         h('div', { class: 'comm-channel' },
           h('h3', {}, 'Join where Asia actually talks'),
           h('p', {}, 'A members-only WhatsApp group — the #1 channel for professionals in Singapore & SEA — with a curated LinkedIn Group for longer-form deal talk.'),
           h('div', { class: 'ch-badges' },
-            h('span', { class: 'ch-badge ch-wa' }, '💬 WhatsApp Group'),
-            h('span', { class: 'ch-badge' }, '🔗 LinkedIn Group'))),
+            h('span', { class: 'ch-badge ch-wa' }, 'WhatsApp Group'),
+            h('span', { class: 'ch-badge' }, 'LinkedIn Group'))),
         h('div', { class: 'comm-steps' },
           h('h3', {}, 'How to get your invite'),
           h('ol', {},
@@ -1622,8 +1624,8 @@
     if (prefer) state.plan = prefer;
     const plans = [
       { key: 'level', label: 'Free', price: '$0', detail: 'Forever', badge: 'FREE', description: 'Beginner track free forever — no card required. Upgrade to Pro or Executive anytime to unlock all packs.', recommended: false },
-      { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: '💼 CAREER UPGRADE', premium: true, description: 'The Career Upskilling Pack — salary negotiation · boardroom · supplier. Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, tech slangs, and client management. Native-speed professional audio.', recommended: false },
-      { key: 'life', label: 'Lifetime All-Access', price: '$249', detail: 'One-Time Investment', badge: '👑 BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
+      { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: 'CAREER UPGRADE', premium: true, description: 'The Career Upskilling Pack — salary negotiation · boardroom · supplier. Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, tech slangs, and client management. Native-speed professional audio.', recommended: false },
+      { key: 'life', label: 'Lifetime All-Access', price: '$249', detail: 'One-Time Investment', badge: 'BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
     ];
 
     const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans.find((plan) => plan.recommended) || plans[2];
@@ -1656,7 +1658,7 @@
         h('div', { class: 'plan-grid' }, ...planButtons),
         h('div', { class: 'trust-row' }, 'Start free • Try before you buy • One-time payment · No refunds on paid access'),
         h('div', { class: 'price' }, selectedPlan.price + ' ', h('small', {}, selectedPlan.detail)),
-        h('p', { class: 'secure-footer' }, '🔒 Secure Checkout: Powered by Stripe. Your payment info is 256-bit SSL encrypted. A professional tax invoice will be emailed instantly for corporate learning & development reimbursement.'),
+        h('p', { class: 'secure-footer' }, 'Secure Checkout: Powered by Stripe. Your payment info is 256-bit SSL encrypted. A professional tax invoice will be emailed instantly for corporate learning & development reimbursement.'),
         h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : unlockText),
         h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Not now'),
         CHECKOUT_URL ? null : h('p', { class: 'note' }, 'Demo mode: the checkout link is not connected yet, so this unlocks locally on this device.')));
