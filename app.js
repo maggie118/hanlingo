@@ -1857,6 +1857,8 @@
       if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     });
     $('#pro-btn').addEventListener('click', () => show('premium'));
+    const ps = document.getElementById('premium-strip-cta');
+    if (ps) ps.addEventListener('click', () => show('premium'));
     $('#cta-sample').addEventListener('click', () => {
       const d = document.getElementById('exec-demo');
       if (d) d.scrollIntoView({ behavior: 'smooth', block: 'center' });
