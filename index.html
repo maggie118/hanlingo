@@ -299,6 +299,7 @@ button{cursor:pointer}
     </a>
     <nav class="main-nav" aria-label="Main navigation">
       <button type="button" class="nav-link" data-nav="levels">Learn</button>
+      <button type="button" class="pro-btn" id="premium-nav">Premium Business</button>
     </nav>
     <div class="nav-actions">
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">☀</button>
@@ -311,12 +312,6 @@ button{cursor:pointer}
   <div id="view-learn">
     <!-- Zone 0: Personal dashboard (streak ring + boards + quote of the day) -->
     <section id="dashboard" aria-label="Your dashboard"></section>
-    <!-- Premium Business Chinese promo -->
-    <section class="premium-strip" aria-label="Premium Business Chinese">
-      <div class="premium-strip-badge">Premium Business Chinese</div>
-      <div class="premium-strip-title">The Career Upskilling Pack<small>Salary negotiation · boardroom · supplier chats · 315 executive sentences across HSK 7-9</small></div>
-      <button class="premium-strip-cta" type="button" id="premium-strip-cta">See Price →</button>
-    </section>
     <!-- Zone 1: Marketing hero -->
     <section class="mkt-hero" aria-labelledby="mkt-title">
       <div class="mkt-hero-left">
@@ -419,6 +414,7 @@ button{cursor:pointer}
   <div id="view-vocab" hidden></div>
   <div id="view-profile" hidden></div>
   <div id="view-premium" hidden></div>
+  <div id="view-pricing" hidden></div>
   <div id="view-community" hidden></div>
 </main>
 
@@ -437,7 +433,7 @@ button{cursor:pointer}
 <footer class="site-footer">
   <nav class="footer-links" aria-label="Product">
     <button type="button" data-nav="community">For Teams</button>
-    <button type="button" data-nav="premium">Price</button>
+    <button type="button" data-nav="pricing">Price</button>
   </nav>
   <nav class="footer-links" aria-label="Legal">
     <a href="privacy.html">Privacy Policy</a>

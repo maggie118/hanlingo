@@ -138,11 +138,11 @@
   }
 
   /* ---------- Views & bottom nav ---------- */
-  const VIEWS = ['learn', 'reader', 'vocab', 'profile', 'premium', 'community'];
+  const VIEWS = ['learn', 'reader', 'vocab', 'profile', 'premium', 'pricing', 'community'];
 
   function show(view) {
     VIEWS.forEach((v) => { $('#view-' + v).hidden = v !== view; });
-    document.body.classList.toggle('theme-premium', view === 'premium');
+    document.body.classList.toggle('theme-premium', view === 'premium' || view === 'pricing');
     document.body.classList.toggle('theme-community', view === 'community');
     const tab = view === 'reader' ? 'learn' : view;
     document.querySelectorAll('.bottom-nav button').forEach((b) => {
@@ -154,9 +154,10 @@
     if (view === 'vocab') renderVocab();
     if (view === 'profile') renderProfile();
     if (view === 'premium') renderPremium();
+    if (view === 'pricing') renderPricing();
     if (view === 'community') renderCommunity();
-    // Deep-linkable hash for SEO landing views (#premium / #community); reset to root when leaving it.
-    const target = view === 'premium' ? '#premium' : (view === 'community' ? '#community' : (location.hash === '#premium' || location.hash === '#community' ? '' : location.hash));
+    // Deep-linkable hash for SEO landing views (#premium / #pricing / #community); reset to root when leaving it.
+    const target = view === 'premium' ? '#premium' : (view === 'pricing' ? '#pricing' : (view === 'community' ? '#community' : (location.hash === '#premium' || location.hash === '#pricing' || location.hash === '#community' ? '' : location.hash)));
     if (location.hash !== target) {
       try { history.replaceState(null, '', location.pathname + location.search + target); } catch (e) { location.hash = target; }
     }
@@ -1390,6 +1391,37 @@
     const root = $('#view-premium');
     root.replaceChildren(
       h('div', { class: 'premium-page' },
+        h('section', { class: 'premium-strip' },
+          h('div', { class: 'premium-strip-badge' }, 'Premium Business Chinese'),
+          h('div', { class: 'premium-strip-title' }, 'The Career Upskilling Pack',
+            h('small', {}, 'Salary negotiation · boardroom · supplier chats · 315 executive sentences across HSK 7-9')),
+          h('button', { class: 'premium-strip-cta', type: 'button', onclick: () => show('pricing') }, 'See Pricing')),
+        h('div', { class: 'premium-grid' },
+          ...PREMIUM_TOPICS.map((t) => {
+            const story = state.stories.find((x) => x.columnId === t.columnId);
+            const open = state.access.business;
+            return h('button', { class: 'q-card', type: 'button', onclick: () => openBizStory(story) },
+              h('span', { class: 'q-zh' }, t.zh),
+              h('span', { class: 'q-en' }, t.en),
+              h('span', { class: 'q-hook' }, t.hook),
+              h('span', { class: 'q-meta' },
+                h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
+                h('span', {}, story ? story.totalCards + ' cards · ' + levelLabel(story.hskRange) : '')));
+          })),
+        h('div', { class: 'premium-block' },
+          h('h2', { class: 'biz-section-title' }, 'Explore All Business Packs'),
+          ...buildBizGroups().map((g) =>
+            h('div', { class: 'biz-group' },
+              h('h3', { class: 'biz-group-title' }, g.label + '  (' + g.list.length + ')'),
+              h('div', { class: 'biz-grid' },
+                ...g.list.map((p) => bizCard(p))))))));
+  }
+
+  /* ---------- Pricing (standalone view: footer Price / See Pricing) ---------- */
+  function renderPricing() {
+    const root = $('#view-pricing');
+    root.replaceChildren(
+      h('div', { class: 'premium-page' },
         h('section', { class: 'pricing-section' },
           h('h2', { class: 'biz-section-title' }, 'Pick your track'),
           h('p', { class: 'pricing-note' }, 'Try before you buy: every paid pack includes free preview sentences. Paid access is a one-time payment and non-refundable — no recurring fees. Local customers can also pay in SGD at checkout.'),
@@ -1425,26 +1457,7 @@
                 h('li', {}, 'AI role-play conversation practice'),
                 h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
                 h('li', {}, 'Priority access to new packs')),
-              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive')))) ,
-        h('div', { class: 'premium-grid' },
-          ...PREMIUM_TOPICS.map((t) => {
-            const story = state.stories.find((x) => x.columnId === t.columnId);
-            const open = state.access.business;
-            return h('button', { class: 'q-card', type: 'button', onclick: () => openBizStory(story) },
-              h('span', { class: 'q-zh' }, t.zh),
-              h('span', { class: 'q-en' }, t.en),
-              h('span', { class: 'q-hook' }, t.hook),
-              h('span', { class: 'q-meta' },
-                h('span', { class: 'q-tag ' + (open ? 'free' : 'locked') }, open ? '✓ Unlocked' : '🔒 PREMIUM'),
-                h('span', {}, story ? story.totalCards + ' cards · ' + levelLabel(story.hskRange) : '')));
-          })),
-        h('div', { class: 'premium-block' },
-          h('h2', { class: 'biz-section-title' }, 'Explore All Business Packs'),
-          ...buildBizGroups().map((g) =>
-            h('div', { class: 'biz-group' },
-              h('h3', { class: 'biz-group-title' }, g.label + '  (' + g.list.length + ')'),
-              h('div', { class: 'biz-grid' },
-                ...g.list.map((p) => bizCard(p))))))));
+              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive'))))));
   }
 
   /* ---------- Premium: all business packs (24) ---------- */
@@ -1835,6 +1848,8 @@
     });
     document.querySelectorAll('[data-nav="premium"]').forEach((b) =>
       b.addEventListener('click', () => show('premium')));
+    document.querySelectorAll('[data-nav="pricing"]').forEach((b) =>
+      b.addEventListener('click', () => show('pricing')));
     document.querySelectorAll('[data-nav="community"]').forEach((b) =>
       b.addEventListener('click', () => show('community')));
     document.querySelectorAll('[data-nav="levels"]').forEach((b) =>
@@ -1856,8 +1871,8 @@
       window.scrollTo(0, 0);
       if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     });
-    const ps = document.getElementById('premium-strip-cta');
-    if (ps) ps.addEventListener('click', () => show('premium'));
+    const pn = document.getElementById('premium-nav');
+    if (pn) pn.addEventListener('click', () => show('premium'));
     $('#cta-sample').addEventListener('click', () => {
       const d = document.getElementById('exec-demo');
       if (d) d.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1946,6 +1961,7 @@
   // so repeated calls are safe.
   function bootFromHash() {
     if (location.hash === '#premium') show('premium');
+    else if (location.hash === '#pricing') show('pricing');
     else if (location.hash === '#community') show('community');
     else if (location.hash === '#levels') show('learn');
   }
