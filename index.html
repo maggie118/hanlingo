@@ -94,7 +94,6 @@
 }
 [data-theme="dark"] .header{background:rgba(11,18,32,.9)}
 [data-theme="dark"] .bottom-nav{background:#0d1626}
-[data-theme="dark"] .lego-demo{background:linear-gradient(160deg,#1b2739,#141d2f);box-shadow:0 2px 12px rgba(0,0,0,.2)}
 [data-theme="dark"] .player-shell{background:linear-gradient(180deg,#1b2739,#141d2f);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
 [data-theme="dark"] .pack.locked .blur-layer{background:rgba(10,16,26,.5)}
 [data-theme="dark"] .toggle-track{background:rgba(230,240,255,.18)}
@@ -122,8 +121,6 @@ button{cursor:pointer}
 .nav-link{background:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--text);white-space:nowrap;transition:all .15s ease}
 .nav-link:hover{border-color:var(--ochre)}
 .main-nav{display:flex;align-items:center;gap:8px}
-.pro-btn{background:var(--ochre);color:#fff;border:0;border-radius:8px;padding:8px 18px;font-weight:600;font-size:14px;transition:transform .15s ease, box-shadow .15s ease}
-.pro-btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(179,137,58,.3)}
 #premium-nav{background:linear-gradient(135deg,#0e1a33,#16263f);color:#f5cd6a;border:1px solid rgba(245,205,106,.7);border-radius:999px;letter-spacing:.05em;box-shadow:none;padding:6px 14px;font-size:11px}
 #premium-nav:hover{color:#ffe29a;border-color:rgba(245,205,106,.95);box-shadow:none}
 
@@ -134,7 +131,7 @@ button{cursor:pointer}
 .nav-streak{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:color .15s ease}
 .nav-streak:hover{color:var(--text)}
 .nav-streak svg{display:block}
-@media (max-width:560px){.nav-actions{gap:6px}.theme-toggle{width:34px;height:34px}.pro-btn{padding:7px 10px;font-size:13px}}
+@media (max-width:560px){.nav-actions{gap:6px}.theme-toggle{width:34px;height:34px}}
 
 /* Buttons */
 .btn{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-weight:600}
@@ -163,16 +160,7 @@ button{cursor:pointer}
 .mkt-trust{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}
 .mkt-trust li{font-size:12px;color:var(--sage);border:1px solid rgba(63,158,88,.3);background:rgba(63,158,88,.06);padding:5px 10px;border-radius:999px}
 
-/* Lego sentence demo */
 .mkt-hero-right{display:flex;justify-content:center}
-/* Premium Business Chinese promo strip (home) */
-.premium-strip{margin:24px auto 0;max-width:1160px;padding:26px 24px;border-radius:16px;background:linear-gradient(135deg,#0e1a33,#16263f);color:#e8edf7;display:flex;align-items:center;gap:20px;flex-wrap:wrap;border:1px solid rgba(245,205,106,.4)}
-.premium-strip-badge{font-size:11px;letter-spacing:.1em;color:#f5cd6a;border:1px solid rgba(245,205,106,.55);padding:4px 12px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
-.premium-strip-title{font-size:22px;font-weight:700;color:#fff;flex:1;min-width:220px}
-.premium-strip-title small{display:block;font-size:13px;color:#9fb0cc;font-weight:400;margin-top:4px}
-.premium-strip-cta{background:#e8b64c;color:#0b1120;border:0;border-radius:8px;padding:10px 18px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
-.premium-strip-cta:hover{transform:translateY(-1px)}
-@media (max-width:560px){.premium-strip{padding:18px 16px}.premium-strip-title{font-size:18px}}
 /* Premium brand hero (premium page) - restrained, cool, enterprise */
 .premium-hero{margin:18px auto 32px;max-width:1200px;padding:46px 50px;border-radius:20px;background:linear-gradient(180deg,#0d1424,#0a0f1d);border:1px solid rgba(148,163,184,.16);position:relative;overflow:hidden;color:#e6ebf5;display:flex;flex-direction:column;align-items:flex-start;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,.22)}
 .premium-hero::after{content:"";position:absolute;top:0;left:50px;right:50px;height:1px;background:linear-gradient(90deg,transparent,rgba(232,182,76,.55),transparent)}
@@ -183,28 +171,6 @@ button{cursor:pointer}
 .ph-cta{background:#e8b64c;color:#0b1120;border:0;border-radius:10px;padding:13px 30px;font-weight:700;font-size:15px;cursor:pointer;position:relative;z-index:1;box-shadow:none;margin-top:14px}
 .ph-cta:hover{background:#f2c258}
 @media (max-width:760px){.premium-hero{padding:28px 24px;gap:10px}.ph-title{font-size:26px}.ph-cta{width:100%;text-align:center}}
-.lego-demo{
-  width:100%;max-width:300px;padding:20px 16px;border-radius:16px;
-  background:var(--surface);border:1px solid var(--line);
-  box-shadow:0 2px 12px rgba(20,28,45,.05);text-align:center;
-}
-.lego-formula{font-size:12px;color:var(--muted);letter-spacing:.04em;margin-bottom:16px;font-weight:600}
-.lego-line{display:flex;justify-content:center;gap:8px;align-items:stretch;margin-bottom:14px}
-.lego-brick{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-  width:74px;height:84px;border:0;border-radius:12px;cursor:pointer;
-  font-family:var(--serif);font-size:26px;color:#fff;font-weight:600;
-  box-shadow:0 2px 8px rgba(60,50,30,.12);transition:transform .15s ease;
-}
-.lego-brick small{font-family:var(--sans);font-size:11px;font-weight:500;opacity:.9}
-.lego-brick.b-subject{background:linear-gradient(160deg,#e08a5a,#c56a3a)}
-.lego-brick.b-verb{background:linear-gradient(160deg,#4aa3c2,#2f7f9e)}
-.lego-brick.b-object{background:linear-gradient(160deg,#5aa06a,#3f8e58)}
-.lego-brick:hover{transform:translateY(-4px)}
-.lego-brick.speaking{transform:translateY(-6px) scale(1.06);box-shadow:0 10px 20px rgba(60,50,30,.26)}
-.lego-brick.done{filter:saturate(1.15) brightness(1.06)}
-.lego-zh{font-family:var(--serif);font-size:16px;color:var(--text);margin-bottom:4px;letter-spacing:.05em}
-.lego-sub{font-size:12.5px;color:var(--muted)}
 .exec-demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 22px 26px;box-shadow:0 4px 18px rgba(20,28,45,.06)}
 .exec-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--muted);border:1px solid var(--line);background:var(--surface-2);padding:5px 10px;border-radius:6px;margin-bottom:14px}
 .exec-zh{font-size:28px;font-weight:700;color:var(--text);line-height:1.3;margin:0 0 6px}
@@ -294,7 +260,6 @@ button{cursor:pointer}
 @media (max-width:640px){
   .mkt-hero{grid-template-columns:1fr;padding:24px 20px;gap:20px}
   .mkt-hero-right{order:-1;margin-bottom:6px}
-  .lego-demo{max-width:none}
   .seo-list{grid-template-columns:1fr}
 }
 @media (min-width:720px){

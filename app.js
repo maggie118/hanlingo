@@ -1910,12 +1910,6 @@
         const s = document.getElementById('stories');
         if (s) s.scrollIntoView({ behavior: 'smooth' });
       }));
-    document.querySelectorAll('.lego-brick').forEach((b) => b.addEventListener('click', () => {
-      document.querySelectorAll('.lego-brick').forEach((x) => x.classList.remove('speaking'));
-      b.classList.add('speaking');
-      if (b.dataset.word) speak(b.dataset.word);
-      setTimeout(() => b.classList.remove('speaking'), 900);
-    }));
     const logo = document.querySelector('.logo');
     if (logo) logo.addEventListener('click', (e) => {
       e.preventDefault();
