@@ -135,6 +135,8 @@ button{cursor:pointer}
 .board-tabs .tab[aria-selected="true"]{background:var(--text);color:#fff;border-color:var(--text)}
 .board-tabs .tab em{font-style:normal;opacity:.72;font-weight:500;font-size:.92em}
 .stream{display:grid;gap:12px;margin-top:16px}
+.stream-toggle{grid-column:1/-1;justify-self:center;margin-top:14px;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:13px;letter-spacing:.02em;cursor:pointer;transition:color .15s ease,border-color .15s ease}
+.stream-toggle:hover{color:var(--text);border-color:var(--text)}
 .pack{display:grid;grid-template-columns:84px 1fr;gap:14px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;text-align:left;width:100%;position:relative;overflow:hidden;transition:box-shadow .15s ease}
 .pack[data-open]{cursor:pointer}
 .pack:hover{box-shadow:0 6px 16px rgba(60,50,30,.08)}
@@ -346,6 +348,7 @@ body.theme-premium .header{background:rgba(10,18,32,.94)}
 body.theme-premium .logo{color:#e7edf8}
 body.theme-premium .nav-link{color:#e7edf8;border-color:#26344f}
 body.theme-premium .premium-link{background:linear-gradient(135deg,#0e1a33,#16263f);color:#f5cd6a;border-color:rgba(245,205,106,.55)}
+#premium-nav{font-size:12px}
 body.theme-premium .bottom-nav{background:#0d1626;border-top:1px solid #26344f}
 body.theme-premium .bottom-nav button{color:#8fa0bd}
 body.theme-premium .bottom-nav button[aria-current="page"]{color:#f5c86a}
