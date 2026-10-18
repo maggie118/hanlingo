@@ -1549,8 +1549,8 @@
                 h('li', {}, 'Everything in Annual, forever'),
                 h('li', {}, 'All future Fresh Scenes & paths'),
                 h('li', {}, 'One-time payment — no renewals')),
-              h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'))),
-          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.')),
+              h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'), h('p', { class: 'lifetime-note' }, 'Limited to the first 500 learners. Once sold out, this option closes permanently.'))),
+          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'), h('p', { class: 'pricing-meta' }, 'Audio: AI-generated native voice'), h('p', { class: 'pricing-meta' }, 'Prices shown in USD. If your card is issued outside the US, your bank may apply a foreign transaction fee.')),
         h('section', { class: 'premium-hero' },
           h('div', { class: 'ph-body' },
             h('h2', { class: 'ph-title' }, 'The Career Upskilling Pack'),
@@ -1626,8 +1626,8 @@
                 h('li', {}, 'Everything in Annual, forever'),
                 h('li', {}, 'All future Fresh Scenes & paths'),
                 h('li', {}, 'One-time payment — no renewals')),
-              h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'))),
-          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'))));
+              h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'), h('p', { class: 'lifetime-note' }, 'Limited to the first 500 learners. Once sold out, this option closes permanently.'))),
+          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'), h('p', { class: 'pricing-meta' }, 'Audio: AI-generated native voice'), h('p', { class: 'pricing-meta' }, 'Prices shown in USD. If your card is issued outside the US, your bank may apply a foreign transaction fee.')), h('section', { class: 'faq' }, h('h3', { class: 'faq-q' }, 'Is the audio AI or human?'), h('p', { class: 'faq-a' }, 'All sentence audio on HanLingo is generated with a native-voice AI model, tuned for slow / normal / fast playback. This lets us offer three speeds on every sentence without extra cost.')),));
   }
 
   /* ---------- Premium: all business packs (24) ---------- */
