@@ -431,8 +431,9 @@ body.theme-community .theme-toggle{display:none}
 .cf-actions{display:flex;gap:12px}
 .cf-btn{flex:1;padding:15px;border-radius:12px;font-size:15px;font-weight:600;border:1px solid var(--line);transition:transform .12s ease}
 .cf-btn:active{transform:scale(.97)}
-.cf-btn.fav{background:var(--surface-2);color:var(--text)}
-.cf-btn.fav.faved{background:#e0523b;color:#fff;border-color:transparent}
+.cf-btn.fav{flex:0 0 auto;width:52px;padding:0;display:grid;place-items:center;background:transparent;color:var(--text);border-color:var(--line)}
+.cf-btn.fav.faved{background:transparent;color:#e0523b;border-color:rgba(224,82,59,.4)}
+.cf-btn.prev{background:var(--surface-2);color:var(--text)}
 .cf-btn.check{background:var(--navy);color:#fff;border-color:transparent}
 @media (max-width:560px){.cf-front .sentence{font-size:25px}.cf-trans{font-size:16px}}
 
@@ -603,7 +604,7 @@ body.theme-community .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 /* Static SEO block (crawler-visible course catalog) */
 .seo-block{margin:96px 0 28px;padding:28px 30px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 .seo-title{font-size:19px;font-weight:700;color:var(--text);margin:0 0 12px}
-.seo-intro{font-size:14px;color:var(--muted);line-height:1.65;margin:0 0 20px;max-width:66ch}
+.seo-intro{font-size:14px;color:var(--muted);line-height:1.65;margin:0 0 20px}
 .seo-list{list-style:none;margin:0;padding:0;columns:2;column-gap:32px}
 .seo-list li{display:grid;grid-template-columns:1fr;gap:2px;font-size:14px;line-height:1.5;color:var(--text);padding:4px 0 4px 16px;border-left:2px solid var(--sage);break-inside:avoid;margin-bottom:14px}
 .seo-list li strong{font-size:16px;font-weight:700;color:var(--text)}
