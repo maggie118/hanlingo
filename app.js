@@ -1419,7 +1419,7 @@
       return;
     }
     root.replaceChildren(
-      STREAM_TRACKS.map((g) => {
+      ...STREAM_TRACKS.map((g) => {
         const visible = state.stories.filter((s) => (s.category || 'strange') === g.cat).slice().sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
         return h('div', { class: 'track-group' },
           h('h3', { class: 'track-title' }, g.title),
