@@ -106,6 +106,32 @@ button{cursor:pointer}
 .board-tabs .tab{font-weight:600;padding:11px 18px;font-size:14px}
 .board-tabs .tab[aria-selected="true"]{background:var(--text);color:#fff;border-color:var(--text)}
 .board-tabs .tab em{font-style:normal;opacity:.72;font-weight:500;font-size:.92em}
+.paths{margin:48px 0 8px}
+.paths-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 16px}
+.paths-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.path-card{display:flex;flex-direction:column;align-items:flex-start;gap:5px;text-align:left;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .15s,transform .15s;position:relative}
+.path-card:hover{border-color:var(--sage);transform:translateY(-2px)}
+.path-tag{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.path-name{font-size:16px;font-weight:600;color:var(--text);margin:2px 0 0}
+.path-who{font-size:12px;color:var(--muted);margin-top:8px}
+.path-time{font-size:12px;color:var(--muted);margin-top:auto;padding:12px 0 14px}
+.path-start{margin-top:4px;width:100%}
+@media(max-width:720px){.paths-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.paths-grid{grid-template-columns:1fr}}
+.stream-browse{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--text);cursor:pointer;font-size:14px}
+.stream-browse:hover{border-color:var(--sage)}
+.sb-label{font-weight:500}
+.sb-caret{color:var(--sage)}
+.track-group{margin-bottom:8px}
+.track-title{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 14px}
+.track-grid{display:grid;gap:12px;grid-template-columns:1fr}
+.recom-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,20,25,.45)}
+.recom-box{width:100%;max-width:360px;padding:22px;border-radius:16px;background:var(--surface,#fff);box-shadow:0 20px 50px rgba(0,0,0,.18);text-align:center}
+.recom-q{font-size:16px;font-weight:600;margin:0 0 16px;color:var(--text)}
+.recom-opts{display:flex;flex-direction:column;gap:8px}
+.recom-opt{padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft,#fafaf8);color:var(--text);cursor:pointer;font-size:14px;transition:border-color .15s}
+.recom-opt:hover{border-color:var(--sage)}
+.recom-skip{margin-top:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px}
 .stream{display:grid;gap:12px;margin-top:40px}
 .stream-toggle{grid-column:1/-1;justify-self:center;margin-top:14px;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:13px;letter-spacing:.02em;cursor:pointer;transition:color .15s ease,border-color .15s ease}
 .stream-toggle:hover{color:var(--text);border-color:var(--text)}
@@ -663,6 +689,14 @@ body.theme-community .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 .btn.ochre{background:transparent;border:1px solid var(--ochre);color:var(--ochre)}
 .btn.ochre:hover{background:rgba(201,162,75,.14)}
 .pricing-trust{font-size:13px;color:var(--muted);line-height:1.6;margin:16px 0 0;max-width:680px}
+.preview-btn{margin-top:8px;width:100%;font-size:12px}
+.preview-free{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-soft,#fafaf8);text-align:left}
+.pf-title{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 10px}
+.pf-row{padding:8px 0;border-bottom:1px solid var(--line)}
+.pf-row:last-child{border-bottom:none;padding-bottom:0}
+.pf-zh{font-family:var(--serif);font-size:17px;color:var(--text)}
+.pf-py{font-size:12px;color:var(--ochre,#b0593a);margin:2px 0}
+.pf-en{font-size:13px;color:var(--muted)}
 .exec-bricks{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
 .exec-brick{font-family:var(--serif);font-size:17px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .15s,background .15s}
 .exec-brick:hover{border-color:var(--sage)}

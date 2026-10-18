@@ -139,6 +139,22 @@
 
   /* ---------- Views & bottom nav ---------- */
   const VIEWS = ['learn', 'reader', 'vocab', 'profile', 'premium', 'pricing', 'community'];
+  const ROUTES = { premium: '/premium', pricing: '/pricing', community: '/teams' };
+  const META = {
+    premium:  { title: 'Premium Business Mandarin | HanLingo', desc: 'Unlock executive Business Chinese and Mastery packs. Pro Monthly $19, Pro Annual $119, or Founding Lifetime $249 — limited to 500. Every pack ships with native three-speed audio.', canonical: 'https://www.hanlingo.app/premium' },
+    pricing:  { title: 'Pricing | HanLingo', desc: 'Pick your plan — Free, Pro Monthly $19, Pro Annual $119, or Founding Lifetime $249. Every pack includes native three-speed audio. Try any pack free before you pay.', canonical: 'https://www.hanlingo.app/pricing' },
+    community:{ title: 'For Teams | HanLingo', desc: 'The HanLingo Exec Circle — a private network of professionals doing business across Asia. Unlock with any paid plan.', canonical: 'https://www.hanlingo.app/teams' },
+    learn:    { title: 'HanLingo | Master Mandarin Through Sentence Formulas', desc: 'Learn Mandarin through real sentences, not vocabulary lists. Break any sentence into word-bricks, tap, hear and repeat. The Beginner track is free forever.', canonical: 'https://www.hanlingo.app/' }
+  };
+  function applyMeta(view) {
+    const m = META[view] || META.learn;
+    document.title = m.title;
+    const d = document.querySelector('meta[name="description"]'); if (d) d.setAttribute('content', m.desc);
+    const c = document.querySelector('link[rel="canonical"]'); if (c) c.setAttribute('href', m.canonical);
+    const o = document.querySelector('meta[property="og:url"]'); if (o) o.setAttribute('content', m.canonical);
+    const ot = document.querySelector('meta[property="og:title"]'); if (ot) ot.setAttribute('content', m.title);
+    const otw = document.querySelector('meta[name="twitter:title"]'); if (otw) otw.setAttribute('content', m.title);
+  }
 
   function show(view) {
     VIEWS.forEach((v) => { $('#view-' + v).hidden = v !== view; });
@@ -150,17 +166,18 @@
       else b.removeAttribute('aria-current');
     });
     closeOverlays();
-    if (view === 'learn') renderDashboard();
+    if (view === 'learn') { renderDashboard(); renderPaths(); }
     if (view === 'vocab') renderVocab();
     if (view === 'profile') renderProfile();
     if (view === 'premium') renderPremium();
     if (view === 'pricing') renderPricing();
     if (view === 'community') renderCommunity();
-    // Deep-linkable hash for SEO landing views (#premium / #pricing / #community); reset to root when leaving it.
-    const target = view === 'premium' ? '#premium' : (view === 'pricing' ? '#pricing' : (view === 'community' ? '#community' : (location.hash === '#premium' || location.hash === '#pricing' || location.hash === '#community' ? '' : location.hash)));
-    if (location.hash !== target) {
-      try { history.replaceState(null, '', location.pathname + location.search + target); } catch (e) { location.hash = target; }
+    // History API route for landing views; keep the app root for internal views.
+    const target = ROUTES[view] || '/';
+    if (location.pathname !== target) {
+      try { history.replaceState(null, '', target); } catch (e) {}
     }
+    applyMeta(view);
     window.scrollTo(0, 0);
   }
 
@@ -774,7 +791,9 @@
                 ]),
               h('p', { class: 'cf-hint' }, 'Tap to flip')))),
         h('div', { class: 'cf-actions' },
-          h('button', { class: 'cf-btn fav' + (isStarred(c.id) ? ' faved' : ''), type: 'button', onclick: () => markStar() }, isStarred(c.id) ? '♥ Saved' : '♡ Save'),
+          h('button', { class: 'cf-btn fav' + (isStarred(c.id) ? ' faved' : ''), type: 'button', 'aria-label': (isStarred(c.id) ? 'Remove from saved' : 'Save sentence'), onclick: () => markStar() },
+            (() => { const s = document.createElement('span'); s.className = 'fav-icon'; s.innerHTML = isStarred(c.id) ? HEART_FILLED : HEART_OUTLINE; return s; })()),
+          ...(state.idx > 0 ? [ h('button', { class: 'cf-btn prev', type: 'button', onclick: () => go(state.idx - 1) }, '← Prev') ] : []),
           h('button', { class: 'cf-btn check', type: 'button', onclick: () => { recordDaily(); bumpStoryProgress(); const _id = state.cards[state.idx].id; srsLearn(_id); if (last) { maybeCelebrate(); show('learn'); } else go(state.idx + 1); } }, last ? '完成' : 'Next →'))));
   }
 
@@ -823,6 +842,8 @@
   }
   function loadStars() { try { return store.get('hanlingo_stars', {}); } catch (e) { return {}; } }
   function saveStars(s) { store.set('hanlingo_stars', s); }
+  const HEART_OUTLINE = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+  const HEART_FILLED = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" stroke="none" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
   function isStarred(id) { return !!loadStars()[id]; }
   function markStar() {
     const id = state.cards[state.idx].id;
@@ -830,7 +851,7 @@
     stars[id] = !stars[id];
     saveStars(stars);
     const b = document.querySelector('.cf-btn.fav');
-    if (b) { b.classList.toggle('faved'); b.innerText = stars[id] ? '♥ Saved' : '♡ Save'; }
+    if (b) { b.classList.toggle('faved'); const ic = b.querySelector('.fav-icon'); if (ic) ic.innerHTML = stars[id] ? HEART_FILLED : HEART_OUTLINE; }
   }
 
   // Paywall gate: a locked card is never rendered, so its text never reaches the DOM.
@@ -1045,8 +1066,28 @@
         store.set('hanlingo_install_suggested', true);
         setTimeout(() => maybeShowInstallBanner(), 7000);
       }
+      if (!store.get('hanlingo_pathrecom_shown')) {
+        store.set('hanlingo_pathrecom_shown', true);
+        setTimeout(showPathRecom, 1200);
+      }
     }
     return e;
+  }
+  function showPathRecom() {
+    let m = document.getElementById('path-recom');
+    if (!m) { m = document.createElement('div'); m.id = 'path-recom'; m.className = 'recom-modal'; document.body.appendChild(m); }
+    const opts = [
+      { label: 'Meetings', path: 'client-90' },
+      { label: 'Clients', path: 'client-90' },
+      { label: 'Daily life', path: 'first-30' },
+      { label: 'Travel', path: 'first-30' }
+    ];
+    m.replaceChildren(
+      h('div', { class: 'recom-box' },
+        h('p', { class: 'recom-q' }, 'What do you need Chinese for?'),
+        h('div', { class: 'recom-opts' },
+          ...opts.map((o) => h('button', { class: 'recom-opt', type: 'button', onclick: () => { m.remove(); startPath(o.path); } }, o.label))),
+        h('button', { class: 'recom-skip', type: 'button', onclick: () => m.remove() }, 'Not now')));
   }
   function showSyncToast() {
     let t = document.getElementById('sync-toast');
@@ -1314,8 +1355,8 @@
     const zh = (s.title.split('·')[0] || '').trim();
     const en = (s.title.split('·')[1] || s.title).trim();
     const first = s.cards && s.cards[0];
-    const tag = o.isFree ? 'FREE' : (o.locked ? 'LEVEL PASS' : null);
-    return h('button', { class: 'pack classic' + (o.locked ? ' locked' : ''), type: 'button', onclick: () => (o.locked ? openPaywall('level') : openStory(o.storyIndex)) },
+    const tag = o.isFree ? 'FREE' : (o.locked ? 'PREMIUM' : null);
+    return h('button', { class: 'pack classic' + (o.locked ? ' locked' : ''), type: 'button', onclick: () => (o.locked ? show('pricing') : openStory(o.storyIndex)) },
       o.locked ? h('div', { class: 'blur-layer' }) : null,
       tag ? h('span', { class: 'story-tag ' + (o.isFree ? 'free' : 'locked') }, tag) : null,
       h('div', { class: 'classic-origin', lang: 'zh-CN' }, first ? first.sentence : zh),
@@ -1328,49 +1369,87 @@
           h('span', { class: 'tag' }, '≈' + estMins(s) + ' min'),
           h('span', { class: 'tag classic-modern' }, '⚔ ' + modernPlay(s)),
           ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
-          o.isFree ? h('span', { class: 'tag free' }, 'Free') : h('span', { class: 'tag pro' }, 'Level Pass'))));
+          o.isFree ? h('span', { class: 'tag free' }, 'Free') : h('span', { class: 'tag pro' }, 'Premium'))));
   }
 
+  const PATHS = [
+    { id: 'first-30', name: 'First 30 Days', packs: '8 Beginner packs', time: '30 days · 10 min/day', who: 'Zero to everyday survival', board: 'survival' },
+    { id: 'client-90', name: 'Client-Ready in 90 Days', packs: '12 Business packs', time: '90 days', who: 'Client meetings & calls', board: 'business' },
+    { id: 'boardroom', name: 'Boardroom Fluency', packs: '10 Mastery packs', time: '6 months', who: 'Executive & boardroom', board: 'mastery' },
+    { id: 'china-tech', name: 'China Tech Insider', packs: 'Tech jargon + business packs', time: '3 months', who: 'Tech industry professionals', board: 'business' }
+  ];
+  function renderPaths() {
+    const root = $('#paths');
+    if (!root) return;
+    root.replaceChildren(
+      h('div', { class: 'paths-title' }, 'Choose your path'),
+      h('div', { class: 'paths-grid' },
+        ...PATHS.map((p) => h('div', { class: 'path-card', 'data-path': p.id },
+          h('span', { class: 'path-tag' }, p.id.replace(/-/g, ' ').toUpperCase()),
+          h('span', { class: 'path-name' }, p.name),
+          h('span', { class: 'path-who' }, p.who),
+          h('span', { class: 'path-time' }, p.time),
+          h('button', { class: 'btn sage path-start', type: 'button', onclick: () => startPath(p.id) }, 'Start this path')))));
+  }
+  function startPath(id) {
+    const p = PATHS.find((x) => x.id === id);
+    if (!p) return;
+    const packs = boardPacks(p.board);
+    const s = packs[0];
+    store.set('path:' + id + ':progress', { startedAt: Date.now(), pack: s ? (s.columnId || s.title) : null });
+    if (s) {
+      const i = state.stories.findIndex((x) => x === s);
+      openStory(i);
+    }
+  }
+
+  const STREAM_TRACKS = [
+    { cat: 'daily', title: 'Survival & Daily Life' },
+    { cat: 'business', title: 'Business & Workplace Pro' },
+    { cat: 'strange', title: 'Mastery · Sun Tzu Strategy' }
+  ];
   function renderStream() {
     const root = $('#stream');
-    const visible = boardPacks(state.currentBoard);
-    visible.sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
-    if (!visible.length) {
-      root.replaceChildren();
-      $('#soon').hidden = false;
+    if (!state.expandedStream) {
+      root.replaceChildren(
+        h('button', { class: 'stream-browse', type: 'button', onclick: () => { state.expandedStream = true; renderStream(); } },
+          h('span', { class: 'sb-label' }, 'Browse all 83 packs'),
+          h('span', { class: 'sb-caret' }, '▾')));
+      $('#soon').hidden = true;
       return;
     }
-
-    if (state.streamBoard !== state.currentBoard) { state.streamBoard = state.currentBoard; state.expandedStream = false; }
-    const showAll = state.expandedStream === true;
-    const shown = showAll ? visible : visible.slice(0, 4);
-    const more = visible.length > 4;
     root.replaceChildren(
-      ...shown.map((s) => {
-        const zh = (s.title.split('·')[0] || '').trim();
-        const en = (s.title.split('·')[1] || s.title).trim();
-        const storyIndex = state.stories.findIndex((item) => item === s);
-        const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2' || (s.hskRange || 'HSK 3-4') === 'HSK 1-3';
-        const trial = (s.freeCards || 0) > 0;
-        const locked = !isFree && !canOpenStory(s) && !trial;
-        const tag = isFree ? 'FREE' : (locked ? 'LEVEL PASS' : null);
-        if (state.currentBoard === 'mastery') return classicPack(s, { isFree, locked, storyIndex });
-        return h('button', { class: 'pack' + (locked ? ' locked' : ''), type: 'button', onclick: () => (locked ? openPaywall('level') : openStory(storyIndex)) },
-          locked ? h('div', { class: 'blur-layer' }) : null,
-          tag ? h('span', { class: 'story-tag ' + (isFree ? 'free' : 'locked') }, tag) : null,
-          h('div', { class: 'cover ' + (s.coverClass || 'c1'), 'aria-hidden': 'true' }, s.cover || zh.slice(0, 1)),
-          h('div', {},
-            h('h3', {}, en),
-            h('p', {}, zh + ' · ' + s.totalCards + ' cards'),
-            (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
-            h('div', { class: 'tags' },
-              h('span', { class: 'tag' }, levelLabel(s.hskRange)),
-              h('span', { class: 'tag' }, cefrLabel(s.hskRange)),
-              h('span', { class: 'tag' }, '≈' + estMins(s) + ' min'),
-              ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
-              isFree ? null : h('span', { class: 'tag pro' }, 'Level Pass'))));
-      }));
-    if (more) root.appendChild(h('button', { class: 'stream-toggle', type: 'button', onclick: () => { state.expandedStream = !state.expandedStream; renderStream(); } }, showAll ? 'Show less ▲' : ('Show all ' + visible.length + ' packs ▼')));
+      STREAM_TRACKS.map((g) => {
+        const visible = state.stories.filter((s) => (s.category || 'strange') === g.cat).slice().sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
+        return h('div', { class: 'track-group' },
+          h('h3', { class: 'track-title' }, g.title),
+          h('div', { class: 'track-grid' },
+            ...visible.map((s) => {
+              const zh = (s.title.split('·')[0] || '').trim();
+              const en = (s.title.split('·')[1] || s.title).trim();
+              const storyIndex = state.stories.findIndex((item) => item === s);
+              const isFree = (s.hskRange || 'HSK 3-4') === 'HSK 1-2' || (s.hskRange || 'HSK 3-4') === 'HSK 1-3';
+              const trial = (s.freeCards || 0) > 0;
+              const locked = !isFree && !canOpenStory(s) && !trial;
+              const tag = isFree ? 'FREE' : (locked ? 'PREMIUM' : null);
+              if (g.cat === 'strange') return classicPack(s, { isFree, locked, storyIndex });
+              return h('button', { class: 'pack' + (locked ? ' locked' : ''), type: 'button', onclick: () => (locked ? show('pricing') : openStory(storyIndex)) },
+                locked ? h('div', { class: 'blur-layer' }) : null,
+                tag ? h('span', { class: 'story-tag ' + (isFree ? 'free' : 'locked') }, tag) : null,
+                h('div', { class: 'cover ' + (s.coverClass || 'c1'), 'aria-hidden': 'true' }, s.cover || zh.slice(0, 1)),
+                h('div', {},
+                  h('h3', {}, en),
+                  h('p', {}, zh + ' · ' + s.totalCards + ' cards'),
+                  (s.introEn || s.intro) ? h('p', { class: 'blurb' }, s.introEn || s.intro) : null,
+                  h('div', { class: 'tags' },
+                    h('span', { class: 'tag' }, levelLabel(s.hskRange)),
+                    h('span', { class: 'tag' }, cefrLabel(s.hskRange)),
+                    h('span', { class: 'tag' }, '≈' + estMins(s) + ' min'),
+                    ...(capsuleBadge(s) ? [capsuleBadge(s)] : []),
+                    isFree ? null : h('span', { class: 'tag pro' }, 'Premium'))));
+            })));
+      }),
+      h('button', { class: 'stream-toggle', type: 'button', onclick: () => { state.expandedStream = false; renderStream(); } }, 'Show less ▴'));
     $('#soon').hidden = true;
   }
 
@@ -1399,13 +1478,37 @@
     show('reader');
   }
 
+  // Pro card "Preview free": expand the first 3 sentences of a representative paid pack in place.
+  function bizPreviewPack() {
+    return state.stories.find((x) => x.columnId && Array.isArray(x.cards) && x.cards.length) || null;
+  }
+  function togglePreviewFree(btn) {
+    const card = btn.closest('.price-card');
+    if (!card) return;
+    const box = card.querySelector('.preview-free');
+    if (!box) return;
+    if (!box.dataset.loaded) {
+      const s = bizPreviewPack();
+      if (!s) return;
+      box.replaceChildren(
+        h('div', { class: 'pf-title' }, 'Preview · ' + (s.title.split('·')[1] || s.title).trim()),
+        ...(s.cards || []).slice(0, 3).map((c) =>
+          h('div', { class: 'pf-row' },
+            h('div', { class: 'pf-zh', lang: 'zh-CN' }, c.sentence),
+            c.pinyin ? h('div', { class: 'pf-py' }, c.pinyin) : null,
+            h('div', { class: 'pf-en' }, c.translation || ''))));
+      box.dataset.loaded = '1';
+    }
+    box.hidden = !box.hidden;
+  }
+
   function renderPremium() {
     const root = $('#view-premium');
     root.replaceChildren(
       h('div', { class: 'premium-page' },
         h('section', { class: 'pricing-section' },
-          h('h2', { class: 'biz-section-title' }, 'Pick your track'),
-          h('p', { class: 'pricing-note' }, 'Try before you buy: every paid pack includes free preview sentences. Paid access is a one-time payment and non-refundable — no recurring fees. Local customers can also pay in SGD at checkout.'),
+          h('h2', { class: 'biz-section-title' }, 'Pick your plan'),
+          h('p', { class: 'pricing-note' }, 'One-time payment keeps the price low — no subscriptions, no renewals. Try any pack free before you pay.'),
           h('div', { class: 'pricing-grid' },
             h('div', { class: 'price-card free' },
               h('div', { class: 'price-name' }, 'Free'),
@@ -1417,40 +1520,48 @@
                 h('li', {}, 'Three-speed native audio on free lines'),
                 h('li', {}, 'Export & import your progress JSON')),
               h('button', { class: 'btn', type: 'button', onclick: () => show('learn') }, 'Start free')),
-            h('div', { class: 'price-card pro' },
-              h('div', { class: 'price-name' }, 'Pro'),
-              h('div', { class: 'price-amt' }, '$129', h('small', {}, 'one-time')),
+            h('div', { class: 'price-card monthly' },
+              h('span', { class: 'price-badge' }, 'Flexible · Cancel anytime'),
+              h('div', { class: 'price-name' }, 'Pro Monthly'),
+              h('div', { class: 'price-amt' }, '$19', h('small', {}, 'per month')),
               h('ul', { class: 'price-feats' },
-                h('li', {}, 'The Career Upskilling Pack — salary negotiation · boardroom · supplier'),
-                h('li', {}, 'All Survival & Business packs (60 packs · 300 sentences)'),
-                h('li', {}, 'CEFR A1–C1 mapped to every pack'),
-                h('li', {}, 'Native male three-speed audio on every line'),
-                h('li', {}, 'Offline learning (PWA install)'),
-                h('li', {}, 'AI read-along pronunciation practice'),
-                h('li', {}, 'Cross-device sync via email link')),
-              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Go Pro')),
-            h('div', { class: 'price-card exec' },
-              h('div', { class: 'price-name' }, 'Executive'),
-              h('div', { class: 'price-amt' }, '$249', h('small', {}, 'one-time')),
+                h('li', {}, 'Full site access — every pack'),
+                h('li', {}, 'Fresh Scenes updated monthly'),
+                h('li', {}, 'Cancel anytime, no lock-in')),
+              h('button', { class: 'btn ghost', type: 'button', onclick: () => openPaywall('monthly') }, 'Choose monthly')),
+            h('div', { class: 'price-card annual' },
+              h('span', { class: 'price-badge' }, 'Most popular · New packs monthly · Lock in this price'),
+              h('div', { class: 'price-name' }, 'Pro Annual'),
+              h('div', { class: 'price-amt' }, '$119', h('small', {}, '~$9.92/month · renews at $149 in 2027')),
               h('ul', { class: 'price-feats' },
-                h('li', {}, 'Everything in Pro'),
-                h('li', {}, 'Mastery · Sun Tzu Strategy (HSK 7-9 · 22 packs · 315 sentences)'),
-                h('li', {}, 'CEFR C1–C2 executive Mandarin'),
-                h('li', {}, 'AI role-play conversation practice'),
-                h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
-                h('li', {}, 'Priority access to new packs')),
-              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive')))),
+                h('li', {}, 'Everything in Monthly'),
+                h('li', {}, 'A full year of Fresh Scenes'),
+                h('li', {}, 'Early access to new paths'),
+                h('li', {}, 'Lock this price — $149 after 2027')),
+              h('button', { class: 'btn sage', type: 'button', onclick: () => openPaywall('annual') }, 'Go annual'),
+              h('button', { class: 'btn ghost preview-btn', type: 'button', onclick: (e) => togglePreviewFree(e.currentTarget) }, 'Preview free'),
+              h('div', { class: 'preview-free', hidden: true })),
+            h('div', { class: 'price-card lifetime' },
+              h('span', { class: 'price-badge' }, 'Limited to 500 · Closes permanently when sold out'),
+              h('div', { class: 'price-name' }, 'Founding Lifetime'),
+              h('div', { class: 'price-amt' }, '$249', h('small', {}, 'one-time · 500 max')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'Everything in Annual, forever'),
+                h('li', {}, 'All future Fresh Scenes & paths'),
+                h('li', {}, 'One-time payment — no renewals')),
+              h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'))),
+          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.')),
         h('section', { class: 'premium-hero' },
           h('div', { class: 'ph-body' },
             h('h2', { class: 'ph-title' }, 'The Career Upskilling Pack'),
             h('p', { class: 'ph-sub' }, 'salary negotiation · boardroom · supplier chats'),
             h('p', { class: 'ph-meta' }, '315 executive sentences across HSK 7-9')),
-          h('button', { class: 'ph-cta', type: 'button', onclick: () => { const el = root.querySelector('.pricing-section'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }, 'See Pricing')),
+          h('button', { class: 'ph-cta', type: 'button', onclick: () => show('pricing') }, 'See Pricing')),
         h('div', { class: 'premium-grid' },
           ...PREMIUM_TOPICS.map((t) => {
             const story = state.stories.find((x) => x.columnId === t.columnId);
             const open = state.access.business;
-            return h('button', { class: 'q-card', type: 'button', onclick: () => openBizStory(story) },
+            return h('button', { class: 'q-card', type: 'button', onclick: () => (open ? openBizStory(story) : show('pricing')) },
               h('span', { class: 'q-zh' }, t.zh),
               h('span', { class: 'q-en' }, t.en),
               h('span', { class: 'q-hook' }, t.hook),
@@ -1473,8 +1584,8 @@
     root.replaceChildren(
       h('div', { class: 'premium-page' },
         h('section', { class: 'pricing-section' },
-          h('h2', { class: 'biz-section-title' }, 'Pick your track'),
-          h('p', { class: 'pricing-note' }, 'Try before you buy: every paid pack includes free preview sentences. Paid access is a one-time payment and non-refundable — no recurring fees. Local customers can also pay in SGD at checkout.'),
+          h('h2', { class: 'biz-section-title' }, 'Pick your plan'),
+          h('p', { class: 'pricing-note' }, 'One-time payment keeps the price low — no subscriptions, no renewals. Try any pack free before you pay.'),
           h('div', { class: 'pricing-grid' },
             h('div', { class: 'price-card free' },
               h('div', { class: 'price-name' }, 'Free'),
@@ -1486,29 +1597,37 @@
                 h('li', {}, 'Three-speed native audio on free lines'),
                 h('li', {}, 'Export & import your progress JSON')),
               h('button', { class: 'btn', type: 'button', onclick: () => show('learn') }, 'Start free')),
-            h('div', { class: 'price-card pro' },
-              h('div', { class: 'price-name' }, 'Pro'),
-              h('div', { class: 'price-amt' }, '$129', h('small', {}, 'one-time')),
+            h('div', { class: 'price-card monthly' },
+              h('span', { class: 'price-badge' }, 'Flexible · Cancel anytime'),
+              h('div', { class: 'price-name' }, 'Pro Monthly'),
+              h('div', { class: 'price-amt' }, '$19', h('small', {}, 'per month')),
               h('ul', { class: 'price-feats' },
-                h('li', {}, 'The Career Upskilling Pack — salary negotiation · boardroom · supplier'),
-                h('li', {}, 'All Survival & Business packs (60 packs · 300 sentences)'),
-                h('li', {}, 'CEFR A1–C1 mapped to every pack'),
-                h('li', {}, 'Native male three-speed audio on every line'),
-                h('li', {}, 'Offline learning (PWA install)'),
-                h('li', {}, 'AI read-along pronunciation practice'),
-                h('li', {}, 'Cross-device sync via email link')),
-              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Go Pro')),
-            h('div', { class: 'price-card exec' },
-              h('div', { class: 'price-name' }, 'Executive'),
-              h('div', { class: 'price-amt' }, '$249', h('small', {}, 'one-time')),
+                h('li', {}, 'Full site access — every pack'),
+                h('li', {}, 'Fresh Scenes updated monthly'),
+                h('li', {}, 'Cancel anytime, no lock-in')),
+              h('button', { class: 'btn ghost', type: 'button', onclick: () => openPaywall('monthly') }, 'Choose monthly')),
+            h('div', { class: 'price-card annual' },
+              h('span', { class: 'price-badge' }, 'Most popular · New packs monthly · Lock in this price'),
+              h('div', { class: 'price-name' }, 'Pro Annual'),
+              h('div', { class: 'price-amt' }, '$119', h('small', {}, '~$9.92/month · renews at $149 in 2027')),
               h('ul', { class: 'price-feats' },
-                h('li', {}, 'Everything in Pro'),
-                h('li', {}, 'Mastery · Sun Tzu Strategy (HSK 7-9 · 22 packs · 315 sentences)'),
-                h('li', {}, 'CEFR C1–C2 executive Mandarin'),
-                h('li', {}, 'AI role-play conversation practice'),
-                h('li', {}, 'Executive scene packs — negotiation, boardroom, toasts'),
-                h('li', {}, 'Priority access to new packs')),
-              h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('life') }, 'Go Executive'))))));
+                h('li', {}, 'Everything in Monthly'),
+                h('li', {}, 'A full year of Fresh Scenes'),
+                h('li', {}, 'Early access to new paths'),
+                h('li', {}, 'Lock this price — $149 after 2027')),
+              h('button', { class: 'btn sage', type: 'button', onclick: () => openPaywall('annual') }, 'Go annual'),
+              h('button', { class: 'btn ghost preview-btn', type: 'button', onclick: (e) => togglePreviewFree(e.currentTarget) }, 'Preview free'),
+              h('div', { class: 'preview-free', hidden: true })),
+            h('div', { class: 'price-card lifetime' },
+              h('span', { class: 'price-badge' }, 'Limited to 500 · Closes permanently when sold out'),
+              h('div', { class: 'price-name' }, 'Founding Lifetime'),
+              h('div', { class: 'price-amt' }, '$249', h('small', {}, 'one-time · 500 max')),
+              h('ul', { class: 'price-feats' },
+                h('li', {}, 'Everything in Annual, forever'),
+                h('li', {}, 'All future Fresh Scenes & paths'),
+                h('li', {}, 'One-time payment — no renewals')),
+              h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'))),
+          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'))));
   }
 
   /* ---------- Premium: all business packs (24) ---------- */
@@ -1535,7 +1654,7 @@
     const zh = (parts[0] || '').trim();
     const en = (parts[1] || p.title || '').trim();
     const n = p.totalCards || (p.cards ? p.cards.length : 0);
-    return h('button', { class: 'q-card biz-card', type: 'button', onclick: () => openBizStory(p) },
+    return h('button', { class: 'q-card biz-card', type: 'button', onclick: () => (open ? openBizStory(p) : show('pricing')) },
       h('span', { class: 'q-zh' }, zh),
       h('span', { class: 'q-en' }, en),
       h('span', { class: 'q-meta' },
@@ -1600,13 +1719,13 @@
         h('div', { class: 'comm-steps' },
           h('h3', {}, 'How to get your invite'),
           h('ol', {},
-            h('li', {}, 'Unlock Premium Business or Lifetime All-Access'),
+            h('li', {}, 'Unlock any paid plan — Monthly, Annual or Lifetime'),
             h('li', {}, 'Verify your subscription (auto, one click)'),
             h('li', {}, 'Receive your private WhatsApp invite link instantly')),
           h('div', { class: 'comm-cta' },
             unlocked
               ? h('button', { class: 'btn primary', type: 'button', onclick: notifyCommunity }, 'Join the Exec Circle ↗')
-              : h('button', { class: 'btn primary', type: 'button', onclick: () => openPaywall('biz') }, 'Unlock the Exec Circle · from $129')))),
+              : h('button', { class: 'btn primary', type: 'button', onclick: () => show('pricing') }, 'Unlock the Exec Circle')))),
     );
   }
   function notifyCommunity() {
@@ -1623,13 +1742,13 @@
   function openPaywall(prefer) {
     if (prefer) state.plan = prefer;
     const plans = [
-      { key: 'level', label: 'Free', price: '$0', detail: 'Forever', badge: 'FREE', description: 'Beginner track free forever — no card required. Upgrade to Pro or Executive anytime to unlock all packs.', recommended: false },
-      { key: 'biz', label: 'Premium Business Pass', price: '$129', detail: 'One-Time Payment', badge: 'CAREER UPGRADE', premium: true, description: 'The Career Upskilling Pack — salary negotiation · boardroom · supplier. Unlock ALL 100+ corporate sentence formulas across every level. Master 9 critical scenarios: WeChat networking, tech slangs, and client management. Native-speed professional audio.', recommended: false },
-      { key: 'life', label: 'Lifetime All-Access', price: '$249', detail: 'One-Time Investment', badge: 'BEST VALUE', description: 'Level Pass + Premium Business Pass fully combined. Unlock the ENTIRE site + all current & future updates forever. Includes upcoming premium theme and sentence drops. One billing — never a recurring fee again.', recommended: true }
+      { key: 'monthly', label: 'Pro Monthly', price: '$19', detail: 'per month · cancel anytime', badge: 'FLEXIBLE', description: 'Full site access with Fresh Scenes updated monthly. Cancel anytime, no lock-in.', recommended: false },
+      { key: 'annual', label: 'Pro Annual', price: '$119', detail: '~$9.92/month · most popular', badge: 'MOST POPULAR', description: 'Everything in Monthly, plus a full year of Fresh Scenes, early access to new paths, and this price locked — renews at $149 in 2027.', recommended: true },
+      { key: 'lifetime', label: 'Founding Lifetime', price: '$249', detail: 'one-time · limited 500', badge: 'FOUNDER', premium: true, description: 'Everything in Annual, forever. All future Fresh Scenes and paths. One-time payment — limited to 500 founding members, closes permanently when sold out.', recommended: false }
     ];
 
     const selectedPlan = plans.find((plan) => plan.key === state.plan) || plans.find((plan) => plan.recommended) || plans[2];
-    const unlockText = selectedPlan.key === 'level' ? 'Start Free' : selectedPlan.key === 'biz' ? 'Unlock Business Pack' : '👉 GET LIFETIME ACCESS';
+    const unlockText = selectedPlan.key === 'lifetime' ? 'GET LIFETIME ACCESS' : (selectedPlan.key === 'annual' ? 'GET ANNUAL ACCESS' : 'START PRO MONTHLY');
 
     const planButtons = plans.map((plan) =>
       h('button', {
@@ -1653,10 +1772,10 @@
         h('div', { class: 'dialog-head' },
           h('button', { class: 'close-x', type: 'button', 'aria-label': 'Close pricing', onclick: closeOverlays }, '×'),
           h('div', { class: 'dialog-copy' },
-            h('h2', { id: 'pw-title' }, 'Pay Once. Speak Mandarin Like an Executive.'),
-            h('p', {}, 'No subscription fatigue. Own your learning assets forever.'))),
+            h('h2', { id: 'pw-title' }, 'Upgrade Your Mandarin'),
+            h('p', {}, 'Choose the plan that fits your pace — switch or cancel anytime.'))),
         h('div', { class: 'plan-grid' }, ...planButtons),
-        h('div', { class: 'trust-row' }, 'Start free • Try before you buy • One-time payment · No refunds on paid access'),
+        h('div', { class: 'trust-row' }, 'Start free • Try before you buy • Cancel anytime • No lock-in'),
         h('div', { class: 'price' }, selectedPlan.price + ' ', h('small', {}, selectedPlan.detail)),
         h('p', { class: 'secure-footer' }, 'Secure Checkout: Powered by Stripe. Your payment info is 256-bit SSL encrypted. A professional tax invoice will be emailed instantly for corporate learning & development reimbursement.'),
         h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : unlockText),
@@ -1900,14 +2019,13 @@
         renderDashboard();
       }));
     });
-    document.querySelectorAll('[data-nav="premium"]').forEach((b) =>
-      b.addEventListener('click', () => show('premium')));
     document.querySelectorAll('[data-nav="pricing"]').forEach((b) =>
-      b.addEventListener('click', () => show('premium')));
+      b.addEventListener('click', (e) => { if (e && e.preventDefault) e.preventDefault(); show('pricing'); }));
     document.querySelectorAll('[data-nav="community"]').forEach((b) =>
-      b.addEventListener('click', () => show('community')));
+      b.addEventListener('click', (e) => { if (e && e.preventDefault) e.preventDefault(); show('community'); }));
     document.querySelectorAll('[data-nav="levels"]').forEach((b) =>
-      b.addEventListener('click', () => {
+      b.addEventListener('click', (e) => {
+        if (e && e.preventDefault) e.preventDefault();
         show('learn');
         const s = document.getElementById('stories');
         if (s) s.scrollIntoView({ behavior: 'smooth' });
@@ -1919,8 +2037,6 @@
       window.scrollTo(0, 0);
       if (location.hash) history.replaceState(null, '', location.pathname + location.search);
     });
-    const pn = document.getElementById('premium-nav');
-    if (pn) pn.addEventListener('click', () => show('premium'));
     $('#cta-sample').addEventListener('click', () => {
       const d = document.getElementById('exec-demo');
       if (d) d.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1990,9 +2106,10 @@
     checkSrsReview();
     // If the user deep-linked straight into #premium before stories finished loading,
     // re-render the Premium zone now that real story data is available.
-    if (location.hash === '#premium' || (document.body && document.body.classList.contains('theme-premium'))) {
+    if (location.pathname === '/premium' || (document.body && document.body.classList.contains('theme-premium'))) {
       renderPremium();
     }
+    if (location.pathname === '/pricing') renderPricing();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch((e) => console.log('SW:', e)));
     }
@@ -2003,18 +2120,19 @@
 
   init();
 
-  // Deep-link bootstrap: open #premium / #levels directly.
-  // Runs on several ticks so it works regardless of when the initial hash is
-  // applied or when async story data finishes loading. show() is idempotent,
-  // so repeated calls are safe.
-  function bootFromHash() {
-    if (location.hash === '#premium' || location.hash === '#pricing') show('premium');
-    else if (location.hash === '#community') show('community');
-    else if (location.hash === '#levels') show('learn');
+  // Deep-link bootstrap by History API pathname: /premium, /pricing, /teams.
+  // Runs on several ticks so it works regardless of when the path is applied or
+  // when async story data finishes loading. show() is idempotent, so repeated
+  // calls are safe.
+  function bootFromPath() {
+    if (location.pathname === '/premium') show('premium');
+    else if (location.pathname === '/pricing') show('pricing');
+    else if (location.pathname === '/teams') show('community');
+    else show('learn');
   }
-  bootFromHash();
-  setTimeout(bootFromHash, 0);
-  setTimeout(bootFromHash, 800);
-  setTimeout(bootFromHash, 2500);
-  window.addEventListener('hashchange', bootFromHash);
+  bootFromPath();
+  setTimeout(bootFromPath, 0);
+  setTimeout(bootFromPath, 800);
+  setTimeout(bootFromPath, 2500);
+  window.addEventListener('popstate', bootFromPath);
 })();
