@@ -15,14 +15,16 @@
    *  ----------------------------------------------------------------
    */
   const LAUNCH = {
-    checkoutUrl: '',
+    checkoutUrl: { monthly: 'https://buy.stripe.com/dRmfZj86GgtHc7O4cEb7y04', annual: 'https://buy.stripe.com/bJe6oJ1Ii3GVefWbF6b7y05', lifetime: 'https://buy.stripe.com/6oUaEZgDcb9n8VC5gIb7y06' },
     pushApi: '',
     vapidPublic: '',
     communityInvite: { telegram: '' }
   };
 
   // Internal aliases — do not edit below this line.
-  const CHECKOUT_URL = LAUNCH.checkoutUrl;
+  const PAY_LINKS = (LAUNCH.checkoutUrl && typeof LAUNCH.checkoutUrl === 'object')
+    ? LAUNCH.checkoutUrl
+    : { monthly: LAUNCH.checkoutUrl || '', annual: '', lifetime: '' };
   const COMMUNITY_INVITE = LAUNCH.communityInvite;
 
   const $ = (s) => document.querySelector(s);
@@ -1778,16 +1780,17 @@
         h('div', { class: 'trust-row' }, 'Start free • Try before you buy • Cancel anytime • No lock-in'),
         h('div', { class: 'price' }, selectedPlan.price + ' ', h('small', {}, selectedPlan.detail)),
         h('p', { class: 'secure-footer' }, 'Secure Checkout: Powered by Stripe. Your payment info is 256-bit SSL encrypted. A professional tax invoice will be emailed instantly for corporate learning & development reimbursement.'),
-        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, CHECKOUT_URL ? 'Continue to Stripe' : unlockText),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => subscribe(state.plan) }, (PAY_LINKS[state.plan] || '').trim() ? 'Continue to Stripe' : unlockText),
         h('button', { class: 'btn ghost', type: 'button', onclick: closeOverlays }, 'Not now'),
-        CHECKOUT_URL ? null : h('p', { class: 'note' }, 'Demo mode: the checkout link is not connected yet, so this unlocks locally on this device.')));
+        (PAY_LINKS[state.plan] || '').trim() ? null : h('p', { class: 'note' }, 'Demo mode: the checkout link is not connected yet, so this unlocks locally on this device.')));
     $('#paywall').hidden = false;
   }
 
   function subscribe(planKey = state.plan) {
     state.plan = planKey || 'life';
-    if (CHECKOUT_URL) {
-      window.location.href = CHECKOUT_URL;
+    const link = (PAY_LINKS[planKey] || '').trim();
+    if (link) {
+      window.location.href = link;
       return;
     }
     if (planKey === 'level') {
