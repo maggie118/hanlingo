@@ -1424,7 +1424,7 @@
     root.replaceChildren(
       ...STREAM_TRACKS.filter((g) => !state.currentBoard || g.cat === ({ survival: 'daily', business: 'business', mastery: 'strange' }[state.currentBoard] || state.currentBoard)).map((g) => {
         const visible = state.stories.filter((s) => (s.category || 'strange') === g.cat).slice().sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
-        return h('div', { class: 'track-group' },
+        return h('div', { class: 'track-group', 'data-cat': g.cat },
           h('h3', { class: 'track-title' }, g.title),
           h('div', { class: 'track-grid' },
             ...visible.map((s) => {
@@ -2020,6 +2020,11 @@
         $('#stream').hidden = false;
         renderStream();
         renderDashboard();
+        if (t.dataset.board) {
+          const cat = ({ survival: 'daily', business: 'business', mastery: 'strange' }[state.currentBoard] || state.currentBoard);
+          const grp = document.querySelector('.track-group[data-cat="' + cat + '"]');
+          if (grp) grp.scrollIntoView({ behavior: 'smooth' });
+        }
       }));
     });
     document.querySelectorAll('[data-nav="pricing"]').forEach((b) =>
