@@ -602,7 +602,7 @@ body.theme-community .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 .comm-channel p{font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.6}
 .ch-badges{display:flex;flex-wrap:wrap;gap:8px}
 .ch-badge{font-size:12px;font-weight:600;padding:7px 12px;border-radius:20px;border:1px solid var(--line);background:var(--surface-2);color:var(--text)}
-.ch-wa{border-color:rgba(45,192,125,.55);color:#8BE0B8;background:rgba(45,192,125,.1)}
+.ch-wa{border-color:rgba(0,136,204,.55);color:#8CD4F5;background:rgba(0,136,204,.1)}
 .comm-steps h3{font-size:16px;margin:0 0 12px}
 .comm-steps ol{margin:0 0 20px;padding-left:20px;color:var(--muted);line-height:1.8;font-size:14px}
 .comm-steps li{margin-bottom:4px}

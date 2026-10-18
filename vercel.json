@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/premium", "destination": "/index.html" },
+    { "source": "/pricing", "destination": "/index.html" },
+    { "source": "/teams", "destination": "/index.html" }
+  ]
+}

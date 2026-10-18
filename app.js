@@ -18,7 +18,7 @@
     checkoutUrl: '',
     pushApi: '',
     vapidPublic: '',
-    communityInvite: { whatsapp: '', linkedin: '' }
+    communityInvite: { telegram: '' }
   };
 
   // Internal aliases — do not edit below this line.
@@ -1715,16 +1715,15 @@
           commCard('<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>', 'Private & Curated', 'Approval-only. No spam, no tourists — only serious professionals.')),
         h('div', { class: 'comm-channel' },
           h('h3', {}, 'Join where Asia actually talks'),
-          h('p', {}, 'A members-only WhatsApp group — the #1 channel for professionals in Singapore & SEA — with a curated LinkedIn Group for longer-form deal talk.'),
+          h('p', {}, 'A members-only Telegram group — the #1 channel for professionals in Singapore & SEA — for daily deal talk and longer-form discussions.'),
           h('div', { class: 'ch-badges' },
-            h('span', { class: 'ch-badge ch-wa' }, 'WhatsApp Group'),
-            h('span', { class: 'ch-badge' }, 'LinkedIn Group'))),
+            h('span', { class: 'ch-badge ch-wa' }, 'Telegram Group'))),
         h('div', { class: 'comm-steps' },
           h('h3', {}, 'How to get your invite'),
           h('ol', {},
             h('li', {}, 'Unlock any paid plan — Monthly, Annual or Lifetime'),
             h('li', {}, 'Verify your subscription (auto, one click)'),
-            h('li', {}, 'Receive your private WhatsApp invite link instantly')),
+            h('li', {}, 'Receive your private Telegram invite link instantly')),
           h('div', { class: 'comm-cta' },
             unlocked
               ? h('button', { class: 'btn primary', type: 'button', onclick: notifyCommunity }, 'Join the Exec Circle ↗')
@@ -1732,12 +1731,10 @@
     );
   }
   function notifyCommunity() {
-    const wa = (COMMUNITY_INVITE.whatsapp || '').trim();
-    const li = (COMMUNITY_INVITE.linkedin || '').trim();
-    if (wa) { window.open(wa, '_blank', 'noopener'); return; }
-    if (li) { window.open(li, '_blank', 'noopener'); return; }
+    const tg = (COMMUNITY_INVITE.telegram || '').trim();
+    if (tg) { window.open(tg, '_blank', 'noopener'); return; }
     const n = h('div', { class: 'review-done' },
-      h('span', {}, '✅ Invite link not configured yet. (Fill LAUNCH.communityInvite at the top of app.js — the private WhatsApp/LinkedIn invite URL — and this button takes members straight to the group.)'),
+      h('span', {}, '✅ Invite link not configured yet. (Fill LAUNCH.communityInvite at the top of app.js — the private Telegram invite URL — and this button takes members straight to the group.)'),
       h('button', { class: 'ib-btn', type: 'button', onclick: () => n.remove() }, 'OK'));
     document.body.appendChild(n);
   }
