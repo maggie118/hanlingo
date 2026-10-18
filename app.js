@@ -15,7 +15,7 @@
    *  ----------------------------------------------------------------
    */
   const LAUNCH = {
-    checkoutUrl: { monthly: 'https://buy.stripe.com/dRmfZj86GgtHc7O4cEb7y04', annual: 'https://buy.stripe.com/bJe6oJ1Ii3GVefWbF6b7y05', lifetime: 'https://buy.stripe.com/6oUaEZgDcb9n8VC5gIb7y06' },
+    checkoutUrl: { monthly: 'https://buy.stripe.com/dRm8wRev44KZfk024wb7y07', annual: 'https://buy.stripe.com/5kQ6oJ3Qq7Xb0p624wb7y08', lifetime: 'https://buy.stripe.com/dRm8wRgDcgtH5Jq10sb7y09' },
     pushApi: '',
     vapidPublic: '',
     communityInvite: { telegram: '' }
