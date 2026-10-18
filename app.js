@@ -1555,7 +1555,7 @@
                 h('li', {}, 'All future Fresh Scenes & paths'),
                 h('li', {}, 'One-time payment — no renewals')),
               h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'), h('p', { class: 'lifetime-note' }, 'Limited to the first 500 learners. Once sold out, this option closes permanently.'))),
-          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'), h('p', { class: 'pricing-meta' }, 'Audio: AI-generated native voice'), h('p', { class: 'pricing-meta' }, 'Prices shown in USD. If your card is issued outside the US, your bank may apply a foreign transaction fee.')),
+          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'), h('p', { class: 'pricing-meta' }, 'Audio: AI-generated native voice'), h('p', { class: 'pricing-meta' }, 'Prices shown in USD. If your card is issued outside the US, your bank may apply a foreign transaction fee. Singapore customers: Stripe may settle in SGD — the USD figure is the reference price.')),
         h('section', { class: 'premium-hero' },
           h('div', { class: 'ph-body' },
             h('h2', { class: 'ph-title' }, 'The Career Upskilling Pack'),
@@ -1632,7 +1632,7 @@
                 h('li', {}, 'All future Fresh Scenes & paths'),
                 h('li', {}, 'One-time payment — no renewals')),
               h('button', { class: 'btn ochre', type: 'button', onclick: () => openPaywall('lifetime') }, 'Claim lifetime'), h('p', { class: 'lifetime-note' }, 'Limited to the first 500 learners. Once sold out, this option closes permanently.'))),
-          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'), h('p', { class: 'pricing-meta' }, 'Audio: AI-generated native voice'), h('p', { class: 'pricing-meta' }, 'Prices shown in USD. If your card is issued outside the US, your bank may apply a foreign transaction fee.')), h('section', { class: 'faq' }, h('h3', { class: 'faq-q' }, 'Is the audio AI or human?'), h('p', { class: 'faq-a' }, 'All sentence audio on HanLingo is generated with a native-voice AI model, tuned for slow / normal / fast playback. This lets us offer three speeds on every sentence without extra cost.')),));
+          h('p', { class: 'pricing-trust' }, 'Every plan includes every pack published during your access period. New business and Mastery packs ship monthly. Try any pack free before you pay.'), h('p', { class: 'pricing-meta' }, 'Audio: AI-generated native voice'), h('p', { class: 'pricing-meta' }, 'Prices shown in USD. If your card is issued outside the US, your bank may apply a foreign transaction fee. Singapore customers: Stripe may settle in SGD — the USD figure is the reference price.')), h('section', { class: 'faq' }, h('h3', { class: 'faq-q' }, 'Is the audio AI or human?'), h('p', { class: 'faq-a' }, 'All sentence audio on HanLingo is generated with a native-voice AI model, tuned for slow / normal / fast playback. This lets us offer three speeds on every sentence without extra cost.'), h('h3', { class: 'faq-q' }, 'How do CEFR and HSK levels relate?'), h('p', { class: 'faq-a' }, 'CEFR levels are approximate; HSK 6 bridges B2 and C1.'))));
   }
 
   /* ---------- Premium: all business packs (24) ---------- */
@@ -1843,7 +1843,7 @@
     let cefr;
     if (r === 'HSK 1-2' || r === 'HSK 1-3') cefr = 'CEFR A1–A2';
     else if (r === 'HSK 5-6' || r === 'HSK 7-9') cefr = 'CEFR C1–C2';
-    else if (r === 'HSK 4-6') cefr = 'CEFR B1–B2';
+    else if (r === 'HSK 4-6') cefr = 'CEFR B1–C1';
     else cefr = 'CEFR B1';
     return cefr + ' · ' + (r || '') + ' equivalent';
   }
