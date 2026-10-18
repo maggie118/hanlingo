@@ -569,7 +569,7 @@ body.theme-community .theme-toggle{display:none}
 .rc-en{font-size:15px;color:var(--text);margin-top:12px;opacity:.85}
 .rc-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
 .rc-no{background:var(--surface-2);color:var(--text);border:1px solid var(--line)}
-.rc-yes{background:var(--sage);color:#fff}
+.rc-yes{background:var(--sage);color:var(--accent-ink)}
 .review-done{position:fixed;bottom:calc(var(--nav-h) + 16px);left:50%;transform:translateX(-50%);z-index:35;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--line);animation:rise .3s ease-out}
 .dash-due{display:block;width:100%;margin-top:12px;text-align:left;padding:11px 14px;border:1px solid var(--ochre);color:var(--ochre);border-radius:12px;background:rgba(201,162,75,.08);font-size:13px;font-weight:600;cursor:pointer}
 [data-theme="dark"] .review{background:rgba(6,10,18,.6)}
