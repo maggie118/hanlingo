@@ -1419,7 +1419,7 @@
       return;
     }
     root.replaceChildren(
-      ...STREAM_TRACKS.map((g) => {
+      ...STREAM_TRACKS.filter((g) => !state.currentBoard || g.cat === ({ survival: 'daily', business: 'business', mastery: 'strange' }[state.currentBoard] || state.currentBoard)).map((g) => {
         const visible = state.stories.filter((s) => (s.category || 'strange') === g.cat).slice().sort((a, b) => hskRank(a.hskRange || 'HSK 3-4') - hskRank(b.hskRange || 'HSK 3-4'));
         return h('div', { class: 'track-group' },
           h('h3', { class: 'track-title' }, g.title),
@@ -2013,7 +2013,7 @@
     document.querySelectorAll('.tabs').forEach((group) => {
       group.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
         group.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', x === t));
-        if (t.dataset.board) state.currentBoard = t.dataset.board;
+        if (t.dataset.board) { state.currentBoard = t.dataset.board; state.expandedStream = true; }
         $('#stream').hidden = false;
         renderStream();
         renderDashboard();

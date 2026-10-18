@@ -1,5 +1,5 @@
 // HanLingo Service Worker
-const CACHE_NAME = 'hanlingo-v25';
+const CACHE_NAME = 'hanlingo-v26';
 const APP_SHELL = [
   './',
   'index.html',
