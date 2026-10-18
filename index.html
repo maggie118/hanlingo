@@ -396,7 +396,6 @@ button{cursor:pointer}
             </div>
           </div>
           <p class="exec-ai-audio">Audio: AI-generated native voice</p>
-          <div class="exec-audio-status" id="exec-audio-status" hidden>Audio coming soon</div>
           <div class="exec-win" id="exec-win" hidden>
             <p class="win-text">Nice — that's one sentence. Start your free track?</p>
             <p class="win-note">No account needed. Progress saves on this device.</p>
@@ -504,7 +503,6 @@ document.querySelectorAll('[data-goto]').forEach(function(b){
   var pyToggle = document.getElementById('exec-py-toggle');
   var py = document.getElementById('exec-py');
   var pills = [].slice.call(demo.querySelectorAll('.pill'));
-  var zh = '我们需要对齐一下颗粒度。';
   pyToggle.addEventListener('click', function(){
     var on = pyToggle.getAttribute('aria-pressed') === 'true';
     pyToggle.setAttribute('aria-pressed', String(!on));
@@ -514,8 +512,6 @@ document.querySelectorAll('[data-goto]').forEach(function(b){
   var SPEED_AUDIO = {'0.7':'audio/exec-demo/align_slow.mp3','1':'audio/exec-demo/align.mp3','1.4':'audio/exec-demo/align_fast.mp3'};
   var curAudio = null;
   function audioUnavailable(){
-    var st = document.getElementById('exec-audio-status');
-    if (st && st.hidden) st.hidden = false;
     pills.forEach(function(x){ x.classList.add('disabled'); });
   }
   function play(rate){
