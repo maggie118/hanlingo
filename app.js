@@ -2055,7 +2055,7 @@
     let dark;
     if (p === 'dark') dark = true;
     else if (p === 'light') dark = false;
-    else dark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    else dark = true; /* P1-3: dark is the default theme; light is opt-in via toggle */
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     const t = $('#theme-toggle');
     if (t) { t.setAttribute('aria-pressed', dark ? 'true' : 'false'); t.innerText = dark ? '☾' : '☀'; t.title = dark ? 'Switch to light mode' : 'Switch to dark mode'; }
