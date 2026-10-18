@@ -2110,6 +2110,7 @@
     renderStream();
     renderDashboard();
     await ensureStoragePersist();
+    applyReturnUnlock();
     // Open with a spaced-repetition review if any learned cards are due.
     checkSrsReview();
     // If the user deep-linked straight into #premium before stories finished loading,
@@ -2124,6 +2125,24 @@
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
       $('#install-app-footer').hidden = true;
     }
+  }
+
+  function applyReturnUnlock() {
+    const m = (location.search.match(/[?&]unlock=([^&]+)/) || [])[1];
+    if (m !== 'monthly' && m !== 'annual' && m !== 'lifetime') return;
+    state.plan = m;
+    state.pro = true;
+    state.access.level = true;
+    state.access.business = true;
+    saveSubscriptionState();
+    const clean = location.pathname + location.hash;
+    history.replaceState({}, '', clean);
+    const label = ({ monthly: 'Pro Monthly', annual: 'Pro Annual', lifetime: 'Founding Lifetime' })[m];
+    const n = h('div', { class: 'review-done' },
+      h('span', {}, '✓ Payment received — ' + label + ' unlocked on this device. Progress saves locally; no account needed.'),
+      h('button', { class: 'ib-btn', type: 'button', onclick: () => n.remove() }, 'OK'));
+    document.body.appendChild(n);
+    if (location.pathname === '/pricing') show('learn');
   }
 
   init();
