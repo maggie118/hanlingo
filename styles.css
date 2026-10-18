@@ -7,13 +7,13 @@
   --font-mono:"JetBrains Mono",ui-monospace,monospace;
   --serif:"Noto Serif SC","Songti SC",Georgia,serif;
   --sans:var(--font-sans);
-  --radius:4px; --nav-h:64px;
+  --radius:4px; --nav-h:64px; --surface-soft:#17171A;
 }
 [data-theme="light"]{
   --bg:#F9FAFB; --surface:#ffffff; --surface-2:#eef1f4; --line:#e4e8ec;
   --text:#1E293B; --muted:#64748B; --text-soft:#7d8796;
   --accent:#2E6F40; --accent-ink:#ffffff;
-  --sage:var(--accent); --ochre:#C9A24B;
+  --sage:var(--accent); --ochre:#C9A24B; --surface-soft:#f4f5f7;
 }
 [data-theme="dark"] .header{background:rgba(10,10,11,.9)}
 .bottom-nav{background:#0a0a0b}
@@ -485,6 +485,9 @@ body.theme-community .theme-toggle{display:none}
 .dash-board b{font-size:15px;letter-spacing:-.01em}
 .db-level{font-size:12px;color:var(--muted)}
 .db-scene{font-size:12px;color:var(--sage);font-weight:600}
+.db-topics{font-size:12px;color:var(--text);font-weight:600}
+.db-learn{font-size:12px;color:var(--muted);line-height:1.45}
+.db-how{font-size:11.5px;color:var(--text-soft);line-height:1.45}
 .dash-quote{padding:22px;border-radius:14px;border:1px solid var(--line);background:var(--surface);text-align:center;cursor:pointer;transition:border-color .15s ease}
 .dash-quote:hover{border-color:var(--ochre)}
 .dq-label{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre);font-weight:700;margin-bottom:12px}
@@ -711,9 +714,9 @@ body.theme-community .wrap{max-width:960px;margin:0 auto;padding:0 20px}
 .exec-bricks{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
 .exec-brick{font-family:var(--serif);font-size:17px;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .15s,background .15s}
 .exec-brick:hover{border-color:var(--sage)}
-.exec-brick.tapped{border-color:var(--sage);background:var(--sage-soft,#eef5ee);font-weight:600}
+.exec-brick.tapped{border-color:var(--sage);background:var(--sage);color:var(--accent-ink);font-weight:600}
 .brick-tip{font-size:12px;color:var(--muted);margin:8px 0 2px;min-height:16px;font-style:italic}
-.exec-win{margin-top:14px;padding:14px;border:1px solid var(--sage);border-radius:12px;background:var(--surface-soft,#fafaf8)}
+.exec-win{margin-top:14px;padding:14px;border:1px solid var(--sage);border-radius:12px;background:var(--surface)}
 .win-text{font-size:14px;font-weight:600;margin:0 0 6px;color:var(--text)}
 .win-note{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.4}
 .exec-win .btn{width:100%}
