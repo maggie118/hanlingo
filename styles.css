@@ -15,7 +15,7 @@
   --accent:#2E6F40; --accent-ink:#ffffff;
   --sage:var(--accent); --ochre:#C9A24B;
 }
-.header{background:rgba(10,10,11,.9)}
+[data-theme="dark"] .header{background:rgba(10,10,11,.9)}
 .bottom-nav{background:#0a0a0b}
 .player-shell{background:var(--surface);border:1px solid var(--line)}
 .pack.locked .blur-layer{background:rgba(10,10,11,.5)}
@@ -109,7 +109,7 @@ button{cursor:pointer}
 .cat-tabs .tab{font-size:13.5px}
 .board-tabs{flex-wrap:wrap;margin-bottom:2px;gap:8px}
 .board-tabs .tab{font-weight:600;padding:11px 18px;font-size:14px}
-.board-tabs .tab[aria-selected="true"]{background:var(--text);color:#fff;border-color:var(--text)}
+.board-tabs .tab[aria-selected="true"]{background:var(--sage);color:var(--accent-ink);border-color:var(--sage)}
 .board-tabs .tab em{font-style:normal;opacity:.72;font-weight:500;font-size:.92em}
 .paths{margin:48px 0 8px}
 .paths-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 16px}
