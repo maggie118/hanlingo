@@ -13,10 +13,19 @@
 <meta name="apple-mobile-web-app-title" content="HanLingo">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
+<!-- 社交分享 Meta Tags -->
 <meta property="og:title" content="HanLingo — Real Chinese for Real Life">
-<meta property="og:description" content="Learn Chinese through practical sentences and stories, one short session at a time.">
+<meta property="og:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
 <meta property="og:url" content="https://hanlingo.app/">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://hanlingo.app/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HanLingo — Real Chinese for Real Life">
+<meta name="twitter:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
+<meta name="twitter:image" content="https://hanlingo.app/icons/icon-512.png">
+
 <link rel="manifest" href="/manifest.json">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
@@ -25,27 +34,25 @@
   --bg: #F4F3EF; --card: #FFFFFF; --text: #2C302E; --muted: #7B7F7A;
   --border: #E2E0D8; --accent: #C0584B; --accent-press: #A94A3E; --accent-soft: rgba(192,88,75,.10);
   --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
+  --gold: #F5A623;
 }
 
-/* 1. 全局交互优化：禁用长按选中、禁止 iOS 橡皮筋回弹 */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { overscroll-behavior: none; user-select: none; -webkit-user-select: none; }
 [hidden] { display: none !important; }
 
 body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; }
 
-/* 2. 全面屏安全区适配 */
-.app { 
-  max-width: 520px; height: 100dvh; margin: 0 auto; 
+.app {
+  max-width: 520px; height: 100dvh; margin: 0 auto;
   padding-top: max(20px, env(safe-area-inset-top));
   padding-bottom: max(20px, env(safe-area-inset-bottom));
   padding-left: max(20px, env(safe-area-inset-left));
   padding-right: max(20px, env(safe-area-inset-right));
-  display: flex; flex-direction: column; position: relative; 
+  display: flex; flex-direction: column; position: relative;
 }
 
-/* 3. 交互元素增加 manipulation 消除延迟，防止双击缩放 */
-.btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn, .pw-plan, .pw-plan input { 
+.btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn, .pw-plan, .pw-plan input {
   touch-action: manipulation; user-select: none; -webkit-user-select: none;
 }
 
@@ -75,6 +82,16 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .hero.compact h1 { font-size: 18px; margin-bottom: 4px; }
 .hero.compact .hero-sub { font-size: 13px; margin-bottom: 0; }
 .hero.compact .hero-card { display: none; }
+
+/* Social Proof */
+.social-proof { margin-top: 16px; text-align: left; }
+.sp-title { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--muted); margin-bottom: 10px; letter-spacing: 0.05em; }
+.sp-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; background: rgba(255,255,255,0.6); padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
+.sp-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: 14px; flex: none; }
+.sp-content { flex: 1; }
+.sp-stars { color: var(--gold); font-size: 10px; margin-bottom: 4px; letter-spacing: 2px; }
+.sp-text { font-size: 13px; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+.sp-author { font-size: 11px; color: var(--muted); }
 
 /* 进度条 */
 .progress-bar { height: 3px; margin: 0 0 16px; background: var(--border); border-radius: 3px; overflow: hidden; }
@@ -198,7 +215,8 @@ main::-webkit-scrollbar { display: none; }
 .paywall-clean { background: var(--card); border-radius: 24px; padding: 32px 28px 24px; text-align: left; max-width: 400px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.3); border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
 .pw-header { margin-bottom: 20px; }
 .pw-eyebrow { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
-.paywall-clean h2 { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 16px; }
+.paywall-clean h2 { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
+.pw-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.4; }
 
 /* 套餐选择器 */
 .pw-plans { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
@@ -221,6 +239,13 @@ main::-webkit-scrollbar { display: none; }
 .pw-text { display: flex; flex-direction: column; gap: 2px; }
 .pw-text strong { font-size: 14px; font-weight: 600; color: var(--text); }
 .pw-text span { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+/* 付费弹窗内的好评 */
+.pw-social-proof { background: var(--bg); border-radius: 12px; padding: 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--border); }
+.pw-sp-icon { color: var(--gold); font-size: 14px; }
+.pw-sp-text { font-size: 13px; color: var(--text); line-height: 1.4; font-style: italic; }
+.pw-sp-author { font-size: 11px; color: var(--muted); margin-top: 6px; font-weight: 600; text-align: right; }
+
 .pw-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 .pw-actions .btn { width: 100%; padding: 16px; font-size: 16px; }
 .pw-actions .later-btn { background: transparent; border: none; color: var(--muted); font-weight: 500; padding: 8px; cursor: pointer; transition: color .2s; }
@@ -236,17 +261,39 @@ main::-webkit-scrollbar { display: none; }
 .review-item-en { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
 .review-item-meta { font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: 700; }
 
-/* 分享卡片（隐藏） */
-#share-card { position: absolute; left: -9999px; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; border-radius: 20px; text-align: center; }
+/* 分享卡片 */
+#share-card { position: absolute; left: -9999px; top: 0; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; text-align: center; font-family: var(--sans); }
 .share-logo { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 40px; }
-.share-pinyin { font-size: 20px; color: var(--accent); font-weight: 600; }
-.share-hanzi { font-size: 40px; font-weight: 600; color: var(--text); margin: 20px 0; }
-.share-en { font-size: 18px; color: var(--muted); margin-bottom: 40px; }
+.share-pinyin { font-size: 20px; color: var(--accent); font-weight: 600; line-height: 1.4; word-wrap: break-word; }
+.share-hanzi { font-size: 38px; font-weight: 600; color: var(--text); margin: 20px 0; line-height: 1.3; word-wrap: break-word; }
+.share-en { font-size: 16px; color: var(--muted); margin-bottom: 40px; line-height: 1.5; word-wrap: break-word; }
 .share-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; }
+
+/* Day 1 Celebration */
+#celebrationModal { z-index: 200; background: rgba(44,48,46,.85); backdrop-filter: blur(4px); }
+.celebration-card { background: var(--card); border-radius: 24px; padding: 40px 24px; text-align: center; max-width: 320px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.4); border: 1px solid var(--border); position: relative; overflow: hidden; }
+.celebration-fire { font-size: 64px; margin-bottom: 16px; animation: firePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; display: inline-block; }
+.celebration-card h2 { font-size: 26px; font-weight: 800; color: var(--text); margin-bottom: 8px; line-height: 1.2; }
+.celebration-card p { font-size: 15px; color: var(--muted); line-height: 1.5; margin-bottom: 24px; }
+@keyframes firePop { 0% { transform: scale(0) rotate(-20deg); } 70% { transform: scale(1.2) rotate(10deg); } 100% { transform: scale(1) rotate(0); } }
+
+.confetti-container { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.confetti { position: absolute; width: 10px; height: 10px; background: var(--accent); opacity: 0; animation: fall 2s linear infinite; }
+.confetti:nth-child(1) { left: 10%; animation-delay: 0.1s; background: #F5A623; }
+.confetti:nth-child(2) { left: 30%; animation-delay: 0.4s; background: #C0584B; }
+.confetti:nth-child(3) { left: 50%; animation-delay: 0.2s; background: #4A90E2; }
+.confetti:nth-child(4) { left: 70%; animation-delay: 0.6s; background: #F5A623; }
+.confetti:nth-child(5) { left: 85%; animation-delay: 0.3s; background: #2E8B57; }
+.confetti:nth-child(6) { left: 20%; animation-delay: 0.7s; background: #4A90E2; }
+.confetti:nth-child(7) { left: 40%; animation-delay: 0.5s; background: #C0584B; }
+.confetti:nth-child(8) { left: 60%; animation-delay: 0.1s; background: #F5A623; }
+.confetti:nth-child(9) { left: 80%; animation-delay: 0.8s; background: #2E8B57; }
+.confetti:nth-child(10) { left: 90%; animation-delay: 0.4s; background: #C0584B; }
+@keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 1; } 100% { transform: translateY(400px) rotate(360deg); opacity: 0; } }
 
 /* 手机矮屏适配 */
 @media (max-height: 700px) {
-  .app { 
+  .app {
     padding-top: max(12px, env(safe-area-inset-top));
     padding-bottom: max(12px, env(safe-area-inset-bottom));
     padding-left: max(16px, env(safe-area-inset-left));
@@ -281,6 +328,208 @@ main::-webkit-scrollbar { display: none; }
   .pw-plan { padding: 10px 14px; }
   .pw-perks { gap: 12px; }
 }
+
+/* ================= Paywall v2 ================= */
+#paywallModal {
+  --pw-accent: #E63946;
+  --pw-accent-press: #C92F3B;
+  --pw-accent-soft: #FFF1F2;
+  --pw-gold: #FFB703;
+}
+
+/* 毛玻璃遮罩 */
+#paywallModal.modal-overlay {
+  background: rgba(18, 20, 19, .45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+}
+
+#paywallModal .paywall-clean {
+  position: relative;
+  max-width: 420px;
+  max-height: calc(100dvh - 32px);
+  padding: 24px 22px 18px;
+  border-radius: 22px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: pwRise .28s cubic-bezier(.2, .8, .2, 1) both;
+}
+@keyframes pwRise {
+  from { opacity: 0; transform: translateY(16px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* 关闭按钮 */
+#paywallModal .pw-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--muted); font-size: 15px; line-height: 1;
+  display: grid; place-items: center; cursor: pointer;
+  transition: .18s; z-index: 3;
+}
+#paywallModal .pw-close:hover {
+  color: var(--text); border-color: var(--text); transform: rotate(90deg);
+}
+
+/* Header */
+#paywallModal .pw-header { margin-bottom: 16px; padding-right: 38px; }
+#paywallModal .pw-eyebrow { color: var(--pw-accent); margin-bottom: 8px; }
+#paywallModal h2 { font-size: 23px; line-height: 1.25; margin-bottom: 6px; }
+#paywallModal .pw-subtitle { font-size: 13px; margin-bottom: 0; }
+
+/* 价值 Icon 矩阵 */
+#paywallModal .pw-values {
+  list-style: none;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  margin: 0 0 16px;
+}
+#paywallModal .pw-values li {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 10px 6px; text-align: center;
+  background: #FAFAF8; border: 1px solid var(--border); border-radius: 12px;
+}
+#paywallModal .pw-value-icon {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 17px;
+  background: var(--pw-accent-soft); margin-bottom: 2px;
+}
+#paywallModal .pw-values strong { font-size: 11.5px; color: var(--text); }
+#paywallModal .pw-values span:last-child {
+  font-size: 10.5px; color: var(--muted); line-height: 1.3;
+}
+
+/* 方案卡片 */
+#paywallModal .pw-plans { gap: 8px; margin-bottom: 14px; }
+#paywallModal .pw-plan {
+  padding: 12px 14px;
+  border-width: 1.5px;
+  border-radius: 14px;
+  align-items: center;
+  transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+}
+#paywallModal .pw-plan-info { gap: 1px; }
+#paywallModal .pw-plan-info strong {
+  display: block;
+  font-size: 14.5px;
+  color: var(--text);
+}
+#paywallModal .pw-plan-info > span {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+}
+#paywallModal .pw-plan-info small {
+  display: block;
+  margin-left: 0;
+  margin-top: 1px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+#paywallModal .pw-plan.active {
+  border-color: var(--pw-accent);
+  background: var(--pw-accent-soft);
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, .08);
+}
+#paywallModal .pw-plan.active .pw-plan-info strong { color: var(--pw-accent); }
+
+/* 主力款上浮 */
+#paywallModal .pw-plan--featured {
+  transform: translateY(-2px);
+  border-color: rgba(230, 57, 70, .55);
+  box-shadow: 0 8px 20px -10px rgba(230, 57, 70, .35);
+}
+#paywallModal .pw-plan--featured.active { transform: translateY(-2px); }
+
+/* 角标 */
+#paywallModal .pw-badge {
+  position: absolute; top: -9px; right: 12px;
+  background: var(--pw-gold); color: #1E1E1E;
+  font-size: 9.5px; font-weight: 800; letter-spacing: .04em;
+  padding: 3px 7px; border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+  white-space: nowrap;
+}
+#paywallModal .pw-badge--crown { background: #2C302E; color: #FFD166; }
+
+/* CTA */
+#paywallModal .pw-cta {
+  width: 100%; flex: none;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px; font-size: 16px;
+  border-radius: 14px; margin-top: 2px;
+  background: var(--pw-accent); border-color: var(--pw-accent);
+  box-shadow: 0 10px 24px -10px rgba(230, 57, 70, .7);
+  transition: transform .15s, background .2s, box-shadow .2s;
+}
+#paywallModal .pw-cta:hover {
+  background: var(--pw-accent-press);
+  transform: scale(1.02);
+}
+#paywallModal .pw-cta:active { transform: scale(.99); }
+
+#paywallModal .pw-spinner {
+  display: none; width: 16px; height: 16px;
+  border: 2px solid rgba(255, 255, 255, .4);
+  border-top-color: #fff; border-radius: 50%;
+  animation: pwSpin .7s linear infinite;
+}
+#paywallModal .pw-cta.is-loading .pw-cta-label { display: none; }
+#paywallModal .pw-cta.is-loading .pw-spinner { display: inline-block; }
+@keyframes pwSpin { to { transform: rotate(360deg); } }
+
+#paywallModal .pw-cta-sub {
+  margin: 6px 0 12px;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 信任锚点 */
+#paywallModal .pw-trust {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  text-align: center;
+}
+#paywallModal .pw-pay-icons {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 6px; margin-bottom: 8px;
+}
+#paywallModal .pw-pay-icons span {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .02em;
+  color: #8A8E89; background: #F5F5F2;
+  border: 1px solid var(--border); border-radius: 5px;
+  padding: 3px 6px;
+}
+#paywallModal .pw-trust p {
+  font-size: 10.5px; color: var(--muted); line-height: 1.5;
+}
+
+#paywallModal .pw-later {
+  display: block; width: 100%;
+  margin-top: 8px; padding: 8px;
+  background: transparent; border: none;
+  color: var(--muted); font: 500 13px/1 var(--sans);
+  cursor: pointer;
+}
+#paywallModal .pw-later:hover { color: var(--text); }
+
+/* 矮屏压缩，保证 CTA 在第一屏 */
+@media (max-height: 700px) {
+  #paywallModal .paywall-clean { padding: 18px 16px 12px; border-radius: 18px; }
+  #paywallModal h2 { font-size: 19px; }
+  #paywallModal .pw-subtitle { font-size: 12px; }
+  #paywallModal .pw-values { margin-bottom: 10px; gap: 6px; }
+  #paywallModal .pw-values li { padding: 8px 4px; }
+  #paywallModal .pw-value-icon { width: 28px; height: 28px; font-size: 14px; }
+  #paywallModal .pw-values strong { font-size: 10.5px; }
+  #paywallModal .pw-plan { padding: 9px 12px; }
+  #paywallModal .pw-plan-info small { font-size: 10.5px; }
+  #paywallModal .pw-cta { padding: 13px; font-size: 15px; }
+  #paywallModal .pw-trust p { font-size: 10px; }
+}
 </style>
 </head>
 <body>
@@ -289,7 +538,6 @@ main::-webkit-scrollbar { display: none; }
     <div class="top">
       <div class="brand">HanLingo</div>
       <div class="meta-right">
-        <!-- Review 按钮初始隐藏，在 JS 中根据 isPro() 决定是否显示 -->
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
         <span class="time-badge">⏱ Est. 2 mins</span>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
@@ -310,6 +558,26 @@ main::-webkit-scrollbar { display: none; }
         <h2>Choose What You Want to Learn</h2>
         <p>Explore everyday Chinese, workplace conversations, stories, and the slang people actually use.</p>
         <a href="#" class="hero-link" id="linkExplorePaths">Explore Learning Paths <span>→</span></a>
+      </div>
+
+      <div class="social-proof">
+        <div class="sp-title">Loved by early learners</div>
+        <div class="sp-item">
+          <div class="sp-avatar">SJ</div>
+          <div class="sp-content">
+            <div class="sp-stars">★★★★★</div>
+            <div class="sp-text">"Daily 10 is the only app I've actually stuck with. The mix of practical sentences and slang is perfect."</div>
+            <div class="sp-author">Sarah J. · Marketing Manager</div>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div class="sp-avatar">DL</div>
+          <div class="sp-content">
+            <div class="sp-stars">★★★★★</div>
+            <div class="sp-text">"Love the story mode! Feels like reading a book but learning actual Chinese at the same time."</div>
+            <div class="sp-author">David L. · Software Engineer</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -365,7 +633,7 @@ main::-webkit-scrollbar { display: none; }
             <div class="paywall-inner">
               <h3 id="lockTitle">Continue the Story</h3>
               <p id="lockDesc">You've followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.</p>
-              <button class="btn primary btn-trigger-paywall" id="btnUnlockInline">Unlock Full Access</button>
+              <button class="btn primary btn-trigger-paywall" id="btnUnlockInline">Unlock HanLingo Pro</button>
               <button class="btn later" id="btnDismissLock">Maybe Later</button>
             </div>
           </div>
@@ -384,7 +652,7 @@ main::-webkit-scrollbar { display: none; }
         </div>
 
         <div class="pro-hint btn-trigger-paywall" id="proHint" hidden>
-          📖 Read full stories with Pro. (Tap to unlock)
+          📖 Read full stories with HanLingo Pro. (Tap to unlock)
         </div>
 
       </article>
@@ -402,7 +670,7 @@ main::-webkit-scrollbar { display: none; }
 
       <div class="quote">
         <span class="quote-zh">不积跬步，无以至千里。</span>
-        <span class="quote-en">A journey of a thousand miles begins with a single step.</span>
+        <span class="quote-en">Without accumulating small steps, one cannot reach a thousand miles.</span>
       </div>
 
       <div class="actions">
@@ -414,14 +682,36 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- Paywall 弹窗：明确对比 Free 与 Pro 的限制 -->
+<!-- Paywall 弹窗：HanLingo Pro -->
 <div class="modal-overlay" id="paywallModal" hidden>
-  <div class="paywall-clean">
+  <div class="paywall-clean pw-sheet" role="dialog" aria-modal="true" aria-labelledby="pwTitle">
+
+    <button class="pw-close" id="btnCloseProX" type="button" aria-label="Close">✕</button>
+
     <div class="pw-header">
-      <span class="pw-eyebrow">HANLINGO · FULL ACCESS</span>
-      <h2>Make Chinese Part of Your Everyday Life.</h2>
+      <span class="pw-eyebrow">HANLINGO PRO</span>
+      <h2 id="pwTitle">Unlock the Full Chinese World</h2>
+      <p class="pw-subtitle">Keep the stories going, listen offline, and never lose a word you've learned.</p>
     </div>
-    
+
+    <ul class="pw-values">
+      <li>
+        <span class="pw-value-icon">🎧</span>
+        <strong>Offline Audio</strong>
+        <span>Real pronunciation, anywhere.</span>
+      </li>
+      <li>
+        <span class="pw-value-icon">📖</span>
+        <strong>Full Stories</strong>
+        <span>All chapters, all updates.</span>
+      </li>
+      <li>
+        <span class="pw-value-icon">⚡</span>
+        <strong>Unlimited Review</strong>
+        <span>Revisit every sentence.</span>
+      </li>
+    </ul>
+
     <div class="pw-plans">
       <label class="pw-plan" data-plan="monthly">
         <input type="radio" name="plan" value="monthly">
@@ -431,62 +721,42 @@ main::-webkit-scrollbar { display: none; }
         </div>
       </label>
 
-      <label class="pw-plan active" data-plan="annual">
+      <label class="pw-plan pw-plan--featured active" data-plan="annual">
         <input type="radio" name="plan" value="annual" checked>
+        <span class="pw-badge">🔥 BEST VALUE</span>
         <div class="pw-plan-info">
-          <strong>Annual <span class="badge">Best Value</span></strong>
-          <span>$59.99 / year <small>(~$4.99/mo)</small></span>
+          <strong>Annual</strong>
+          <span>$59.99 / year</span>
+          <small>$4.99 / month · Save 50%</small>
         </div>
       </label>
 
       <label class="pw-plan" data-plan="lifetime">
         <input type="radio" name="plan" value="lifetime">
+        <span class="pw-badge pw-badge--crown">👑 VALUE</span>
         <div class="pw-plan-info">
           <strong>Lifetime</strong>
           <span>$89.00 one-time</span>
+          <small>Pay once, own forever</small>
         </div>
       </label>
     </div>
 
-    <hr class="pw-divider">
+    <button class="btn primary pw-cta" id="btnBuyPro" type="button">
+      <span class="pw-cta-label">Unlock My Chinese Journey 🚀</span>
+      <span class="pw-spinner" aria-hidden="true"></span>
+    </button>
+    <p class="pw-cta-sub" id="pwCtaSub">Annual · $59.99/yr · just $4.99/mo</p>
 
-    <ul class="pw-perks">
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Complete Story Library</strong>
-          <span>Unlock all chapters of Journey to the West and more.</span>
-        </div>
-      </li>
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Unlimited Review (Pro only)</strong>
-          <span>Free version doesn't support review. Upgrade to revisit past Daily 10 sentences.</span>
-        </div>
-      </li>
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Offline Download</strong>
-          <span>Cache the entire story pack for flights & subways.</span>
-        </div>
-      </li>
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Trends & Work</strong>
-          <span>Exclusive access to Business Chinese and internet slang.</span>
-        </div>
-      </li>
-    </ul>
-
-    <div class="pw-actions">
-      <button class="btn primary" id="btnBuyPro">Start Annual Plan ($59.99/yr)</button>
-      <button class="btn ghost later-btn" id="btnClosePro">Maybe Later</button>
+    <div class="pw-trust">
+      <div class="pw-pay-icons" aria-label="Accepted payment methods">
+        <span>Stripe</span><span>VISA</span><span>Mastercard</span><span>PayPal</span>
+      </div>
+      <p>🔒 256-bit SSL encrypted payment · Cancel anytime</p>
+      <p>7-day money-back guarantee</p>
     </div>
 
-    <p class="pw-disclaimer">Prices shown are for illustration. Cancel anytime.</p>
+    <button class="pw-later" id="btnClosePro" type="button">Maybe later</button>
   </div>
 </div>
 
@@ -504,7 +774,23 @@ main::-webkit-scrollbar { display: none; }
   </div>
 </div>
 
-<!-- 分享卡片（隐藏） -->
+<!-- 庆祝弹窗 (Day 1 Celebration) -->
+<div class="modal-overlay" id="celebrationModal" hidden>
+  <div class="celebration-card">
+    <div class="confetti-container">
+      <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+      <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+      <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+      <div class="confetti"></div>
+    </div>
+    <div class="celebration-fire">🔥</div>
+    <h2>Day 1 Unlocked!</h2>
+    <p>You've started your streak. Come back tomorrow to keep the fire burning and learn more real Chinese.</p>
+    <button class="btn primary" id="btnCloseCelebration">Let's Go</button>
+  </div>
+</div>
+
+<!-- 分享卡片 -->
 <div id="share-card">
   <div class="share-logo">HanLingo · Daily 10</div>
   <div class="share-pinyin" id="sharePinyin"></div>
@@ -560,29 +846,61 @@ main::-webkit-scrollbar { display: none; }
   /* ================= 2. 支付交互 ================= */
   var selectedPlan = 'annual';
   var planConfig = {
-    'monthly': { name: 'Monthly Pro', priceId: 'price_monthly_999', btnText: 'Start Monthly ($9.99/mo)' },
-    'annual': { name: 'Annual Pro', priceId: 'price_annual_5999', btnText: 'Start Annual ($59.99/yr)' },
-    'lifetime': { name: 'Lifetime Gold', priceId: 'price_lifetime_8900', btnText: 'Buy Lifetime ($89.00)' }
+    'monthly':  { name: 'Monthly',  priceId: 'price_monthly_999',  ctaSub: 'Monthly · $9.99/mo · billed monthly' },
+    'annual':   { name: 'Annual',   priceId: 'price_annual_5999',  ctaSub: 'Annual · $59.99/yr · just $4.99/mo' },
+    'lifetime': { name: 'Lifetime', priceId: 'price_lifetime_8900', ctaSub: 'Lifetime · $89.00 one-time · pay once, own forever' }
   };
 
-  document.querySelectorAll('.pw-plan').forEach(function(el) {
+  var paywallModal = document.getElementById('paywallModal');
+  var pwCtaSub = document.getElementById('pwCtaSub');
+
+  function syncPlanUI() {
+    if (pwCtaSub) pwCtaSub.textContent = planConfig[selectedPlan].ctaSub;
+  }
+
+  document.querySelectorAll('#paywallModal .pw-plan').forEach(function(el) {
     el.addEventListener('click', function() {
-      document.querySelectorAll('.pw-plan').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('#paywallModal .pw-plan').forEach(function(p) {
+        p.classList.remove('active');
+      });
       el.classList.add('active');
-      el.querySelector('input[type="radio"]').checked = true;
+      var radio = el.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
       selectedPlan = el.getAttribute('data-plan');
-      document.getElementById('btnBuyPro').textContent = planConfig[selectedPlan].btnText;
+      syncPlanUI();
     });
   });
+  syncPlanUI();
 
-  function triggerPaywall() { document.getElementById('paywallModal').hidden = false; }
+  function openPaywall() {
+    syncPlanUI();
+    paywallModal.hidden = false;
+  }
+
+  function closePaywall() {
+    paywallModal.hidden = true;
+  }
+
+  function triggerPaywall() {
+    openPaywall();
+  }
 
   document.querySelectorAll('.btn-trigger-paywall').forEach(function(el) {
     el.addEventListener('click', triggerPaywall);
   });
 
-  document.getElementById('btnClosePro').addEventListener('click', function() {
-    document.getElementById('paywallModal').hidden = true;
+  var btnClosePro = document.getElementById('btnClosePro');
+  if (btnClosePro) btnClosePro.addEventListener('click', closePaywall);
+
+  var btnCloseProX = document.getElementById('btnCloseProX');
+  if (btnCloseProX) btnCloseProX.addEventListener('click', closePaywall);
+
+  paywallModal.addEventListener('click', function(e) {
+    if (e.target === paywallModal) closePaywall();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !paywallModal.hidden) closePaywall();
   });
 
   document.getElementById('btnBuyPro').addEventListener('click', function() {
@@ -590,24 +908,32 @@ main::-webkit-scrollbar { display: none; }
       alert("Payment backend is not connected yet. Please configure the API endpoint to enable secure checkout.");
       return;
     }
-    var btn = this, origText = btn.textContent;
-    btn.textContent = 'Redirecting to secure checkout...';
+
+    var btn = this;
+    btn.classList.add('is-loading');
     btn.disabled = true;
 
     fetch(API_BASE_URL + '/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: USER_ID, plan: selectedPlan, priceId: planConfig[selectedPlan].priceId })
+      body: JSON.stringify({
+        userId: USER_ID,
+        plan: selectedPlan,
+        priceId: planConfig[selectedPlan].priceId
+      })
     })
     .then(function(res) { return res.json(); })
     .then(function(data) {
-      if (data.url) { window.location.href = data.url; }
-      else { throw new Error('No checkout URL returned'); }
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
     })
     .catch(function(err) {
       console.error('Payment error:', err);
       alert('Failed to initiate payment. Please ensure backend is running.');
-      btn.textContent = origText;
+      btn.classList.remove('is-loading');
       btn.disabled = false;
     });
   });
@@ -621,7 +947,7 @@ main::-webkit-scrollbar { display: none; }
       fetch(API_BASE_URL + '/api/verify-session?session_id=' + sessionId + '&userId=' + USER_ID)
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          if (data.paid) { setPro(true); alert('Thank you! Pro unlocked successfully.'); loadNewBatch(); }
+          if (data.paid) { setPro(true); alert('Thank you! HanLingo Pro unlocked successfully.'); loadNewBatch(); }
           else { alert('Payment verification failed or pending.'); }
         })
         .catch(function(err) { console.error('Verification error:', err); });
@@ -646,6 +972,7 @@ main::-webkit-scrollbar { display: none; }
   });
   document.getElementById('linkExplorePaths').addEventListener('click', function(e) {
     e.preventDefault(); collapseHero();
+
     document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
@@ -689,7 +1016,6 @@ main::-webkit-scrollbar { display: none; }
     'journey_west_hsk12_07': 'Journey to the West: The Spider Demons',
     'journey_west_hsk12_08': 'Journey to the West: The Return',
     'painted_skin': 'Liaozhai: Painted Skin', 'laoshan_daoshi': 'Liaozhai: The Taoist of Mount Laoshan',
-
     'zhong_li': 'Liaozhai: Planting a Pear', 'lang_wolf': 'Liaozhai: The Wolf',
     'nie_xiaoqian': 'Liaozhai: Nie Xiaoqian', 'ying_ning': 'Liaozhai: Ying Ning',
     'qing_feng': 'Liaozhai: Qing Feng', 'hu_jia_nu': 'Liaozhai: The Fox\'s Wedding',
@@ -788,8 +1114,10 @@ main::-webkit-scrollbar { display: none; }
     { id: 'classics', icon: '📖', label: 'Stories & Classics' }
   ];
 
-  /* ================= 5. Streak ================= */
+  /* ================= 5. Streak 与打卡激励 ================= */
   var STREAK_KEY = 'hanlingo_streak';
+  var CELEBRATED_KEY = 'hanlingo_celebrated_';
+
   function getLocalDateString() {
     var d = new Date(), y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
     return y + '-' + m + '-' + day;
@@ -803,14 +1131,43 @@ main::-webkit-scrollbar { display: none; }
     try { var raw = localStorage.getItem(STREAK_KEY); return raw ? JSON.parse(raw) : { streak: 0, lastDate: null }; }
     catch(e) { return { streak: 0, lastDate: null }; }
   }
-  function updateStreak() {
+
+  function updateStreak(triggerCelebration) {
     var data = loadStreak(), t = getLocalDateString(), y = getYesterdayDateString();
+
     if (data.lastDate === t) return data;
-    data.streak = (data.lastDate === y) ? (data.streak || 0) + 1 : 1;
+
+    var isNewStreak = (data.lastDate !== y);
+    data.streak = isNewStreak ? 1 : (data.streak || 0) + 1;
     data.lastDate = t;
     localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+
+    document.getElementById('streakDisplay').textContent = data.streak;
+    document.getElementById('doneStreak').textContent = data.streak;
+
+    if (triggerCelebration && !localStorage.getItem(CELEBRATED_KEY + t)) {
+      localStorage.setItem(CELEBRATED_KEY + t, 'true');
+      triggerDayOneCelebration(data.streak);
+    }
+
     return data;
   }
+
+  function triggerDayOneCelebration(streakDays) {
+    var modal = document.getElementById('celebrationModal');
+    var title = modal.querySelector('h2');
+    if (streakDays === 1) {
+      title.textContent = 'Day 1 Unlocked!';
+    } else {
+      title.textContent = streakDays + ' Day Streak!';
+    }
+    modal.hidden = false;
+  }
+
+  document.getElementById('btnCloseCelebration').addEventListener('click', function() {
+    document.getElementById('celebrationModal').hidden = true;
+  });
+
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
   /* ================= 6. 抽句逻辑 ================= */
@@ -862,7 +1219,6 @@ main::-webkit-scrollbar { display: none; }
 
       var pick = active[0];
       pick.current -= sumW;
-
       result.push(pick.items.shift());
     }
     return result;
@@ -977,22 +1333,22 @@ main::-webkit-scrollbar { display: none; }
     initVoices();
     if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = initVoices;
   }
-  
+
   function playAudio() {
     var s = currentList[rIdx];
     if (!s || !synth) return;
-    
+
     if (synth.speaking) {
       synth.cancel();
     }
-    
+
     document.getElementById('listen').classList.add('speaking');
     var u = new SpeechSynthesisUtterance(s.zh);
-    u.lang = 'zh-CN'; 
+    u.lang = 'zh-CN';
     u.rate = 0.85;
     if (zhVoice) u.voice = zhVoice;
     u.onend = u.onerror = function() { document.getElementById('listen').classList.remove('speaking'); };
-    
+
     synth.speak(u);
   }
 
@@ -1021,8 +1377,7 @@ main::-webkit-scrollbar { display: none; }
       subChipsEl.hidden = true;
       curBook = 'all';
     }
-    
-    // 根据是否为 Pro 隐藏或显示 Review 按钮
+
     $('btnReviewHistory').hidden = !isPro();
   }
 
@@ -1032,6 +1387,7 @@ main::-webkit-scrollbar { display: none; }
     if (totalToday === 0) {
       card.hidden = false;
       $('num').textContent = '0 / 0';
+
       $('pinyin').textContent = '';
       $('hanzi').textContent = 'No content available.';
       $('english').textContent = 'Please check back later or try a different category.';
@@ -1087,7 +1443,6 @@ main::-webkit-scrollbar { display: none; }
     $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday +
       '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
 
-    // ================= 权益限制逻辑 Feature Gate =================
     var isLocked = false;
     var lockTitle = 'Continue the Story';
     var lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
@@ -1095,10 +1450,10 @@ main::-webkit-scrollbar { display: none; }
     if (s.category === 'classics') {
       isLocked = (!isPro() && s.step > FREE_STEPS_CLASSICS);
     }
-    
+
     if ((cur === 'business' || cur === 'trends') && !isPro() && rIdx >= 1) {
       isLocked = true;
-      lockTitle = 'Unlock Pro Area';
+      lockTitle = 'Unlock HanLingo Pro';
       lockDesc = 'The ' + (cur === 'business' ? 'Work' : 'Trends & Slang') + ' section is part of HanLingo Pro. Upgrade to access high-value professional and internet vocabulary.';
     }
 
@@ -1139,9 +1494,7 @@ main::-webkit-scrollbar { display: none; }
   function showDone() {
     card.hidden = true;
     done.hidden = false;
-    var streakData = updateStreak();
-    $('streakDisplay').textContent = streakData.streak;
-    $('doneStreak').textContent = streakData.streak;
+    updateStreak(false);
   }
 
   /* ================= 9. 手势 ================= */
@@ -1178,22 +1531,26 @@ main::-webkit-scrollbar { display: none; }
     startY = 0;
   });
 
-  /* 修复 iOS 音频拦截：在用户点击 Next/Prev 时同步调用 playAudio() */
   function handleNext() {
     if (synth) synth.cancel();
     collapseHero();
+
+    if (rIdx === 0) {
+      updateStreak(true);
+    }
+
     if (rIdx >= currentList.length - 1) { showDone(); return; }
     rIdx++;
     renderCard();
-    playAudio(); // 同步触发
+    playAudio();
   }
-  
+
   function handlePrev() {
     if (synth) synth.cancel();
-    if (rIdx > 0) { 
-      rIdx--; 
-      renderCard(); 
-      playAudio(); // 同步触发
+    if (rIdx > 0) {
+      rIdx--;
+      renderCard();
+      playAudio();
     }
   }
 
@@ -1269,18 +1626,18 @@ main::-webkit-scrollbar { display: none; }
   function renderHistoryModal() {
     var listEl = $('reviewList');
     listEl.innerHTML = '';
-    
+
     if (historyList.length === 0) {
       listEl.innerHTML = '<p style="text-align:center; color:var(--muted); padding: 20px 0;">No history yet. Learn some cards first!</p>';
     } else {
       historyList.forEach(function(item) {
         var el = document.createElement('div');
         el.className = 'review-item';
-        el.innerHTML = 
+        el.innerHTML =
           '<div class="review-item-meta">' + (CAT_LABEL[item.category] || item.category) + ' · ' + item.date + '</div>' +
           '<div class="review-item-zh">' + item.zh + '</div>' +
           '<div class="review-item-en">' + item.en + '</div>';
-        
+
         el.addEventListener('click', function() {
           $('reviewModal').hidden = true;
           currentList = [item];
@@ -1318,20 +1675,48 @@ main::-webkit-scrollbar { display: none; }
   $('shareImgBtn').addEventListener('click', function() {
     var s = currentList[rIdx] || currentList[0];
     if (!s) return;
+
     $('sharePinyin').textContent = s.pinyin;
     $('shareHanzi').textContent = s.zh;
     $('shareEnglish').textContent = s.en;
     $('shareStreak').textContent = loadStreak().streak || 0;
 
-    html2canvas($('share-card'), { scale: 2, backgroundColor: '#F4F3EF' }).then(function(canvas) {
-      var imgData = canvas.toDataURL('image/png');
-      var link = document.createElement('a');
-      link.download = 'HanLingo-Daily10.png';
-      link.href = imgData;
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        var w = window.open();
-        w.document.write('<img src="' + imgData + '" style="width:100%; display:block;" />');
-      } else { link.click(); }
+    var btn = this;
+    var origText = btn.textContent;
+    btn.textContent = '⏳ Generating...';
+    btn.disabled = true;
+
+    var fontPromise = ('fonts' in document) ? document.fonts.ready : Promise.resolve();
+
+    fontPromise.then(function() {
+      setTimeout(function() {
+        html2canvas($('share-card'), {
+          scale: 2,
+          backgroundColor: '#F4F3EF',
+          useCORS: true,
+          allowTaint: false
+        }).then(function(canvas) {
+          var imgData = canvas.toDataURL('image/png');
+          var link = document.createElement('a');
+          link.download = 'HanLingo-Daily10.png';
+          link.href = imgData;
+
+          if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            var w = window.open();
+            w.document.write('<img src="' + imgData + '" style="width:100%; display:block;" />');
+          } else {
+            link.click();
+          }
+
+          btn.textContent = origText;
+          btn.disabled = false;
+        }).catch(function(err) {
+          console.error('Canvas error:', err);
+          alert('Failed to generate image.');
+          btn.textContent = origText;
+          btn.disabled = false;
+        });
+      }, 100);
     });
   });
 
