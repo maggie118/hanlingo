@@ -379,26 +379,35 @@ main::-webkit-scrollbar { display: none; }
 #paywallModal h2 { font-size: 23px; line-height: 1.25; margin-bottom: 6px; }
 #paywallModal .pw-subtitle { font-size: 13px; margin-bottom: 0; }
 
-/* 价值 Icon 矩阵 */
-#paywallModal .pw-values {
+/* 新增：核心权益列表 */
+#paywallModal .pw-features-wrap {
+  background: #FAFAF8;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+#paywallModal .pw-features-hint {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+#paywallModal .pw-features {
   list-style: none;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-  margin: 0 0 16px;
+  padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 6px;
 }
-#paywallModal .pw-values li {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 2px; padding: 10px 6px; text-align: center;
-  background: #FAFAF8; border: 1px solid var(--border); border-radius: 12px;
+#paywallModal .pw-features li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: var(--text); line-height: 1.4;
 }
-#paywallModal .pw-value-icon {
-  width: 34px; height: 34px; border-radius: 50%;
-  display: grid; place-items: center; font-size: 17px;
-  background: var(--pw-accent-soft); margin-bottom: 2px;
+#paywallModal .pw-features .check {
+  color: #2E8B57; font-weight: 900; font-size: 13px; margin-top: 1px; flex: none;
 }
-#paywallModal .pw-values strong { font-size: 11.5px; color: var(--text); }
-#paywallModal .pw-values span:last-child {
-  font-size: 10.5px; color: var(--muted); line-height: 1.3;
-}
+#paywallModal .pw-features strong { font-weight: 600; }
 
 /* 方案卡片 */
 #paywallModal .pw-plans { gap: 8px; margin-bottom: 14px; }
@@ -539,10 +548,8 @@ main::-webkit-scrollbar { display: none; }
   #paywallModal .paywall-clean { padding: 18px 16px 12px; border-radius: 18px; }
   #paywallModal h2 { font-size: 19px; }
   #paywallModal .pw-subtitle { font-size: 12px; }
-  #paywallModal .pw-values { margin-bottom: 10px; gap: 6px; }
-  #paywallModal .pw-values li { padding: 8px 4px; }
-  #paywallModal .pw-value-icon { width: 28px; height: 28px; font-size: 14px; }
-  #paywallModal .pw-values strong { font-size: 10.5px; }
+  #paywallModal .pw-features-wrap { padding: 10px 12px; margin-bottom: 12px; }
+  #paywallModal .pw-features li { font-size: 11.5px; }
   #paywallModal .pw-plan { padding: 9px 12px; }
   #paywallModal .pw-plan-info small { font-size: 10.5px; }
   #paywallModal .pw-cta { padding: 13px; font-size: 15px; }
@@ -685,7 +692,6 @@ main::-webkit-scrollbar { display: none; }
   .sub-chip { font-size: 13px; padding: 8px 16px; }
   .progress-bar { display: none; } /* 桌面端不需要顶部细进度条 */
 
-
   /* 右侧卡片体验区 */
   main {
     flex: 1.2;
@@ -749,8 +755,8 @@ main::-webkit-scrollbar { display: none; }
   #paywallModal .pw-plan-info strong { font-size: 16px; }
   #paywallModal .pw-plan-info small { font-size: 13px; }
   #paywallModal .pw-cta { padding: 18px; font-size: 18px; }
-  #paywallModal .pw-value-icon { width: 42px; height: 42px; font-size: 20px; }
-  #paywallModal .pw-values strong { font-size: 13px; }
+  #paywallModal .pw-features-wrap { padding: 16px 20px; }
+  #paywallModal .pw-features li { font-size: 14px; }
   
   .toast { max-width: 480px; padding: 16px 20px; font-size: 15px; }
 
@@ -884,6 +890,7 @@ main::-webkit-scrollbar { display: none; }
 
         <div class="pro-hint btn-trigger-paywall" id="proHint" hidden>
           📖 Read full stories with HanLingo Pro. (Tap to unlock)
+
         </div>
 
       </article>
@@ -925,23 +932,15 @@ main::-webkit-scrollbar { display: none; }
       <p class="pw-subtitle">Keep the stories going, listen offline, and never lose a word you've learned.</p>
     </div>
 
-    <ul class="pw-values">
-      <li>
-        <span class="pw-value-icon">🎧</span>
-        <strong>Offline Audio</strong>
-        <span>Real pronunciation, anywhere.</span>
-      </li>
-      <li>
-        <span class="pw-value-icon">📖</span>
-        <strong>Full Stories</strong>
-        <span>All chapters, all updates.</span>
-      </li>
-      <li>
-        <span class="pw-value-icon">⚡</span>
-        <strong>Unlimited Review</strong>
-        <span>Revisit every sentence.</span>
-      </li>
-    </ul>
+    <div class="pw-features-wrap">
+      <div class="pw-features-hint">All plans include:</div>
+      <ul class="pw-features">
+        <li><span class="check">✓</span> <strong>Unlimited Review</strong> — free version doesn't support reviewing past sentences</li>
+        <li><span class="check">✓</span> <strong>Offline Audio</strong> — cache the entire story pack for flights & subways</li>
+        <li><span class="check">✓</span> <strong>Complete Story Library</strong> — unlock all chapters of Journey to the West & more</li>
+        <li><span class="check">✓</span> <strong>Trends & Work</strong> — exclusive access to Business Chinese and internet slang</li>
+      </ul>
+    </div>
 
     <div class="pw-plans">
       <label class="pw-plan" data-plan="monthly">
@@ -996,7 +995,6 @@ main::-webkit-scrollbar { display: none; }
 </div>
 
 <!-- Success 全屏庆祝页 -->
-
 <div class="pro-welcome" id="proWelcome" hidden>
   <div class="pw-fw-layer" id="fwLayer" aria-hidden="true"></div>
   <div class="pro-welcome-card" role="dialog" aria-modal="true" aria-labelledby="proWelcomeTitle">
@@ -1394,9 +1392,19 @@ main::-webkit-scrollbar { display: none; }
   }
 
   document.getElementById('linkStartLearning').addEventListener('click', function(e) {
-    e.preventDefault(); collapseHero();
+    e.preventDefault(); 
+    collapseHero();
+    
+    // 切换分类并指向下方的 "🌟 Daily 10"
+    cur = 'mix';
+    curBook = 'all';
+    isShuffleMode = false;
+    renderChips();
+    loadNewBatch();
+
     document.getElementById('card').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
+
   document.getElementById('linkExplorePaths').addEventListener('click', function(e) {
     e.preventDefault(); collapseHero();
 
@@ -1921,6 +1929,15 @@ main::-webkit-scrollbar { display: none; }
     card.hidden = true;
     done.hidden = false;
     updateStreak(false);
+
+    // 动态控制 "Review Again" 的显隐
+    // 仅当 Daily 10 (cur === 'mix') 且 非 Pro 时，隐藏该按钮
+    var btnReplay = document.getElementById('replay');
+    if (cur === 'mix' && !isPro()) {
+      btnReplay.style.display = 'none';
+    } else {
+      btnReplay.style.display = 'block';
+    }
   }
 
   /* ================= 9. 手势 ================= */
@@ -1969,7 +1986,6 @@ main::-webkit-scrollbar { display: none; }
     rIdx++;
     renderCard();
     playAudio();
-
   }
 
   function handlePrev() {
