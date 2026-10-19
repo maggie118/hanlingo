@@ -30,50 +30,22 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .streak { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
 .streak b { color: var(--accent); font-size: 16px; font-variant-numeric: tabular-nums; }
 
-/* 🌟 全新的欢迎区域 (Hero Section) */
-.hero { 
-  margin: 24px 0 20px; text-align: left; 
-  animation: fadeIn 0.4s ease both; 
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-}
+/* 欢迎区域 */
+.hero { margin: 24px 0 20px; text-align: left; animation: fadeIn 0.4s ease both; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 .hero h1 { font-size: clamp(22px, 6vw, 26px); font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: -0.01em; }
 .hero-sub { font-size: 15px; color: var(--text); margin-bottom: 24px; line-height: 1.5; opacity: 0.85; }
-
-/* 引导卡片 */
-.hero-card {
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 16px;
-  transition: all 0.3s ease;
-}
-.primary-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-.secondary-card {
-  background: #F8F8F6;
-  border: 1px solid var(--border);
-}
+.hero-card { padding: 20px; border-radius: 16px; margin-bottom: 16px; transition: all 0.3s ease; }
+.primary-card { background: var(--card); border: 1px solid var(--border); }
+.secondary-card { background: #F8F8F6; border: 1px solid var(--border); }
 .hero-card h2 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
 .hero-card p { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
-.hero-link {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1A7F37; /* 截图中的绿色 */
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-}
+.hero-link { font-size: 15px; font-weight: 600; color: #1A7F37; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
 .hero-link:hover { text-decoration: underline; }
 .hero-link span { font-size: 18px; line-height: 1; }
-
-/* 欢迎区域 - 紧凑态（已开始学习） */
 .hero.compact { margin: 10px 0 16px; padding: 16px; background: var(--accent-soft); border-radius: 12px; }
 .hero.compact h1 { font-size: 18px; margin-bottom: 4px; }
 .hero.compact .hero-sub { font-size: 13px; margin-bottom: 0; }
-.hero.compact .hero-card { display: none; } /* 开始学习后隐藏卡片 */
+.hero.compact .hero-card { display: none; }
 
 /* 进度条 */
 .progress-bar { height: 3px; margin: 0 0 16px; background: var(--border); border-radius: 3px; overflow: hidden; }
@@ -95,27 +67,24 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .sub-chip[aria-selected="true"] { color: var(--accent); border-color: var(--accent); font-weight: 600; background: var(--accent-soft); }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 🃏 卡片区域 */
+/* 卡片区域 */
 main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding-bottom: 20px; position: relative; }
 main::-webkit-scrollbar { display: none; }
 .card-wrapper { perspective: 1000px; touch-action: pan-y; margin: auto 0; }
-.card { 
-  background: var(--card); border: 1px solid var(--border); border-radius: 24px; 
-  padding: 24px 24px 28px; text-align: center; 
-  box-shadow: 0 24px 48px -24px rgba(44,48,46,.15); 
-  position: relative; transition: transform .1s ease-out, opacity .3s ease;
-  will-change: transform, opacity;
-}
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 24px 24px 28px; text-align: center; box-shadow: 0 24px 48px -24px rgba(44,48,46,.15); position: relative; transition: transform .1s ease-out, opacity .3s ease; will-change: transform, opacity; }
 
 .meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .num { font-size: 11px; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
 .cat { font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 
-/* 剧情流专属头部 */
+/* 俚语徽标 */
+.slang-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #fff; background: var(--accent); border-radius: 4px; padding: 2px 7px; margin-bottom: 10px; text-transform: uppercase; }
+
+/* 剧情流头部 */
 .story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; letter-spacing: 0.02em; color: var(--muted); flex-wrap: wrap; text-align: center; padding: 0 10px; }
-.story-badge { background: var(--accent-soft); border: 1px solid rgba(192,88,75,.2); padding: 2px 6px; border-radius: 4px; font-weight: 700; color: var(--accent); font-size: 10px; flex: none;}
+.story-badge { background: var(--accent-soft); border: 1px solid rgba(192,88,75,.2); padding: 2px 6px; border-radius: 4px; font-weight: 700; color: var(--accent); font-size: 10px; flex: none; }
 .story-title { font-weight: 700; color: var(--text); line-height: 1.4; }
-.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; flex: none;}
+.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; flex: none; }
 
 /* 故事序章 */
 .story-intro { text-align: left; background: #FAFAFA; border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; animation: fadeIn 0.4s ease both; }
@@ -141,7 +110,7 @@ main::-webkit-scrollbar { display: none; }
 .usage-title { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
 .usage-text { font-size: 14px; color: var(--text); opacity: 0.85; line-height: 1.5; }
 
-/* 核心内容区（锁定态模糊） */
+/* 锁定态 */
 .card-content { position: relative; transition: filter 0.3s ease; }
 .card-content.is-locked .pinyin,
 .card-content.is-locked .hanzi,
@@ -169,7 +138,6 @@ main::-webkit-scrollbar { display: none; }
 
 .repeat-hint { margin-top: 14px; font-size: 12px; color: var(--muted); text-align: center; letter-spacing: 0.02em; }
 
-/* 底部提示 */
 .pro-hint { margin-top: 20px; font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 10px; cursor: pointer; transition: .2s; font-weight: 500; }
 .pro-hint:hover { background: rgba(192,88,75,.15); }
 
@@ -189,7 +157,7 @@ main::-webkit-scrollbar { display: none; }
 .quote-en { display: block; font-size: 14px; color: var(--text); opacity: 0.8; font-style: italic; }
 .done .actions { flex-direction: column; width: 100%; max-width: 280px; margin-top: 12px; }
 
-/* 全局 Paywall 弹窗 */
+/* Paywall 弹窗 */
 .modal-overlay { position: fixed; inset: 0; background: rgba(44,48,46,.6); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; animation: fadeIn 0.2s ease both; }
 .paywall-clean { background: var(--card); border-radius: 24px; padding: 32px 28px 24px; text-align: left; max-width: 400px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.3); border: 1px solid var(--border); }
 .pw-header { margin-bottom: 24px; }
@@ -210,7 +178,7 @@ main::-webkit-scrollbar { display: none; }
 .pw-actions .later-btn:hover { color: var(--text); }
 .pw-disclaimer { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.4; opacity: 0.7; }
 
-/* 隐藏的分享卡片 */
+/* 分享卡片（隐藏） */
 #share-card { position: absolute; left: -9999px; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; border-radius: 20px; text-align: center; }
 .share-logo { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 40px; }
 .share-pinyin { font-size: 20px; color: var(--accent); font-weight: 600; }
@@ -218,7 +186,7 @@ main::-webkit-scrollbar { display: none; }
 .share-en { font-size: 18px; color: var(--muted); margin-bottom: 40px; }
 .share-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; }
 
-/* ================= 手机矮屏适配 ================= */
+/* 手机矮屏适配 */
 @media (max-height: 700px) {
   .app { padding: 12px 16px 16px; }
   .top { gap: 8px; }
@@ -228,13 +196,11 @@ main::-webkit-scrollbar { display: none; }
   .hero-card { padding: 12px; margin-bottom: 10px; }
   .hero-card h2 { font-size: 15px; }
   .hero-card p { font-size: 13px; margin-bottom: 8px; }
-  
   .progress-bar { margin: 0 0 10px; }
   .chips-container { margin-bottom: 8px; gap: 4px; }
   .chips { padding-bottom: 4px; }
   .chip { padding: 6px 10px; font-size: 11.5px; }
   .sub-chip { padding: 4px 10px; font-size: 11px; }
-
   .card { padding: 16px 16px 20px; }
   .meta { margin-bottom: 10px; }
   .pinyin { font-size: 18px; margin-top: 4px; }
@@ -242,11 +208,9 @@ main::-webkit-scrollbar { display: none; }
   .rule { margin: 14px auto 10px; }
   .english { font-size: 15px; min-height: 2.4em; margin-top: 8px; }
   .usage-box { margin-top: 14px; padding: 12px; }
-  
   .actions { margin-top: 16px; }
   .btn { padding: 12px; font-size: 14px; }
   .repeat-hint { margin-top: 8px; font-size: 11px; }
-  
   .bottom-info { margin-top: 8px; font-size: 12px; }
   .done h2 { margin-top: 10px; font-size: 20px; }
 }
@@ -263,26 +227,25 @@ main::-webkit-scrollbar { display: none; }
       </div>
     </div>
 
-    <!-- 🌟 全新的欢迎区域 -->
     <div class="hero" id="heroSection">
       <h1>Real Chinese for Real Life.</h1>
       <p class="hero-sub" id="heroDesc">Learn Chinese through real sentences and engaging stories — one short session at a time.</p>
-      
+
       <div class="hero-card primary-card">
         <h2>Daily 10</h2>
-        <p>10 sentences a day. Free, every day.</p>
+        <p>10 sentences a day — real life, work, stories, and slang. Free, every day.</p>
         <a href="#" class="hero-link" id="linkStartLearning">Start Learning Free <span>→</span></a>
       </div>
 
       <div class="hero-card secondary-card">
         <h2>Choose What You Want to Learn</h2>
-        <p>Explore everyday Chinese, workplace conversations, and stories. Unlock the topics that interest you.</p>
+        <p>Explore everyday Chinese, workplace conversations, stories, and the slang people actually use.</p>
         <a href="#" class="hero-link" id="linkExplorePaths">Explore Learning Paths <span>→</span></a>
       </div>
     </div>
 
     <div class="progress-bar" id="bar"><i id="fill"></i></div>
-    
+
     <div class="chips-container">
       <nav class="chips" id="chips"></nav>
       <nav class="sub-chips" id="subChips" hidden></nav>
@@ -292,7 +255,7 @@ main::-webkit-scrollbar { display: none; }
   <main>
     <div class="card-wrapper" id="cardWrapper">
       <article class="card" id="card" aria-live="polite">
-        
+
         <div class="story-header" id="storyHeader" hidden>
           <span class="story-badge">STORY MODE</span>
           <span class="story-title" id="storyTitle"></span>
@@ -317,7 +280,8 @@ main::-webkit-scrollbar { display: none; }
         </div>
 
         <div class="card-content" id="cardContent">
-          
+          <div class="slang-badge" id="slangBadge" hidden>SLANG · REAL CHINESE</div>
+
           <div class="pinyin" id="pinyin"></div>
           <div class="hanzi" id="hanzi"></div>
           <div class="rule"></div>
@@ -337,7 +301,7 @@ main::-webkit-scrollbar { display: none; }
             </div>
           </div>
         </div>
-        
+
         <div class="actions">
           <button class="btn ghost" id="listen" type="button">🔊 Listen & Repeat</button>
           <button class="btn primary" id="next" type="button">Next →</button>
@@ -352,7 +316,7 @@ main::-webkit-scrollbar { display: none; }
         <button class="shuffle-btn" id="shuffleBtn" title="Shuffle" style="z-index: 20;">🔀</button>
       </article>
     </div>
-    
+
     <div class="bottom-info" id="bottomProg">
       Today's Progress: 0/0
       <span class="hint" id="streakHint">Complete today's batch to keep streak.</span>
@@ -362,12 +326,12 @@ main::-webkit-scrollbar { display: none; }
       <div class="celebrate">🎉</div>
       <h2>TODAY'S 10 COMPLETED!</h2>
       <p>You are on a <b id="doneStreak">0</b> Day Streak!</p>
-      
+
       <div class="quote">
         <span class="quote-zh">不积跬步，无以至千里。</span>
         <span class="quote-en">A journey of a thousand miles begins with a single step.</span>
       </div>
-      
+
       <div class="actions">
         <button class="btn primary" id="shareTextBtn" type="button">📋 Share Progress</button>
         <button class="btn ghost" id="shareImgBtn" type="button">📸 Save Image</button>
@@ -377,7 +341,7 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- 全局 Paywall 弹窗 -->
+<!-- Paywall 弹窗 -->
 <div class="modal-overlay" id="paywallModal" hidden>
   <div class="paywall-clean">
     <div class="pw-header">
@@ -386,45 +350,22 @@ main::-webkit-scrollbar { display: none; }
       <div class="pw-price">US$69</div>
       <p class="pw-price-note">One-time payment · Lifetime access to the included library</p>
     </div>
-    
+
     <hr class="pw-divider">
-    
+
     <ul class="pw-perks">
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Everyday Chinese</strong>
-          <span>Practical sentences for daily conversations.</span>
-        </div>
-      </li>
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Chinese for Work</strong>
-          <span>Useful expressions for professional situations.</span>
-        </div>
-      </li>
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Stories & Classics</strong>
-          <span>Access to the complete story chapters included in your purchase.</span>
-        </div>
-      </li>
-      <li>
-        <div class="pw-icon">✓</div>
-        <div class="pw-text">
-          <strong>Learn at Your Own Pace</strong>
-          <span>Revisit the included content whenever you want.</span>
-        </div>
-      </li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Everyday Chinese</strong><span>Practical sentences for daily conversations.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Chinese for Work</strong><span>Useful expressions for professional situations.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Stories & Classics</strong><span>Access to the complete story chapters included in your purchase.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Trends & Slang</strong><span>The real Chinese people actually type and say online.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Learn at Your Own Pace</strong><span>Revisit the included content whenever you want.</span></div></li>
     </ul>
-    
+
     <div class="pw-actions">
       <button class="btn primary" id="btnBuyPro">Unlock Lifetime Access</button>
       <button class="btn ghost later-btn" id="btnClosePro">Maybe Later</button>
     </div>
-    
+
     <p class="pw-disclaimer">Prices and benefits shown are for illustration. Your final purchase reflects current payment configuration.</p>
   </div>
 </div>
@@ -441,7 +382,35 @@ main::-webkit-scrollbar { display: none; }
   </div>
 </div>
 
-<!-- 引入数据文件 -->
+<!-- ================= 数据层 ================= -->
+<script>
+/* 2026 Trends & Slang — 20 句地道流行语
+   来源综合：2025-2026 网络热词榜、青年十大热词、Slang 教学播客等。 */
+window.TRENDS_DATA = [
+  { zh: "硬控", pinyin: "yìng kòng", en: "To be completely captivated / unable to look away", usage: "原指游戏里的硬性控制，现在形容被短视频、剧情或某件事牢牢吸住注意力，明知该停却停不下来。" },
+  { zh: "爱你老己", pinyin: "ài nǐ lǎo jǐ", en: "Kudos to me / Love yourself, dear self", usage: "谐音“爱你自己”。年轻人用来自我关怀、自我奖励，比如一个人吃饭时对自己说“爱你老己，明天见”。" },
+  { zh: "当个事儿办", pinyin: "dāng gè shìr bàn", en: "Treat it like a real priority / Take it seriously", usage: "万能回复公式。无论是考试、健身还是取快递，都可以说“当个事儿办”，表示认真对待、不敷衍。" },
+  { zh: "脆皮打工人", pinyin: "cuì pí dǎ gōng rén", en: "Fragile worker / Office worker with a glass constitution", usage: "自嘲身体亚健康、一碰就碎的上班族，熬夜、久坐、外卖导致小毛病不断。" },
+  { zh: "那咋了，受着呗", pinyin: "nà zǎ le, shòu zhe bei", en: "So what? Just deal with it.", usage: "无奈又无所谓的回应，表示“就算这样又能怎样，只能接受”。适合朋友间吐槽时用。" },
+  { zh: "我勒个豆", pinyin: "wǒ lēi gè dòu", en: "Oh my god! / Goodness!", usage: "表示惊讶、感叹，相当于口语“我的天”，没有恶意，是轻松的感叹词。" },
+  { zh: "显眼包", pinyin: "xiǎn yǎn bāo", en: "Attention magnet / Class clown", usage: "指性格外向、爱表现、自带笑点的人。中性偏褒义，多为同学朋友间的玩笑称呼。" },
+  { zh: "包的", pinyin: "bāo de", en: "For sure! / No problem!", usage: "表示肯定、答应、没问题，相当于“放心，交给我，一定行”。非常口语化。" },
+  { zh: "盐都不盐了", pinyin: "yán dōu bù yán le", en: "Not even pretending anymore", usage: "“演都不演了”的谐音，指人不再假装，直接表露真实状态，比如走神、偷懒。" },
+  { zh: "尊嘟假嘟", pinyin: "zūn dū jiǎ dū", en: "Really? For real?", usage: "“真的假的”的可爱说法，表示半信半疑、询问确认，语气单纯卖萌。" },
+  { zh: "破防", pinyin: "pò fáng", en: "To have one's emotional defenses broken", usage: "心理防线被戳穿。一句话、一个视频让人突然情绪涌上来，带点幽默感地承认“我被击中了”。" },
+  { zh: "YYDS", pinyin: "yǒng yuǎn de shén", en: "The eternal god / GOAT", usage: "“永远的神”拼音缩写。看到好吃的、好用的、表现超神的，都可以丢一句 YYDS。" },
+  { zh: "PUA", pinyin: "PUA", en: "To manipulate / Gaslight", usage: "原指情感操控，现在泛指通过打击对方来操控其行为。说“这很 PUA”就是在提醒这个互动不太对劲。" },
+  { zh: "活人感", pinyin: "huó rén gǎn", en: "Human touch / Realness", usage: "形容人真实自然、不做作、有烟火气。是正面评价，和“预制感”相对。" },
+  { zh: "拉爆", pinyin: "lā bào", en: "To crush it / Push beyond your limits", usage: "指超越自己原有水平、突破极限，带有努力、上进的意思。" },
+  { zh: "斩杀线", pinyin: "zhǎn shā xiàn", en: "Cut-off line / Minimum threshold", usage: "原指游戏临界值，现在指给自己定的目标分数线、及格线，比如“我的斩杀线是 60 分”。" },
+  { zh: "欧皇", pinyin: "ōu huáng", en: "Lucky person / Someone with god-tier luck", usage: "指运气特别好的人，抽奖、考试、遇事总能顺利。反义词是“非酋”。" },
+  { zh: "非酋", pinyin: "fēi qiú", en: "Unlucky person / Jinxed", usage: "和“欧皇”相对，自嘲运气差、凡事不顺利，没有负面心理，纯属调侃。" },
+  { zh: "谷子", pinyin: "gǔ zi", en: "Merch / Anime & game goods", usage: "英文 goods 的音译，指动漫、游戏相关的周边纪念品，如卡片、手办、徽章等。" },
+  { zh: "从从容容游刃有余", pinyin: "cóng cóng róng róng yóu rèn yǒu yú", en: "Calm and effortless (or the gap between ideal and reality)", usage: "2025-2026 年热词。常和“匆匆忙忙连滚带爬”对照使用，调侃理想中的从容和现实中的狼狈。" }
+];
+</script>
+
+<!-- 原有数据文件 -->
 <script src="data/daily.js"></script>
 <script src="data/business.js"></script>
 <script src="data/classics.js"></script>
@@ -454,7 +423,7 @@ main::-webkit-scrollbar { display: none; }
   'use strict';
 
   /* ================= 0. 身份与支付配置 ================= */
-  var API_BASE_URL = ''; 
+  var API_BASE_URL = '';
 
   function getUserId() {
     var uid = localStorage.getItem('hanlingo_uid');
@@ -470,10 +439,8 @@ main::-webkit-scrollbar { display: none; }
   function isPro() { return localStorage.getItem(PRO_KEY) === 'true'; }
   function setPro(val) { localStorage.setItem(PRO_KEY, val ? 'true' : 'false'); }
 
-  /* ================= 1. 全局状态与支付交互 ================= */
-  function triggerPaywall() {
-    document.getElementById('paywallModal').hidden = false;
-  }
+  /* ================= 1. 支付交互 ================= */
+  function triggerPaywall() { document.getElementById('paywallModal').hidden = false; }
 
   document.querySelectorAll('.btn-trigger-paywall').forEach(function(el) {
     el.addEventListener('click', triggerPaywall);
@@ -488,27 +455,19 @@ main::-webkit-scrollbar { display: none; }
       alert("Payment backend is not connected yet. Please configure the API endpoint to enable secure checkout.");
       return;
     }
-
-    var btn = this;
-    var origText = btn.textContent;
+    var btn = this, origText = btn.textContent;
     btn.textContent = 'Redirecting to secure checkout...';
     btn.disabled = true;
 
     fetch(API_BASE_URL + '/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        userId: USER_ID,
-        priceId: 'price_12345' 
-      })
+      body: JSON.stringify({ userId: USER_ID, priceId: 'price_12345' })
     })
     .then(function(res) { return res.json(); })
     .then(function(data) {
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL returned');
-      }
+      if (data.url) { window.location.href = data.url; }
+      else { throw new Error('No checkout URL returned'); }
     })
     .catch(function(err) {
       console.error('Payment error:', err);
@@ -522,35 +481,22 @@ main::-webkit-scrollbar { display: none; }
     var urlParams = new URLSearchParams(window.location.search);
     var sessionId = urlParams.get('session_id');
     var isSuccess = urlParams.get('success');
-
     if (isSuccess === 'true' && sessionId && API_BASE_URL) {
       window.history.replaceState({}, document.title, window.location.pathname);
-      
       fetch(API_BASE_URL + '/api/verify-session?session_id=' + sessionId + '&userId=' + USER_ID)
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          if (data.paid) {
-            setPro(true);
-            alert('Thank you! Pro unlocked successfully.');
-            loadNewBatch();
-          } else {
-            alert('Payment verification failed or pending.');
-          }
+          if (data.paid) { setPro(true); alert('Thank you! Pro unlocked successfully.'); loadNewBatch(); }
+          else { alert('Payment verification failed or pending.'); }
         })
-        .catch(function(err) {
-          console.error('Verification error:', err);
-        });
+        .catch(function(err) { console.error('Verification error:', err); });
     }
   })();
 
-  /* ================= 2. 欢迎区域与交互引导 ================= */
+  /* ================= 2. 欢迎区域 ================= */
   var heroEl = document.getElementById('heroSection');
   var hasStarted = localStorage.getItem('hanlingo_has_started');
-
-  // 如果用户之前已经开始学习，折叠欢迎区
-  if (hasStarted || loadStreak().streak > 0) {
-    heroEl.classList.add('compact');
-  }
+  if (hasStarted || loadStreak().streak > 0) { heroEl.classList.add('compact'); }
 
   function collapseHero() {
     if (!heroEl.classList.contains('compact')) {
@@ -559,42 +505,31 @@ main::-webkit-scrollbar { display: none; }
     }
   }
 
-  // 点击“Start Learning Free”直接收起欢迎区并聚焦卡片
   document.getElementById('linkStartLearning').addEventListener('click', function(e) {
-    e.preventDefault();
-    collapseHero();
+    e.preventDefault(); collapseHero();
     document.getElementById('card').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
-
-  // 点击“Explore Learning Paths”收起欢迎区并滚动到分类 Chips
   document.getElementById('linkExplorePaths').addEventListener('click', function(e) {
-    e.preventDefault();
-    collapseHero();
+    e.preventDefault(); collapseHero();
     document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
-  /* ================= 3. 核心免费限制配置 ================= */
-  var FREE_STEPS_CLASSICS = 3; 
+  /* ================= 3. 免费限制 ================= */
+  var FREE_STEPS_CLASSICS = 3;
 
-  /* ================= 4. 数据清洗与智能归类 ================= */
+  /* ================= 4. 数据清洗 ================= */
   var dataset = { survival: [], business: [], classics: [], trends: [] };
-  var classicBooks = []; 
-  var slangKeywords = ['班味', '内耗', '卷', '躺平', 'emo', '破防', '牛马', '太顶了', '太绝了', '靠谱', '低调', '搞定', '没事儿'];
+  var classicBooks = [];
 
   var BOOK_MAP = {
-    'Journey to the West': 'Journey',
-    '西游记': 'Journey',
-    'Liaozhai': 'Liaozhai',
-    'Painted Skin': 'Liaozhai',
-    '聊斋志异': 'Liaozhai',
-    'The Art of War': 'Art of War',
-    '孙子兵法': 'Art of War'
+    'Journey to the West': 'Journey', '西游记': 'Journey',
+    'Liaozhai': 'Liaozhai', 'Painted Skin': 'Liaozhai', '聊斋志异': 'Liaozhai',
+    'The Art of War': 'Art of War', '孙子兵法': 'Art of War'
   };
 
   var CHAPTER_DISPLAY_MAP = {
     'xiyou_01': 'Journey to the West: Havoc in Heaven',
-    'huapi_01': 'Liaozhai: Painted Skin',
-    'art_of_war': 'The Art of War',
+    'huapi_01': 'Liaozhai: Painted Skin', 'art_of_war': 'The Art of War',
     'journey_west_hsk12_01': 'Journey to the West: Birth of the Monkey King',
     'journey_west_hsk12_02': 'Journey to the West: Havoc in Heaven',
     'journey_west_hsk12_03': 'Journey to the West: Magic Treasures',
@@ -603,14 +538,10 @@ main::-webkit-scrollbar { display: none; }
     'journey_west_hsk12_06': 'Journey to the West: The Plantain Fan',
     'journey_west_hsk12_07': 'Journey to the West: The Spider Demons',
     'journey_west_hsk12_08': 'Journey to the West: The Return',
-    'painted_skin': 'Liaozhai: Painted Skin',
-    'laoshan_daoshi': 'Liaozhai: The Taoist of Mount Laoshan',
-    'zhong_li': 'Liaozhai: Planting a Pear',
-    'lang_wolf': 'Liaozhai: The Wolf',
-    'nie_xiaoqian': 'Liaozhai: Nie Xiaoqian',
-    'ying_ning': 'Liaozhai: Ying Ning',
-    'qing_feng': 'Liaozhai: Qing Feng',
-    'hu_jia_nu': 'Liaozhai: The Fox\'s Wedding',
+    'painted_skin': 'Liaozhai: Painted Skin', 'laoshan_daoshi': 'Liaozhai: The Taoist of Mount Laoshan',
+    'zhong_li': 'Liaozhai: Planting a Pear', 'lang_wolf': 'Liaozhai: The Wolf',
+    'nie_xiaoqian': 'Liaozhai: Nie Xiaoqian', 'ying_ning': 'Liaozhai: Ying Ning',
+    'qing_feng': 'Liaozhai: Qing Feng', 'hu_jia_nu': 'Liaozhai: The Fox\'s Wedding',
     'elite_suntzu': 'The Art of War'
   };
 
@@ -632,55 +563,36 @@ main::-webkit-scrollbar { display: none; }
     return name.length > 15 ? name.substring(0, 12) + '...' : name || 'Classics';
   }
 
-  function isSlang(text) {
-    return slangKeywords.some(function(kw) { return text.indexOf(kw) > -1; });
-  }
-
   function extractData(sourceObj, defaultCategory) {
     if (!sourceObj) return;
-    
+
     function processCard(c, forcedCat, rawBook, step, storyContext) {
       var zh, pinyin, en, usage;
-      
-      if (Array.isArray(c)) {
-        zh = c[0]; pinyin = c[1]; en = c[2];
-      } else {
-        zh = c.sentence || c.cn || c.zh;
-        pinyin = c.pinyin || '';
-        en = c.translation || c.en;
-        usage = c.usage || ''; 
-      }
+      if (Array.isArray(c)) { zh = c[0]; pinyin = c[1]; en = c[2]; }
+      else { zh = c.sentence || c.cn || c.zh; pinyin = c.pinyin || ''; en = c.translation || c.en; usage = c.usage || ''; }
+      if (!zh || !en) return;
 
-      if (!zh || !en) return; 
-      
       var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
       var displayTitle = finalBook;
-      
       if (forcedCat === 'classics') {
         var storyId = (c.story_id || (storyContext ? storyContext.columnId : '') || '');
-        if (CHAPTER_DISPLAY_MAP[storyId]) {
-          displayTitle = CHAPTER_DISPLAY_MAP[storyId];
-        } else {
+        if (CHAPTER_DISPLAY_MAP[storyId]) { displayTitle = CHAPTER_DISPLAY_MAP[storyId]; }
+        else {
           var chapter = c.chapter_title || c.story_title || (storyContext ? storyContext.title : '');
           if (chapter && chapter !== finalBook) {
-             if (finalBook === 'Journey') displayTitle = 'Journey to the West: ' + chapter;
-             else if (finalBook === 'Liaozhai') displayTitle = 'Liaozhai: ' + chapter;
-             else if (finalBook === 'Art of War') displayTitle = 'The Art of War: ' + chapter;
-             else displayTitle = finalBook + ': ' + chapter;
+            if (finalBook === 'Journey') displayTitle = 'Journey to the West: ' + chapter;
+            else if (finalBook === 'Liaozhai') displayTitle = 'Liaozhai: ' + chapter;
+            else if (finalBook === 'Art of War') displayTitle = 'The Art of War: ' + chapter;
+            else displayTitle = finalBook + ': ' + chapter;
           }
         }
       }
+      if (forcedCat === 'classics' && finalBook && classicBooks.indexOf(finalBook) === -1) classicBooks.push(finalBook);
 
-      if (forcedCat === 'classics' && finalBook && classicBooks.indexOf(finalBook) === -1) {
-        classicBooks.push(finalBook);
-      }
-
-      var entry = { 
-        zh: zh, pinyin: pinyin, en: en, category: forcedCat, 
+      dataset[forcedCat].push({
+        zh: zh, pinyin: pinyin, en: en, category: forcedCat,
         book: finalBook, step: step || 1, displayTitle: displayTitle, usage: usage
-      };
-      dataset[forcedCat].push(entry);
-      if (isSlang(zh)) dataset.trends.push(entry);
+      });
     }
 
     if (Array.isArray(sourceObj)) {
@@ -692,7 +604,6 @@ main::-webkit-scrollbar { display: none; }
         else if (story.category === 'classics' || story.category === 'strange' || (story.columnId && (story.columnId.indexOf('journey') > -1 || story.columnId.indexOf('art') > -1))) cat = 'classics';
         else if (story.category === 'daily' || story.category === 'survival') cat = 'survival';
         else if (story.category === 'retired') return;
-        
         (story.cards || []).forEach(function(c, idx) { processCard(c, cat, story.book || '', idx + 1, story); });
       });
     }
@@ -703,6 +614,16 @@ main::-webkit-scrollbar { display: none; }
   extractData(window.CLASSICS_DATA, 'classics');
   extractData(window.STORIES_DATA, 'survival');
 
+  // Trends：显式数据源
+  (window.TRENDS_DATA || []).forEach(function(item) {
+    if (!item.zh || !item.en) return;
+    dataset.trends.push({
+      zh: item.zh, pinyin: item.pinyin || '', en: item.en,
+      category: 'trends', book: '', step: 1, displayTitle: '', usage: item.usage || ''
+    });
+  });
+
+  // 去重
   ['survival', 'business', 'classics', 'trends'].forEach(function(cat) {
     var unique = [], seen = {};
     dataset[cat].forEach(function(item) {
@@ -712,32 +633,24 @@ main::-webkit-scrollbar { display: none; }
   });
 
   var CATS = [
-    {id:'mix', icon:'🌟', label:'Daily 10'},
-    {id:'survival', icon:'☕', label:'Everyday Chinese'},
-    {id:'business', icon:'💼', label:'Chinese for Work'},
-    {id:'classics', icon:'📖', label:'Stories & Classics'}
+    { id: 'mix', icon: '🌟', label: 'Daily 10' },
+    { id: 'survival', icon: '☕', label: 'Everyday Chinese' },
+    { id: 'business', icon: '💼', label: 'Chinese for Work' },
+    { id: 'trends', icon: '🔥', label: 'Trends & Slang' },
+    { id: 'classics', icon: '📖', label: 'Stories & Classics' }
   ];
 
-  /* ================= 5. 极简打卡与本地日期 ================= */
+  /* ================= 5. Streak ================= */
   var STREAK_KEY = 'hanlingo_streak';
-  
   function getLocalDateString() {
-    var d = new Date();
-    var y = d.getFullYear();
-    var m = String(d.getMonth() + 1).padStart(2, '0');
-    var day = String(d.getDate()).padStart(2, '0');
+    var d = new Date(), y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
     return y + '-' + m + '-' + day;
   }
-  
   function getYesterdayDateString() {
-    var d = new Date();
-    d.setDate(d.getDate() - 1);
-    var y = d.getFullYear();
-    var m = String(d.getMonth() + 1).padStart(2, '0');
-    var day = String(d.getDate()).padStart(2, '0');
+    var d = new Date(); d.setDate(d.getDate() - 1);
+    var y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
     return y + '-' + m + '-' + day;
   }
-
   function loadStreak() {
     try { var raw = localStorage.getItem(STREAK_KEY); return raw ? JSON.parse(raw) : { streak: 0, lastDate: null }; }
     catch(e) { return { streak: 0, lastDate: null }; }
@@ -752,27 +665,23 @@ main::-webkit-scrollbar { display: none; }
   }
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
-  /* ================= 6. 状态与抽句逻辑 ================= */
+  /* ================= 6. 抽句逻辑（5 + 2 + 1.5 + 1.5 黄金比例） ================= */
   var cur = 'mix';
-  var curBook = 'all'; 
+  var curBook = 'all';
   var currentList = [];
   var rIdx = 0;
   var isShuffleMode = false;
 
-  var CAT_LABEL = { 
-    survival: 'Everyday Chinese', business: 'Chinese for Work', 
-    classics: 'Stories & Classics', mix: 'Daily 10', trends: 'Trends & Slang' 
+  var CAT_LABEL = {
+    survival: 'Everyday Chinese', business: 'Chinese for Work',
+    classics: 'Stories & Classics', mix: 'Daily 10', trends: 'Trends & Slang'
   };
-
 
   function getRng(seedStr) {
     if (!seedStr) return Math.random;
     var seed = 0;
     for (var i = 0; i < seedStr.length; i++) seed = (seed * 31 + seedStr.charCodeAt(i)) % 233280;
-    return function() {
-      seed = (seed * 9301 + 49297) % 233280;
-      return seed / 233280;
-    };
+    return function() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
   }
   function shuffle(arr, rand) {
     if (!arr || arr.length === 0) return [];
@@ -784,45 +693,148 @@ main::-webkit-scrollbar { display: none; }
     return a;
   }
 
+  /**
+   * 平滑加权轮询交错：把多个桶按权重均匀打散，
+   * 避免同一类型连续出现，形成稳定的“节奏感”。
+   * 例：[5,2,2,1] → S B C S S T S B C S
+   */
+  function interleaveByWeight(groups) {
+    var state = groups
+      .filter(function(g) { return g.items.length > 0; })
+      .map(function(g) {
+        return { items: g.items.slice(), weight: g.items.length, current: 0 };
+      });
+
+    var total = state.reduce(function(s, g) { return s + g.items.length; }, 0);
+    var result = [];
+    var guard = 0;
+
+    while (result.length < total && guard++ < 200) {
+      var active = state.filter(function(g) { return g.items.length > 0; });
+      if (!active.length) break;
+
+      var sumW = active.reduce(function(s, g) { return s + g.weight; }, 0);
+      active.forEach(function(g) { g.current += g.weight; });
+      active.sort(function(a, b) { return b.current - a.current; });
+
+      var pick = active[0];
+      pick.current -= sumW;
+      result.push(pick.items.shift());
+    }
+    return result;
+  }
+
+  /**
+   * Daily 10 黄金比例：
+   *   50% Survival   → 5 句
+   *   20% Business   → 2 句
+   *   15% Classics   → 1~2 句（按自然日奇偶轮换，长期均值 1.5）
+   *   15% Trends     → 1~2 句（与 Classics 互补）
+   * 任一类不足时用 Survival 兜底，保证始终 10 句。
+   */
+  function buildDailyMix(isShuffle) {
+    var dateStr = getLocalDateString();
+    var rand = getRng(isShuffle ? null : dateStr + ':mix');
+
+    // 用“纪元日”奇偶交替，跨月也稳定
+    var epochDay = Math.floor(new Date().setHours(0, 0, 0, 0) / 86400000);
+    var classicQuota = (epochDay % 2 === 0) ? 2 : 1;
+    var trendQuota = 3 - classicQuota; // 2 或 1
+
+    var used = {};
+    function take(pool, n) {
+      var out = [];
+      for (var i = 0; i < pool.length && out.length < n; i++) {
+        var it = pool[i];
+        if (used[it.zh]) continue;
+        used[it.zh] = true;
+        out.push(it);
+      }
+      return out;
+    }
+
+    var survivalPool = shuffle(dataset.survival, rand);
+    var businessPool = shuffle(dataset.business, rand);
+    var trendPool = shuffle(dataset.trends, rand);
+
+    var sItems = take(survivalPool, 5);
+    var bItems = take(businessPool, 2);
+    var tItems = take(trendPool, trendQuota);
+
+    // Classics：优先取同一本书的连续片段，保留故事感
+    var cItems = [];
+    var pro = isPro();
+    var cPool = dataset.classics.filter(function(it) {
+      return pro || it.step <= FREE_STEPS_CLASSICS;
+    });
+
+    if (cPool.length) {
+      var byBook = {};
+      cPool.forEach(function(it) {
+        if (!byBook[it.book]) byBook[it.book] = [];
+        byBook[it.book].push(it);
+      });
+      var books = Object.keys(byBook).sort();
+      var bookKey = books[Math.floor(rand() * books.length)];
+      var list = byBook[bookKey].slice().sort(function(a, b) { return a.step - b.step; });
+
+      if (list.length <= classicQuota) {
+        cItems = list;
+      } else {
+        var start = Math.floor(rand() * (list.length - classicQuota + 1));
+        cItems = list.slice(start, start + classicQuota);
+      }
+      cItems.forEach(function(it) { used[it.zh] = true; });
+    }
+
+    // 兜底补齐
+    function fillFrom(pool, need, arr) {
+      var i = 0;
+      while (need > 0 && i < pool.length) {
+        var it = pool[i++];
+        if (used[it.zh]) continue;
+        used[it.zh] = true;
+        arr.push(it);
+        need--;
+      }
+      return need;
+    }
+
+    var missing = 10 - (sItems.length + bItems.length + cItems.length + tItems.length);
+    if (missing > 0) missing = fillFrom(survivalPool, missing, sItems);
+    if (missing > 0) missing = fillFrom(businessPool, missing, bItems);
+    if (missing > 0) missing = fillFrom(trendPool, missing, tItems);
+    if (missing > 0) fillFrom(dataset.classics, missing, cItems);
+
+    // 按实际条数加权交错，形成节奏
+    return interleaveByWeight([
+      { items: sItems, weight: 5 },
+      { items: bItems, weight: 2 },
+      { items: cItems, weight: classicQuota },
+      { items: tItems, weight: trendQuota }
+    ]).slice(0, 10);
+  }
+
   function getTodaySentences(category, book, isShuffle) {
     var dateStr = getLocalDateString();
     var rand = getRng(isShuffle ? null : dateStr + category + book);
 
     if (category === 'mix') {
-      var sPart = shuffle(dataset.survival, rand).slice(0, 7);
-      
-      var classicPool = dataset.classics.filter(function(item) {
-        return isPro() ? true : item.step <= FREE_STEPS_CLASSICS;
-      });
-      var cPart = shuffle(classicPool, rand).slice(0, 2);
-      
-      cPart.sort(function(a, b) {
-        if (a.book === b.book) return a.step - b.step;
-        return a.book.localeCompare(b.book);
-      });
+      return buildDailyMix(isShuffle);
 
-      var tPart = shuffle(dataset.trends.length ? dataset.trends : dataset.business, rand).slice(0, 1);
-      var mix = sPart.concat(cPart).concat(tPart);
-      return shuffle(mix, rand).slice(0, 10);
-    
     } else if (category === 'classics' && book !== 'all') {
-      var list = dataset.classics.filter(function(item) { return item.book === book; });
-      if (list.length === 0) return [];
-      
-      list.sort(function(a, b) { return a.step - b.step; });
+      var bookList = dataset.classics.filter(function(item) { return item.book === book; });
+      if (bookList.length === 0) return [];
+      bookList.sort(function(a, b) { return a.step - b.step; });
       var daySeed = new Date().getDate();
-      var startIdx = (daySeed * 10) % list.length;
-      
-      var res = [];
-      var take = Math.min(10, list.length);
-      for (var i = 0; i < take; i++) {
-        res.push(list[(startIdx + i) % list.length]);
-      }
+      var startIdx = (daySeed * 10) % bookList.length;
+      var res = [], take = Math.min(10, bookList.length);
+      for (var i = 0; i < take; i++) res.push(bookList[(startIdx + i) % bookList.length]);
       return res;
-    
+
     } else {
-      var list = dataset[category] || [];
-      return shuffle(list, rand).slice(0, 10);
+      var pool = dataset[category] || [];
+      return shuffle(pool, rand).slice(0, 10);
     }
   }
 
@@ -830,7 +842,7 @@ main::-webkit-scrollbar { display: none; }
   var synth = window.speechSynthesis, zhVoice = null;
   if (synth) {
     var initVoices = function() {
-      zhVoice = synth.getVoices().find(function(v){ return v.lang === 'zh-CN' || v.lang === 'zh_CN'; }) || 
+      zhVoice = synth.getVoices().find(function(v){ return v.lang === 'zh-CN' || v.lang === 'zh_CN'; }) ||
                 synth.getVoices().find(function(v){ return v.lang.indexOf('zh') === 0; });
     };
     initVoices();
@@ -848,7 +860,7 @@ main::-webkit-scrollbar { display: none; }
     synth.speak(u);
   }
 
-  /* ================= 8. UI 渲染 ================= */
+  /* ================= 8. 渲染 ================= */
   var $ = function(id) { return document.getElementById(id); };
   var card = $('card'), done = $('done'), btnNext = $('next'), btnListen = $('listen');
 
@@ -869,13 +881,13 @@ main::-webkit-scrollbar { display: none; }
       subChipsEl.innerHTML = subHtml;
     } else {
       subChipsEl.hidden = true;
-      curBook = 'all'; 
+      curBook = 'all';
     }
   }
 
   function renderCard() {
     var totalToday = currentList.length;
-    
+
     if (totalToday === 0) {
       card.hidden = false;
       $('num').textContent = '0 / 0';
@@ -884,6 +896,7 @@ main::-webkit-scrollbar { display: none; }
       $('english').textContent = 'Please check back later or try a different category.';
       $('usageBox').hidden = true;
       $('paywallOverlay').hidden = true;
+      $('slangBadge').hidden = true;
       btnNext.disabled = true;
       btnListen.disabled = true;
       $('fill').style.width = '0%';
@@ -896,6 +909,7 @@ main::-webkit-scrollbar { display: none; }
 
     $('cat').textContent = (CAT_LABEL[s.category] || s.category).toUpperCase();
     $('num').textContent = String(rIdx + 1).padStart(2, '0') + ' / ' + String(totalToday).padStart(2, '0');
+    $('slangBadge').hidden = (s.category !== 'trends');
 
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
@@ -905,20 +919,19 @@ main::-webkit-scrollbar { display: none; }
       if (s.step === 1) {
         $('storyIntro').hidden = false;
         var introData = STORY_INTROS[s.book] || {
-          level: 'Beginner', title: s.book, subtitle: s.displayTitle, desc: 'Follow the adventure while learning Chinese sentence by sentence.'
+          level: 'Beginner', title: s.book, subtitle: s.displayTitle,
+          desc: 'Follow the adventure while learning Chinese sentence by sentence.'
         };
         $('storyIntroMeta').textContent = 'STORY MODE · ' + introData.level.toUpperCase();
         $('storyIntroTitle').textContent = introData.title;
         $('storyIntroSubtitle').textContent = introData.subtitle;
         $('storyIntroDesc').textContent = introData.desc;
-      } else {
-        $('storyIntro').hidden = true;
-      }
+      } else { $('storyIntro').hidden = true; }
     } else {
       $('storyHeader').hidden = true;
       $('storyIntro').hidden = true;
     }
-    
+
     $('pinyin').textContent = s.pinyin;
     $('hanzi').textContent = s.zh;
     $('english').textContent = s.en;
@@ -926,11 +939,11 @@ main::-webkit-scrollbar { display: none; }
     var usage = s.usage || '';
     $('usage').textContent = usage;
     $('usageBox').hidden = !usage;
-    
+
     btnNext.disabled = false;
     btnNext.textContent = (rIdx >= totalToday - 1) ? 'Finish ✓' : 'Next →';
     $('fill').style.width = ((rIdx + 1) / totalToday * 100) + '%';
-    $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday + 
+    $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday +
       '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
 
     var isLocked = (s.category === 'classics' && !isPro() && s.step > FREE_STEPS_CLASSICS);
@@ -938,7 +951,7 @@ main::-webkit-scrollbar { display: none; }
     $('cardContent').classList.toggle('is-locked', isLocked);
     $('paywallOverlay').hidden = !isLocked;
     btnListen.disabled = isLocked;
-    
+
     if (isLocked) {
       $('proHint').hidden = false;
     } else if (s.category === 'classics' && !isPro() && cur === 'mix') {
@@ -946,9 +959,13 @@ main::-webkit-scrollbar { display: none; }
     } else {
       $('proHint').hidden = true;
     }
-    
-    card.style.opacity = '0'; card.style.transform = 'translateY(10px)';
-    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(10px)';
+    setTimeout(function() {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 50);
   }
 
   function loadNewBatch() {
@@ -960,19 +977,22 @@ main::-webkit-scrollbar { display: none; }
   }
 
   function showDone() {
-    card.hidden = true; done.hidden = false;
+    card.hidden = true;
+    done.hidden = false;
     var streakData = updateStreak();
     $('streakDisplay').textContent = streakData.streak;
     $('doneStreak').textContent = streakData.streak;
   }
 
-  /* ================= 9. 手势交互 ================= */
+  /* ================= 9. 手势 ================= */
   var startX = 0, startY = 0, isSwiping = false;
   var wrapper = $('cardWrapper');
 
   wrapper.addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-    isSwiping = false; card.style.transition = 'none';
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    isSwiping = false;
+    card.style.transition = 'none';
   }, { passive: false });
 
   wrapper.addEventListener('touchmove', function(e) {
@@ -994,22 +1014,24 @@ main::-webkit-scrollbar { display: none; }
       if (dx < -60) handleNext();
       else if (dx > 60 && rIdx > 0) handlePrev();
     }
-    startX = 0; startY = 0;
+    startX = 0;
+    startY = 0;
   });
 
   function handleNext() {
     if (synth) synth.cancel();
     collapseHero();
-    
     if (rIdx >= currentList.length - 1) { showDone(); return; }
-    rIdx++; renderCard(); setTimeout(playAudio, 300);
+    rIdx++;
+    renderCard();
+    setTimeout(playAudio, 300);
   }
   function handlePrev() {
     if (synth) synth.cancel();
     if (rIdx > 0) { rIdx--; renderCard(); setTimeout(playAudio, 300); }
   }
 
-  /* ================= 10. 事件绑定 ================= */
+  /* ================= 10. 事件 ================= */
   $('chips').addEventListener('click', function(e) {
     var b = e.target.closest('.chip');
     if (!b) return;
@@ -1045,12 +1067,11 @@ main::-webkit-scrollbar { display: none; }
   /* ================= 11. 分享 ================= */
   $('shareTextBtn').addEventListener('click', function() {
     var streak = loadStreak().streak || 0;
-    var shareText = 
-      "🔥 I just completed Day " + streak + 
-      " of HanLingo!\n" + 
-      "Learning real Chinese through sentences and stories.\n" + 
+    var shareText =
+      "🔥 I just completed Day " + streak +
+      " of HanLingo!\n" +
+      "Learning real Chinese through sentences and stories.\n" +
       "Join me at https://hanlingo.app";
-      
     navigator.clipboard.writeText(shareText).then(function() {
       var btn = $('shareTextBtn');
       var orig = btn.textContent;
@@ -1061,7 +1082,7 @@ main::-webkit-scrollbar { display: none; }
 
   $('shareImgBtn').addEventListener('click', function() {
     var s = currentList[rIdx] || currentList[0];
-    if(!s) return;
+    if (!s) return;
     $('sharePinyin').textContent = s.pinyin;
     $('shareHanzi').textContent = s.zh;
     $('shareEnglish').textContent = s.en;
@@ -1073,7 +1094,8 @@ main::-webkit-scrollbar { display: none; }
       link.download = 'HanLingo-Daily10.png';
       link.href = imgData;
       if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        var w = window.open(); w.document.write('<img src="' + imgData + '" style="width:100%; display:block;" />');
+        var w = window.open();
+        w.document.write('<img src="' + imgData + '" style="width:100%; display:block;" />');
       } else { link.click(); }
     });
   });
