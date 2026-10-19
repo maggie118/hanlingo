@@ -7,13 +7,13 @@
 <meta name="theme-color" content="#F4F3EF">
 <meta name="description" content="Learn practical Mandarin through real-life sentences, audio, and engaging Chinese stories. Start with a short daily learning session.">
 
-<!-- iOS PWA 专属配置 -->
+<!-- iOS PWA -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="HanLingo">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
-<!-- 社交分享 Meta Tags -->
+<!-- Social -->
 <meta property="og:title" content="HanLingo — Real Chinese for Real Life">
 <meta property="og:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
 <meta property="og:url" content="https://hanlingo.app/">
@@ -52,19 +52,30 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
   display: flex; flex-direction: column; position: relative;
 }
 
-.btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn, .pw-plan, .pw-plan input {
+.btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn {
   touch-action: manipulation; user-select: none; -webkit-user-select: none;
 }
 
 /* 顶部 */
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .brand { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: var(--text); }
-.meta-right { display: flex; align-items: center; gap: 12px; }
+.meta-right { display: flex; align-items: center; gap: 10px; }
 .time-badge { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
 .streak { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
 .streak b { color: var(--accent); font-size: 16px; font-variant-numeric: tabular-nums; }
 .review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 4px; }
 .review-btn:hover { color: var(--accent); }
+
+/* 同步状态徽章 */
+.sync-badge {
+  display: flex; align-items: center; gap: 3px;
+  background: transparent; border: none; cursor: pointer;
+  font: 600 11px/1 var(--sans);
+  color: var(--muted);
+  padding: 4px 7px; border-radius: 6px;
+  transition: .15s;
+}
+.sync-badge:hover { color: var(--accent); background: var(--accent-soft); }
 
 /* 欢迎区域 */
 .hero { margin: 24px 0 20px; text-align: left; animation: fadeIn 0.4s ease both; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -189,7 +200,6 @@ main::-webkit-scrollbar { display: none; }
 .bottom-tools { display: flex; justify-content: center; gap: 12px; margin-top: 16px; }
 .tool-btn { background: transparent; border: none; font-size: 12px; color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 500; }
 .tool-btn:hover { color: var(--accent); }
-.tool-btn.pro-lock::after { content: "🔒"; font-size: 10px; margin-left: 2px; }
 
 .pro-hint { margin-top: 12px; font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 10px; cursor: pointer; transition: .2s; font-weight: 500; text-align: center; }
 .pro-hint:hover { background: rgba(192,88,75,.15); }
@@ -210,47 +220,13 @@ main::-webkit-scrollbar { display: none; }
 .quote-en { display: block; font-size: 14px; color: var(--text); opacity: 0.8; font-style: italic; }
 .done .actions { flex-direction: column; width: 100%; max-width: 280px; margin-top: 12px; }
 
-/* Paywall 弹窗 */
+/* 通用弹窗 */
 .modal-overlay { position: fixed; inset: 0; background: rgba(44,48,46,.6); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; animation: fadeIn 0.2s ease both; }
 .paywall-clean { background: var(--card); border-radius: 24px; padding: 32px 28px 24px; text-align: left; max-width: 400px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.3); border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
 .pw-header { margin-bottom: 20px; }
 .pw-eyebrow { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
 .paywall-clean h2 { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
 .pw-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.4; }
-
-/* 套餐选择器 */
-.pw-plans { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.pw-plan { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all .2s; background: var(--card); }
-.pw-plan:hover { border-color: var(--muted); }
-.pw-plan.active { border-color: var(--accent); background: var(--accent-soft); }
-.pw-plan input[type="radio"] { position: absolute; opacity: 0; cursor: pointer; }
-.pw-plan-info { display: flex; flex-direction: column; gap: 4px; width: 100%; }
-.pw-plan-info strong { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; justify-content: space-between; }
-.pw-plan-info span { font-size: 14px; color: var(--muted); }
-.pw-plan.active .pw-plan-info strong { color: var(--accent); }
-.pw-plan.active .pw-plan-info span { color: var(--text); opacity: 0.8; }
-.pw-plan-info .badge { font-size: 10px; padding: 2px 6px; background: var(--accent); color: #fff; border-radius: 4px; font-weight: 700; }
-.pw-plan-info small { font-size: 12px; opacity: 0.8; font-weight: normal; margin-left: 4px; }
-
-.pw-divider { border: none; border-top: 1px solid var(--border); margin: 0 -28px 20px; }
-.pw-perks { list-style: none; padding: 0; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 16px; }
-.pw-perks li { display: flex; align-items: flex-start; gap: 12px; }
-.pw-icon { flex: none; width: 20px; height: 20px; border-radius: 50%; background: rgba(46, 139, 87, 0.1); color: #2E8B57; display: grid; place-items: center; font-size: 12px; font-weight: 900; margin-top: 2px; }
-.pw-text { display: flex; flex-direction: column; gap: 2px; }
-.pw-text strong { font-size: 14px; font-weight: 600; color: var(--text); }
-.pw-text span { font-size: 13px; color: var(--muted); line-height: 1.4; }
-
-/* 付费弹窗内的好评 */
-.pw-social-proof { background: var(--bg); border-radius: 12px; padding: 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--border); }
-.pw-sp-icon { color: var(--gold); font-size: 14px; }
-.pw-sp-text { font-size: 13px; color: var(--text); line-height: 1.4; font-style: italic; }
-.pw-sp-author { font-size: 11px; color: var(--muted); margin-top: 6px; font-weight: 600; text-align: right; }
-
-.pw-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-.pw-actions .btn { width: 100%; padding: 16px; font-size: 16px; }
-.pw-actions .later-btn { background: transparent; border: none; color: var(--muted); font-weight: 500; padding: 8px; cursor: pointer; transition: color .2s; }
-.pw-actions .later-btn:hover { color: var(--text); }
-.pw-disclaimer { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.4; opacity: 0.7; }
 
 /* 历史复习弹窗 */
 .review-modal .modal-content { max-height: 80vh; display: flex; flex-direction: column; }
@@ -291,66 +267,125 @@ main::-webkit-scrollbar { display: none; }
 .confetti:nth-child(10) { left: 90%; animation-delay: 0.4s; background: #C0584B; }
 @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 1; } 100% { transform: translateY(400px) rotate(360deg); opacity: 0; } }
 
-/* 手机矮屏适配 */
-@media (max-height: 700px) {
-  .app {
-    padding-top: max(12px, env(safe-area-inset-top));
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
-    padding-left: max(16px, env(safe-area-inset-left));
-    padding-right: max(16px, env(safe-area-inset-right));
-  }
-  .top { gap: 8px; }
-  .hero { margin: 10px 0 12px; }
-  .hero h1 { font-size: 20px; margin-bottom: 6px; }
-  .hero-sub { font-size: 13px; margin-bottom: 12px; }
-  .hero-card { padding: 12px; margin-bottom: 10px; }
-  .hero-card h2 { font-size: 15px; }
-  .hero-card p { font-size: 13px; margin-bottom: 8px; }
-  .progress-bar { margin: 0 0 10px; }
-  .chips-container { margin-bottom: 8px; gap: 4px; }
-  .chips { padding-bottom: 4px; }
-  .chip { padding: 6px 10px; font-size: 11.5px; }
-  .sub-chip { padding: 4px 10px; font-size: 11px; }
-  .card { padding: 16px 16px 20px; }
-  .meta { margin-bottom: 10px; }
-  .pinyin { font-size: 18px; margin-top: 4px; }
-  .hanzi { font-size: clamp(26px, 7vw, 36px); margin-top: 8px; }
-  .rule { margin: 14px auto 10px; }
-  .english { font-size: 15px; min-height: 2.4em; margin-top: 8px; }
-  .usage-box { margin-top: 14px; padding: 12px; }
-  .actions { margin-top: 16px; }
-  .btn { padding: 12px; font-size: 14px; }
-  .repeat-hint { margin-top: 8px; font-size: 11px; }
-  .bottom-info { margin-top: 8px; font-size: 12px; }
-  .bottom-tools { margin-top: 8px; }
-  .done h2 { margin-top: 10px; font-size: 20px; }
-  .paywall-clean { padding: 24px 20px; }
-  .pw-plan { padding: 10px 14px; }
-  .pw-perks { gap: 12px; }
+/* ================= Sync Modal（阶段 2） ================= */
+#syncModal { z-index: 210; background: rgba(18, 20, 19, .48); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); padding: 16px; }
+.sync-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px 22px 18px;
+  text-align: center;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .45);
+  animation: pwRise .28s cubic-bezier(.2, .8, .2, 1) both;
+}
+.sync-emoji { font-size: 52px; line-height: 1; margin-bottom: 10px; display: inline-block; animation: firePop .7s cubic-bezier(.175, .885, .32, 1.275) both; }
+.sync-card h2 { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1.22; margin-bottom: 8px; letter-spacing: -.01em; }
+.sync-sub { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-bottom: 18px; text-align: left; }
+.sync-sub b { color: var(--text); font-weight: 700; }
+
+.sync-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+.sync-google {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; appearance: none; cursor: pointer;
+  font: 600 14px/1 var(--sans);
+  padding: 13px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  transition: .18s;
+}
+.sync-google:hover { border-color: var(--text); background: #FAFAF8; }
+.sync-google:disabled { opacity: .7; cursor: wait; }
+.sync-google-icon {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: conic-gradient(from 0deg, #4285F4, #34A853, #FBBC05, #EA4335, #4285F4);
+  display: grid; place-items: center;
+  color: #fff; font-weight: 900; font-size: 11px;
+  flex: none;
 }
 
-/* ================= Paywall v2 ================= */
+.sync-divider {
+  position: relative;
+  text-align: center;
+  margin: 4px 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.sync-divider::before, .sync-divider::after {
+  content: ""; position: absolute; top: 50%; width: 38%; height: 1px;
+  background: var(--border);
+}
+.sync-divider::before { left: 0; }
+.sync-divider::after { right: 0; }
+.sync-divider span { background: var(--card); padding: 0 10px; position: relative; }
+
+.sync-email-form { display: flex; flex-direction: column; gap: 8px; }
+.sync-input {
+  width: 100%; appearance: none;
+  font: 500 14px/1.4 var(--sans);
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+  user-select: text; -webkit-user-select: text;
+}
+.sync-input::placeholder { color: #B5B8B3; }
+.sync-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+.sync-submit { width: 100%; flex: none; padding: 13px; font-size: 14px; }
+
+.sync-later {
+  display: block; width: 100%;
+  margin-top: 6px; padding: 8px;
+  background: transparent; border: none;
+  color: var(--muted); font: 500 13px/1 var(--sans);
+  cursor: pointer;
+}
+.sync-later:hover { color: var(--text); }
+
+.sync-privacy {
+  margin-top: 8px;
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  opacity: .85;
+}
+
+/* ================= Paywall ================= */
 #paywallModal {
   --pw-accent: #E63946;
   --pw-accent-press: #C92F3B;
   --pw-accent-soft: #FFF1F2;
   --pw-gold: #FFB703;
+  --pw-green: #2E8B57;
 }
 
-/* 毛玻璃遮罩 */
 #paywallModal.modal-overlay {
   background: rgba(18, 20, 19, .45);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  padding: 16px;
+  padding: 14px;
 }
 
 #paywallModal .paywall-clean {
   position: relative;
-  max-width: 420px;
-  max-height: calc(100dvh - 32px);
-  padding: 24px 22px 18px;
-  border-radius: 22px;
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100dvh - 28px);
+  padding: 24px 18px 16px;
+  border-radius: 24px;
   overflow-y: auto;
   overscroll-behavior: contain;
   animation: pwRise .28s cubic-bezier(.2, .8, .2, 1) both;
@@ -360,203 +395,341 @@ main::-webkit-scrollbar { display: none; }
   to   { opacity: 1; transform: none; }
 }
 
-/* 关闭按钮 */
 #paywallModal .pw-close {
-  position: absolute; top: 12px; right: 12px;
+  position: absolute; top: 10px; right: 10px;
   width: 34px; height: 34px; border-radius: 50%;
   border: 1px solid var(--border); background: var(--card);
   color: var(--muted); font-size: 15px; line-height: 1;
   display: grid; place-items: center; cursor: pointer;
-  transition: .18s; z-index: 3;
+  transition: .18s; z-index: 6;
 }
 #paywallModal .pw-close:hover {
   color: var(--text); border-color: var(--text); transform: rotate(90deg);
 }
 
-/* Header */
-#paywallModal .pw-header { margin-bottom: 16px; padding-right: 38px; }
+#paywallModal .pw-header { margin-bottom: 14px; padding-right: 40px; }
 #paywallModal .pw-eyebrow { color: var(--pw-accent); margin-bottom: 8px; }
-#paywallModal h2 { font-size: 23px; line-height: 1.25; margin-bottom: 6px; }
-#paywallModal .pw-subtitle { font-size: 13px; margin-bottom: 0; }
+#paywallModal h2 { font-size: 22px; line-height: 1.25; margin-bottom: 6px; letter-spacing: -.01em; }
+#paywallModal .pw-subtitle { font-size: 13px; margin-bottom: 8px; line-height: 1.45; }
+#paywallModal .pw-trustline {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+  font-size: 11px; color: var(--muted); font-weight: 600;
+}
 
-/* 新增：核心权益列表 */
-#paywallModal .pw-features-wrap {
-  background: #FAFAF8;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-}
-#paywallModal .pw-features-hint {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-#paywallModal .pw-features {
-  list-style: none;
-  padding: 0; margin: 0;
-  display: flex; flex-direction: column; gap: 6px;
-}
-#paywallModal .pw-features li {
+#paywallModal .pw-intent-banner {
   display: flex; align-items: flex-start; gap: 8px;
-  font-size: 12.5px; color: var(--text); line-height: 1.4;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #FFF7E6;
+  border: 1px solid #FFE0A3;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #7A5100;
+  animation: fadeIn .25s ease both;
 }
-#paywallModal .pw-features .check {
-  color: #2E8B57; font-weight: 900; font-size: 13px; margin-top: 1px; flex: none;
-}
-#paywallModal .pw-features strong { font-weight: 600; }
+#paywallModal .pw-intent-banner .ic { flex: none; font-size: 14px; }
+#paywallModal .pw-intent-banner strong { font-weight: 800; }
 
-/* 方案卡片 */
-#paywallModal .pw-plans { gap: 8px; margin-bottom: 14px; }
-#paywallModal .pw-plan {
-  padding: 12px 14px;
-  border-width: 1.5px;
-  border-radius: 14px;
-  align-items: center;
-  transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+#paywallModal .pw-plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
 }
-#paywallModal .pw-plan-info { gap: 1px; }
-#paywallModal .pw-plan-info strong {
-  display: block;
-  font-size: 14.5px;
-  color: var(--text);
+
+#paywallModal .pw-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 15px 14px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
 }
-#paywallModal .pw-plan-info > span {
-  display: block;
-  font-size: 13px;
-  color: var(--muted);
-}
-#paywallModal .pw-plan-info small {
-  display: block;
-  margin-left: 0;
-  margin-top: 1px;
-  font-size: 11.5px;
-  color: var(--muted);
-}
-#paywallModal .pw-plan.active {
+#paywallModal .pw-card.active {
   border-color: var(--pw-accent);
-  background: var(--pw-accent-soft);
   box-shadow: 0 0 0 3px rgba(230, 57, 70, .08);
 }
-#paywallModal .pw-plan.active .pw-plan-info strong { color: var(--pw-accent); }
 
-/* 主力款上浮 */
-#paywallModal .pw-plan--featured {
-  transform: translateY(-2px);
-  border-color: rgba(230, 57, 70, .55);
-  box-shadow: 0 8px 20px -10px rgba(230, 57, 70, .35);
+#paywallModal .pw-card-name {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-#paywallModal .pw-plan--featured.active { transform: translateY(-2px); }
 
-/* 角标 */
-#paywallModal .pw-badge {
-  position: absolute; top: -9px; right: 12px;
-  background: var(--pw-gold); color: #1E1E1E;
-  font-size: 9.5px; font-weight: 800; letter-spacing: .04em;
-  padding: 3px 7px; border-radius: 999px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+#paywallModal .pw-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 1px 0 2px;
+}
+#paywallModal .pw-card-price b {
+  font-size: 25px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.025em;
+  font-variant-numeric: tabular-nums;
+}
+#paywallModal .pw-card-price span {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+#paywallModal .pw-card-sub {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+  min-height: 1.35em;
+}
+
+#paywallModal .pw-card-notes {
+  list-style: none;
+  margin: 9px 0 11px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+#paywallModal .pw-card-notes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+#paywallModal .pw-card-notes li .ic { flex: none; font-weight: 900; font-size: 10px; margin-top: 2px; }
+#paywallModal .pw-card-notes li.ok { color: var(--pw-green); font-weight: 700; }
+#paywallModal .pw-card-notes li.ok .ic { color: var(--pw-green); }
+#paywallModal .pw-card-notes li.no { color: #A9ADA8; }
+#paywallModal .pw-card-notes li.no .ic { color: #C4C7C3; }
+
+#paywallModal .pw-card-cta {
+  width: 100%;
+  appearance: none;
+  cursor: pointer;
+  font: 700 13.5px/1.2 var(--sans);
+  padding: 11px 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  transition: .18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+#paywallModal .pw-card-cta:hover { border-color: var(--text); }
+#paywallModal .pw-card-cta:active { transform: scale(.98); }
+#paywallModal .pw-card-cta[disabled] { cursor: not-allowed; }
+
+#paywallModal .pw-card--featured {
+  border-color: var(--pw-accent);
+  background: linear-gradient(180deg, #FFF6F6 0%, #FFFFFF 48%);
+  box-shadow: 0 12px 30px -16px rgba(230, 57, 70, .6);
+}
+#paywallModal .pw-card--featured .pw-card-name { color: var(--pw-accent); }
+#paywallModal .pw-card--featured .pw-card-price b { color: var(--pw-accent); }
+#paywallModal .pw-card--featured .pw-card-cta {
+  background: var(--pw-accent);
+  border-color: var(--pw-accent);
+  color: #fff;
+  font-size: 14px;
+  padding: 13px 10px;
+  box-shadow: 0 10px 22px -10px rgba(230, 57, 70, .85);
+}
+#paywallModal .pw-card--featured .pw-card-cta:hover {
+  background: var(--pw-accent-press);
+  border-color: var(--pw-accent-press);
+  transform: translateY(-1px);
+}
+
+#paywallModal .pw-card-fine {
+  margin-top: 7px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: center;
+}
+
+#paywallModal .pw-card-badge {
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  background: var(--pw-gold);
+  color: #1E1E1E;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .14);
   white-space: nowrap;
 }
-#paywallModal .pw-badge--crown { background: #2C302E; color: #FFD166; }
+#paywallModal .pw-card-badge--crown { background: #2C302E; color: #FFD166; }
 
-/* CTA */
-#paywallModal .pw-cta {
-  width: 100%; flex: none;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 16px; font-size: 16px;
-  border-radius: 14px; margin-top: 2px;
-  background: var(--pw-accent); border-color: var(--pw-accent);
-  box-shadow: 0 10px 24px -10px rgba(230, 57, 70, .7);
-  transition: transform .15s, background .2s, box-shadow .2s;
+#paywallModal .pw-btn-loading { display: none; align-items: center; justify-content: center; gap: 7px; }
+#paywallModal .pw-card-cta.is-loading .pw-btn-label { display: none; }
+#paywallModal .pw-card-cta.is-loading .pw-btn-loading { display: inline-flex; }
+#paywallModal .pw-card-cta.is-loading,
+#paywallModal .pw-card-cta.is-loading:hover {
+  opacity: 1; cursor: wait; transform: none;
 }
-#paywallModal .pw-cta:hover {
-  background: var(--pw-accent-press);
-  transform: scale(1.02);
-}
-#paywallModal .pw-cta:active { transform: scale(.99); }
-
-/* Loading 状态：Spinner + 文案 */
-#paywallModal .pw-cta-loading { display: none; align-items: center; gap: 8px; }
 #paywallModal .pw-spinner {
-  width: 16px; height: 16px; flex: none;
-  border: 2px solid rgba(255, 255, 255, .4);
+  width: 14px; height: 14px; flex: none;
+  border: 2px solid rgba(255, 255, 255, .45);
   border-top-color: #fff; border-radius: 50%;
   animation: pwSpin .7s linear infinite;
 }
-#paywallModal .pw-cta.is-loading .pw-cta-label { display: none; }
-#paywallModal .pw-cta.is-loading .pw-cta-loading { display: inline-flex; }
-#paywallModal .pw-cta.is-loading,
-#paywallModal .pw-cta.is-loading:hover {
-  opacity: 1; cursor: wait; transform: none;
-  background: var(--pw-accent);
-}
+#paywallModal .pw-card-cta:not(.is-loading) .pw-spinner { border-top-color: var(--pw-accent); }
 @keyframes pwSpin { to { transform: rotate(360deg); } }
 
-#paywallModal .pw-cta-sub {
-  margin: 6px 0 8px;
-  text-align: center;
-  font-size: 11.5px;
+#paywallModal .pw-roadmap {
+  background: #FAFAF8;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 15px;
+  margin-bottom: 10px;
+}
+#paywallModal .pw-roadmap-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
   color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  margin-bottom: 10px;
+}
+#paywallModal .pw-roadmap ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+}
+#paywallModal .pw-roadmap li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+#paywallModal .pw-roadmap li .tick {
+  flex: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: rgba(46, 139, 87, .12);
+  color: var(--pw-green);
+  display: grid; place-items: center;
+  font-size: 9px; font-weight: 900;
+  margin-top: 1px;
+}
+#paywallModal .pw-roadmap li strong { font-weight: 700; }
+#paywallModal .pw-roadmap li small { color: var(--muted); font-weight: 500; }
+#paywallModal .pw-roadmap-note {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
-/* Powered by Stripe */
-#paywallModal .pw-powered {
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-  margin: 0 0 12px;
-  font-size: 10.5px; color: var(--muted);
+#paywallModal .pw-pay-methods {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 10px;
 }
-#paywallModal .pw-powered .stripe-mark {
-  font-weight: 800; font-size: 13px; letter-spacing: -.02em;
-  color: #635BFF;
-}
-
-/* 信任锚点 */
-#paywallModal .pw-trust {
-  border-top: 1px solid var(--border);
-  padding-top: 12px;
-  text-align: center;
-}
-#paywallModal .pw-pay-icons {
-  display: flex; justify-content: center; flex-wrap: wrap;
-  gap: 6px; margin-bottom: 8px;
-}
-#paywallModal .pw-pay-icons span {
+#paywallModal .pw-pay-methods span {
   font-size: 9.5px; font-weight: 700; letter-spacing: .02em;
   color: #8A8E89; background: #F5F5F2;
   border: 1px solid var(--border); border-radius: 5px;
   padding: 3px 6px;
 }
-#paywallModal .pw-trust p {
-  font-size: 10.5px; color: var(--muted); line-height: 1.5;
-}
 
 #paywallModal .pw-later {
   display: block; width: 100%;
-  margin-top: 8px; padding: 8px;
+  margin-top: 2px; padding: 9px;
   background: transparent; border: none;
   color: var(--muted); font: 500 13px/1 var(--sans);
   cursor: pointer;
 }
 #paywallModal .pw-later:hover { color: var(--text); }
 
-/* 矮屏压缩，保证 CTA 在第一屏 */
-@media (max-height: 700px) {
-  #paywallModal .paywall-clean { padding: 18px 16px 12px; border-radius: 18px; }
+@media (max-height: 720px) and (max-width: 759px) {
+  #paywallModal .paywall-clean { padding: 18px 14px 12px; border-radius: 18px; }
   #paywallModal h2 { font-size: 19px; }
-  #paywallModal .pw-subtitle { font-size: 12px; }
-  #paywallModal .pw-features-wrap { padding: 10px 12px; margin-bottom: 12px; }
-  #paywallModal .pw-features li { font-size: 11.5px; }
-  #paywallModal .pw-plan { padding: 9px 12px; }
-  #paywallModal .pw-plan-info small { font-size: 10.5px; }
-  #paywallModal .pw-cta { padding: 13px; font-size: 15px; }
-  #paywallModal .pw-trust p { font-size: 10px; }
+  #paywallModal .pw-subtitle { font-size: 12px; margin-bottom: 6px; }
+  #paywallModal .pw-header { margin-bottom: 12px; }
+  #paywallModal .pw-card { padding: 12px 12px 11px; }
+  #paywallModal .pw-card-price b { font-size: 21px; }
+  #paywallModal .pw-card-notes { margin: 7px 0 8px; gap: 3px; }
+  #paywallModal .pw-card-cta { padding: 10px; font-size: 12.5px; }
+  #paywallModal .pw-card--featured .pw-card-cta { padding: 11px; font-size: 13px; }
+  #paywallModal .pw-card-fine { font-size: 9.5px; }
+  #paywallModal .pw-roadmap { padding: 11px 12px; }
+  #paywallModal .pw-roadmap li { font-size: 11.5px; }
+  #paywallModal .pw-intent-banner { font-size: 11.5px; padding: 8px 10px; margin-bottom: 10px; }
 }
 
-/* ================= Toast（cancel_url 友好提示） ================= */
+/* ================= Streak Broken Modal ================= */
+#streakBrokenModal {
+  z-index: 150;
+  background: rgba(18, 20, 19, .5);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding: 16px;
+}
+.sb-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px 22px 18px;
+  text-align: center;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .45);
+  animation: pwRise .28s cubic-bezier(.2, .8, .2, 1) both;
+}
+.sb-emoji {
+  font-size: 52px; line-height: 1; margin-bottom: 12px;
+  display: inline-block;
+  animation: sbShake .9s ease-in-out both;
+}
+@keyframes sbShake {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-9deg); }
+  40% { transform: rotate(8deg); }
+  60% { transform: rotate(-5deg); }
+  80% { transform: rotate(3deg); }
+}
+.sb-card h2 { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1.22; margin-bottom: 8px; letter-spacing: -.01em; }
+.sb-card .sb-sub { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+.sb-card .sb-sub b { color: var(--accent); font-weight: 800; }
+.sb-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; text-align: left; }
+.sb-col { border: 1px solid var(--border); border-radius: 14px; padding: 12px; background: #FAFAF8; }
+.sb-col.sb-pro { border-color: var(--accent); background: var(--accent-soft); }
+.sb-col-title { font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.sb-col.sb-pro .sb-col-title { color: var(--accent); }
+.sb-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.sb-col li { font-size: 11.5px; line-height: 1.35; color: var(--text); }
+.sb-col.sb-free li { color: #A9ADA8; }
+.sb-col.sb-pro li { font-weight: 600; }
+.sb-card .btn { width: 100%; flex: none; font-size: 15px; padding: 15px 12px; }
+.sb-card .sb-later { display: block; width: 100%; margin-top: 8px; padding: 8px; background: transparent; border: none; color: var(--muted); font: 500 13px/1 var(--sans); cursor: pointer; }
+.sb-card .sb-later:hover { color: var(--text); }
+
+/* ================= Toast ================= */
 .toast {
   position: fixed;
   top: max(14px, env(safe-area-inset-top));
@@ -584,7 +757,7 @@ main::-webkit-scrollbar { display: none; }
 }
 .toast-close:hover { color: var(--text); }
 
-/* ================= Pro Welcome（success_url 全屏庆祝） ================= */
+/* ================= Pro Welcome ================= */
 .pro-welcome {
   position: fixed; inset: 0; z-index: 250;
   display: flex; align-items: center; justify-content: center;
@@ -619,23 +792,40 @@ main::-webkit-scrollbar { display: none; }
   animation: pop .5s cubic-bezier(.175, .885, .32, 1.275) both;
 }
 .pro-welcome-emoji { font-size: 56px; line-height: 1; margin-bottom: 12px; }
-.pro-welcome-card h2 {
-  font-size: 24px; font-weight: 800; color: var(--text);
-  line-height: 1.2; margin-bottom: 8px;
+.pro-welcome-card h2 { font-size: 24px; font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 8px; }
+.pro-welcome-card > p { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+.pro-welcome-email {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: 10px;
 }
-.pro-welcome-card > p {
-  font-size: 14px; color: var(--muted);
-  line-height: 1.5; margin-bottom: 18px;
+.pro-welcome-merge {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  background: #F8F8F6;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  text-align: left;
 }
+.pro-welcome-merge b { color: var(--accent); font-weight: 800; }
 .pro-welcome-perks {
   list-style: none; text-align: left;
   display: flex; flex-direction: column; gap: 8px;
   margin: 0 0 22px;
 }
-.pro-welcome-perks li {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 13px; color: var(--text);
-}
+.pro-welcome-perks li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
 .pro-welcome-perks li::before {
   content: "✓"; flex: none;
   width: 18px; height: 18px; border-radius: 50%;
@@ -646,10 +836,10 @@ main::-webkit-scrollbar { display: none; }
 .pro-welcome-card .btn { width: 100%; flex: none; }
 .pro-welcome-card .btn + .btn { margin-top: 8px; }
 
-/* ================= Desktop / Apple-like Experience ================= */
+/* ================= Desktop ================= */
 @media (min-width: 1024px) {
   body { overflow-y: auto; background: #F4F3EF; }
-  
+
   .app {
     max-width: 1280px;
     height: auto;
@@ -660,15 +850,8 @@ main::-webkit-scrollbar { display: none; }
     padding: 60px 48px;
     gap: 80px;
   }
-  
-  /* 左侧品牌与信息区 */
-  header {
-    flex: 1;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+
+  header { flex: 1; max-width: 480px; display: flex; flex-direction: column; justify-content: center; }
   .top { margin-bottom: 40px; }
   .hero { margin: 0 0 40px 0; animation: none; }
   .hero h1 { font-size: 48px; line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.02em; }
@@ -677,41 +860,31 @@ main::-webkit-scrollbar { display: none; }
   .hero-card h2 { font-size: 20px; margin-bottom: 8px; }
   .hero-card p { font-size: 15px; margin-bottom: 16px; }
   .hero-link { font-size: 16px; }
-
-  /* 展开折叠的 Hero */
   .hero.compact { margin: 0 0 40px 0; padding: 0; background: transparent; }
   .hero.compact h1 { font-size: 48px; }
   .hero.compact .hero-sub { font-size: 19px; margin-bottom: 36px; }
   .hero.compact .hero-card { display: block; }
 
-  /* 导航与分类 */
   .chips-container { margin-bottom: 0; gap: 12px; }
   .chips { flex-wrap: wrap; overflow: visible; padding: 0; gap: 10px; }
   .chip { font-size: 14px; padding: 12px 20px; }
   .sub-chips { flex-wrap: wrap; overflow: visible; padding: 0; margin-top: 8px; }
   .sub-chip { font-size: 13px; padding: 8px 16px; }
-  .progress-bar { display: none; } /* 桌面端不需要顶部细进度条 */
+  .progress-bar { display: none; }
 
-  /* 右侧卡片体验区 */
   main {
-    flex: 1.2;
-    max-width: 680px;
-    overflow: visible;
-    padding-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 1.2; max-width: 680px;
+    overflow: visible; padding-bottom: 0;
+    display: flex; flex-direction: column; justify-content: center;
     position: relative;
   }
   .card-wrapper { margin: 0; width: 100%; perspective: none; }
   .card {
-    padding: 64px 56px;
-    border-radius: 32px;
+    padding: 64px 56px; border-radius: 32px;
     box-shadow: 0 40px 80px -24px rgba(44,48,46,.12), 0 10px 20px -10px rgba(0,0,0,.04);
     transition: box-shadow 0.3s ease;
   }
   .card:hover { box-shadow: 0 48px 96px -24px rgba(44,48,46,.16), 0 10px 20px -10px rgba(0,0,0,.05); }
-  
   .meta { margin-bottom: 24px; }
   .cat { font-size: 12px; }
   .num { font-size: 13px; }
@@ -722,23 +895,15 @@ main::-webkit-scrollbar { display: none; }
   .usage-box { margin-top: 36px; padding: 24px; border-radius: 16px; }
   .usage-title { font-size: 12px; margin-bottom: 8px; }
   .usage-text { font-size: 16px; }
-  
   .actions { margin-top: 48px; gap: 16px; }
   .btn { padding: 20px; font-size: 18px; border-radius: 16px; }
   .repeat-hint { margin-top: 20px; font-size: 14px; }
-  
   .bottom-tools { margin-top: 24px; }
   .tool-btn { font-size: 14px; }
   .bottom-info { margin-top: 32px; font-size: 15px; }
   .bottom-info span.hint { font-size: 13px; }
 
-  /* 完成页 */
-  .done {
-    border-radius: 32px;
-    padding: 48px;
-    background: var(--card);
-    box-shadow: 0 40px 80px -24px rgba(44,48,46,.15);
-  }
+  .done { border-radius: 32px; padding: 48px; background: var(--card); box-shadow: 0 40px 80px -24px rgba(44,48,46,.15); }
   .done h2 { font-size: 32px; margin-top: 24px; }
   .done p { font-size: 18px; }
   .celebrate { font-size: 100px; }
@@ -748,22 +913,45 @@ main::-webkit-scrollbar { display: none; }
   .done .actions { flex-direction: row; max-width: 100%; gap: 16px; margin-top: 24px; }
   .done .btn { flex: 1; padding: 18px; font-size: 16px; }
 
-  /* 支付弹窗与提示 */
-  #paywallModal .paywall-clean { max-width: 480px; padding: 32px; border-radius: 28px; }
-  #paywallModal h2 { font-size: 26px; }
-  #paywallModal .pw-plan { padding: 16px; }
-  #paywallModal .pw-plan-info strong { font-size: 16px; }
-  #paywallModal .pw-plan-info small { font-size: 13px; }
-  #paywallModal .pw-cta { padding: 18px; font-size: 18px; }
-  #paywallModal .pw-features-wrap { padding: 16px 20px; }
-  #paywallModal .pw-features li { font-size: 14px; }
-  
+  /* Paywall 桌面化 */
+  #paywallModal .paywall-clean { max-width: 900px; padding: 34px 34px 22px; border-radius: 28px; }
+  #paywallModal h2 { font-size: 28px; }
+  #paywallModal .pw-subtitle { font-size: 14.5px; }
+  #paywallModal .pw-plans-grid {
+    grid-template-columns: 1fr 1.12fr 1fr;
+    gap: 16px; align-items: stretch;
+    margin-bottom: 20px; padding-top: 8px;
+  }
+  #paywallModal .pw-card { padding: 18px 16px 16px; }
+  #paywallModal .pw-card--featured { transform: translateY(-6px); }
+  #paywallModal .pw-card-price b { font-size: 28px; }
+  #paywallModal .pw-card-sub { font-size: 12px; }
+  #paywallModal .pw-card-notes li { font-size: 12px; }
+  #paywallModal .pw-card-cta { padding: 12px; font-size: 14px; }
+  #paywallModal .pw-card--featured .pw-card-cta { padding: 14px; font-size: 15px; }
+  #paywallModal .pw-card-fine { font-size: 10.5px; }
+  #paywallModal .pw-roadmap { padding: 18px 20px; }
+  #paywallModal .pw-roadmap ul { grid-template-columns: 1fr 1fr; gap: 10px 26px; }
+  #paywallModal .pw-roadmap li { font-size: 13px; }
+
+  /* 断卡弹窗桌面化 */
+  .sb-card { max-width: 440px; padding: 34px 30px 22px; border-radius: 28px; }
+  .sb-card h2 { font-size: 26px; }
+  .sb-card .sb-sub { font-size: 15px; }
+  .sb-col li { font-size: 13px; }
+  .sb-card .btn { font-size: 17px; padding: 17px 12px; }
+
+  /* Sync 弹窗桌面化 */
+  .sync-card { max-width: 440px; padding: 34px 30px 22px; border-radius: 28px; }
+  .sync-card h2 { font-size: 26px; }
+  .sync-sub { font-size: 15px; }
+  .sync-input, .sync-google, .sync-submit { padding: 14px; font-size: 15px; }
+
   .toast { max-width: 480px; padding: 16px 20px; font-size: 15px; }
 
-  /* 烟花全屏庆祝页 */
   .pro-welcome-card { max-width: 440px; padding: 48px 36px 36px; border-radius: 32px; }
   .pro-welcome-card h2 { font-size: 32px; margin-bottom: 12px; }
-  .pro-welcome-card > p { font-size: 16px; margin-bottom: 24px; }
+  .pro-welcome-card > p { font-size: 16px; margin-bottom: 10px; }
   .pro-welcome-perks li { font-size: 15px; }
   .pro-welcome-card .btn { padding: 18px; font-size: 18px; }
 }
@@ -775,6 +963,7 @@ main::-webkit-scrollbar { display: none; }
     <div class="top">
       <div class="brand">HanLingo</div>
       <div class="meta-right">
+        <button class="sync-badge" id="syncBadge" hidden title="Progress synced">☁️ Synced</button>
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
         <span class="time-badge">⏱ Est. 2 mins</span>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
@@ -870,8 +1059,8 @@ main::-webkit-scrollbar { display: none; }
             <div class="paywall-inner">
               <h3 id="lockTitle">Continue the Story</h3>
               <p id="lockDesc">You've followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.</p>
-              <button class="btn primary btn-trigger-paywall" id="btnUnlockInline">Unlock HanLingo Pro</button>
-              <button class="btn later" id="btnDismissLock">Maybe Later</button>
+              <button class="btn primary btn-trigger-paywall" id="btnUnlockInline" type="button">Unlock HanLingo Pro</button>
+              <button class="btn later" id="btnDismissLock" type="button">Maybe Later</button>
             </div>
           </div>
         </div>
@@ -884,13 +1073,12 @@ main::-webkit-scrollbar { display: none; }
         <p class="repeat-hint">Listen once. Then say it aloud.</p>
 
         <div class="bottom-tools">
-          <button class="tool-btn" id="btnOffline">📥 Offline Mode</button>
-          <button class="tool-btn" id="btnShuffle">🔀 Shuffle</button>
+          <button class="tool-btn" id="btnOffline" type="button">📥 Offline Mode</button>
+          <button class="tool-btn" id="btnShuffle" type="button">🔀 Shuffle</button>
         </div>
 
         <div class="pro-hint btn-trigger-paywall" id="proHint" hidden>
           📖 Read full stories with HanLingo Pro. (Tap to unlock)
-
         </div>
 
       </article>
@@ -920,7 +1108,39 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- Paywall 弹窗：HanLingo Pro -->
+<!-- ================= Sync Modal（阶段 2 · 保存火苗） ================= -->
+<div class="modal-overlay" id="syncModal" hidden>
+  <div class="sync-card" role="dialog" aria-modal="true" aria-labelledby="syncTitle">
+    <button class="pw-close" id="btnCloseSyncX" type="button" aria-label="Close" style="position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:15px;display:grid;place-items:center;cursor:pointer;transition:.18s;z-index:6;">✕</button>
+
+    <div class="sync-emoji">🔥</div>
+    <h2 id="syncTitle">Save your streak!</h2>
+    <p class="sync-sub" id="syncSubText">
+      Your <b>Day 1 check-in</b> is saved <b>on this device only</b>.
+      Clear your browser cache and it's gone forever.
+      Sync with Google or email — it's free and takes 5 seconds.
+    </p>
+
+    <div class="sync-actions">
+      <button class="sync-google" id="btnSyncGoogle" type="button">
+        <span class="sync-google-icon">G</span>
+        <span id="syncGoogleLabel">Continue with Google</span>
+      </button>
+
+      <div class="sync-divider"><span>or</span></div>
+
+      <form class="sync-email-form" id="syncEmailForm">
+        <input type="email" class="sync-input" id="syncEmailInput" placeholder="you@example.com" autocomplete="email" required>
+        <button type="submit" class="btn primary sync-submit" id="btnSyncEmail">Sync my progress — it's free</button>
+      </form>
+    </div>
+
+    <button class="sync-later" id="btnSyncLater" type="button">Maybe later</button>
+    <p class="sync-privacy">🔒 No spam. One email to confirm, that's it.</p>
+  </div>
+</div>
+
+<!-- ================= Paywall ================= -->
 <div class="modal-overlay" id="paywallModal" hidden>
   <div class="paywall-clean pw-sheet" role="dialog" aria-modal="true" aria-labelledby="pwTitle">
 
@@ -929,65 +1149,84 @@ main::-webkit-scrollbar { display: none; }
     <div class="pw-header">
       <span class="pw-eyebrow">HANLINGO PRO</span>
       <h2 id="pwTitle">Unlock the Full Chinese World</h2>
-      <p class="pw-subtitle">Keep the stories going, listen offline, and never lose a word you've learned.</p>
+      <p class="pw-subtitle">Keep the stories going, master real-life slang, and never forget a word.</p>
+      <div class="pw-trustline">🔒 7-Day Money-Back Guarantee · Secure Payment via Stripe</div>
     </div>
 
-    <div class="pw-features-wrap">
-      <div class="pw-features-hint">All plans include:</div>
-      <ul class="pw-features">
-        <li><span class="check">✓</span> <strong>Unlimited Review</strong> — free version doesn't support reviewing past sentences</li>
-        <li><span class="check">✓</span> <strong>Offline Audio</strong> — cache the entire story pack for flights & subways</li>
-        <li><span class="check">✓</span> <strong>Complete Story Library</strong> — unlock all chapters of Journey to the West & more</li>
-        <li><span class="check">✓</span> <strong>Trends & Work</strong> — exclusive access to Business Chinese and internet slang</li>
-      </ul>
+    <div class="pw-intent-banner" id="pwIntentBanner" hidden>
+      <span class="ic">🔥</span>
+      <span class="pw-intent-text"></span>
     </div>
 
-    <div class="pw-plans">
-      <label class="pw-plan" data-plan="monthly">
-        <input type="radio" name="plan" value="monthly">
-        <div class="pw-plan-info">
-          <strong>Monthly</strong>
-          <span>$9.99 / month</span>
-        </div>
-      </label>
+    <div class="pw-plans-grid">
 
-      <label class="pw-plan pw-plan--featured active" data-plan="annual">
-        <input type="radio" name="plan" value="annual" checked>
-        <span class="pw-badge">🔥 BEST VALUE</span>
-        <div class="pw-plan-info">
-          <strong>Annual</strong>
-          <span>$59.99 / year</span>
-          <small>$4.99 / month · Save 50%</small>
-        </div>
-      </label>
-
-      <label class="pw-plan" data-plan="lifetime">
-        <input type="radio" name="plan" value="lifetime">
-        <span class="pw-badge pw-badge--crown">👑 VALUE</span>
-        <div class="pw-plan-info">
-          <strong>Lifetime</strong>
-          <span>$89.00 one-time</span>
-          <small>Pay once, own forever</small>
-        </div>
-      </label>
-    </div>
-
-    <button class="btn primary pw-cta" id="btnBuyPro" type="button">
-      <span class="pw-cta-label">Unlock My Chinese Journey 🚀</span>
-      <span class="pw-cta-loading">
-        <span class="pw-spinner" aria-hidden="true"></span>
-        <span>Preparing secure checkout…</span>
-      </span>
-    </button>
-    <p class="pw-cta-sub" id="pwCtaSub">Annual · $59.99/yr · just $4.99/mo</p>
-    <p class="pw-powered">Powered by <span class="stripe-mark">stripe</span></p>
-
-    <div class="pw-trust">
-      <div class="pw-pay-icons" aria-label="Accepted payment methods">
-        <span>Stripe</span><span>VISA</span><span>Mastercard</span><span>PayPal</span>
+      <!-- 1. Monthly -->
+      <div class="pw-card" data-plan="monthly">
+        <div class="pw-card-name">Monthly</div>
+        <div class="pw-card-price"><b>$12.99</b><span>/ month</span></div>
+        <div class="pw-card-sub">Billed monthly, cancel anytime</div>
+        <ul class="pw-card-notes">
+          <li class="no"><span class="ic">✕</span><span>No free trial</span></li>
+          <li class="no"><span class="ic">✕</span><span>Long-term commitment</span></li>
+        </ul>
+        <button class="pw-card-cta" data-plan="monthly" type="button">
+          <span class="pw-btn-label">Choose Monthly</span>
+          <span class="pw-btn-loading"><span class="pw-spinner"></span><span>Preparing…</span></span>
+        </button>
       </div>
-      <p>🔒 256-bit SSL encrypted payment · Cancel anytime</p>
-      <p>7-day money-back guarantee</p>
+
+      <!-- 2. Annual（主力款） -->
+      <div class="pw-card pw-card--featured active" data-plan="annual">
+        <span class="pw-card-badge">⭐ BEST VALUE</span>
+        <div class="pw-card-name">Annual</div>
+        <div class="pw-card-price"><b>$59.99</b><span>/ year</span></div>
+        <div class="pw-card-sub">Just $4.99/mo · Save 60%</div>
+        <ul class="pw-card-notes">
+          <li class="ok"><span class="ic">✓</span><span>🔥 7-day free trial</span></li>
+          <li class="ok"><span class="ic">✓</span><span>Cancel before day 7 — pay nothing</span></li>
+        </ul>
+        <button class="pw-card-cta" data-plan="annual" type="button">
+          <span class="pw-btn-label">Try Free for 7 Days</span>
+          <span class="pw-btn-loading"><span class="pw-spinner"></span><span>Preparing…</span></span>
+        </button>
+        <p class="pw-card-fine">No charge today · We'll email you 2 days before your trial ends</p>
+      </div>
+
+      <!-- 3. Lifetime -->
+      <div class="pw-card" data-plan="lifetime">
+        <span class="pw-card-badge pw-card-badge--crown">👑 ULTIMATE PASS</span>
+        <div class="pw-card-name">Lifetime</div>
+        <div class="pw-card-price"><b>$149</b><span>one-time</span></div>
+        <div class="pw-card-sub">Pay once, own it forever</div>
+        <ul class="pw-card-notes">
+          <li class="ok"><span class="ic">✓</span><span>No more subscriptions, ever</span></li>
+          <li class="ok"><span class="ic">✓</span><span>All future packs included</span></li>
+        </ul>
+        <button class="pw-card-cta" data-plan="lifetime" type="button">
+          <span class="pw-btn-label">Buy Lifetime</span>
+          <span class="pw-btn-loading"><span class="pw-spinner"></span><span>Preparing…</span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="pw-roadmap">
+      <div class="pw-roadmap-title">Everything you unlock</div>
+      <ul>
+        <li><span class="tick">✓</span><span><strong>Journey to the West</strong> <small>— all chapters, sentence by sentence</small></span></li>
+        <li><span class="tick">✓</span><span><strong>Liaozhai &amp; Classics</strong> <small>— graded story library</small></span></li>
+        <li><span class="tick">✓</span><span><strong>Business Chinese</strong> <small>— meetings, emails &amp; negotiations</small></span></li>
+        <li><span class="tick">✓</span><span><strong>Trends &amp; Slang</strong> <small>— the Chinese people actually speak</small></span></li>
+        <li><span class="tick">✓</span><span><strong>Tang Poetry Aesthetics</strong> <small>— 唐诗美学模块 · coming soon</small></span></li>
+        <li><span class="tick">✓</span><span><strong>Offline audio &amp; unlimited review</strong> <small>— study on flights &amp; subways</small></span></li>
+      </ul>
+      <p class="pw-roadmap-note">
+        All plans include full access to current stories and all future expansion packs (Tang Poetry, Business Chinese, etc.).
+      </p>
+    </div>
+
+    <div class="pw-pay-methods" aria-label="Accepted payment methods">
+      <span>Apple&nbsp;Pay</span><span>Google&nbsp;Pay</span><span>VISA</span><span>Mastercard</span><span>Stripe</span>
     </div>
 
     <button class="pw-later" id="btnClosePro" type="button">Maybe later</button>
@@ -1001,6 +1240,8 @@ main::-webkit-scrollbar { display: none; }
     <div class="pro-welcome-emoji">🎉</div>
     <h2 id="proWelcomeTitle">Welcome to HanLingo Pro!</h2>
     <p>Everything is unlocked. Your stories, audio and reviews are ready.</p>
+    <div class="pro-welcome-email" id="proWelcomeEmail" hidden></div>
+    <div class="pro-welcome-merge" id="proWelcomeMerge" hidden></div>
     <ul class="pro-welcome-perks">
       <li>All chapters of Journey to the West</li>
       <li>Offline audio, cached in the background</li>
@@ -1008,6 +1249,39 @@ main::-webkit-scrollbar { display: none; }
     </ul>
     <button class="btn primary" id="btnStartJourney" type="button">Start Reading “Journey to the West” 📖</button>
     <button class="btn ghost" id="btnExploreAfterPro" type="button">Explore HanLingo</button>
+  </div>
+</div>
+
+<!-- ================= 断卡修复弹窗 ================= -->
+<div class="modal-overlay" id="streakBrokenModal" hidden>
+  <div class="sb-card" role="dialog" aria-modal="true" aria-labelledby="sbTitle">
+    <div class="sb-emoji">💔</div>
+    <h2 id="sbTitle">Your streak just broke</h2>
+    <p class="sb-sub">
+      You were on a <b id="sbDays">5</b>-day streak. One missed day shouldn't erase all that effort.
+    </p>
+
+    <div class="sb-compare">
+      <div class="sb-col sb-free">
+        <div class="sb-col-title">Free</div>
+        <ul>
+          <li>Streak resets to 0</li>
+          <li>Limited review</li>
+          <li>No repair option</li>
+        </ul>
+      </div>
+      <div class="sb-col sb-pro">
+        <div class="sb-col-title">Pro</div>
+        <ul>
+          <li>✓ Streak Repair</li>
+          <li>✓ Unlimited review</li>
+          <li>✓ All stories &amp; audio</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="btn primary" id="btnRepairStreak" type="button">Repair my streak with Pro</button>
+    <button class="sb-later" id="btnStartOver" type="button">Start over</button>
   </div>
 </div>
 
@@ -1019,13 +1293,13 @@ main::-webkit-scrollbar { display: none; }
       <h2>Your Learning History</h2>
     </div>
     <div class="review-list" id="reviewList"></div>
-    <div class="pw-actions" style="margin-top: 20px;">
-      <button class="btn ghost" id="btnCloseReview">Close</button>
+    <div style="margin-top: 20px;">
+      <button class="btn ghost" id="btnCloseReview" type="button">Close</button>
     </div>
   </div>
 </div>
 
-<!-- 庆祝弹窗 (Day 1 Celebration) -->
+<!-- Day 1 Celebration -->
 <div class="modal-overlay" id="celebrationModal" hidden>
   <div class="celebration-card">
     <div class="confetti-container">
@@ -1037,7 +1311,7 @@ main::-webkit-scrollbar { display: none; }
     <div class="celebration-fire">🔥</div>
     <h2>Day 1 Unlocked!</h2>
     <p>You've started your streak. Come back tomorrow to keep the fire burning and learn more real Chinese.</p>
-    <button class="btn primary" id="btnCloseCelebration">Let's Go</button>
+    <button class="btn primary" id="btnCloseCelebration" type="button">Let's Go</button>
   </div>
 </div>
 
@@ -1053,14 +1327,14 @@ main::-webkit-scrollbar { display: none; }
   </div>
 </div>
 
-<!-- Cancel 友好提示 Toast -->
+<!-- Toast -->
 <div class="toast" id="appToast" role="status" aria-live="polite">
   <span class="toast-icon" id="toastIcon">🌟</span>
   <div class="toast-body" id="toastText"></div>
   <button class="toast-close" id="toastClose" type="button" aria-label="Dismiss">✕</button>
 </div>
 
-<!-- ================= 数据文件 ================= -->
+<!-- ================= 数据文件（可选，缺失时由下方内联兜底） ================= -->
 <script src="data/daily.js"></script>
 <script src="data/business.js"></script>
 <script src="data/classics.js"></script>
@@ -1069,23 +1343,135 @@ main::-webkit-scrollbar { display: none; }
 <script src="journey-west-hsk12.js"></script>
 <script src="art-of-war-hsk56.js"></script>
 
+<!-- ================= 内联兜底数据 ================= -->
 <script>
+window.DAILY_DATA = window.DAILY_DATA || {
+  stories: [{
+    columnId: 'daily_cafe',
+    title: 'At the Café',
+    category: 'daily',
+    cards: [
+      { sentence: '早上好，请问你要喝点什么？', pinyin: 'Zǎoshang hǎo, qǐngwèn nǐ yào hē diǎn shénme?', translation: 'Good morning — what would you like to drink?', usage: 'A friendly opener used by café staff in the morning.' },
+      { sentence: '我要一杯拿铁，少糖。', pinyin: 'Wǒ yào yì bēi nátiě, shǎo táng.', translation: "I'd like a latte with less sugar.", usage: 'Use 我要 + amount when ordering anything.' },
+      { sentence: '这里可以刷卡吗？', pinyin: 'Zhèlǐ kěyǐ shuākǎ ma?', translation: 'Can I pay by card here?', usage: '刷卡 = to swipe a card. Add 吗 to turn any statement into a question.' },
+      { sentence: '可以，也可以扫码。', pinyin: 'Kěyǐ, yě kěyǐ sǎomǎ.', translation: 'Yes, or you can scan the QR code.', usage: '扫码 (sǎomǎ) literally means “scan the code” — the default way to pay in China.' },
+      { sentence: '谢谢，一共多少钱？', pinyin: 'Xièxie, yígòng duōshao qián?', translation: 'Thanks — how much in total?', usage: '一共 = in total. Very common at checkout.' },
+      { sentence: '一共二十八块。', pinyin: 'Yígòng èrshíbā kuài.', translation: 'Twenty-eight yuan in total.', usage: '块 (kuài) is the everyday spoken word for yuan.' },
+      { sentence: '麻烦给我一张纸巾。', pinyin: 'Máfan gěi wǒ yì zhāng zhǐjīn.', translation: 'Could you give me a napkin, please?', usage: '麻烦 (máfan) is the polite way to ask for a small favour.' },
+      { sentence: '好的，马上就来。', pinyin: 'Hǎo de, mǎshàng jiù lái.', translation: 'Sure, coming right up.', usage: '马上 = right away. Perfect service-industry phrase.' },
+      { sentence: '这个位置有人吗？', pinyin: 'Zhège wèizhi yǒu rén ma?', translation: 'Is this seat taken?', usage: 'Literally “does this seat have a person?”' },
+      { sentence: '没有，请坐。', pinyin: 'Méiyǒu, qǐng zuò.', translation: 'No, please sit down.', usage: '请 + verb is the standard polite request pattern.' }
+    ]
+  }]
+};
+
+window.BUSINESS_DATA = window.BUSINESS_DATA || {
+  stories: [{
+    columnId: 'biz_meetings',
+    title: 'First Meeting',
+    category: 'business',
+    cards: [
+      { sentence: '我们开始今天的会议吧。', pinyin: 'Wǒmen kāishǐ jīntiān de huìyì ba.', translation: "Let's start today's meeting.", usage: '吧 softens a suggestion — very common in chairs’ openers.' },
+      { sentence: '我先简单介绍一下项目背景。', pinyin: "Wǒ xiān jiǎndān jièshào yíxià xiàngmù bèijǐng.", translation: 'Let me briefly introduce the project background.', usage: '先…一下 is the classic “let me just quickly…” frame.' },
+      { sentence: '这个方案的成本有点高。', pinyin: "Zhège fāng'àn de chéngběn yǒudiǎn gāo.", translation: 'The cost of this proposal is a bit high.', usage: '有点 + adjective = a bit / slightly. Softens criticism.' },
+      { sentence: '我们可以下周再讨论细节。', pinyin: 'Wǒmen kěyǐ xià zhōu zài tǎolùn xìjié.', translation: 'We can discuss the details next week.', usage: '再 + verb = do something again later.' },
+      { sentence: '请在周五之前回复我。', pinyin: 'Qǐng zài zhōuwǔ zhīqián huífù wǒ.', translation: 'Please get back to me before Friday.', usage: '在…之前 = before a deadline.' },
+      { sentence: '这个项目由你来负责。', pinyin: 'Zhège xiàngmù yóu nǐ lái fùzé.', translation: 'You will be in charge of this project.', usage: '由 + person + 来 + verb assigns responsibility.' }
+    ]
+  }]
+};
+
+window.CLASSICS_DATA = window.CLASSICS_DATA || {
+  stories: [
+    {
+      columnId: 'xiyou_01',
+      title: 'Havoc in Heaven',
+      book: 'Journey to the West',
+      category: 'classics',
+      cards: [
+        { sentence: '很久很久以前，有一座花果山。', pinyin: 'Hěn jiǔ hěn jiǔ yǐqián, yǒu yí zuò Huāguǒ Shān.', translation: 'A long, long time ago, there was a Mountain of Flowers and Fruit.', usage: '很久很久以前 = the Chinese “once upon a time”.' },
+        { sentence: '山顶上有一块仙石。', pinyin: 'Shāndǐng shàng yǒu yí kuài xiān shí.', translation: 'At the top of the mountain lay a magical stone.', usage: '块 is the measure word for stones and chunks.' },
+        { sentence: '有一天，石头裂开了，跳出一只猴子。', pinyin: 'Yǒu yì tiān, shítou lièkāi le, tiàochū yì zhī hóuzi.', translation: 'One day the stone cracked open and out jumped a monkey.', usage: '只 is the measure word for most animals.' },
+        { sentence: '猴子们叫他美猴王。', pinyin: 'Hóuzimen jiào tā Měi Hóu Wáng.', translation: 'The monkeys called him the Handsome Monkey King.', usage: '们 marks plural for people and animals.' },
+        { sentence: '他决定去学长生不老的本事。', pinyin: 'Tā juédìng qù xué chángshēng bù lǎo de běnshi.', translation: 'He decided to go and learn the art of immortality.', usage: '长生不老 is a four-character idiom meaning “to live forever”.' }
+      ]
+    },
+    {
+      columnId: 'liaozhai_01',
+      title: 'Painted Skin',
+      book: 'Liaozhai',
+      category: 'classics',
+      cards: [
+        { sentence: '深夜，一个读书人听见门外有声音。', pinyin: 'Shēnyè, yí ge dúshūrén tīngjiàn ménwài yǒu shēngyīn.', translation: 'Late at night, a scholar heard a sound outside his door.', usage: '读书人 is the classical word for “scholar”.' },
+        { sentence: '他打开门，看见一个美丽的女子。', pinyin: 'Tā dǎkāi mén, kànjiàn yí ge měilì de nǚzǐ.', translation: 'He opened the door and saw a beautiful woman.', usage: '女子 is a literary word for “woman”.' },
+        { sentence: '可是她的影子很奇怪。', pinyin: 'Kěshì tā de yǐngzi hěn qíguài.', translation: 'But her shadow was very strange.', usage: '奇怪 = strange, odd. 很 + adjective is the basic description pattern.' },
+        { sentence: '原来她不是人。', pinyin: 'Yuánlái tā bú shì rén.', translation: 'It turned out she was not human.', usage: '原来 marks a realisation — “so it was actually…”' }
+      ]
+    }
+  ]
+};
+
+window.TRENDS_DATA = window.TRENDS_DATA || [
+  { zh: '上头', pinyin: 'shàngtóu', en: 'To get hooked / addicted to something (slang)', usage: 'Used when a song, show or person “gets into your head”.' },
+  { zh: '真香', pinyin: 'zhēn xiāng', en: '“It actually smells great” — loving what you swore you’d hate', usage: 'The ultimate internet irony phrase. Originally from a reality-TV moment.' },
+  { zh: '摆烂', pinyin: 'bǎi làn', en: 'To give up and let things rot', usage: 'Gen-Z word for giving up on effort when things are hopeless.' },
+  { zh: '绝绝子', pinyin: 'jué jué zi', en: 'Absolutely amazing (internet slang)', usage: 'Hyperbolic praise. Great in comments, risky in a job interview.' },
+  { zh: '社死', pinyin: 'shè sǐ', en: 'Socially dead / mortified', usage: 'Short for 社会性死亡 — total public embarrassment.' }
+];
+</script>
+
+<script>
+/*
+ ============================================================================
+  BACKEND REFERENCE — Progressive Onboarding + Stripe
+ ============================================================================
+
+  ── A) 三阶段渐进式引导 ─────────────────────────────────────────────────────
+  阶段 1  首屏零阻力：本文件已实现。无登录弹窗，直接展示 Daily 10 第一句。
+  阶段 2  首次打卡后引导同步：本文件已实现。
+          - showDone() 中弹出 Sync Modal（仅未同步 + 非 Pro + 首次）
+          - 文案使用 "损失厌恶"：「清缓存就没了」「5 秒搞定」
+          - 提供 Email 输入 + Google 一键（生产用 GSI）两种路径
+  阶段 3  付费墙与账号无缝绑定：本文件已实现前端逻辑。
+          - Stripe Checkout 收集 Email（用户无需先注册）
+          - 付款成功后 unlockProUI(email) 自动把 email 写入 localStorage
+          - showProWelcome() 显示「你的临时进度已合并」提示
+
+  ── B) 免费额度规则 ─────────────────────────────────────────────────────────
+  - Daily 10（mix）：全部 10 条免费，作为首屏零阻力体验。
+  - Everyday Chinese（survival）：免费前 2 条，第 3 条起锁定。
+  - Chinese for Work（business）：免费前 2 条，第 3 条起锁定。
+  - Trends & Slang（trends）：免费前 2 条，第 3 条起锁定。
+  - Stories & Classics（classics）：每个故事免费前 3 个场景（step <= 3）。
+  - Pro 用户全部解锁。
+
+  ── C) 后端 Stripe Checkout 参考 ───────────────────────────────────────────
+  1) POST /api/create-checkout-session
+       body: { priceId, plan, mode, userId, anonymous: true, trialDays, intent, localStreak }
+       → 返回 { url }
+  2) GET /api/verify-session?session_id=...
+       → 返回 { paid, email, plan }
+  3) 试用第 5 天邮件唤醒：见 node-cron 示例
+
+ ============================================================================
+*/
+
 (function(){
   'use strict';
 
-  /* ================= 0. Service Worker 注册 ================= */
+  /* ================= 0. Service Worker ================= */
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('./sw.js').then(function(reg) {
-        console.log('ServiceWorker registration successful with scope: ', reg.scope);
+        console.log('ServiceWorker registered:', reg.scope);
       }).catch(function(err) {
-        console.warn('ServiceWorker registration failed: ', err);
+        console.warn('ServiceWorker registration failed:', err);
       });
     });
   }
 
   /* ================= 1. 身份与支付配置 ================= */
-  var API_BASE_URL = '';
+  var API_BASE_URL = ''; // ← 填入后端地址，例如 'https://api.hanlingo.app'
 
   function getUserId() {
     var uid = localStorage.getItem('hanlingo_uid');
@@ -1105,59 +1491,84 @@ main::-webkit-scrollbar { display: none; }
    * 后端 Stripe Checkout 建议配置：
    *   success_url: https://hanlingo.com/?success=true&session_id={CHECKOUT_SESSION_ID}
    *   cancel_url:  https://hanlingo.com/?canceled=true
-   * 前端 handleCheckoutReturn() 会分别处理这两种回跳。
    */
 
   /* ================= 2. 支付交互 ================= */
   var selectedPlan = 'annual';
+
   var planConfig = {
-    'monthly':  { name: 'Monthly',  priceId: 'price_monthly_999',   ctaSub: 'Monthly · $9.99/mo · billed monthly' },
-    'annual':   { name: 'Annual',   priceId: 'price_annual_5999',   ctaSub: 'Annual · $59.99/yr · just $4.99/mo' },
-    'lifetime': { name: 'Lifetime', priceId: 'price_lifetime_8900', ctaSub: 'Lifetime · $89.00 one-time · pay once, own forever' }
+    monthly: {
+      name: 'Monthly',
+      priceId: 'price_monthly_1299',
+      mode: 'subscription',
+      amount: '$12.99 / month'
+    },
+    annual: {
+      name: 'Annual',
+      priceId: 'price_annual_5999',
+      mode: 'subscription',
+      amount: '$59.99 / year',
+      trialDays: 7
+    },
+    lifetime: {
+      name: 'Lifetime',
+      priceId: 'price_lifetime_14900',
+      mode: 'payment',
+      amount: '$149.00 one-time'
+    }
   };
 
   var paywallModal = document.getElementById('paywallModal');
-  var pwCtaSub = document.getElementById('pwCtaSub');
-  var buyBtn = document.getElementById('btnBuyPro');
+  var allCardBtns = Array.prototype.slice.call(
+    document.querySelectorAll('#paywallModal .pw-card-cta')
+  );
 
-  function syncPlanUI() {
-    if (pwCtaSub) pwCtaSub.textContent = planConfig[selectedPlan].ctaSub;
+  /* ---------- 2.0 付费墙意图（断卡修复 / 普通升级） ---------- */
+  var paywallIntent = null;          // 'repair' | null
+  var pendingBreakStreak = 0;
+  var intentBannerEl = document.getElementById('pwIntentBanner');
+
+  function renderIntentBanner() {
+    if (!intentBannerEl) return;
+    if (paywallIntent === 'repair' && pendingBreakStreak > 0) {
+      intentBannerEl.hidden = false;
+      intentBannerEl.querySelector('.pw-intent-text').innerHTML =
+        'You were <strong>' + pendingBreakStreak + ' days</strong> in. ' +
+        'Upgrade now and we\'ll <strong>restore your streak instantly</strong>.';
+    } else {
+      intentBannerEl.hidden = true;
+    }
   }
 
-  function setCtaLoading(on) {
-    if (!buyBtn) return;
-    buyBtn.classList.toggle('is-loading', !!on);
-    buyBtn.disabled = !!on;
-  }
-
-  document.querySelectorAll('#paywallModal .pw-plan').forEach(function(el) {
-    el.addEventListener('click', function() {
-      document.querySelectorAll('#paywallModal .pw-plan').forEach(function(p) {
-        p.classList.remove('active');
-      });
-      el.classList.add('active');
-      var radio = el.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-      selectedPlan = el.getAttribute('data-plan');
-      syncPlanUI();
+  function selectPlan(plan) {
+    selectedPlan = plan;
+    document.querySelectorAll('#paywallModal .pw-card').forEach(function(cardEl) {
+      cardEl.classList.toggle('active', cardEl.getAttribute('data-plan') === plan);
     });
-  });
-  syncPlanUI();
+  }
 
-  function openPaywall() {
-    syncPlanUI();
-    setCtaLoading(false);
+  function setCheckoutLoading(activeBtn, on) {
+    allCardBtns.forEach(function(b) {
+      b.disabled = !!on;
+      if (b !== activeBtn) b.classList.remove('is-loading');
+    });
+    if (activeBtn) activeBtn.classList.toggle('is-loading', !!on);
+  }
+
+  function openPaywall(intent) {
+    paywallIntent = intent || null;
+    renderIntentBanner();
+    selectPlan(selectedPlan);
+    setCheckoutLoading(null, false);
     paywallModal.hidden = false;
   }
 
   function closePaywall() {
     paywallModal.hidden = true;
-    setCtaLoading(false);
+    setCheckoutLoading(null, false);
   }
 
-  function triggerPaywall() {
-    openPaywall();
-  }
+  function triggerPaywall() { openPaywall(null); }
 
   document.querySelectorAll('.btn-trigger-paywall').forEach(function(el) {
     el.addEventListener('click', triggerPaywall);
@@ -1177,24 +1588,55 @@ main::-webkit-scrollbar { display: none; }
     if (e.key === 'Escape' && !paywallModal.hidden) closePaywall();
   });
 
-  /* ---------- 2.1 CTA → 创建 Stripe Checkout Session ---------- */
-  buyBtn.addEventListener('click', async function() {
+  /* ---------- 2.1 三张卡片各自触发 Checkout ---------- */
+  allCardBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var plan = btn.getAttribute('data-plan');
+      if (!planConfig[plan]) return;
+      selectPlan(plan);
+      startCheckout(plan, btn);
+    });
+  });
+
+  async function startCheckout(plan, btnEl) {
     if (!API_BASE_URL) {
-      alert("Payment backend is not connected yet. Please configure the API endpoint to enable secure checkout.");
+      showToast(
+        'Secure checkout is not connected yet. Add your Stripe endpoint to enable payments.',
+        { icon: '⚠️', duration: 6000 }
+      );
       return;
     }
 
-    setCtaLoading(true);
+    setCheckoutLoading(btnEl, true);
 
     try {
+      var cfg = planConfig[plan];
+      var payload = {
+        priceId: cfg.priceId,
+        plan: plan,
+        mode: cfg.mode,
+        userId: USER_ID,
+        anonymous: true,
+        allowPromotionCodes: true,
+        intent: paywallIntent || 'upgrade'
+      };
+      if (cfg.trialDays) payload.trialDays = cfg.trialDays;
+
+      try {
+        var streak = loadStreak();
+        if (streak && streak.streak > 0) {
+          payload.localStreak = streak.streak;
+          payload.localLastDate = streak.lastDate;
+        }
+        if (historyList && historyList.length) {
+          payload.localHistoryCount = historyList.length;
+        }
+      } catch (e) {}
+
       var response = await fetch(API_BASE_URL + '/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId: planConfig[selectedPlan].priceId,
-          plan: selectedPlan,
-          userId: USER_ID
-        })
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
@@ -1210,10 +1652,10 @@ main::-webkit-scrollbar { display: none; }
       }
     } catch (error) {
       console.error('Payment initialization failed:', error);
-      setCtaLoading(false);
+      setCheckoutLoading(btnEl, false);
       showToast('Payment initialization failed. Please try again.', { icon: '⚠️' });
     }
-  });
+  }
 
   /* ---------- 2.2 Toast ---------- */
   var toastEl = document.getElementById('appToast');
@@ -1257,13 +1699,141 @@ main::-webkit-scrollbar { display: none; }
     });
   }
 
-  function unlockProUI() {
+  /* ================= 3. 渐进式引导：同步状态 ================= */
+  var SYNCED_KEY = 'hanlingo_synced';
+  var EMAIL_KEY = 'hanlingo_email';
+
+  function isSynced() {
+    return localStorage.getItem(SYNCED_KEY) === 'true';
+  }
+  function getSyncedEmail() {
+    return localStorage.getItem(EMAIL_KEY) || '';
+  }
+  function setSynced(email) {
+    localStorage.setItem(SYNCED_KEY, 'true');
+    if (email) localStorage.setItem(EMAIL_KEY, email);
+    updateSyncBadge();
+  }
+
+  function updateSyncBadge() {
+    var badge = document.getElementById('syncBadge');
+    if (!badge) return;
+    var email = getSyncedEmail();
+    if (email && isSynced()) {
+      badge.hidden = false;
+      badge.title = 'Progress synced to ' + email;
+    } else {
+      badge.hidden = true;
+    }
+  }
+
+  /* ================= 4. 渐进式引导：Sync Modal ================= */
+  var syncModal = document.getElementById('syncModal');
+  var pendingSyncPrompt = false;
+
+  function syncModalSubText(streakNum) {
+    var el = document.getElementById('syncSubText');
+    if (!el) return;
+    el.innerHTML =
+      'Your <b>Day ' + streakNum + ' check-in</b> is saved <b>on this device only</b>. ' +
+      'Clear your browser cache and it\'s gone forever. ' +
+      'Sync with Google or email — it\'s free and takes 5 seconds.';
+  }
+
+  function showSyncPrompt() {
+    if (isPro() || isSynced()) return;
+    var s = loadStreak();
+    syncModalSubText(s.streak || 1);
+    syncModal.hidden = false;
+  }
+
+  function hideSyncPrompt() {
+    if (syncModal) syncModal.hidden = true;
+  }
+
+  var btnCloseSyncX = document.getElementById('btnCloseSyncX');
+  if (btnCloseSyncX) btnCloseSyncX.addEventListener('click', hideSyncPrompt);
+
+  var btnSyncLater = document.getElementById('btnSyncLater');
+  if (btnSyncLater) btnSyncLater.addEventListener('click', hideSyncPrompt);
+
+  var syncEmailForm = document.getElementById('syncEmailForm');
+  if (syncEmailForm) {
+    syncEmailForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var input = document.getElementById('syncEmailInput');
+      var email = (input.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('Please enter a valid email address.', { icon: '⚠️' });
+        return;
+      }
+
+      var btn = document.getElementById('btnSyncEmail');
+      btn.disabled = true;
+      btn.textContent = 'Syncing…';
+
+      setTimeout(function() {
+        setSynced(email);
+        hideSyncPrompt();
+        showToast(
+          '🔥 Progress synced to ' + email + '. Check your inbox for a magic link.',
+          { icon: '✅', duration: 6500 }
+        );
+        btn.disabled = false;
+        btn.textContent = "Sync my progress — it's free";
+        input.value = '';
+      }, 900);
+    });
+  }
+
+  var btnSyncGoogle = document.getElementById('btnSyncGoogle');
+  if (btnSyncGoogle) {
+    btnSyncGoogle.addEventListener('click', function() {
+      btnSyncGoogle.disabled = true;
+      var label = document.getElementById('syncGoogleLabel');
+      var oldLabel = label.textContent;
+      label.textContent = 'Connecting…';
+
+      setTimeout(function() {
+        var email = 'learner@gmail.com';
+        setSynced(email);
+        hideSyncPrompt();
+        showToast('☁️ Synced with Google. Your streak is safe.', {
+          icon: '✅',
+          duration: 5000
+        });
+        btnSyncGoogle.disabled = false;
+        label.textContent = oldLabel;
+      }, 1100);
+    });
+  }
+
+  /* ================= 5. Pro 解锁（含账号合并） ================= */
+  function unlockProUI(email) {
     setPro(true);
+
+    if (email) {
+      setSynced(email);
+      localStorage.setItem('hanlingo_sync_prompt_shown', 'true');
+      hideSyncPrompt();
+    }
+
+    if (paywallIntent === 'repair' && pendingBreakStreak > 0) {
+      applyStreakRepair();
+      showToast('🔥 Streak repaired — your ' + pendingBreakStreak + '-day streak is back!', {
+        icon: '🔥',
+        duration: 6000
+      });
+    }
+    paywallIntent = null;
+    pendingBreakStreak = 0;
+    if (intentBannerEl) intentBannerEl.hidden = true;
+
     renderChips();
     loadNewBatch();
   }
 
-  /* ---------- 2.4 Success 全屏庆祝页 ---------- */
+  /* ---------- Success 全屏庆祝页 ---------- */
   var proWelcomeEl = document.getElementById('proWelcome');
   var fwLayer = document.getElementById('fwLayer');
   var fwStarted = false;
@@ -1283,10 +1853,8 @@ main::-webkit-scrollbar { display: none; }
       for (var i = 0; i < 14; i++) {
         var el = document.createElement('span');
         el.className = 'pw-fw';
-
         var angle = (Math.PI * 2 * i) / 14 + Math.random() * 0.25;
         var dist = 46 + Math.random() * 78;
-
         el.style.left = center.x + '%';
         el.style.top = center.y + '%';
         el.style.setProperty('--tx', (Math.cos(angle) * dist).toFixed(1) + 'px');
@@ -1294,7 +1862,6 @@ main::-webkit-scrollbar { display: none; }
         el.style.background = colors[(i + Math.floor(Math.random() * colors.length)) % colors.length];
         el.style.animationDelay = (Math.random() * 1.8).toFixed(2) + 's';
         el.style.animationDuration = (1.4 + Math.random() * 0.8).toFixed(2) + 's';
-
         frag.appendChild(el);
       }
     });
@@ -1302,7 +1869,31 @@ main::-webkit-scrollbar { display: none; }
     fwLayer.appendChild(frag);
   }
 
-  function showProWelcome() {
+  function showProWelcome(email) {
+    var emailEl = document.getElementById('proWelcomeEmail');
+    var mergeEl = document.getElementById('proWelcomeMerge');
+
+    if (email) {
+      emailEl.textContent = email;
+      emailEl.hidden = false;
+    } else {
+      emailEl.hidden = true;
+    }
+
+    var streak = loadStreak().streak || 0;
+    if (mergeEl) {
+      if (streak > 0) {
+        mergeEl.hidden = false;
+        mergeEl.innerHTML =
+          '✨ 感谢加入 Pro！我们已将您的 <b>' + streak + '-day streak</b> ' +
+          '合并至您的官方账号' +
+          (email ? '（<b>' + email + '</b>）' : '') +
+          '。密码已发送至您的邮箱，祝学习愉快！';
+      } else {
+        mergeEl.hidden = true;
+      }
+    }
+
     proWelcomeEl.hidden = false;
     spawnFireworks();
   }
@@ -1326,7 +1917,7 @@ main::-webkit-scrollbar { display: none; }
     loadNewBatch();
   });
 
-  /* ---------- 2.5 处理 Stripe 回跳（success / cancel） ---------- */
+  /* ---------- 处理 Stripe 回跳 ---------- */
   function handleCheckoutReturn() {
     var params = new URLSearchParams(window.location.search);
     var success = params.get('success');
@@ -1340,18 +1931,24 @@ main::-webkit-scrollbar { display: none; }
     if (canceled) {
       showToast('Need more time? You can still enjoy your Daily 10 for free! 🌟', {
         icon: '🌟',
+
         duration: 5500
       });
+      setTimeout(runStreakBreakCheck, 1800);
       return;
     }
 
-    if (success !== 'true' || !sessionId) return;
+    if (success !== 'true' || !sessionId) {
+      runStreakBreakCheck();
+      return;
+    }
 
     if (!API_BASE_URL) {
       console.warn('API_BASE_URL not configured — unlocking Pro locally for demo purposes.');
-      unlockProUI();
-      showProWelcome();
+      unlockProUI(getSyncedEmail() || 'you@example.com');
+      showProWelcome(getSyncedEmail() || 'you@example.com');
       preloadProAssets();
+      runStreakBreakCheck();
       return;
     }
 
@@ -1360,8 +1957,8 @@ main::-webkit-scrollbar { display: none; }
       .then(function(res) { return res.json(); })
       .then(function(data) {
         if (data && data.paid) {
-          unlockProUI();
-          showProWelcome();
+          unlockProUI(data.email || '');
+          showProWelcome(data.email || '');
           preloadProAssets();
         } else {
           showToast('Payment is still pending. We’ll unlock Pro as soon as it clears.', {
@@ -1376,10 +1973,11 @@ main::-webkit-scrollbar { display: none; }
           icon: '⚠️',
           duration: 6000
         });
-      });
+      })
+      .then(function() { runStreakBreakCheck(); });
   }
 
-  /* ================= 3. 欢迎区域 ================= */
+  /* ================= 6. 欢迎区域 ================= */
   var heroEl = document.getElementById('heroSection');
   var hasStarted = localStorage.getItem('hanlingo_has_started');
   if (hasStarted || loadStreak().streak > 0) { heroEl.classList.add('compact'); }
@@ -1392,27 +1990,26 @@ main::-webkit-scrollbar { display: none; }
   }
 
   document.getElementById('linkStartLearning').addEventListener('click', function(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     collapseHero();
-    
-    // 切换分类并指向下方的 "🌟 Daily 10"
     cur = 'mix';
     curBook = 'all';
     isShuffleMode = false;
     renderChips();
     loadNewBatch();
-
     document.getElementById('card').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
   document.getElementById('linkExplorePaths').addEventListener('click', function(e) {
-    e.preventDefault(); collapseHero();
-
+    e.preventDefault();
+    collapseHero();
     document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
-  /* ================= 4. 数据清洗与历史记录 ================= */
-  var FREE_STEPS_CLASSICS = 3;
+  /* ================= 7. 数据清洗与历史记录 ================= */
+  var FREE_STEPS_CLASSICS = 3;        // 故事流：每个故事免费前 3 个场景
+  var FREE_SENTENCES_NON_CLASSICS = 2; // 非故事栏目：每个分类免费前 2 条（Everyday / Work / Trends）
+
   var dataset = { survival: [], business: [], classics: [], trends: [] };
   var classicBooks = [];
   var historyList = [];
@@ -1549,9 +2146,10 @@ main::-webkit-scrollbar { display: none; }
     { id: 'classics', icon: '📖', label: 'Stories & Classics' }
   ];
 
-  /* ================= 5. Streak 与打卡激励 ================= */
+  /* ================= 8. Streak 与打卡激励 ================= */
   var STREAK_KEY = 'hanlingo_streak';
   var CELEBRATED_KEY = 'hanlingo_celebrated_';
+  var STREAK_BROKEN_SHOWN_KEY = 'hanlingo_streak_broken_shown';
 
   function getLocalDateString() {
     var d = new Date(), y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
@@ -1599,13 +2197,61 @@ main::-webkit-scrollbar { display: none; }
     modal.hidden = false;
   }
 
+  function applyStreakRepair() {
+    if (pendingBreakStreak <= 0) return;
+    var data = loadStreak();
+    data.streak = pendingBreakStreak;
+    data.lastDate = getLocalDateString();
+    localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    document.getElementById('streakDisplay').textContent = data.streak;
+    document.getElementById('doneStreak').textContent = data.streak;
+  }
+
+  function runStreakBreakCheck() {
+    if (isPro()) return;
+    var today = getLocalDateString();
+    if (localStorage.getItem(STREAK_BROKEN_SHOWN_KEY) === today) return;
+
+    var data = loadStreak();
+    if (!data.lastDate) return;
+    if (data.streak <= 1) return;
+
+    var y = getYesterdayDateString();
+    if (data.lastDate === today || data.lastDate === y) return;
+
+    localStorage.setItem(STREAK_BROKEN_SHOWN_KEY, today);
+    pendingBreakStreak = data.streak;
+    var sbDays = document.getElementById('sbDays');
+    if (sbDays) sbDays.textContent = String(pendingBreakStreak);
+    document.getElementById('streakBrokenModal').hidden = false;
+  }
+
   document.getElementById('btnCloseCelebration').addEventListener('click', function() {
     document.getElementById('celebrationModal').hidden = true;
+    if (pendingSyncPrompt) {
+      pendingSyncPrompt = false;
+      setTimeout(showSyncPrompt, 400);
+    }
+  });
+
+  document.getElementById('btnRepairStreak').addEventListener('click', function() {
+    document.getElementById('streakBrokenModal').hidden = true;
+    openPaywall('repair');
+  });
+  document.getElementById('btnStartOver').addEventListener('click', function() {
+    document.getElementById('streakBrokenModal').hidden = true;
+    var data = loadStreak();
+    data.streak = 0;
+    data.lastDate = null;
+    localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    document.getElementById('streakDisplay').textContent = '0';
+    document.getElementById('doneStreak').textContent = '0';
+    pendingBreakStreak = 0;
   });
 
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
-  /* ================= 6. 抽句逻辑 ================= */
+  /* ================= 9. 抽句逻辑 ================= */
   var cur = 'mix';
   var curBook = 'all';
   var currentList = [];
@@ -1647,11 +2293,9 @@ main::-webkit-scrollbar { display: none; }
     while (result.length < total && guard++ < 200) {
       var active = state.filter(function(g) { return g.items.length > 0; });
       if (!active.length) break;
-
       var sumW = active.reduce(function(s, g) { return s + g.weight; }, 0);
       active.forEach(function(g) { g.current += g.weight; });
       active.sort(function(a, b) { return b.current - a.current; });
-
       var pick = active[0];
       pick.current -= sumW;
       result.push(pick.items.shift());
@@ -1758,7 +2402,7 @@ main::-webkit-scrollbar { display: none; }
     }
   }
 
-  /* ================= 7. TTS ================= */
+  /* ================= 10. TTS ================= */
   var synth = window.speechSynthesis, zhVoice = null;
   if (synth) {
     var initVoices = function() {
@@ -1772,22 +2416,17 @@ main::-webkit-scrollbar { display: none; }
   function playAudio() {
     var s = currentList[rIdx];
     if (!s || !synth) return;
-
-    if (synth.speaking) {
-      synth.cancel();
-    }
-
+    if (synth.speaking) synth.cancel();
     document.getElementById('listen').classList.add('speaking');
     var u = new SpeechSynthesisUtterance(s.zh);
     u.lang = 'zh-CN';
     u.rate = 0.85;
     if (zhVoice) u.voice = zhVoice;
     u.onend = u.onerror = function() { document.getElementById('listen').classList.remove('speaking'); };
-
     synth.speak(u);
   }
 
-  /* ================= 8. 渲染 ================= */
+  /* ================= 11. 渲染 ================= */
   var $ = function(id) { return document.getElementById(id); };
   var card = $('card'), done = $('done'), btnNext = $('next'), btnListen = $('listen');
 
@@ -1877,18 +2516,34 @@ main::-webkit-scrollbar { display: none; }
     $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday +
       '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
 
+    /* ---------- 免费额度与锁定 ---------- */
     var isLocked = false;
     var lockTitle = 'Continue the Story';
     var lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
 
-    if (s.category === 'classics') {
-      isLocked = (!isPro() && s.step > FREE_STEPS_CLASSICS);
-    }
-
-    if ((cur === 'business' || cur === 'trends') && !isPro() && rIdx >= 1) {
-      isLocked = true;
-      lockTitle = 'Unlock HanLingo Pro';
-      lockDesc = 'The ' + (cur === 'business' ? 'Work' : 'Trends & Slang') + ' section is part of HanLingo Pro. Upgrade to access high-value professional and internet vocabulary.';
+    if (!isPro()) {
+      if (s.category === 'classics') {
+        // 故事流：每个故事免费前 3 个场景
+        if (s.step > FREE_STEPS_CLASSICS) {
+          isLocked = true;
+          lockTitle = 'Continue the Story';
+          lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
+        }
+      } else if (cur === 'survival' || cur === 'business' || cur === 'trends') {
+        // 分类浏览模式：非故事栏目仅免费前 2 条
+        if (rIdx >= FREE_SENTENCES_NON_CLASSICS) {
+          isLocked = true;
+          lockTitle = 'Unlock HanLingo Pro';
+          var catName = cur === 'survival' ? 'Everyday Chinese'
+                      : cur === 'business' ? 'Chinese for Work'
+                      : 'Trends & Slang';
+          lockDesc = 'You\'ve tried ' + FREE_SENTENCES_NON_CLASSICS + ' free ' + catName +
+            ' sentences today. Upgrade to unlock the full library and keep your momentum going.';
+        }
+      }
+      // 注意：cur === 'mix' 时不做非故事栏目的锁定，
+      // Daily 10 作为首屏零阻力体验，全部 10 条免费。
+      // 但 classics 的 step 限制仍然生效（即 mix 中的故事卡如果 step > 3 会锁定）。
     }
 
     $('cardContent').classList.toggle('is-locked', isLocked);
@@ -1928,19 +2583,29 @@ main::-webkit-scrollbar { display: none; }
   function showDone() {
     card.hidden = true;
     done.hidden = false;
-    updateStreak(false);
 
-    // 动态控制 "Review Again" 的显隐
-    // 仅当 Daily 10 (cur === 'mix') 且 非 Pro 时，隐藏该按钮
+    var t = getLocalDateString();
+    var willCelebrate = !localStorage.getItem(CELEBRATED_KEY + t);
+    updateStreak(true);
+
     var btnReplay = document.getElementById('replay');
     if (cur === 'mix' && !isPro()) {
       btnReplay.style.display = 'none';
     } else {
       btnReplay.style.display = 'block';
     }
+
+    if (!isPro() && !isSynced() && !localStorage.getItem('hanlingo_sync_prompt_shown')) {
+      localStorage.setItem('hanlingo_sync_prompt_shown', 'true');
+      if (willCelebrate) {
+        pendingSyncPrompt = true;
+      } else {
+        setTimeout(showSyncPrompt, 700);
+      }
+    }
   }
 
-  /* ================= 9. 手势 ================= */
+  /* ================= 12. 手势 ================= */
   var startX = 0, startY = 0, isSwiping = false;
   var wrapper = $('cardWrapper');
 
@@ -1977,11 +2642,6 @@ main::-webkit-scrollbar { display: none; }
   function handleNext() {
     if (synth) synth.cancel();
     collapseHero();
-
-    if (rIdx === 0) {
-      updateStreak(true);
-    }
-
     if (rIdx >= currentList.length - 1) { showDone(); return; }
     rIdx++;
     renderCard();
@@ -1997,7 +2657,7 @@ main::-webkit-scrollbar { display: none; }
     }
   }
 
-  /* ================= 10. 事件 ================= */
+  /* ================= 13. 事件 ================= */
   $('chips').addEventListener('click', function(e) {
     var b = e.target.closest('.chip');
     if (!b) return;
@@ -2030,12 +2690,9 @@ main::-webkit-scrollbar { display: none; }
     loadNewBatch();
   });
 
-  /* ================= 11. 离线缓存与历史复习 ================= */
+  /* ================= 14. 离线缓存与历史复习 ================= */
   $('btnOffline').addEventListener('click', function() {
-    if (!isPro()) {
-      triggerPaywall();
-      return;
-    }
+    if (!isPro()) { triggerPaywall(); return; }
     var btn = this;
     var origText = btn.textContent;
     btn.textContent = 'Downloading...';
@@ -2043,11 +2700,7 @@ main::-webkit-scrollbar { display: none; }
 
     if ('caches' in window) {
       caches.open('hanlingo-offline-v1').then(function(cache) {
-        return cache.addAll([
-          './', './index.html',
-          './data/daily.js', './data/business.js', './data/classics.js', './data/trends.js',
-          './stories-data.js', './journey-west-hsk12.js', './art-of-war-hsk56.js'
-        ]);
+        return cache.addAll(PRELOAD_ASSETS);
       }).then(function() {
         btn.textContent = '✅ Saved for Offline';
         setTimeout(function() { btn.textContent = origText; btn.disabled = false; }, 3000);
@@ -2099,7 +2752,7 @@ main::-webkit-scrollbar { display: none; }
     $('reviewModal').hidden = true;
   });
 
-  /* ================= 12. 分享 ================= */
+  /* ================= 15. 分享 ================= */
   $('shareTextBtn').addEventListener('click', function() {
     var streak = loadStreak().streak || 0;
     var shareText =
@@ -2134,10 +2787,7 @@ main::-webkit-scrollbar { display: none; }
     fontPromise.then(function() {
       setTimeout(function() {
         html2canvas($('share-card'), {
-          scale: 2,
-          backgroundColor: '#F4F3EF',
-          useCORS: true,
-          allowTaint: false
+          scale: 2, backgroundColor: '#F4F3EF', useCORS: true, allowTaint: false
         }).then(function(canvas) {
           var imgData = canvas.toDataURL('image/png');
           var link = document.createElement('a');
@@ -2163,10 +2813,23 @@ main::-webkit-scrollbar { display: none; }
     });
   });
 
+  /* ================= 16. 同步徽章点击 ================= */
+  var syncBadge = document.getElementById('syncBadge');
+  if (syncBadge) {
+    syncBadge.addEventListener('click', function() {
+      var email = getSyncedEmail();
+      if (email) {
+        showToast('☁️ Progress synced to ' + email, { icon: '☁️', duration: 4200 });
+      }
+    });
+  }
+
   /* ================= 初始化 ================= */
   renderChips();
   loadNewBatch();
+  updateSyncBadge();
   handleCheckoutReturn();
+  setTimeout(runStreakBreakCheck, 2500);
 
 })();
 </script>
