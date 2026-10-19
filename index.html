@@ -10,6 +10,8 @@
 <meta property="og:description" content="Learn Chinese through practical sentences and stories, one short session at a time.">
 <meta property="og:url" content="https://hanlingo.app/">
 <meta property="og:type" content="website">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <style>
 :root {
@@ -29,6 +31,8 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .time-badge { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
 .streak { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
 .streak b { color: var(--accent); font-size: 16px; font-variant-numeric: tabular-nums; }
+.review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 4px; }
+.review-btn:hover { color: var(--accent); }
 
 /* 欢迎区域 */
 .hero { margin: 24px 0 20px; text-align: left; animation: fadeIn 0.4s ease both; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -58,6 +62,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .chip { flex: none; font: 600 12.5px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 99px; padding: 9px 14px; cursor: pointer; transition: .15s; }
 .chip:hover { border-color: var(--accent); }
 .chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip .lock-icon { font-size: 10px; margin-left: 4px; opacity: 0.8; }
 
 /* 子分类 */
 .sub-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 20px 4px 2px; scrollbar-width: none; animation: slideDown 0.3s ease; }
@@ -159,24 +164,46 @@ main::-webkit-scrollbar { display: none; }
 
 /* Paywall 弹窗 */
 .modal-overlay { position: fixed; inset: 0; background: rgba(44,48,46,.6); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; animation: fadeIn 0.2s ease both; }
-.paywall-clean { background: var(--card); border-radius: 24px; padding: 32px 28px 24px; text-align: left; max-width: 400px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.3); border: 1px solid var(--border); }
-.pw-header { margin-bottom: 24px; }
+.paywall-clean { background: var(--card); border-radius: 24px; padding: 32px 28px 24px; text-align: left; max-width: 400px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.3); border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+.pw-header { margin-bottom: 20px; }
 .pw-eyebrow { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
 .paywall-clean h2 { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 16px; }
-.pw-price { font-size: 32px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 8px; }
-.pw-price-note { font-size: 14px; color: var(--muted); }
-.pw-divider { border: none; border-top: 1px solid var(--border); margin: 0 -28px 24px; }
-.pw-perks { list-style: none; padding: 0; margin: 0 0 28px 0; display: flex; flex-direction: column; gap: 20px; }
+
+/* 套餐选择器 */
+.pw-plans { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.pw-plan { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: all .2s; background: var(--card); }
+.pw-plan:hover { border-color: var(--muted); }
+.pw-plan.active { border-color: var(--accent); background: var(--accent-soft); }
+.pw-plan input[type="radio"] { position: absolute; opacity: 0; cursor: pointer; }
+.pw-plan-info { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+.pw-plan-info strong { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; justify-content: space-between; }
+.pw-plan-info span { font-size: 14px; color: var(--muted); }
+.pw-plan.active .pw-plan-info strong { color: var(--accent); }
+.pw-plan.active .pw-plan-info span { color: var(--text); opacity: 0.8; }
+.pw-plan-info .badge { font-size: 10px; padding: 2px 6px; background: var(--accent); color: #fff; border-radius: 4px; font-weight: 700; }
+.pw-plan-info small { font-size: 12px; opacity: 0.8; font-weight: normal; margin-left: 4px; }
+
+.pw-divider { border: none; border-top: 1px solid var(--border); margin: 0 -28px 20px; }
+.pw-perks { list-style: none; padding: 0; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 16px; }
 .pw-perks li { display: flex; align-items: flex-start; gap: 12px; }
 .pw-icon { flex: none; width: 20px; height: 20px; border-radius: 50%; background: rgba(46, 139, 87, 0.1); color: #2E8B57; display: grid; place-items: center; font-size: 12px; font-weight: 900; margin-top: 2px; }
-.pw-text { display: flex; flex-direction: column; gap: 4px; }
-.pw-text strong { font-size: 15px; font-weight: 600; color: var(--text); }
-.pw-text span { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.pw-text { display: flex; flex-direction: column; gap: 2px; }
+.pw-text strong { font-size: 14px; font-weight: 600; color: var(--text); }
+.pw-text span { font-size: 13px; color: var(--muted); line-height: 1.4; }
 .pw-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 .pw-actions .btn { width: 100%; padding: 16px; font-size: 16px; }
-.pw-actions .later-btn { background: transparent; border: none; color: var(--muted); font-weight: 500; padding: 12px; cursor: pointer; transition: color .2s; }
+.pw-actions .later-btn { background: transparent; border: none; color: var(--muted); font-weight: 500; padding: 8px; cursor: pointer; transition: color .2s; }
 .pw-actions .later-btn:hover { color: var(--text); }
 .pw-disclaimer { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.4; opacity: 0.7; }
+
+/* 历史复习弹窗 */
+.review-modal .modal-content { max-height: 80vh; display: flex; flex-direction: column; }
+.review-list { overflow-y: auto; flex: 1; margin-top: 16px; display: flex; flex-direction: column; gap: 12px; padding-right: 4px; }
+.review-item { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: left; cursor: pointer; transition: .2s; }
+.review-item:hover { border-color: var(--accent); }
+.review-item-zh { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.review-item-en { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.review-item-meta { font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: 700; }
 
 /* 分享卡片（隐藏） */
 #share-card { position: absolute; left: -9999px; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; border-radius: 20px; text-align: center; }
@@ -213,6 +240,9 @@ main::-webkit-scrollbar { display: none; }
   .repeat-hint { margin-top: 8px; font-size: 11px; }
   .bottom-info { margin-top: 8px; font-size: 12px; }
   .done h2 { margin-top: 10px; font-size: 20px; }
+  .paywall-clean { padding: 24px 20px; }
+  .pw-plan { padding: 10px 14px; }
+  .pw-perks { gap: 12px; }
 }
 </style>
 </head>
@@ -222,6 +252,7 @@ main::-webkit-scrollbar { display: none; }
     <div class="top">
       <div class="brand">HanLingo</div>
       <div class="meta-right">
+        <button class="review-btn" id="btnReviewHistory">🔄 Review</button>
         <span class="time-badge">⏱ Est. 2 mins</span>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
       </div>
@@ -294,8 +325,8 @@ main::-webkit-scrollbar { display: none; }
 
           <div class="paywall-overlay" id="paywallOverlay" hidden>
             <div class="paywall-inner">
-              <h3>Continue the Story</h3>
-              <p>You've followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.</p>
+              <h3 id="lockTitle">Continue the Story</h3>
+              <p id="lockDesc">You've followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.</p>
               <button class="btn primary btn-trigger-paywall" id="btnUnlockInline">Unlock Full Access</button>
               <button class="btn later" id="btnDismissLock">Maybe Later</button>
             </div>
@@ -341,32 +372,71 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- Paywall 弹窗 -->
+<!-- 更新后的 Paywall 弹窗（依据 Feature Gate 图） -->
 <div class="modal-overlay" id="paywallModal" hidden>
   <div class="paywall-clean">
     <div class="pw-header">
       <span class="pw-eyebrow">HANLINGO · FULL ACCESS</span>
       <h2>Make Chinese Part of Your Everyday Life.</h2>
-      <div class="pw-price">US$69</div>
-      <p class="pw-price-note">One-time payment · Lifetime access to the included library</p>
+    </div>
+    
+    <div class="pw-plans">
+      <label class="pw-plan" data-plan="monthly">
+        <input type="radio" name="plan" value="monthly">
+        <div class="pw-plan-info">
+          <strong>Monthly</strong>
+          <span>$9.99 / month</span>
+        </div>
+      </label>
+
+      <label class="pw-plan active" data-plan="annual">
+        <input type="radio" name="plan" value="annual" checked>
+        <div class="pw-plan-info">
+          <strong>Annual <span class="badge">Best Value</span></strong>
+          <span>$59.99 / year <small>(~$4.99/mo)</small></span>
+        </div>
+      </label>
+
+      <label class="pw-plan" data-plan="lifetime">
+        <input type="radio" name="plan" value="lifetime">
+        <div class="pw-plan-info">
+          <strong>Lifetime</strong>
+          <span>$89.00 one-time</span>
+        </div>
+      </label>
     </div>
 
     <hr class="pw-divider">
 
     <ul class="pw-perks">
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Everyday Chinese</strong><span>Practical sentences for daily conversations.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Chinese for Work</strong><span>Useful expressions for professional situations.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Stories & Classics</strong><span>Access to the complete story chapters included in your purchase.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Trends & Slang</strong><span>The real Chinese people actually type and say online.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Learn at Your Own Pace</strong><span>Revisit the included content whenever you want.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Complete Story Library</strong><span>Unlock all chapters of Journey to the West and more.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Unlimited Review</strong><span>Revisit any past Daily 10 sentences anytime.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Trends & Work</strong><span>Exclusive access to Business Chinese and internet slang.</span></div></li>
+      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Offline Download</strong><span>Cache the entire story pack for flights & subways.</span></div></li>
     </ul>
 
     <div class="pw-actions">
-      <button class="btn primary" id="btnBuyPro">Unlock Lifetime Access</button>
+      <button class="btn primary" id="btnBuyPro">Start Annual Plan ($59.99/yr)</button>
       <button class="btn ghost later-btn" id="btnClosePro">Maybe Later</button>
     </div>
 
-    <p class="pw-disclaimer">Prices and benefits shown are for illustration. Your final purchase reflects current payment configuration.</p>
+    <p class="pw-disclaimer">Prices shown are for illustration. Cancel anytime.</p>
+  </div>
+</div>
+
+<!-- 历史复习弹窗 -->
+<div class="modal-overlay review-modal" id="reviewModal" hidden>
+  <div class="paywall-clean modal-content">
+    <div class="pw-header">
+      <span class="pw-eyebrow">UNLIMITED REVIEW</span>
+      <h2>Your Learning History</h2>
+    </div>
+    <div class="review-list" id="reviewList">
+      <!-- 动态注入 -->
+    </div>
+    <div class="pw-actions" style="margin-top: 20px;">
+      <button class="btn ghost" id="btnCloseReview">Close</button>
+    </div>
   </div>
 </div>
 
@@ -382,7 +452,7 @@ main::-webkit-scrollbar { display: none; }
   </div>
 </div>
 
-<!-- ================= 数据文件（每个板块独立，方便删改） ================= -->
+<!-- ================= 数据文件 ================= -->
 <script src="data/daily.js"></script>
 <script src="data/business.js"></script>
 <script src="data/classics.js"></script>
@@ -413,6 +483,23 @@ main::-webkit-scrollbar { display: none; }
   function setPro(val) { localStorage.setItem(PRO_KEY, val ? 'true' : 'false'); }
 
   /* ================= 1. 支付交互 ================= */
+  var selectedPlan = 'annual';
+  var planConfig = {
+    'monthly': { name: 'Monthly Pro', priceId: 'price_monthly_999', btnText: 'Start Monthly ($9.99/mo)' },
+    'annual': { name: 'Annual Pro', priceId: 'price_annual_5999', btnText: 'Start Annual ($59.99/yr)' },
+    'lifetime': { name: 'Lifetime Gold', priceId: 'price_lifetime_8900', btnText: 'Buy Lifetime ($89.00)' }
+  };
+
+  document.querySelectorAll('.pw-plan').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.pw-plan').forEach(function(p) { p.classList.remove('active'); });
+      el.classList.add('active');
+      el.querySelector('input[type="radio"]').checked = true;
+      selectedPlan = el.getAttribute('data-plan');
+      document.getElementById('btnBuyPro').textContent = planConfig[selectedPlan].btnText;
+    });
+  });
+
   function triggerPaywall() { document.getElementById('paywallModal').hidden = false; }
 
   document.querySelectorAll('.btn-trigger-paywall').forEach(function(el) {
@@ -435,7 +522,7 @@ main::-webkit-scrollbar { display: none; }
     fetch(API_BASE_URL + '/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: USER_ID, priceId: 'price_12345' })
+      body: JSON.stringify({ userId: USER_ID, plan: selectedPlan, priceId: planConfig[selectedPlan].priceId })
     })
     .then(function(res) { return res.json(); })
     .then(function(data) {
@@ -487,12 +574,29 @@ main::-webkit-scrollbar { display: none; }
     document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
-  /* ================= 3. 免费限制 ================= */
-  var FREE_STEPS_CLASSICS = 3;
-
-  /* ================= 4. 数据清洗 ================= */
+  /* ================= 3. 数据清洗与历史记录 ================= */
+  var FREE_STEPS_CLASSICS = 3; // 故事免费体验 3 步
   var dataset = { survival: [], business: [], classics: [], trends: [] };
   var classicBooks = [];
+  var historyList = []; // 历史复习记录
+  var HISTORY_KEY = 'hanlingo_history';
+
+  try {
+    var rawHistory = localStorage.getItem(HISTORY_KEY);
+    if (rawHistory) historyList = JSON.parse(rawHistory);
+  } catch(e) { historyList = []; }
+
+  function addToHistory(item) {
+    // 防止重复添加同一天的同一条
+    var exists = historyList.some(function(h) { return h.zh === item.zh && h.date === getLocalDateString(); });
+    if (exists) return;
+    
+    var clone = JSON.parse(JSON.stringify(item));
+    clone.date = getLocalDateString();
+    historyList.unshift(clone); // 最新在上面
+    if (historyList.length > 100) historyList.pop(); // 只保留最近 100 条
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(historyList));
+  }
 
   var BOOK_MAP = {
     'Journey to the West': 'Journey', '西游记': 'Journey',
@@ -587,7 +691,6 @@ main::-webkit-scrollbar { display: none; }
   extractData(window.CLASSICS_DATA, 'classics');
   extractData(window.STORIES_DATA, 'survival');
 
-  // Trends：来自独立 data/trends.js，缺失时静默降级
   (window.TRENDS_DATA || []).forEach(function(item) {
     if (!item.zh || !item.en) return;
     dataset.trends.push({
@@ -596,7 +699,6 @@ main::-webkit-scrollbar { display: none; }
     });
   });
 
-  // 去重
   ['survival', 'business', 'classics', 'trends'].forEach(function(cat) {
     var unique = [], seen = {};
     dataset[cat].forEach(function(item) {
@@ -608,8 +710,8 @@ main::-webkit-scrollbar { display: none; }
   var CATS = [
     { id: 'mix', icon: '🌟', label: 'Daily 10' },
     { id: 'survival', icon: '☕', label: 'Everyday Chinese' },
-    { id: 'business', icon: '💼', label: 'Chinese for Work' },
-    { id: 'trends', icon: '🔥', label: 'Trends & Slang' },
+    { id: 'business', icon: '💼', label: 'Chinese for Work' }, // Pro 门控
+    { id: 'trends', icon: '🔥', label: 'Trends & Slang' },    // Pro 门控
     { id: 'classics', icon: '📖', label: 'Stories & Classics' }
   ];
 
@@ -638,7 +740,7 @@ main::-webkit-scrollbar { display: none; }
   }
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
-  /* ================= 6. 抽句逻辑（5 + 2 + 1.5 + 1.5 黄金比例） ================= */
+  /* ================= 6. 抽句逻辑 ================= */
   var cur = 'mix';
   var curBook = 'all';
   var currentList = [];
@@ -716,14 +818,14 @@ main::-webkit-scrollbar { display: none; }
     var businessPool = shuffle(dataset.business, rand);
     var trendPool = shuffle(dataset.trends, rand);
 
+    // 商务和趋势在 Daily 10 中，免费用户也能看（但单独分类有限制）
     var sItems = take(survivalPool, 5);
     var bItems = take(businessPool, 2);
     var tItems = take(trendPool, trendQuota);
 
     var cItems = [];
-    var pro = isPro();
     var cPool = dataset.classics.filter(function(it) {
-      return pro || it.step <= FREE_STEPS_CLASSICS;
+      return isPro() || it.step <= FREE_STEPS_CLASSICS;
     });
 
     if (cPool.length) {
@@ -821,7 +923,9 @@ main::-webkit-scrollbar { display: none; }
   function renderChips() {
     var html = '';
     CATS.forEach(function(c) {
-      html += '<button class="chip" type="button" data-cat="' + c.id + '" aria-selected="' + (c.id === cur) + '">' + c.icon + ' ' + c.label + '</button>';
+      var isLocked = !isPro() && (c.id === 'business' || c.id === 'trends');
+      var lockIcon = isLocked ? ' <span class="lock-icon">🔒</span>' : '';
+      html += '<button class="chip" type="button" data-cat="' + c.id + '" aria-selected="' + (c.id === cur) + '">' + c.icon + ' ' + c.label + lockIcon + '</button>';
     });
     $('chips').innerHTML = html;
 
@@ -900,18 +1004,39 @@ main::-webkit-scrollbar { display: none; }
     $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday +
       '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
 
-    var isLocked = (s.category === 'classics' && !isPro() && s.step > FREE_STEPS_CLASSICS);
+    // ================= 权益限制逻辑 Feature Gate =================
+    var isLocked = false;
+    var lockTitle = 'Continue the Story';
+    var lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
+
+    if (s.category === 'classics') {
+      isLocked = (!isPro() && s.step > FREE_STEPS_CLASSICS);
+    } else if (s.category === 'business' || s.category === 'trends') {
+      // 免费用户只能在 Business/Trends 专区看第 1 句
+      isLocked = (!isPro() && rIdx >= 1);
+      if (isLocked) {
+        lockTitle = 'Unlock Pro Area';
+        lockDesc = 'The ' + (s.category === 'business' ? 'Work' : 'Trends & Slang') + ' section is part of HanLingo Pro. Upgrade to access high-value professional and internet vocabulary.';
+      }
+    }
 
     $('cardContent').classList.toggle('is-locked', isLocked);
     $('paywallOverlay').hidden = !isLocked;
     btnListen.disabled = isLocked;
 
     if (isLocked) {
-      $('proHint').hidden = false;
+      $('lockTitle').textContent = lockTitle;
+      $('lockDesc').textContent = lockDesc;
+      $('proHint').hidden = true;
     } else if (s.category === 'classics' && !isPro() && cur === 'mix') {
       $('proHint').hidden = false;
     } else {
       $('proHint').hidden = true;
+    }
+
+    // 历史记录
+    if (!isLocked && rIdx > 0) {
+      addToHistory(s);
     }
 
     card.style.opacity = '0';
@@ -1018,7 +1143,49 @@ main::-webkit-scrollbar { display: none; }
     loadNewBatch();
   });
 
-  /* ================= 11. 分享 ================= */
+  /* ================= 11. 历史复习与分享 ================= */
+  $('btnReviewHistory').addEventListener('click', function() {
+    if (!isPro()) {
+      triggerPaywall();
+      return;
+    }
+    renderHistoryModal();
+  });
+
+  function renderHistoryModal() {
+    var listEl = $('reviewList');
+    listEl.innerHTML = '';
+    
+    if (historyList.length === 0) {
+      listEl.innerHTML = '<p style="text-align:center; color:var(--muted); padding: 20px 0;">No history yet. Learn some cards first!</p>';
+    } else {
+      historyList.forEach(function(item) {
+        var el = document.createElement('div');
+        el.className = 'review-item';
+        el.innerHTML = 
+          '<div class="review-item-meta">' + (CAT_LABEL[item.category] || item.category) + ' · ' + item.date + '</div>' +
+          '<div class="review-item-zh">' + item.zh + '</div>' +
+          '<div class="review-item-en">' + item.en + '</div>';
+        
+        el.addEventListener('click', function() {
+          $('reviewModal').hidden = true;
+          // 点击时创建一个临时列表将复习的卡片装载进去
+          currentList = [item];
+          rIdx = 0;
+          done.hidden = true;
+          card.hidden = false;
+          renderCard();
+        });
+        listEl.appendChild(el);
+      });
+    }
+    $('reviewModal').hidden = false;
+  }
+
+  $('btnCloseReview').addEventListener('click', function() {
+    $('reviewModal').hidden = true;
+  });
+
   $('shareTextBtn').addEventListener('click', function() {
     var streak = loadStreak().streak || 0;
     var shareText =
