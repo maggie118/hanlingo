@@ -1,1 +1,22 @@
-
+window.DAILY_DATA = [
+  { zh: "你好，要一杯咖啡，不加糖。", pinyin: "Nǐ hǎo, yào yì bēi kāfēi, bù jiā táng.", en: "Hello, I'd like a cup of coffee, no sugar.", category: "survival" },
+  { zh: "请问，洗手间在哪里？", pinyin: "Qǐngwèn, xǐshǒujiān zài nǎlǐ?", en: "Excuse me, where is the restroom?", category: "survival" },
+  { zh: "请带我去这个地址。", pinyin: "Qǐng dài wǒ qù zhège dìzhǐ.", en: "Please take me to this address.", category: "survival" },
+  { zh: "可以给我一张收据吗？", pinyin: "Kěyǐ gěi wǒ yì zhāng shōujù ma?", en: "Could I have a receipt?", category: "survival" },
+  { zh: "这个多少钱？", pinyin: "Zhège duōshao qián?", en: "How much is this?", category: "survival" },
+  { zh: "太贵了，能便宜一点吗？", pinyin: "Tài guì le, néng piányi yìdiǎn ma?", en: "That's too expensive. Could you make it a little cheaper?", category: "survival" },
+  { zh: "我对花生过敏。", pinyin: "Wǒ duì huāshēng guòmǐn.", en: "I'm allergic to peanuts.", category: "survival" },
+  { zh: "请少放辣。", pinyin: "Qǐng shǎo fàng là.", en: "Please make it less spicy.", category: "survival" },
+  { zh: "请帮我叫一辆出租车。", pinyin: "Qǐng bāng wǒ jiào yí liàng chūzūchē.", en: "Please call a taxi for me.", category: "survival" },
+  { zh: "我预订了今晚的房间。", pinyin: "Wǒ yùdìng le jīnwǎn de fángjiān.", en: "I have a room booked for tonight.", category: "survival" },
+  { zh: "请说慢一点。", pinyin: "Qǐng shuō màn yìdiǎn.", en: "Please speak more slowly.", category: "survival" },
+  { zh: "这个用中文怎么说？", pinyin: "Zhège yòng Zhōngwén zěnme shuō?", en: "How do you say this in Chinese?", category: "survival" },
+  { zh: "买单，谢谢。", pinyin: "Mǎidān, xièxie.", en: "Check, please.", category: "survival" },
+  { zh: "今天天气怎么样？", pinyin: "Jīntiān tiānqì zěnmeyàng?", en: "How's the weather today?", category: "survival" },
+  { zh: "我最近压力有点大。", pinyin: "Wǒ zuìjìn yālì yǒudiǎn dà.", en: "I’ve been under a lot of pressure lately.", category: "survival" },
+  { zh: "别内耗了，做好自己的事就行。", pinyin: "Bié nèihào le, zuò hǎo zìjǐ de shì jiù xíng.", en: "Stop overthinking — just do your own thing well.", category: "survival" },
+  { zh: "我觉得我可能需要换个环境。", pinyin: "Wǒ juéde wǒ kěnéng xūyào huàn ge huánjìng.", en: "I think I might need a change of environment.", category: "survival" },
+  { zh: "工作是为了生活，不是反过来。", pinyin: "Gōngzuò shì wèi le shēnghuó, bú shì fǎn guòlái.", en: "Work is for living, not the other way around.", category: "survival" },
+  { zh: "我从下周开始休假。", pinyin: "Wǒ cóng xià zhōu kāishǐ xiūjià.", en: "I will be on leave starting next week.", category: "survival" },
+  { zh: "周末我们一起去爬山吧。", pinyin: "Zhōumò wǒmen yìqǐ qù páshān ba.", en: "Let's go hiking together this weekend.", category: "survival" }
+];

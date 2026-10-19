@@ -1,0 +1,22 @@
+window.BUSINESS_DATA = [
+  { zh: "很高兴能与各位合作。", pinyin: "Hěn gāoxìng néng yǔ gèwèi hézuò.", en: "It's a pleasure to work with all of you.", category: "business" },
+  { zh: "我们下周三开会，您方便吗？", pinyin: "Wǒmen xià zhōu sān kāihuì, nín fāngbiàn ma?", en: "We're meeting next Wednesday. Does that work for you?", category: "business" },
+  { zh: "我稍后把邮件发给您。", pinyin: "Wǒ shāohòu bǎ yóujiàn fā gěi nín.", en: "I'll send you the email shortly.", category: "business" },
+  { zh: "这个价格还有商量的余地吗？", pinyin: "Zhège jiàgé hái yǒu shāngliang de yúdì ma?", en: "Is there any room to negotiate on this price?", category: "business" },
+  { zh: "我们期待与贵公司长期合作。", pinyin: "Wǒmen qīdài yǔ guì gōngsī chángqī hézuò.", en: "We look forward to long-term cooperation with your company.", category: "business" },
+  { zh: "我们先确认一下需求。", pinyin: "Wǒmen xiān quèrèn yíxià xūqiú.", en: "Let's confirm the requirements first.", category: "business" },
+  { zh: "我来跟进这件事。", pinyin: "Wǒ lái gēnjìn zhè jiàn shì.", en: "I'll follow up on this.", category: "business" },
+  { zh: "请把发票发到我的邮箱。", pinyin: "Qǐng bǎ fāpiào fā dào wǒ de yóuxiāng.", en: "Please send the invoice to my email.", category: "business" },
+  { zh: "这顿饭我请客。", pinyin: "Zhè dùn fàn wǒ qǐngkè.", en: "This meal is on me.", category: "business" },
+  { zh: "干杯，合作愉快！", pinyin: "Gānbēi, hézuò yúkuài!", en: "Cheers, and here's to a happy cooperation!", category: "business" },
+  { zh: "我马上给你打电话。", pinyin: "Wǒ mǎshàng gěi nǐ dǎ diànhuà.", en: "I'll call you right away.", category: "business" },
+  { zh: "我们开会讨论一下这个方案吧。", pinyin: "Wǒmen kāihuì tǎolùn yíxià zhège fāng'àn ba.", en: "Let's have a meeting to discuss this plan.", category: "business" },
+  { zh: "这个项目的截止时间是什么时候？", pinyin: "Zhège xiàngmù de jiézhǐ shíjiān shì shénme shíhou?", en: "When is the deadline for this project?", category: "business" },
+  { zh: "我稍后回复你。", pinyin: "Wǒ shāohòu huífù nǐ.", en: "I'll reply to you later.", category: "business" },
+  { zh: "请查收附件并反馈意见。", pinyin: "Qǐng cháshōu fùjiàn bìng fǎnkuì yìjiàn.", en: "Please find the attachment and give feedback.", category: "business" },
+  { zh: "这个议题我们下次会议再讨论。", pinyin: "Zhège yìtí wǒmen xià cì huìyì zài tǎolùn.", en: "Let's discuss this topic at the next meeting.", category: "business" },
+  { zh: "辛苦了，早点回去休息。", pinyin: "Xīnkǔ le, zǎodiǎn huíqù xiūxi.", en: "You've worked hard today — go home and rest early.", category: "business" },
+  { zh: "这部分工作分给小李和小周。", pinyin: "Zhè bùfèn gōngzuò fēn gěi Xiǎo Lǐ hé Xiǎo Zhōu.", en: "This part of the work will be assigned to Xiao Li and Xiao Zhou.", category: "business" },
+  { zh: "我会尽快给您答复。", pinyin: "Wǒ huì jǐnkuài gěi nín dáfù.", en: "I will get back to you as soon as possible.", category: "business" },
+  { zh: "希望我们合作顺利。", pinyin: "Xīwàng wǒmen hézuò shùnlì.", en: "Hope our cooperation goes smoothly.", category: "business" }
+];
