@@ -1,373 +1,501 @@
+/* ============================================================
+   HanLingo ¡¤ Stories & Classics (¾­µä¹ÊÊÂ)
+   ------------------------------------------------------------
+   ±¾Êé£º¡¶Î÷ÓÎ¼Ç¡· (Journey to the West)
+   ½á¹¹£º12 ¸ö¹ÊÊÂ£¬Ã¿¸ö¹ÊÊÂ 3 ¾äºËĞÄÌ¨´Ê¡£
+   ·ç¸ñ£ºÌ¨´ÊÊ½¶Ì¾ä£¬ÊÊºÏ³Á½şÊ½¾çÇéÌåÑé¡£
+   ============================================================ */
+
 window.CLASSICS_DATA = [
   /* =========================================
-     ç»å…¸æ•…äº‹ 1ï¼šã€Šè¥¿æ¸¸è®° Â· å¤§é—¹å¤©å®«ã€‹
+     ¹ÊÊÂ 1£ººïÍõ³öÊÀ (Birth of the Monkey King)
      ========================================= */
   {
-    "id": "c_xiyou_01",
+    "id": "c_xiyou_01_1",
     "category": "classics",
     "book": "Journey to the West",
     "story_id": "xiyou_01",
     "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
+    "chapter_title": "Birth of the Monkey King",
     "step": 1,
-    "pinyin": "SÅ«n WÃ¹kÅng cÃ³ng lÃ³ng gÅng nÃ¡ dÃ o le jÄ«ngÅ« bÃ ng.",
-    "zh": "å­™æ‚Ÿç©ºä»é¾™å®«æ‹¿åˆ°äº†é‡‘ç®æ£’ã€‚",
-    "en": "Sun Wukong got the Golden Cudgel from the Dragon Palace."
+    "pinyin": "H¨§n ji¨³ h¨§n ji¨³ y¨«qi¨¢n, y¨¯u y¨ª zu¨° Hu¨¡gu¨¯ Sh¨¡n.",
+    "zh": "ºÜ¾ÃºÜ¾ÃÒÔÇ°£¬ÓĞÒ»×ù»¨¹ûÉ½¡£",
+    "en": "A long, long time ago, there was a Mountain of Flowers and Fruit.",
+    "usage": "?? ¹Ø¼ü´Ê£º»¨¹ûÉ½, ºÜ¾ÃºÜ¾ÃÒÔÇ°, Ò»×ù"
   },
   {
-    "id": "c_xiyou_02",
+    "id": "c_xiyou_01_2",
     "category": "classics",
     "book": "Journey to the West",
     "story_id": "xiyou_01",
     "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
+    "chapter_title": "Birth of the Monkey King",
     "step": 2,
-    "pinyin": "YÃ¹dÃ¬ rÃ ng tÄ zuÃ² bÃ¬mÇwÄ“n, tÄ hÄ›n shÄ“ngqÃ¬.",
-    "zh": "ç‰å¸è®©ä»–åšå¼¼é©¬æ¸©ï¼Œä»–å¾ˆç”Ÿæ°”ã€‚",
-    "en": "The Jade Emperor made him a stable boy, and he was furious."
+    "pinyin": "Zh¨« t¨©ng 'h¨­ng' de y¨¬ sh¨¥ng, sh¨ªtou li¨¨k¨¡i le!",
+    "zh": "Ö»Ìı¡°ºä¡±µÄÒ»Éù£¬Ê¯Í·ÁÑ¿ªÁË£¡",
+    "en": "With a loud 'boom', the stone cracked open!"
   },
   {
-    "id": "c_xiyou_03",
+    "id": "c_xiyou_01_3",
     "category": "classics",
     "book": "Journey to the West",
     "story_id": "xiyou_01",
     "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
+    "chapter_title": "Birth of the Monkey King",
     "step": 3,
-    "pinyin": "TÄ huÃ­ dÃ o HuÄguÇ’shÄn, zÃ¬ fÄ“ng QÃ­tiÄn DÃ shÃ¨ng.",
-    "zh": "ä»–å›åˆ°èŠ±æœå±±ï¼Œè‡ªå°é½å¤©å¤§åœ£ã€‚",
-    "en": "He returned to the Mountain of Flowers and Fruit and declared himself the Great Sage."
-  },
-  {
-    "id": "c_xiyou_04",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 4,
-    "pinyin": "YÃ¹huÃ¡ng DÃ dÃ¬ pÃ i tiÄnbÄ«ng tiÄnjiÃ ng qÃ¹ zhuÅ tÄ.",
-    "zh": "ç‰çš‡å¤§å¸æ´¾å¤©å…µå¤©å°†å»æ‰ä»–ã€‚",
-    "en": "The Jade Emperor sent the Heavenly Army to capture him."
-  },
-  {
-    "id": "c_xiyou_05",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 5,
-    "pinyin": "WÃ¹kÅng dÇbÃ i le NÃ©zhÄ, tiÄnbÄ«ng dÃ bÃ i.",
-    "zh": "æ‚Ÿç©ºæ‰“è´¥äº†å“ªå’ï¼Œå¤©å…µå¤§è´¥ã€‚",
-    "en": "Wukong defeated Nezha, and the Heavenly Army retreated."
-  },
-  {
-    "id": "c_xiyou_06",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 6,
-    "pinyin": "YÃ¹dÃ¬ zÃ i cÃ¬ piÃ n tÄ, rÃ ng tÄ guÇn PÃ¡ntÃ¡oyuÃ¡n.",
-    "zh": "ç‰å¸å†æ¬¡éª—ä»–ï¼Œè®©ä»–ç®¡èŸ æ¡ƒå›­ã€‚",
-    "en": "The Jade Emperor tricked him again, making him manage the Peach Garden."
-  },
-  {
-    "id": "c_xiyou_07",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 7,
-    "pinyin": "TÄ tÅu chÄ« xiÄntÃ¡o, pÃ²huÃ i le PÃ¡ntÃ¡o HuÃ¬.",
-    "zh": "ä»–å·åƒä»™æ¡ƒï¼Œç ´åäº†èŸ æ¡ƒä¼šã€‚",
-    "en": "He ate the immortal peaches and ruined the Peach Banquet."
-  },
-  {
-    "id": "c_xiyou_08",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 8,
-    "pinyin": "ÃˆrlÃ¡ngshÃ©n hÃ© SÅ«n WÃ¹kÅng dÃ zhÃ n le jÇ bÇi huÃ­hÃ©.",
-    "zh": "äºŒéƒç¥å’Œå­™æ‚Ÿç©ºå¤§æˆ˜äº†å‡ ç™¾å›åˆã€‚",
-    "en": "Erlang Shen and Sun Wukong fought for hundreds of rounds."
-  },
-  {
-    "id": "c_xiyou_09",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 9,
-    "pinyin": "TÃ ishÃ ng LÇojÅ«n yÃ²ng bÄguÃ lÃº shÄo le tÄ sÃ¬shÃ­jiÇ” tiÄn.",
-    "zh": "å¤ªä¸Šè€å›ç”¨å…«å¦ç‚‰çƒ§äº†ä»–å››åä¹å¤©ã€‚",
-    "en": "Lord Laozi burned him in the Eight-Trigram Furnace for forty-nine days."
-  },
-  {
-    "id": "c_xiyou_10",
-    "category": "classics",
-    "book": "Journey to the West",
-    "story_id": "xiyou_01",
-    "story_title": "Journey to the West",
-    "chapter_title": "Havoc in Heaven",
-    "step": 10,
-    "pinyin": "ZuÃ¬hÃ²u, RÃºlÃ¡i FÃ³zÇ” bÇ tÄ yÄ zÃ i WÇ”xÃ­ngshÄn xiÃ .",
-    "zh": "æœ€åï¼Œå¦‚æ¥ä½›ç¥–æŠŠä»–å‹åœ¨äº”è¡Œå±±ä¸‹ã€‚",
-    "en": "Finally, the Buddha imprisoned him under Five Elements Mountain."
+    "pinyin": "D¨¤w¨¢ng, n¨ªn ji¨´ sh¨¬ w¨¯men de D¨¤w¨¢ng!",
+    "zh": "´óÍõ£¬Äú¾ÍÊÇÎÒÃÇµÄ´óÍõ£¡",
+    "en": "King, you are our King!"
   },
 
   /* =========================================
-     ç»å…¸æ•…äº‹ 2ï¼šã€ŠèŠæ–‹å¿—å¼‚ Â· ç”»çš®ã€‹
+     ¹ÊÊÂ 2£º°İÊ¦Ñ§ÒÕ (Learning the Magic)
      ========================================= */
   {
-    "id": "c_huapi_01",
+    "id": "c_xiyou_02_1",
     "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
+    "book": "Journey to the West",
+    "story_id": "xiyou_02",
+    "story_title": "Journey to the West",
+    "chapter_title": "Learning the Magic",
     "step": 1,
-    "pinyin": "ShÅ«shÄ“ng WÃ¡ng shÄ“ng zÃ i qÄ«ngchÃ©n yÃ¹dÃ o yÃ­ gÃ¨ kÅ«qÃ¬ de mÄ›inÇš.",
-    "zh": "ä¹¦ç”Ÿç‹ç”Ÿåœ¨æ¸…æ™¨é‡åˆ°ä¸€ä¸ªå“­æ³£çš„ç¾å¥³ã€‚",
-    "en": "Scholar Wang met a crying beauty in the early morning."
+    "pinyin": "Sh¨©fu, q¨«ng sh¨°u t¨²'er y¨ª b¨¤i!",
+    "zh": "Ê¦¸¸£¬ÇëÊÜÍ½¶ùÒ»°İ£¡",
+    "en": "Master, please accept your disciple's bow!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÊ¦¸¸, Í½µÜ, °İ"
   },
   {
-    "id": "c_huapi_02",
+    "id": "c_xiyou_02_2",
     "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
+    "book": "Journey to the West",
+    "story_id": "xiyou_02",
+    "story_title": "Journey to the West",
+    "chapter_title": "Learning the Magic",
     "step": 2,
-    "pinyin": "TÄ xÄ«n shÄ“ng liÃ¡nmÇn, bÇ mÄ›inÇš dÃ i huÃ­ le jiÄ.",
-    "zh": "ä»–å¿ƒç”Ÿæ€œæ‚¯ï¼ŒæŠŠç¾å¥³å¸¦å›äº†å®¶ã€‚",
-    "en": "He felt pity and brought her back to his home."
+    "pinyin": "W¨¯ xi¨£ng xu¨¦ ch¨¢ngsh¨¥ng b¨´ l¨£o zh¨© sh¨´.",
+    "zh": "ÎÒÏëÑ§³¤Éú²»ÀÏÖ®Êõ¡£",
+    "en": "I want to learn the art of immortality."
   },
   {
-    "id": "c_huapi_03",
+    "id": "c_xiyou_02_3",
     "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
+    "book": "Journey to the West",
+    "story_id": "xiyou_02",
+    "story_title": "Journey to the West",
+    "chapter_title": "Learning the Magic",
     "step": 3,
-    "pinyin": "YÇ’u gÃ¨ dÃ oshi jÇnggÃ o tÄ, shuÅ tÄ shÄ“nshang yÇ’u xiÃ©qÃ¬.",
-    "zh": "æœ‰ä¸ªé“å£«è­¦å‘Šä»–ï¼Œè¯´ä»–èº«ä¸Šæœ‰é‚ªæ°”ã€‚",
-    "en": "A Taoist priest warned him that he had an evil aura."
-  },
-  {
-    "id": "c_huapi_04",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 4,
-    "pinyin": "BÃ nyÃ¨, WÃ¡ng shÄ“ng qiÄoqiÄo lÃ¡i dÃ o chuÄnghu pÃ¡ng tÅukÃ n.",
-    "zh": "åŠå¤œï¼Œç‹ç”Ÿæ‚„æ‚„æ¥åˆ°çª—æˆ·æ—å·çœ‹ã€‚",
-    "en": "At midnight, Wang secretly peeked through the window."
-  },
-  {
-    "id": "c_huapi_05",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 5,
-    "pinyin": "TÄ fÄxiÃ n Ã¨guÇ zhÃ¨ng zuÃ² zÃ i chuÃ¡ng shang huÃ  rÃ©npÃ­.",
-    "zh": "ä»–å‘ç°æ¶é¬¼æ­£ååœ¨åºŠä¸Šç”»äººçš®ã€‚",
-    "en": "He discovered the ghost sitting on the bed painting a human skin."
-  },
-  {
-    "id": "c_huapi_06",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 6,
-    "pinyin": "WÃ¡ng shÄ“ng xiÃ  de bÃ nsÇ, gÇnjÇn qÃ¹ zhÇo dÃ oshi qiÃºjiÃ¹.",
-    "zh": "ç‹ç”Ÿå“å¾—åŠæ­»ï¼Œèµ¶ç´§å»æ‰¾é“å£«æ±‚æ•‘ã€‚",
-    "en": "Scared half to death, Wang rushed to ask the priest for help."
-  },
-  {
-    "id": "c_huapi_07",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 7,
-    "pinyin": "DÃ oshi gÄ›i le tÄ yÃ¬ bÇ fÃºchÃ©n guÃ  zÃ i mÃ©n shang fÃ¡ng guÇ.",
-    "zh": "é“å£«ç»™äº†ä»–ä¸€æŠŠæ‹‚å°˜æŒ‚åœ¨é—¨ä¸Šé˜²é¬¼ã€‚",
-    "en": "The priest gave him a horsetail whisk to hang on the door."
-  },
-  {
-    "id": "c_huapi_08",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 8,
-    "pinyin": "ÃˆguÇ fÄnÃ¹ le, sÄ«suÃ¬ fÃºchÃ©n wÄ zÇ’u le tÄ de xÄ«n.",
-    "zh": "æ¶é¬¼å‘æ€’äº†ï¼Œæ’•ç¢æ‹‚å°˜æŒ–èµ°äº†ä»–çš„å¿ƒã€‚",
-    "en": "The ghost got angry, tore the whisk, and ripped out his heart."
-  },
-  {
-    "id": "c_huapi_09",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 9,
-    "pinyin": "TÄ de qÄ«zi wÃ¨ile jiÃ¹ tÄ, rÄ›nshÃ²u le jÃ¹dÃ  de qÅ«rÇ”.",
-    "zh": "ä»–çš„å¦»å­ä¸ºäº†æ•‘ä»–ï¼Œå¿å—äº†å·¨å¤§çš„å±ˆè¾±ã€‚",
-    "en": "His wife endured great humiliation to save him."
-  },
-  {
-    "id": "c_huapi_10",
-    "category": "classics",
-    "book": "Liaozhai",
-    "story_id": "huapi_01",
-    "story_title": "Liaozhai",
-    "chapter_title": "The Painted Skin",
-    "step": 10,
-    "pinyin": "QÄ«zi tÇ” chÅ« xÄ«nzÃ ng jiÃ¹huÃ³ le WÃ¡ng shÄ“ng, Ã¨guÇ bÃ¨i shÅufÃº.",
-    "zh": "å¦»å­åå‡ºå¿ƒè„æ•‘æ´»äº†ç‹ç”Ÿï¼Œæ¶é¬¼è¢«æ”¶æœã€‚",
-    "en": "The wife spat out a heart to revive him, and the ghost was subdued."
+    "pinyin": "Q¨©sh¨ª'¨¨r bi¨¤n, w¨¯ y¨«j¨©ng xu¨¦hu¨¬ le!",
+    "zh": "ÆßÊ®¶ş±ä£¬ÎÒÒÑ¾­Ñ§»áÁË£¡",
+    "en": "I have already mastered the 72 transformations!"
   },
 
   /* =========================================
-     ç»å…¸æ•…äº‹ 3ï¼šã€Šå­™å­å…µæ³•ã€‹ï¼ˆç²¾é€‰åè¨€ï¼Œç‹¬ç«‹ä¸ºä¸€æœ¬ä¹¦ï¼‰
+     ¹ÊÊÂ 3£ºÁú¹¬½è±¦ (The Golden Cudgel)
      ========================================= */
   {
-    "id": "c_art_of_war_01",
+    "id": "c_xiyou_03_1",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
+    "book": "Journey to the West",
+    "story_id": "xiyou_03",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Golden Cudgel",
     "step": 1,
-    "pinyin": "ZhÄ« jÇ zhÄ« bÇ, bÇi zhÃ n bÃ¹ dÃ i.",
-    "zh": "çŸ¥å·±çŸ¥å½¼ï¼Œç™¾æˆ˜ä¸æ®†ã€‚",
-    "en": "Know yourself and know your enemy, and you will never be defeated."
+    "pinyin": "L¨£o L¨®ngw¨¢ng, ji¨¨ w¨¯ y¨ª ji¨¤n ch¨¨nsh¨¯u de b¨©ngq¨¬!",
+    "zh": "ÀÏÁúÍõ£¬½èÎÒÒ»¼ş³ÃÊÖµÄ±øÆ÷£¡",
+    "en": "Old Dragon King, lend me a handy weapon!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÁúÍõ, ±øÆ÷, ½è"
   },
   {
-    "id": "c_art_of_war_02",
+    "id": "c_xiyou_03_2",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
+    "book": "Journey to the West",
+    "story_id": "xiyou_03",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Golden Cudgel",
     "step": 2,
-    "pinyin": "ShÃ ng bÄ«ng fÃ¡ mÃ³u.",
-    "zh": "ä¸Šå…µä¼è°‹ã€‚",
-    "en": "The best strategy is to attack the opponent's plans."
+    "pinyin": "Zh¨¨ g¨¥n j¨©ng¨± b¨¤ng b¨² cu¨°, w¨¯ y¨¤o le!",
+    "zh": "Õâ¸ù½ğ¹¿°ô²»´í£¬ÎÒÒªÁË£¡",
+    "en": "This Golden Cudgel is great. I'll take it!"
   },
   {
-    "id": "c_art_of_war_03",
+    "id": "c_xiyou_03_3",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
+    "book": "Journey to the West",
+    "story_id": "xiyou_03",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Golden Cudgel",
     "step": 3,
-    "pinyin": "BÃº zhÃ n Ã©r qÅ« rÃ©n zhÄ« bÄ«ng, shÃ n zhÄ« shÃ n zhÄ› yÄ›.",
-    "zh": "ä¸æˆ˜è€Œå±ˆäººä¹‹å…µï¼Œå–„ä¹‹å–„è€…ä¹Ÿã€‚",
-    "en": "Winning without fighting is the highest skill."
+    "pinyin": "Bi¨¤n d¨¤! Bi¨¤n xi¨£o! Zh¨¥n h¨£ow¨¢n!",
+    "zh": "±ä´ó£¡±äĞ¡£¡ÕæºÃÍæ£¡",
+    "en": "Grow big! Shrink small! So fun!"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 4£º´óÄÖµØ¸® (Havoc in the Underworld)
+     ========================================= */
+  {
+    "id": "c_xiyou_04_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_04",
+    "story_title": "Journey to the West",
+    "chapter_title": "Havoc in the Underworld",
+    "step": 1,
+    "pinyin": "Sh¨¥ngs¨«b¨´ z¨¤i n¨£? W¨¯ y¨¤o hu¨¤ di¨¤o z¨¬j¨« de m¨ªngzi!",
+    "zh": "ÉúËÀ²¾ÔÚÄÄ£¿ÎÒÒª»®µô×Ô¼ºµÄÃû×Ö£¡",
+    "en": "Where is the Book of Life and Death? I'm crossing out my name!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÉúËÀ²¾, »®µô, Ãû×Ö"
   },
   {
-    "id": "c_art_of_war_04",
+    "id": "c_xiyou_04_2",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 4,
-    "pinyin": "GÅng qÃ­ bÃº bÃ¨i, chÅ« qÃ­ bÃº yÃ¬.",
-    "zh": "æ”»å…¶ä¸å¤‡ï¼Œå‡ºå…¶ä¸æ„ã€‚",
-    "en": "Strike where they're unprepared; appear where they least expect you."
+    "book": "Journey to the West",
+    "story_id": "xiyou_04",
+    "story_title": "Journey to the West",
+    "chapter_title": "Havoc in the Underworld",
+    "step": 2,
+    "pinyin": "C¨®ng j¨©nti¨¡n q¨«, w¨¯ m¨¬ng y¨®u w¨¯ b¨´ y¨®u ti¨¡n!",
+    "zh": "´Ó½ñÌìÆğ£¬ÎÒÃüÓÉÎÒ²»ÓÉÌì£¡",
+    "en": "From today on, my fate is in my hands, not heaven's!"
   },
   {
-    "id": "c_art_of_war_05",
+    "id": "c_xiyou_04_3",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 5,
-    "pinyin": "BÄ«ng guÃ¬ shÃ©n sÃ¹.",
-    "zh": "å…µè´µç¥é€Ÿã€‚",
-    "en": "Speed is the essence of war."
+    "book": "Journey to the West",
+    "story_id": "xiyou_04",
+    "story_title": "Journey to the West",
+    "chapter_title": "Havoc in the Underworld",
+    "step": 3,
+    "pinyin": "Zh¨¨ sh¨¬ji¨¨ shang, z¨¤i y¨§ m¨¦i y¨¯u r¨¦n n¨¦ng gu¨£n w¨¯!",
+    "zh": "ÕâÊÀ½çÉÏ£¬ÔÙÒ²Ã»ÓĞÈËÄÜ¹ÜÎÒ£¡",
+    "en": "No one in this world can control me anymore!"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 5£ºÆëÌì´óÊ¥ (The Great Sage)
+     ========================================= */
+  {
+    "id": "c_xiyou_05_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_05",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Great Sage",
+    "step": 1,
+    "pinyin": "R¨¤ng w¨¯ zu¨° B¨¬m¨£w¨¥n? W¨¯ b¨´ g¨¤n le!",
+    "zh": "ÈÃÎÒ×öåöÂíÎÂ£¿ÎÒ²»¸ÉÁË£¡",
+    "en": "Make me a stable boy? I quit!",
+    "usage": "?? ¹Ø¼ü´Ê£ºåöÂíÎÂ, ²»¸É, ÆëÌì´óÊ¥"
   },
   {
-    "id": "c_art_of_war_06",
+    "id": "c_xiyou_05_2",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 6,
-    "pinyin": "YÇ yÃ¬ dÃ i lÃ¡o.",
-    "zh": "ä»¥é€¸å¾…åŠ³ã€‚",
-    "en": "Wait at ease for the exhausted enemy."
+    "book": "Journey to the West",
+    "story_id": "xiyou_05",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Great Sage",
+    "step": 2,
+    "pinyin": "W¨¯ z¨¬ f¨¥ng w¨¦i 'Q¨ªti¨¡n D¨¤sh¨¨ng'!",
+    "zh": "ÎÒ×Ô·âÎª¡°ÆëÌì´óÊ¥¡±£¡",
+    "en": "I declare myself the Great Sage Equal to Heaven!"
   },
   {
-    "id": "c_art_of_war_07",
+    "id": "c_xiyou_05_3",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 7,
-    "pinyin": "ShÄ“ng dÅng jÄ« xÄ«.",
-    "zh": "å£°ä¸œå‡»è¥¿ã€‚",
-    "en": "Make a noise in the east and attack in the west."
+    "book": "Journey to the West",
+    "story_id": "xiyou_05",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Great Sage",
+    "step": 3,
+    "pinyin": "Y¨´d¨¬, n¨« g¨£n bu g¨£n p¨¤i b¨©ng l¨¢i zhu¨­ w¨¯?",
+    "zh": "ÓñµÛ£¬Äã¸Ò²»¸ÒÅÉ±øÀ´×½ÎÒ£¿",
+    "en": "Jade Emperor, do you dare send troops to catch me?"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 6£º´óÄÖÌì¹¬ (Havoc in Heaven)
+     ========================================= */
+  {
+    "id": "c_xiyou_06_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_06",
+    "story_title": "Journey to the West",
+    "chapter_title": "Havoc in Heaven",
+    "step": 1,
+    "pinyin": "Zh¨¨ p¨¢nt¨¢o, w¨¯ xi¨¡n ch¨¢ng y¨¬ k¨¯u.",
+    "zh": "Õâó´ÌÒ£¬ÎÒÏÈ³¢Ò»¿Ú¡£",
+    "en": "Let me take a bite of this immortal peach first.",
+    "usage": "?? ¹Ø¼ü´Ê£ºó´ÌÒ, ÏÉµ¤, ÓñµÛ"
   },
   {
-    "id": "c_art_of_war_08",
+    "id": "c_xiyou_06_2",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 8,
-    "pinyin": "QÃ­n zÃ©i xiÄn qÃ­n wÃ¡ng.",
-    "zh": "æ“’è´¼å…ˆæ“’ç‹ã€‚",
-    "en": "To win, take the leader first â€” the rest will follow."
+    "book": "Journey to the West",
+    "story_id": "xiyou_06",
+    "story_title": "Journey to the West",
+    "chapter_title": "Havoc in Heaven",
+    "step": 2,
+    "pinyin": "T¨¤ish¨¤ng L¨£oj¨±n, n¨« de xi¨¡nd¨¡n w¨¯ qu¨¢n b¨¡o le!",
+    "zh": "Ì«ÉÏÀÏ¾ı£¬ÄãµÄÏÉµ¤ÎÒÈ«°üÁË£¡",
+    "en": "Lord Laozi, I'm taking all your immortal pills!"
   },
   {
-    "id": "c_art_of_war_09",
+    "id": "c_xiyou_06_3",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 9,
-    "pinyin": "SÄnshÃ­liÃ¹ jÃ¬, zÇ’u wÃ©i shÃ ng jÃ¬.",
-    "zh": "ä¸‰åå…­è®¡ï¼Œèµ°ä¸ºä¸Šè®¡ã€‚",
-    "en": "Of the thirty-six stratagems, running away is the best."
+    "book": "Journey to the West",
+    "story_id": "xiyou_06",
+    "story_title": "Journey to the West",
+    "chapter_title": "Havoc in Heaven",
+    "step": 3,
+    "pinyin": "Y¨´d¨¬, n¨« n¨¤i w¨¯ h¨¦?",
+    "zh": "ÓñµÛ£¬ÄãÄÎÎÒºÎ£¿",
+    "en": "Jade Emperor, what can you do to me?"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 7£ºÎåĞĞÉ½ÏÂ (Under Five Elements Mountain)
+     ========================================= */
+  {
+    "id": "c_xiyou_07_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_07",
+    "story_title": "Journey to the West",
+    "chapter_title": "Under Five Elements Mountain",
+    "step": 1,
+    "pinyin": "R¨²l¨¢i, n¨« g¨£n g¨¥n w¨¯ d¨£ d¨³ ma?",
+    "zh": "ÈçÀ´£¬Äã¸Ò¸úÎÒ´ò¶ÄÂğ£¿",
+    "en": "Buddha, do you dare make a bet with me?",
+    "usage": "?? ¹Ø¼ü´Ê£ºÈçÀ´, ´ò¶Ä, ÎåĞĞÉ½"
   },
   {
-    "id": "c_art_of_war_10",
+    "id": "c_xiyou_07_2",
     "category": "classics",
-    "book": "The Art of War",
-    "story_id": "art_of_war",
-    "story_title": "The Art of War",
-    "chapter_title": "Laying Plans",
-    "step": 10,
-    "pinyin": "BÃ¹ rÃ¹ hÇ”xuÃ©, yÄn dÃ© hÇ”zÇ.",
-    "zh": "ä¸å…¥è™ç©´ï¼Œç„‰å¾—è™å­ã€‚",
-    "en": "If you don't enter the tiger's den, how can you catch its cubs?"
+    "book": "Journey to the West",
+    "story_id": "xiyou_07",
+    "story_title": "Journey to the West",
+    "chapter_title": "Under Five Elements Mountain",
+    "step": 2,
+    "pinyin": "A¨¬, w¨¯ b¨¨i y¨¡ z¨¤i W¨³x¨ªngsh¨¡n xi¨¤ le.",
+    "zh": "°¥£¬ÎÒ±»Ñ¹ÔÚÎåĞĞÉ½ÏÂÁË¡£",
+    "en": "Ugh, I'm trapped under Five Elements Mountain."
+  },
+  {
+    "id": "c_xiyou_07_3",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_07",
+    "story_title": "Journey to the West",
+    "chapter_title": "Under Five Elements Mountain",
+    "step": 3,
+    "pinyin": "W¨³b¨£i ni¨¢n le, sh¨¦i l¨¢i ji¨´jiu w¨¯?",
+    "zh": "Îå°ÙÄêÁË£¬Ë­À´¾È¾ÈÎÒ£¿",
+    "en": "It's been 500 years. Will someone save me?"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 8£ºÌÆÉ®ÊÕÍ½ (Meeting Tang Seng)
+     ========================================= */
+  {
+    "id": "c_xiyou_08_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_08",
+    "story_title": "Journey to the West",
+    "chapter_title": "Meeting Tang Seng",
+    "step": 1,
+    "pinyin": "Sh¨©fu, ku¨¤i ji¨´jiu w¨¯!",
+    "zh": "Ê¦¸¸£¬¿ì¾È¾ÈÎÒ£¡",
+    "en": "Master, please save me!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÊ¦¸¸, ¾È, Î÷ÌìÈ¡¾­"
+  },
+  {
+    "id": "c_xiyou_08_2",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_08",
+    "story_title": "Journey to the West",
+    "chapter_title": "Meeting Tang Seng",
+    "step": 2,
+    "pinyin": "Zh¨«y¨¤o n¨« ji¨´ w¨¯ ch¨±q¨´, w¨¯ b¨£o n¨« x¨©ti¨¡n q¨³j¨©ng.",
+    "zh": "Ö»ÒªÄã¾ÈÎÒ³öÈ¥£¬ÎÒ±£ÄãÎ÷ÌìÈ¡¾­¡£",
+    "en": "If you save me, I'll protect you on your journey to the West."
+  },
+  {
+    "id": "c_xiyou_08_3",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_08",
+    "story_title": "Journey to the West",
+    "chapter_title": "Meeting Tang Seng",
+    "step": 3,
+    "pinyin": "W¨¯ S¨±n W¨´k¨­ng, yu¨¤n y¨¬ gu¨© y¨© F¨®m¨¦n!",
+    "zh": "ÎÒËïÎò¿Õ£¬Ô¸Òâğ§ÒÀ·ğÃÅ£¡",
+    "en": "I, Sun Wukong, am willing to follow the Buddhist path!"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 9£ºÈı´ò°×¹Ç¾« (Three Battles with the Bone Demon)
+     ========================================= */
+  {
+    "id": "c_xiyou_09_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_09",
+    "story_title": "Journey to the West",
+    "chapter_title": "Three Battles with the Bone Demon",
+    "step": 1,
+    "pinyin": "Y¨¡ogu¨¤i, n¨£l¨« p¨£o!",
+    "zh": "Ñı¹Ö£¬ÄÄÀïÅÜ£¡",
+    "en": "Demon, where do you think you're running!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÑı¹Ö, Ê¦¸¸, ½ô¹¿Öä"
+  },
+  {
+    "id": "c_xiyou_09_2",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_09",
+    "story_title": "Journey to the West",
+    "chapter_title": "Three Battles with the Bone Demon",
+    "step": 2,
+    "pinyin": "Sh¨©fu, t¨¡ zh¨¥n de sh¨¬ y¨¡ogu¨¤i!",
+    "zh": "Ê¦¸¸£¬ËıÕæµÄÊÇÑı¹Ö£¡",
+    "en": "Master, she really is a demon!"
+  },
+  {
+    "id": "c_xiyou_09_3",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_09",
+    "story_title": "Journey to the West",
+    "chapter_title": "Three Battles with the Bone Demon",
+    "step": 3,
+    "pinyin": "N¨« z¨¯u ba, w¨¯ m¨¦iy¨¯u n¨« zh¨¨ge t¨²d¨¬.",
+    "zh": "Äã×ß°É£¬ÎÒÃ»ÓĞÄãÕâ¸öÍ½µÜ¡£",
+    "en": "Leave. I no longer have you as my disciple."
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 10£ºÕæ¼ÙÃÀºïÍõ (The Real and Fake Monkey King)
+     ========================================= */
+  {
+    "id": "c_xiyou_10_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_10",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Real and Fake Monkey King",
+    "step": 1,
+    "pinyin": "W¨¯ sh¨¬ zh¨¥n de S¨±n W¨´k¨­ng!",
+    "zh": "ÎÒÊÇÕæµÄËïÎò¿Õ£¡",
+    "en": "I am the real Sun Wukong!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÕæ¼Ù, ÆĞÈø, ·Ö±æ"
+  },
+  {
+    "id": "c_xiyou_10_2",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_10",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Real and Fake Monkey King",
+    "step": 2,
+    "pinyin": "B¨´, w¨¯ c¨¢i sh¨¬ zh¨¥n de!",
+    "zh": "²»£¬ÎÒ²ÅÊÇÕæµÄ£¡",
+    "en": "No, I am the real one!"
+  },
+  {
+    "id": "c_xiyou_10_3",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_10",
+    "story_title": "Journey to the West",
+    "chapter_title": "The Real and Fake Monkey King",
+    "step": 3,
+    "pinyin": "P¨²s¨¤, n¨ªn n¨¦ng f¨¥nbi¨¤n ch¨± sh¨¦i sh¨¬ zh¨¥n de ma?",
+    "zh": "ÆĞÈø£¬ÄúÄÜ·Ö±æ³öË­ÊÇÕæµÄÂğ£¿",
+    "en": "Bodhisattva, can you tell who is the real one?"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 11£ºÈı½è°Å½¶ÉÈ (Three Attempts to Borrow the Plantain Fan)
+     ========================================= */
+  {
+    "id": "c_xiyou_11_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_11",
+    "story_title": "Journey to the West",
+    "chapter_title": "Three Attempts to Borrow the Plantain Fan",
+    "step": 1,
+    "pinyin": "Ti¨§sh¨¤n G¨­ngzh¨³, ji¨¨ w¨¯ b¨¡ji¨¡osh¨¤n y¨ª y¨°ng!",
+    "zh": "ÌúÉÈ¹«Ö÷£¬½èÎÒ°Å½¶ÉÈÒ»ÓÃ£¡",
+    "en": "Princess Iron Fan, lend me your plantain fan!",
+    "usage": "?? ¹Ø¼ü´Ê£ºÌúÉÈ¹«Ö÷, °Å½¶ÉÈ, ºìº¢¶ù"
+  },
+  {
+    "id": "c_xiyou_11_2",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_11",
+    "story_title": "Journey to the West",
+    "chapter_title": "Three Attempts to Borrow the Plantain Fan",
+    "step": 2,
+    "pinyin": "B¨´ ji¨¨! N¨« h¨¤i le w¨¯ de H¨®ngh¨¢i'¨¦r!",
+    "zh": "²»½è£¡Äãº¦ÁËÎÒµÄºìº¢¶ù£¡",
+    "en": "I won't lend it! You hurt my Red Boy!"
+  },
+  {
+    "id": "c_xiyou_11_3",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_11",
+    "story_title": "Journey to the West",
+    "chapter_title": "Three Attempts to Borrow the Plantain Fan",
+    "step": 3,
+    "pinyin": "Bi¨¤n! Bi¨¤nch¨¦ng xi¨£o ch¨®ngzi zu¨¡n j¨¬n n¨« d¨´zi l¨«!",
+    "zh": "±ä£¡±ä³ÉĞ¡³æ×Ó×ê½øÄã¶Ç×ÓÀï£¡",
+    "en": "Transform! Become a little bug and crawl into your belly!"
+  },
+
+  /* =========================================
+     ¹ÊÊÂ 12£ºÈ¡µÃÕæ¾­ (Getting the Scriptures)
+     ========================================= */
+  {
+    "id": "c_xiyou_12_1",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_12",
+    "story_title": "Journey to the West",
+    "chapter_title": "Getting the Scriptures",
+    "step": 1,
+    "pinyin": "Sh¨©fu, w¨¯men zh¨­ngy¨² d¨¤o le L¨ªngsh¨¡n.",
+    "zh": "Ê¦¸¸£¬ÎÒÃÇÖÕÓÚµ½ÁËÁéÉ½¡£",
+    "en": "Master, we've finally reached Lingshan.",
+    "usage": "?? ¹Ø¼ü´Ê£ºÁéÉ½, ÈçÀ´·ğ×æ, ¶·Õ½Ê¤·ğ"
+  },
+  {
+    "id": "c_xiyou_12_2",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_12",
+    "story_title": "Journey to the West",
+    "chapter_title": "Getting the Scriptures",
+    "step": 2,
+    "pinyin": "B¨¤iji¨¤n R¨²l¨¢i F¨®z¨³.",
+    "zh": "°İ¼ûÈçÀ´·ğ×æ¡£",
+    "en": "Greetings, Buddha."
+  },
+  {
+    "id": "c_xiyou_12_3",
+    "category": "classics",
+    "book": "Journey to the West",
+    "story_id": "xiyou_12",
+    "story_title": "Journey to the West",
+    "chapter_title": "Getting the Scriptures",
+    "step": 3,
+    "pinyin": "S¨±n W¨´k¨­ng, f¨¥ng n¨« w¨¦i D¨°uzh¨¤nsh¨¨ngf¨®!",
+    "zh": "ËïÎò¿Õ£¬·âÄãÎª¶·Õ½Ê¤·ğ£¡",
+    "en": "Sun Wukong, I dub you the Victorious Fighting Buddha!"
   }
 ];

@@ -1,325 +1,540 @@
-window.DAILY_DATA = [
-  // ================= 原有基础 20 句 =================
-  { zh: "你好，要一杯咖啡，不加糖。", pinyin: "Nǐ hǎo, yào yì bēi kāfēi, bù jiā táng.", en: "Hello, I'd like a cup of coffee, no sugar.", category: "survival", usage: "Use this when ordering coffee. '不加糖' means no sugar." },
-  { zh: "请问，洗手间在哪里？", pinyin: "Qǐngwèn, xǐshǒujiān zài nǎlǐ?", en: "Excuse me, where is the restroom?", category: "survival", usage: "A polite way to ask for the restroom." },
-  { zh: "请带我去这个地址。", pinyin: "Qǐng dài wǒ qù zhège dìzhǐ.", en: "Please take me to this address.", category: "survival", usage: "Show this to a taxi driver." },
-  { zh: "可以给我一张收据吗？", pinyin: "Kěyǐ gěi wǒ yì zhāng shōujù ma?", en: "Could I have a receipt?", category: "survival", usage: "Useful for business expenses." },
-  { zh: "这个多少钱？", pinyin: "Zhège duōshao qián?", en: "How much is this?", category: "survival", usage: "Ask for the price while pointing at the item." },
-  { zh: "太贵了，能便宜一点吗？", pinyin: "Tài guì le, néng piányi yìdiǎn ma?", en: "That's too expensive. Could you make it a little cheaper?", category: "survival", usage: "Standard bargaining phrase at markets." },
-  { zh: "我对花生过敏。", pinyin: "Wǒ duì huāshēng guòmǐn.", en: "I'm allergic to peanuts.", category: "survival", usage: "Crucial if you have food allergies." },
-  { zh: "请少放辣。", pinyin: "Qǐng shǎo fàng là.", en: "Please make it less spicy.", category: "survival", usage: "Say this if you can't handle spicy food." },
-  { zh: "请帮我叫一辆出租车。", pinyin: "Qǐng bāng wǒ jiào yí liàng chūzūchē.", en: "Please call a taxi for me.", category: "survival", usage: "Ask hotel staff to get you a cab." },
-  { zh: "我预订了今晚的房间。", pinyin: "Wǒ yùdìng le jīnwǎn de fángjiān.", en: "I have a room booked for tonight.", category: "survival", usage: "Use at the hotel check-in desk." },
-  { zh: "请说慢一点。", pinyin: "Qǐng shuō màn yìdiǎn.", en: "Please speak more slowly.", category: "survival", usage: "Say this when someone speaks too fast." },
-  { zh: "这个用中文怎么说？", pinyin: "Zhège yòng Zhōngwén zěnme shuō?", en: "How do you say this in Chinese?", category: "survival", usage: "Ask for a translation." },
-  { zh: "买单，谢谢。", pinyin: "Mǎidān, xièxie.", en: "Check, please.", category: "survival", usage: "Say this at a restaurant when you want to pay." },
-  { zh: "今天天气怎么样？", pinyin: "Jīntiān tiānqì zěnmeyàng?", en: "How's the weather today?", category: "survival", usage: "A safe topic to start a conversation." },
-  { zh: "我最近压力有点大。", pinyin: "Wǒ zuìjìn yālì yǒudiǎn dà.", en: "I’ve been under a lot of pressure lately.", category: "survival", usage: "Express stress at work." },
-  { zh: "别内耗了，做好自己的事就行。", pinyin: "Bié nèihào le, zuò hǎo zìjǐ de shì jiù xíng.", en: "Stop overthinking — just do your own thing well.", category: "survival", usage: "Modern workplace slang for 'stop internal friction'." },
-  { zh: "我觉得我可能需要换个环境。", pinyin: "Wǒ juéde wǒ kěnéng xūyào huàn ge huánjìng.", en: "I think I might need a change of environment.", category: "survival", usage: "A polite way to express wanting to leave a job." },
-  { zh: "工作是为了生活，不是反过来。", pinyin: "Gōngzuò shì wèi le shēnghuó, bú shì fǎn guòlái.", en: "Work is for living, not the other way around.", category: "survival", usage: "A modern attitude towards work-life balance." },
-  { zh: "我从下周开始休假。", pinyin: "Wǒ cóng xià zhōu kāishǐ xiūjià.", en: "I will be on leave starting next week.", category: "survival", usage: "Inform colleagues you are going on vacation." },
-  { zh: "周末我们一起去爬山吧。", pinyin: "Zhōumò wǒmen yìqǐ qù páshān ba.", en: "Let's go hiking together this weekend.", category: "survival", usage: "Invite a friend for a weekend activity." },
+/* ============================================================
+   HanLingo · Everyday Chinese（Everyday Chinese 栏目专用数据源）
+   ------------------------------------------------------------
+   定位：落地即用、绝无废话
+   场景：咖啡/餐饮 · 打车出行 · 电子支付 · 社交破冰 · 高频保命句
+   共 74 句。Daily 10（mix）会从全站所有分类混合抽取，
+   本文件只服务 "Everyday Chinese"（survival）分类。
+   ============================================================ */
 
-  // ================= 来自 daily-life.js 的 300 句 =================
-  { zh: "你好。", pinyin: "Nǐ hǎo.", en: "Hello.", category: "survival", usage: "The most universal greeting in Chinese." },
-  { zh: "您好。", pinyin: "Nín hǎo.", en: "Hello. (polite)", category: "survival", usage: "The respectful form of “你.”" },
-  { zh: "大家好。", pinyin: "Dàjiā hǎo.", en: "Hello, everyone.", category: "survival", usage: "Say this when greeting a whole group." },
-  { zh: "早上好。", pinyin: "Zǎoshang hǎo.", en: "Good morning.", category: "survival", usage: "A standard greeting in the morning." },
-  { zh: "晚上好。", pinyin: "Wǎnshang hǎo.", en: "Good evening.", category: "survival", usage: "A polite greeting for the evening." },
-  { zh: "你好吗？", pinyin: "Nǐ hǎo ma?", en: "How are you?", category: "survival", usage: "The easiest way to ask how someone is doing." },
-  { zh: "我很好，谢谢。", pinyin: "Wǒ hěn hǎo, xièxie.", en: "I'm fine, thanks.", category: "survival", usage: "The standard reply to “你好吗.”" },
-  { zh: "谢谢。", pinyin: "Xièxie.", en: "Thank you.", category: "survival", usage: "A universal thank-you." },
-  { zh: "不客气。", pinyin: "Bú kèqi.", en: "You're welcome.", category: "survival", usage: "The standard reply to “谢谢.”" },
-  { zh: "对不起。", pinyin: "Duìbuqǐ.", en: "I'm sorry.", category: "survival", usage: "Say this when you've done something wrong." },
-  { zh: "没关系。", pinyin: "Méi guānxi.", en: "It's okay.", category: "survival", usage: "The standard reply to “对不起.”" },
-  { zh: "再见！", pinyin: "Zàijiàn!", en: "Goodbye!", category: "survival", usage: "The standard goodbye." },
-  { zh: "明天见！", pinyin: "Míngtiān jiàn!", en: "See you tomorrow!", category: "survival", usage: "Say this when you'll meet again tomorrow." },
-  { zh: "回头见。", pinyin: "Huítóu jiàn.", en: "See you later.", category: "survival", usage: "Very casual, common between friends." },
-  { zh: "很高兴认识你。", pinyin: "Hěn gāoxìng rènshi nǐ.", en: "Nice to meet you.", category: "survival", usage: "Say it when meeting someone for the first time." },
-  { zh: "我叫安娜。", pinyin: "Wǒ jiào Ānnà.", en: "My name is Anna.", category: "survival", usage: "The standard way to introduce your name." },
-  { zh: "你叫什么名字？", pinyin: "Nǐ jiào shénme míngzi?", en: "What's your name?", category: "survival", usage: "The most common way to ask someone's name." },
-  { zh: "我是美国人。", pinyin: "Wǒ shì Měiguó rén.", en: "I'm American.", category: "survival", usage: "Introduce your nationality." },
-  { zh: "我来自泰国。", pinyin: "Wǒ láizì Tàiguó.", en: "I'm from Thailand.", category: "survival", usage: "More formal than saying “我是泰国人.”" },
-  { zh: "我住在新加坡。", pinyin: "Wǒ zhù zài Xīnjiāpō.", en: "I live in Singapore.", category: "survival", usage: "Tell people where you live." },
-  { zh: "我是学生。", pinyin: "Wǒ shì xuésheng.", en: "I'm a student.", category: "survival", usage: "State your identity." },
-  { zh: "我学习中文。", pinyin: "Wǒ xuéxí Zhōngwén.", en: "I study Chinese.", category: "survival", usage: "Let people know you're learning." },
-  { zh: "我会说英语。", pinyin: "Wǒ huì shuō Yīngyǔ.", en: "I can speak English.", category: "survival", usage: "State your language skills." },
-  { zh: "我会说一点中文。", pinyin: "Wǒ huì shuō yìdiǎn Zhōngwén.", en: "I can speak a little Chinese.", category: "survival", usage: "A great “opening disclaimer.”" },
-  { zh: "你来自哪里？", pinyin: "Nǐ láizì nǎlǐ?", en: "Where are you from?", category: "survival", usage: "Ask where someone is from." },
-  { zh: "你做什么工作？", pinyin: "Nǐ zuò shénme gōngzuò?", en: "What do you do?", category: "survival", usage: "Ask about someone's job." },
-  { zh: "我三十岁。", pinyin: "Wǒ sānshí suì.", en: "I'm 30 years old.", category: "survival", usage: "In Chinese you say age with “岁.”" },
-  { zh: "你呢？", pinyin: "Nǐ ne?", en: "And you?", category: "survival", usage: "A quick question back." },
-  { zh: "这是我的朋友。", pinyin: "Zhè shì wǒ de péngyou.", en: "This is my friend.", category: "survival", usage: "Use it when introducing someone." },
-  { zh: "请多关照。", pinyin: "Qǐng duō guānzhào.", en: "Please take care of me.", category: "survival", usage: "A social habit to show humility." },
-  { zh: "现在几点？", pinyin: "Xiànzài jǐ diǎn?", en: "What time is it now?", category: "survival", usage: "The standard way to ask the time." },
-  { zh: "现在三点。", pinyin: "Xiànzài sān diǎn.", en: "It's three o'clock.", category: "survival", usage: "Telling time is simple: number + 点." },
-  { zh: "今天几号？", pinyin: "Jīntiān jǐ hào?", en: "What's the date today?", category: "survival", usage: "Ask for dates using “号.”" },
-  { zh: "今天星期几？", pinyin: "Jīntiān xīngqī jǐ?", en: "What day is it today?", category: "survival", usage: "Ask what day of the week it is." },
-  { zh: "今天星期五。", pinyin: "Jīntiān xīngqīwǔ.", en: "Today is Friday.", category: "survival", usage: "In Chinese you don't need “是” for days." },
-  { zh: "我明天有时间。", pinyin: "Wǒ míngtiān yǒu shíjiān.", en: "I have time tomorrow.", category: "survival", usage: "Used when making plans." },
-  { zh: "我们几点见面？", pinyin: "Wǒmen jǐ diǎn jiànmiàn?", en: "What time shall we meet?", category: "survival", usage: "Arranging a meeting time." },
-  { zh: "七点可以吗？", pinyin: "Qī diǎn kěyǐ ma?", en: "Is seven okay?", category: "survival", usage: "Suggest or confirm a time." },
-  { zh: "我迟到十分钟。", pinyin: "Wǒ chídào shí fēnzhōng.", en: "I'm ten minutes late.", category: "survival", usage: "Inform someone you are late." },
-  { zh: "请等我一下。", pinyin: "Qǐng děng wǒ yíxià.", en: "Please wait for me a moment.", category: "survival", usage: "A polite way to ask someone to wait." },
-  { zh: "从星期一到星期五。", pinyin: "Cóng xīngqīyī dào xīngqīwǔ.", en: "From Monday to Friday.", category: "survival", usage: "The standard pattern for time ranges." },
-  { zh: "我下午三点到。", pinyin: "Wǒ xiàwǔ sān diǎn dào.", en: "I'll arrive at 3 p.m.", category: "survival", usage: "Tell someone your arrival time." },
-  { zh: "一会儿见。", pinyin: "Yíhuìr jiàn.", en: "See you in a bit.", category: "survival", usage: "More specific than “再见.”" },
-  { zh: "下个月见。", pinyin: "Xià ge yuè jiàn.", en: "See you next month.", category: "survival", usage: "Use it when saying goodbye." },
-  { zh: "生日快乐！", pinyin: "Shēngrì kuàilè!", en: "Happy birthday!", category: "survival", usage: "The standard birthday greeting." },
-  { zh: "请问，洗手间在哪里？", pinyin: "Qǐngwèn, xǐshǒujiān zài nǎlǐ?", en: "Excuse me, where is the restroom?", category: "survival", usage: "Start with “请问” when asking for a place." },
-  { zh: "请问，你知道这个地方吗？", pinyin: "Qǐngwèn, nǐ zhīdào zhège dìfang ma?", en: "Excuse me, do you know this place?", category: "survival", usage: "Use it with a map or phone." },
-  { zh: "对不起，我迟到了。", pinyin: "Duìbuqǐ, wǒ chídào le.", en: "Sorry, I'm late.", category: "survival", usage: "First say “对不起,” then give the reason." },
-  { zh: "没关系，我也刚到。", pinyin: "Méi guānxi, wǒ yě gāng dào.", en: "It's okay, I just arrived too.", category: "survival", usage: "The standard reply to an apology." },
-  { zh: "谢谢你的帮助。", pinyin: "Xièxie nǐ de bāngzhù.", en: "Thanks for your help.", category: "survival", usage: "More specific than just “谢谢.”" },
-  { zh: "不客气，应该的。", pinyin: "Bú kèqi, yīnggāi de.", en: "You're welcome, it's what I should do.", category: "survival", usage: "A very authentic Chinese reply to “谢谢.”" },
-  { zh: "请帮帮我。", pinyin: "Qǐng bāngbang wǒ.", en: "Please help me.", category: "survival", usage: "Say it directly when in trouble." },
-  { zh: "你可以帮我一下吗？", pinyin: "Nǐ kěyǐ bāng wǒ yíxià ma?", en: "Can you help me a little?", category: "survival", usage: "The most common request pattern." },
-  { zh: "当然可以。", pinyin: "Dāngrán kěyǐ.", en: "Of course.", category: "survival", usage: "Use it to happily accept a request." },
-  { zh: "不好意思，我打扰一下。", pinyin: "Bù hǎoyìsi, wǒ dǎrǎo yíxià.", en: "Excuse me, let me interrupt for a moment.", category: "survival", usage: "Good for interrupting or jumping in." },
-  { zh: "请问，你叫什么名字？", pinyin: "Qǐngwèn, nǐ jiào shénme míngzi?", en: "Excuse me, what's your name?", category: "survival", usage: "Adding “请问” makes it more polite." },
-  { zh: "请你再说一遍，好吗？", pinyin: "Qǐng nǐ zài shuō yí biàn, hǎo ma?", en: "Please say it again, okay?", category: "survival", usage: "Use it when you didn't hear clearly." },
-  { zh: "请等一下。", pinyin: "Qǐng děng yíxià.", en: "Please wait a moment.", category: "survival", usage: "One of the simplest request sentences." },
-  { zh: "我马上来。", pinyin: "Wǒ mǎshàng lái.", en: "I'll come right away.", category: "survival", usage: "Answer this when someone waits for you." },
-  { zh: "麻烦你了。", pinyin: "Máfan nǐ le.", en: "Sorry to trouble you.", category: "survival", usage: "Said before or after asking for help." },
-  { zh: "我听不懂。", pinyin: "Wǒ tīng bù dǒng.", en: "I don't understand.", category: "survival", usage: "The most important sentence for beginners." },
-  { zh: "请说慢一点。", pinyin: "Qǐng shuō màn yìdiǎn.", en: "Please speak more slowly.", category: "survival", usage: "Use it when the other person speaks too fast." },
-  { zh: "请再说一遍。", pinyin: "Qǐng zài shuō yí biàn.", en: "Please say it again.", category: "survival", usage: "More polite than “什么.”" },
-  { zh: "请写下来。", pinyin: "Qǐng xiě xiàlái.", en: "Please write it down.", category: "survival", usage: "Ask them to write it out so you can translate." },
-  { zh: "这个用中文怎么说？", pinyin: "Zhège yòng Zhōngwén zěnme shuō?", en: "How do you say this in Chinese?", category: "survival", usage: "One of the most useful sentences for learning." },
-  { zh: "你会说英语吗？", pinyin: "Nǐ huì shuō Yīngyǔ ma?", en: "Can you speak English?", category: "survival", usage: "Use it when you really can't communicate." },
-  { zh: "我会说一点中文。", pinyin: "Wǒ huì shuō yìdiǎn Zhōngwén.", en: "I can speak a little Chinese.", category: "survival", usage: "A great “opening disclaimer.”" },
-  { zh: "什么意思？", pinyin: "Shénme yìsi?", en: "What does it mean?", category: "survival", usage: "Use it when you hear a word you don't know." },
-  { zh: "我不太明白。", pinyin: "Wǒ bú tài míngbai.", en: "I don't quite understand.", category: "survival", usage: "Gentler than “听不懂.”" },
-  { zh: "你明白我的意思吗？", pinyin: "Nǐ míngbai wǒ de yìsi ma?", en: "Do you understand what I mean?", category: "survival", usage: "Confirm they understood." },
-  { zh: "可以帮我翻译吗？", pinyin: "Kěyǐ bāng wǒ fānyì ma?", en: "Can you help me translate?", category: "survival", usage: "Use it when you don't understand a menu." },
-  { zh: "请发文字给我。", pinyin: "Qǐng fā wénzì gěi wǒ.", en: "Please send me a text.", category: "survival", usage: "When a phone call is unclear." },
-  { zh: "我的中文不好。", pinyin: "Wǒ de Zhōngwén bù hǎo.", en: "My Chinese is not good.", category: "survival", usage: "A humble sentence." },
-  { zh: "我在学习，请多帮助。", pinyin: "Wǒ zài xuéxí, qǐng duō bāngzhù.", en: "I'm learning, please help me.", category: "survival", usage: "Telling them you're a learner." },
-  { zh: "谢谢你的耐心。", pinyin: "Xièxie nǐ de nàixīn.", en: "Thanks for your patience.", category: "survival", usage: "Say this after someone explains slowly." },
-  { zh: "我饿了。", pinyin: "Wǒ è le.", en: "I'm hungry.", category: "survival", usage: "The simplest way to state a need." },
-  { zh: "你想吃什么？", pinyin: "Nǐ xiǎng chī shénme?", en: "What do you want to eat?", category: "survival", usage: "Ask what someone wants to eat." },
-  { zh: "我想吃米饭。", pinyin: "Wǒ xiǎng chī mǐfàn.", en: "I want to eat rice.", category: "survival", usage: "In southern China, rice is the staple." },
-  { zh: "请给我菜单。", pinyin: "Qǐng gěi wǒ càidān.", en: "Please give me the menu.", category: "survival", usage: "The first thing to say at a restaurant." },
-  { zh: "我要这个。", pinyin: "Wǒ yào zhège.", en: "I'll have this.", category: "survival", usage: "The most useful sentence when pointing." },
-  { zh: "这个好吃吗？", pinyin: "Zhège hǎo chī ma?", en: "Is this delicious?", category: "survival", usage: "Ask the server or friends for recommendations." },
-  { zh: "很好吃。", pinyin: "Hěn hǎo chī.", en: "It's delicious.", category: "survival", usage: "Compliment the food after eating." },
-  { zh: "我不要辣的。", pinyin: "Wǒ bú yào là de.", en: "I don't want spicy.", category: "survival", usage: "Say this if you can't eat spicy food." },
-  { zh: "请给我一杯水。", pinyin: "Qǐng gěi wǒ yì bēi shuǐ.", en: "Please give me a glass of water.", category: "survival", usage: "Restaurants often serve hot water." },
-  { zh: "我想喝茶。", pinyin: "Wǒ xiǎng hē chá.", en: "I want to drink tea.", category: "survival", usage: "Tea culture matters in China." },
-  { zh: "再来一碗米饭。", pinyin: "Zài lái yì wǎn mǐfàn.", en: "One more bowl of rice.", category: "survival", usage: "Use it when you finish a bowl." },
-  { zh: "买单，谢谢。", pinyin: "Mǎidān, xièxie.", en: "Check, please.", category: "survival", usage: "Just call out “买单” after eating." },
-  { zh: "请给我一个盒子，我要带走。", pinyin: "Qǐng gěi wǒ yí ge hézi, wǒ yào dài zǒu.", en: "Please give me a box; I want to take it away.", category: "survival", usage: "Use it to pack up leftovers." },
-  { zh: "可以刷卡吗？", pinyin: "Kěyǐ shuākǎ ma?", en: "Can I pay by card?", category: "survival", usage: "Many people pay by phone now." },
-  { zh: "可以分开付吗？", pinyin: "Kěyǐ fēnkāi fù ma?", en: "Can we pay separately?", category: "survival", usage: "Use it when splitting the bill with friends." },
-  { zh: "你好，我想买这个。", pinyin: "Nǐ hǎo, wǒ xiǎng mǎi zhège.", en: "Hello, I want to buy this.", category: "survival", usage: "Even total beginners can shop like this." },
-  { zh: "多少钱？", pinyin: "Duōshao qián?", en: "How much?", category: "survival", usage: "Works in any country, any market." },
-  { zh: "太贵了。", pinyin: "Tài guì le.", en: "Too expensive.", category: "survival", usage: "Normal market behavior, not rude." },
-  { zh: "可以便宜一点吗？", pinyin: "Kěyǐ piányi yìdiǎn ma?", en: "Can it be cheaper?", category: "survival", usage: "The standard bargaining sentence." },
-  { zh: "我只是看看。", pinyin: "Wǒ zhǐshì kànkan.", en: "I'm just looking.", category: "survival", usage: "More polite than “不要.”" },
-  { zh: "有别的颜色吗？", pinyin: "Yǒu bié de yánsè ma?", en: "Do you have other colors?", category: "survival", usage: "Use it for clothes, shoes, or phones." },
-  { zh: "有大一点的吗？", pinyin: "Yǒu dà yìdiǎn de ma?", en: "Do you have a bigger one?", category: "survival", usage: "Use it when clothes are the wrong size." },
-  { zh: "我可以试试吗？", pinyin: "Wǒ kěyǐ shìshi ma?", en: "Can I try it?", category: "survival", usage: "Use it when buying clothes or shoes." },
-  { zh: "这个很合适。", pinyin: "Zhège hěn héshì.", en: "This fits well.", category: "survival", usage: "Say this when you've tried something on." },
-  { zh: "我要这个。", pinyin: "Wǒ yào zhège.", en: "I'll take this.", category: "survival", usage: "Simple and direct." },
-  { zh: "可以刷卡吗？", pinyin: "Kěyǐ shuākǎ ma?", en: "Can I pay by card?", category: "survival", usage: "Ask whether you can pay by card." },
-  { zh: "可以用现金吗？", pinyin: "Kěyǐ yòng xiànjīn ma?", en: "Can I use cash?", category: "survival", usage: "Cash is still legal tender." },
-  { zh: "可以换吗？", pinyin: "Kěyǐ huàn ma?", en: "Can I exchange it?", category: "survival", usage: "Use it when you bought the wrong size." },
-  { zh: "谢谢，不用了。", pinyin: "Xièxie, bú yòng le.", en: "Thanks, no need.", category: "survival", usage: "Much more polite than a direct “不要.”" },
-  { zh: "我再看看。", pinyin: "Wǒ zài kànkan.", en: "I'll look around more.", category: "survival", usage: "Very natural and doesn't offend." },
-  { zh: "请问，洗手间在哪里？", pinyin: "Qǐngwèn, xǐshǒujiān zài nǎlǐ?", en: "Excuse me, where is the restroom?", category: "survival", usage: "Works for asking about toilets anywhere." },
-  { zh: "请问，地铁站在哪里？", pinyin: "Qǐngwèn, dìtiě zhàn zài nǎlǐ?", en: "Excuse me, where is the subway station?", category: "survival", usage: "In China it's “地铁”; in Singapore it's MRT." },
-  { zh: "一直走。", pinyin: "Yìzhí zǒu.", en: "Go straight.", category: "survival", usage: "The most common first line for directions." },
-  { zh: "左转。", pinyin: "Zuǒ zhuǎn.", en: "Turn left.", category: "survival", usage: "Use it to give or follow directions." },
-  { zh: "在马路对面。", pinyin: "Zài mǎlù duìmiàn.", en: "It's across the street.", category: "survival", usage: "Someone may answer like this." },
-  { zh: "离这里远吗？", pinyin: "Lí zhèlǐ yuǎn ma?", en: "Is it far from here?", category: "survival", usage: "Ask about distance." },
-  { zh: "走路十分钟。", pinyin: "Zǒulù shí fēnzhōng.", en: "Ten minutes on foot.", category: "survival", usage: "Common when someone tells you a distance." },
-  { zh: "我迷路了。", pinyin: "Wǒ mílù le.", en: "I'm lost.", category: "survival", usage: "Say this directly if you're lost." },
-  { zh: "这是哪里？", pinyin: "Zhè shì nǎlǐ?", en: "Where is this?", category: "survival", usage: "Use it when you don't know where you are." },
-  { zh: "我要去火车站。", pinyin: "Wǒ yào qù huǒchēzhàn.", en: "I want to go to the train station.", category: "survival", usage: "Use it for taxis or directions." },
-  { zh: "在哪里买票？", pinyin: "Zài nǎlǐ mǎi piào?", en: "Where can I buy a ticket?", category: "survival", usage: "Use it for subway, train, plane, or movies." },
-  { zh: "一张票，谢谢。", pinyin: "Yì zhāng piào, xièxie.", en: "One ticket, please.", category: "survival", usage: "“张” = measure word for tickets." },
-  { zh: "这趟车到机场吗？", pinyin: "Zhè tàng chē dào jīchǎng ma?", en: "Does this bus/train go to the airport?", category: "survival", usage: "Ask the driver before boarding." },
-  { zh: "到了请叫我一下。", pinyin: "Dào le qǐng jiào wǒ yíxià.", en: "Please tell me when we arrive.", category: "survival", usage: "When taking a taxi and afraid of missing your stop." },
-  { zh: "谢谢，再见。", pinyin: "Xièxie, zàijiàn.", en: "Thanks, goodbye.", category: "survival", usage: "Use this when getting off or leaving." },
-  { zh: "今天天气怎么样？", pinyin: "Jīntiān tiānqì zěnmeyàng?", en: "How's the weather today?", category: "survival", usage: "Safe and easy small talk." },
-  { zh: "今天很热。", pinyin: "Jīntiān hěn rè.", en: "Today is very hot.", category: "survival", usage: "Many Chinese cities are very hot in summer." },
-  { zh: "今天很冷。", pinyin: "Jīntiān hěn lěng.", en: "Today is very cold.", category: "survival", usage: "Northern China is very cold in winter." },
-  { zh: "今天下雨。", pinyin: "Jīntiān xià yǔ.", en: "It's raining today.", category: "survival", usage: "It rains suddenly a lot in Singapore." },
-  { zh: "今天天气很好。", pinyin: "Jīntiān tiānqì hěn hǎo.", en: "The weather is nice today.", category: "survival", usage: "A natural way to invite a friend out." },
-  { zh: "你穿什么？", pinyin: "Nǐ chuān shénme?", en: "What are you wearing?", category: "survival", usage: "Ask what someone is wearing." },
-  { zh: "多穿一点。", pinyin: "Duō chuān yìdiǎn.", en: "Wear more clothes.", category: "survival", usage: "Show concern when it's cold." },
-  { zh: "少穿一点。", pinyin: "Shǎo chuān yìdiǎn.", en: "Wear fewer clothes.", category: "survival", usage: "Use it when it's hot." },
-  { zh: "我要买衣服。", pinyin: "Wǒ yào mǎi yīfu.", en: "I want to buy clothes.", category: "survival", usage: "Say this when entering a clothing store." },
-  { zh: "这件衣服很好看。", pinyin: "Zhè jiàn yīfu hěn hǎokàn.", en: "This piece of clothing looks nice.", category: "survival", usage: "Compliment someone's outfit." },
-  { zh: "我穿这件。", pinyin: "Wǒ chuān zhè jiàn.", en: "I'll wear this one.", category: "survival", usage: "Use it when trying clothes." },
-  { zh: "今天有风。", pinyin: "Jīntiān yǒu fēng.", en: "It's windy today.", category: "survival", usage: "Northern China has strong spring winds." },
-  { zh: "明天天气好吗？", pinyin: "Míngtiān tiānqì hǎo ma?", en: "Will the weather be good tomorrow?", category: "survival", usage: "Ask when planning to go out." },
-  { zh: "我要带伞。", pinyin: "Wǒ yào dài sǎn.", en: "I need to bring an umbrella.", category: "survival", usage: "Singaporeans often carry umbrellas." },
-  { zh: "今天天气不好，我们改天吧。", pinyin: "Jīntiān tiānqì bù hǎo, wǒmen gǎitiān ba.", en: "The weather is bad today; let's do it another day.", category: "survival", usage: "Much more polite than “我不去.”" },
-  { zh: "这是我的家人。", pinyin: "Zhè shì wǒ de jiārén.", en: "This is my family.", category: "survival", usage: "Use this when showing a photo." },
-  { zh: "我家有四个人。", pinyin: "Wǒ jiā yǒu sì ge rén.", en: "There are four people in my family.", category: "survival", usage: "“口” is also used, but “个” is easier." },
-  { zh: "你家里有几口人？", pinyin: "Nǐ jiā lǐ yǒu jǐ kǒu rén?", en: "How many people are in your family?", category: "survival", usage: "The standard way to ask about family size." },
-  { zh: "我有哥哥和妹妹。", pinyin: "Wǒ yǒu gēge hé mèimei.", en: "I have an older brother and a younger sister.", category: "survival", usage: "Chinese has specific words for older/younger siblings." },
-  { zh: "你爸爸妈妈做什么工作？", pinyin: "Nǐ bàba māma zuò shénme gōngzuò?", en: "What do your parents do?", category: "survival", usage: "Asking about jobs is normal." },
-  { zh: "我妈妈是老师。", pinyin: "Wǒ māma shì lǎoshī.", en: "My mom is a teacher.", category: "survival", usage: "“老师” is also a respectful title." },
-  { zh: "我爸爸是医生。", pinyin: "Wǒ bàba shì yīshēng.", en: "My dad is a doctor.", category: "survival", usage: "Just “是 + job”." },
-  { zh: "我还没有孩子。", pinyin: "Wǒ hái méiyǒu háizi.", en: "I don't have children yet.", category: "survival", usage: "It softens the answer." },
-  { zh: "我有一个好朋友。", pinyin: "Wǒ yǒu yí ge hǎo péngyou.", en: "I have a good friend.", category: "survival", usage: "“好朋友”= close friend." },
-  { zh: "我们是同学。", pinyin: "Wǒmen shì tóngxué.", en: "We are classmates.", category: "survival", usage: "“同学” can mean classmate or schoolmate." },
-  { zh: "我们经常一起吃饭。", pinyin: "Wǒmen jīngcháng yìqǐ chīfàn.", en: "We often eat together.", category: "survival", usage: "Eating together is a key social activity." },
-  { zh: "周末我想和朋友去公园。", pinyin: "Zhōumò wǒ xiǎng hé péngyou qù gōngyuán.", en: "On the weekend I want to go to the park with friends.", category: "survival", usage: "A common weekend plan sentence." },
-  { zh: "你朋友多吗？", pinyin: "Nǐ péngyou duō ma?", en: "Do you have many friends?", category: "survival", usage: "Friendly, not rude." },
-  { zh: "我的朋友很热情。", pinyin: "Wǒ de péngyou hěn rèqíng.", en: "My friend is very warm and friendly.", category: "survival", usage: "“热情” is a very positive word." },
-  { zh: "我很喜欢我的朋友们。", pinyin: "Wǒ hěn xǐhuan wǒ de péngyoumen.", en: "I really like my friends.", category: "survival", usage: "“们” makes “朋友” plural." },
-  { zh: "你有什么爱好？", pinyin: "Nǐ yǒu shénme àihào?", en: "What are your hobbies?", category: "survival", usage: "A great conversation starter." },
-  { zh: "我喜欢听音乐。", pinyin: "Wǒ xǐhuan tīng yīnyuè.", en: "I like listening to music.", category: "survival", usage: "“喜欢”+ verb is the basic pattern." },
-  { zh: "我喜欢看电影。", pinyin: "Wǒ xǐhuan kàn diànyǐng.", en: "I like watching movies.", category: "survival", usage: "In Chinese, you “看” movies." },
-  { zh: "我喜欢看书。", pinyin: "Wǒ xǐhuan kàn shū.", en: "I like reading books.", category: "survival", usage: "“看书” literally “look at books” = read." },
-  { zh: "我喜欢唱歌。", pinyin: "Wǒ xǐhuan chànggē.", en: "I like singing.", category: "survival", usage: "Karaoke (KTV) is very popular." },
-  { zh: "我喜欢跳舞。", pinyin: "Wǒ xǐhuan tiàowǔ.", en: "I like dancing.", category: "survival", usage: "It can mean any kind of dance." },
-  { zh: "我喜欢打篮球。", pinyin: "Wǒ xǐhuan dǎ lánqiú.", en: "I like playing basketball.", category: "survival", usage: "“打” is used for sports hitting a ball." },
-  { zh: "我喜欢跑步。", pinyin: "Wǒ xǐhuan pǎobù.", en: "I like running.", category: "survival", usage: "It's a simple, healthy hobby." },
-  { zh: "我喜欢游泳。", pinyin: "Wǒ xǐhuan yóuyǒng.", en: "I like swimming.", category: "survival", usage: "You don't need “go” — just “喜欢游泳.”" },
-  { zh: "我喜欢爬山。", pinyin: "Wǒ xǐhuan páshān.", en: "I like hiking.", category: "survival", usage: "It's a popular weekend activity." },
-  { zh: "我经常运动。", pinyin: "Wǒ jīngcháng yùndòng.", en: "I often exercise.", category: "survival", usage: "This sentence shows you are active." },
-  { zh: "运动对身体很好。", pinyin: "Yùndòng duì shēntǐ hěn hǎo.", en: "Exercise is good for your health.", category: "survival", usage: "A common health-related comment." },
-  { zh: "周末我们一起去运动吧。", pinyin: "Zhōumò wǒmen yìqǐ qù yùndòng ba.", en: "Let's exercise together this weekend.", category: "survival", usage: "“吧” makes it a suggestion." },
-  { zh: "我不太喜欢运动。", pinyin: "Wǒ bú tài xǐhuan yùndòng.", en: "I don't really like sports.", category: "survival", usage: "It's softer than “不喜欢”." },
-  { zh: "你最喜欢什么运动？", pinyin: "Nǐ zuì xǐhuan shénme yùndòng?", en: "What's your favorite sport?", category: "survival", usage: "“最”= most." },
-  { zh: "你的手机号码是多少？", pinyin: "Nǐ de shǒujī hàomǎ shì duōshao?", en: "What's your phone number?", category: "survival", usage: "The standard way to ask for a phone number." },
-  { zh: "请给我打电话。", pinyin: "Qǐng gěi wǒ dǎ diànhuà.", en: "Please call me.", category: "survival", usage: "Literally “please give me a call.”" },
-  { zh: "我马上给你打电话。", pinyin: "Wǒ mǎshàng gěi nǐ dǎ diànhuà.", en: "I'll call you right away.", category: "survival", usage: "A quick, reassuring reply." },
-  { zh: "请发短信给我。", pinyin: "Qǐng fā duǎnxìn gěi wǒ.", en: "Please send me a text message.", category: "survival", usage: "In China, SMS is less common now." },
-  { zh: "我没收到你的短信。", pinyin: "Wǒ méi shōudào nǐ de duǎnxìn.", en: "I didn't receive your text.", category: "survival", usage: "Use this if someone says they sent you something." },
-  { zh: "我在上网。", pinyin: "Wǒ zài shàngwǎng.", en: "I'm online.", category: "survival", usage: "A simple way to say what you're doing." },
-  { zh: "你家能上网吗？", pinyin: "Nǐ jiā néng shàngwǎng ma?", en: "Can your home get internet?", category: "survival", usage: "Asks if there is internet access." },
-  { zh: "Wi-Fi密码是多少？", pinyin: "Wi-Fi mìmǎ shì duōshao?", en: "What's the Wi-Fi password?", category: "survival", usage: "A must-know sentence for travelers." },
-  { zh: "我用电脑工作。", pinyin: "Wǒ yòng diànnǎo gōngzuò.", en: "I use a computer to work.", category: "survival", usage: "A simple work-related sentence." },
-  { zh: "我每天用手机。", pinyin: "Wǒ měitiān yòng shǒujī.", en: "I use my phone every day.", category: "survival", usage: "A simple daily routine sentence." },
-  { zh: "手机没电了。", pinyin: "Shǒujī méi diàn le.", en: "My phone is out of battery.", category: "survival", usage: "Very useful when your phone dies." },
-  { zh: "我的手机坏了。", pinyin: "Wǒ de shǒujī huài le.", en: "My phone is broken.", category: "survival", usage: "Use this when your phone stops working." },
-  { zh: "你在玩游戏吗？", pinyin: "Nǐ zài wán yóuxì ma?", en: "Are you playing games?", category: "survival", usage: "A casual question to ask a friend." },
-  { zh: "我在看新闻。", pinyin: "Wǒ zài kàn xīnwén.", en: "I'm reading/watching the news.", category: "survival", usage: "“看” can mean read or watch." },
-  { zh: "我们上网聊天吧。", pinyin: "Wǒmen shàngwǎng liáotiān ba.", en: "Let's chat online.", category: "survival", usage: "A friendly way to invite someone." },
-  { zh: "我不舒服。", pinyin: "Wǒ bù shūfu.", en: "I don't feel well.", category: "survival", usage: "Use it for headaches, stomachaches, tiredness, etc." },
-  { zh: "我生病了。", pinyin: "Wǒ shēngbìng le.", en: "I'm sick.", category: "survival", usage: "“了” shows a change." },
-  { zh: "我感冒了。", pinyin: "Wǒ gǎnmào le.", en: "I have a cold.", category: "survival", usage: "“感冒” is the common word for a cold." },
-  { zh: "我发烧了。", pinyin: "Wǒ fāshāo le.", en: "I have a fever.", category: "survival", usage: "A common reply is “量体温了吗?”" },
-  { zh: "我头疼。", pinyin: "Wǒ tóu téng.", en: "I have a headache.", category: "survival", usage: "Body part + 疼 = pain." },
-  { zh: "我肚子疼。", pinyin: "Wǒ dùzi téng.", en: "I have a stomachache.", category: "survival", usage: "“肚子” means belly/stomach." },
-  { zh: "我嗓子疼。", pinyin: "Wǒ sǎngzi téng.", en: "I have a sore throat.", category: "survival", usage: "“嗓子” means throat/voice." },
-  { zh: "我咳嗽。", pinyin: "Wǒ késòu.", en: "I have a cough.", category: "survival", usage: "“咳嗽” can be a verb or noun." },
-  { zh: "我要去看医生。", pinyin: "Wǒ yào qù kàn yīshēng.", en: "I need to see a doctor.", category: "survival", usage: "In Chinese, you “看医生.”" },
-  { zh: "医院在哪里？", pinyin: "Yīyuàn zài nǎlǐ?", en: "Where is the hospital?", category: "survival", usage: "Use this when you need to find a hospital." },
-  { zh: "我要买药。", pinyin: "Wǒ yào mǎi yào.", en: "I want to buy medicine.", category: "survival", usage: "In China, you buy medicine at a “药店.”" },
-  { zh: "这个药怎么吃？", pinyin: "Zhège yào zěnme chī?", en: "How do I take this medicine?", category: "survival", usage: "For medicine, Chinese uses “吃.”" },
-  { zh: "一天吃几次？", pinyin: "Yì tiān chī jǐ cì?", en: "How many times a day?", category: "survival", usage: "This is the standard question for medicine." },
-  { zh: "我需要休息。", pinyin: "Wǒ xūyào xiūxi.", en: "I need to rest.", category: "survival", usage: "Use this when you feel tired or sick." },
-  { zh: "祝你早点好。", pinyin: "Zhù nǐ zǎodiǎn hǎo.", en: "Wish you get better soon.", category: "survival", usage: "A warm, simple way to wish someone a recovery." },
-  { zh: "我在学习中文。", pinyin: "Wǒ zài xuéxí Zhōngwén.", en: "I'm learning Chinese.", category: "survival", usage: "“在” + verb shows an ongoing action." },
-  { zh: "我每天上课。", pinyin: "Wǒ měitiān shàngkè.", en: "I have class every day.", category: "survival", usage: "“上课” means to attend class." },
-  { zh: "今天有课吗？", pinyin: "Jīntiān yǒu kè ma?", en: "Do you have class today?", category: "survival", usage: "Very common among students." },
-  { zh: "我喜欢我的老师。", pinyin: "Wǒ xǐhuan wǒ de lǎoshī.", en: "I like my teacher.", category: "survival", usage: "Teachers are highly respected in Chinese culture." },
-  { zh: "我在上班。", pinyin: "Wǒ zài shàngbān.", en: "I'm at work.", category: "survival", usage: "“上班” means to go to work." },
-  { zh: "你做什么工作？", pinyin: "Nǐ zuò shénme gōngzuò?", en: "What do you do?", category: "survival", usage: "Very common in introductions." },
-  { zh: "我在公司工作。", pinyin: "Wǒ zài gōngsī gōngzuò.", en: "I work at a company.", category: "survival", usage: "Replace “公司” with “学校” or “医院.”" },
-  { zh: "我的工作很忙。", pinyin: "Wǒ de gōngzuò hěn máng.", en: "My job is very busy.", category: "survival", usage: "A very common complaint." },
-  { zh: "你今天忙吗？", pinyin: "Nǐ jīntiān máng ma?", en: "Are you busy today?", category: "survival", usage: "Use it before asking for a favor." },
-  { zh: "我下午开会。", pinyin: "Wǒ xiàwǔ kāihuì.", en: "I have a meeting this afternoon.", category: "survival", usage: "“开会” = have a meeting." },
-  { zh: "我会说三种语言。", pinyin: "Wǒ huì shuō sān zhǒng yǔyán.", en: "I can speak three languages.", category: "survival", usage: "“种” = kind/type." },
-  { zh: "我想找新工作。", pinyin: "Wǒ xiǎng zhǎo xīn gōngzuò.", en: "I want to find a new job.", category: "survival", usage: "Common when someone is job hunting." },
-  { zh: "你学什么？", pinyin: "Nǐ xué shénme?", en: "What do you study?", category: "survival", usage: "Short for “你学什么专业?”" },
-  { zh: "我明年毕业。", pinyin: "Wǒ míngnián bìyè.", en: "I graduate next year.", category: "survival", usage: "This is a common sentence for students." },
-  { zh: "加油！", pinyin: "Jiāyóu!", en: "Come on! / You can do it!", category: "survival", usage: "Literally “add oil.”" },
-  { zh: "你有空吗？", pinyin: "Nǐ yǒu kòng ma?", en: "Are you free?", category: "survival", usage: "“空” is pronounced kòng (4th tone)." },
-  { zh: "你什么时候有空？", pinyin: "Nǐ shénme shíhou yǒu kòng?", en: "When are you free?", category: "survival", usage: "A very useful question when making plans." },
-  { zh: "我们几点见面？", pinyin: "Wǒmen jǐ diǎn jiànmiàn?", en: "What time shall we meet?", category: "survival", usage: "The standard question for setting a time." },
-  { zh: "七点可以吗？", pinyin: "Qī diǎn kěyǐ ma?", en: "Is seven okay?", category: "survival", usage: "Replace “七点” with any time." },
-  { zh: "我们明天见吧。", pinyin: "Wǒmen míngtiān jiàn ba.", en: "Let's meet tomorrow.", category: "survival", usage: "“吧” softens the sentence." },
-  { zh: "你明天有时间吗？", pinyin: "Nǐ míngtiān yǒu shíjiān ma?", en: "Do you have time tomorrow?", category: "survival", usage: "Similar to “有空” but more neutral." },
-  { zh: "我下午有时间。", pinyin: "Wǒ xiàwǔ yǒu shíjiān.", en: "I have time in the afternoon.", category: "survival", usage: "Tell someone when you're available." },
-  { zh: "我们改天吧。", pinyin: "Wǒmen gǎitiān ba.", en: "Let's do it another day.", category: "survival", usage: "A polite way to cancel without saying “no.”" },
-  { zh: "对不起，我今天很忙。", pinyin: "Duìbuqǐ, wǒ jīntiān hěn máng.", en: "Sorry, I'm very busy today.", category: "survival", usage: "A polite way to decline an invitation." },
-  { zh: "没问题。", pinyin: "Méi wèntí.", en: "No problem.", category: "survival", usage: "Very common and versatile." },
-  { zh: "我可能晚一点到。", pinyin: "Wǒ kěnéng wǎn yìdiǎn dào.", en: "I might arrive a little late.", category: "survival", usage: "Use this to warn someone you'll be late." },
-  { zh: "我马上到。", pinyin: "Wǒ mǎshàng dào.", en: "I'll be right there.", category: "survival", usage: "Use this when you're almost at the place." },
-  { zh: "你在哪里？", pinyin: "Nǐ zài nǎlǐ?", en: "Where are you?", category: "survival", usage: "Use this when you're waiting for them." },
-  { zh: "我在门口等你。", pinyin: "Wǒ zài ménkǒu děng nǐ.", en: "I'm waiting for you at the entrance.", category: "survival", usage: "A very common sentence when meeting up." },
-  { zh: "到了给我打电话。", pinyin: "Dào le gěi wǒ dǎ diànhuà.", en: "Call me when you arrive.", category: "survival", usage: "A practical sentence for meeting up." },
-  { zh: "我今天很高兴。", pinyin: "Wǒ jīntiān hěn gāoxìng.", en: "I'm very happy today.", category: "survival", usage: "“高兴” is the most common word for happy." },
-  { zh: "你看起来很快乐。", pinyin: "Nǐ kàn qǐlái hěn kuàilè.", en: "You look very happy.", category: "survival", usage: "“看起来” means “looks like.”" },
-  { zh: "我有点累。", pinyin: "Wǒ yǒudiǎn lèi.", en: "I'm a little tired.", category: "survival", usage: "A soft way to say you're tired." },
-  { zh: "我生气了。", pinyin: "Wǒ shēngqì le.", en: "I'm angry.", category: "survival", usage: "The “了” shows a change." },
-  { zh: "我有点担心。", pinyin: "Wǒ yǒudiǎn dānxīn.", en: "I'm a little worried.", category: "survival", usage: "Common when waiting for news." },
-  { zh: "我很着急。", pinyin: "Wǒ hěn zháojí.", en: "I'm very anxious / in a hurry.", category: "survival", usage: "Used when you're worried about time." },
-  { zh: "我害怕。", pinyin: "Wǒ hàipà.", en: "I'm scared.", category: "survival", usage: "Use it for real fear." },
-  { zh: "我很难过。", pinyin: "Wǒ hěn nánguò.", en: "I'm very sad.", category: "survival", usage: "“难过” = sad." },
-  { zh: "别难过。", pinyin: "Bié nánguò.", en: "Don't be sad.", category: "survival", usage: "A warm, simple way to comfort someone." },
-  { zh: "没关系，别担心。", pinyin: "Méi guānxi, bié dānxīn.", en: "It's okay, don't worry.", category: "survival", usage: "Very reassuring." },
-  { zh: "太好了！", pinyin: "Tài hǎo le!", en: "That's great!", category: "survival", usage: "Use it when you hear good news." },
-  { zh: "真的吗？", pinyin: "Zhēn de ma?", en: "Really?", category: "survival", usage: "Use it to show surprise." },
-  { zh: "我也是。", pinyin: "Wǒ yě shì.", en: "Me too.", category: "survival", usage: "The simplest way to agree." },
-  { zh: "我同意。", pinyin: "Wǒ tóngyì.", en: "I agree.", category: "survival", usage: "Use it in discussions." },
-  { zh: "我不同意。", pinyin: "Wǒ bù tóngyì.", en: "I disagree.", category: "survival", usage: "It's direct but not rude." },
-  { zh: "我住在北京。", pinyin: "Wǒ zhù zài Běijīng.", en: "I live in Beijing.", category: "survival", usage: "Replace “北京” with any city." },
-  { zh: "你家在哪里？", pinyin: "Nǐ jiā zài nǎlǐ?", en: "Where is your home?", category: "survival", usage: "A simple way to ask where someone lives." },
-  { zh: "我坐飞机去。", pinyin: "Wǒ zuò fēijī qù.", en: "I'll go by plane.", category: "survival", usage: "Pattern: 坐 + vehicle + 去." },
-  { zh: "我坐火车去。", pinyin: "Wǒ zuò huǒchē qù.", en: "I'll go by train.", category: "survival", usage: "Trains are a major way to travel." },
-  { zh: "我坐出租车去。", pinyin: "Wǒ zuò chūzūchē qù.", en: "I'll go by taxi.", category: "survival", usage: "“出租车” = taxi." },
-  { zh: "我坐地铁去。", pinyin: "Wǒ zuò dìtiě qù.", en: "I'll go by subway.", category: "survival", usage: "In Singapore it's called MRT." },
-  { zh: "我要买票。", pinyin: "Wǒ yào mǎi piào.", en: "I want to buy a ticket.", category: "survival", usage: "Use it for trains, buses, or movies." },
-  { zh: "一张票多少钱？", pinyin: "Yì zhāng piào duōshao qián?", en: "How much is one ticket?", category: "survival", usage: "“张” is the measure word for tickets." },
-  { zh: "火车站在哪里？", pinyin: "Huǒchēzhàn zài nǎlǐ?", en: "Where is the train station?", category: "survival", usage: "Very useful for travelers." },
-  { zh: "机场远吗？", pinyin: "Jīchǎng yuǎn ma?", en: "Is the airport far?", category: "survival", usage: "Use this when you need to know travel time." },
-  { zh: "我明天出发。", pinyin: "Wǒ míngtiān chūfā.", en: "I depart tomorrow.", category: "survival", usage: "Use it for trips or long journeys." },
-  { zh: "我住在宾馆。", pinyin: "Wǒ zhù zài bīnguǎn.", en: "I'm staying at a hotel.", category: "survival", usage: "“宾馆” and “酒店” are both used." },
-  { zh: "房间很干净。", pinyin: "Fángjiān hěn gānjìng.", en: "The room is very clean.", category: "survival", usage: "A simple compliment about accommodation." },
-  { zh: "我想回家。", pinyin: "Wǒ xiǎng huí jiā.", en: "I want to go home.", category: "survival", usage: "Very natural when you're tired." },
-  { zh: "路上小心。", pinyin: "Lùshang xiǎoxīn.", en: "Take care on the way.", category: "survival", usage: "A warm farewell phrase." },
-  { zh: "生日快乐！", pinyin: "Shēngrì kuàilè!", en: "Happy birthday!", category: "survival", usage: "The standard birthday greeting." },
-  { zh: "新年快乐！", pinyin: "Xīnnián kuàilè!", en: "Happy New Year!", category: "survival", usage: "For January 1st or Chinese New Year." },
-  { zh: "春节快乐！", pinyin: "Chūnjié kuàilè!", en: "Happy Spring Festival!", category: "survival", usage: "The biggest holiday in China." },
-  { zh: "节日快乐！", pinyin: "Jiérì kuàilè!", en: "Happy holiday!", category: "survival", usage: "A general greeting for any holiday." },
-  { zh: "祝你健康！", pinyin: "Zhù nǐ jiànkāng!", en: "Wish you good health!", category: "survival", usage: "A warm blessing for older people." },
-  { zh: "祝你顺利！", pinyin: "Zhù nǐ shùnlì!", en: "Wish you success / smooth progress!", category: "survival", usage: "Use it for exams or new jobs." },
-  { zh: "恭喜你！", pinyin: "Gōngxǐ nǐ!", en: "Congratulations!", category: "survival", usage: "Use it for good news." },
-  { zh: "这是给你的礼物。", pinyin: "Zhè shì gěi nǐ de lǐwù.", en: "This is a gift for you.", category: "survival", usage: "Use both hands when giving a gift." },
-  { zh: "我很喜欢这个礼物。", pinyin: "Wǒ hěn xǐhuan zhège lǐwù.", en: "I really like this gift.", category: "survival", usage: "A warm way to thank someone." },
-  { zh: "谢谢你的礼物。", pinyin: "Xièxie nǐ de lǐwù.", en: "Thank you for your gift.", category: "survival", usage: "Simple and polite." },
-  { zh: "我们一起吃饭吧。", pinyin: "Wǒmen yìqǐ chīfàn ba.", en: "Let's eat together.", category: "survival", usage: "Food is central to celebrations." },
-  { zh: "今天是我的生日。", pinyin: "Jīntiān shì wǒ de shēngrì.", en: "Today is my birthday.", category: "survival", usage: "Use this to let people know." },
-  { zh: "你什么时候生日？", pinyin: "Nǐ shénme shíhou shēngrì?", en: "When is your birthday?", category: "survival", usage: "A common question among friends." },
-  { zh: "我请你吃饭。", pinyin: "Wǒ qǐng nǐ chīfàn.", en: "I'll treat you to a meal.", category: "survival", usage: "A common way to show friendship." },
-  { zh: "祝你玩得开心。", pinyin: "Zhù nǐ wán de kāixīn.", en: "Wish you a happy time / Have fun.", category: "survival", usage: "Use it when someone is doing something fun." },
-  { zh: "我们聊天吧。", pinyin: "Wǒmen liáotiān ba.", en: "Let's chat.", category: "survival", usage: "A friendly suggestion." },
-  { zh: "真的吗？", pinyin: "Zhēn de ma?", en: "Really?", category: "survival", usage: "Shows surprise or asks for confirmation." },
-  { zh: "太好了！", pinyin: "Tài hǎo le!", en: "That's great!", category: "survival", usage: "An exclamation of happiness." },
-  { zh: "我也是。", pinyin: "Wǒ yě shì.", en: "Me too.", category: "survival", usage: "The simplest way to agree." },
-  { zh: "我同意。", pinyin: "Wǒ tóngyì.", en: "I agree.", category: "survival", usage: "Use it in discussions." },
-  { zh: "我不同意。", pinyin: "Wǒ bù tóngyì.", en: "I disagree.", category: "survival", usage: "It's direct but not rude." },
-  { zh: "你说什么？", pinyin: "Nǐ shuō shénme?", en: "What did you say?", category: "survival", usage: "For more politeness, say “请再说一遍.”" },
-  { zh: "我不明白。", pinyin: "Wǒ bù míngbai.", en: "I don't understand.", category: "survival", usage: "The other person will explain again." },
-  { zh: "这个很有意思。", pinyin: "Zhège hěn yǒu yìsi.", en: "This is very interesting.", category: "survival", usage: "Show you are interested in a topic." },
-  { zh: "这个不好玩。", pinyin: "Zhège bù hǎo wán.", en: "This is not fun.", category: "survival", usage: "Use it for games or places." },
-  { zh: "为什么？", pinyin: "Wèi shénme?", en: "Why?", category: "survival", usage: "Use it when you want a reason." },
-  { zh: "因为……所以……", pinyin: "Yīnwèi…… suǒyǐ……", en: "Because… so…", category: "survival", usage: "A very useful pattern." },
-  { zh: "但是……", pinyin: "Dànshì……", en: "But…", category: "survival", usage: "Use it to show contrast." },
-  { zh: "当然可以。", pinyin: "Dāngrán kěyǐ.", en: "Of course.", category: "survival", usage: "It sounds warm and positive." },
-  { zh: "我们一起玩吧。", pinyin: "Wǒmen yìqǐ wán ba.", en: "Let's play/hang out together.", category: "survival", usage: "A friendly way to invite someone." },
-  { zh: "再见。", pinyin: "Zàijiàn.", en: "Goodbye.", category: "survival", usage: "Use it any time you leave." },
-  { zh: "明天见。", pinyin: "Míngtiān jiàn.", en: "See you tomorrow.", category: "survival", usage: "You can also say “下星期见.”" },
-  { zh: "回头见。", pinyin: "Huítóu jiàn.", en: "See you later.", category: "survival", usage: "Very casual, used among friends." },
-  { zh: "下个月见。", pinyin: "Xià ge yuè jiàn.", en: "See you next month.", category: "survival", usage: "Use it when you won't meet for a while." },
-  { zh: "保持联系。", pinyin: "Bǎochí liánxì.", en: "Keep in touch.", category: "survival", usage: "A warm way to say goodbye." },
-  { zh: "到了说一声。", pinyin: "Dào le shuō yì shēng.", en: "Let me know when you arrive.", category: "survival", usage: "Very common and caring." },
-  { zh: "到了给我打电话。", pinyin: "Dào le gěi wǒ dǎ diànhuà.", en: "Call me when you arrive.", category: "survival", usage: "A practical and caring sentence." },
-  { zh: "给我发短信。", pinyin: "Gěi wǒ fā duǎnxìn.", en: "Send me a text message.", category: "survival", usage: "Use it when you want someone to message you." },
-  { zh: "我会想你的。", pinyin: "Wǒ huì xiǎng nǐ de.", en: "I will miss you.", category: "survival", usage: "For someone you will not see for a while." },
-  { zh: "别忘记我。", pinyin: "Bié wàngjì wǒ.", en: "Don't forget me.", category: "survival", usage: "Slightly emotional, used with close friends." },
-  { zh: "有空常联系。", pinyin: "Yǒu kòng cháng liánxì.", en: "Contact me often when you're free.", category: "survival", usage: "A friendly way to say “let's keep in touch.”" },
-  { zh: "欢迎来我家玩。", pinyin: "Huānyíng lái wǒ jiā wán.", en: "Welcome to my home to hang out.", category: "survival", usage: "A warm invitation." },
-  { zh: "路上小心。", pinyin: "Lùshang xiǎoxīn.", en: "Take care on the way.", category: "survival", usage: "A caring farewell phrase." },
-  { zh: "祝你顺利。", pinyin: "Zhù nǐ shùnlì.", en: "Wish you success / smooth progress.", category: "survival", usage: "Use it for travel or new jobs." },
-  { zh: "我们下次见。", pinyin: "Wǒmen xià cì jiàn.", en: "See you next time.", category: "survival", usage: "A simple, friendly goodbye." }
+window.DAILY_DATA = [
+
+  // ================= 咖啡 / 餐饮（16 句） =================
+  {
+    zh: "你好，一杯冰美式，带走。",
+    pinyin: "Nǐ hǎo, yì bēi bīng měi shì, dài zǒu.",
+    en: "Hi, one iced Americano to go.",
+    category: "survival",
+    usage: "The exact sentence you'll say at any café — swap 冰美式 for any drink."
+  },
+  {
+    zh: "我要一杯拿铁，少糖，谢谢。",
+    pinyin: "Wǒ yào yì bēi ná tiě, shǎo táng, xiè xie.",
+    en: "I'd like a latte with less sugar, thanks.",
+    category: "survival",
+    usage: "少糖 / 少冰 / 少奶 are your three customization words."
+  },
+  {
+    zh: "我不吃辣，少放盐，谢谢。",
+    pinyin: "Wǒ bù chī là, shǎo fàng yán, xiè xie.",
+    en: "I don't eat spicy, less salt please.",
+    category: "survival",
+    usage: "Say this before ordering and you'll actually enjoy the meal."
+  },
+  {
+    zh: "这个菜不要香菜。",
+    pinyin: "Zhè ge cài bú yào xiāng cài.",
+    en: "No cilantro in this dish.",
+    category: "survival",
+    usage: "Cilantro is the #1 thing foreigners forget to refuse."
+  },
+  {
+    zh: "我对花生过敏。",
+    pinyin: "Wǒ duì huā shēng guò mǐn.",
+    en: "I'm allergic to peanuts.",
+    category: "survival",
+    usage: "Crucial if you have food allergies — say it clearly."
+  },
+  {
+    zh: "请给我菜单。",
+    pinyin: "Qǐng gěi wǒ cài dān.",
+    en: "Please give me the menu.",
+    category: "survival",
+    usage: "The first thing to say when you sit down."
+  },
+  {
+    zh: "有推荐的吗？",
+    pinyin: "Yǒu tuī jiàn de ma?",
+    en: "Do you have any recommendations?",
+    category: "survival",
+    usage: "Ask the server — 推荐 = recommend."
+  },
+  {
+    zh: "我要这个。",
+    pinyin: "Wǒ yào zhè ge.",
+    en: "I'll have this one.",
+    category: "survival",
+    usage: "The most useful sentence when pointing at a menu."
+  },
+  {
+    zh: "这个好吃吗？",
+    pinyin: "Zhè ge hǎo chī ma?",
+    en: "Is this delicious?",
+    category: "survival",
+    usage: "Ask the server or a friend before committing."
+  },
+  {
+    zh: "很好吃。",
+    pinyin: "Hěn hǎo chī.",
+    en: "It's delicious.",
+    category: "survival",
+    usage: "Compliment the food after the first bite."
+  },
+  {
+    zh: "麻烦帮我打包。",
+    pinyin: "Má fan bāng wǒ dǎ bāo.",
+    en: "Could you pack this to go?",
+    category: "survival",
+    usage: "打包 (dǎ bāo) is the word for takeaway. 麻烦 makes it polite."
+  },
+  {
+    zh: "再来一碗米饭。",
+    pinyin: "Zài lái yì wǎn mǐ fàn.",
+    en: "One more bowl of rice.",
+    category: "survival",
+    usage: "Use it when you finish a bowl — 再来 = one more."
+  },
+  {
+    zh: "请给我一杯水。",
+    pinyin: "Qǐng gěi wǒ yì bēi shuǐ.",
+    en: "Please give me a glass of water.",
+    category: "survival",
+    usage: "Restaurants often serve hot water by default."
+  },
+  {
+    zh: "买单，谢谢。",
+    pinyin: "Mǎi dān, xiè xie.",
+    en: "Check, please.",
+    category: "survival",
+    usage: "Just call out 买单 (mǎi dān) after eating."
+  },
+  {
+    zh: "可以分开付吗？",
+    pinyin: "Kě yǐ fēn kāi fù ma?",
+    en: "Can we pay separately?",
+    category: "survival",
+    usage: "Use it when splitting the bill with friends."
+  },
+  {
+    zh: "一共多少钱？",
+    pinyin: "Yí gòng duō shao qián?",
+    en: "How much in total?",
+    category: "survival",
+    usage: "一共 = in total. Very common at checkout."
+  },
+
+  // ================= 打车 / 出行（16 句） =================
+  {
+    zh: "师傅，我去樟宜机场，赶时间。",
+    pinyin: "Shī fu, wǒ qù Zhāng yí jī chǎng, gǎn shí jiān.",
+    en: "Driver, to Changi Airport — I'm in a hurry.",
+    category: "survival",
+    usage: "师傅 (shī fu) is the polite way to address any driver. 赶时间 = in a hurry."
+  },
+  {
+    zh: "请带我去这个地址。",
+    pinyin: "Qǐng dài wǒ qù zhè ge dì zhǐ.",
+    en: "Please take me to this address.",
+    category: "survival",
+    usage: "Show this on your phone to the taxi driver."
+  },
+  {
+    zh: "麻烦在前面路口停一下。",
+    pinyin: "Má fan zài qián miàn lù kǒu tíng yí xià.",
+    en: "Please stop at the intersection ahead.",
+    category: "survival",
+    usage: "路口 = intersection. 停一下 = stop for a moment."
+  },
+  {
+    zh: "大概要多久到？",
+    pinyin: "Dà gài yào duō jiǔ dào?",
+    en: "About how long until we arrive?",
+    category: "survival",
+    usage: "大概 = roughly. 多久 = how long. Works for taxis, trains, deliveries."
+  },
+  {
+    zh: "可以帮我开一下空调吗？",
+    pinyin: "Kě yǐ bāng wǒ kāi yí xià kōng tiáo ma?",
+    en: "Could you turn on the AC?",
+    category: "survival",
+    usage: "空调 = air conditioning. 开一下 = turn on for a bit."
+  },
+  {
+    zh: "到了请叫我一下。",
+    pinyin: "Dào le qǐng jiào wǒ yí xià.",
+    en: "Please tell me when we arrive.",
+    category: "survival",
+    usage: "Say this when you're afraid of missing your stop."
+  },
+  {
+    zh: "我到了，在门口等你。",
+    pinyin: "Wǒ dào le, zài mén kǒu děng nǐ.",
+    en: "I've arrived — waiting at the entrance.",
+    category: "survival",
+    usage: "The standard text you send to your driver, date, or friend."
+  },
+  {
+    zh: "这趟车到机场吗？",
+    pinyin: "Zhè tàng chē dào jī chǎng ma?",
+    en: "Does this bus/train go to the airport?",
+    category: "survival",
+    usage: "Ask the driver before boarding — 趟 = measure word for trips."
+  },
+  {
+    zh: "在哪里买票？",
+    pinyin: "Zài nǎ lǐ mǎi piào?",
+    en: "Where can I buy a ticket?",
+    category: "survival",
+    usage: "Use it for subway, train, plane, or movies."
+  },
+  {
+    zh: "一张票，谢谢。",
+    pinyin: "Yì zhāng piào, xiè xie.",
+    en: "One ticket, please.",
+    category: "survival",
+    usage: "张 is the measure word for tickets."
+  },
+  {
+    zh: "我迷路了。",
+    pinyin: "Wǒ mí lù le.",
+    en: "I'm lost.",
+    category: "survival",
+    usage: "Say this directly if you're lost — 迷路 = to get lost."
+  },
+  {
+    zh: "离这里远吗？",
+    pinyin: "Lí zhè lǐ yuǎn ma?",
+    en: "Is it far from here?",
+    category: "survival",
+    usage: "Ask about distance before you start walking."
+  },
+  {
+    zh: "走路十分钟。",
+    pinyin: "Zǒu lù shí fēn zhōng.",
+    en: "Ten minutes on foot.",
+    category: "survival",
+    usage: "Common answer when someone tells you a distance."
+  },
+  {
+    zh: "请问，地铁站在哪里？",
+    pinyin: "Qǐng wèn, dì tiě zhàn zài nǎ lǐ?",
+    en: "Excuse me, where is the subway station?",
+    category: "survival",
+    usage: "In China it's 地铁; in Singapore it's MRT."
+  },
+  {
+    zh: "请问，洗手间在哪里？",
+    pinyin: "Qǐng wèn, xǐ shǒu jiān zài nǎ lǐ?",
+    en: "Excuse me, where is the restroom?",
+    category: "survival",
+    usage: "Works for asking about toilets anywhere."
+  },
+  {
+    zh: "一直走，然后左转。",
+    pinyin: "Yì zhí zǒu, rán hòu zuǒ zhuǎn.",
+    en: "Go straight, then turn left.",
+    category: "survival",
+    usage: "The most common direction pattern — 一直走 + 左/右转."
+  },
+
+  // ================= 电子支付（11 句） =================
+  {
+    zh: "可以用微信支付吗？",
+    pinyin: "Kě yǐ yòng Wēi xìn zhī fù ma?",
+    en: "Can I use WeChat Pay?",
+    category: "survival",
+    usage: "微信支付 is accepted almost everywhere in mainland China."
+  },
+  {
+    zh: "支付宝也可以吧？",
+    pinyin: "Zhī fù bǎo yě kě yǐ ba?",
+    en: "Alipay works too, right?",
+    category: "survival",
+    usage: "吧 makes it a soft confirmation — you already expect yes."
+  },
+  {
+    zh: "我扫你还是你扫我？",
+    pinyin: "Wǒ sǎo nǐ hái shì nǐ sǎo wǒ?",
+    en: "Do I scan you or do you scan me?",
+    category: "survival",
+    usage: "The most useful payment sentence in China. 还是 = or (in questions)."
+  },
+  {
+    zh: "扫这个二维码付款就行。",
+    pinyin: "Sǎo zhè ge èr wéi mǎ fù kuǎn jiù xíng.",
+    en: "Just scan this QR code to pay.",
+    category: "survival",
+    usage: "二维码 = QR code. 就行 = that's all you need to do."
+  },
+  {
+    zh: "付款失败了，我再试一次。",
+    pinyin: "Fù kuǎn shī bài le, wǒ zài shì yí cì.",
+    en: "Payment failed — let me try again.",
+    category: "survival",
+    usage: "失败 = failed. 再试一次 = try one more time."
+  },
+  {
+    zh: "零钱不够，我换张卡。",
+    pinyin: "Líng qián bú gòu, wǒ huàn zhāng kǎ.",
+    en: "Not enough balance — I'll switch cards.",
+    category: "survival",
+    usage: "零钱 = balance / change. 换 = change / switch."
+  },
+  {
+    zh: "收据可以发我邮箱吗？",
+    pinyin: "Shōu jù kě yǐ fā wǒ yóu xiāng ma?",
+    en: "Can you email me the receipt?",
+    category: "survival",
+    usage: "收据 = receipt. 邮箱 = email inbox. Essential for business trips."
+  },
+  {
+    zh: "可以刷卡吗？",
+    pinyin: "Kě yǐ shuā kǎ ma?",
+    en: "Can I pay by card?",
+    category: "survival",
+    usage: "Many places in China now prefer mobile payment over cards."
+  },
+  {
+    zh: "可以用现金吗？",
+    pinyin: "Kě yǐ yòng xiàn jīn ma?",
+    en: "Can I use cash?",
+    category: "survival",
+    usage: "Cash is still legal tender, though less common."
+  },
+  {
+    zh: "我付现金。",
+    pinyin: "Wǒ fù xiàn jīn.",
+    en: "I'll pay in cash.",
+    category: "survival",
+    usage: "Use it when the QR scanner is down."
+  },
+  {
+    zh: "PayNow 可以吗？",
+    pinyin: "PayNow kě yǐ ma?",
+    en: "Can I use PayNow?",
+    category: "survival",
+    usage: "Singapore's local transfer system — works at many hawker stalls."
+  },
+
+  // ================= 社交破冰（16 句） =================
+  {
+    zh: "你好，我叫……你叫什么？",
+    pinyin: "Nǐ hǎo, wǒ jiào…… nǐ jiào shén me?",
+    en: "Hi, I'm… what's your name?",
+    category: "survival",
+    usage: "The simplest, most natural opener. 叫 = to be called."
+  },
+  {
+    zh: "你是哪里人？",
+    pinyin: "Nǐ shì nǎ lǐ rén?",
+    en: "Where are you from?",
+    category: "survival",
+    usage: "Literally 'you are where person?' — the standard small-talk question."
+  },
+  {
+    zh: "加个微信吧？",
+    pinyin: "Jiā ge Wēi xìn ba?",
+    en: "Let's add each other on WeChat?",
+    category: "survival",
+    usage: "In China, this is the real 'can I get your number?' moment."
+  },
+  {
+    zh: "有空一起吃饭吧。",
+    pinyin: "Yǒu kòng yì qǐ chī fàn ba.",
+    en: "Let's grab a meal when you're free.",
+    category: "survival",
+    usage: "有空 = when free. 一起 = together. The friendliest invitation."
+  },
+  {
+    zh: "很高兴认识你。",
+    pinyin: "Hěn gāo xìng rèn shi nǐ.",
+    en: "Nice to meet you.",
+    category: "survival",
+    usage: "Works in every setting, from networking events to dinner parties."
+  },
+  {
+    zh: "下次见，保持联系。",
+    pinyin: "Xià cì jiàn, bǎo chí lián xì.",
+    en: "See you next time — keep in touch.",
+    category: "survival",
+    usage: "The perfect exit line. 保持联系 = keep in touch."
+  },
+  {
+    zh: "你做什么工作？",
+    pinyin: "Nǐ zuò shén me gōng zuò?",
+    en: "What do you do?",
+    category: "survival",
+    usage: "Very common in introductions — ask it back to keep the chat going."
+  },
+  {
+    zh: "你学什么？",
+    pinyin: "Nǐ xué shén me?",
+    en: "What do you study?",
+    category: "survival",
+    usage: "Short for 你学什么专业? — great for students."
+  },
+  {
+    zh: "我请你吃饭。",
+    pinyin: "Wǒ qǐng nǐ chī fàn.",
+    en: "I'll treat you to a meal.",
+    category: "survival",
+    usage: "A common way to show friendship — 请 = to treat."
+  },
+  {
+    zh: "我们改天吧。",
+    pinyin: "Wǒ men gǎi tiān ba.",
+    en: "Let's do it another day.",
+    category: "survival",
+    usage: "A polite way to cancel without saying 'no.'"
+  },
+  {
+    zh: "你今天忙吗？",
+    pinyin: "Nǐ jīn tiān máng ma?",
+    en: "Are you busy today?",
+    category: "survival",
+    usage: "Use it before asking for a favor or inviting someone out."
+  },
+  {
+    zh: "你什么时候有空？",
+    pinyin: "Nǐ shén me shí hou yǒu kòng?",
+    en: "When are you free?",
+    category: "survival",
+    usage: "A very useful question when making plans."
+  },
+  {
+    zh: "我们几点见面？",
+    pinyin: "Wǒ men jǐ diǎn jiàn miàn?",
+    en: "What time shall we meet?",
+    category: "survival",
+    usage: "The standard question for setting a time."
+  },
+  {
+    zh: "七点可以吗？",
+    pinyin: "Qī diǎn kě yǐ ma?",
+    en: "Is seven okay?",
+    category: "survival",
+    usage: "Replace 七点 with any time — a flexible confirmation."
+  },
+  {
+    zh: "我马上到。",
+    pinyin: "Wǒ mǎ shàng dào.",
+    en: "I'll be right there.",
+    category: "survival",
+    usage: "Use this when you're almost at the meeting place."
+  },
+  {
+    zh: "我在门口等你。",
+    pinyin: "Wǒ zài mén kǒu děng nǐ.",
+    en: "I'm waiting for you at the entrance.",
+    category: "survival",
+    usage: "A very common sentence when meeting up."
+  },
+
+  // ================= 高频保命句（15 句） =================
+  {
+    zh: "谢谢你的帮助。",
+    pinyin: "Xiè xie nǐ de bāng zhù.",
+    en: "Thanks for your help.",
+    category: "survival",
+    usage: "More specific than just 谢谢 — shows genuine gratitude."
+  },
+  {
+    zh: "不客气，应该的。",
+    pinyin: "Bú kè qi, yīng gāi de.",
+    en: "You're welcome, it's what I should do.",
+    category: "survival",
+    usage: "A very authentic Chinese reply to 谢谢."
+  },
+  {
+    zh: "对不起，我迟到了。",
+    pinyin: "Duì bu qǐ, wǒ chí dào le.",
+    en: "Sorry, I'm late.",
+    category: "survival",
+    usage: "First say 对不起, then give the reason."
+  },
+  {
+    zh: "没关系，我也刚到。",
+    pinyin: "Méi guān xi, wǒ yě gāng dào.",
+    en: "It's okay, I just arrived too.",
+    category: "survival",
+    usage: "The standard reply to an apology — very forgiving."
+  },
+  {
+    zh: "不好意思，打扰一下。",
+    pinyin: "Bù hǎo yì si, dǎ rǎo yí xià.",
+    en: "Excuse me, let me interrupt for a moment.",
+    category: "survival",
+    usage: "Good for interrupting or jumping into a conversation."
+  },
+  {
+    zh: "麻烦你了。",
+    pinyin: "Má fan nǐ le.",
+    en: "Sorry to trouble you.",
+    category: "survival",
+    usage: "Said before or after asking for help — extremely polite."
+  },
+  {
+    zh: "请说慢一点。",
+    pinyin: "Qǐng shuō màn yì diǎn.",
+    en: "Please speak more slowly.",
+    category: "survival",
+    usage: "Use it when the other person speaks too fast."
+  },
+  {
+    zh: "我听不懂。",
+    pinyin: "Wǒ tīng bù dǒng.",
+    en: "I don't understand.",
+    category: "survival",
+    usage: "The most important sentence for beginners."
+  },
+  {
+    zh: "这个用中文怎么说？",
+    pinyin: "Zhè ge yòng Zhōng wén zěn me shuō?",
+    en: "How do you say this in Chinese?",
+    category: "survival",
+    usage: "One of the most useful sentences for learning."
+  },
+  {
+    zh: "什么意思？",
+    pinyin: "Shén me yì si?",
+    en: "What does it mean?",
+    category: "survival",
+    usage: "Use it when you hear a word you don't know."
+  },
+  {
+    zh: "请再说一遍。",
+    pinyin: "Qǐng zài shuō yí biàn.",
+    en: "Please say it again.",
+    category: "survival",
+    usage: "More polite than 什么? — use it when you didn't catch it."
+  },
+  {
+    zh: "请写下来。",
+    pinyin: "Qǐng xiě xià lái.",
+    en: "Please write it down.",
+    category: "survival",
+    usage: "Ask them to write it out so you can translate."
+  },
+  {
+    zh: "我会说一点中文。",
+    pinyin: "Wǒ huì shuō yì diǎn Zhōng wén.",
+    en: "I can speak a little Chinese.",
+    category: "survival",
+    usage: "A great opening disclaimer — sets expectations."
+  },
+  {
+    zh: "我的中文不好。",
+    pinyin: "Wǒ de Zhōng wén bù hǎo.",
+    en: "My Chinese is not good.",
+    category: "survival",
+    usage: "A humble sentence that often makes people speak slower."
+  },
+  {
+    zh: "谢谢你的耐心。",
+    pinyin: "Xiè xie nǐ de nài xīn.",
+    en: "Thanks for your patience.",
+    category: "survival",
+    usage: "Say this after someone explains slowly to you."
+  }
+
 ];
