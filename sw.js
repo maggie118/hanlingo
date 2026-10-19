@@ -1,168 +1,159 @@
 /* ============================================================
    HanLingo · Service Worker
    ------------------------------------------------------------
-   版本：v3（2026-10）
-   本次更新：
-     1. 预缓存新增 data/trends.js（Trends & Slang 数据源）
-     2. 缓存版本号 v2 → v3，激活时自动清理旧缓存
-     3. 同源 JS/CSS 改为 stale-while-revalidate，
-        保证 data/*.js 内容更新后用户下次访问即可生效
-     4. 导航请求 network-first，离线回退 index.html
-     5. 跨域 CDN（html2canvas）stale-while-revalidate
+   版本：v4（2026-10）
+   策略：
+     1. 核心 UI (HTML/JS/CSS)：Cache-First，保证离线秒开。
+     2. 音频资源 (.mp3, .m4a, .wav 等)：Stale-While-Revalidate，
+        优先本地播放，后台静默更新。
+     3. 其他资源：Stale-While-Revalidate。
    ============================================================ */
 
-const CACHE_VERSION = 'hanlingo-v3';
+const CACHE_VERSION = 'hanlingo-v4';
+const AUDIO_CACHE = 'hanlingo-audio-v4';
 
-/* 首次安装时预缓存的核心资源（同源） */
+/* 首次安装时预缓存的核心资源 */
 const PRECACHE_URLS = [
   './',
   './index.html',
+  './manifest.json',
   './data/daily.js',
   './data/business.js',
   './data/classics.js',
-  './data/trends.js',            // ← 本次新增
+  './data/trends.js',
   './stories-data.js',
   './journey-west-hsk12.js',
-  './art-of-war-hsk56.js'
-];
-
-/* 跨域 CDN 资源（运行时缓存，不阻塞 install） */
-const CDN_URLS = [
-  'https://html2canvas.hertzen.com/dist/html2canvas.min.js'
+  './art-of-war-hsk56.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 /* ============================================================
-   install：预缓存核心资源 + 立即接管
+   install：预缓存核心资源
    ============================================================ */
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_VERSION);
-
-      // 核心资源必须全部成功，否则 install 失败（保证离线可用）
-      await cache.addAll(PRECACHE_URLS);
-
-      // CDN 资源尽力而为，失败不影响 SW 安装
-      await Promise.allSettled(
-        CDN_URLS.map((url) =>
-          fetch(url, { mode: 'cors' })
-            .then((res) => {
-              if (res && res.ok) return cache.put(url, res);
-            })
-            .catch(() => { /* 忽略 CDN 失败 */ })
-        )
-      );
-
-      // 新 SW 立即进入 waiting → activating，配合下方 clients.claim
-      await self.skipWaiting();
-    })()
+    caches.open(CACHE_VERSION).then((cache) => {
+      // 强制请求最新资源，避免从 HTTP 缓存中读取旧版本
+      return cache.addAll(PRECACHE_URLS.map(url => new Request(url, { cache: 'reload' })));
+    }).then(() => self.skipWaiting())
   );
 });
 
 /* ============================================================
-   activate：清理旧版本缓存 + 立即接管所有页面
+   activate：清理旧版本缓存
    ============================================================ */
 self.addEventListener('activate', (event) => {
+  const validCaches = [CACHE_VERSION, AUDIO_CACHE];
   event.waitUntil(
-    (async () => {
-      const keys = await caches.keys();
-      await Promise.all(
-        keys
-          .filter((key) => key !== CACHE_VERSION)
-          .map((key) => caches.delete(key))
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.map((key) => {
+          if (!validCaches.includes(key)) {
+            return caches.delete(key); // 删除旧版本缓存
+          }
+        })
       );
-
-      // 让新 SW 立即控制已打开的页面，无需刷新两次
-      await self.clients.claim();
-    })()
+    }).then(() => self.clients.claim())
   );
 });
 
 /* ============================================================
-   fetch：按请求类型分流
+   fetch：请求拦截与策略分发
    ============================================================ */
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-
-  // 只处理 GET
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
 
-  // 只处理 http / https
+  // 只处理 http/https 请求
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
-  // 1) 页面导航：network-first，离线回退缓存的 index.html
+  // 1. 音频资源拦截 (Stale-While-Revalidate)
+  // 拦截真实的音频后缀，或者浏览器标识为 audio 的请求
+  const isAudio = 
+    req.destination === 'audio' || 
+    url.pathname.match(/\.(mp3|m4a|wav|ogg|aac)$/i);
+  
+  if (isAudio) {
+    event.respondWith(staleWhileRevalidate(req, AUDIO_CACHE));
+    return;
+  }
+
+  // 2. 核心 UI 资源拦截 (Cache-First)
+  // 页面导航请求（如加载 index.html）
   if (req.mode === 'navigate') {
-    event.respondWith(networkFirstForNavigation(req));
+    event.respondWith(cacheFirst(req, CACHE_VERSION, './index.html'));
     return;
   }
 
-  // 2) 跨域资源（CDN）：stale-while-revalidate
-  if (url.origin !== self.location.origin) {
-    event.respondWith(staleWhileRevalidate(req));
+  // 其他静态资源（同源 JS, CSS, 图标等）
+  if (url.origin === self.location.origin) {
+    event.respondWith(cacheFirst(req, CACHE_VERSION));
     return;
   }
 
-  // 3) 同源静态资源：stale-while-revalidate
-  //    保证 data/*.js 更新后，用户下次访问即可拿到新内容
-  event.respondWith(staleWhileRevalidate(req));
+  // 3. 第三方跨域资源（如 html2canvas）(Stale-While-Revalidate)
+  event.respondWith(staleWhileRevalidate(req, CACHE_VERSION));
 });
 
 /* ============================================================
    策略实现
    ============================================================ */
 
-/* 导航请求：network-first，失败回退缓存的 index.html */
-async function networkFirstForNavigation(req) {
-  const cache = await caches.open(CACHE_VERSION);
+/**
+ * Cache-First (缓存优先)
+ * 适用于核心 UI，确保离线秒开。
+ */
+async function cacheFirst(req, cacheName, fallbackUrl) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(req);
+  
+  if (cached) {
+    return cached;
+  }
+
   try {
-    const res = await fetch(req);
-    if (res && res.ok) {
-      // 更新导航缓存，保持离线可用
-      cache.put('./index.html', res.clone());
+    const networkRes = await fetch(req);
+    if (networkRes && networkRes.ok) {
+      cache.put(req, networkRes.clone());
     }
-    return res;
+    return networkRes;
   } catch (err) {
-    const cached =
-      (await cache.match(req)) ||
-      (await cache.match('./index.html')) ||
-      (await cache.match('./'));
-    if (cached) return cached;
-    throw err;
+    // 离线且无缓存时的兜底
+    if (fallbackUrl) {
+      const fallback = await cache.match(fallbackUrl);
+      if (fallback) return fallback;
+    }
+    return new Response('Offline and no cache available.', { status: 503 });
   }
 }
 
-/* stale-while-revalidate：先给缓存，后台静默更新 */
-async function staleWhileRevalidate(req) {
-  const cache = await caches.open(CACHE_VERSION);
+/**
+ * Stale-While-Revalidate (向服务器请求的同时使用缓存)
+ * 适用于音频资源。
+ */
+async function staleWhileRevalidate(req, cacheName) {
+  const cache = await caches.open(cacheName);
   const cached = await cache.match(req);
 
-  const networkPromise = fetch(req)
-    .then((res) => {
-      // 只缓存成功的同源 / CORS 响应
-      if (res && res.ok) {
-        cache.put(req, res.clone());
-      }
-      return res;
-    })
-    .catch(() => null);
+  // 后台更新逻辑
+  const fetchPromise = fetch(req).then((networkRes) => {
+    if (networkRes && networkRes.ok) {
+      cache.put(req, networkRes.clone());
+    }
+    return networkRes;
+  }).catch(() => null);
 
-  // 有缓存立即返回，同时后台更新
+  // 如果有缓存立即返回 (实现播放 0 延迟)
   if (cached) {
-    // 不 await，让后台更新继续
-    networkPromise;
     return cached;
   }
 
   // 没缓存则等网络
-  const res = await networkPromise;
-  if (res) return res;
+  const networkRes = await fetchPromise;
+  if (networkRes) return networkRes;
 
-  // 网络和缓存都没有，返回一个最小离线响应
-  return new Response('Offline', {
-    status: 503,
-    statusText: 'Offline',
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-  });
+  return new Response('Offline and no audio cache available.', { status: 503 });
 }
