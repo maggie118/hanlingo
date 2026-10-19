@@ -2,18 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- 已包含 viewport-fit=cover 适配全面屏 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HanLingo — Learn Real Chinese Through Sentences & Stories</title>
 <meta name="theme-color" content="#F4F3EF">
 <meta name="description" content="Learn practical Mandarin through real-life sentences, audio, and engaging Chinese stories. Start with a short daily learning session.">
+
+<!-- 🌟 iOS PWA 专属配置：确保添加到桌面全屏且图标正常 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="HanLingo">
+<!-- 必须强制指定 apple-touch-icon，否则 iOS 会截图作为图标 -->
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+
 <meta property="og:title" content="HanLingo — Real Chinese for Real Life">
 <meta property="og:description" content="Learn Chinese through practical sentences and stories, one short session at a time.">
 <meta property="og:url" content="https://hanlingo.app/">
 <meta property="og:type" content="website">
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 <style>
 :root {
   --bg: #F4F3EF; --card: #FFFFFF; --text: #2C302E; --muted: #7B7F7A;
@@ -21,13 +28,8 @@
   --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
 }
 
-/* 1. 全局交互优化：禁用长按选中、禁止 iOS 橡皮筋回弹 */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { 
-  overscroll-behavior: none; 
-  user-select: none; 
-  -webkit-user-select: none; 
-}
+html, body { overscroll-behavior: none; user-select: none; -webkit-user-select: none; }
 [hidden] { display: none !important; }
 
 body { 
@@ -35,7 +37,6 @@ body {
   line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; 
 }
 
-/* 2. 全面屏安全区适配：用 max() 兼顾设计留白和刘海/Home条 */
 .app { 
   max-width: 520px; height: 100dvh; margin: 0 auto; 
   padding-top: max(20px, env(safe-area-inset-top));
@@ -45,11 +46,8 @@ body {
   display: flex; flex-direction: column; position: relative; 
 }
 
-/* 3. 交互元素增加 manipulation 消除延迟，防止双击缩放 */
 .btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn, .pw-plan, .pw-plan input { 
-  touch-action: manipulation; 
-  user-select: none; 
-  -webkit-user-select: none;
+  touch-action: manipulation; user-select: none; -webkit-user-select: none;
 }
 
 /* 顶部 */
@@ -416,7 +414,7 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- 更新后的 Paywall 弹窗 -->
+<!-- Paywall 弹窗 -->
 <div class="modal-overlay" id="paywallModal" hidden>
   <div class="paywall-clean">
     <div class="pw-header">
@@ -743,6 +741,7 @@ main::-webkit-scrollbar { display: none; }
     dataset[cat].forEach(function(item) {
       if (!seen[item.zh]) { seen[item.zh] = true; unique.push(item); }
     });
+
     dataset[cat] = unique;
   });
 
@@ -942,15 +941,24 @@ main::-webkit-scrollbar { display: none; }
     initVoices();
     if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = initVoices;
   }
+  
   function playAudio() {
     var s = currentList[rIdx];
     if (!s || !synth) return;
-    synth.cancel();
+    
+    // iOS 处理：如果当前正在播放，先取消，然后再重新播放
+    if (synth.speaking) {
+      synth.cancel();
+    }
+    
     document.getElementById('listen').classList.add('speaking');
     var u = new SpeechSynthesisUtterance(s.zh);
-    u.lang = 'zh-CN'; u.rate = 0.85;
+    u.lang = 'zh-CN'; 
+    u.rate = 0.85;
     if (zhVoice) u.voice = zhVoice;
     u.onend = u.onerror = function() { document.getElementById('listen').classList.remove('speaking'); };
+    
+    // 确保在用户的点击事件栈中直接调用
     synth.speak(u);
   }
 
@@ -1133,17 +1141,24 @@ main::-webkit-scrollbar { display: none; }
     startY = 0;
   });
 
+  /* 🌟 修复 iOS 音频拦截：
+     移除 setTimeout，在用户点击 Next/Prev 时同步调用 playAudio() */
   function handleNext() {
     if (synth) synth.cancel();
     collapseHero();
     if (rIdx >= currentList.length - 1) { showDone(); return; }
     rIdx++;
     renderCard();
-    setTimeout(playAudio, 300);
+    playAudio(); // 同步触发，确保在用户的点击手势上下文中
   }
+  
   function handlePrev() {
     if (synth) synth.cancel();
-    if (rIdx > 0) { rIdx--; renderCard(); setTimeout(playAudio, 300); }
+    if (rIdx > 0) { 
+      rIdx--; 
+      renderCard(); 
+      playAudio(); // 同步触发
+    }
   }
 
   /* ================= 10. 事件 ================= */
@@ -1193,15 +1208,9 @@ main::-webkit-scrollbar { display: none; }
     if ('caches' in window) {
       caches.open('hanlingo-offline-v1').then(function(cache) {
         return cache.addAll([
-          './',
-          './index.html',
-          './data/daily.js',
-          './data/business.js',
-          './data/classics.js',
-          './data/trends.js',
-          './stories-data.js',
-          './journey-west-hsk12.js',
-          './art-of-war-hsk56.js'
+          './', './index.html',
+          './data/daily.js', './data/business.js', './data/classics.js', './data/trends.js',
+          './stories-data.js', './journey-west-hsk12.js', './art-of-war-hsk56.js'
         ]);
       }).then(function() {
         btn.textContent = '✅ Saved for Offline';
