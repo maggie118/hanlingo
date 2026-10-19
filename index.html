@@ -7,11 +7,10 @@
 <meta name="theme-color" content="#F4F3EF">
 <meta name="description" content="Learn practical Mandarin through real-life sentences, audio, and engaging Chinese stories. Start with a short daily learning session.">
 
-<!-- 🌟 iOS PWA 专属配置：确保添加到桌面全屏且图标正常 -->
+<!-- iOS PWA 专属配置 -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="HanLingo">
-<!-- 必须强制指定 apple-touch-icon，否则 iOS 会截图作为图标 -->
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
 <meta property="og:title" content="HanLingo — Real Chinese for Real Life">
@@ -28,15 +27,14 @@
   --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
 }
 
+/* 1. 全局交互优化：禁用长按选中、禁止 iOS 橡皮筋回弹 */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { overscroll-behavior: none; user-select: none; -webkit-user-select: none; }
 [hidden] { display: none !important; }
 
-body { 
-  font-family: var(--sans); background: var(--bg); color: var(--text); 
-  line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; 
-}
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; }
 
+/* 2. 全面屏安全区适配 */
 .app { 
   max-width: 520px; height: 100dvh; margin: 0 auto; 
   padding-top: max(20px, env(safe-area-inset-top));
@@ -46,6 +44,7 @@ body {
   display: flex; flex-direction: column; position: relative; 
 }
 
+/* 3. 交互元素增加 manipulation 消除延迟，防止双击缩放 */
 .btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn, .pw-plan, .pw-plan input { 
   touch-action: manipulation; user-select: none; -webkit-user-select: none;
 }
@@ -290,7 +289,8 @@ main::-webkit-scrollbar { display: none; }
     <div class="top">
       <div class="brand">HanLingo</div>
       <div class="meta-right">
-        <button class="review-btn" id="btnReviewHistory">🔄 Review</button>
+        <!-- Review 按钮初始隐藏，在 JS 中根据 isPro() 决定是否显示 -->
+        <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
         <span class="time-badge">⏱ Est. 2 mins</span>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
       </div>
@@ -414,7 +414,7 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- Paywall 弹窗 -->
+<!-- Paywall 弹窗：明确对比 Free 与 Pro 的限制 -->
 <div class="modal-overlay" id="paywallModal" hidden>
   <div class="paywall-clean">
     <div class="pw-header">
@@ -451,10 +451,34 @@ main::-webkit-scrollbar { display: none; }
     <hr class="pw-divider">
 
     <ul class="pw-perks">
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Complete Story Library</strong><span>Unlock all chapters of Journey to the West and more.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Unlimited Review</strong><span>Revisit any past Daily 10 sentences anytime.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Offline Download</strong><span>Cache the entire story pack for flights & subways.</span></div></li>
-      <li><div class="pw-icon">✓</div><div class="pw-text"><strong>Trends & Work</strong><span>Exclusive access to Business Chinese and internet slang.</span></div></li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Complete Story Library</strong>
+          <span>Unlock all chapters of Journey to the West and more.</span>
+        </div>
+      </li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Unlimited Review (Pro only)</strong>
+          <span>Free version doesn't support review. Upgrade to revisit past Daily 10 sentences.</span>
+        </div>
+      </li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Offline Download</strong>
+          <span>Cache the entire story pack for flights & subways.</span>
+        </div>
+      </li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Trends & Work</strong>
+          <span>Exclusive access to Business Chinese and internet slang.</span>
+        </div>
+      </li>
     </ul>
 
     <div class="pw-actions">
@@ -505,7 +529,18 @@ main::-webkit-scrollbar { display: none; }
 (function(){
   'use strict';
 
-  /* ================= 0. 身份与支付配置 ================= */
+  /* ================= 0. Service Worker 注册 ================= */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js').then(function(reg) {
+        console.log('ServiceWorker registration successful with scope: ', reg.scope);
+      }).catch(function(err) {
+        console.warn('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+
+  /* ================= 1. 身份与支付配置 ================= */
   var API_BASE_URL = '';
 
   function getUserId() {
@@ -522,7 +557,7 @@ main::-webkit-scrollbar { display: none; }
   function isPro() { return localStorage.getItem(PRO_KEY) === 'true'; }
   function setPro(val) { localStorage.setItem(PRO_KEY, val ? 'true' : 'false'); }
 
-  /* ================= 1. 支付交互 ================= */
+  /* ================= 2. 支付交互 ================= */
   var selectedPlan = 'annual';
   var planConfig = {
     'monthly': { name: 'Monthly Pro', priceId: 'price_monthly_999', btnText: 'Start Monthly ($9.99/mo)' },
@@ -593,7 +628,7 @@ main::-webkit-scrollbar { display: none; }
     }
   })();
 
-  /* ================= 2. 欢迎区域 ================= */
+  /* ================= 3. 欢迎区域 ================= */
   var heroEl = document.getElementById('heroSection');
   var hasStarted = localStorage.getItem('hanlingo_has_started');
   if (hasStarted || loadStreak().streak > 0) { heroEl.classList.add('compact'); }
@@ -614,7 +649,7 @@ main::-webkit-scrollbar { display: none; }
     document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
-  /* ================= 3. 数据清洗与历史记录 ================= */
+  /* ================= 4. 数据清洗与历史记录 ================= */
   var FREE_STEPS_CLASSICS = 3;
   var dataset = { survival: [], business: [], classics: [], trends: [] };
   var classicBooks = [];
@@ -654,6 +689,7 @@ main::-webkit-scrollbar { display: none; }
     'journey_west_hsk12_07': 'Journey to the West: The Spider Demons',
     'journey_west_hsk12_08': 'Journey to the West: The Return',
     'painted_skin': 'Liaozhai: Painted Skin', 'laoshan_daoshi': 'Liaozhai: The Taoist of Mount Laoshan',
+
     'zhong_li': 'Liaozhai: Planting a Pear', 'lang_wolf': 'Liaozhai: The Wolf',
     'nie_xiaoqian': 'Liaozhai: Nie Xiaoqian', 'ying_ning': 'Liaozhai: Ying Ning',
     'qing_feng': 'Liaozhai: Qing Feng', 'hu_jia_nu': 'Liaozhai: The Fox\'s Wedding',
@@ -741,7 +777,6 @@ main::-webkit-scrollbar { display: none; }
     dataset[cat].forEach(function(item) {
       if (!seen[item.zh]) { seen[item.zh] = true; unique.push(item); }
     });
-
     dataset[cat] = unique;
   });
 
@@ -827,6 +862,7 @@ main::-webkit-scrollbar { display: none; }
 
       var pick = active[0];
       pick.current -= sumW;
+
       result.push(pick.items.shift());
     }
     return result;
@@ -946,7 +982,6 @@ main::-webkit-scrollbar { display: none; }
     var s = currentList[rIdx];
     if (!s || !synth) return;
     
-    // iOS 处理：如果当前正在播放，先取消，然后再重新播放
     if (synth.speaking) {
       synth.cancel();
     }
@@ -958,7 +993,6 @@ main::-webkit-scrollbar { display: none; }
     if (zhVoice) u.voice = zhVoice;
     u.onend = u.onerror = function() { document.getElementById('listen').classList.remove('speaking'); };
     
-    // 确保在用户的点击事件栈中直接调用
     synth.speak(u);
   }
 
@@ -987,6 +1021,9 @@ main::-webkit-scrollbar { display: none; }
       subChipsEl.hidden = true;
       curBook = 'all';
     }
+    
+    // 根据是否为 Pro 隐藏或显示 Review 按钮
+    $('btnReviewHistory').hidden = !isPro();
   }
 
   function renderCard() {
@@ -1141,15 +1178,14 @@ main::-webkit-scrollbar { display: none; }
     startY = 0;
   });
 
-  /* 🌟 修复 iOS 音频拦截：
-     移除 setTimeout，在用户点击 Next/Prev 时同步调用 playAudio() */
+  /* 修复 iOS 音频拦截：在用户点击 Next/Prev 时同步调用 playAudio() */
   function handleNext() {
     if (synth) synth.cancel();
     collapseHero();
     if (rIdx >= currentList.length - 1) { showDone(); return; }
     rIdx++;
     renderCard();
-    playAudio(); // 同步触发，确保在用户的点击手势上下文中
+    playAudio(); // 同步触发
   }
   
   function handlePrev() {
@@ -1227,10 +1263,6 @@ main::-webkit-scrollbar { display: none; }
   });
 
   $('btnReviewHistory').addEventListener('click', function() {
-    if (!isPro()) {
-      triggerPaywall();
-      return;
-    }
     renderHistoryModal();
   });
 
