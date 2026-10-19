@@ -30,22 +30,50 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .streak { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
 .streak b { color: var(--accent); font-size: 16px; font-variant-numeric: tabular-nums; }
 
-/* 欢迎区域 - 默认全量 */
+/* 🌟 全新的欢迎区域 (Hero Section) */
 .hero { 
-  margin: 18px 0 20px; text-align: center; 
+  margin: 24px 0 20px; text-align: left; 
   animation: fadeIn 0.4s ease both; 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-  overflow: hidden;
 }
-.hero h1 { font-size: clamp(22px, 6vw, 28px); font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; transition: font-size 0.3s; }
-.hero-sub { font-size: 14.5px; color: var(--accent); font-weight: 600; margin-bottom: 8px; transition: font-size 0.3s; }
-.hero-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; max-width: 92%; margin: 0 auto; transition: opacity 0.3s; }
+.hero h1 { font-size: clamp(22px, 6vw, 26px); font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: -0.01em; }
+.hero-sub { font-size: 15px; color: var(--text); margin-bottom: 24px; line-height: 1.5; opacity: 0.85; }
+
+/* 引导卡片 */
+.hero-card {
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+.primary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.secondary-card {
+  background: #F8F8F6;
+  border: 1px solid var(--border);
+}
+.hero-card h2 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.hero-card p { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+.hero-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A7F37; /* 截图中的绿色 */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.hero-link:hover { text-decoration: underline; }
+.hero-link span { font-size: 18px; line-height: 1; }
 
 /* 欢迎区域 - 紧凑态（已开始学习） */
-.hero.compact { margin: 10px 0 16px; padding: 12px; background: var(--accent-soft); border-radius: 12px; }
-.hero.compact h1 { font-size: 18px; margin-bottom: 2px; }
+.hero.compact { margin: 10px 0 16px; padding: 16px; background: var(--accent-soft); border-radius: 12px; }
+.hero.compact h1 { font-size: 18px; margin-bottom: 4px; }
 .hero.compact .hero-sub { font-size: 13px; margin-bottom: 0; }
-.hero.compact .hero-desc { display: none; }
+.hero.compact .hero-card { display: none; } /* 开始学习后隐藏卡片 */
 
 /* 进度条 */
 .progress-bar { height: 3px; margin: 0 0 16px; background: var(--border); border-radius: 3px; overflow: hidden; }
@@ -59,7 +87,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .chip:hover { border-color: var(--accent); }
 .chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* 子分类 - 强制单行横向滚动 */
+/* 子分类 */
 .sub-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 20px 4px 2px; scrollbar-width: none; animation: slideDown 0.3s ease; }
 .sub-chips::-webkit-scrollbar { display: none; }
 .sub-chip { flex: none; font: 500 12px/1 var(--sans); color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 99px; padding: 6px 12px; cursor: pointer; transition: .15s; white-space: nowrap; }
@@ -121,7 +149,7 @@ main::-webkit-scrollbar { display: none; }
 .card-content.is-locked .rule,
 .card-content.is-locked .usage-box { filter: blur(6px); user-select: none; pointer-events: none; opacity: 0.5; }
 
-/* 🌟 优雅的内嵌付费提示卡片 */
+/* 内嵌付费提示 */
 .paywall-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5; padding: 10px; }
 .paywall-inner { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; box-shadow: 0 10px 30px -10px rgba(0,0,0,.15); width: 100%; max-width: 340px; }
 .paywall-inner h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
@@ -190,14 +218,16 @@ main::-webkit-scrollbar { display: none; }
 .share-en { font-size: 18px; color: var(--muted); margin-bottom: 40px; }
 .share-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; }
 
-/* ================= 手机矮屏适配 (防止卡片和按钮被挤压) ================= */
+/* ================= 手机矮屏适配 ================= */
 @media (max-height: 700px) {
   .app { padding: 12px 16px 16px; }
   .top { gap: 8px; }
   .hero { margin: 10px 0 12px; }
-  .hero h1 { font-size: 20px; }
-  .hero-sub { font-size: 13px; margin-bottom: 4px; }
-  .hero-desc { font-size: 12px; line-height: 1.4; }
+  .hero h1 { font-size: 20px; margin-bottom: 6px; }
+  .hero-sub { font-size: 13px; margin-bottom: 12px; }
+  .hero-card { padding: 12px; margin-bottom: 10px; }
+  .hero-card h2 { font-size: 15px; }
+  .hero-card p { font-size: 13px; margin-bottom: 8px; }
   
   .progress-bar { margin: 0 0 10px; }
   .chips-container { margin-bottom: 8px; gap: 4px; }
@@ -212,22 +242,13 @@ main::-webkit-scrollbar { display: none; }
   .rule { margin: 14px auto 10px; }
   .english { font-size: 15px; min-height: 2.4em; margin-top: 8px; }
   .usage-box { margin-top: 14px; padding: 12px; }
-  .usage-title { font-size: 9px; }
-  .usage-text { font-size: 13px; }
   
   .actions { margin-top: 16px; }
   .btn { padding: 12px; font-size: 14px; }
   .repeat-hint { margin-top: 8px; font-size: 11px; }
   
-  .story-header { margin-bottom: 8px; }
-  .story-intro { padding: 12px; margin-bottom: 12px; }
-  .story-intro-title { font-size: 18px; }
-  .story-intro-desc { font-size: 13px; margin-bottom: 10px; }
-  
   .bottom-info { margin-top: 8px; font-size: 12px; }
-  .bottom-info span.hint { margin-top: 2px; font-size: 10px; }
   .done h2 { margin-top: 10px; font-size: 20px; }
-  .done .quote { margin: 16px 10px; padding: 10px; }
 }
 </style>
 </head>
@@ -242,12 +263,22 @@ main::-webkit-scrollbar { display: none; }
       </div>
     </div>
 
+    <!-- 🌟 全新的欢迎区域 -->
     <div class="hero" id="heroSection">
       <h1>Real Chinese for Real Life.</h1>
-      <p class="hero-sub">Learn through sentences. Remember through stories.</p>
-      <p class="hero-desc" id="heroDesc">
-        Learn practical Mandarin for work, everyday conversations, and Chinese culture — one short session at a time.<br>Start with just 2 minutes a day.
-      </p>
+      <p class="hero-sub" id="heroDesc">Learn Chinese through real sentences and engaging stories — one short session at a time.</p>
+      
+      <div class="hero-card primary-card">
+        <h2>Daily 10</h2>
+        <p>10 sentences a day. Free, every day.</p>
+        <a href="#" class="hero-link" id="linkStartLearning">Start Learning Free <span>→</span></a>
+      </div>
+
+      <div class="hero-card secondary-card">
+        <h2>Choose What You Want to Learn</h2>
+        <p>Explore everyday Chinese, workplace conversations, and stories. Unlock the topics that interest you.</p>
+        <a href="#" class="hero-link" id="linkExplorePaths">Explore Learning Paths <span>→</span></a>
+      </div>
     </div>
 
     <div class="progress-bar" id="bar"><i id="fill"></i></div>
@@ -423,9 +454,7 @@ main::-webkit-scrollbar { display: none; }
   'use strict';
 
   /* ================= 0. 身份与支付配置 ================= */
-  // ⚠️ 上线前必须完成：配置真实的 Stripe 或其它支付后端 API。
-  // 前端无法单独保障支付安全，必须通过后端验证并返回 token。
-  var API_BASE_URL = ''; // 留空则禁用真实购买流程
+  var API_BASE_URL = ''; 
 
   function getUserId() {
     var uid = localStorage.getItem('hanlingo_uid');
@@ -437,8 +466,6 @@ main::-webkit-scrollbar { display: none; }
   }
   var USER_ID = getUserId();
 
-  // 💡 安全警告：由于这是纯前端演示，真实的 Pro 权限最好由后端 session 验证。
-  // 这里的 isPro() 仅读取本地校验后的缓存标识，不可作为真实付款凭证。
   var PRO_KEY = 'hanlingo_pro';
   function isPro() { return localStorage.getItem(PRO_KEY) === 'true'; }
   function setPro(val) { localStorage.setItem(PRO_KEY, val ? 'true' : 'false'); }
@@ -457,7 +484,6 @@ main::-webkit-scrollbar { display: none; }
   });
 
   document.getElementById('btnBuyPro').addEventListener('click', function() {
-    // 🔒 彻底移除假付款逻辑。必须有后端接口支持。
     if (!API_BASE_URL) {
       alert("Payment backend is not connected yet. Please configure the API endpoint to enable secure checkout.");
       return;
@@ -473,7 +499,7 @@ main::-webkit-scrollbar { display: none; }
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         userId: USER_ID,
-        priceId: 'price_12345' // TODO: 替换为真实的 Stripe Price ID
+        priceId: 'price_12345' 
       })
     })
     .then(function(res) { return res.json(); })
@@ -492,7 +518,6 @@ main::-webkit-scrollbar { display: none; }
     });
   });
 
-  // 处理支付成功回跳
   (function verifyPayment() {
     var urlParams = new URLSearchParams(window.location.search);
     var sessionId = urlParams.get('session_id');
@@ -518,26 +543,37 @@ main::-webkit-scrollbar { display: none; }
     }
   })();
 
-  /* ================= 2. 欢迎区域折叠逻辑 ================= */
+  /* ================= 2. 欢迎区域与交互引导 ================= */
   var heroEl = document.getElementById('heroSection');
-  var heroDesc = document.getElementById('heroDesc');
   var hasStarted = localStorage.getItem('hanlingo_has_started');
 
+  // 如果用户之前已经开始学习，折叠欢迎区
   if (hasStarted || loadStreak().streak > 0) {
     heroEl.classList.add('compact');
-    heroDesc.hidden = true;
   }
 
   function collapseHero() {
     if (!heroEl.classList.contains('compact')) {
       heroEl.classList.add('compact');
-      heroDesc.hidden = true;
       localStorage.setItem('hanlingo_has_started', 'true');
     }
   }
 
+  // 点击“Start Learning Free”直接收起欢迎区并聚焦卡片
+  document.getElementById('linkStartLearning').addEventListener('click', function(e) {
+    e.preventDefault();
+    collapseHero();
+    document.getElementById('card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // 点击“Explore Learning Paths”收起欢迎区并滚动到分类 Chips
+  document.getElementById('linkExplorePaths').addEventListener('click', function(e) {
+    e.preventDefault();
+    collapseHero();
+    document.getElementById('chips').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
   /* ================= 3. 核心免费限制配置 ================= */
-  // 故事模式免费试读步数（基于 step 字段）
   var FREE_STEPS_CLASSICS = 3; 
 
   /* ================= 4. 数据清洗与智能归类 ================= */
@@ -612,10 +648,10 @@ main::-webkit-scrollbar { display: none; }
         zh = c.sentence || c.cn || c.zh;
         pinyin = c.pinyin || '';
         en = c.translation || c.en;
-        usage = c.usage || ''; // 提取可选的 usage 字段
+        usage = c.usage || ''; 
       }
 
-      if (!zh || !en) return; // 缺少核心字段则跳过
+      if (!zh || !en) return; 
       
       var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
       var displayTitle = finalBook;
@@ -667,7 +703,6 @@ main::-webkit-scrollbar { display: none; }
   extractData(window.CLASSICS_DATA, 'classics');
   extractData(window.STORIES_DATA, 'survival');
 
-  // 去重
   ['survival', 'business', 'classics', 'trends'].forEach(function(cat) {
     var unique = [], seen = {};
     dataset[cat].forEach(function(item) {
@@ -676,7 +711,6 @@ main::-webkit-scrollbar { display: none; }
     dataset[cat] = unique;
   });
 
-  // 更新分类名称与图标
   var CATS = [
     {id:'mix', icon:'🌟', label:'Daily 10'},
     {id:'survival', icon:'☕', label:'Everyday Chinese'},
@@ -687,7 +721,6 @@ main::-webkit-scrollbar { display: none; }
   /* ================= 5. 极简打卡与本地日期 ================= */
   var STREAK_KEY = 'hanlingo_streak';
   
-  // 统一使用本地日期规则，避免 UTC 时间导致的打卡与内容不一致
   function getLocalDateString() {
     var d = new Date();
     var y = d.getFullYear();
@@ -731,6 +764,7 @@ main::-webkit-scrollbar { display: none; }
     classics: 'Stories & Classics', mix: 'Daily 10', trends: 'Trends & Slang' 
   };
 
+
   function getRng(seedStr) {
     if (!seedStr) return Math.random;
     var seed = 0;
@@ -757,7 +791,6 @@ main::-webkit-scrollbar { display: none; }
     if (category === 'mix') {
       var sPart = shuffle(dataset.survival, rand).slice(0, 7);
       
-      // 对于盲盒中的 classics 抽样，如果是免费用户，限定在免费范围内
       var classicPool = dataset.classics.filter(function(item) {
         return isPro() ? true : item.step <= FREE_STEPS_CLASSICS;
       });
@@ -770,8 +803,6 @@ main::-webkit-scrollbar { display: none; }
 
       var tPart = shuffle(dataset.trends.length ? dataset.trends : dataset.business, rand).slice(0, 1);
       var mix = sPart.concat(cPart).concat(tPart);
-      
-      // 如果混合结果不足 10 句（数据源不足），按实际数量返回，不重复句子
       return shuffle(mix, rand).slice(0, 10);
     
     } else if (category === 'classics' && book !== 'all') {
@@ -783,7 +814,6 @@ main::-webkit-scrollbar { display: none; }
       var startIdx = (daySeed * 10) % list.length;
       
       var res = [];
-      // 不重复凑数，实际有多少取多少
       var take = Math.min(10, list.length);
       for (var i = 0; i < take; i++) {
         res.push(list[(startIdx + i) % list.length]);
@@ -792,7 +822,6 @@ main::-webkit-scrollbar { display: none; }
     
     } else {
       var list = dataset[category] || [];
-      // 移除 while 循环凑数逻辑，直接 slice
       return shuffle(list, rand).slice(0, 10);
     }
   }
@@ -847,7 +876,6 @@ main::-webkit-scrollbar { display: none; }
   function renderCard() {
     var totalToday = currentList.length;
     
-    // 边界情况：无数据
     if (totalToday === 0) {
       card.hidden = false;
       $('num').textContent = '0 / 0';
@@ -869,7 +897,6 @@ main::-webkit-scrollbar { display: none; }
     $('cat').textContent = (CAT_LABEL[s.category] || s.category).toUpperCase();
     $('num').textContent = String(rIdx + 1).padStart(2, '0') + ' / ' + String(totalToday).padStart(2, '0');
 
-    // 故事流专属渲染
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
       $('storyTitle').textContent = s.displayTitle;
@@ -896,20 +923,16 @@ main::-webkit-scrollbar { display: none; }
     $('hanzi').textContent = s.zh;
     $('english').textContent = s.en;
 
-    // usage 容错
     var usage = s.usage || '';
     $('usage').textContent = usage;
     $('usageBox').hidden = !usage;
     
     btnNext.disabled = false;
     btnNext.textContent = (rIdx >= totalToday - 1) ? 'Finish ✓' : 'Next →';
-    
-    // 动态总数
     $('fill').style.width = ((rIdx + 1) / totalToday * 100) + '%';
     $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday + 
       '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
 
-    // 判定内容是否锁定（免费用户超过试读步数）
     var isLocked = (s.category === 'classics' && !isPro() && s.step > FREE_STEPS_CLASSICS);
 
     $('cardContent').classList.toggle('is-locked', isLocked);
