@@ -1,4 +1,8 @@
+# HanLingo · robots.txt
+# 站点为纯前端 PWA，全部内容通过首页可访问，无需屏蔽任何路径。
+# 注意：Sitemap 域名必须与 sitemap.xml 中的 <loc> 及 index.html 的 og:url 保持一致。
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.hanlingo.app/sitemap.xml
+Sitemap: https://hanlingo.app/sitemap.xml
