@@ -25,43 +25,38 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .streak { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
 .streak b { color: var(--accent); font-size: 16px; font-variant-numeric: tabular-nums; }
 
-.progress-bar { height: 3px; margin: 16px 0; background: var(--border); border-radius: 3px; overflow: hidden; }
+/* 欢迎区域 */
+.hero { margin: 18px 0 20px; text-align: center; animation: fadeIn 0.4s ease both; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.hero h1 { font-size: clamp(24px, 6vw, 28px); font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.01em; }
+.hero-sub { font-size: 14.5px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+.hero-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; max-width: 92%; margin: 0 auto; }
+.hero.compact { margin: 10px 0 16px; padding: 12px; background: var(--accent-soft); border-radius: 12px; }
+.hero.compact h1 { font-size: 18px; margin-bottom: 2px; }
+.hero.compact .hero-sub { font-size: 13px; margin-bottom: 0; }
+
+/* 进度条 */
+.progress-bar { height: 3px; margin: 0 0 16px; background: var(--border); border-radius: 3px; overflow: hidden; }
 .progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .45s cubic-bezier(.3,.7,.2,1); }
 
-/* 分类 Chips 容器 */
+/* 分类 Chips */
 .chips-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; position: relative; }
-
-/* 主分类 */
-.chips { 
-  display: flex; gap: 8px; overflow-x: auto; 
-  padding: 2px 20px 6px 2px; 
-  scrollbar-width: none; 
-}
+.chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 20px 6px 2px; scrollbar-width: none; }
 .chips::-webkit-scrollbar { display: none; }
-.chip { flex: none; font: 600 13px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 99px; padding: 8px 12px; cursor: pointer; transition: .15s; }
+.chip { flex: none; font: 600 12.5px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 99px; padding: 9px 14px; cursor: pointer; transition: .15s; }
 .chip:hover { border-color: var(--accent); }
 .chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* 二级子分类（极简英文版） */
-.sub-chips { 
-  display: flex; gap: 6px; overflow-x: auto; 
-  padding: 4px 20px 4px 2px; 
-  scrollbar-width: none; 
-  animation: slideDown 0.3s ease; 
-}
+.sub-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 20px 4px 2px; scrollbar-width: none; animation: slideDown 0.3s ease; }
 .sub-chips::-webkit-scrollbar { display: none; }
-.sub-chip { 
-  flex: none; font: 500 12px/1 var(--sans); color: var(--muted); 
-  background: transparent; border: 1px solid transparent; border-radius: 99px; 
-  padding: 6px 12px; cursor: pointer; transition: .15s; white-space: nowrap; 
-}
+.sub-chip { flex: none; font: 500 12px/1 var(--sans); color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 99px; padding: 6px 12px; cursor: pointer; transition: .15s; white-space: nowrap; }
 .sub-chip:hover { color: var(--accent); background: var(--accent-soft); }
 .sub-chip[aria-selected="true"] { color: var(--accent); border-color: var(--accent); font-weight: 600; background: var(--accent-soft); }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 卡片区域 */
-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 20px; position: relative; }
-.card-wrapper { perspective: 1000px; touch-action: pan-y; }
+/* 🃏 卡片区域 */
+main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; padding-bottom: 20px; position: relative; }
+main::-webkit-scrollbar { display: none; }
+.card-wrapper { perspective: 1000px; touch-action: pan-y; margin: auto 0; }
 .card { 
   background: var(--card); border: 1px solid var(--border); border-radius: 24px; 
   padding: 24px 24px 28px; text-align: center; 
@@ -69,10 +64,10 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   position: relative; transition: transform .1s ease-out, opacity .3s ease;
   will-change: transform, opacity;
 }
-.meta { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
-.num { font-size: 12px; letter-spacing: .22em; color: var(--muted); font-weight: 600; }
-.num b { color: var(--accent); }
-.cat { font-size: 11.5px; font-weight: 600; color: var(--muted); border: 1px solid var(--border); border-radius: 99px; padding: 3px 10px; background: var(--bg); }
+
+.meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.num { font-size: 11px; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+.cat { font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 
 /* 剧情流专属头部 */
 .story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; letter-spacing: 0.02em; color: var(--muted); flex-wrap: wrap; text-align: center; padding: 0 10px; }
@@ -80,12 +75,17 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 .story-title { font-weight: 700; color: var(--text); line-height: 1.4; }
 .story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; flex: none;}
 
-.shuffle-btn {
-  position: absolute; top: 16px; right: 16px;
-  background: var(--bg); border: 1px solid var(--border); border-radius: 50%;
-  width: 32px; height: 32px; display: grid; place-items: center;
-  font-size: 14px; cursor: pointer; transition: all .2s; color: var(--text);
-}
+/* 故事序章 */
+.story-intro { text-align: left; background: #FAFAFA; border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; animation: fadeIn 0.4s ease both; }
+.story-intro-meta { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+.story-intro-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+.story-intro-subtitle { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+.story-intro-desc { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+.story-intro-list { list-style: none; padding: 0; margin: 0; }
+.story-intro-list li { position: relative; padding-left: 24px; font-size: 13.5px; color: var(--text); margin-bottom: 8px; }
+.story-intro-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--text); font-weight: 700; }
+
+.shuffle-btn { position: absolute; top: 16px; right: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; font-size: 14px; cursor: pointer; transition: all .2s; color: var(--text); }
 .shuffle-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); transform: rotate(15deg); }
 
 /* 三层阶梯 */
@@ -94,23 +94,44 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 .rule { width: 36px; height: 2px; margin: 24px auto 20px; background: var(--accent); opacity: 0.5; border-radius: 2px; }
 .english { font-size: 17px; opacity: 0.9; line-height: 1.6; min-height: 3.2em; padding: 0 4px; }
 
-.actions { display: flex; gap: 12px; margin-top: 32px; }
+/* Usage 区块 */
+.usage-box { margin-top: 24px; padding: 16px; background: var(--bg); border-radius: 12px; text-align: left; border: 1px solid var(--border); }
+.usage-title { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.usage-text { font-size: 14px; color: var(--text); opacity: 0.85; line-height: 1.5; }
+
+/* 核心内容区（锁定态模糊） */
+.card-content { position: relative; transition: filter 0.3s ease; }
+.card-content.is-locked .pinyin,
+.card-content.is-locked .hanzi,
+.card-content.is-locked .english,
+.card-content.is-locked .rule,
+.card-content.is-locked .usage-box { filter: blur(6px); user-select: none; pointer-events: none; opacity: 0.5; }
+
+/* 🌟 优雅的内嵌付费提示卡片 */
+.paywall-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 5; padding: 10px; }
+.paywall-inner { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; box-shadow: 0 10px 30px -10px rgba(0,0,0,.15); width: 100%; max-width: 340px; }
+.paywall-inner h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.paywall-inner p { font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+.paywall-inner .btn { width: 100%; margin-bottom: 8px; }
+.paywall-inner .btn.later { background: transparent; color: var(--muted); border: none; font-weight: 500; padding: 8px; cursor: pointer; }
+.paywall-inner .btn.later:hover { color: var(--text); }
+
+.actions { display: flex; gap: 12px; margin-top: 28px; position: relative; z-index: 10; }
 .btn { flex: 1; appearance: none; cursor: pointer; font: 600 16px/1 var(--sans); border: 1.5px solid var(--accent); border-radius: 14px; padding: 16px 12px; transition: .2s; }
 .btn:active { transform: scale(.97); }
 .btn.primary { background: var(--accent); color: #fff; }
 .btn.primary:hover { background: var(--accent-press); }
 .btn.ghost { background: transparent; color: var(--accent); }
 .btn.ghost:hover { background: var(--accent-soft); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
 
-/* Pro 钩子 */
-.pro-hint {
-  margin-top: 20px; font-size: 12px; color: var(--accent);
-  background: var(--accent-soft); padding: 10px 14px; border-radius: 10px;
-  cursor: pointer; transition: .2s; font-weight: 500;
-}
+.repeat-hint { margin-top: 14px; font-size: 12px; color: var(--muted); text-align: center; letter-spacing: 0.02em; }
+
+/* 底部提示 */
+.pro-hint { margin-top: 20px; font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 10px; cursor: pointer; transition: .2s; font-weight: 500; }
 .pro-hint:hover { background: rgba(192,88,75,.15); }
 
-.bottom-info { text-align: center; font-size: 13px; color: var(--muted); font-weight: 500; letter-spacing: .05em; margin-top: auto; }
+.bottom-info { text-align: center; font-size: 13px; color: var(--muted); font-weight: 500; letter-spacing: .05em; margin-top: 16px; flex: none; }
 
 /* 打卡完成页 */
 .done { text-align: center; padding: 20px 0; position: absolute; inset: 0; background: var(--bg); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; animation: fadeIn 0.4s ease both; }
@@ -125,21 +146,26 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 .quote-en { display: block; font-size: 14px; color: var(--text); opacity: 0.8; font-style: italic; }
 .done .actions { flex-direction: column; width: 100%; max-width: 280px; margin-top: 12px; }
 
-/* 弹窗 Modal */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(44,48,46,.6);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 100; padding: 20px; animation: fadeIn 0.2s ease both;
-}
-.modal-content {
-  background: var(--card); border-radius: 20px; padding: 30px 24px;
-  text-align: center; max-width: 360px; width: 100%;
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,.2);
-}
-.modal-content h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-.modal-content .price { font-size: 24px; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
-.modal-content p { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
-.modal-content .btn { width: 100%; margin-bottom: 12px; }
+/* 全局 Paywall 弹窗 */
+.modal-overlay { position: fixed; inset: 0; background: rgba(44,48,46,.6); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px; animation: fadeIn 0.2s ease both; }
+.paywall-clean { background: var(--card); border-radius: 24px; padding: 32px 28px 24px; text-align: left; max-width: 400px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.3); border: 1px solid var(--border); }
+.pw-header { margin-bottom: 24px; }
+.pw-eyebrow { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+.paywall-clean h2 { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 16px; }
+.pw-price { font-size: 32px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 8px; }
+.pw-price-note { font-size: 14px; color: var(--muted); }
+.pw-divider { border: none; border-top: 1px solid var(--border); margin: 0 -28px 24px; }
+.pw-perks { list-style: none; padding: 0; margin: 0 0 28px 0; display: flex; flex-direction: column; gap: 20px; }
+.pw-perks li { display: flex; align-items: flex-start; gap: 12px; }
+.pw-icon { flex: none; width: 20px; height: 20px; border-radius: 50%; background: rgba(46, 139, 87, 0.1); color: #2E8B57; display: grid; place-items: center; font-size: 12px; font-weight: 900; margin-top: 2px; }
+.pw-text { display: flex; flex-direction: column; gap: 4px; }
+.pw-text strong { font-size: 15px; font-weight: 600; color: var(--text); }
+.pw-text span { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.pw-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.pw-actions .btn { width: 100%; padding: 16px; font-size: 16px; }
+.pw-actions .later-btn { background: transparent; border: none; color: var(--muted); font-weight: 500; padding: 12px; cursor: pointer; transition: color .2s; }
+.pw-actions .later-btn:hover { color: var(--text); }
+.pw-disclaimer { font-size: 11px; color: var(--muted); text-align: center; line-height: 1.4; opacity: 0.7; }
 
 /* 隐藏的分享卡片 */
 #share-card { position: absolute; left: -9999px; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; border-radius: 20px; text-align: center; }
@@ -160,6 +186,15 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
       </div>
     </div>
+
+    <div class="hero" id="heroSection">
+      <h1>Real Chinese for Real Life.</h1>
+      <p class="hero-sub">Learn through sentences. Remember through stories.</p>
+      <p class="hero-desc" id="heroDesc">
+        Learn practical Mandarin for work, everyday conversations, and Chinese culture — one short session at a time.<br>Start with just 2 minutes a day.
+      </p>
+    </div>
+
     <div class="progress-bar" id="bar"><i id="fill"></i></div>
     
     <div class="chips-container">
@@ -171,35 +206,68 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   <main>
     <div class="card-wrapper" id="cardWrapper">
       <article class="card" id="card" aria-live="polite">
-        <button class="shuffle-btn" id="shuffleBtn" title="Shuffle">🔀</button>
         
-        <!-- 剧情流专属头部 -->
         <div class="story-header" id="storyHeader" hidden>
-          <span class="story-badge">CLASSICS</span>
+          <span class="story-badge">STORY MODE</span>
           <span class="story-title" id="storyTitle"></span>
           <span class="story-scene" id="storyScene"></span>
         </div>
 
-        <div class="meta"><div class="num" id="num"></div><div class="cat" id="cat"></div></div>
-        
-        <div class="pinyin" id="pinyin"></div>
-        <div class="hanzi" id="hanzi"></div>
-        <div class="rule"></div>
-        <div class="english" id="english"></div>
+        <div class="story-intro" id="storyIntro" hidden>
+          <div class="story-intro-meta" id="storyIntroMeta">STORY MODE · BEGINNER</div>
+          <div class="story-intro-title" id="storyIntroTitle">Journey to the West</div>
+          <div class="story-intro-subtitle" id="storyIntroSubtitle">The Monkey King's First Adventure</div>
+          <div class="story-intro-desc" id="storyIntroDesc">Follow the adventure while learning Chinese sentence by sentence.</div>
+          <ul class="story-intro-list">
+            <li>Listen to each sentence</li>
+            <li>Understand the Chinese</li>
+            <li>Review what you have learned</li>
+          </ul>
+        </div>
+
+        <div class="meta">
+          <div class="cat" id="cat"></div>
+          <div class="num" id="num"></div>
+        </div>
+
+        <div class="card-content" id="cardContent">
+          
+          <div class="pinyin" id="pinyin"></div>
+          <div class="hanzi" id="hanzi"></div>
+          <div class="rule"></div>
+          <div class="english" id="english"></div>
+
+          <div class="usage-box" id="usageBox" hidden>
+            <div class="usage-title">When to use it</div>
+            <div class="usage-text" id="usage"></div>
+          </div>
+
+          <div class="paywall-overlay" id="paywallOverlay" hidden>
+            <div class="paywall-inner">
+              <h3>Continue the Story</h3>
+              <p>You've followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.</p>
+              <button class="btn primary btn-trigger-paywall" id="btnUnlockInline">Unlock Full Access</button>
+              <button class="btn later" id="btnDismissLock">Maybe Later</button>
+            </div>
+          </div>
+        </div>
         
         <div class="actions">
-          <button class="btn ghost" id="listen" type="button">🔊 Listen</button>
+          <button class="btn ghost" id="listen" type="button">🔊 Listen & Repeat</button>
           <button class="btn primary" id="next" type="button">Next →</button>
         </div>
 
-        <!-- 免费用户故事流钩子 -->
-        <div class="pro-hint" id="proHint" hidden>
-          📖 Want to read the full story? Unlock Pro to follow the complete arc.
+        <p class="repeat-hint">Listen once. Then say it aloud.</p>
+
+        <div class="pro-hint btn-trigger-paywall" id="proHint" hidden>
+          📖 Read full stories with Pro. (Tap to unlock)
         </div>
+
+        <button class="shuffle-btn" id="shuffleBtn" title="Shuffle" style="z-index: 20;">🔀</button>
       </article>
     </div>
     
-    <div class="bottom-info" id="bottomProg">Today's Progress: 0/10</div>
+    <div class="bottom-info" id="bottomProg">Today's Progress: 0/0</div>
 
     <section class="done" id="done" hidden>
       <div class="celebrate">🎉</div>
@@ -220,14 +288,55 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   </main>
 </div>
 
-<!-- Paywall 弹窗 -->
+<!-- 全局 Paywall 弹窗 -->
 <div class="modal-overlay" id="paywallModal" hidden>
-  <div class="modal-content">
-    <h2>Unlock HanLingo Pro</h2>
-    <div class="price">US$ 69.00 / S$ 98.00</div>
-    <p>Get unlimited access to all story arcs, categories, and future updates.</p>
-    <button class="btn primary" id="btnBuyPro">Unlock Lifetime Access</button>
-    <button class="btn ghost" id="btnClosePro">Maybe Later</button>
+  <div class="paywall-clean">
+    <div class="pw-header">
+      <span class="pw-eyebrow">HANLINGO · FULL ACCESS</span>
+      <h2>Make Chinese Part of Your Everyday Life.</h2>
+      <div class="pw-price">US$69</div>
+      <p class="pw-price-note">One-time payment · Lifetime access to the included library</p>
+    </div>
+    
+    <hr class="pw-divider">
+    
+    <ul class="pw-perks">
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Everyday Chinese</strong>
+          <span>Practical sentences for daily conversations.</span>
+        </div>
+      </li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Chinese for Work</strong>
+          <span>Useful expressions for professional situations.</span>
+        </div>
+      </li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Stories & Classics</strong>
+          <span>Access to the complete story chapters included in your purchase.</span>
+        </div>
+      </li>
+      <li>
+        <div class="pw-icon">✓</div>
+        <div class="pw-text">
+          <strong>Learn at Your Own Pace</strong>
+          <span>Revisit the included content whenever you want.</span>
+        </div>
+      </li>
+    </ul>
+    
+    <div class="pw-actions">
+      <button class="btn primary" id="btnBuyPro">Unlock Lifetime Access</button>
+      <button class="btn ghost later-btn" id="btnClosePro">Maybe Later</button>
+    </div>
+    
+    <p class="pw-disclaimer">Prices and benefits shown are for illustration. Your final purchase reflects current payment configuration.</p>
   </div>
 </div>
 
@@ -255,28 +364,117 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 (function(){
   'use strict';
 
-  /* ================= 1. 全局状态与 Pro 检测 ================= */
+  /* ================= 0. 身份与支付配置 ================= */
+  var API_BASE_URL = 'http://localhost:3000'; 
+
+  function getUserId() {
+    var uid = localStorage.getItem('hanlingo_uid');
+    if (!uid) {
+      uid = 'user_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+      localStorage.setItem('hanlingo_uid', uid);
+    }
+    return uid;
+  }
+  var USER_ID = getUserId();
+
   var PRO_KEY = 'hanlingo_pro';
   function isPro() { return localStorage.getItem(PRO_KEY) === 'true'; }
+  function setPro(val) { localStorage.setItem(PRO_KEY, val ? 'true' : 'false'); }
 
-  document.getElementById('btnBuyPro').addEventListener('click', function() {
-    localStorage.setItem(PRO_KEY, 'true');
-    document.getElementById('paywallModal').hidden = true;
-    loadNewBatch(); 
+  /* ================= 1. 全局状态与支付交互 ================= */
+  function triggerPaywall() {
+    document.getElementById('paywallModal').hidden = false;
+  }
+
+  document.querySelectorAll('.btn-trigger-paywall').forEach(function(el) {
+    el.addEventListener('click', triggerPaywall);
   });
+
   document.getElementById('btnClosePro').addEventListener('click', function() {
     document.getElementById('paywallModal').hidden = true;
   });
-  document.getElementById('proHint').addEventListener('click', function() {
-    document.getElementById('paywallModal').hidden = false;
+
+  document.getElementById('btnBuyPro').addEventListener('click', function() {
+    var btn = this;
+    var origText = btn.textContent;
+    btn.textContent = 'Redirecting to Stripe...';
+    btn.disabled = true;
+
+    fetch(API_BASE_URL + '/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        userId: USER_ID,
+        priceId: 'price_12345'
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
+    })
+    .catch(function(err) {
+      console.error('Payment error:', err);
+      alert('Failed to initiate payment. Please ensure backend is running.');
+      btn.textContent = origText;
+      btn.disabled = false;
+    });
   });
 
-  /* ================= 2. 数据清洗与智能归类 ================= */
+  (function verifyPayment() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var sessionId = urlParams.get('session_id');
+    var isSuccess = urlParams.get('success');
+
+    if (isSuccess === 'true' && sessionId) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      fetch(API_BASE_URL + '/api/verify-session?session_id=' + sessionId + '&userId=' + USER_ID)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.paid) {
+            setPro(true);
+            alert('Thank you! Pro unlocked successfully.');
+            loadNewBatch();
+          } else {
+            alert('Payment verification failed or pending.');
+          }
+        })
+        .catch(function(err) {
+          console.error('Verification error:', err);
+        });
+    }
+  })();
+
+  /* ================= 2. 欢迎区域折叠逻辑 ================= */
+  var heroEl = document.getElementById('heroSection');
+  var heroDesc = document.getElementById('heroDesc');
+  var hasStarted = localStorage.getItem('hanlingo_has_started');
+
+  if (hasStarted || loadStreak().streak > 0) {
+    heroEl.classList.add('compact');
+    heroDesc.hidden = true;
+  }
+
+  function collapseHero() {
+    if (!heroEl.classList.contains('compact')) {
+      heroEl.classList.add('compact');
+      heroDesc.hidden = true;
+      localStorage.setItem('hanlingo_has_started', 'true');
+    }
+  }
+
+  /* ================= 3. 核心免费限制配置 ================= */
+  var FREE_STEPS_CLASSICS = 3; 
+
+  /* ================= 4. 数据清洗与智能归类 ================= */
   var dataset = { survival: [], business: [], classics: [], trends: [] };
   var classicBooks = []; 
   var slangKeywords = ['班味', '内耗', '卷', '躺平', 'emo', '破防', '牛马', '太顶了', '太绝了', '靠谱', '低调', '搞定', '没事儿'];
 
-  // 极简标签映射
   var BOOK_MAP = {
     'Journey to the West': 'Journey',
     '西游记': 'Journey',
@@ -287,7 +485,6 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     '孙子兵法': 'Art of War'
   };
 
-  // 完整剧情名映射
   var CHAPTER_DISPLAY_MAP = {
     'xiyou_01': 'Journey to the West: Havoc in Heaven',
     'huapi_01': 'Liaozhai: Painted Skin',
@@ -311,6 +508,12 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     'elite_suntzu': 'The Art of War'
   };
 
+  var STORY_INTROS = {
+    'Journey': { level: 'Beginner', title: 'Journey to the West', subtitle: 'The Monkey King\'s Adventure', desc: 'Follow the Monkey King\'s epic adventure while learning Chinese sentence by sentence.' },
+    'Liaozhai': { level: 'Intermediate', title: 'Liaozhai', subtitle: 'Strange Tales from a Chinese Studio', desc: 'Uncover the mystery and magic of these classic supernatural tales.' },
+    'Art of War': { level: 'Advanced', title: 'The Art of War', subtitle: 'Ancient Strategy', desc: 'Master the timeless wisdom and strategic vocabulary of Sun Tzu.' }
+  };
+
   function normalizeBookName(rawBook, story) {
     var name = rawBook || '';
     if (!name && story) {
@@ -331,16 +534,24 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     if (!sourceObj) return;
     
     function processCard(c, forcedCat, rawBook, step, storyContext) {
-      var zh = c.sentence || c.cn || c.zh;
-      var en = c.translation || c.en;
+      var zh, pinyin, en, usage;
+      
+      if (Array.isArray(c)) {
+        zh = c[0]; pinyin = c[1]; en = c[2];
+      } else {
+        zh = c.sentence || c.cn || c.zh;
+        pinyin = c.pinyin || '';
+        en = c.translation || c.en;
+        usage = c.usage || '';
+      }
+
       if (!zh || !en) return;
       
       var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
-      
-      // 生成卡片顶部的全名
       var displayTitle = finalBook;
+      
       if (forcedCat === 'classics') {
-        var storyId = c.story_id || (storyContext ? storyContext.columnId : '') || '';
+        var storyId = (c.story_id || (storyContext ? storyContext.columnId : '') || '');
         if (CHAPTER_DISPLAY_MAP[storyId]) {
           displayTitle = CHAPTER_DISPLAY_MAP[storyId];
         } else {
@@ -359,18 +570,15 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
       }
 
       var entry = { 
-        zh: zh, pinyin: c.pinyin || '', en: en, 
-        category: forcedCat, book: finalBook, step: step || 1,
-        displayTitle: displayTitle
+        zh: zh, pinyin: pinyin, en: en, category: forcedCat, 
+        book: finalBook, step: step || 1, displayTitle: displayTitle, usage: usage
       };
       dataset[forcedCat].push(entry);
       if (isSlang(zh)) dataset.trends.push(entry);
     }
 
     if (Array.isArray(sourceObj)) {
-      sourceObj.forEach(function(c) { 
-        processCard(c, defaultCategory, c.book || '', c.step || 1); 
-      });
+      sourceObj.forEach(function(c) { processCard(c, defaultCategory, c.book || '', c.step || 1); });
     } else if (sourceObj.stories && Array.isArray(sourceObj.stories)) {
       sourceObj.stories.forEach(function(story) {
         var cat = defaultCategory;
@@ -379,9 +587,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
         else if (story.category === 'daily' || story.category === 'survival') cat = 'survival';
         else if (story.category === 'retired') return;
         
-        (story.cards || []).forEach(function(c, idx) { 
-          processCard(c, cat, story.book || '', idx + 1, story); 
-        });
+        (story.cards || []).forEach(function(c, idx) { processCard(c, cat, story.book || '', idx + 1, story); });
       });
     }
   }
@@ -400,13 +606,13 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   });
 
   var CATS = [
-    {id:'mix', icon:'🌟', label:"Today's Mix"},
-    {id:'survival', icon:'☕', label:'Daily'},
-    {id:'business', icon:'💼', label:'Business'},
-    {id:'classics', icon:'🐒', label:'Classics'}
+    {id:'mix', icon:'🌟', label:'Daily 10'},
+    {id:'survival', icon:'☕', label:'Everyday Chinese'},
+    {id:'business', icon:'💼', label:'Chinese for Work'},
+    {id:'classics', icon:'📖', label:'Stories & Classics'}
   ];
 
-  /* ================= 3. 极简打卡 (Streak) ================= */
+  /* ================= 5. 极简打卡 (Streak) ================= */
   var STREAK_KEY = 'hanlingo_streak';
   function getTodayDateString() {
     var d = new Date(), m = '' + (d.getMonth()+1), day = '' + d.getDate();
@@ -431,15 +637,17 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   }
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
-  /* ================= 4. 状态与抽句逻辑 ================= */
-  var TOTAL = 10;
+  /* ================= 6. 状态与抽句逻辑（移除强制补齐） ================= */
   var cur = 'mix';
   var curBook = 'all'; 
   var currentList = [];
   var rIdx = 0;
   var isShuffleMode = false;
 
-  var CAT_LABEL = { survival: 'Daily', business: 'Business', classics: 'Classics', mix: "Today's Mix", trends: 'Trends & Slang' };
+  var CAT_LABEL = { 
+    survival: 'Everyday Chinese', business: 'Chinese for Work', 
+    classics: 'Stories & Classics', mix: 'Daily 10', trends: 'Trends & Slang' 
+  };
 
   function getRng(seedStr) {
     if (!seedStr) return Math.random;
@@ -466,7 +674,11 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 
     if (category === 'mix') {
       var sPart = shuffle(dataset.survival, rand).slice(0, 7);
-      var cPart = shuffle(dataset.classics, rand).slice(0, 2);
+      
+      var classicPool = dataset.classics.filter(function(item) {
+        return isPro() ? true : item.step <= FREE_STEPS_CLASSICS;
+      });
+      var cPart = shuffle(classicPool, rand).slice(0, 2);
       
       cPart.sort(function(a, b) {
         if (a.book === b.book) return a.step - b.step;
@@ -475,7 +687,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 
       var tPart = shuffle(dataset.trends.length ? dataset.trends : dataset.business, rand).slice(0, 1);
       var mix = sPart.concat(cPart).concat(tPart);
-      while (mix.length > 0 && mix.length < 10) { mix.push(mix[0]); }
+      // 移除 while 循环补齐
       return shuffle(mix, rand).slice(0, 10);
     
     } else if (category === 'classics' && book !== 'all') {
@@ -483,25 +695,25 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
       if (list.length === 0) return [];
       
       list.sort(function(a, b) { return a.step - b.step; });
-      
       var daySeed = new Date().getDate();
       var startIdx = (daySeed * 10) % list.length;
       
       var res = [];
-      for (var i = 0; i < TOTAL; i++) {
+      // 动态计算需要取出的数量，避免越界和重复
+      var take = Math.min(10, list.length);
+      for (var i = 0; i < take; i++) {
         res.push(list[(startIdx + i) % list.length]);
       }
       return res;
     
     } else {
       var list = dataset[category] || [];
-      var res = shuffle(list, rand).slice(0, 10);
-      while (res.length > 0 && res.length < 10) { res.push(res[0]); }
-      return res;
+      // 移除 while 循环补齐
+      return shuffle(list, rand).slice(0, 10);
     }
   }
 
-  /* ================= 5. TTS ================= */
+  /* ================= 7. TTS ================= */
   var synth = window.speechSynthesis, zhVoice = null;
   if (synth) {
     var initVoices = function() {
@@ -523,9 +735,9 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     synth.speak(u);
   }
 
-  /* ================= 6. UI 渲染 ================= */
+  /* ================= 8. UI 渲染 ================= */
   var $ = function(id) { return document.getElementById(id); };
-  var card = $('card'), done = $('done'), btnNext = $('next');
+  var card = $('card'), done = $('done'), btnNext = $('next'), btnListen = $('listen');
 
   function renderChips() {
     var html = '';
@@ -549,30 +761,74 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   }
 
   function renderCard() {
-    var s = currentList[rIdx];
-    if (!s) return;
+    var totalToday = currentList.length;
+    
+    // 空数据处理
+    if (totalToday === 0) {
+      card.hidden = false;
+      $('num').textContent = '0 / 0';
+      $('pinyin').textContent = '';
+      $('hanzi').textContent = 'No content available.';
+      $('english').textContent = 'Please check back later.';
+      $('usageBox').hidden = true;
+      $('paywallOverlay').hidden = true;
+      btnNext.disabled = true;
+      btnListen.disabled = true;
+      $('fill').style.width = '0%';
+      $('bottomProg').textContent = "Today's Progress: 0/0";
+      return;
+    }
 
-    $('num').innerHTML = 'SENTENCE <b>' + (rIdx + 1) + '</b> / ' + TOTAL;
-    $('cat').textContent = CAT_LABEL[s.category] || s.category;
+    var s = currentList[rIdx];
+
+    $('cat').textContent = (CAT_LABEL[s.category] || s.category).toUpperCase();
+    $('num').textContent = String(rIdx + 1).padStart(2, '0') + ' / ' + String(totalToday).padStart(2, '0');
 
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
-      // 展示完整的英文故事名和章节名
       $('storyTitle').textContent = s.displayTitle;
       $('storyScene').textContent = 'Scene ' + String(s.step).padStart(2, '0');
+
+      if (s.step === 1) {
+        $('storyIntro').hidden = false;
+        var introData = STORY_INTROS[s.book] || {
+          level: 'Beginner', title: s.book, subtitle: s.displayTitle, desc: 'Follow the adventure while learning Chinese sentence by sentence.'
+        };
+        $('storyIntroMeta').textContent = 'STORY MODE · ' + introData.level.toUpperCase();
+        $('storyIntroTitle').textContent = introData.title;
+        $('storyIntroSubtitle').textContent = introData.subtitle;
+        $('storyIntroDesc').textContent = introData.desc;
+      } else {
+        $('storyIntro').hidden = true;
+      }
     } else {
       $('storyHeader').hidden = true;
+      $('storyIntro').hidden = true;
     }
     
     $('pinyin').textContent = s.pinyin;
     $('hanzi').textContent = s.zh;
     $('english').textContent = s.en;
-    
-    btnNext.textContent = (rIdx >= TOTAL - 1) ? 'Finish ✓' : 'Next →';
-    $('fill').style.width = (rIdx / TOTAL * 100) + '%';
-    $('bottomProg').textContent = 'Today\'s Progress: ' + (rIdx + 1) + '/10';
 
-    if (s.category === 'classics' && !isPro() && cur === 'mix') {
+    var usage = s.usage || '';
+    $('usage').textContent = usage;
+    $('usageBox').hidden = !usage;
+    
+    // 动态总数替换
+    btnNext.disabled = false;
+    btnNext.textContent = (rIdx >= totalToday - 1) ? 'Finish ✓' : 'Next →';
+    $('fill').style.width = ((rIdx + 1) / totalToday * 100) + '%';
+    $('bottomProg').textContent = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday;
+
+    var isLocked = (s.category === 'classics' && !isPro() && s.step > FREE_STEPS_CLASSICS);
+
+    $('cardContent').classList.toggle('is-locked', isLocked);
+    $('paywallOverlay').hidden = !isLocked;
+    btnListen.disabled = isLocked;
+    
+    if (isLocked) {
+      $('proHint').hidden = false;
+    } else if (s.category === 'classics' && !isPro() && cur === 'mix') {
       $('proHint').hidden = false;
     } else {
       $('proHint').hidden = true;
@@ -597,7 +853,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     $('doneStreak').textContent = streakData.streak;
   }
 
-  /* ================= 7. 手势交互 ================= */
+  /* ================= 9. 手势交互 ================= */
   var startX = 0, startY = 0, isSwiping = false;
   var wrapper = $('cardWrapper');
 
@@ -630,7 +886,10 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 
   function handleNext() {
     if (synth) synth.cancel();
-    if (rIdx >= TOTAL - 1) { showDone(); return; }
+    collapseHero();
+    
+    // 动态判断是否结束
+    if (rIdx >= currentList.length - 1) { showDone(); return; }
     rIdx++; renderCard(); setTimeout(playAudio, 300);
   }
   function handlePrev() {
@@ -638,7 +897,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     if (rIdx > 0) { rIdx--; renderCard(); setTimeout(playAudio, 300); }
   }
 
-  /* ================= 8. 事件绑定 ================= */
+  /* ================= 10. 事件绑定 ================= */
   $('chips').addEventListener('click', function(e) {
     var b = e.target.closest('.chip');
     if (!b) return;
@@ -671,7 +930,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     loadNewBatch();
   });
 
-  /* ================= 9. 分享 ================= */
+  /* ================= 11. 分享 ================= */
   $('shareTextBtn').addEventListener('click', function() {
     var streak = loadStreak().streak || 0;
     var shareText = "🔥 I just completed Day " + streak + " of HanLingo!\nLearning 10 Chinese sentences a day. Join me at hanlingo.app";
