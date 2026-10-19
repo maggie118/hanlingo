@@ -1,663 +1,673 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HanLingo | Master Mandarin Through Sentence Formulas</title>
-<meta name="description" content="Learn Mandarin through real sentences, not vocabulary lists. Break any sentence into word-bricks, tap, hear and repeat. The Beginner track is free forever — daily life packs plus executive Business Chinese for professionals.">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
-<link rel="canonical" href="https://www.hanlingo.app/">
-
-<!-- Open Graph / Social -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="HanLingo | Master Mandarin Through Sentence Formulas">
-<meta property="og:description" content="Break any sentence into word-bricks. Tap, hear, repeat. Beginner track free forever, plus executive Business Chinese for professionals.">
-<meta property="og:url" content="https://www.hanlingo.app/">
-<meta property="og:image" content="https://www.hanlingo.app/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:site_name" content="HanLingo">
-<meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HanLingo | Master Mandarin Through Sentence Formulas">
-<meta name="twitter:description" content="Break any sentence into word-bricks. Tap, hear, repeat. Beginner track free forever, plus executive Business Chinese for professionals.">
-<meta name="twitter:image" content="https://www.hanlingo.app/og-image.png">
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#F9FAFB">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B1220">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="HanLingo">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "HanLingo",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "Web",
-  "description": "HanLingo helps English-speaking learners master Mandarin through real sentences: story-first packs from a free Beginner track through executive Business Chinese.",
-  "url": "https://www.hanlingo.app/",
-  "inLanguage": ["en", "zh"],
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "English-speaking learners of Mandarin Chinese"
-  },
-  "offers": [
-    {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Free Beginner track — no account, no card required"
-    },
-    {
-      "@type": "Offer",
-      "price": "19",
-      "priceCurrency": "USD",
-      "description": "Pro Monthly — full site access, flexible subscription, cancel anytime"
-    },
-    {
-      "@type": "Offer",
-      "price": "119",
-      "priceCurrency": "USD",
-      "description": "Pro Annual — full site access, lock in this price (~$9.92/month), most popular"
-    },
-    {
-      "@type": "Offer",
-      "price": "249",
-      "priceCurrency": "USD",
-      "description": "Founding Lifetime — one-time payment, limited to 500 founding members, closes permanently when sold out"
-    }
-  ]
+<title>HanLingo | Daily 10</title>
+<meta name="theme-color" content="#F4F3EF">
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<style>
+:root {
+  --bg: #F4F3EF; --card: #FFFFFF; --text: #2C302E; --muted: #7B7F7A;
+  --border: #E2E0D8; --accent: #C0584B; --accent-press: #A94A3E; --accent-soft: rgba(192,88,75,.10);
+  --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
 }
-</script>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; }
+.app { max-width: 520px; height: 100dvh; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; position: relative; }
 
-<style id="critical-css">
-/* Inlined critical above-the-fold CSS for fast LCP */
-:root{
-  --bg:#0A0A0B; --surface:#111113; --surface-2:#17171A;
-  --line:#1F1F23; --text:#EDEDEF; --muted:#8B8B93; --text-soft:#5A5A63;
-  --accent:#C8FF3D; --accent-ink:#0A0A0B;
-  --sage:var(--accent); --ochre:#A78BFA;
-  --font-sans:"Inter",-apple-system,"PingFang SC","Noto Sans SC",sans-serif;
-  --font-mono:"JetBrains Mono",ui-monospace,monospace;
-  --serif:"Noto Serif SC","Songti SC",Georgia,serif;
-  --sans:var(--font-sans);
-  --radius:4px; --nav-h:64px; --surface-soft:#17171A;
-}
-[data-theme="light"]{
-  --bg:#F9FAFB; --surface:#ffffff; --surface-2:#eef1f4; --line:#e4e8ec;
-  --text:#1E293B; --muted:#64748B; --text-soft:#7d8796;
-  --accent:#2E6F40; --accent-ink:#ffffff;
-  --sage:var(--accent); --ochre:#C9A24B; --surface-soft:#f4f5f7;
-}
-[data-theme="dark"] .header{background:rgba(10,10,11,.9)}
-.bottom-nav{background:#0a0a0b}
-.player-shell{background:var(--surface);border:1px solid var(--line)}
-.pack.locked .blur-layer{background:rgba(10,10,11,.5)}
-.toggle-track{background:rgba(237,237,239,.18)}
-*{box-sizing:border-box;margin:0}
-[hidden]{display:none!important}
-html{background:var(--bg)}
-body{
-  font-family:var(--sans);color:var(--text);line-height:1.55;
-  background:var(--bg);
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
-  padding:env(safe-area-inset-top) 0 calc(var(--nav-h) + env(safe-area-inset-bottom) + 16px);
-}
-.wrap{max-width:720px;margin:0 auto;padding:0 16px}
-@media (min-width:1024px){.wrap{max-width:1280px;padding:0 40px}}
-:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
-button,select{font:inherit;color:inherit}
-button{cursor:pointer}
+/* 顶部 */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: var(--text); }
+.meta-right { display: flex; align-items: center; gap: 12px; }
+.time-badge { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.streak { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
+.streak b { color: var(--accent); font-size: 16px; font-variant-numeric: tabular-nums; }
 
-/* Header */
-.header{position:sticky;top:0;z-index:10;background:rgba(249,250,251,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.header .wrap{display:flex;align-items:center;gap:12px;height:56px}
-.logo{font-family:var(--serif);font-size:20px;letter-spacing:.04em;margin-right:auto;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);transition:transform .2s ease, opacity .2s ease}
-.logo:hover{transform:translateY(-1px) scale(1.01);opacity:.95}
-.logo-img{width:40px;height:40px;border-radius:8px;object-fit:contain;display:block;image-rendering:auto;flex-shrink:0}
-.nav-link{background:none;border:1px solid var(--line);border-radius:4px;padding:7px 14px;font-size:13px;color:var(--text);white-space:nowrap;transition:all .15s ease;text-decoration:none}
-.nav-link:hover{border-color:var(--ochre)}
-.main-nav{display:flex;align-items:center;gap:8px}
-.paths{margin:48px 0 8px}
-.paths-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 16px}
-.paths-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.path-card{display:flex;flex-direction:column;align-items:flex-start;gap:5px;text-align:left;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .15s,transform .15s;position:relative}
-.path-card:hover{border-color:var(--sage);transform:translateY(-2px)}
-.path-tag{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
-.path-name{font-size:16px;font-weight:600;color:var(--text);margin:2px 0 0}
-.path-who{font-size:12px;color:var(--muted);margin-top:8px}
-.path-time{font-size:12px;color:var(--muted);margin-top:auto;padding:12px 0 14px}
-.path-start{margin-top:4px;width:100%}
-@media(max-width:720px){.paths-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:430px){.paths-grid{grid-template-columns:1fr}}
-.stream-browse{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--text);cursor:pointer;font-size:14px}
-.stream-browse:hover{border-color:var(--sage)}
-.sb-label{font-weight:500}
-.sb-caret{color:var(--sage)}
-.track-group{margin-bottom:8px}
-.track-title{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 14px}
-.track-grid{display:grid;gap:12px;grid-template-columns:1fr}
-.recom-modal{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,20,25,.45)}
-.recom-box{width:100%;max-width:360px;padding:22px;border-radius:16px;background:var(--surface,#fff);text-align:center}
-.recom-q{font-size:16px;font-weight:600;margin:0 0 16px;color:var(--text)}
-.recom-opts{display:flex;flex-direction:column;gap:8px}
-.recom-opt{padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-soft,#fafaf8);color:var(--text);cursor:pointer;font-size:14px;transition:border-color .15s}
-.recom-opt:hover{border-color:var(--sage)}
-.recom-skip{margin-top:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px}
-#premium-nav{background:transparent;color:var(--text);border:1px solid var(--line);border-radius:4px;letter-spacing:.05em;padding:6px 14px;font-size:11px;font-family:var(--font-mono)}
-#premium-nav:hover{color:var(--sage);border-color:var(--sage)}
+.progress-bar { height: 3px; margin: 16px 0; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .45s cubic-bezier(.3,.7,.2,1); }
 
-/* Navbar right cluster: theme toggle + streak ring + premium */
-.nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
-.theme-toggle{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16px;cursor:pointer;display:grid;place-items:center;transition:border-color .15s ease,transform .15s ease}
-.theme-toggle:hover{border-color:var(--ochre);transform:translateY(-1px)}
-.nav-streak{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--muted);transition:color .15s ease}
-.nav-streak:hover{color:var(--text)}
-.nav-streak svg{display:block}
-@media (max-width:560px){.nav-actions{gap:6px}.theme-toggle{width:34px;height:34px}}
+/* 分类 Chips 容器 */
+.chips-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; position: relative; }
 
-/* Buttons */
-.btn{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-weight:600}
-.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
-.btn.sage{background:var(--sage);color:var(--accent-ink);border-color:transparent}
-.btn:disabled{opacity:.4;cursor:default}
-.btn.ghost{background:transparent;border-color:var(--line);color:var(--text)}
-.btn.big{padding:14px 24px;font-size:16px;border-radius:12px}
+/* 主分类 */
+.chips { 
+  display: flex; gap: 8px; overflow-x: auto; 
+  padding: 2px 20px 6px 2px; 
+  scrollbar-width: none; 
+}
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; font: 600 13px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 99px; padding: 8px 12px; cursor: pointer; transition: .15s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* Zone 1: Marketing hero */
-.mkt-hero{
-  display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;
-  margin:64px 0 48px;padding:44px 36px;border-radius:12px;
-  border:1px solid var(--line);
-  background:var(--surface);
+/* 二级子分类（极简英文版） */
+.sub-chips { 
+  display: flex; gap: 6px; overflow-x: auto; 
+  padding: 4px 20px 4px 2px; 
+  scrollbar-width: none; 
+  animation: slideDown 0.3s ease; 
 }
-.mkt-hero-left .mkt-badge{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);border:1px solid rgba(63,158,88,.4);padding:5px 12px;border-radius:4px;margin-bottom:16px}
-.mkt-hero-left h1{font-family:var(--sans);font-size:28px;line-height:1.22;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:16px}
-.mkt-sub{color:var(--muted);font-size:15px;margin-bottom:26px;max-width:44ch}
-.mkt-cta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
-.btn.cta-sample{background:transparent;border:1.5px solid var(--sage);color:var(--sage);padding:14px 20px;font-size:15px;font-weight:700;border-radius:12px;cursor:pointer;transition:background .15s ease}
-.btn.cta-sample:hover{background:rgba(63,158,88,.08)}
-.btn.cta-free{background:var(--sage);color:var(--accent-ink);padding:14px 24px;font-size:16px;font-weight:700;border:0;border-radius:12px;transition:transform .15s ease}
-.btn.cta-free:hover{transform:translateY(-2px);}
-.mkt-micro{font-size:13px;color:var(--text-soft);margin:18px 0 6px}
-.mkt-trust{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px}
-.mkt-trust li{font-size:12px;color:var(--text);border:1px solid var(--line);background:var(--surface-2);padding:5px 10px;border-radius:4px;display:flex;align-items:center;gap:6px}
-.mkt-ck{flex:none;color:var(--sage)}
+.sub-chips::-webkit-scrollbar { display: none; }
+.sub-chip { 
+  flex: none; font: 500 12px/1 var(--sans); color: var(--muted); 
+  background: transparent; border: 1px solid transparent; border-radius: 99px; 
+  padding: 6px 12px; cursor: pointer; transition: .15s; white-space: nowrap; 
+}
+.sub-chip:hover { color: var(--accent); background: var(--accent-soft); }
+.sub-chip[aria-selected="true"] { color: var(--accent); border-color: var(--accent); font-weight: 600; background: var(--accent-soft); }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-.mkt-hero-right{display:flex;justify-content:center}
-/* Premium brand hero (premium page) - restrained, cool, enterprise */
-.premium-hero{margin:18px auto 32px;max-width:1200px;padding:46px 50px;border-radius:20px;background:linear-gradient(180deg,#0d1424,#0a0f1d);border:1px solid rgba(148,163,184,.16);position:relative;overflow:hidden;color:#e6ebf5;display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
-.premium-hero::after{content:"";position:absolute;top:0;left:50px;right:50px;height:1px;background:linear-gradient(90deg,transparent,rgba(232,182,76,.55),transparent)}
-.ph-body{position:relative;z-index:1}
-.ph-title{margin:0 0 12px;font-family:var(--serif);font-size:32px;font-weight:700;color:#e8b64c;letter-spacing:.015em;line-height:1.1;white-space:nowrap}
-.ph-sub{margin:0 0 4px;font-size:15px;color:#cbd5e1}
-.ph-meta{margin:0 0 0;font-size:13px;color:#8b9bb8}
-.ph-cta{background:#e8b64c;color:#0b1120;border:0;border-radius:10px;padding:13px 30px;font-weight:700;font-size:15px;cursor:pointer;position:relative;z-index:1;margin-top:14px}
-.ph-cta:hover{background:#f2c258}
-@media (max-width:760px){.premium-hero{padding:28px 24px;gap:10px}.ph-title{font-size:26px}.ph-cta{width:100%;text-align:center}}
-.exec-demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 22px 26px;}
-.exec-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-mono);color:var(--muted);border:1px solid var(--line);background:var(--surface-2);padding:5px 10px;border-radius:4px;margin-bottom:14px}
-.exec-zh{font-size:28px;font-weight:700;color:var(--text);line-height:1.3;margin:0 0 6px}
-.exec-py-toggle{background:none;border:1px solid var(--line);color:var(--muted);font-size:12px;padding:4px 10px;border-radius:20px;cursor:pointer;margin-bottom:8px}
-.exec-py-toggle:hover{border-color:var(--sage);color:var(--text)}
-.exec-py{font-size:15px;color:var(--muted);margin:0 0 8px}
-.exec-en{font-size:15px;color:var(--text);line-height:1.5;margin:0 0 8px;border-left:3px solid var(--sage);padding-left:10px}
-.exec-register{font-size:12px;color:var(--muted);font-style:italic;line-height:1.5;margin:0 0 14px;border-top:1px dashed var(--line);padding-top:8px}
-.exec-speed{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.exec-speed-label{font-size:12px;color:var(--muted);letter-spacing:.04em}
-.exec-pills{display:flex;gap:6px}
-.exec-pills .pill{font-size:12px;font-weight:600;padding:6px 14px;border-radius:4px;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);cursor:pointer;transition:all .18s ease}
-.exec-pills .pill.active{background:var(--sage);color:var(--accent-ink);border-color:var(--sage)}
-.exec-intel{border-radius:12px;background:#15191f;border:1px solid rgba(214,181,94,.22);padding:14px 16px}
-.intel-head{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#E3C878;margin:0 0 8px}
-.intel-body{font-size:13px;line-height:1.65;color:#D8DCE2;margin:0}
-/* Social proof */
-.social-proof{margin:72px 0 48px}
-.sp-row{display:flex;justify-content:center;margin-bottom:14px}
-.sp-stat{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-mono);color:var(--muted);border:1px solid var(--line);background:var(--surface-2);padding:7px 16px;border-radius:4px}
-.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sp-quote{margin:0;padding:14px 16px;border:1px solid var(--line);border-left:3px solid var(--sage);border-radius:12px;background:var(--surface)}
-.sp-quote p{margin:0 0 8px;font-size:13.5px;line-height:1.55;color:var(--text)}
-.sp-quote footer{font-size:12px;color:var(--muted);font-weight:600}
-.sp-note{grid-column:1/-1;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.6;margin:0}
-@media (max-width:640px){.sp-grid{grid-template-columns:1fr}}
-/* Static SEO block (crawler-visible course catalog) */
-.seo-block{margin:96px 0 28px;padding:28px 30px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
-.seo-title{font-size:19px;font-weight:700;color:var(--text);margin:0 0 12px}
-.seo-intro{font-size:14px;color:var(--muted);line-height:1.65;margin:0 0 20px}
-.seo-list{list-style:none;margin:0;padding:0;columns:2;column-gap:32px}
-.seo-list li{display:grid;grid-template-columns:1fr;gap:2px;font-size:14px;line-height:1.5;color:var(--text);padding:4px 0 4px 16px;border-left:2px solid var(--sage);break-inside:avoid;margin-bottom:14px}
-.seo-list li strong{font-size:16px;font-weight:700;color:var(--text)}
-.seo-list li em{font-style:normal;color:var(--muted);font-size:13px}
-.seo-list li span{color:var(--text-soft)}
-.seo-list li small{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;margin-top:4px;letter-spacing:.02em}
-.seo-list li small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none}
-/* Continue card (returning users only) */
-.dash-continue{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border:1px solid rgba(63,158,88,.4);border-left:4px solid var(--sage);border-radius:12px;background:rgba(63,158,88,.07);margin-bottom:14px;cursor:pointer;transition:background .15s ease}
-.dash-continue:hover{background:rgba(63,158,88,.13)}
-.dash-continue b{font-size:15px;color:var(--text)}
-.dash-continue span{font-size:13px;color:var(--muted)}
-.row-static{font-weight:700;color:var(--sage)}
-.site-footer{margin-top:28px;padding:22px 18px 8px;border-top:1px solid var(--line);text-align:center}
-.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-bottom:10px}
-.footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .15s ease}
-.footer-links a:hover{color:var(--sage)}
-.footer-links button{background:none;border:none;color:var(--muted);font-size:13px;text-decoration:none;cursor:pointer;padding:0;transition:color .15s ease;font-family:inherit}
-.footer-links button:hover{color:var(--sage)}
-.footer-legal{color:var(--muted);font-size:12px;margin:0}
-/* SEO no-JS fallback: visible only to crawlers / users without JavaScript */
-.seo-noscript{margin:40px 0 10px;padding:24px;border-top:1px solid var(--line)}
-.seo-noscript h2{font-size:20px;margin:0 0 8px;color:var(--text)}
-.seo-noscript p{font-size:14px;color:var(--muted);margin:0 0 20px;max-width:640px}
-.seo-group{margin-bottom:22px}
-.seo-group h3{font-size:16px;color:var(--text);margin:0 0 8px}
-.seo-group ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
-.seo-group li{font-size:13px;color:var(--text);line-height:1.5;padding:8px 10px;background:var(--surface-2);border-radius:8px}
-.footer-install{margin:6px 0 14px;font-size:12px;color:var(--muted)}
-.footer-install button{background:none;border:none;color:var(--sage);font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer;padding:0}
-.exec-ai-audio,.cf-ai-audio{font-size:11px;color:var(--muted);margin:6px 0 0;letter-spacing:.02em}
-.sheet-note{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 12px}
-.sv-input{width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);margin-bottom:12px}
-.sv-input:focus{outline:2px solid var(--sage);outline-offset:1px}
-.pricing-section{margin:28px 0 22px}
-.pricing-note{font-size:13px;color:var(--muted);max-width:680px;margin:0 0 16px;line-height:1.5}
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.price-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface);display:flex;flex-direction:column}
-.price-card.pro{border-color:var(--sage);}
-.price-name{font-weight:700;font-size:15px;letter-spacing:.02em;margin-bottom:6px}
-.price-amt{font-size:26px;font-weight:800;line-height:1.1;margin-bottom:12px}
-.price-amt small{display:block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-mono);color:var(--muted);margin-top:3px}
-.price-feats{list-style:none;margin:0 0 16px;padding:0;flex:1}
-.price-feats li{font-size:13px;line-height:1.5;padding:3px 0 3px 18px;position:relative;color:var(--text)}
-.price-feats li::before{content:'→';position:absolute;left:0;color:var(--sage);font-weight:700}
-.price-badge{display:inline-block;align-self:flex-start;padding:4px 9px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.02em;line-height:1.4;margin-bottom:8px;background:rgba(63,158,88,.12);color:var(--sage)}
-.price-card.monthly{background:var(--surface-2);border-color:var(--line)}
-.price-card.monthly .price-badge{background:rgba(100,116,139,.14);color:var(--muted)}
-.price-card.annual{border-color:var(--sage);}
-.price-card.annual .price-badge{background:rgba(63,158,88,.16);color:var(--sage)}
-.price-card.lifetime{background:#0e1a33;border-color:rgba(245,205,106,.55);}
-.price-card.lifetime .price-name,.price-card.lifetime .price-amt{color:#f5cd6a}
-.price-card.lifetime .price-amt small{color:#c9b179}
-.price-card.lifetime .price-feats li{color:#e6ecf3}
-.price-card.lifetime .price-feats li::before{color:#f5cd6a}
-.price-card.lifetime .price-badge{background:rgba(245,205,106,.14);color:#f5cd6a}
-.btn.ochre{background:transparent;border:1px solid var(--ochre);color:var(--ochre)}
-.btn.ochre:hover{background:rgba(201,162,75,.14)}
-.pricing-trust{font-size:13px;color:var(--muted);line-height:1.6;margin:16px 0 0;max-width:680px}
-.price-save{font-size:12px;color:var(--sage);line-height:1.4;margin:8px 0 0;font-weight:600}
-.preview-btn{margin-top:8px;width:100%;font-size:12px}
-.preview-free{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-soft,#fafaf8);text-align:left}
-.pf-title{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 10px}
-.pf-row{padding:8px 0;border-bottom:1px solid var(--line)}
-.pf-row:last-child{border-bottom:none;padding-bottom:0}
-.pf-zh{font-family:var(--serif);font-size:17px;color:var(--text)}
-.pf-py{font-size:12px;color:var(--muted);margin:2px 0}
-.pf-en{font-size:13px;color:var(--muted)}
-.exec-bricks{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
-.exec-brick{font-family:var(--serif);font-size:17px;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .15s,background .15s}
-.exec-brick:hover{border-color:var(--sage)}
-.exec-brick.tapped{border-color:var(--sage);background:var(--sage);color:var(--accent-ink);font-weight:600}
-.brick-tip{font-size:12px;color:var(--muted);margin:8px 0 2px;min-height:16px;font-style:italic}
-.exec-win{margin-top:14px;padding:14px;border:1px solid var(--sage);border-radius:12px;background:var(--surface-soft,#fafaf8)}
-.win-text{font-size:14px;font-weight:600;margin:0 0 6px;color:var(--text)}
-.win-note{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.4}
-.exec-win .btn{width:100%}
-@media (max-width:560px){
-  .mkt-hero{grid-template-columns:1fr;padding:24px 18px}
-  .mkt-hero-right{order:-1;margin-bottom:4px}
+/* 卡片区域 */
+main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 20px; position: relative; }
+.card-wrapper { perspective: 1000px; touch-action: pan-y; }
+.card { 
+  background: var(--card); border: 1px solid var(--border); border-radius: 24px; 
+  padding: 24px 24px 28px; text-align: center; 
+  box-shadow: 0 24px 48px -24px rgba(44,48,46,.15); 
+  position: relative; transition: transform .1s ease-out, opacity .3s ease;
+  will-change: transform, opacity;
 }
-@media (max-width:640px){
-  .mkt-hero{grid-template-columns:1fr;padding:24px 20px;gap:20px}
-  .mkt-hero-right{order:-1;margin-bottom:6px}
-  .seo-list{columns:1}
+.meta { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
+.num { font-size: 12px; letter-spacing: .22em; color: var(--muted); font-weight: 600; }
+.num b { color: var(--accent); }
+.cat { font-size: 11.5px; font-weight: 600; color: var(--muted); border: 1px solid var(--border); border-radius: 99px; padding: 3px 10px; background: var(--bg); }
+
+/* 剧情流专属头部 */
+.story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; letter-spacing: 0.02em; color: var(--muted); flex-wrap: wrap; }
+.story-badge { background: var(--accent-soft); border: 1px solid rgba(192,88,75,.2); padding: 2px 6px; border-radius: 4px; font-weight: 700; color: var(--accent); font-size: 10px; }
+.story-title { font-weight: 700; color: var(--text); }
+.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; }
+
+.shuffle-btn {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 50%;
+  width: 32px; height: 32px; display: grid; place-items: center;
+  font-size: 14px; cursor: pointer; transition: all .2s; color: var(--text);
 }
-@media (min-width:720px){
-  .mkt-hero-left h1{font-size:34px}
+.shuffle-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); transform: rotate(15deg); }
+
+/* 三层阶梯 */
+.pinyin { font-size: 22px; font-weight: 600; color: var(--accent); letter-spacing: 0.02em; line-height: 1.4; min-height: 1.4em; }
+.hanzi { margin-top: 14px; font-size: clamp(32px, 9vw, 48px); font-weight: 600; line-height: 1.3; letter-spacing: 0.06em; min-height: 1.3em; }
+.rule { width: 36px; height: 2px; margin: 24px auto 20px; background: var(--accent); opacity: 0.5; border-radius: 2px; }
+.english { font-size: 17px; opacity: 0.9; line-height: 1.6; min-height: 3.2em; padding: 0 4px; }
+
+.actions { display: flex; gap: 12px; margin-top: 32px; }
+.btn { flex: 1; appearance: none; cursor: pointer; font: 600 16px/1 var(--sans); border: 1.5px solid var(--accent); border-radius: 14px; padding: 16px 12px; transition: .2s; }
+.btn:active { transform: scale(.97); }
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--accent-press); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.ghost:hover { background: var(--accent-soft); }
+
+/* Pro 钩子 */
+.pro-hint {
+  margin-top: 20px; font-size: 12px; color: var(--accent);
+  background: var(--accent-soft); padding: 10px 14px; border-radius: 10px;
+  cursor: pointer; transition: .2s; font-weight: 500;
 }
-@media (min-width:769px){
-  .bottom-nav{display:none}
-  body{padding-bottom:16px}
+.pro-hint:hover { background: rgba(192,88,75,.15); }
+
+.bottom-info { text-align: center; font-size: 13px; color: var(--muted); font-weight: 500; letter-spacing: .05em; margin-top: auto; }
+
+/* 打卡完成页 */
+.done { text-align: center; padding: 20px 0; position: absolute; inset: 0; background: var(--bg); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; animation: fadeIn 0.4s ease both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.celebrate { font-size: 80px; animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.done h2 { font-size: 24px; font-weight: 700; margin-top: 20px; color: var(--text); letter-spacing: 0.02em; }
+.done p { margin-top: 12px; font-size: 16px; color: var(--muted); line-height: 1.6; }
+.done p b { color: var(--accent); font-size: 20px; }
+.quote { margin: 28px 20px; padding: 16px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); width: 100%; max-width: 320px; }
+.quote-zh { display: block; font-size: 16px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+.quote-en { display: block; font-size: 14px; color: var(--text); opacity: 0.8; font-style: italic; }
+.done .actions { flex-direction: column; width: 100%; max-width: 280px; margin-top: 12px; }
+
+/* 弹窗 Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(44,48,46,.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; padding: 20px; animation: fadeIn 0.2s ease both;
 }
+.modal-content {
+  background: var(--card); border-radius: 20px; padding: 30px 24px;
+  text-align: center; max-width: 360px; width: 100%;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,.2);
+}
+.modal-content h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.modal-content .price { font-size: 24px; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
+.modal-content p { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+.modal-content .btn { width: 100%; margin-bottom: 12px; }
+
+/* 隐藏的分享卡片 */
+#share-card { position: absolute; left: -9999px; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; border-radius: 20px; text-align: center; }
+.share-logo { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 40px; }
+.share-pinyin { font-size: 20px; color: var(--accent); font-weight: 600; }
+.share-hanzi { font-size: 40px; font-weight: 600; color: var(--text); margin: 20px 0; }
+.share-en { font-size: 18px; color: var(--muted); margin-bottom: 40px; }
+.share-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; }
 </style>
-<link rel="stylesheet" href="styles.css?v=19" media="print" onload="this.media='all'" onerror="this.media='all'">
-<noscript><link rel="stylesheet" href="styles.css?v=19"></noscript>
-
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"HanLingo Mandarin Story Packs","description":"Learn business Mandarin through real sentences: free Beginner track plus executive Business Chinese and Mastery Sun Tzu Strategy packs.","numberOfItems":83,"itemListElement":[{"@type":"ListItem","position":1,"name":"Daily Conversation","description":"Practical adult communication for everyday life: work, commuting, errands, health, social plans, and travel. Built for learners in China, Europe, the US, and Singapore. (HSK 3-4, 12 sentences)","url":"https://www.hanlingo.app/story/daily-conversation.html"},{"@type":"ListItem","position":2,"name":"Work and Life","description":"Everyday adult communication for work, social plans, travel, and family matters. Practical, natural, and suitable for learners in China, Europe, and Singapore. (HSK 3-4, 12 sentences)","url":"https://www.hanlingo.app/story/work-and-life.html"},{"@type":"ListItem","position":3,"name":"City Life","description":"Realistic city-life Mandarin for commuting, banking, errands, social plans, and everyday adult routines. (HSK 3-4, 12 sentences)","url":"https://www.hanlingo.app/story/city-life.html"},{"@type":"ListItem","position":4,"name":"Family Conversation","description":"Everyday family communication for adults: planning, caring, housework, and conversations at home. (HSK 3-4, 4 sentences)","url":"https://www.hanlingo.app/story/family-conversation.html"},{"@type":"ListItem","position":5,"name":"Travel & Getting Around","description":"Travel conversations for flights, taxi rides, hotel checks, and exploring a new city as an adult learner. (HSK 3-4, 4 sentences)","url":"https://www.hanlingo.app/story/travel-getting-around.html"},{"@type":"ListItem","position":6,"name":"Study & Social Life","description":"Adult learning and social conversations for language practice, courses, and community connections. (HSK 3-4, 4 sentences)","url":"https://www.hanlingo.app/story/study-social-life.html"},{"@type":"ListItem","position":7,"name":"Health & Shopping","description":"Health routines, medication, appointments, and daily purchases for adult life outside work. (HSK 3-4, 4 sentences)","url":"https://www.hanlingo.app/story/health-shopping.html"},{"@type":"ListItem","position":8,"name":"Community Life","description":"Local community life: neighbors, events, support, and everyday social routines around home. (HSK 3-4, 4 sentences)","url":"https://www.hanlingo.app/story/community-life.html"},{"@type":"ListItem","position":9,"name":"First Greetings","description":"The most common opening lines: greet, thank, apologize and say goodbye — instantly usable. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/first-greetings.html"},{"@type":"ListItem","position":10,"name":"Introducing Yourself","description":"Tell people who you are: name, country, job, age — the essential self-introduction toolkit. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/introducing-yourself.html"},{"@type":"ListItem","position":11,"name":"Numbers & Time","description":"Tell the time, the date, and make plans — the practical numbers & calendar kit for everyday life. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/numbers-time.html"},{"@type":"ListItem","position":12,"name":"Politeness & Asking for Help","description":"Ask directions, say sorry, and get help — the polite phrases that make strangers want to help you. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/politeness-asking-for-help.html"},{"@type":"ListItem","position":13,"name":"When You Don't Understand","description":"Don't get stuck — ask them to slow down, repeat, write it down, or translate. Keep the conversation going. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/when-you-don-t-understand.html"},{"@type":"ListItem","position":14,"name":"Eating & Drinking","description":"Order food, ask for water, pay the bill and take away leftovers — eat your way through China. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/eating-drinking.html"},{"@type":"ListItem","position":15,"name":"Shopping","description":"Ask the price, bargain, try on, pay and exchange — shop confidently in any market or store. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/shopping.html"},{"@type":"ListItem","position":16,"name":"Asking Directions & Getting Around","description":"Ask for directions, ride the metro and get to your destination — never get lost again. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/asking-directions-getting-around.html"},{"@type":"ListItem","position":17,"name":"Weather & What to Wear","description":"Talk about the weather and clothes — the safe small talk that opens any conversation. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/weather-what-to-wear.html"},{"@type":"ListItem","position":18,"name":"Family & Friends","description":"Talk about your family and friends — the heart of any warm conversation. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/family-friends.html"},{"@type":"ListItem","position":19,"name":"Hobbies & Sports","description":"Talk about what you love — music, movies, reading, sports — the easiest conversation starter. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/hobbies-sports.html"},{"@type":"ListItem","position":20,"name":"Phone & Internet","description":"Share your number, ask for the Wi-Fi password, and talk tech — stay connected in Chinese. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/phone-internet.html"},{"@type":"ListItem","position":21,"name":"Body & Health","description":"Say you're unwell, describe symptoms and get help — the phrases that keep you safe abroad. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/body-health.html"},{"@type":"ListItem","position":22,"name":"Study & Work","description":"Talk about classes, jobs and your goals — the everyday phrases for students and working professionals. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/study-work.html"},{"@type":"ListItem","position":23,"name":"Making Plans & Scheduling","description":"Ask if someone is free, set a time, and handle delays — schedule your life in Chinese. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/making-plans-scheduling.html"},{"@type":"ListItem","position":24,"name":"Moods & Feelings","description":"Share how you feel and comfort others — happy, tired, worried, angry, sad — in simple Chinese. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/moods-feelings.html"},{"@type":"ListItem","position":25,"name":"Living & Travel","description":"Talk about where you live and how you get around — by plane, train, taxi or subway. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/living-travel.html"},{"@type":"ListItem","position":26,"name":"Festivals & Blessings","description":"Say happy birthday, happy new year, and warm wishes — celebrate any occasion in Chinese. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/festivals-blessings.html"},{"@type":"ListItem","position":27,"name":"Chat & Social","description":"Keep a conversation going — agree, disagree, ask why, and show you're interested. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/chat-social.html"},{"@type":"ListItem","position":28,"name":"Goodbyes & Keeping in Touch","description":"Say goodbye warmly, ask someone to stay in touch, and part on a good note. (HSK 1-3, 15 sentences)","url":"https://www.hanlingo.app/story/goodbyes-keeping-in-touch.html"},{"@type":"ListItem","position":29,"name":"Office Daily Chat","description":"The phrases you'll actually say every day in a Chinese office: acknowledge, align, review, reschedule and handle priorities. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/office-daily-chat.html"},{"@type":"ListItem","position":30,"name":"Meetings & Reporting","description":"Speak with confidence in Chinese meetings: open the agenda, add a point politely, confirm meaning, report progress and set ownership. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/meetings-reporting.html"},{"@type":"ListItem","position":31,"name":"WeChat & DingTalk","description":"How Chinese teams actually communicate online: create groups, send files, voice-message, mute noisy chats and manage your time. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/wechat-dingtalk.html"},{"@type":"ListItem","position":32,"name":"Business Dining","description":"Survive and thrive at Chinese business banquets: toasts, drinking etiquette, treating others and gracefully declining alcohol. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/business-dining.html"},{"@type":"ListItem","position":33,"name":"Interviews & Self-intro","description":"Ace a Chinese job interview: describe your experience and strengths, answer salary and availability, and ask smart questions. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/interviews-self-intro.html"},{"@type":"ListItem","position":34,"name":"Negotiation & Contracts","description":"Negotiate and close deals in Chinese: reach agreement, discuss clauses, set bottom lines and sign contracts. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/negotiation-contracts.html"},{"@type":"ListItem","position":35,"name":"Calls & Video Meetings","description":"Handle phone and video calls with confidence: greet, check signal, share screens, rejoin and wrap up. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/calls-video-meetings.html"},{"@type":"ListItem","position":36,"name":"Emails & Formal Letters","description":"Write professional Chinese emails: acknowledge, attach files, CC, forward and close politely. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/emails-formal-letters.html"},{"@type":"ListItem","position":37,"name":"Business Trips & Reception","description":"Manage business trips and host clients: book flights and hotels, meet guests, and handle reimbursements. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/business-trips-reception.html"},{"@type":"ListItem","position":38,"name":"Cross-Cultural Business","description":"Bridge cultures in Chinese business: respect customs, understand differences and turn them into opportunities. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/cross-cultural-business.html"},{"@type":"ListItem","position":39,"name":"Project Management","description":"Run projects in Chinese: check progress, unblock tasks, set deadlines, escalate and review. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/project-management.html"},{"@type":"ListItem","position":40,"name":"Teamwork & Conflict","description":"Handle team dynamics in Chinese: build morale, resolve conflict, clarify ownership and stop internal friction. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/teamwork-conflict.html"},{"@type":"ListItem","position":41,"name":"Presenting & Public Speaking","description":"Deliver confident presentations in Chinese: open, signpost, highlight data, handle Q&A and close. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/presenting-public-speaking.html"},{"@type":"ListItem","position":42,"name":"Client Relations","description":"Nurture client relationships in Chinese: reconnect, check satisfaction, offer support and keep in touch. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/client-relations.html"},{"@type":"ListItem","position":43,"name":"Etiquette & Gift-Giving","description":"Master Chinese business etiquette: cards, toasts, dining rules, gifts and how to stay respectful. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/etiquette-gift-giving.html"},{"@type":"ListItem","position":44,"name":"Office Social Life","description":"Build workplace friendships in Chinese: lunch, small talk, compliments, team building and caring gestures. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/office-social-life.html"},{"@type":"ListItem","position":45,"name":"Job Hunting & Changing Jobs","description":"Navigate the Chinese job market: change jobs, apply, interview, negotiate offers and start a new role. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/job-hunting-changing-jobs.html"},{"@type":"ListItem","position":46,"name":"Pressure & Emotion","description":"Handle workplace stress in Chinese: vent, seek help, set boundaries, rest and support colleagues. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/pressure-emotion.html"},{"@type":"ListItem","position":47,"name":"Remote Work & Digital Nomads","description":"Work anywhere in Chinese: work from home, online meetings, digital nomad life and remote tools. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/remote-work-digital-nomads.html"},{"@type":"ListItem","position":48,"name":"Trends & AI Collaboration","description":"Talk about the future of work in Chinese: AI tools, efficiency, digital transformation and staying relevant. (HSK 4-6, 15 sentences)","url":"https://www.hanlingo.app/story/trends-ai-collaboration.html"},{"@type":"ListItem","position":49,"name":"Strategy & Decisions","description":"The sentences real executives use when setting direction, forcing decisions, and rebalancing strategy. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/strategy-decisions.html"},{"@type":"ListItem","position":50,"name":"Budget & Cost Control","description":"The CFO-grade sentences for cutting costs, freezing spend, and forcing accountability. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/budget-cost-control.html"},{"@type":"ListItem","position":51,"name":"Sales & Client Negotiation","description":"Modern sales and negotiation lines: value over price, partners over gods, cash over signatures. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/sales-client-negotiation.html"},{"@type":"ListItem","position":52,"name":"Team & Leadership","description":"Delegation, ownership, and accountability—the leadership lines that build an iron team. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/team-leadership.html"},{"@type":"ListItem","position":53,"name":"Fundraising & Capital","description":"Founder-grade lines for valuations, term sheets, control, and smart money. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/fundraising-capital.html"},{"@type":"ListItem","position":54,"name":"Product & Market Entry","description":"Product and market-entry lines: research first, speed wins, users decide. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/product-market-entry.html"},{"@type":"ListItem","position":55,"name":"Crisis & PR","description":"Crisis and PR lines: prevent first, respond fast, control the narrative. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/crisis-pr.html"},{"@type":"ListItem","position":56,"name":"Change & Digital","description":"Organizational change and digital-transformation lines: break old, build new, phase it. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/change-digital.html"},{"@type":"ListItem","position":57,"name":"Performance & Incentives","description":"Performance and incentive lines: fair rewards, clear accountability, talent that stays. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/performance-incentives.html"},{"@type":"ListItem","position":58,"name":"Cross-Culture Business","description":"Cross-cultural business lines: adapt, respect, seek common ground. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/cross-culture-business.html"},{"@type":"ListItem","position":59,"name":"Business Dining & Toasts","description":"Dinner-table and toast lines: host, toasting etiquette, and closing the meal. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/business-dining-toasts.html"},{"@type":"ListItem","position":60,"name":"Client Visits & Courtesies","description":"Client-visit courtesy lines: first impressions, humble asks, and polite goodbyes. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/client-visits-courtesies.html"},{"@type":"ListItem","position":61,"name":"Gifting & Relationships","description":"Gift-giving and relationship lines: humble givers, gracious receivers. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/gifting-relationships.html"},{"@type":"ListItem","position":62,"name":"Social Small Talk","description":"Safe small-talk lines: weather, greetings, compliments, and easy goodbyes. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/social-small-talk.html"},{"@type":"ListItem","position":63,"name":"Government & Elite Relations","description":"Government and elite relations: policy alignment, compliance, and long trust. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/government-elite-relations.html"},{"@type":"ListItem","position":64,"name":"Advanced Negotiation","description":"Advanced negotiation and psychological-warfare lines: war-game, probe, and win hearts. (HSK 7-9, 12 sentences)","url":"https://www.hanlingo.app/story/advanced-negotiation.html"},{"@type":"ListItem","position":65,"name":"Executive & Board","description":"Executive and board lines: listen widely, lead by example, keep unity. (HSK 7-9, 13 sentences)","url":"https://www.hanlingo.app/story/executive-board.html"},{"@type":"ListItem","position":66,"name":"Going Global","description":"Going-global lines: friendship not conquest, adapt and localize. (HSK 7-9, 12 sentences)","url":"https://www.hanlingo.app/story/going-global.html"},{"@type":"ListItem","position":67,"name":"AI Strategy & Human-AI","description":"AI-era strategy lines: renew daily, use tools well, build systems. (HSK 7-9, 12 sentences)","url":"https://www.hanlingo.app/story/ai-strategy-human-ai.html"},{"@type":"ListItem","position":68,"name":"Ethics & Long-termism","description":"Ethics and long-termism lines: principled profit, trust, and knowing when to stop. (HSK 7-9, 11 sentences)","url":"https://www.hanlingo.app/story/ethics-long-termism.html"},{"@type":"ListItem","position":69,"name":"Eastern Wisdom","description":"Timeless Eastern wisdom for modern leaders: character, vision, and resilience. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/eastern-wisdom.html"},{"@type":"ListItem","position":70,"name":"Sun Tzu & Business War","description":"The Art of War applied to boardrooms: strategy, speed, intelligence, and readiness. (HSK 7-9, 15 sentences)","url":"https://www.hanlingo.app/story/sun-tzu-business-war.html"},{"@type":"ListItem","position":71,"name":"Career Promotion & Professional Planning","description":"Explore advanced Mandarin through career promotion & professional planning, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/career-promotion-professional-planning.html"},{"@type":"ListItem","position":72,"name":"Advanced Socializing & Interpersonal Art","description":"Explore advanced Mandarin through advanced socializing & interpersonal art, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/advanced-socializing-interpersonal-art.html"},{"@type":"ListItem","position":73,"name":"Business Negotiation & Contracts","description":"Explore advanced Mandarin through business negotiation & contracts, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/business-negotiation-contracts.html"},{"@type":"ListItem","position":74,"name":"Financial Planning & Investment","description":"Explore advanced Mandarin through financial planning & investment, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/financial-planning-investment.html"},{"@type":"ListItem","position":75,"name":"Health Management & Work-Life Balance","description":"Explore advanced Mandarin through health management & work-life balance, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/health-management-work-life-balance.html"},{"@type":"ListItem","position":76,"name":"Real Estate & Home Aesthetics","description":"Explore advanced Mandarin through real estate & home aesthetics, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/real-estate-home-aesthetics.html"},{"@type":"ListItem","position":77,"name":"Deep Emotions & Intimate Relationships","description":"Explore advanced Mandarin through deep emotions & intimate relationships, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/deep-emotions-intimate-relationships.html"},{"@type":"ListItem","position":78,"name":"Lifelong Learning & Self-Improvement","description":"Explore advanced Mandarin through lifelong learning & self-improvement, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/lifelong-learning-self-improvement.html"},{"@type":"ListItem","position":79,"name":"Urban Life & Coping with Stress","description":"Explore advanced Mandarin through urban life & coping with stress, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/urban-life-coping-with-stress.html"},{"@type":"ListItem","position":80,"name":"Leisure & Cultural Appreciation","description":"Explore advanced Mandarin through leisure & cultural appreciation, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/leisure-cultural-appreciation.html"},{"@type":"ListItem","position":81,"name":"Social Media & Digital Lifestyle","description":"Explore advanced Mandarin through social media & digital lifestyle, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/social-media-digital-lifestyle.html"},{"@type":"ListItem","position":82,"name":"Emergencies & Crisis PR","description":"Explore advanced Mandarin through emergencies & crisis pr, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/emergencies-crisis-pr.html"},{"@type":"ListItem","position":83,"name":"Life Philosophy & Long-term Vision","description":"Explore advanced Mandarin through life philosophy & long-term vision, with modern vocabulary, idioms, and complex sentence patterns. (HSK 5-6, 12 sentences)","url":"https://www.hanlingo.app/story/life-philosophy-long-term-vision.html"}]}</script>
 </head>
 <body>
-
-<header class="header">
-  <div class="wrap">
-    <a class="logo" href="/" aria-label="Go to HanLingo home page">
-      <img class="logo-img" src="icons/logo.svg" alt="HanLingo logo" width="40" height="40"><span>HanLingo</span>
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a class="nav-link" data-nav="levels" href="/">Learn</a>
-      <a class="nav-link" data-nav="pricing" href="/pricing">Pricing</a>
-      <a class="nav-link" data-nav="community" href="/teams">For Teams</a>
-    </nav>
-    <div class="nav-actions">
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">☀</button>
-      <div id="nav-streak" class="nav-streak" role="img" aria-label="Daily progress" title="Today's progress"></div>
+<div class="app">
+  <header>
+    <div class="top">
+      <div class="brand">HanLingo</div>
+      <div class="meta-right">
+        <span class="time-badge">⏱ Est. 2 mins</span>
+        <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
+      </div>
     </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <div id="view-learn">
-    <!-- Zone 0: Personal dashboard (streak ring + boards + quote of the day) -->
-    <section id="dashboard" aria-label="Your dashboard"></section>
-    <!-- Zone 1: Marketing hero -->
-    <section class="mkt-hero" aria-labelledby="mkt-title">
-      <div class="mkt-hero-left">
-        <div class="mkt-badge">Executive Mandarin · 915 real sentences · 3-speed audio</div>
-        <h1 id="mkt-title">One sentence today. Confident in every China conversation tomorrow.</h1>
-        <p class="mkt-sub">Real sentences for client calls, supplier chats, and the moments between meetings — from WeChat small talk to the boardroom. Native male-voice audio in slow, normal, and fast. No vocab lists. No theory.</p>
-        <div class="mkt-cta">
-          <button class="btn cta-free" type="button" data-goto="stories">Start Free — No Sign-Up</button>
-          <button class="btn cta-sample" type="button" id="cta-sample">Hear a Sample</button>
-        </div>
-        <p class="mkt-micro">Start free. No account needed. Your progress saves automatically on this device. Want it on your phone and laptop? Add an email later.</p>
-        <ul class="mkt-trust">
-          <li><svg class="mkt-ck" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Built for executives — client &amp; boardroom Mandarin, not textbook drills</li>
-          <li><svg class="mkt-ck" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Native male-voice audio at slow / normal / fast on every line</li>
-          <li><svg class="mkt-ck" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Beginner track free forever — no card required</li>
-        </ul>
-      </div>
-      <div class="mkt-hero-right" aria-label="Interactive executive sentence demo">
-        <div class="exec-demo" id="exec-demo">
-          <div class="exec-tag">SCENE: CROSS-DEPARTMENT ALIGNMENT | B1–C1 · HSK 4–6</div>
-          <div class="exec-zh">我们需要对齐一下颗粒度。</div>
-          <button class="exec-py-toggle" type="button" id="exec-py-toggle" aria-pressed="true">Hide Pinyin</button>
-          <div class="exec-py" id="exec-py">Wǒmen xūyào duìqí yīxià kēlìdù.</div>
-          <div class="exec-en">We need to align on the level of detail.</div>
-          <div class="exec-bricks" id="exec-bricks" role="group" aria-label="Tap a word to break it down">
-            <button class="exec-brick" type="button" data-py="wǒmen" data-en="we">我们</button>
-            <button class="exec-brick" type="button" data-py="xūyào" data-en="need">需要</button>
-            <button class="exec-brick" type="button" data-py="duìqí" data-en="align (v.)">对齐</button>
-            <button class="exec-brick" type="button" data-py="yīxià" data-en="a bit (softener)">一下</button>
-            <button class="exec-brick" type="button" data-py="kēlìdù" data-en="granularity / detail">颗粒度</button>
-          </div>
-          <div class="brick-tip" id="brick-tip" hidden></div>
-          <p class="exec-register">Register: China tech slang, informal. Use with caution in traditional firms.</p>
-          <div class="exec-speed">
-            <span class="exec-speed-label">Audio speed</span>
-            <div class="exec-pills">
-              <button class="pill" type="button" data-rate="0.7">Slow</button>
-              <button class="pill active" type="button" data-rate="1">Normal</button>
-              <button class="pill" type="button" data-rate="1.4">Fast</button>
-            </div>
-          </div>
-          <p class="exec-ai-audio">Audio: AI-generated native voice</p>
-          <div class="exec-win" id="exec-win" hidden>
-            <p class="win-text">Nice — that's one sentence. Start your free track?</p>
-            <p class="win-note">No account needed. Progress saves on this device.</p>
-            <button class="btn primary" type="button" id="win-start">Start Free — No Sign-Up</button>
-          </div>
-          <div class="exec-intel">
-            <div class="intel-head">✦ EXECUTIVE INTEL BRIEF</div>
-            <p class="intel-body">Pǎomǎ-quāndì (跑马圈地) and Duìqí (对齐) are the defining boardroom idioms inside Chinese tech moving at breakneck speed. Drop this phrase during a Singapore-China strategic alignment session to instantly establish yourself as a true cultural insider.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Social proof: data + illustrative executive testimonials -->
-    <section class="social-proof" aria-label="About HanLingo">
-      <div class="sp-row"><span class="sp-stat">Trusted by professionals across Singapore, New York &amp; London</span></div>
-      <div class="sp-grid">
-        <p class="sp-note">Built with input from APAC managers and Mandarin teachers.</p>
-      </div>
-    </section>
-
-    <!-- Zone 2: Main catalog (3 scene boards, HSK as backend difficulty) -->
-    <div class="tabs board-tabs" role="tablist" aria-label="Track">
-      <button class="tab" role="tab" aria-selected="true" data-board="survival"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Survival &amp; Daily Life <em>· Beginner · Free forever</em></button>
-      <button class="tab" role="tab" aria-selected="false" data-board="business"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Business &amp; Workplace Pro <em>· Intermediate · Pro</em></button>
-      <button class="tab" role="tab" aria-selected="false" data-board="mastery"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Mastery · Sun Tzu Strategy <em>· Advanced · Executive</em></button>
+    <div class="progress-bar" id="bar"><i id="fill"></i></div>
+    
+    <div class="chips-container">
+      <nav class="chips" id="chips"></nav>
+      <nav class="sub-chips" id="subChips" hidden></nav>
     </div>
+  </header>
 
-    <section id="paths" class="paths" aria-label="Learning paths"></section>
+  <main>
+    <div class="card-wrapper" id="cardWrapper">
+      <article class="card" id="card" aria-live="polite">
+        <button class="shuffle-btn" id="shuffleBtn" title="Shuffle">🔀</button>
+        
+        <!-- 剧情流专属头部 -->
+        <div class="story-header" id="storyHeader" hidden>
+          <span class="story-badge">CLASSICS</span>
+          <span class="story-title" id="storyTitle"></span>
+          <span class="story-scene" id="storyScene"></span>
+        </div>
 
-    <h2 id="stories" class="section-title">Pick your track — from daily life to the boardroom <span class="season-badge">Season 1 Content Library</span></h2>
-    <section id="stream" class="stream"></section>
+        <div class="meta"><div class="num" id="num"></div><div class="cat" id="cat"></div></div>
+        
+        <div class="pinyin" id="pinyin"></div>
+        <div class="hanzi" id="hanzi"></div>
+        <div class="rule"></div>
+        <div class="english" id="english"></div>
+        
+        <div class="actions">
+          <button class="btn ghost" id="listen" type="button">🔊 Listen</button>
+          <button class="btn primary" id="next" type="button">Next →</button>
+        </div>
 
-    <!-- Static SEO block: plain-HTML content so crawlers can index the course catalog -->
-    <section class="seo-block" aria-label="Popular business Chinese sentences">
-      <h2 class="seo-title">Popular Business Chinese Sentences — B1 to C1 (HSK 4–9)</h2>
-      <p class="seo-intro">Practice the real sentences used across Chinese business — from everyday workplace alignment to boardroom strategy and negotiation. These business Chinese examples span HSK 4 to 9, and pair every sentence with pinyin, a native English translation and the scene where it is used.</p>
-      <ul class="seo-list">
-        <li><strong lang="zh-Hans">我们需要对齐一下颗粒度。</strong> <em>Wǒmen xūyào duìqí yīxià kēlìdù.</em> <span>We need to align on the level of detail.</span> <small>Scene: cross-department alignment · B1–C1 · HSK 4–6</small></li>
-        <li><strong lang="zh-Hans">运筹帷幄之中，决胜千里之外。</strong> <em>Yùnchóu wéiwò zhī zhōng, juéshèng qiānlǐ zhī wài.</em> <span>Plan strategy in the command tent and win battles a thousand miles away.</span> <small>Scene: strategic planning</small></li>
-        <li><strong lang="zh-Hans">擒贼先擒王。</strong> <em>Qín zéi xiān qín wáng.</em> <span>To win over the decision-maker first — the rest will follow.</span> <small>Scene: key-person strategy</small></li>
-        <li><strong lang="zh-Hans">欲擒故纵。</strong> <em>Yù qín gù zòng.</em> <span>Loosen your grip so the other side reveals its real hand.</span> <small>Scene: negotiation psychology</small></li>
-        <li><strong lang="zh-Hans">兼听则明，偏信则暗。</strong> <em>Jiān tīng zé míng, piān xìn zé àn.</em> <span>Listen to all sides and be enlightened; trust one side only and stay in the dark.</span> <small>Scene: boardroom decisions</small></li>
-        <li><strong lang="zh-Hans">小不忍则乱大谋。</strong> <em>Xiǎo bù rěn zé luàn dà móu.</em> <span>If you cannot endure small things, you will ruin the grand plan.</span> <small>Scene: concession strategy</small></li>
-      </ul>
-      <p class="seo-intro">HanLingo helps busy professionals learn business Chinese and Mandarin for work through real sentences — not textbook drills. Start free with the Beginner track (CEFR A1–A2 · HSK 1-3), progress through Business &amp; Workplace Pro (CEFR B1–C1 · HSK 4-6) and the Mastery · Sun Tzu Strategy library (CEFR C1–C2 · HSK 7-9). Every sentence includes pinyin, a native English translation, three-speed audio and the real scene where it is used: client calls, supplier chats, WeChat small talk, salary negotiation, product launches and boardroom meetings. No sign-up, no account needed — progress saves on your device, and one optional one-time payment unlocks every pack forever.</p>
+        <!-- 免费用户故事流钩子 -->
+        <div class="pro-hint" id="proHint" hidden>
+          📖 Want to read the full story? Unlock Pro to follow the complete arc.
+        </div>
+      </article>
+    </div>
+    
+    <div class="bottom-info" id="bottomProg">Today's Progress: 0/10</div>
+
+    <section class="done" id="done" hidden>
+      <div class="celebrate">🎉</div>
+      <h2>TODAY'S 10 COMPLETED!</h2>
+      <p>You are on a <b id="doneStreak">0</b> Day Streak!</p>
+      
+      <div class="quote">
+        <span class="quote-zh">不积跬步，无以至千里。</span>
+        <span class="quote-en">A journey of a thousand miles begins with a single step.</span>
+      </div>
+      
+      <div class="actions">
+        <button class="btn primary" id="shareTextBtn" type="button">📋 Share Progress</button>
+        <button class="btn ghost" id="shareImgBtn" type="button">📸 Save Image</button>
+        <button class="btn ghost" id="replay" type="button">Review Again</button>
+      </div>
     </section>
+  </main>
+</div>
 
-    <p id="soon" class="empty" hidden>New stories are on the way.</p>
+<!-- Paywall 弹窗 -->
+<div class="modal-overlay" id="paywallModal" hidden>
+  <div class="modal-content">
+    <h2>Unlock HanLingo Pro</h2>
+    <div class="price">US$ 69.00 / S$ 98.00</div>
+    <p>Get unlimited access to all story arcs, categories, and future updates.</p>
+    <button class="btn primary" id="btnBuyPro">Unlock Lifetime Access</button>
+    <button class="btn ghost" id="btnClosePro">Maybe Later</button>
   </div>
+</div>
 
-  <div id="view-reader" hidden></div>
-  <div id="view-vocab" hidden></div>
-  <div id="view-profile" hidden></div>
-  <div id="view-premium" hidden></div>
-  <div id="view-pricing" hidden></div>
-  <div id="view-community" hidden></div>
-</main>
+<!-- 分享卡片（隐藏） -->
+<div id="share-card">
+  <div class="share-logo">HanLingo · Daily 10</div>
+  <div class="share-pinyin" id="sharePinyin"></div>
+  <div class="share-hanzi" id="shareHanzi"></div>
+  <div class="share-en" id="shareEnglish"></div>
+  <div class="share-footer">
+    <span>🔥 <span id="shareStreak">0</span> Day Streak</span>
+    <span>hanlingo.app</span>
+  </div>
+</div>
 
-<!-- Overlays -->
-<div id="sheet" class="overlay" hidden></div>
-<div id="paywall" class="overlay center" hidden></div>
+<!-- 引入数据文件 -->
+<script src="data/daily.js"></script>
+<script src="data/business.js"></script>
+<script src="data/classics.js"></script>
+<script src="stories-data.js"></script>
+<script src="journey-west-hsk12.js"></script>
+<script src="art-of-war-hsk56.js"></script>
 
-<nav class="bottom-nav" aria-label="Primary">
-  <ul>
-    <li><button type="button" data-view="learn" aria-current="page"><span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>Learn</button></li>
-    <li><button type="button" data-view="vocab"><span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></span>Vocab</button></li>
-    <li><button type="button" data-view="profile"><span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>Progress</button></li>
-  </ul>
-</nav>
-
-<footer class="site-footer">
-  <nav class="footer-links" aria-label="Product">
-    <a href="/teams" data-nav="community">For Teams</a>
-    <a href="/pricing" data-nav="pricing">Pricing</a>
-  </nav>
-  <nav class="footer-links" aria-label="Legal">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Service</a>
-    <a href="cookie.html">Cookie Policy</a>
-    <a href="mailto:hello@hanlingo.app">Contact</a>
-  </nav>
-  <p class="footer-install"><button type="button" id="install-app-footer">Add HanLingo to your device</button> — install the app for offline learning</p>
-  <p class="footer-legal">© 2026 Daren Business Printing Pte. Ltd. · Mandarin for professionals</p>
-</footer>
-
-<script src="stories-data.js?v=3" defer></script>
-<script src="daily-life.js?v=3" defer></script>
-<script src="business-workplace.js?v=3" defer></script>
-<script src="elite-hsk79.js?v=3" defer></script>
-<script src="advanced-daily-hsk56.js?v=3" defer></script>
-<script src="app.js?v=27" defer></script>
 <script>
-/* Hero button: scroll to the story list instead of opening a story */
-document.querySelectorAll('[data-goto]').forEach(function(b){
-  b.addEventListener('click', function(){
-    var t = document.getElementById(b.dataset.goto);
-    if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
-  });
-});
-/* Executive demo: pinyin toggle + 3-speed native voice */
 (function(){
-  var demo = document.getElementById('exec-demo');
-  if (!demo) return;
-  var pyToggle = document.getElementById('exec-py-toggle');
-  var py = document.getElementById('exec-py');
-  var pills = [].slice.call(demo.querySelectorAll('.pill'));
-  pyToggle.addEventListener('click', function(){
-    var on = pyToggle.getAttribute('aria-pressed') === 'true';
-    pyToggle.setAttribute('aria-pressed', String(!on));
-    py.style.display = on ? 'none' : '';
-    pyToggle.textContent = on ? 'Show Pinyin' : 'Hide Pinyin';
+  'use strict';
+
+  /* ================= 1. 全局状态与 Pro 检测 ================= */
+  var PRO_KEY = 'hanlingo_pro';
+  function isPro() { return localStorage.getItem(PRO_KEY) === 'true'; }
+
+  document.getElementById('btnBuyPro').addEventListener('click', function() {
+    localStorage.setItem(PRO_KEY, 'true');
+    document.getElementById('paywallModal').hidden = true;
+    loadNewBatch(); 
   });
-  var SPEED_AUDIO = {'0.7':'audio/exec-demo/align_slow.mp3','1':'audio/exec-demo/align.mp3','1.4':'audio/exec-demo/align_fast.mp3'};
-  var curAudio = null;
-  function audioUnavailable(){
-    pills.forEach(function(x){ x.classList.add('disabled'); });
+  document.getElementById('btnClosePro').addEventListener('click', function() {
+    document.getElementById('paywallModal').hidden = true;
+  });
+  document.getElementById('proHint').addEventListener('click', function() {
+    document.getElementById('paywallModal').hidden = false;
+  });
+
+  /* ================= 2. 数据清洗与智能归类 ================= */
+  var dataset = { survival: [], business: [], classics: [], trends: [] };
+  var classicBooks = []; 
+  var slangKeywords = ['班味', '内耗', '卷', '躺平', 'emo', '破防', '牛马', '太顶了', '太绝了', '靠谱', '低调', '搞定', '没事儿'];
+
+  // 💡 极简英文别名映射表（防止侧边被挡住）
+  var BOOK_MAP = {
+    'Journey to the West': 'Journey',
+    '西游记': 'Journey',
+    'Liaozhai': 'Liaozhai',
+    'Painted Skin': 'Liaozhai',
+    '聊斋志异': 'Liaozhai',
+    'The Art of War': 'Art of War',
+    '孙子兵法': 'Art of War'
+  };
+
+  function normalizeBookName(rawBook, story) {
+    var name = rawBook || '';
+    if (!name && story) {
+      var id = (story.columnId || '').toLowerCase();
+      if (id.indexOf('journey_west') > -1) name = 'Journey to the West';
+      else if (id.indexOf('art_of_war') > -1 || id.indexOf('suntzu') > -1) name = 'The Art of War';
+      else if (id.indexOf('painted') > -1 || id.indexOf('liaozhai') > -1 || id.indexOf('xiaoqian') > -1 || id.indexOf('ying_ning') > -1 || id.indexOf('qing_feng') > -1 || id.indexOf('hu_jia') > -1 || id.indexOf('lang_wolf') > -1 || id.indexOf('zhong_li') > -1 || id.indexOf('laoshan') > -1) name = 'Liaozhai';
+    }
+    
+    // 返回极简别名，如果查不到则原样返回，并截断长度
+    if (BOOK_MAP[name]) return BOOK_MAP[name];
+    return name.length > 15 ? name.substring(0, 12) + '...' : name || 'Classics';
   }
-  function play(rate){
-    var src = SPEED_AUDIO[String(rate)];
-    if (!src) return;
-    if (curAudio) { try { curAudio.pause(); } catch(e) {} }
-    var a = new Audio(src);
-    curAudio = a;
-    a.addEventListener('error', audioUnavailable);
-    a.addEventListener('playing', function(){ listened = true; maybeWin(); });
-    var pr = a.play();
-    if (pr && pr.catch) pr.catch(function(err){ if (!err || err.name !== 'NotAllowedError') audioUnavailable(); });
+
+  function isSlang(text) {
+    return slangKeywords.some(function(kw) { return text.indexOf(kw) > -1; });
   }
-  pills.forEach(function(p){
-    p.addEventListener('click', function(){
-      pills.forEach(function(x){ x.classList.remove('active'); });
-      p.classList.add('active');
-      play(p.getAttribute('data-rate'));
+
+  function extractData(sourceObj, defaultCategory) {
+    if (!sourceObj) return;
+    
+    function processCard(c, forcedCat, rawBook, step) {
+      var zh = c.sentence || c.cn || c.zh;
+      var en = c.translation || c.en;
+      if (!zh || !en) return;
+      
+      var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
+
+      if (forcedCat === 'classics' && finalBook && classicBooks.indexOf(finalBook) === -1) {
+        classicBooks.push(finalBook);
+      }
+
+      var entry = { 
+        zh: zh, pinyin: c.pinyin || '', en: en, 
+        category: forcedCat, book: finalBook, step: step || 1 
+      };
+      dataset[forcedCat].push(entry);
+      if (isSlang(zh)) dataset.trends.push(entry);
+    }
+
+    if (Array.isArray(sourceObj)) {
+      sourceObj.forEach(function(c) { 
+        processCard(c, defaultCategory, c.book || '', c.step || 1); 
+      });
+    } else if (sourceObj.stories && Array.isArray(sourceObj.stories)) {
+      sourceObj.stories.forEach(function(story) {
+        var cat = defaultCategory;
+        if (story.category === 'business' || (story.columnId && story.columnId.indexOf('biz') > -1)) cat = 'business';
+        else if (story.category === 'classics' || story.category === 'strange' || (story.columnId && (story.columnId.indexOf('journey') > -1 || story.columnId.indexOf('art') > -1))) cat = 'classics';
+        else if (story.category === 'daily' || story.category === 'survival') cat = 'survival';
+        else if (story.category === 'retired') return;
+        
+        (story.cards || []).forEach(function(c, idx) { 
+          processCard(c, cat, story.book || '', idx + 1); 
+        });
+      });
+    }
+  }
+
+  extractData(window.DAILY_DATA, 'survival');
+  extractData(window.BUSINESS_DATA, 'business');
+  extractData(window.CLASSICS_DATA, 'classics');
+  extractData(window.STORIES_DATA, 'survival');
+
+  ['survival', 'business', 'classics', 'trends'].forEach(function(cat) {
+    var unique = [], seen = {};
+    dataset[cat].forEach(function(item) {
+      if (!seen[item.zh]) { seen[item.zh] = true; unique.push(item); }
+    });
+    dataset[cat] = unique;
+  });
+
+  var CATS = [
+    {id:'mix', icon:'🌟', label:"Today's Mix"},
+    {id:'survival', icon:'☕', label:'Daily'},
+    {id:'business', icon:'💼', label:'Business'},
+    {id:'classics', icon:'🐒', label:'Classics'}
+  ];
+
+  /* ================= 3. 极简打卡 (Streak) ================= */
+  var STREAK_KEY = 'hanlingo_streak';
+  function getTodayDateString() {
+    var d = new Date(), m = '' + (d.getMonth()+1), day = '' + d.getDate();
+    return d.getFullYear() + '-' + (m.length<2?'0'+m:m) + '-' + (day.length<2?'0'+day:day);
+  }
+  function getYesterdayDateString() {
+    var d = new Date(); d.setDate(d.getDate()-1);
+    var m = '' + (d.getMonth()+1), day = '' + d.getDate();
+    return d.getFullYear() + '-' + (m.length<2?'0'+m:m) + '-' + (day.length<2?'0'+day:day);
+  }
+  function loadStreak() {
+    try { var raw = localStorage.getItem(STREAK_KEY); return raw ? JSON.parse(raw) : { streak: 0, lastDate: null }; }
+    catch(e) { return { streak: 0, lastDate: null }; }
+  }
+  function updateStreak() {
+    var data = loadStreak(), t = getTodayDateString(), y = getYesterdayDateString();
+    if (data.lastDate === t) return data;
+    data.streak = (data.lastDate === y) ? (data.streak || 0) + 1 : 1;
+    data.lastDate = t;
+    localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    return data;
+  }
+  document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
+
+  /* ================= 4. 状态与抽句逻辑 ================= */
+  var TOTAL = 10;
+  var cur = 'mix';
+  var curBook = 'all'; 
+  var currentList = [];
+  var rIdx = 0;
+  var isShuffleMode = false;
+
+  var CAT_LABEL = { survival: 'Daily', business: 'Business', classics: 'Classics', mix: "Today's Mix", trends: 'Trends & Slang' };
+
+  function getRng(seedStr) {
+    if (!seedStr) return Math.random;
+    var seed = 0;
+    for (var i = 0; i < seedStr.length; i++) seed = (seed * 31 + seedStr.charCodeAt(i)) % 233280;
+    return function() {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    };
+  }
+  function shuffle(arr, rand) {
+    if (!arr || arr.length === 0) return [];
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rand() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function getTodaySentences(category, book, isShuffle) {
+    var dateStr = new Date().toISOString().split('T')[0];
+    var rand = getRng(isShuffle ? null : dateStr + category + book);
+
+    if (category === 'mix') {
+      var sPart = shuffle(dataset.survival, rand).slice(0, 7);
+      var cPart = shuffle(dataset.classics, rand).slice(0, 2);
+      
+      cPart.sort(function(a, b) {
+        if (a.book === b.book) return a.step - b.step;
+        return a.book.localeCompare(b.book);
+      });
+
+      var tPart = shuffle(dataset.trends.length ? dataset.trends : dataset.business, rand).slice(0, 1);
+      var mix = sPart.concat(cPart).concat(tPart);
+      while (mix.length > 0 && mix.length < 10) { mix.push(mix[0]); }
+      return shuffle(mix, rand).slice(0, 10);
+    
+    } else if (category === 'classics' && book !== 'all') {
+      var list = dataset.classics.filter(function(item) { return item.book === book; });
+      if (list.length === 0) return [];
+      
+      list.sort(function(a, b) { return a.step - b.step; });
+      
+      var daySeed = new Date().getDate();
+      var startIdx = (daySeed * 10) % list.length;
+      
+      var res = [];
+      for (var i = 0; i < TOTAL; i++) {
+        res.push(list[(startIdx + i) % list.length]);
+      }
+      return res;
+    
+    } else {
+      var list = dataset[category] || [];
+      var res = shuffle(list, rand).slice(0, 10);
+      while (res.length > 0 && res.length < 10) { res.push(res[0]); }
+      return res;
+    }
+  }
+
+  /* ================= 5. TTS ================= */
+  var synth = window.speechSynthesis, zhVoice = null;
+  if (synth) {
+    var initVoices = function() {
+      zhVoice = synth.getVoices().find(function(v){ return v.lang === 'zh-CN' || v.lang === 'zh_CN'; }) || 
+                synth.getVoices().find(function(v){ return v.lang.indexOf('zh') === 0; });
+    };
+    initVoices();
+    if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = initVoices;
+  }
+  function playAudio() {
+    var s = currentList[rIdx];
+    if (!s || !synth) return;
+    synth.cancel();
+    document.getElementById('listen').classList.add('speaking');
+    var u = new SpeechSynthesisUtterance(s.zh);
+    u.lang = 'zh-CN'; u.rate = 0.85;
+    if (zhVoice) u.voice = zhVoice;
+    u.onend = u.onerror = function() { document.getElementById('listen').classList.remove('speaking'); };
+    synth.speak(u);
+  }
+
+  /* ================= 6. UI 渲染 ================= */
+  var $ = function(id) { return document.getElementById(id); };
+  var card = $('card'), done = $('done'), btnNext = $('next');
+
+  function renderChips() {
+    var html = '';
+    CATS.forEach(function(c) {
+      html += '<button class="chip" type="button" data-cat="' + c.id + '" aria-selected="' + (c.id === cur) + '">' + c.icon + ' ' + c.label + '</button>';
+    });
+    $('chips').innerHTML = html;
+
+    var subChipsEl = $('subChips');
+    if (cur === 'classics' && classicBooks.length > 0) {
+      subChipsEl.hidden = false;
+      // 强制显示为极简英文
+      var subHtml = '<button class="sub-chip" data-book="all" aria-selected="' + (curBook === 'all') + '">All</button>';
+      classicBooks.forEach(function(bk) {
+        subHtml += '<button class="sub-chip" data-book="' + bk + '" aria-selected="' + (curBook === bk) + '">' + bk + '</button>';
+      });
+      subChipsEl.innerHTML = subHtml;
+    } else {
+      subChipsEl.hidden = true;
+      curBook = 'all'; 
+    }
+  }
+
+  function renderCard() {
+    var s = currentList[rIdx];
+    if (!s) return;
+
+    $('num').innerHTML = 'SENTENCE <b>' + (rIdx + 1) + '</b> / ' + TOTAL;
+    $('cat').textContent = CAT_LABEL[s.category] || s.category;
+
+    if (s.category === 'classics' && s.book) {
+      $('storyHeader').hidden = false;
+      // 在这里展示完整长名字（例如 Journey）
+      $('storyTitle').textContent = s.book === 'Journey' ? 'Journey to the West' : (s.book === 'Art of War' ? 'The Art of War' : s.book);
+      $('storyScene').textContent = 'Scene ' + String(s.step).padStart(2, '0');
+    } else {
+      $('storyHeader').hidden = true;
+    }
+    
+    $('pinyin').textContent = s.pinyin;
+    $('hanzi').textContent = s.zh;
+    $('english').textContent = s.en;
+    
+    btnNext.textContent = (rIdx >= TOTAL - 1) ? 'Finish ✓' : 'Next →';
+    $('fill').style.width = (rIdx / TOTAL * 100) + '%';
+    $('bottomProg').textContent = 'Today\'s Progress: ' + (rIdx + 1) + '/10';
+
+    if (s.category === 'classics' && !isPro() && cur === 'mix') {
+      $('proHint').hidden = false;
+    } else {
+      $('proHint').hidden = true;
+    }
+    
+    card.style.opacity = '0'; card.style.transform = 'translateY(10px)';
+    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+  }
+
+  function loadNewBatch() {
+    currentList = getTodaySentences(cur, curBook, isShuffleMode);
+    rIdx = 0;
+    done.hidden = true;
+    card.hidden = false;
+    renderCard();
+  }
+
+  function showDone() {
+    card.hidden = true; done.hidden = false;
+    var streakData = updateStreak();
+    $('streakDisplay').textContent = streakData.streak;
+    $('doneStreak').textContent = streakData.streak;
+  }
+
+  /* ================= 7. 手势交互 ================= */
+  var startX = 0, startY = 0, isSwiping = false;
+  var wrapper = $('cardWrapper');
+
+  wrapper.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    isSwiping = false; card.style.transition = 'none';
+  }, { passive: false });
+
+  wrapper.addEventListener('touchmove', function(e) {
+    if (!startX || !startY) return;
+    var dx = e.touches[0].clientX - startX, dy = e.touches[0].clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      isSwiping = true;
+      if (e.cancelable) e.preventDefault();
+      card.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx * 0.05) + 'deg)';
+    }
+  }, { passive: false });
+
+  wrapper.addEventListener('touchend', function(e) {
+    if (!startX) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+    card.style.transform = '';
+    if (isSwiping) {
+      if (dx < -60) handleNext();
+      else if (dx > 60 && rIdx > 0) handlePrev();
+    }
+    startX = 0; startY = 0;
+  });
+
+  function handleNext() {
+    if (synth) synth.cancel();
+    if (rIdx >= TOTAL - 1) { showDone(); return; }
+    rIdx++; renderCard(); setTimeout(playAudio, 300);
+  }
+  function handlePrev() {
+    if (synth) synth.cancel();
+    if (rIdx > 0) { rIdx--; renderCard(); setTimeout(playAudio, 300); }
+  }
+
+  /* ================= 8. 事件绑定 ================= */
+  $('chips').addEventListener('click', function(e) {
+    var b = e.target.closest('.chip');
+    if (!b) return;
+    cur = b.getAttribute('data-cat');
+    curBook = 'all';
+    isShuffleMode = false;
+    renderChips();
+    loadNewBatch();
+  });
+
+  $('subChips').addEventListener('click', function(e) {
+    var b = e.target.closest('.sub-chip');
+    if (!b) return;
+    curBook = b.getAttribute('data-book');
+    isShuffleMode = false;
+    renderChips();
+    loadNewBatch();
+  });
+
+  $('shuffleBtn').addEventListener('click', function() {
+    isShuffleMode = true;
+    loadNewBatch();
+  });
+
+  $('listen').addEventListener('click', playAudio);
+  btnNext.addEventListener('click', handleNext);
+
+  $('replay').addEventListener('click', function() {
+    isShuffleMode = false;
+    loadNewBatch();
+  });
+
+  /* ================= 9. 分享 ================= */
+  $('shareTextBtn').addEventListener('click', function() {
+    var streak = loadStreak().streak || 0;
+    var shareText = "🔥 I just completed Day " + streak + " of HanLingo!\nLearning 10 Chinese sentences a day. Join me at hanlingo.app";
+    navigator.clipboard.writeText(shareText).then(function() {
+      var btn = $('shareTextBtn');
+      var orig = btn.textContent;
+      btn.textContent = "✅ Copied!";
+      setTimeout(function() { btn.textContent = orig; }, 2000);
+    }).catch(function() { prompt('Copy your share text:', shareText); });
+  });
+
+  $('shareImgBtn').addEventListener('click', function() {
+    var s = currentList[rIdx] || currentList[0];
+    if(!s) return;
+    $('sharePinyin').textContent = s.pinyin;
+    $('shareHanzi').textContent = s.zh;
+    $('shareEnglish').textContent = s.en;
+    $('shareStreak').textContent = loadStreak().streak || 0;
+
+    html2canvas($('share-card'), { scale: 2, backgroundColor: '#F4F3EF' }).then(function(canvas) {
+      var imgData = canvas.toDataURL('image/png');
+      var link = document.createElement('a');
+      link.download = 'HanLingo-Daily10.png';
+      link.href = imgData;
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        var w = window.open(); w.document.write('<img src="' + imgData + '" style="width:100%; display:block;" />');
+      } else { link.click(); }
     });
   });
-  var listened = false, bricksTapped = 0;
-  var bricks = [].slice.call(demo.querySelectorAll('.exec-brick'));
-  function maybeWin(){
-    var w = document.getElementById('exec-win');
-    if ((listened || bricksTapped > 0) && w) w.hidden = false;
-  }
-  bricks.forEach(function(b){
-    b.addEventListener('click', function(){
-      bricks.forEach(function(x){ x.classList.remove('tapped'); });
-      b.classList.add('tapped');
-      bricksTapped++;
-      var t = document.getElementById('brick-tip');
-      t.textContent = b.textContent + '  ·  ' + b.getAttribute('data-py') + ' — ' + b.getAttribute('data-en');
-      t.hidden = false;
-      maybeWin();
-    });
-  });
-  var wStart = document.getElementById('win-start');
-  if (wStart) wStart.addEventListener('click', function(){
-    var s = document.getElementById('stream');
-    if (s) s.scrollIntoView({ behavior:'smooth' });
-  });
+
+  /* ================= 初始化 ================= */
+  renderChips();
+  loadNewBatch();
+
 })();
 </script>
-  <noscript>
-<div class="seo-noscript">
-<h2>HanLingo Story Packs — Learn Business Mandarin by Real Sentences</h2>
-<p>HanLingo teaches practical Mandarin through real sentences with native male-voice audio at slow, normal and fast speeds. The Beginner track is free forever; every paid pack includes free preview sentences before you pay.</p>
-<section class="seo-group"><h3>Pricing</h3><ul>
-<li>Beginner track — free forever, no card required</li>
-<li>Pro Monthly $19 or Pro Annual $119 — full site access, flexible subscription, cancel anytime; Founding Lifetime $249 — one-time, limited to 500 founding members</li>
-<li>Try before you buy — every paid pack includes free preview sentences before you pay</li>
-</ul></section>
-<section class="seo-group"><h3>Survival &amp; Daily Life · Beginner · Free forever</h3><ul>
-<li><a href="/story/daily-conversation.html">Daily Conversation</a> — HSK 3-4 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/work-and-life.html">Work and Life</a> — HSK 3-4 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/city-life.html">City Life</a> — HSK 3-4 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/family-conversation.html">Family Conversation</a> — HSK 3-4 · 4 sentences · cards 1-2 free to try</li>
-<li><a href="/story/travel-getting-around.html">Travel &amp; Getting Around</a> — HSK 3-4 · 4 sentences · cards 1-2 free to try</li>
-<li><a href="/story/study-social-life.html">Study &amp; Social Life</a> — HSK 3-4 · 4 sentences · cards 1-2 free to try</li>
-<li><a href="/story/health-shopping.html">Health &amp; Shopping</a> — HSK 3-4 · 4 sentences · cards 1-2 free to try</li>
-<li><a href="/story/community-life.html">Community Life</a> — HSK 3-4 · 4 sentences · cards 1-2 free to try</li>
-<li><a href="/story/first-greetings.html">First Greetings</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/introducing-yourself.html">Introducing Yourself</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/numbers-time.html">Numbers &amp; Time</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/politeness-asking-for-help.html">Politeness &amp; Asking for Help</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/when-you-don-t-understand.html">When You Don't Understand</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/eating-drinking.html">Eating &amp; Drinking</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/shopping.html">Shopping</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/asking-directions-getting-around.html">Asking Directions &amp; Getting Around</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/weather-what-to-wear.html">Weather &amp; What to Wear</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/family-friends.html">Family &amp; Friends</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/hobbies-sports.html">Hobbies &amp; Sports</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/phone-internet.html">Phone &amp; Internet</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/body-health.html">Body &amp; Health</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/study-work.html">Study &amp; Work</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/making-plans-scheduling.html">Making Plans &amp; Scheduling</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/moods-feelings.html">Moods &amp; Feelings</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/living-travel.html">Living &amp; Travel</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/festivals-blessings.html">Festivals &amp; Blessings</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/chat-social.html">Chat &amp; Social</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-<li><a href="/story/goodbyes-keeping-in-touch.html">Goodbyes &amp; Keeping in Touch</a> — HSK 1-3 · 15 sentences · cards 1-5 free to try</li>
-</ul></section>
-<section class="seo-group"><h3>Advanced Daily Life · HSK 5-6</h3><ul>
-<li><a href="/story/career-promotion-professional-planning.html">Career Promotion &amp; Professional Planning</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/advanced-socializing-interpersonal-art.html">Advanced Socializing &amp; Interpersonal Art</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/business-negotiation-contracts.html">Business Negotiation &amp; Contracts</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/financial-planning-investment.html">Financial Planning &amp; Investment</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/health-management-work-life-balance.html">Health Management &amp; Work-Life Balance</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/real-estate-home-aesthetics.html">Real Estate &amp; Home Aesthetics</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/deep-emotions-intimate-relationships.html">Deep Emotions &amp; Intimate Relationships</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/lifelong-learning-self-improvement.html">Lifelong Learning &amp; Self-Improvement</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/urban-life-coping-with-stress.html">Urban Life &amp; Coping with Stress</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/leisure-cultural-appreciation.html">Leisure &amp; Cultural Appreciation</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/social-media-digital-lifestyle.html">Social Media &amp; Digital Lifestyle</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/emergencies-crisis-pr.html">Emergencies &amp; Crisis PR</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-<li><a href="/story/life-philosophy-long-term-vision.html">Life Philosophy &amp; Long-term Vision</a> — HSK 5-6 · 12 sentences · cards 1-4 free to try</li>
-</ul></section>
-<section class="seo-group"><h3>Business &amp; Workplace Pro</h3><ul>
-<li><a href="/story/office-daily-chat.html">Office Daily Chat</a> — HSK 4-6 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/meetings-reporting.html">Meetings &amp; Reporting</a> — HSK 4-6 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/wechat-dingtalk.html">WeChat &amp; DingTalk</a> — HSK 4-6 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/business-dining.html">Business Dining</a> — HSK 4-6 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/interviews-self-intro.html">Interviews &amp; Self-intro</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/negotiation-contracts.html">Negotiation &amp; Contracts</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/calls-video-meetings.html">Calls &amp; Video Meetings</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/emails-formal-letters.html">Emails &amp; Formal Letters</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/business-trips-reception.html">Business Trips &amp; Reception</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/cross-cultural-business.html">Cross-Cultural Business</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/project-management.html">Project Management</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/teamwork-conflict.html">Teamwork &amp; Conflict</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/presenting-public-speaking.html">Presenting &amp; Public Speaking</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/client-relations.html">Client Relations</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/etiquette-gift-giving.html">Etiquette &amp; Gift-Giving</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/office-social-life.html">Office Social Life</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/job-hunting-changing-jobs.html">Job Hunting &amp; Changing Jobs</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/pressure-emotion.html">Pressure &amp; Emotion</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/remote-work-digital-nomads.html">Remote Work &amp; Digital Nomads</a> — HSK 4-6 · 15 sentences · premium pack</li>
-<li><a href="/story/trends-ai-collaboration.html">Trends &amp; AI Collaboration</a> — HSK 4-6 · 15 sentences · premium pack</li>
-</ul></section>
-<section class="seo-group"><h3>Mastery · Sun Tzu Strategy · Advanced · Executive (HSK 7-9)</h3><ul>
-<li><a href="/story/strategy-decisions.html">Strategy &amp; Decisions</a> — HSK 7-9 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/budget-cost-control.html">Budget &amp; Cost Control</a> — HSK 7-9 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/sales-client-negotiation.html">Sales &amp; Client Negotiation</a> — HSK 7-9 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/team-leadership.html">Team &amp; Leadership</a> — HSK 7-9 · 15 sentences · cards 1-3 free to try</li>
-<li><a href="/story/fundraising-capital.html">Fundraising &amp; Capital</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/product-market-entry.html">Product &amp; Market Entry</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/crisis-pr.html">Crisis &amp; PR</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/change-digital.html">Change &amp; Digital</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/performance-incentives.html">Performance &amp; Incentives</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/cross-culture-business.html">Cross-Culture Business</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/business-dining-toasts.html">Business Dining &amp; Toasts</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/client-visits-courtesies.html">Client Visits &amp; Courtesies</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/gifting-relationships.html">Gifting &amp; Relationships</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/social-small-talk.html">Social Small Talk</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/government-elite-relations.html">Government &amp; Elite Relations</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/advanced-negotiation.html">Advanced Negotiation</a> — HSK 7-9 · 12 sentences · premium pack</li>
-<li><a href="/story/executive-board.html">Executive &amp; Board</a> — HSK 7-9 · 13 sentences · premium pack</li>
-<li><a href="/story/going-global.html">Going Global</a> — HSK 7-9 · 12 sentences · premium pack</li>
-<li><a href="/story/ai-strategy-human-ai.html">AI Strategy &amp; Human-AI</a> — HSK 7-9 · 12 sentences · premium pack</li>
-<li><a href="/story/ethics-long-termism.html">Ethics &amp; Long-termism</a> — HSK 7-9 · 11 sentences · premium pack</li>
-<li><a href="/story/eastern-wisdom.html">Eastern Wisdom</a> — HSK 7-9 · 15 sentences · premium pack</li>
-<li><a href="/story/sun-tzu-business-war.html">Sun Tzu &amp; Business War</a> — HSK 7-9 · 15 sentences · premium pack</li>
-</ul></section>
-</div>
-</noscript>
 </body>
 </html>
