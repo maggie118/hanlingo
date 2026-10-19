@@ -75,10 +75,10 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 .cat { font-size: 11.5px; font-weight: 600; color: var(--muted); border: 1px solid var(--border); border-radius: 99px; padding: 3px 10px; background: var(--bg); }
 
 /* 剧情流专属头部 */
-.story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; letter-spacing: 0.02em; color: var(--muted); flex-wrap: wrap; }
-.story-badge { background: var(--accent-soft); border: 1px solid rgba(192,88,75,.2); padding: 2px 6px; border-radius: 4px; font-weight: 700; color: var(--accent); font-size: 10px; }
-.story-title { font-weight: 700; color: var(--text); }
-.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; }
+.story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; letter-spacing: 0.02em; color: var(--muted); flex-wrap: wrap; text-align: center; padding: 0 10px; }
+.story-badge { background: var(--accent-soft); border: 1px solid rgba(192,88,75,.2); padding: 2px 6px; border-radius: 4px; font-weight: 700; color: var(--accent); font-size: 10px; flex: none;}
+.story-title { font-weight: 700; color: var(--text); line-height: 1.4; }
+.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; flex: none;}
 
 .shuffle-btn {
   position: absolute; top: 16px; right: 16px;
@@ -276,7 +276,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   var classicBooks = []; 
   var slangKeywords = ['班味', '内耗', '卷', '躺平', 'emo', '破防', '牛马', '太顶了', '太绝了', '靠谱', '低调', '搞定', '没事儿'];
 
-  // 💡 极简英文别名映射表（防止侧边被挡住）
+  // 极简标签映射
   var BOOK_MAP = {
     'Journey to the West': 'Journey',
     '西游记': 'Journey',
@@ -287,6 +287,30 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     '孙子兵法': 'Art of War'
   };
 
+  // 完整剧情名映射
+  var CHAPTER_DISPLAY_MAP = {
+    'xiyou_01': 'Journey to the West: Havoc in Heaven',
+    'huapi_01': 'Liaozhai: Painted Skin',
+    'art_of_war': 'The Art of War',
+    'journey_west_hsk12_01': 'Journey to the West: Birth of the Monkey King',
+    'journey_west_hsk12_02': 'Journey to the West: Havoc in Heaven',
+    'journey_west_hsk12_03': 'Journey to the West: Magic Treasures',
+    'journey_west_hsk12_04': 'Journey to the West: The Ginseng Fruit',
+    'journey_west_hsk12_05': 'Journey to the West: Three Battles with the Bone Demon',
+    'journey_west_hsk12_06': 'Journey to the West: The Plantain Fan',
+    'journey_west_hsk12_07': 'Journey to the West: The Spider Demons',
+    'journey_west_hsk12_08': 'Journey to the West: The Return',
+    'painted_skin': 'Liaozhai: Painted Skin',
+    'laoshan_daoshi': 'Liaozhai: The Taoist of Mount Laoshan',
+    'zhong_li': 'Liaozhai: Planting a Pear',
+    'lang_wolf': 'Liaozhai: The Wolf',
+    'nie_xiaoqian': 'Liaozhai: Nie Xiaoqian',
+    'ying_ning': 'Liaozhai: Ying Ning',
+    'qing_feng': 'Liaozhai: Qing Feng',
+    'hu_jia_nu': 'Liaozhai: The Fox\'s Wedding',
+    'elite_suntzu': 'The Art of War'
+  };
+
   function normalizeBookName(rawBook, story) {
     var name = rawBook || '';
     if (!name && story) {
@@ -295,8 +319,6 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
       else if (id.indexOf('art_of_war') > -1 || id.indexOf('suntzu') > -1) name = 'The Art of War';
       else if (id.indexOf('painted') > -1 || id.indexOf('liaozhai') > -1 || id.indexOf('xiaoqian') > -1 || id.indexOf('ying_ning') > -1 || id.indexOf('qing_feng') > -1 || id.indexOf('hu_jia') > -1 || id.indexOf('lang_wolf') > -1 || id.indexOf('zhong_li') > -1 || id.indexOf('laoshan') > -1) name = 'Liaozhai';
     }
-    
-    // 返回极简别名，如果查不到则原样返回，并截断长度
     if (BOOK_MAP[name]) return BOOK_MAP[name];
     return name.length > 15 ? name.substring(0, 12) + '...' : name || 'Classics';
   }
@@ -308,12 +330,29 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
   function extractData(sourceObj, defaultCategory) {
     if (!sourceObj) return;
     
-    function processCard(c, forcedCat, rawBook, step) {
+    function processCard(c, forcedCat, rawBook, step, storyContext) {
       var zh = c.sentence || c.cn || c.zh;
       var en = c.translation || c.en;
       if (!zh || !en) return;
       
       var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
+      
+      // 生成卡片顶部的全名
+      var displayTitle = finalBook;
+      if (forcedCat === 'classics') {
+        var storyId = c.story_id || (storyContext ? storyContext.columnId : '') || '';
+        if (CHAPTER_DISPLAY_MAP[storyId]) {
+          displayTitle = CHAPTER_DISPLAY_MAP[storyId];
+        } else {
+          var chapter = c.chapter_title || c.story_title || (storyContext ? storyContext.title : '');
+          if (chapter && chapter !== finalBook) {
+             if (finalBook === 'Journey') displayTitle = 'Journey to the West: ' + chapter;
+             else if (finalBook === 'Liaozhai') displayTitle = 'Liaozhai: ' + chapter;
+             else if (finalBook === 'Art of War') displayTitle = 'The Art of War: ' + chapter;
+             else displayTitle = finalBook + ': ' + chapter;
+          }
+        }
+      }
 
       if (forcedCat === 'classics' && finalBook && classicBooks.indexOf(finalBook) === -1) {
         classicBooks.push(finalBook);
@@ -321,7 +360,8 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 
       var entry = { 
         zh: zh, pinyin: c.pinyin || '', en: en, 
-        category: forcedCat, book: finalBook, step: step || 1 
+        category: forcedCat, book: finalBook, step: step || 1,
+        displayTitle: displayTitle
       };
       dataset[forcedCat].push(entry);
       if (isSlang(zh)) dataset.trends.push(entry);
@@ -340,7 +380,7 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
         else if (story.category === 'retired') return;
         
         (story.cards || []).forEach(function(c, idx) { 
-          processCard(c, cat, story.book || '', idx + 1); 
+          processCard(c, cat, story.book || '', idx + 1, story); 
         });
       });
     }
@@ -497,7 +537,6 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
     var subChipsEl = $('subChips');
     if (cur === 'classics' && classicBooks.length > 0) {
       subChipsEl.hidden = false;
-      // 强制显示为极简英文
       var subHtml = '<button class="sub-chip" data-book="all" aria-selected="' + (curBook === 'all') + '">All</button>';
       classicBooks.forEach(function(bk) {
         subHtml += '<button class="sub-chip" data-book="' + bk + '" aria-selected="' + (curBook === bk) + '">' + bk + '</button>';
@@ -518,8 +557,8 @@ main { flex: 1; display: flex; flex-direction: column; justify-content: center; 
 
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
-      // 在这里展示完整长名字（例如 Journey）
-      $('storyTitle').textContent = s.book === 'Journey' ? 'Journey to the West' : (s.book === 'Art of War' ? 'The Art of War' : s.book);
+      // 展示完整的英文故事名和章节名
+      $('storyTitle').textContent = s.displayTitle;
       $('storyScene').textContent = 'Scene ' + String(s.step).padStart(2, '0');
     } else {
       $('storyHeader').hidden = true;
