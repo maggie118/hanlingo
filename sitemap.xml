@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  HanLingo · sitemap.xml
-  ------------------------------------------------------------
-  站点为纯前端 SPA（单页应用），所有学习板块通过前端状态切换：
-    /            → Daily 10 / Everyday Chinese / Chinese for Work
-                   / Trends & Slang / Stories & Classics
-  分类切换不产生独立 URL，因此 sitemap 只收录真实可访问的首页。
-
-  【维护约定】
-  1. 不要添加 #anchor（如 /#trends），搜索引擎不索引 fragment。
-  2. 不要添加 /trends、/stories 等不存在的路径，会产生软 404。
-  3. 若未来引入 History API 路由并为每个板块提供独立可访问 URL，
-     再在此处追加对应 <url> 条目。
-  4. lastmod 使用内容实质更新的日期（YYYY-MM-DD），不要每次部署都改。
-  ------------------------------------------------------------
-  最后更新：2026-10-19
--->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- 首页：Daily 10 / Everyday Chinese / Work / Trends & Slang / Stories 的入口 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hanlingo.app/</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
 </urlset>
