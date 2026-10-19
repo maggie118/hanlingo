@@ -33,7 +33,8 @@
 :root {
   --bg: #F4F3EF; --card: #FFFFFF; --text: #2C302E; --muted: #7B7F7A;
   --border: #E2E0D8; --accent: #C0584B; --accent-press: #A94A3E; --accent-soft: rgba(192,88,75,.10);
-  --sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, sans-serif;
+  /* 优化字体栈，确保拼音声调和中文都能完美渲染 */
+  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
   --gold: #F5A623;
 }
 
@@ -52,19 +53,19 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
   display: flex; flex-direction: column; position: relative;
 }
 
-.btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn {
+.btn, .chip, .sub-chip, .shuffle-btn, .review-btn, .tool-btn, .heart-btn {
   touch-action: manipulation; user-select: none; -webkit-user-select: none;
 }
 
 /* 顶部 */
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .brand { font-size: 20px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
-.meta-right { display: flex; align-items: center; gap: 12px; }
+.meta-right { display: flex; align-items: center; gap: 8px; }
 .time-badge { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
 .streak { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--text); }
 .streak b { color: var(--accent); font-size: 18px; font-variant-numeric: tabular-nums; }
-.review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 4px; }
-.review-btn:hover { color: var(--accent); }
+.review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 4px 6px; border-radius: 6px; }
+.review-btn:hover { color: var(--accent); background: var(--accent-soft); }
 
 .sync-badge {
   display: flex; align-items: center; gap: 3px;
@@ -77,7 +78,6 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .sync-badge:hover { color: var(--accent); background: var(--accent-soft); }
 
 /* 进度条 */
-
 .progress-bar { height: 4px; margin: 0 0 12px; background: var(--border); border-radius: 4px; overflow: hidden; flex: none; }
 .progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .45s cubic-bezier(.3,.7,.2,1); }
 
@@ -108,14 +108,27 @@ main::-webkit-scrollbar { display: none; }
 .num { font-size: 11px; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
 .cat { font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 
+/* 心形收藏按钮 */
+.heart-btn {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--muted); padding: 4px; display: grid; place-items: center;
+  transition: color 0.2s, transform 0.2s;
+  margin-right: 4px;
+}
+.heart-btn:hover { color: var(--accent); }
+.heart-btn.active { color: var(--accent); }
+.heart-btn.active svg { fill: var(--accent); stroke: var(--accent); }
+.heart-btn:active { transform: scale(0.85); }
+.heart-btn[hidden] { display: none !important; }
+
 /* 俚语徽标 */
 .slang-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: #fff; background: var(--accent); border-radius: 4px; padding: 2px 7px; margin-bottom: 10px; text-transform: uppercase; }
 
 /* 剧情流头部 */
-.story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 11px; letter-spacing: 0.02em; color: var(--muted); flex-wrap: wrap; text-align: center; padding: 0 10px; }
+.story-header { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; font-size: 12px; letter-spacing: 0.02em; color: var(--text); flex-wrap: wrap; text-align: center; padding: 0 10px; font-weight: 700; }
 .story-badge { background: var(--accent-soft); border: 1px solid rgba(192,88,75,.2); padding: 2px 6px; border-radius: 4px; font-weight: 700; color: var(--accent); font-size: 10px; flex: none; }
 .story-title { font-weight: 700; color: var(--text); line-height: 1.4; }
-.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; flex: none; }
+.story-scene { font-weight: 600; background: var(--bg); padding: 2px 6px; border-radius: 4px; flex: none; font-size: 11px; color: var(--muted); }
 
 /* 故事序章 */
 .story-intro { text-align: left; background: #FAFAFA; border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; animation: fadeIn 0.4s ease both; }
@@ -155,8 +168,9 @@ main::-webkit-scrollbar { display: none; }
 .paywall-inner .btn.later { background: transparent; color: var(--muted); border: none; font-weight: 500; padding: 8px; cursor: pointer; }
 .paywall-inner .btn.later:hover { color: var(--text); }
 
-.actions { display: flex; gap: 12px; margin-top: 28px; position: relative; z-index: 10; }
-.btn { flex: 1; appearance: none; cursor: pointer; font: 600 16px/1 var(--sans); border: 1.5px solid var(--accent); border-radius: 14px; padding: 16px 12px; transition: .2s; }
+/* 三按钮操作区 */
+.actions { display: flex; gap: 8px; margin-top: 24px; position: relative; z-index: 10; }
+.btn { flex: 1; appearance: none; cursor: pointer; font: 600 15px/1.2 var(--sans); border: 1.5px solid var(--accent); border-radius: 14px; padding: 14px 8px; transition: .2s; white-space: nowrap; }
 .btn:active { transform: scale(.97); }
 .btn.primary { background: var(--accent); color: #fff; }
 .btn.primary:hover { background: var(--accent-press); }
@@ -240,7 +254,7 @@ main::-webkit-scrollbar { display: none; }
 .paywall-clean h2 { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
 .pw-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.4; }
 
-/* 历史复习弹窗 */
+/* 历史复习 / 收藏弹窗 */
 .review-modal .modal-content { max-height: 80vh; display: flex; flex-direction: column; }
 .review-list { overflow-y: auto; flex: 1; margin-top: 16px; display: flex; flex-direction: column; gap: 12px; padding-right: 4px; }
 .review-item { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: left; cursor: pointer; transition: .2s; }
@@ -449,12 +463,8 @@ main::-webkit-scrollbar { display: none; }
 @media (min-width: 1024px) {
   body { overflow-y: auto; background: #F4F3EF; }
   .app { max-width: 1280px; height: auto; min-height: 100dvh; flex-direction: row; align-items: center; justify-content: center; padding: 60px 48px; gap: 80px; }
-  
-  /* 桌面端重新展示左侧信息区 */
   header { flex: 1; max-width: 480px; display: flex; flex-direction: column; justify-content: center; }
   .top { margin-bottom: 24px; }
-  
-  /* 为了补全桌面端左侧的留白，添加一个纯 CSS 伪元素展示品牌口号 */
   header::before {
     content: "Real Chinese\Afor Real Life.";
     white-space: pre-wrap;
@@ -474,14 +484,12 @@ main::-webkit-scrollbar { display: none; }
     margin-bottom: 40px;
     display: block;
   }
-
   .chips-container { margin-bottom: 0; gap: 12px; }
   .chips { flex-wrap: wrap; overflow: visible; padding: 0; gap: 10px; }
   .chip { font-size: 14px; padding: 12px 20px; }
   .sub-chips { flex-wrap: wrap; overflow: visible; padding: 0; margin-top: 8px; }
   .sub-chip { font-size: 13px; padding: 8px 16px; }
   .progress-bar { display: none; }
-  
   main { flex: 1.2; max-width: 680px; overflow: visible; padding-bottom: 0; display: flex; flex-direction: column; justify-content: center; position: relative; }
   .card-wrapper { margin: 0; width: 100%; perspective: none; padding: 0; }
   .card { padding: 64px 56px; border-radius: 32px; box-shadow: 0 40px 80px -24px rgba(44,48,46,.12), 0 10px 20px -10px rgba(0,0,0,.04); transition: box-shadow 0.3s ease; }
@@ -496,15 +504,14 @@ main::-webkit-scrollbar { display: none; }
   .usage-box { margin-top: 36px; padding: 24px; border-radius: 16px; }
   .usage-title { font-size: 12px; margin-bottom: 8px; }
   .usage-text { font-size: 16px; }
-  .actions { margin-top: 48px; gap: 16px; }
-  .btn { padding: 20px; font-size: 18px; border-radius: 16px; }
+  .actions { margin-top: 48px; gap: 12px; }
+  .btn { padding: 20px 12px; font-size: 18px; border-radius: 16px; }
   .repeat-hint { margin-top: 20px; font-size: 14px; }
   .mix-free-note { font-size: 12px; margin-top: 12px; }
   .bottom-tools { margin-top: 24px; }
   .tool-btn { font-size: 14px; }
   .bottom-info { margin-top: 32px; font-size: 15px; }
   .bottom-info span.hint { font-size: 13px; }
-  
   .done { border-radius: 32px; padding: 48px; background: var(--card); box-shadow: 0 40px 80px -24px rgba(44,48,46,.15); }
   .done h2 { font-size: 32px; margin-top: 24px; }
   .done p { font-size: 18px; }
@@ -516,7 +523,6 @@ main::-webkit-scrollbar { display: none; }
   .done .btn { flex: 1; padding: 18px; font-size: 16px; }
   .done-pro-cta { max-width: 420px; }
   .done-pro-text { font-size: 13.5px; }
-  
   #paywallModal .paywall-clean { max-width: 900px; padding: 34px 34px 22px; border-radius: 28px; }
   #paywallModal h2 { font-size: 28px; }
   #paywallModal .pw-subtitle { font-size: 14.5px; }
@@ -532,7 +538,6 @@ main::-webkit-scrollbar { display: none; }
   #paywallModal .pw-roadmap { padding: 18px 20px; }
   #paywallModal .pw-roadmap ul { grid-template-columns: 1fr 1fr; gap: 10px 26px; }
   #paywallModal .pw-roadmap li { font-size: 13px; }
-  
   .sb-card { max-width: 440px; padding: 34px 30px 22px; border-radius: 28px; }
   .sb-card h2 { font-size: 26px; }
   .sb-card .sb-sub { font-size: 15px; }
@@ -559,6 +564,7 @@ main::-webkit-scrollbar { display: none; }
       <div class="meta-right">
         <button class="sync-badge" id="syncBadge" hidden title="Progress synced">☁️ Synced</button>
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
+        <button class="review-btn" id="btnSaved" hidden>❤️ Saved</button>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
       </div>
     </div>
@@ -595,7 +601,12 @@ main::-webkit-scrollbar { display: none; }
 
         <div class="meta">
           <div class="cat" id="cat"></div>
-          <div class="num" id="num"></div>
+          <div class="meta-right-inner" style="display: flex; align-items: center; gap: 8px;">
+            <button class="heart-btn" id="btnHeart" type="button" hidden aria-label="Favorite">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <div class="num" id="num"></div>
+          </div>
         </div>
 
         <div class="card-content" id="cardContent">
@@ -622,7 +633,8 @@ main::-webkit-scrollbar { display: none; }
         </div>
 
         <div class="actions">
-          <button class="btn ghost" id="listen" type="button">🔊 Listen & Repeat</button>
+          <button class="btn ghost" id="prev" type="button">← Prev</button>
+          <button class="btn ghost" id="listen" type="button">🔊 Listen</button>
           <button class="btn primary" id="next" type="button">Next →</button>
         </div>
 
@@ -982,35 +994,44 @@ window.BUSINESS_DATA = window.BUSINESS_DATA || {
   }]
 };
 
-window.CLASSICS_DATA = window.CLASSICS_DATA || {
-  stories: [
-    {
-      columnId: 'xiyou_01',
-      title: 'Havoc in Heaven',
-      book: 'Journey to the West',
-      category: 'classics',
-      cards: [
-        { sentence: '很久很久以前，有一座花果山。', pinyin: 'Hěn jiǔ hěn jiǔ yǐqián, yǒu yí zuò Huāguǒ Shān.', translation: 'A long, long time ago, there was a Mountain of Flowers and Fruit.', usage: '很久很久以前 = the Chinese “once upon a time”.' },
-        { sentence: '山顶上有一块仙石。', pinyin: 'Shāndǐng shàng yǒu yí kuài xiān shí.', translation: 'At the top of the mountain lay a magical stone.', usage: '块 is the measure word for stones and chunks.' },
-        { sentence: '有一天，石头裂开了，跳出一只猴子。', pinyin: 'Yǒu yì tiān, shítou lièkāi le, tiàochū yì zhī hóuzi.', translation: 'One day the stone cracked open and out jumped a monkey.', usage: '只 is the measure word for most animals.' },
-        { sentence: '猴子们叫他美猴王。', pinyin: 'Hóuzimen jiào tā Měi Hóu Wáng.', translation: 'The monkeys called him the Handsome Monkey King.', usage: '们 marks plural for people and animals.' },
-        { sentence: '他决定去学长生不老的本事。', pinyin: 'Tā juédìng qù xué chángshēng bù lǎo de běnshi.', translation: 'He decided to go and learn the art of immortality.', usage: '长生不老 is a four-character idiom meaning “to live forever”.' }
-      ]
-    },
-    {
-      columnId: 'liaozhai_01',
-      title: 'Painted Skin',
-      book: 'Liaozhai',
-      category: 'classics',
-      cards: [
-        { sentence: '深夜，一个读书人听见门外有声音。', pinyin: 'Shēnyè, yí ge dúshūrén tīngjiàn ménwài yǒu shēngyīn.', translation: 'Late at night, a scholar heard a sound outside his door.', usage: '读书人 is the classical word for “scholar”.' },
-        { sentence: '他打开门，看见一个美丽的女子。', pinyin: 'Tā dǎkāi mén, kànjiàn yí ge měilì de nǚzǐ.', translation: 'He opened the door and saw a beautiful woman.', usage: '女子 is a literary word for “woman”.' },
-        { sentence: '可是她的影子很奇怪。', pinyin: 'Kěshì tā de yǐngzi hěn qíguài.', translation: 'But her shadow was very strange.', usage: '奇怪 = strange, odd. 很 + adjective is the basic description pattern.' },
-        { sentence: '原来她不是人。', pinyin: 'Yuánlái tā bú shì rén.', translation: 'It turned out she was not human.', usage: '原来 marks a realisation — “so it was actually…”' }
-      ]
-    }
-  ]
-};
+window.CLASSICS_DATA = window.CLASSICS_DATA || [
+  { id: "c_xiyou_01_1", category: "classics", book: "Journey to the West", story_id: "xiyou_01", story_title: "Journey to the West", chapter_title: "猴王出世", step: 1, pinyin: "Hěn jiǔ hěn jiǔ yǐqián, yǒu yí zuò Huāguǒ Shān.", zh: "很久很久以前，有一座花果山。", en: "A long, long time ago, there was a Mountain of Flowers and Fruit.", usage: "📌 关键词：花果山, 很久很久以前, 一座" },
+  { id: "c_xiyou_01_2", category: "classics", book: "Journey to the West", story_id: "xiyou_01", story_title: "Journey to the West", chapter_title: "猴王出世", step: 2, pinyin: "Zhǐ tīng 'hōng' de yì shēng, shítou lièkāi le!", zh: "只听“轰”的一声，石头裂开了！", en: "With a loud 'boom', the stone cracked open!" },
+  { id: "c_xiyou_01_3", category: "classics", book: "Journey to the West", story_id: "xiyou_01", story_title: "Journey to the West", chapter_title: "猴王出世", step: 3, pinyin: "Dàwáng, nín jiù shì wǒmen de Dàwáng!", zh: "大王，您就是我们的大王！", en: "King, you are our King!" },
+  { id: "c_xiyou_02_1", category: "classics", book: "Journey to the West", story_id: "xiyou_02", story_title: "Journey to the West", chapter_title: "拜师学艺", step: 1, pinyin: "Shīfu, qǐng shòu tú'er yí bài!", zh: "师父，请受徒儿一拜！", en: "Master, please accept your disciple's bow!", usage: "📌 关键词：师父, 徒弟, 拜" },
+  { id: "c_xiyou_02_2", category: "classics", book: "Journey to the West", story_id: "xiyou_02", story_title: "Journey to the West", chapter_title: "拜师学艺", step: 2, pinyin: "Wǒ xiǎng xué chángshēng bù lǎo zhī shù.", zh: "我想学长生不老之术。", en: "I want to learn the art of immortality." },
+  { id: "c_xiyou_02_3", category: "classics", book: "Journey to the West", story_id: "xiyou_02", story_title: "Journey to the West", chapter_title: "拜师学艺", step: 3, pinyin: "Qīshí'èr biàn, wǒ yǐjīng xuéhuì le!", zh: "七十二变，我已经学会了！", en: "I have already mastered the 72 transformations!" },
+  { id: "c_xiyou_03_1", category: "classics", book: "Journey to the West", story_id: "xiyou_03", story_title: "Journey to the West", chapter_title: "龙宫借宝", step: 1, pinyin: "Lǎo Lóngwáng, jiè wǒ yí jiàn chènshǒu de bīngqì!", zh: "老龙王，借我一件趁手的兵器！", en: "Old Dragon King, lend me a handy weapon!", usage: "📌 关键词：龙王, 兵器, 借" },
+  { id: "c_xiyou_03_2", category: "classics", book: "Journey to the West", story_id: "xiyou_03", story_title: "Journey to the West", chapter_title: "龙宫借宝", step: 2, pinyin: "Zhè gēn jīngū bàng bú cuò, wǒ yào le!", zh: "这根金箍棒不错，我要了！", en: "This Golden Cudgel is great. I'll take it!" },
+  { id: "c_xiyou_03_3", category: "classics", book: "Journey to the West", story_id: "xiyou_03", story_title: "Journey to the West", chapter_title: "龙宫借宝", step: 3, pinyin: "Biàn dà! Biàn xiǎo! Zhēn hǎowán!", zh: "变大！变小！真好玩！", en: "Grow big! Shrink small! So fun!" },
+  { id: "c_xiyou_04_1", category: "classics", book: "Journey to the West", story_id: "xiyou_04", story_title: "Journey to the West", chapter_title: "大闹地府", step: 1, pinyin: "Shēngsǐbù zài nǎ? Wǒ yào huà diào zìjǐ de míngzi!", zh: "生死簿在哪？我要划掉自己的名字！", en: "Where is the Book of Life and Death? I'm crossing out my name!", usage: "📌 关键词：生死簿, 划掉, 名字" },
+  { id: "c_xiyou_04_2", category: "classics", book: "Journey to the West", story_id: "xiyou_04", story_title: "Journey to the West", chapter_title: "大闹地府", step: 2, pinyin: "Cóng jīntiān qǐ, wǒ mìng yóu wǒ bù yóu tiān!", zh: "从今天起，我命由我不由天！", en: "From today on, my fate is in my hands, not heaven's!" },
+  { id: "c_xiyou_04_3", category: "classics", book: "Journey to the West", story_id: "xiyou_04", story_title: "Journey to the West", chapter_title: "大闹地府", step: 3, pinyin: "Zhè shìjiè shang, zài yě méi yǒu rén néng guǎn wǒ!", zh: "这世界上，再也没有人能管我！", en: "No one in this world can control me anymore!" },
+  { id: "c_xiyou_05_1", category: "classics", book: "Journey to the West", story_id: "xiyou_05", story_title: "Journey to the West", chapter_title: "齐天大圣", step: 1, pinyin: "Ràng wǒ zuò Bìmǎwēn? Wǒ bù gàn le!", zh: "让我做弼马温？我不干了！", en: "Make me a stable boy? I quit!", usage: "📌 关键词：弼马温, 不干, 齐天大圣" },
+  { id: "c_xiyou_05_2", category: "classics", book: "Journey to the West", story_id: "xiyou_05", story_title: "Journey to the West", chapter_title: "齐天大圣", step: 2, pinyin: "Wǒ zì fēng wéi 'Qítiān Dàshèng'!", zh: "我自封为“齐天大圣”！", en: "I declare myself the Great Sage Equal to Heaven!" },
+  { id: "c_xiyou_05_3", category: "classics", book: "Journey to the West", story_id: "xiyou_05", story_title: "Journey to the West", chapter_title: "齐天大圣", step: 3, pinyin: "Yùdì, nǐ gǎn bu gǎn pài bīng lái zhuō wǒ?", zh: "玉帝，你敢不敢派兵来捉我？", en: "Jade Emperor, do you dare send troops to catch me?" },
+  { id: "c_xiyou_06_1", category: "classics", book: "Journey to the West", story_id: "xiyou_06", story_title: "Journey to the West", chapter_title: "大闹天宫", step: 1, pinyin: "Zhè pántáo, wǒ xiān cháng yì kǒu.", zh: "这蟠桃，我先尝一口。", en: "Let me take a bite of this immortal peach first.", usage: "📌 关键词：蟠桃, 仙丹, 玉帝" },
+  { id: "c_xiyou_06_2", category: "classics", book: "Journey to the West", story_id: "xiyou_06", story_title: "Journey to the West", chapter_title: "大闹天宫", step: 2, pinyin: "Tàishàng Lǎojūn, nǐ de xiāndān wǒ quán bāo le!", zh: "太上老君，你的仙丹我全包了！", en: "Lord Laozi, I'm taking all your immortal pills!" },
+  { id: "c_xiyou_06_3", category: "classics", book: "Journey to the West", story_id: "xiyou_06", story_title: "Journey to the West", chapter_title: "大闹天宫", step: 3, pinyin: "Yùdì, nǐ nài wǒ hé?", zh: "玉帝，你奈我何？", en: "Jade Emperor, what can you do to me?" },
+  { id: "c_xiyou_07_1", category: "classics", book: "Journey to the West", story_id: "xiyou_07", story_title: "Journey to the West", chapter_title: "五行山下", step: 1, pinyin: "Rúlái, nǐ gǎn gēn wǒ dǎ dǔ ma?", zh: "如来，你敢跟我打赌吗？", en: "Buddha, do you dare make a bet with me?", usage: "📌 关键词：如来, 打赌, 五行山" },
+  { id: "c_xiyou_07_2", category: "classics", book: "Journey to the West", story_id: "xiyou_07", story_title: "Journey to the West", chapter_title: "五行山下", step: 2, pinyin: "Aì, wǒ bèi yā zài Wǔxíngshān xià le.", zh: "哎，我被压在五行山下了。", en: "Ugh, I'm trapped under Five Elements Mountain." },
+  { id: "c_xiyou_07_3", category: "classics", book: "Journey to the West", story_id: "xiyou_07", story_title: "Journey to the West", chapter_title: "五行山下", step: 3, pinyin: "Wǔbǎi nián le, shéi lái jiùjiu wǒ?", zh: "五百年了，谁来救救我？", en: "It's been 500 years. Will someone save me?" },
+  { id: "c_xiyou_08_1", category: "classics", book: "Journey to the West", story_id: "xiyou_08", story_title: "Journey to the West", chapter_title: "唐僧收徒", step: 1, pinyin: "Shīfu, kuài jiùjiu wǒ!", zh: "师父，快救救我！", en: "Master, please save me!", usage: "📌 关键词：师父, 救, 西天取经" },
+  { id: "c_xiyou_08_2", category: "classics", book: "Journey to the West", story_id: "xiyou_08", story_title: "Journey to the West", chapter_title: "唐僧收徒", step: 2, pinyin: "Zhǐyào nǐ jiù wǒ chūqù, wǒ bǎo nǐ xītiān qǔjīng.", zh: "只要你救我出去，我保你西天取经。", en: "If you save me, I'll protect you on your journey to the West." },
+  { id: "c_xiyou_08_3", category: "classics", book: "Journey to the West", story_id: "xiyou_08", story_title: "Journey to the West", chapter_title: "唐僧收徒", step: 3, pinyin: "Wǒ Sūn Wùkōng, yuàn yì guī yī Fómén!", zh: "我孙悟空，愿意皈依佛门！", en: "I, Sun Wukong, am willing to follow the Buddhist path!" },
+  { id: "c_xiyou_09_1", category: "classics", book: "Journey to the West", story_id: "xiyou_09", story_title: "Journey to the West", chapter_title: "三打白骨精", step: 1, pinyin: "Yāoguài, nǎlǐ pǎo!", zh: "妖怪，哪里跑！", en: "Demon, where do you think you're running!", usage: "📌 关键词：妖怪, 师父, 紧箍咒" },
+  { id: "c_xiyou_09_2", category: "classics", book: "Journey to the West", story_id: "xiyou_09", story_title: "Journey to the West", chapter_title: "三打白骨精", step: 2, pinyin: "Shīfu, tā zhēn de shì yāoguài!", zh: "师父，她真的是妖怪！", en: "Master, she really is a demon!" },
+  { id: "c_xiyou_09_3", category: "classics", book: "Journey to the West", story_id: "xiyou_09", story_title: "Journey to the West", chapter_title: "三打白骨精", step: 3, pinyin: "Nǐ zǒu ba, wǒ méiyǒu nǐ zhège túdì.", zh: "你走吧，我没有你这个徒弟。", en: "Leave. I no longer have you as my disciple." },
+  { id: "c_xiyou_10_1", category: "classics", book: "Journey to the West", story_id: "xiyou_10", story_title: "Journey to the West", chapter_title: "真假美猴王", step: 1, pinyin: "Wǒ shì zhēn de Sūn Wùkōng!", zh: "我是真的孙悟空！", en: "I am the real Sun Wukong!", usage: "📌 关键词：真假, 菩萨, 分辨" },
+  { id: "c_xiyou_10_2", category: "classics", book: "Journey to the West", story_id: "xiyou_10", story_title: "Journey to the West", chapter_title: "真假美猴王", step: 2, pinyin: "Bù, wǒ cái shì zhēn de!", zh: "不，我才是真的！", en: "No, I am the real one!" },
+  { id: "c_xiyou_10_3", category: "classics", book: "Journey to the West", story_id: "xiyou_10", story_title: "Journey to the West", chapter_title: "真假美猴王", step: 3, pinyin: "Púsà, nín néng fēnbiàn chū shéi shì zhēn de ma?", zh: "菩萨，您能分辨出谁是真的吗？", en: "Bodhisattva, can you tell who is the real one?" },
+  { id: "c_xiyou_11_1", category: "classics", book: "Journey to the West", story_id: "xiyou_11", story_title: "Journey to the West", chapter_title: "三借芭蕉扇", step: 1, pinyin: "Tiěshàn Gōngzhǔ, jiè wǒ bājiāoshàn yí yòng!", zh: "铁扇公主，借我芭蕉扇一用！", en: "Princess Iron Fan, lend me your plantain fan!", usage: "📌 关键词：铁扇公主, 芭蕉扇, 红孩儿" },
+  { id: "c_xiyou_11_2", category: "classics", book: "Journey to the West", story_id: "xiyou_11", story_title: "Journey to the West", chapter_title: "三借芭蕉扇", step: 2, pinyin: "Bù jiè! Nǐ hài le wǒ de Hónghái'ér!", zh: "不借！你害了我的红孩儿！", en: "I won't lend it! You hurt my Red Boy!" },
+  { id: "c_xiyou_11_3", category: "classics", book: "Journey to the West", story_id: "xiyou_11", story_title: "Journey to the West", chapter_title: "三借芭蕉扇", step: 3, pinyin: "Biàn! Biànchéng xiǎo chóngzi zuān jìn nǐ dùzi lǐ!", zh: "变！变成小虫子钻进你肚子里！", en: "Transform! Become a little bug and crawl into your belly!" },
+  { id: "c_xiyou_12_1", category: "classics", book: "Journey to the West", story_id: "xiyou_12", story_title: "Journey to the West", chapter_title: "取得真经", step: 1, pinyin: "Shīfu, wǒmen zhōngyú dào le Língshān.", zh: "师父，我们终于到了灵山。", en: "Master, we've finally reached Lingshan.", usage: "📌 关键词：灵山, 如来佛祖, 斗战胜佛" },
+  { id: "c_xiyou_12_2", category: "classics", book: "Journey to the West", story_id: "xiyou_12", story_title: "Journey to the West", chapter_title: "取得真经", step: 2, pinyin: "Bàijiàn Rúlái Fózǔ.", zh: "拜见如来佛祖。", en: "Greetings, Buddha." },
+  { id: "c_xiyou_12_3", category: "classics", book: "Journey to the West", story_id: "xiyou_12", story_title: "Journey to the West", chapter_title: "取得真经", step: 3, pinyin: "Sūn Wùkōng, fēng nǐ wéi Dòuzhànshèngfó!", zh: "孙悟空，封你为斗战胜佛！", en: "Sun Wukong, I dub you the Victorious Fighting Buddha!" }
+];
 
 window.TRENDS_DATA = window.TRENDS_DATA || [
   { zh: '上头', pinyin: 'shàngtóu', en: 'To get hooked / addicted to something (slang)', usage: 'Used when a song, show or person “gets into your head”.' },
@@ -1022,22 +1043,6 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 </script>
 
 <script>
-/*
- ============================================================================
-  产品定位
-  ----------------------------------------------------------------------------
-  · Daily 10（mix）    永久免费的 10 句在线体验。不锁句、不复习、不下载。
-                       配额：日常 3 / 商务 2 / 俚语 2 / 故事 3。
-  · Everyday Chinese   每日精句，免费前 2 条，第 3 条起锁定（Pro）。
-  · Chinese for Work   免费前 2 条，第 3 条起锁定（Pro）。
-  · Trends & Slang     免费前 2 条，第 3 条起锁定（Pro）。
-  · Stories & Classics 每个故事免费前 3 个场景（Pro 解锁全部）。
-  · 完成 Daily 10 后显示温和 Pro CTA，无 Replay 按钮。
-  · 顶部 Offline 按钮对免费用户显示 🔒，点击打开付费墙。
-  · 断卡修复（Streak Broken）触达 + 7 天免费试用 + 第 5 天邮件（后端处理）。
- ============================================================================
-*/
-
 (function(){
   'use strict';
 
@@ -1092,6 +1097,11 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       intentBannerEl.querySelector('.pw-intent-text').innerHTML =
         'You were <strong>' + pendingBreakStreak + ' days</strong> in. ' +
         'Upgrade now and we\'ll <strong>restore your streak instantly</strong>.';
+    } else if (paywallIntent === 'review') {
+      intentBannerEl.hidden = false;
+      intentBannerEl.querySelector('.pw-intent-text').innerHTML =
+        'Daily 10 is free, but <strong>Review is a Pro feature</strong>. ' +
+        'Upgrade to review this session and access your entire history.';
     } else {
       intentBannerEl.hidden = true;
     }
@@ -1417,18 +1427,18 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       .then(function() { runStreakBreakCheck(); });
   }
 
-  /* ================= 9. 欢迎区域状态（已精简） ================= */
-  // 营销卡片和 social proof 已被移除，直接进入学习。无需 collapseHero。
-
-  /* ================= 10. 数据清洗 ================= */
-  // 免费额度规则
-  var FREE_STEPS_CLASSICS = 3;        // 故事流：每个故事免费前 3 个场景
-  var FREE_SENTENCES_NON_CLASSICS = 2; // 非故事栏目：每个分类免费前 2 条
+  /* ================= 9. 数据清洗 ================= */
+  var FREE_STEPS_CLASSICS = 3;
+  var FREE_SENTENCES_NON_CLASSICS = 2;
 
   var dataset = { survival: [], business: [], classics: [], trends: [] };
   var classicBooks = [];
   var historyList = [];
   var HISTORY_KEY = 'hanlingo_history';
+
+  var FAV_KEY = 'hanlingo_favorites';
+  var favoritesList = [];
+  try { var rawFav = localStorage.getItem(FAV_KEY); if (rawFav) favoritesList = JSON.parse(rawFav); } catch(e) { favoritesList = []; }
 
   try { var rawHistory = localStorage.getItem(HISTORY_KEY); if (rawHistory) historyList = JSON.parse(rawHistory); } catch(e) { historyList = []; }
 
@@ -1442,21 +1452,26 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     localStorage.setItem(HISTORY_KEY, JSON.stringify(historyList));
   }
 
+  function isFavorited(zh) {
+    return favoritesList.some(function(f) { return f.zh === zh; });
+  }
+
+  function toggleFavorite(item) {
+    var idx = favoritesList.findIndex(function(f) { return f.zh === item.zh; });
+    if (idx > -1) {
+      favoritesList.splice(idx, 1);
+    } else {
+      var clone = JSON.parse(JSON.stringify(item));
+      clone.date = getLocalDateString();
+      favoritesList.unshift(clone);
+    }
+    localStorage.setItem(FAV_KEY, JSON.stringify(favoritesList));
+    return idx === -1;
+  }
+
   var BOOK_MAP = { 'Journey to the West': 'Journey', '西游记': 'Journey', 'Liaozhai': 'Liaozhai', 'Painted Skin': 'Liaozhai', '聊斋志异': 'Liaozhai', 'The Art of War': 'Art of War', '孙子兵法': 'Art of War' };
 
-  var CHAPTER_DISPLAY_MAP = {
-    'xiyou_01': 'Journey to the West: Havoc in Heaven', 'huapi_01': 'Liaozhai: Painted Skin', 'art_of_war': 'The Art of War',
-    'journey_west_hsk12_01': 'Journey to the West: Birth of the Monkey King', 'journey_west_hsk12_02': 'Journey to the West: Havoc in Heaven',
-    'journey_west_hsk12_03': 'Journey to the West: Magic Treasures', 'journey_west_hsk12_04': 'Journey to the West: The Ginseng Fruit',
-    'journey_west_hsk12_05': 'Journey to the West: Three Battles with the Bone Demon', 'journey_west_hsk12_06': 'Journey to the West: The Plantain Fan',
-    'journey_west_hsk12_07': 'Journey to the West: The Spider Demons', 'journey_west_hsk12_08': 'Journey to the West: The Return',
-    'painted_skin': 'Liaozhai: Painted Skin', 'laoshan_daoshi': 'Liaozhai: The Taoist of Mount Laoshan', 'zhong_li': 'Liaozhai: Planting a Pear',
-    'lang_wolf': 'Liaozhai: The Wolf', 'nie_xiaoqian': 'Liaozhai: Nie Xiaoqian', 'ying_ning': 'Liaozhai: Ying Ning',
-    'qing_feng': 'Liaozhai: Qing Feng', 'hu_jia_nu': 'Liaozhai: The Fox\'s Wedding', 'elite_suntzu': 'The Art of War'
-  };
-
   var STORY_INTROS = {
-
     'Journey': { level: 'Beginner', title: 'Journey to the West', subtitle: 'The Monkey King\'s Adventure', desc: 'Follow the Monkey King\'s epic adventure while learning Chinese sentence by sentence.' },
     'Liaozhai': { level: 'Intermediate', title: 'Liaozhai', subtitle: 'Strange Tales from a Chinese Studio', desc: 'Uncover the mystery and magic of these classic supernatural tales.' },
     'Art of War': { level: 'Advanced', title: 'The Art of War', subtitle: 'Ancient Strategy', desc: 'Master the timeless wisdom and strategic vocabulary of Sun Tzu.' }
@@ -1485,16 +1500,12 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
       var displayTitle = finalBook;
       if (forcedCat === 'classics') {
-        var storyId = (c.story_id || (storyContext ? storyContext.columnId : '') || '');
-        if (CHAPTER_DISPLAY_MAP[storyId]) displayTitle = CHAPTER_DISPLAY_MAP[storyId];
-        else {
-          var chapter = c.chapter_title || c.story_title || (storyContext ? storyContext.title : '');
-          if (chapter && chapter !== finalBook) {
-            if (finalBook === 'Journey') displayTitle = 'Journey to the West: ' + chapter;
-            else if (finalBook === 'Liaozhai') displayTitle = 'Liaozhai: ' + chapter;
-            else if (finalBook === 'Art of War') displayTitle = 'The Art of War: ' + chapter;
-            else displayTitle = finalBook + ': ' + chapter;
-          }
+        var chapter = c.chapter_title || c.story_title || (storyContext ? storyContext.title : '');
+        if (chapter && chapter !== finalBook) {
+          if (finalBook === 'Journey') displayTitle = '西游记 · ' + chapter;
+          else if (finalBook === 'Liaozhai') displayTitle = '聊斋志异 · ' + chapter;
+          else if (finalBook === 'Art of War') displayTitle = '孙子兵法 · ' + chapter;
+          else displayTitle = finalBook + ' · ' + chapter;
         }
       }
       if (forcedCat === 'classics' && finalBook && classicBooks.indexOf(finalBook) === -1) classicBooks.push(finalBook);
@@ -1539,7 +1550,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     { id: 'classics', icon: '📖', label: 'Stories & Classics' }
   ];
 
-  /* ================= 11. Streak ================= */
+  /* ================= 10. Streak ================= */
   var STREAK_KEY = 'hanlingo_streak';
   var CELEBRATED_KEY = 'hanlingo_celebrated_';
   var STREAK_BROKEN_SHOWN_KEY = 'hanlingo_streak_broken_shown';
@@ -1627,7 +1638,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
-  /* ================= 12. 抽句 ================= */
+  /* ================= 11. 抽句 ================= */
   var cur = 'mix';
   var curBook = 'all';
   var currentList = [];
@@ -1676,17 +1687,10 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     return result;
   }
 
-  /**
-   * Daily 10 — 从全站所有分类混合抽取（永久免费的 10 句在线体验）
-   * 池子：survival + business + trends + classics（仅免费前 3 场景）
-   * 配额：日常 3 / 商务 2 / 俚语 2 / 故事 3
-   * 定位：能听、能看、能翻 —— 不复习、不下载、看不到完整故事
-   */
   function buildDailyMix(isShuffle) {
     var dateStr = getLocalDateString();
     var rand = getRng(isShuffle ? null : dateStr + ':mix');
 
-    // 1) 四池各自打乱；classics 只取免费可读场景作为“钩子”
     var sPool = shuffle(dataset.survival, rand);
     var bPool = shuffle(dataset.business, rand);
     var tPool = shuffle(dataset.trends, rand);
@@ -1694,7 +1698,6 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       return isPro() || it.step <= FREE_STEPS_CLASSICS;
     }), rand);
 
-    // 2) 按配额抽取 + 去重
     var used = {};
     function take(pool, n) {
       var out = [];
@@ -1712,7 +1715,6 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var tItems = take(tPool, 2);
     var cItems = take(cPool, 3);
 
-    // 3) 某分类不足时用其它池补足到 10 条
     function fillFrom(pool, need, arr) {
       var i = 0;
       while (need > 0 && i < pool.length) {
@@ -1731,7 +1733,6 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     if (missing > 0) missing = fillFrom(tPool, missing, tItems);
     if (missing > 0) fillFrom(cPool, missing, cItems);
 
-    // 4) 加权交错，避免前几条全是同类
     return interleaveByWeight([
       { items: sItems, weight: 3 },
       { items: bItems, weight: 2 },
@@ -1749,19 +1750,21 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     } else if (category === 'classics' && book !== 'all') {
       var bookList = dataset.classics.filter(function(item) { return item.book === book; });
       if (bookList.length === 0) return [];
-      bookList.sort(function(a, b) { return a.step - b.step; });
-      var daySeed = new Date().getDate();
-      var startIdx = (daySeed * 10) % bookList.length;
-      var res = [], take = Math.min(10, bookList.length);
-      for (var i = 0; i < take; i++) res.push(bookList[(startIdx + i) % bookList.length]);
-      return res;
+      
+      // 【核心修复】按原始数组顺序（即剧情顺序）返回，不再打乱
+      // 并赋予全局序号 _globalIndex，用于准确判断免费额度（防止每个故事前3句都免费导致剧情碎片化）
+      return bookList.map(function(item, idx) {
+        var clone = Object.assign({}, item);
+        clone._globalIndex = idx + 1; 
+        return clone;
+      });
     } else {
       var pool = dataset[category] || [];
       return shuffle(pool, rand).slice(0, 10);
     }
   }
 
-  /* ================= 13. TTS ================= */
+  /* ================= 12. TTS ================= */
   var synth = window.speechSynthesis, zhVoice = null;
   if (synth) {
     var initVoices = function() {
@@ -1785,7 +1788,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     synth.speak(u);
   }
 
-  /* ================= 14. 渲染 ================= */
+  /* ================= 13. 渲染 ================= */
   var $ = function(id) { return document.getElementById(id); };
   var card = $('card'), done = $('done'), btnNext = $('next'), btnListen = $('listen');
 
@@ -1812,8 +1815,8 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }
 
     $('btnReviewHistory').hidden = !isPro();
+    $('btnSaved').hidden = favoritesList.length === 0;
 
-    // Offline 是 Pro 功能：免费用户看到锁图标
     var offlineBtn = document.getElementById('btnOffline');
     if (offlineBtn) {
       offlineBtn.textContent = isPro() ? '📥 Offline Mode' : '🔒 Offline (Pro)';
@@ -1849,7 +1852,10 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
       $('storyTitle').textContent = s.displayTitle;
-      $('storyScene').textContent = 'Scene ' + String(s.step).padStart(2, '0');
+      
+      // 优先显示全局序号，保证剧情连贯感
+      var sceneDisplay = s._globalIndex !== undefined ? s._globalIndex : s.step;
+      $('storyScene').textContent = '第 ' + sceneDisplay + ' 句';
 
       if (s.step === 1) {
         $('storyIntro').hidden = false;
@@ -1881,15 +1887,32 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday +
       '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
 
-    /* ---------- 免费额度与锁定 ---------- */
+    // 控制 Prev 按钮
+    var btnPrev = document.getElementById('prev');
+    if (btnPrev) btnPrev.disabled = (rIdx === 0);
+
+    // 控制心形按钮
+    var btnHeart = document.getElementById('btnHeart');
+    if (btnHeart) {
+      var hideHeart = (cur === 'mix');
+      btnHeart.hidden = hideHeart;
+      if (!hideHeart) {
+        if (isFavorited(s.zh)) {
+          btnHeart.classList.add('active');
+        } else {
+          btnHeart.classList.remove('active');
+        }
+      }
+    }
+
     var isLocked = false;
     var lockTitle = 'Continue the Story';
     var lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
 
-    // Daily 10（mix）永久免费，不锁任何一句。
     if (cur !== 'mix' && !isPro()) {
       if (s.category === 'classics') {
-        if (s.step > FREE_STEPS_CLASSICS) {
+        var stepToCheck = s._globalIndex !== undefined ? s._globalIndex : s.step;
+        if (stepToCheck > FREE_STEPS_CLASSICS) {
           isLocked = true;
           lockTitle = 'Continue the Story';
           lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
@@ -1921,7 +1944,6 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       $('proHint').hidden = true;
     }
 
-    // Daily 10 免费标识（仅 mix 且非 Pro）
     var mixFreeNote = document.getElementById('mixFreeNote');
     if (mixFreeNote) mixFreeNote.hidden = !(cur === 'mix' && !isPro());
 
@@ -1953,19 +1975,22 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var willCelebrate = !localStorage.getItem(CELEBRATED_KEY + t);
     updateStreak(true);
 
-    // Daily 10 无 Replay；其他分类保留
+    // Daily 10 的 Review Again 按钮保留，但免费用户显示为锁状态
     var btnReplay = document.getElementById('replay');
+    btnReplay.style.display = 'block';
     if (cur === 'mix' && !isPro()) {
-      btnReplay.style.display = 'none';
+      btnReplay.innerHTML = '🔒 Review Again';
+      btnReplay.title = 'Upgrade to Pro to review your history';
     } else {
-      btnReplay.style.display = 'block';
+      btnReplay.innerHTML = 'Review Again';
+      btnReplay.title = '';
     }
 
-    // Daily 10 完成后显示温和的 Pro CTA（不阻塞、不弹窗）
+    // Daily 10 完成后显示温和的 Pro CTA
     var doneProCta = document.getElementById('doneProCta');
     if (doneProCta) doneProCta.hidden = !(cur === 'mix' && !isPro());
 
-    // 阶段 2：首次完成引导同步（仅一次，未同步 + 非 Pro）
+    // 阶段 2：首次完成引导同步
     if (!isPro() && !isSynced() && !localStorage.getItem('hanlingo_sync_prompt_shown')) {
       localStorage.setItem('hanlingo_sync_prompt_shown', 'true');
       if (willCelebrate) {
@@ -1976,7 +2001,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }
   }
 
-  /* ================= 15. 手势 ================= */
+  /* ================= 14. 手势 ================= */
   var startX = 0, startY = 0, isSwiping = false;
   var wrapper = $('cardWrapper');
 
@@ -2027,7 +2052,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }
   }
 
-  /* ================= 16. 事件 ================= */
+  /* ================= 15. 事件 ================= */
   $('chips').addEventListener('click', function(e) {
     var b = e.target.closest('.chip');
     if (!b) return;
@@ -2055,12 +2080,43 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   $('listen').addEventListener('click', playAudio);
   btnNext.addEventListener('click', handleNext);
 
+  var btnPrev = document.getElementById('prev');
+  if (btnPrev) btnPrev.addEventListener('click', handlePrev);
+
+  var btnHeart = document.getElementById('btnHeart');
+  if (btnHeart) {
+    btnHeart.addEventListener('click', function() {
+      var s = currentList[rIdx];
+      if (!s) return;
+      var added = toggleFavorite(s);
+      if (added) {
+        btnHeart.classList.add('active');
+        showToast('Added to favorites', { icon: '❤️', duration: 2000 });
+      } else {
+        btnHeart.classList.remove('active');
+        showToast('Removed from favorites', { icon: '💔', duration: 2000 });
+      }
+      $('btnSaved').hidden = favoritesList.length === 0;
+    });
+  }
+
+  var btnSaved = document.getElementById('btnSaved');
+  if (btnSaved) {
+    btnSaved.addEventListener('click', function() {
+      renderFavoritesModal();
+    });
+  }
+
   $('replay').addEventListener('click', function() {
+    if (cur === 'mix' && !isPro()) {
+      openPaywall('review');
+      return;
+    }
     isShuffleMode = false;
     loadNewBatch();
   });
 
-  /* ================= 17. 离线缓存与历史复习 ================= */
+  /* ================= 16. 离线缓存与历史复习 ================= */
   $('btnOffline').addEventListener('click', function() {
     if (!isPro()) { triggerPaywall(); return; }
     var btn = this;
@@ -2090,6 +2146,11 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   });
 
   function renderHistoryModal() {
+    var modalTitle = $('reviewModal').querySelector('h2');
+    var modalEyebrow = $('reviewModal').querySelector('.pw-eyebrow');
+    if (modalTitle) modalTitle.textContent = 'Your Learning History';
+    if (modalEyebrow) modalEyebrow.textContent = 'UNLIMITED REVIEW';
+
     var listEl = $('reviewList');
     listEl.innerHTML = '';
 
@@ -2118,11 +2179,45 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('reviewModal').hidden = false;
   }
 
+  function renderFavoritesModal() {
+    var modalTitle = $('reviewModal').querySelector('h2');
+    var modalEyebrow = $('reviewModal').querySelector('.pw-eyebrow');
+    if (modalTitle) modalTitle.textContent = 'Your Favorites';
+    if (modalEyebrow) modalEyebrow.textContent = 'SAVED SENTENCES';
+
+    var listEl = $('reviewList');
+    listEl.innerHTML = '';
+
+    if (favoritesList.length === 0) {
+      listEl.innerHTML = '<p style="text-align:center; color:var(--muted); padding: 20px 0;">No favorites yet. Tap the heart on any card!</p>';
+    } else {
+      favoritesList.forEach(function(item) {
+        var el = document.createElement('div');
+        el.className = 'review-item';
+        el.innerHTML =
+          '<div class="review-item-meta">' + (CAT_LABEL[item.category] || item.category) + ' · ' + item.date + '</div>' +
+          '<div class="review-item-zh">' + item.zh + '</div>' +
+          '<div class="review-item-en">' + item.en + '</div>';
+
+        el.addEventListener('click', function() {
+          $('reviewModal').hidden = true;
+          currentList = [item];
+          rIdx = 0;
+          done.hidden = true;
+          card.hidden = false;
+          renderCard();
+        });
+        listEl.appendChild(el);
+      });
+    }
+    $('reviewModal').hidden = false;
+  }
+
   $('btnCloseReview').addEventListener('click', function() {
     $('reviewModal').hidden = true;
   });
 
-  /* ================= 18. 分享 ================= */
+  /* ================= 17. 分享 ================= */
   $('shareTextBtn').addEventListener('click', function() {
     var streak = loadStreak().streak || 0;
     var shareText =
@@ -2183,7 +2278,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     });
   });
 
-  /* ================= 19. 同步徽章点击 ================= */
+  /* ================= 18. 同步徽章点击 ================= */
   var syncBadge = document.getElementById('syncBadge');
   if (syncBadge) {
     syncBadge.addEventListener('click', function() {
