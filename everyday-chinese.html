@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HanLingo · Everyday Chinese</title>
+<meta name="description" content="Everyday Chinese — 常速 / 慢速跟读，拼音逐字高亮，按篇目筛选。">
+<meta name="theme-color" content="#F4F3EF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23C0584B'/%3E%3Ctext%20x='16'%20y='23'%20font-size='18'%20font-weight='700'%20text-anchor='middle'%20fill='white'%20font-family='sans-serif'%3E%E6%B1%89%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #F4F3EF; --card: #FFFFFF; --text: #2C302E; --muted: #7B7F7A;
+  --border: #E2E0D8; --accent: #C0584B; --accent-press: #A94A3E; --accent-soft: rgba(192,88,75,.10);
+  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  --gold: #F5A623;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--sans);
+  -webkit-font-smoothing: antialiased; line-height: 1.5;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 28px 20px 56px; }
+
+/* ---------- header ---------- */
+.brand { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.brand h1 { font-size: 22px; font-weight: 700; letter-spacing: .01em; margin: 0; }
+.brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.brand .sub { font-size: 13px; color: var(--muted); }
+.lede { font-size: 13.5px; color: var(--muted); margin: 6px 0 20px; }
+
+/* ---------- chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: inherit; font-size: 13px; font-weight: 500; color: var(--muted);
+  background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  padding: 7px 14px; cursor: pointer; transition: background .18s, color .18s, border-color .18s, transform .18s;
+  min-height: 34px;
+}
+.chip:hover { color: var(--text); border-color: #CFCBC0; background: #FBFBF8; }
+.chip:active { transform: translateY(1px); }
+.chip[aria-selected="true"] {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+.chip .n { opacity: .6; font-size: 12px; margin-left: 5px; }
+
+/* ---------- card ---------- */
+.card {
+  margin-top: 18px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 26px 24px 22px; box-shadow: 0 2px 10px rgba(44,48,46,.04);
+  transition: box-shadow .2s;
+}
+.card.playing { box-shadow: 0 6px 22px rgba(192,88,75,.13); }
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.badge {
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+  color: var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 4px 9px;
+}
+.counter { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.pinyin {
+  font-size: clamp(15px, 4.4vw, 19px); font-weight: 500; color: var(--accent);
+  letter-spacing: .02em; line-height: 1.7; word-break: break-word;
+}
+.hanzi {
+  margin-top: 12px; font-size: clamp(30px, 9vw, 46px); font-weight: 700; line-height: 1.34;
+  letter-spacing: .02em; word-break: break-word; line-break: strict;
+}
+.english { margin-top: 14px; font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+.usage {
+  margin-top: 12px; font-size: 12.5px; color: var(--muted);
+  background: #FAFAF7; border-left: 2px solid var(--border); border-radius: 0 8px 8px 0; padding: 8px 12px;
+}
+.usage:empty { display: none; }
+
+/* ---------- tokens / highlight ---------- */
+.tk { display: inline-block; transition: color .16s ease, background .16s ease, transform .16s ease; }
+.tk-dim { display: inline-block; color: var(--muted); opacity: .5; }
+.py-tk { color: rgba(192,88,75,.45); }
+.hz-tk { color: var(--text); border-radius: 6px; padding: 0 1px; }
+.hz-nowrap { display: inline-block; white-space: nowrap; }
+.card.playing .py-tk { color: rgba(192,88,75,.34); }
+.tk.on { color: var(--accent); transform: translateY(-3px) scale(1.14); }
+.py-tk.on { font-weight: 700; }
+.hz-tk.on { background: var(--accent-soft); box-shadow: 0 0 0 3px var(--accent-soft); animation: tkPop .3s cubic-bezier(.34,1.56,.64,1); }
+@keyframes tkPop { 0% { transform: translateY(0) scale(1); } 62% { transform: translateY(-7px) scale(1.24); } 100% { transform: translateY(-3px) scale(1.14); } }
+
+/* ---------- controls ---------- */
+.controls { margin-top: 22px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.speed-group { display: inline-flex; background: #F1EFE9; border: 1px solid var(--border); border-radius: 999px; padding: 3px; gap: 3px; }
+.sp-btn {
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--muted);
+  background: transparent; border: 0; border-radius: 999px; padding: 7px 15px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; min-height: 34px;
+  transition: background .18s, color .18s, box-shadow .18s;
+}
+.sp-btn:hover { color: var(--text); background: rgba(255,255,255,.7); }
+.sp-btn.active { background: var(--card); color: var(--accent); box-shadow: 0 1px 4px rgba(44,48,46,.10); }
+.sp-btn.playing .sp-ico { animation: spPulse 1s ease-in-out infinite; }
+.sp-btn:disabled { opacity: .4; cursor: not-allowed; }
+@keyframes spPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(.86); } }
+
+.btn {
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--text);
+  background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  padding: 9px 16px; cursor: pointer; min-height: 38px;
+  transition: background .18s, border-color .18s, transform .18s;
+}
+.btn:hover { background: #FBFBF8; border-color: #CFCBC0; }
+.btn:active { transform: translateY(1px); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--accent-press); border-color: var(--accent-press); }
+.spacer { flex: 1 1 auto; }
+
+.hint { margin-top: 16px; font-size: 12px; color: var(--muted); text-align: center; letter-spacing: .02em; }
+kbd {
+  font: inherit; font-size: 11px; background: #F1EFE9; border: 1px solid var(--border);
+  border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; color: var(--text);
+}
+
+@media (max-width: 560px) {
+  .wrap { padding: 20px 14px 44px; }
+  .card { padding: 20px 16px 18px; border-radius: 16px; }
+  .controls { gap: 8px; }
+  .controls .spacer { display: none; }
+  .btn, .sp-btn { white-space: nowrap; flex: 0 0 auto; }
+  .speed-group { flex: 1 1 auto; justify-content: center; }
+  .sp-btn { padding: 7px 10px; }
+  .btn { padding: 9px 12px; font-size: 12.5px; }
+  .hint { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="dot"></span>
+      <h1>Everyday Chinese</h1>
+      <span class="sub">生存中文 · 跟读训练</span>
+    </div>
+    <p class="lede">点「慢速」逐句模仿跟读，拼音与汉字会跟着发音跳动。</p>
+  </header>
+
+  <nav class="chips" id="chips" aria-label="篇目筛选"></nav>
+
+  <section class="card" id="card">
+    <div class="card-top">
+      <span class="badge" id="badge">—</span>
+      <span class="counter" id="counter">0 / 0</span>
+    </div>
+    <div class="pinyin" id="pinyin"></div>
+    <div class="hanzi" id="hanzi"></div>
+    <div class="english" id="english"></div>
+    <div class="usage" id="usage"></div>
+
+    <div class="controls">
+      <div class="speed-group" role="group" aria-label="播放速度">
+        <button class="sp-btn active" id="spNormal" type="button" data-speed="normal" aria-pressed="true">
+          <span class="sp-ico">🔊</span>常速
+        </button>
+        <button class="sp-btn" id="spSlow" type="button" data-speed="slow" aria-pressed="false">
+          <span class="sp-ico">🐢</span>慢速
+        </button>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn" id="prev" type="button">← 上一句</button>
+      <button class="btn primary" id="next" type="button">下一句 →</button>
+    </div>
+  </section>
+
+  <p class="hint">
+    <kbd>空格</kbd> 播放 · <kbd>S</kbd> 慢速 · <kbd>←</kbd><kbd>→</kbd> 切换句子
+  </p>
+</div>
+
+<script id="payload" type="application/json">{"groups":[{"id":"cafe","icon":"☕","label":"咖啡 · 餐饮"},{"id":"transit","icon":"🚕","label":"打车 · 出行"},{"id":"payment","icon":"📱","label":"电子支付"},{"id":"social","icon":"💬","label":"社交破冰"},{"id":"essential","icon":"🆘","label":"保命句"},{"id":"scene","icon":"🏠","label":"生活情景"}],"items":[{"zh":"你好，一杯冰美式，带走。","pinyin":"Nǐ hǎo, yì bēi bīng měi shì, dài zǒu.","en":"Hi, one iced Americano to go.","usage":"The exact sentence you'll say at any café — swap 冰美式 for any drink.","group":"cafe","key":"d001"},{"zh":"我要一杯拿铁，少糖，谢谢。","pinyin":"Wǒ yào yì bēi ná tiě, shǎo táng, xiè xie.","en":"I'd like a latte with less sugar, thanks.","usage":"少糖 / 少冰 / 少奶 are your three customization words.","group":"cafe","key":"d002"},{"zh":"我不吃辣，少放盐，谢谢。","pinyin":"Wǒ bù chī là, shǎo fàng yán, xiè xie.","en":"I don't eat spicy, less salt please.","usage":"Say this before ordering and you'll actually enjoy the meal.","group":"cafe","key":"d003"},{"zh":"这个菜不要香菜。","pinyin":"Zhè ge cài bú yào xiāng cài.","en":"No cilantro in this dish.","usage":"Cilantro is the #1 thing foreigners forget to refuse.","group":"cafe","key":"d004"},{"zh":"我对花生过敏。","pinyin":"Wǒ duì huā shēng guò mǐn.","en":"I'm allergic to peanuts.","usage":"Crucial if you have food allergies — say it clearly.","group":"cafe","key":"d005"},{"zh":"请给我菜单。","pinyin":"Qǐng gěi wǒ cài dān.","en":"Please give me the menu.","usage":"The first thing to say when you sit down.","group":"cafe","key":"d006"},{"zh":"有推荐的吗？","pinyin":"Yǒu tuī jiàn de ma?","en":"Do you have any recommendations?","usage":"Ask the server — 推荐 = recommend.","group":"cafe","key":"d007"},{"zh":"我要这个。","pinyin":"Wǒ yào zhè ge.","en":"I'll have this one.","usage":"The most useful sentence when pointing at a menu.","group":"cafe","key":"d008"},{"zh":"这个好吃吗？","pinyin":"Zhè ge hǎo chī ma?","en":"Is this delicious?","usage":"Ask the server or a friend before committing.","group":"cafe","key":"d009"},{"zh":"很好吃。","pinyin":"Hěn hǎo chī.","en":"It's delicious.","usage":"Compliment the food after the first bite.","group":"cafe","key":"d010"},{"zh":"麻烦帮我打包。","pinyin":"Má fan bāng wǒ dǎ bāo.","en":"Could you pack this to go?","usage":"打包 (dǎ bāo) is the word for takeaway. 麻烦 makes it polite.","group":"cafe","key":"d011"},{"zh":"再来一碗米饭。","pinyin":"Zài lái yì wǎn mǐ fàn.","en":"One more bowl of rice.","usage":"Use it when you finish a bowl — 再来 = one more.","group":"cafe","key":"d012"},{"zh":"请给我一杯水。","pinyin":"Qǐng gěi wǒ yì bēi shuǐ.","en":"Please give me a glass of water.","usage":"Restaurants often serve hot water by default.","group":"cafe","key":"d013"},{"zh":"买单，谢谢。","pinyin":"Mǎi dān, xiè xie.","en":"Check, please.","usage":"Just call out 买单 (mǎi dān) after eating.","group":"cafe","key":"d014"},{"zh":"可以分开付吗？","pinyin":"Kě yǐ fēn kāi fù ma?","en":"Can we pay separately?","usage":"Use it when splitting the bill with friends.","group":"cafe","key":"d015"},{"zh":"一共多少钱？","pinyin":"Yí gòng duō shao qián?","en":"How much in total?","usage":"一共 = in total. Very common at checkout.","group":"cafe","key":"d016"},{"zh":"师傅，我去樟宜机场，赶时间。","pinyin":"Shī fu, wǒ qù Zhāng yí jī chǎng, gǎn shí jiān.","en":"Driver, to Changi Airport — I'm in a hurry.","usage":"师傅 (shī fu) is the polite way to address any driver. 赶时间 = in a hurry.","group":"transit","key":"d017"},{"zh":"请带我去这个地址。","pinyin":"Qǐng dài wǒ qù zhè ge dì zhǐ.","en":"Please take me to this address.","usage":"Show this on your phone to the taxi driver.","group":"transit","key":"d018"},{"zh":"麻烦在前面路口停一下。","pinyin":"Má fan zài qián miàn lù kǒu tíng yí xià.","en":"Please stop at the intersection ahead.","usage":"路口 = intersection. 停一下 = stop for a moment.","group":"transit","key":"d019"},{"zh":"大概要多久到？","pinyin":"Dà gài yào duō jiǔ dào?","en":"About how long until we arrive?","usage":"大概 = roughly. 多久 = how long. Works for taxis, trains, deliveries.","group":"transit","key":"d020"},{"zh":"可以帮我开一下空调吗？","pinyin":"Kě yǐ bāng wǒ kāi yí xià kōng tiáo ma?","en":"Could you turn on the AC?","usage":"空调 = air conditioning. 开一下 = turn on for a bit.","group":"transit","key":"d021"},{"zh":"到了请叫我一下。","pinyin":"Dào le qǐng jiào wǒ yí xià.","en":"Please tell me when we arrive.","usage":"Say this when you're afraid of missing your stop.","group":"transit","key":"d022"},{"zh":"我到了，在门口等你。","pinyin":"Wǒ dào le, zài mén kǒu děng nǐ.","en":"I've arrived — waiting at the entrance.","usage":"The standard text you send to your driver, date, or friend.","group":"transit","key":"d023"},{"zh":"这趟车到机场吗？","pinyin":"Zhè tàng chē dào jī chǎng ma?","en":"Does this bus/train go to the airport?","usage":"Ask the driver before boarding — 趟 = measure word for trips.","group":"transit","key":"d024"},{"zh":"在哪里买票？","pinyin":"Zài nǎ lǐ mǎi piào?","en":"Where can I buy a ticket?","usage":"Use it for subway, train, plane, or movies.","group":"transit","key":"d025"},{"zh":"一张票，谢谢。","pinyin":"Yì zhāng piào, xiè xie.","en":"One ticket, please.","usage":"张 is the measure word for tickets.","group":"transit","key":"d026"},{"zh":"我迷路了。","pinyin":"Wǒ mí lù le.","en":"I'm lost.","usage":"Say this directly if you're lost — 迷路 = to get lost.","group":"transit","key":"d027"},{"zh":"离这里远吗？","pinyin":"Lí zhè lǐ yuǎn ma?","en":"Is it far from here?","usage":"Ask about distance before you start walking.","group":"transit","key":"d028"},{"zh":"走路十分钟。","pinyin":"Zǒu lù shí fēn zhōng.","en":"Ten minutes on foot.","usage":"Common answer when someone tells you a distance.","group":"transit","key":"d029"},{"zh":"请问，地铁站在哪里？","pinyin":"Qǐng wèn, dì tiě zhàn zài nǎ lǐ?","en":"Excuse me, where is the subway station?","usage":"In China it's 地铁; in Singapore it's MRT.","group":"transit","key":"d030"},{"zh":"请问，洗手间在哪里？","pinyin":"Qǐng wèn, xǐ shǒu jiān zài nǎ lǐ?","en":"Excuse me, where is the restroom?","usage":"Works for asking about toilets anywhere.","group":"transit","key":"d031"},{"zh":"一直走，然后左转。","pinyin":"Yì zhí zǒu, rán hòu zuǒ zhuǎn.","en":"Go straight, then turn left.","usage":"The most common direction pattern — 一直走 + 左/右转.","group":"transit","key":"d032"},{"zh":"可以用微信支付吗？","pinyin":"Kě yǐ yòng Wēi xìn zhī fù ma?","en":"Can I use WeChat Pay?","usage":"微信支付 is accepted almost everywhere in mainland China.","group":"payment","key":"d033"},{"zh":"支付宝也可以吧？","pinyin":"Zhī fù bǎo yě kě yǐ ba?","en":"Alipay works too, right?","usage":"吧 makes it a soft confirmation — you already expect yes.","group":"payment","key":"d034"},{"zh":"我扫你还是你扫我？","pinyin":"Wǒ sǎo nǐ hái shì nǐ sǎo wǒ?","en":"Do I scan you or do you scan me?","usage":"The most useful payment sentence in China. 还是 = or (in questions).","group":"payment","key":"d035"},{"zh":"扫这个二维码付款就行。","pinyin":"Sǎo zhè ge èr wéi mǎ fù kuǎn jiù xíng.","en":"Just scan this QR code to pay.","usage":"二维码 = QR code. 就行 = that's all you need to do.","group":"payment","key":"d036"},{"zh":"付款失败了，我再试一次。","pinyin":"Fù kuǎn shī bài le, wǒ zài shì yí cì.","en":"Payment failed — let me try again.","usage":"失败 = failed. 再试一次 = try one more time.","group":"payment","key":"d037"},{"zh":"零钱不够，我换张卡。","pinyin":"Líng qián bú gòu, wǒ huàn zhāng kǎ.","en":"Not enough balance — I'll switch cards.","usage":"零钱 = balance / change. 换 = change / switch.","group":"payment","key":"d038"},{"zh":"收据可以发我邮箱吗？","pinyin":"Shōu jù kě yǐ fā wǒ yóu xiāng ma?","en":"Can you email me the receipt?","usage":"收据 = receipt. 邮箱 = email inbox. Essential for business trips.","group":"payment","key":"d039"},{"zh":"可以刷卡吗？","pinyin":"Kě yǐ shuā kǎ ma?","en":"Can I pay by card?","usage":"Many places in China now prefer mobile payment over cards.","group":"payment","key":"d040"},{"zh":"可以用现金吗？","pinyin":"Kě yǐ yòng xiàn jīn ma?","en":"Can I use cash?","usage":"Cash is still legal tender, though less common.","group":"payment","key":"d041"},{"zh":"我付现金。","pinyin":"Wǒ fù xiàn jīn.","en":"I'll pay in cash.","usage":"Use it when the QR scanner is down.","group":"payment","key":"d042"},{"zh":"PayNow 可以吗？","pinyin":"PayNow kě yǐ ma?","en":"Can I use PayNow?","usage":"Singapore's local transfer system — works at many hawker stalls.","group":"payment","key":"d043"},{"zh":"你好，我叫……你叫什么？","pinyin":"Nǐ hǎo, wǒ jiào…… nǐ jiào shén me?","en":"Hi, I'm… what's your name?","usage":"The simplest, most natural opener. 叫 = to be called.","group":"social","key":"d044"},{"zh":"你是哪里人？","pinyin":"Nǐ shì nǎ lǐ rén?","en":"Where are you from?","usage":"Literally 'you are where person?' — the standard small-talk question.","group":"social","key":"d045"},{"zh":"加个微信吧？","pinyin":"Jiā ge Wēi xìn ba?","en":"Let's add each other on WeChat?","usage":"In China, this is the real 'can I get your number?' moment.","group":"social","key":"d046"},{"zh":"有空一起吃饭吧。","pinyin":"Yǒu kòng yì qǐ chī fàn ba.","en":"Let's grab a meal when you're free.","usage":"有空 = when free. 一起 = together. The friendliest invitation.","group":"social","key":"d047"},{"zh":"很高兴认识你。","pinyin":"Hěn gāo xìng rèn shi nǐ.","en":"Nice to meet you.","usage":"Works in every setting, from networking events to dinner parties.","group":"social","key":"d048"},{"zh":"下次见，保持联系。","pinyin":"Xià cì jiàn, bǎo chí lián xì.","en":"See you next time — keep in touch.","usage":"The perfect exit line. 保持联系 = keep in touch.","group":"social","key":"d049"},{"zh":"你做什么工作？","pinyin":"Nǐ zuò shén me gōng zuò?","en":"What do you do?","usage":"Very common in introductions — ask it back to keep the chat going.","group":"social","key":"d050"},{"zh":"你学什么？","pinyin":"Nǐ xué shén me?","en":"What do you study?","usage":"Short for 你学什么专业? — great for students.","group":"social","key":"d051"},{"zh":"我请你吃饭。","pinyin":"Wǒ qǐng nǐ chī fàn.","en":"I'll treat you to a meal.","usage":"A common way to show friendship — 请 = to treat.","group":"social","key":"d052"},{"zh":"我们改天吧。","pinyin":"Wǒ men gǎi tiān ba.","en":"Let's do it another day.","usage":"A polite way to cancel without saying 'no.'","group":"social","key":"d053"},{"zh":"你今天忙吗？","pinyin":"Nǐ jīn tiān máng ma?","en":"Are you busy today?","usage":"Use it before asking for a favor or inviting someone out.","group":"social","key":"d054"},{"zh":"你什么时候有空？","pinyin":"Nǐ shén me shí hou yǒu kòng?","en":"When are you free?","usage":"A very useful question when making plans.","group":"social","key":"d055"},{"zh":"我们几点见面？","pinyin":"Wǒ men jǐ diǎn jiàn miàn?","en":"What time shall we meet?","usage":"The standard question for setting a time.","group":"social","key":"d056"},{"zh":"七点可以吗？","pinyin":"Qī diǎn kě yǐ ma?","en":"Is seven okay?","usage":"Replace 七点 with any time — a flexible confirmation.","group":"social","key":"d057"},{"zh":"我马上到。","pinyin":"Wǒ mǎ shàng dào.","en":"I'll be right there.","usage":"Use this when you're almost at the meeting place.","group":"social","key":"d058"},{"zh":"我在门口等你。","pinyin":"Wǒ zài mén kǒu děng nǐ.","en":"I'm waiting for you at the entrance.","usage":"A very common sentence when meeting up.","group":"social","key":"d059"},{"zh":"谢谢你的帮助。","pinyin":"Xiè xie nǐ de bāng zhù.","en":"Thanks for your help.","usage":"More specific than just 谢谢 — shows genuine gratitude.","group":"essential","key":"d060"},{"zh":"不客气，应该的。","pinyin":"Bú kè qi, yīng gāi de.","en":"You're welcome, it's what I should do.","usage":"A very authentic Chinese reply to 谢谢.","group":"essential","key":"d061"},{"zh":"对不起，我迟到了。","pinyin":"Duì bu qǐ, wǒ chí dào le.","en":"Sorry, I'm late.","usage":"First say 对不起, then give the reason.","group":"essential","key":"d062"},{"zh":"没关系，我也刚到。","pinyin":"Méi guān xi, wǒ yě gāng dào.","en":"It's okay, I just arrived too.","usage":"The standard reply to an apology — very forgiving.","group":"essential","key":"d063"},{"zh":"不好意思，打扰一下。","pinyin":"Bù hǎo yì si, dǎ rǎo yí xià.","en":"Excuse me, let me interrupt for a moment.","usage":"Good for interrupting or jumping into a conversation.","group":"essential","key":"d064"},{"zh":"麻烦你了。","pinyin":"Má fan nǐ le.","en":"Sorry to trouble you.","usage":"Said before or after asking for help — extremely polite.","group":"essential","key":"d065"},{"zh":"请说慢一点。","pinyin":"Qǐng shuō màn yì diǎn.","en":"Please speak more slowly.","usage":"Use it when the other person speaks too fast.","group":"essential","key":"d066"},{"zh":"我听不懂。","pinyin":"Wǒ tīng bù dǒng.","en":"I don't understand.","usage":"The most important sentence for beginners.","group":"essential","key":"d067"},{"zh":"这个用中文怎么说？","pinyin":"Zhè ge yòng Zhōng wén zěn me shuō?","en":"How do you say this in Chinese?","usage":"One of the most useful sentences for learning.","group":"essential","key":"d068"},{"zh":"什么意思？","pinyin":"Shén me yì si?","en":"What does it mean?","usage":"Use it when you hear a word you don't know.","group":"essential","key":"d069"},{"zh":"请再说一遍。","pinyin":"Qǐng zài shuō yí biàn.","en":"Please say it again.","usage":"More polite than 什么? — use it when you didn't catch it.","group":"essential","key":"d070"},{"zh":"请写下来。","pinyin":"Qǐng xiě xià lái.","en":"Please write it down.","usage":"Ask them to write it out so you can translate.","group":"essential","key":"d071"},{"zh":"我会说一点中文。","pinyin":"Wǒ huì shuō yì diǎn Zhōng wén.","en":"I can speak a little Chinese.","usage":"A great opening disclaimer — sets expectations.","group":"essential","key":"d072"},{"zh":"我的中文不好。","pinyin":"Wǒ de Zhōng wén bù hǎo.","en":"My Chinese is not good.","usage":"A humble sentence that often makes people speak slower.","group":"essential","key":"d073"},{"zh":"谢谢你的耐心。","pinyin":"Xiè xie nǐ de nài xīn.","en":"Thanks for your patience.","usage":"Say this after someone explains slowly to you.","group":"essential","key":"d074"},{"zh":"我早上七点半起床，洗漱后按时去上班。","pinyin":"Wǒ zǎoshang qī diǎn bàn qǐchuáng, xǐshuò hòu ànshí qù shàngbān.","en":"I got up at 7:30 in the morning, washed up, and went to work on time.","usage":"场景：早起上班","group":"scene","key":"d075"},{"zh":"我在地铁站等车，顺便看了一下手机里的邮件。","pinyin":"Wǒ zài dìtiě zhàn děng chē, shùnbiàn kàn le yíxià shǒujī lǐ de yóujiàn.","en":"I was waiting for the subway at the station and checked my email on my phone.","usage":"场景：通勤路上","group":"scene","key":"d076"},{"zh":"你能不能帮我确认一下会议时间？我可能会晚一点。","pinyin":"Nǐ néng bu néng bāng wǒ quèrèn yíxià huìyì shíjiān? Wǒ kěnéng huì wǎn yìdiǎn.","en":"Could you help me confirm the meeting time? I may be a little late.","usage":"场景：确认会议","group":"scene","key":"d077"},{"zh":"我想请一天假，去医院看一下身体，不方便和大家说太多。","pinyin":"Wǒ xiǎng qǐng yì tiān jià, qù yīyuàn kàn yíxià shēntǐ, bù fāngbiàn hé dàjiā shuō tài duō.","en":"I would like to take one day off to go to the hospital and check my health. It is inconvenient to explain too much to everyone.","usage":"场景：请假","group":"scene","key":"d078"},{"zh":"我去超市买了蔬菜、牛奶和面包，顺便买了洗发水。","pinyin":"Wǒ qù chāoshì mǎi le shūcài, niúnǎi hé miànbāo, shùnbiàn mǎi le xǐfàshuǐ.","en":"I went to the supermarket and bought vegetables, milk, and bread, and also picked up shampoo.","usage":"场景：买菜","group":"scene","key":"d079"},{"zh":"这个周末我们想点外卖，先看看菜单，选一个不太辣的。","pinyin":"Zhège zhōumò wǒmen xiǎng diǎn wàimài, xiān kàn kàn càidān, xuǎn yí gè bù tài là de.","en":"This weekend we want to order takeout, so first we will look at the menu and choose something not too spicy.","usage":"场景：订餐","group":"scene","key":"d080"},{"zh":"医生说我最近睡眠不好，建议我规律作息，少熬夜。","pinyin":"Yīshēng shuō wǒ zuìjìn shuìmián bù hǎo, jiànyì wǒ guīlǜ zuòxī, shǎo áo yè.","en":"The doctor said I have been sleeping poorly recently and suggested that I keep a regular schedule and stay up less late.","usage":"场景：健康建议","group":"scene","key":"d081"},{"zh":"你明天有空吗？我想请你一起吃饭，聊聊工作和生活。","pinyin":"Nǐ míngtiān yǒu kòng ma? Wǒ xiǎng qǐng nǐ yìqǐ chīfàn, liáo liáo gōngzuò hé shēnghuó.","en":"Are you free tomorrow? I want to invite you to dinner to talk about work and life.","usage":"场景：约饭","group":"scene","key":"d082"},{"zh":"这份合同我已经看了一遍，明天可以签字。","pinyin":"Zhè fèn hétóng wǒ yǐjīng kàn le yì biàn, míngtiān kěyǐ qiānzì.","en":"I have already read through this contract and can sign it tomorrow.","usage":"场景：合同签字","group":"scene","key":"d083"},{"zh":"这条路怎么走？离地铁站不远，往前走两分钟就到了。","pinyin":"Zhè tiáo lù zěnme zǒu? Lí dìtiě zhàn bù yuǎn, wǎng qián zǒu liǎng fēnzhōng jiù dào le.","en":"How do I get to this road? It is not far from the subway station; just walk forward for two minutes and you will get there.","usage":"场景：问路","group":"scene","key":"d084"},{"zh":"我今天有点累，晚上想早点休息，准备明天继续工作。","pinyin":"Wǒ jīntiān yǒudiǎn lèi, wǎnshang xiǎng zǎo diǎn xiūxi, zhǔnbèi míngtiān jìxù gōngzuò.","en":"I am a little tired today, so I want to rest early tonight and prepare to continue working tomorrow.","usage":"场景：晚上休息","group":"scene","key":"d085"},{"zh":"这个周末我们一起去公园散步，顺便打电话给朋友。","pinyin":"Zhège zhōumò wǒmen yìqǐ qù gōngyuán sànbù, shùnbiàn dǎ diànhuà gěi péngyou.","en":"This weekend we will go for a walk in the park together and call a friend while we are at it.","usage":"场景：周末安排","group":"scene","key":"d086"},{"zh":"我因为交通堵塞，今天会晚十分钟到公司。","pinyin":"Wǒ yīnwèi jiāotōng dǔsāi, jīntiān huì wǎn shí fēnzhōng dào gōngsī.","en":"Because of traffic congestion, I will arrive at the company ten minutes late today.","usage":"场景：迟到说明","group":"scene","key":"d087"},{"zh":"这个星期三上午十点，我们开会讨论项目进度。","pinyin":"Zhè ge xīng qī sān shàng wǔ shí diǎn, wǒ men kāi huì tǎo lùn xiàng mù jìn dù.","en":"We will have a meeting at 10 a.m. on Wednesday to discuss the project progress.","usage":"场景：会议安排","group":"scene","key":"d088"},{"zh":"我觉得这个方案还不错，但需要再调整一下细节。","pinyin":"Wǒ juéde zhège fāng'àn hái búcuò, dàn xūyào zài tiáozhěng yíxià xìjié.","en":"I think this plan is not bad, but we need to adjust the details a bit more.","usage":"场景：提意见","group":"scene","key":"d089"},{"zh":"这次我请客，我们一起去吃日式料理，顺便庆祝一下。","pinyin":"Zhè cì wǒ qǐngkè, wǒmen yìqǐ qù chī rìshì liàolǐ, shùnbiàn qìngzhù yíxià.","en":"This time I’m treating you—let’s go eat Japanese food together and celebrate a bit.","usage":"场景：请客吃饭","group":"scene","key":"d090"},{"zh":"我想预约一位皮肤科医生，明天上午最好可以看。","pinyin":"Wǒ xiǎng yùyuē yí wèi pífūkē yīshēng, míngtiān shàngwǔ zuìhǎo kěyǐ kàn.","en":"I want to make an appointment with a dermatologist; tomorrow morning would be best if possible.","usage":"场景：预约看病","group":"scene","key":"d091"},{"zh":"我今天去超市，顺便买了一些水果和清洁用品。","pinyin":"Wǒ jīntiān qù chāoshì, shùnbiàn mǎi le yìxiē shuǐguǒ hé qīngjié yòngpǐn.","en":"I went to the supermarket today and picked up some fruit and cleaning supplies while I was there.","usage":"场景：逛超市","group":"scene","key":"d092"},{"zh":"我去银行办了银行卡，工作人员说办理很顺利。","pinyin":"Wǒ qù yínháng bàn le yínhángkǎ, gōngzuò rényuán shuō bànlǐ hěn shùnlì.","en":"I went to the bank to apply for a bank card, and the staff said the process went smoothly.","usage":"场景：银行办理","group":"scene","key":"d093"},{"zh":"我想报名一门汉语口语课，周末上课比较方便。","pinyin":"Wǒ xiǎng bàomíng yì mén Hànyǔ kǒuyǔ kè, zhōumò shàngkè bǐjiào fāngbiàn.","en":"I want to enroll in a Mandarin speaking course; weekend classes are more convenient.","usage":"场景：课程报名","group":"scene","key":"d094"},{"zh":"最近这几天天气有点变化，早晚温差比较大。","pinyin":"Zuìjìn zhè jǐ tiān tiānqì yǒudiǎn biànhuà, zǎowǎn wēnchā bǐjiào dà.","en":"The weather has changed a bit these last few days; the temperature difference between morning and night is quite large.","usage":"场景：聊天气候","group":"scene","key":"d095"},{"zh":"周末我们准备去海边散步，顺便拍一些照片。","pinyin":"Zhōumò wǒmen zhǔnbèi qù hǎibiān sànbù, shùnbiàn pāi yìxiē zhàopiàn.","en":"This weekend we plan to walk by the seaside and take some photos while we are there.","usage":"场景：周末出行","group":"scene","key":"d096"},{"zh":"我和邻居打招呼，说明今天晚上会有点吵，请大家谅解。","pinyin":"Wǒ hé línjū dǎ zhāohu, shuōmíng jīntiān wǎnshang huì yǒudiǎn chǎo, qǐng dàjiā liàngjiě.","en":"I greeted my neighbour and explained that there may be some noise tonight; I hope everyone can understand.","usage":"场景：邻里沟通","group":"scene","key":"d097"},{"zh":"我今天晚上会收拾房间，洗衣服，然后早点休息。","pinyin":"Wǒ jīntiān wǎnshang huì shōushí fángjiān, xǐ yīfu, ránhòu zǎo diǎn xiūxi.","en":"Tonight I will clean the room, do the laundry, and then rest early.","usage":"场景：收拾家务","group":"scene","key":"d098"},{"zh":"我刚刚在地铁上被临时停运困住了，所以会迟到几分钟。","pinyin":"Wǒ gānggāng zài dìtiě shàng bèi línshí tíngyùn kùzhù le, suǒyǐ huì chídào jǐ fēnzhōng.","en":"I was stuck by a temporary subway outage just now, so I will be a few minutes late.","usage":"场景：迟到说明","group":"scene","key":"d099"},{"zh":"我去银行办卡，工作人员告诉我需要先填一份表格。","pinyin":"Wǒ qù yínháng bàn kǎ, gōngzuò rényuán gàosù wǒ xūyào xiān tián yì fèn biǎogé.","en":"I went to the bank to apply for a card, and the staff told me I needed to fill out a form first.","usage":"场景：办理银行","group":"scene","key":"d100"},{"zh":"药店的老板建议我先吃药，再观察两天是否恢复正常。","pinyin":"Yàodiàn de lǎobǎn jiànyì wǒ xiān chī yào, zài guānchá liǎng tiān shìfǒu huīfù zhèngcháng.","en":"The pharmacist suggested that I take my medicine first and then observe for two days to see if I recover normally.","usage":"场景：买药","group":"scene","key":"d101"},{"zh":"我先看一下消息，确认今天晚上能不能一起吃饭。","pinyin":"Wǒ xiān kàn yíxià xiāoxī, quèrèn jīntiān wǎnshang néng bu néng yìqǐ chīfàn.","en":"I’ll check the messages first to confirm whether we can have dinner together tonight.","usage":"场景：看手机","group":"scene","key":"d102"},{"zh":"我们想租一个小办公室，离地铁站近一点比较方便。","pinyin":"Wǒmen xiǎng zū yí gè xiǎo bàngōngshì, lí dìtiě zhàn jìn yìdiǎn bǐjiào fāngbiàn.","en":"We want to rent a small office; it is more convenient if it is a little closer to the subway station.","usage":"场景：场地租赁","group":"scene","key":"d103"},{"zh":"我的手机屏幕裂了，我得马上去维修店修一下。","pinyin":"Wǒ de shǒujī píngmù liè le, wǒ děi mǎshàng qù wéixiū diàn xiū yíxià.","en":"My phone screen cracked, so I need to go to the repair shop immediately.","usage":"场景：紧急修理","group":"scene","key":"d104"},{"zh":"我最近想开始健身，每周三次比较稳定，身体也更有精神。","pinyin":"Wǒ zuìjìn xiǎng kāishǐ jiànshēn, měi zhōu sān cì bǐjiào wěndìng, shēntǐ yě gèng yǒu jīngshén.","en":"I want to start exercising recently; three times a week is more stable and keeps me feeling more energetic.","usage":"场景：健身计划","group":"scene","key":"d105"},{"zh":"我们这周末会在公园附近聚会，大家一起带点零食。","pinyin":"Wǒmen zhè zhōumò huì zài gōngyuán fùjìn jùhuì, dàjiā yìqǐ dài diǎn língshí.","en":"We will have a gathering near the park this weekend, and everyone will bring some snacks together.","usage":"场景：朋友聚会","group":"scene","key":"d106"},{"zh":"我明天准备去新加坡旅行，需要提前买好机票和行李箱。","pinyin":"Wǒ míngtiān zhǔnbèi qù Xīnjiābō lǚxíng, xūyào tíqián mǎi hǎo jīpiào hé xínglǐxiāng.","en":"I am preparing to travel to Singapore tomorrow and need to buy the flight ticket and suitcase in advance.","usage":"场景：旅行准备","group":"scene","key":"d107"},{"zh":"我和家人商量过后，决定这个周末一起去看电影。","pinyin":"Wǒ hé jiārén shāngliàng guò hòu, juédìng zhège zhōumò yìqǐ qù kàn diànyǐng.","en":"After discussing with my family, we decided to go see a movie together this weekend.","usage":"场景：家庭沟通","group":"scene","key":"d108"},{"zh":"我们在商场逛了一圈，决定买一件合适的外套。","pinyin":"Wǒmen zài shāngchǎng guàng le yí quān, juédìng mǎi yí jiàn héshì de wàitào.","en":"We walked around the mall and decided to buy a suitable coat.","usage":"场景：逛街","group":"scene","key":"d109"},{"zh":"今天很忙，但我也终于把所有事情都处理好了，准备休息了。","pinyin":"Jīntiān hěn máng, dàn wǒ yě zhōngyú bǎ suǒyǒu shìqíng dōu chǔlǐ hǎo le, zhǔnbèi xiūxí le.","en":"It was a very busy day, but I finally handled everything and am ready to rest.","usage":"场景：结尾收尾","group":"scene","key":"d110"},{"zh":"今天晚上我来做饭，你负责收拾桌子和洗碗。","pinyin":"Jīntiān wǎnshang wǒ lái zuòfàn, nǐ fùzé shōushí zhuōzi hé xǐwǎn.","en":"I will cook tonight; you are responsible for clearing the table and washing the dishes.","usage":"场景：晚饭安排","group":"scene","key":"d111"},{"zh":"你今天工作太累了，晚上早点回家，别太熬夜。","pinyin":"Nǐ jīntiān gōngzuò tài lèi le, wǎnshang zǎo diǎn huíjiā, bié tài áo yè.","en":"You worked too hard today; go home early tonight and don’t stay up too late.","usage":"场景：关心家人","group":"scene","key":"d112"},{"zh":"这个周末我们一起去超市，然后把家里整理一下。","pinyin":"Zhège zhōumò wǒmen yìqǐ qù chāoshì, ránhòu bǎ jiālǐ zhěnglǐ yíxià.","en":"This weekend we will go to the supermarket together and then tidy the house.","usage":"场景：生活安排","group":"scene","key":"d113"},{"zh":"我们昨天有点生气，但我想把事情说清楚，继续好好相处。","pinyin":"Wǒmen zuótiān yǒudiǎn shēngqì, dàn wǒ xiǎng bǎ shìqing shuō qīngchu, jìxù hǎohǎo xiāngchǔ.","en":"We were a little angry yesterday, but I want to explain things clearly and continue getting along well.","usage":"场景：争吵后和解","group":"scene","key":"d114"},{"zh":"我想订一张明天到新加坡的机票，尽量选靠窗的座位。","pinyin":"Wǒ xiǎng dìng yì zhāng míngtiān dào Xīnjiābō de jīpiào, jǐnliàng xuǎn kàochuāng de zuòwèi.","en":"I want to book a flight to Singapore tomorrow and try to choose a window seat.","usage":"场景：机票预订","group":"scene","key":"d115"},{"zh":"师傅，我想去市中心，能先走高速路吗？","pinyin":"Shīfu, wǒ xiǎng qù shìzhōngxīn, néng xiān zǒu gāosùlù ma?","en":"Driver, I want to go downtown. Can we take the expressway first?","usage":"场景：打车","group":"scene","key":"d116"},{"zh":"您好，我预订了两晚的房间，想问一下是否能提前办理入住。","pinyin":"Nín hǎo, wǒ yùdìng le liǎng wǎn de fángjiān, xiǎng wèn yíxià shìfǒu néng tíqián bànlǐ rùzhù.","en":"Hello, I booked a room for two nights and would like to know if I can check in early.","usage":"场景：入住酒店","group":"scene","key":"d117"},{"zh":"如果你有时间，我推荐去老城区逛一逛，晚上还有灯会。","pinyin":"Rúguǒ nǐ yǒu shíjiān, wǒ tuījiàn qù lǎochéngqū guàng yíguàng, wǎnshang hái yǒu dēnghuì.","en":"If you have time, I recommend visiting the old town and walking around; there is also a lantern festival at night.","usage":"场景：旅游推荐","group":"scene","key":"d118"},{"zh":"我想报名汉语口语课，下周一开始，晚上上课更方便。","pinyin":"Wǒ xiǎng bàomíng Hànyǔ kǒuyǔ kè, xià zhōu yī kāishǐ, wǎnshang shàngkè gèng fāngbiàn.","en":"I want to sign up for a Mandarin speaking class; it starts next Monday and evening classes are more convenient.","usage":"场景：报名课程","group":"scene","key":"d119"},{"zh":"你周末有空吗？我们一起喝咖啡，聊聊最近的工作和生活。","pinyin":"Nǐ zhōumò yǒu kòng ma? Wǒmen yìqǐ hē kāfēi, liáo liáo zuìjìn de gōngzuò hé shēnghuó.","en":"Are you free this weekend? Let’s have coffee together and talk about work and life lately.","usage":"场景：约朋友聊聊","group":"scene","key":"d120"},{"zh":"我想和你交换语言学习，我们轮流用中文和英文交流。","pinyin":"Wǒ xiǎng hé nǐ jiāo huàn yǔ yán xué xí, wǒ men lún liú yòng Zhōng wén hé Yīng wén jiāo liú.","en":"I'd like to practice languages with you. We can take turns speaking Chinese and English.","usage":"场景：语言交换","group":"scene","key":"d121"},{"zh":"老师说今天我们要分组讨论，然后每个人发言两分钟。","pinyin":"Lǎo shī shuō jīn tiān wǒ men yào fēn zǔ tǎo lùn, rán hòu měi ge rén fā yán liǎng fēn zhōng.","en":"The teacher said we'd split into groups today, then each person would speak for two minutes.","usage":"场景：课堂讨论","group":"scene","key":"d122"},{"zh":"我最近总是头晕，想去医院做一下检查，看看是否需要休息。","pinyin":"Wǒ zuìjìn zǒng shì tóu yūn, xiǎng qù yīyuàn zuò yíxià jiǎnchá, kàn kàn shìfǒu xūyào xiūxi.","en":"I have been feeling dizzy lately and want to go to the hospital for a checkup to see whether I need to rest.","usage":"场景：看医生","group":"scene","key":"d123"},{"zh":"药店里有很多种药，我想先问清楚哪一种适合我的情况。","pinyin":"Yàodiàn lǐ yǒu hěn duō zhǒng yào, wǒ xiǎng xiān wèn qīngchu nǎ yì zhǒng shìhé wǒ de qíngkuàng.","en":"There are many kinds of medicine in the pharmacy. I want to ask clearly which one suits my condition first.","usage":"场景：购买药品","group":"scene","key":"d124"},{"zh":"我这次去超市要买米、鸡蛋、牛奶和一些日用品。","pinyin":"Wǒ zhè cì qù chāoshì yào mǎi mǐ, jīdàn, niúnǎi hé yìxiē rìyòngpǐn.","en":"This time I am going to the supermarket to buy rice, eggs, milk, and some daily necessities.","usage":"场景：购物清单","group":"scene","key":"d125"},{"zh":"我先列一个本月的消费清单，再看看哪些开支可以减少。","pinyin":"Wǒ xiān liè yí gè běn yuè de xiāofèi qīngdān, zài kàn kàn nǎxiē kāizhī kěyǐ jiǎnshǎo.","en":"I will make a budget list for this month first and see which expenses can be reduced.","usage":"场景：预算消费","group":"scene","key":"d126"},{"zh":"早上我看到邻居在门口晒衣服，顺便打个招呼聊聊天。","pinyin":"Zǎoshang wǒ kàn dào línjū zài ménkǒu shài yīfu, shùnbiàn dǎ gè zhāohu liáo liáotiān.","en":"I saw my neighbor hanging clothes outside in the morning and greeted them while chatting for a bit.","usage":"场景：邻里问候","group":"scene","key":"d127"},{"zh":"这个周末社区有一场读书分享会，你愿意一起去听一下吗？","pinyin":"Zhège zhōumò shèqiú yǒu yì chǎng dúshū fēnxiǎnghuì, nǐ yuànyì yìqǐ qù tīng yíxià ma?","en":"There is a community book-sharing event this weekend. Are you willing to go together and listen?","usage":"场景：社区活动","group":"scene","key":"d128"},{"zh":"我今天晚上需要临时帮朋友照看孩子，可能会晚一点回家。","pinyin":"Wǒ jīntiān wǎnshang xūyào línshí bāng péngyou zhàokàn háizi, kěnéng huì wǎn yìdiǎn huíjiā.","en":"I need to help a friend watch their child temporarily tonight, so I may get home a little later.","usage":"场景：帮忙照顾","group":"scene","key":"d129"},{"zh":"我想反映一下小区停车问题，麻烦物业尽快处理。","pinyin":"Wǒ xiǎng fǎnyìng yíxià xiǎoqū tíchéng wèntí, máfan wùyè jǐnkuài chǔlǐ.","en":"I would like to raise an issue about parking in the community and ask the property management to deal with it promptly.","usage":"场景：社区投诉","group":"scene","key":"d130"}]}</script>
+<script>
+(function () {
+  'use strict';
+
+  /* ============ 1. 数据 ============ */
+  var EC_TIMELINE = {"d021":{"normal":[0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0],"n":[100,231,375,538,638,788,900,1025,1225,1425],"s":[133,352,592,862,1029,1279,1467,1675,2008,2342]},"d022":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,300,400,562,750,850,1056],"s":[133,467,633,904,1217,1383,1727]},"d023":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,250,512,988,1150,1331,1525,1775],"s":[133,383,821,1612,1883,2185,2508,2925]},"d024":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,275,500,712,862,1088,1312],"s":[133,425,800,1154,1404,1779,2154]},"d025":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,288,438,600,869],"s":[133,446,696,967,1415]},"d026":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,262,475,1088,1344],"s":[133,404,758,1779,2206]},"d027":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,275,500,725],"s":[133,425,800,1175]},"d028":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,288,425,575,788],"s":[133,446,675,925,1279]},"d029":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,288,488,688,938],"s":[133,446,779,1112,1529]},"d030":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,344,900,1079,1258,1450,1588,1819],"s":[133,540,1467,1765,2064,2383,2612,2998]},"d031":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,338,862,1046,1229,1438,1550,1775],"s":[133,529,1404,1710,2015,2362,2550,2925]},"d032":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,306,512,1038,1194,1362,1625],"s":[133,477,821,1696,1956,2238,2675]},"d033":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,238,388,550,762,988,1162,1338],"s":[133,362,612,883,1237,1612,1904,2196]},"d034":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,283,467,675,812,969,1125],"s":[133,439,744,1092,1321,1581,1842]},"d035":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,238,488,622,756,891,1050,1325],"s":[133,362,779,1003,1227,1451,1717,2175]},"d036":{"normal":[0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0],"n":[100,388,531,688,854,1021,1212,1412,1625,1762],"s":[133,612,852,1112,1390,1668,1988,2321,2675,2904]},"d037":{"normal":[0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0],"n":[100,294,500,719,938,1388,1525,1750,1925,2138],"s":[133,456,800,1165,1529,2279,2508,2883,3175,3529]},"d038":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,312,538,738,1175,1288,1512,1712],"s":[133,487,862,1196,1925,2112,2488,2821]},"d039":{"normal":[0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0],"n":[100,350,625,731,850,1000,1100,1306,1512],"s":[133,550,1008,1185,1383,1633,1800,2144,2488]},"d040":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,244,400,625,850],"s":[133,373,633,1008,1383]},"d041":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,238,375,538,744,950],"s":[133,362,592,862,1206,1550]},"d042":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,262,438,719],"s":[133,404,696,1165]},"d043":{"normal":[0,0,0],"slow":[0,0,0],"n":[688,844,1000],"s":[1112,1373,1633]},"d044":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,331,812,950,1512,1612,1775,1969],"s":[133,519,1321,1550,2488,2654,2925,3248]},"d045":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,275,425,625,825],"s":[133,425,675,1008,1342]},"d046":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,300,412,631,850],"s":[133,467,654,1019,1383]},"d047":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,306,538,732,928,1122,1318],"s":[133,477,862,1188,1512,1838,2162]},"d048":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,308,517,725,933,1142],"s":[133,481,828,1175,1522,1869]},"d049":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,342,583,1050,1225,1412,1675],"s":[133,536,939,1717,2008,2321,2758]},"d050":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,262,450,575,712,962],"s":[133,404,717,925,1154,1571]},"d051":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,262,488,706],"s":[133,404,779,1144]},"d052":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,238,438,575,831],"s":[133,362,696,925,1352]},"d053":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,212,338,569,800],"s":[133,321,529,915,1300]},"d054":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,262,419,588,825],"s":[133,404,665,946,1342]},"d055":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,250,384,519,653,800,1044],"s":[133,383,607,831,1055,1300,1706]},"d056":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,231,375,550,738,969],"s":[133,352,592,883,1196,1581]},"d057":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,306,525,669,812],"s":[133,477,842,1081,1321]},"d058":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,238,488,738],"s":[133,362,779,1196]},"d059":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,250,438,625,825,1088],"s":[133,383,696,1008,1342,1779]},"d060":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,319,550,650,750,1000],"s":[133,498,883,1050,1217,1633]},"d061":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,338,575,1050,1238,1425],"s":[133,529,925,1717,2029,2342]},"d062":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,296,492,900,1025,1256,1488],"s":[133,460,786,1467,1675,2060,2446]},"d063":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,338,575,1075,1200,1350,1588],"s":[133,529,925,1758,1967,2217,2612]},"d064":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,291,481,672,1088,1272,1456,1641],"s":[133,451,769,1086,1779,2086,2394,2701]},"d065":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,312,525,662],"s":[133,487,842,1071]},"d066":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,300,525,750,969],"s":[133,467,842,1217,1581]},"d067":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,250,475,588],"s":[133,383,758,946]},"d068":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,262,438,638,812,1000,1100,1200],"s":[133,404,696,1029,1321,1633,1800,1967]},"d069":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,309,519,728],"s":[133,482,831,1180]},"d070":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,338,519,712,850],"s":[133,529,831,1154,1383]},"d071":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,312,525,762],"s":[133,488,842,1237]},"d072":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,262,450,612,781,962,1206],"s":[133,404,717,988,1269,1571,1977]},"d073":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,238,375,562,762,994],"s":[133,362,592,904,1238,1623]},"d074":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,312,538,638,738,988],"s":[133,487,862,1029,1196,1612]},"d075":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,438,662,825,988,1162,1425,1962,2138,2312,2650,2812,2988,3125,3369],"s":[133,362,696,1071,1342,1612,1904,2342,3238,3529,3821,4383,4654,4946,5175,5581]},"d076":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,438,617,796,988,1238,1775,1962,2162,2350,2425,2569,2738,2944,3150,3262,3350,3588],"s":[133,383,696,994,1293,1612,2029,2925,3238,3571,3883,4008,4248,4529,4873,5217,5404,5550,5946]},"d077":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,225,388,512,662,800,900,1100,1312,1444,1600,1731,1875,2131,2950,3112,3269,3438,3612,3838,4075],"s":[133,342,612,821,1071,1300,1467,1800,2154,2373,2633,2852,3092,3519,4917,5188,5448,5729,6021,6396,6792]},"d078":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,462,600,769,938,1462,1650,1825,2025,2212,2338,2475,2731,3250,3412,3631,3875,4000,4156,4312,4475,4725],"s":[133,362,738,967,1248,1529,2404,2717,3008,3342,3654,3862,4092,4519,5383,5654,6019,6425,6633,6894,7154,7425,7842]},"d079":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,400,631,888,1062,1150,1419,1912,2081,2275,2400,2650,3188,3375,3575,3738,3825,4088,4350],"s":[133,383,633,1019,1446,1738,1883,2331,3154,3435,3758,3967,4383,5279,5592,5925,6196,6342,6779,7217]},"d080":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,388,662,1038,1138,1250,1450,1612,1838,2375,2562,2712,2875,3106,3625,3875,3962,4075,4175,4350,4600],"s":[133,362,612,1071,1696,1862,2050,2383,2654,3029,3925,4238,4488,4758,5144,6008,6425,6571,6758,6925,7217,7633]},"d081":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,281,475,762,912,1081,1275,1456,1650,1869,2375,2512,2662,2825,2975,3138,3400,3888,4112,4362],"s":[133,435,758,1238,1488,1769,2092,2394,2717,3081,3925,4154,4404,4675,4925,5196,5633,6446,6821,7237]},"d082":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,412,600,794,988,1825,1962,2175,2338,2462,2619,2788,3012,3500,3650,3812,3994,4200,4325,4612],"s":[133,362,654,967,1290,1612,3042,3271,3625,3896,4104,4365,4646,5021,5833,6083,6354,6656,7000,7208,7687]},"d083":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,312,475,738,1000,1112,1238,1388,1600,1688,1825,2388,2575,2788,2900,3025,3275],"s":[133,488,758,1196,1633,1821,2029,2279,2633,2779,3008,3946,4258,4612,4800,5008,5425]},"d084":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,312,538,725,838,950,1825,2012,2183,2354,2538,2675,3288,3506,3738,3888,4067,4246,4450,4575,4800],"s":[133,488,862,1175,1362,1550,3042,3354,3639,3924,4229,4458,5479,5844,6229,6479,6778,7076,7417,7625,8000]},"d085":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,412,612,769,925,1462,1638,1825,2038,2206,2388,2638,3162,3312,3475,3700,3950,4106,4275,4488],"s":[133,362,654,988,1248,1508,2404,2696,3008,3362,3644,3946,4362,5238,5488,5758,6133,6550,6810,7092,7446]},"d086":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,244,400,662,1025,1125,1238,1425,1612,1750,1925,2112,2356,2912,3094,3288,3450,3619,3800,3925,4162],"s":[133,373,633,1071,1675,1842,2029,2342,2654,2883,3175,3488,3894,4821,5123,5446,5717,5998,6300,6508,6904]},"d087":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,394,575,750,938,1169,1700,1888,2088,2250,2475,2646,2817,3012,3150,3394],"s":[133,362,623,925,1217,1529,1915,2800,3112,3446,3717,4092,4376,4661,4988,5217,5623]},"d088":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,244,400,575,750,950,1150,1350,1550,2025,2125,2238,2412,2600,2800,3025,3175,3338,3581],"s":[133,373,633,925,1217,1550,1883,2217,2550,3342,3508,3696,3987,4300,4633,5008,5258,5529,5935]},"d089":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,375,525,644,775,938,1125,1300,1525,2075,2262,2425,2612,2775,2981,3212,3344,3488,3750],"s":[133,383,592,842,1040,1258,1529,1842,2133,2508,3425,3738,4008,4321,4592,4935,5321,5540,5779,6217]},"d090":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,300,450,562,819,1350,1444,1550,1744,1938,2088,2254,2421,2600,2831,3288,3481,3700,3862,4038,4219],"s":[133,467,717,904,1331,2217,2373,2550,2873,3196,3446,3724,4001,4300,4685,5446,5769,6133,6404,6696,6998]},"d091":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,475,638,812,938,1150,1321,1492,1675,1900,2450,2600,2762,2962,3188,3369,3562,3681,3800],"s":[133,362,758,1029,1321,1529,1883,2168,2453,2758,3133,4050,4300,4571,4904,5279,5581,5904,6102,6300]},"d092":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,406,600,712,994,1588,1750,1925,2100,2175,2294,2425,2681,2962,3112,3294,3488,3725],"s":[133,362,644,967,1154,1623,2612,2883,3175,3467,3592,3790,4008,4435,4904,5154,5456,5779,6175]},"d093":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,412,594,800,938,1025,1242,1458,1988,2156,2325,2494,2662,3100,3231,3375,3562,3819],"s":[133,383,654,956,1300,1529,1675,2036,2397,3279,3560,3842,4123,4404,5133,5352,5592,5904,6331]},"d094":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,450,631,838,997,1156,1316,1488,1681,1875,2475,2650,2838,3088,3362,3519,3688,3931],"s":[133,362,717,1019,1362,1628,1894,2159,2446,2769,3092,4092,4383,4696,5112,5571,5831,6112,6519]},"d095":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,288,488,638,788,1200,1388,1600,1750,1912,2162,2675,2862,3062,3244,3450,3600,3750],"s":[133,446,779,1029,1279,1967,2279,2633,2883,3154,3571,4425,4738,5071,5373,5717,5967,6217]},"d096":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,356,638,744,862,1025,1200,1350,1531,1725,1969,2488,2675,2888,3075,3188,3312,3581],"s":[133,560,1029,1206,1404,1675,1967,2217,2519,2842,3248,4112,4425,4779,5092,5279,5488,5935]},"d097":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,262,425,588,775,1012,1250,1788,2025,2288,2431,2588,2781,3000,3125,3281,3450,4012,4200,4350,4512,4775],"s":[133,404,675,946,1258,1654,2050,2946,3342,3779,4019,4279,4602,4967,5175,5435,5717,6654,6967,7217,7488,7925]},"d098":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,394,562,788,1038,1175,1319,1475,1725,2238,2475,2712,3175,3325,3500,3688,3888,4131],"s":[133,362,623,904,1279,1696,1925,2165,2425,2842,3696,4092,4487,5258,5508,5800,6112,6446,6852]},"d099":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,431,625,788,1029,1271,1612,1788,1962,2150,2312,2500,2725,2950,3488,3625,3775,3950,4106,4275,4450,4681],"s":[133,383,685,1008,1279,1682,2085,2654,2946,3237,3550,3821,4133,4508,4883,5779,6008,6258,6550,6810,7092,7383,7769]},"d100":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,425,600,788,1019,1562,1722,1881,2041,2212,2394,2575,2912,3044,3188,3400,3575,3675,3850,4119],"s":[133,383,675,967,1279,1665,2571,2836,3102,3368,3654,3956,4258,4821,5040,5279,5633,5925,6092,6383,6831]},"d101":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,281,462,562,775,1012,1144,1288,1425,1638,1862,2425,2588,2762,2950,3225,3588,3775,3975,4138,4312,4569],"s":[133,435,738,904,1258,1654,1873,2112,2342,2696,3071,4008,4279,4571,4883,5342,5946,6258,6592,6862,7154,7581]},"d102":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,225,412,638,762,900,1138,1712,1906,2125,2262,2412,2656,2925,3062,3181,3325,3481,3650,3869],"s":[133,342,654,1029,1237,1467,1862,2821,3144,3508,3737,3988,4394,4842,5071,5269,5508,5769,6050,6415]},"d103":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,206,325,562,688,781,900,1088,1304,1521,2075,2212,2400,2588,2800,2950,3181,3512,3669,3838,4081],"s":[133,310,508,904,1112,1269,1467,1779,2140,2501,3425,3654,3967,4279,4633,4883,5269,5821,6081,6362,6769]},"d104":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,350,531,738,900,1075,1338,1838,1962,2100,2312,2538,2688,2862,3038,3250,3438,3625],"s":[133,362,550,852,1196,1467,1758,2196,3029,3238,3467,3821,4196,4446,4737,5029,5383,5696,6008]},"d105":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,431,638,812,962,1125,1381,1962,2138,2344,2550,2775,2912,3062,3288,3800,4025,4275,4400,4575,4725,4956],"s":[133,383,685,1029,1321,1571,1842,2269,3238,3529,3873,4217,4592,4821,5071,5446,6300,6675,7092,7300,7592,7842,8227]},"d106":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,212,338,488,750,1112,1275,1450,1650,1862,2031,2212,2438,2988,3144,3312,3506,3712,3881,4062,4350],"s":[133,321,529,779,1217,1821,2092,2383,2717,3071,3352,3654,4029,4946,5206,5488,5810,6154,6435,6738,7217]},"d107":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,481,738,894,1062,1288,1467,1646,1838,2094,2625,2762,2925,3100,3288,3462,3650,3888,4150,4288,4496,4704],"s":[133,383,769,1196,1456,1738,2112,2411,2710,3029,3456,4342,4571,4842,5133,5446,5737,6050,6446,6883,7112,7460,7807]},"d108":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,262,412,581,775,938,1112,1356,1888,2050,2238,2338,2450,2731,3112,3300,3500,3638,3825,4056],"s":[133,404,654,935,1258,1529,1821,2227,3112,3383,3696,3862,4050,4519,5154,5467,5800,6029,6342,6727]},"d109":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,206,325,475,675,900,1075,1162,1325,1938,2194,2550,2725,2825,3025,3225,3425,3525,3769],"s":[133,310,508,758,1092,1467,1758,1904,2175,3196,3623,4217,4508,4675,5008,5342,5675,5842,6248]},"d110":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,269,450,625,1288,1488,1925,2075,2219,2375,2538,2700,2875,3025,3200,3300,3425,3562,3800,4225,4369,4525,4725,4925],"s":[133,415,717,1008,2112,2446,3175,3425,3665,3925,4196,4467,4758,5008,5300,5467,5675,5904,6300,7008,7248,7508,7842,8175]},"d111":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,275,462,650,862,962,1112,1350,1900,2000,2181,2388,2538,2700,2875,3075,3200,3475],"s":[133,425,738,1050,1404,1571,1821,2217,3133,3300,3602,3946,4196,4467,4758,5092,5300,5758]},"d112":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,381,538,688,850,1150,1375,1900,2075,2275,2450,2638,2862,3325,3512,3712,3944],"s":[133,362,602,862,1112,1383,1883,2258,3133,3425,3758,4050,4362,4738,5508,5821,6154,6540]},"d113":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,388,656,1025,1125,1238,1406,1575,1712,1981,2562,2700,2850,3000,3162,3350,3500,3662,3838],"s":[133,362,612,1060,1675,1842,2029,2310,2592,2821,3269,4238,4467,4717,4967,5237,5550,5800,6071,6362]},"d114":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,206,325,512,725,862,1012,1275,1850,2000,2100,2325,2450,2606,2775,2938,3200,3688,3856,4050,4219,4400,4662],"s":[133,310,508,821,1175,1404,1654,2092,3050,3300,3467,3842,4050,4310,4592,4862,5300,6112,6394,6717,6998,7300,7738]},"d115":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,400,575,725,1138,1312,1500,1662,1846,2029,2212,2325,2544,3050,3238,3438,3625,3812,4038,4138,4350],"s":[133,362,633,925,1175,1862,2154,2467,2738,3043,3349,3654,3842,4206,5050,5362,5696,6008,6321,6696,6862,7217]},"d116":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,388,888,1025,1225,1350,1558,1767,2212,2338,2550,2725,2888,3050,3212],"s":[133,612,1446,1675,2008,2217,2564,2911,3654,3862,4217,4508,4779,5050,5321]},"d117":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,325,825,962,1119,1275,1375,1525,1688,1775,2019,2562,2750,2925,3138,3438,3612,3800,3962,4156,4362,4488,4625,4838],"s":[133,508,1342,1571,1831,2092,2258,2508,2779,2925,3331,4238,4550,4842,5196,5696,5987,6300,6571,6894,7238,7446,7675,8029]},"d118":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,244,400,512,650,906,1388,1525,1775,2050,2188,2362,2531,2725,2908,3092,3538,3700,3888,4031,4188,4425],"s":[133,373,633,821,1050,1477,2279,2508,2925,3383,3612,3904,4185,4508,4814,5119,5862,6133,6446,6685,6946,7342]},"d119":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,438,625,838,1006,1188,1381,1575,2150,2312,2475,2650,2925,3450,3612,3788,4000,4238,4425,4662],"s":[133,362,696,1008,1362,1644,1946,2269,2592,3550,3821,4092,4383,4842,5717,5987,6279,6633,7029,7342,7737]},"d120":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,262,450,650,862,1075,1912,2025,2150,2331,2538,2688,2938,3462,3619,3800,3975,4150,4262,4438,4638,4775,5069],"s":[133,404,717,1050,1404,1758,3188,3375,3583,3885,4229,4479,4896,5771,6031,6333,6625,6917,7104,7396,7729,7958,8448]},"d121":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,425,562,712,912,1138,1275,1425,1694,2250,2350,2462,2719,3062,3262,3444,3650,3775,3956,4150,4381],"s":[133,362,675,904,1154,1487,1862,2092,2342,2790,3717,3883,4071,4498,5071,5404,5706,6050,6258,6560,6883,7269]},"d122":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,288,488,950,1150,1362,1450,1550,1738,1906,2088,2338,2912,3069,3250,3400,3550,3712,3875,4050,4271,4492],"s":[133,446,779,1550,1883,2238,2383,2550,2862,3144,3446,3862,4821,5081,5383,5633,5883,6154,6425,6717,7085,7453]},"d123":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,438,650,794,950,1206,1725,1938,2075,2269,2488,2588,2712,2850,3112,3638,3806,4000,4169,4350,4481,4625,4881],"s":[133,383,696,1050,1290,1550,1977,2842,3196,3425,3748,4112,4279,4487,4717,5154,6029,6310,6633,6915,7217,7435,7675,8102]},"d124":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,288,475,575,712,906,1100,1300,1862,2000,2200,2350,2512,2788,3162,3338,3481,3650,3812,3988,4088,4188,4431],"s":[133,446,758,925,1154,1477,1800,2133,3071,3300,3633,3883,4154,4612,5238,5529,5769,6050,6321,6612,6779,6946,7352]},"d125":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,412,562,712,1000,1375,1562,1800,2288,2519,3038,3281,3625,3775,3925,4088,4304,4521],"s":[133,383,654,904,1154,1633,2258,2571,2967,3779,4165,5029,5435,6008,6258,6508,6779,7140,7501]},"d126":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,250,488,638,738,862,1025,1188,1300,1475,1662,1900,2500,2650,2838,3050,3212,3388,3594,3825,3944,4075,4338],"s":[133,383,779,1029,1196,1404,1675,1946,2133,2425,2738,3133,4133,4383,4696,5050,5321,5612,5956,6342,6540,6758,7196]},"d127":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,306,538,625,775,938,1156,1400,1575,1744,1938,2138,2375,2900,3094,3312,3450,3538,3706,3900,4112,4325],"s":[133,477,862,1008,1258,1529,1894,2300,2592,2873,3196,3529,3925,4800,5123,5488,5717,5862,6144,6467,6821,7175]},"d128":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,388,550,725,1000,1300,1450,1550,1788,1950,2125,2329,2533,3075,3162,3306,3475,3631,3800,3938,4138,4288,4438],"s":[133,362,612,883,1175,1633,2133,2383,2550,2946,3217,3508,3849,4189,5092,5238,5477,5758,6019,6300,6529,6862,7112,7362]},"d129":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,394,562,825,1188,1331,1488,1775,2162,2325,2462,2625,2769,2925,3188,3738,3875,4012,4200,4412,4556,4712,4931],"s":[133,362,623,904,1342,1946,2185,2446,2925,3571,3842,4071,4342,4581,4842,5279,6196,6425,6654,6967,7321,7560,7821,8185]},"d130":{"normal":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"n":[100,238,450,600,762,931,1125,1306,1512,1694,1888,2125,2650,2800,2962,3156,3375,3594,3825,4031],"s":[133,362,717,967,1238,1519,1842,2144,2488,2790,3112,3508,4383,4633,4904,5227,5592,5956,6342,6685]},"d001":{"normal":[0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0],"n":[100,325,825,962,1138,1375,1612,2100,2356],"s":[133,508,1342,1571,1862,2258,2654,3467,3894]},"d002":{"normal":[0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0],"n":[100,225,362,475,650,850,1412,1694,2250,2494],"s":[133,342,571,758,1050,1383,2321,2790,3717,4123]},"d003":{"normal":[0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0],"n":[100,238,375,550,1075,1300,1500,2100,2344],"s":[133,362,592,883,1758,2133,2467,3467,3873]},"d004":{"normal":[0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0],"n":[100,244,400,625,738,862,1131],"s":[133,373,633,1008,1196,1404,1852]},"d005":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,250,412,625,850,1112],"s":[133,383,654,1008,1383,1821]},"d006":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,312,450,575,831],"s":[133,488,717,925,1352]},"d007":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,288,512,738,838],"s":[133,446,821,1196,1362]},"d008":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,238,412,681],"s":[133,362,654,1102]},"d009":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,244,400,600,800],"s":[133,373,633,967,1300]},"d010":{"normal":[0,0,0],"slow":[0,0,0],"n":[100,325,612],"s":[133,508,987]},"d011":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,312,538,688,788,1025],"s":[133,487,862,1112,1279,1675]},"d012":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,300,488,694,900,1106],"s":[133,467,779,1123,1467,1810]},"d013":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,312,472,631,791,950],"s":[133,488,753,1019,1284,1550]},"d014":{"normal":[0,0,0,0],"slow":[0,0,0,0],"n":[100,338,888,1138],"s":[133,529,1446,1862]},"d015":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,244,400,581,762,988],"s":[133,373,633,935,1238,1612]},"d016":{"normal":[0,0,0,0,0],"slow":[0,0,0,0,0],"n":[100,262,450,625,800],"s":[133,404,717,1008,1300]},"d017":{"normal":[0,0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0,0],"n":[100,388,888,1025,1188,1344,1500,1750,2212,2412,2656],"s":[133,612,1446,1675,1946,2206,2467,2883,3654,3988,4394]},"d018":{"normal":[0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0],"n":[100,325,500,625,800,912,1038,1288],"s":[133,508,800,1008,1300,1488,1696,2112]},"d019":{"normal":[0,0,0,0,0,0,0,0,0,0],"slow":[0,0,0,0,0,0,0,0,0,0],"n":[100,300,512,688,831,988,1156,1350,1562,1769],"s":[133,467,821,1112,1352,1612,1894,2217,2571,2915]},"d020":{"normal":[0,0,0,0,0,0],"slow":[0,0,0,0,0,0],"n":[100,262,425,575,781,988],"s":[133,404,675,925,1269,1612]}};
+  var DATA = { groups: [], items: [] };
+  try { DATA = JSON.parse(document.getElementById('payload').textContent); } catch (e) {}
+  var GROUPS = [{ id: 'all', icon: '✳️', label: '全部' }].concat(DATA.groups || []);
+  var ITEMS = DATA.items || [];
+
+  /* ============ 2. 状态 ============ */
+  var $ = function (id) { return document.getElementById(id); };
+  var curGroup = 'all';
+  var list = [], idx = 0;
+  var curSpeed = 'normal';
+  var playing = false, seq = 0;
+  var tokens = null;
+
+  /* ============ 3. 语音 ============ */
+  var EDGE_VOICE = 'zh-CN-YunjianNeural';
+  var SPEEDS = { normal: { ssml: '+0%', rate: 1 }, slow: { ssml: '-45%', rate: 0.55 } };
+  var synth = window.speechSynthesis, zhVoice = null;
+  var VOICE_PREF = /yunjian|yunyang|yunxi|xiaoxiao|huihui|yaoyao|kangkang/i;
+  function initVoices() {
+    var vs = (synth && synth.getVoices) ? (synth.getVoices() || []) : [];
+    zhVoice = vs.filter(function (v) { return VOICE_PREF.test(v.name || ''); })[0] ||
+              vs.filter(function (v) { return v.lang === 'zh-CN' || v.lang === 'zh_CN'; })[0] ||
+              vs.filter(function (v) { return (v.lang || '').indexOf('zh') === 0; })[0] || null;
+  }
+  if (synth) {
+    initVoices();
+    if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = initVoices;
+  }
+
+  /* ============ 4. Sec-MS-GEC v2（edge_tts 7.3.1 的 JS 移植） ============ */
+  var EDGE_TOKEN = '6A5AA1D4EAFF4E9FB37E23D68491D6F4';
+  var EDGE_SEC_VER = '2-143.0.3650.75';
+  var M32 = 0xFFFFFFFF;
+  function m32(a, b) { return Math.imul(a, b) >>> 0; }
+  function rol16(v) { return (((v << 16) | (v >>> 16)) >>> 0); }
+
+  var SHA_K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  var SHA_K1 = [0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174];
+  var SHA_K2 = [0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85];
+  var SHA_K3 = [0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3];
+  var SHA_K4 = [0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  var SHA_INIT = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+
+  /* edge_tts 用的是等价改写版 SHA-256（常量与轮函数重新排列，结果与标准一致） */
+  function sha256DigestObf(ascii) {
+    var state = SHA_INIT.slice();
+    var raw = [0];
+    for (var i = 0; i < ascii.length; i++) raw.push(ascii.charCodeAt(i) & 0xff);
+    while (raw.length % 4) raw.push(0);
+    var words = [];
+    for (i = 0; i < raw.length; i += 4) {
+      words.push((((raw[i + 3] << 24) | (raw[i + 2] << 16) | (raw[i + 1] << 8) | raw[i]) >>> 0));
+    }
+    if (words.length % 2) words.push(0);
+    var w = new Array(64), s = new Array(8);
+    for (var blk = 0; blk < words.length; blk += 16) {
+      for (i = 0; i < 16; i++) w[i] = words[blk + i];
+      for (i = 16; i < 24; i++) {
+        var a0 = w[i - 15], b0 = w[i - 7];
+        var x = (((a0 >>> 7) | (a0 << 25)) >>> 0) ^ (((a0 >>> 18) | (a0 << 14)) >>> 0) ^ (a0 >>> 3);
+        w[i] = (x + b0 + w[i - 16] + (((b0 >>> 6) | (b0 << 26)) >>> 0)) >>> 0;
+      }
+      for (i = 24; i < 31; i++) {
+        var a1 = w[i - 15], b1 = w[i - 7];
+        var x1 = (((a1 >>> 7) | (a1 << 25)) >>> 0) ^ (((a1 >>> 18) | (a1 << 14)) >>> 0) ^ (a1 >>> 3);
+        var y1 = (((b1 >>> 17) | (b1 << 15)) >>> 0) ^ (((b1 >>> 19) | (b1 << 13)) >>> 0) ^ (b1 >>> 10);
+        w[i] = (x1 + y1 + w[i - 16] + w[i - 9]) >>> 0;
+      }
+      for (i = 31; i < 34; i++) {
+        var a2 = w[i - 15], b2 = w[i - 7];
+        var x2 = (((a2 >>> 7) | (a2 << 25)) >>> 0) ^ (((a2 >>> 18) | (a2 << 14)) >>> 0) ^ (a2 >>> 3);
+        var y2 = (((b2 >>> 17) | (b2 << 15)) >>> 0) ^ (((b2 >>> 19) | (b2 << 13)) >>> 0) ^ (b2 >>> 10);
+        w[i] = (x2 + y2 + w[i - 16] + w[i - 9]) >>> 0;
+      }
+      for (i = 34; i < 64; i++) {
+        var a3 = w[i - 15], b3 = w[i - 7];
+        var x3 = (((a3 >>> 7) | (a3 << 25)) >>> 0) ^ (((a3 >>> 18) | (a3 << 14)) >>> 0) ^ (a3 >>> 3);
+        var y3 = (((b3 >>> 17) | (b3 << 15)) >>> 0) ^ (((b3 >>> 19) | (b3 << 13)) >>> 0) ^ (b3 >>> 10);
+        w[i] = (x3 + y3 + w[i - 16] + w[i - 9]) >>> 0;
+      }
+      for (i = 0; i < 8; i++) s[i] = state[i];
+      for (i = 0; i < 64; i++) {
+        var t1 = (s[7] + (((s[4] >>> 6) | (s[4] << 26)) >>> 0) ^ (((s[4] >>> 11) | (s[4] << 21)) >>> 0) ^ (((s[4] >>> 25) | (s[4] << 7)) >>> 0)) >>> 0;
+        t1 = (t1 + ((s[4] & s[5]) ^ (~s[4] & s[6]))) >>> 0;
+        var kk = i < 16 ? SHA_K[i] : (i < 24 ? SHA_K1[i - 16] : (i < 32 ? SHA_K2[i - 24] : (i < 48 ? SHA_K3[i - 32] : SHA_K4[i - 48])));
+        t1 = (t1 + kk + w[i]) >>> 0;
+        var t2 = ((((s[0] >>> 2) | (s[0] << 30)) >>> 0) ^ (((s[0] >>> 13) | (s[0] << 19)) >>> 0) ^ (((s[0] >>> 22) | (s[0] << 10)) >>> 0)) >>> 0;
+        t2 = (t2 + ((s[0] & s[1]) ^ (s[0] & s[2]) ^ (s[1] & s[2]))) >>> 0;
+        s[7] = s[6]; s[6] = s[5]; s[5] = s[4];
+        s[4] = (s[3] + t1) >>> 0;
+        s[3] = s[2]; s[2] = s[1]; s[1] = s[0];
+        s[0] = (t1 + t2) >>> 0;
+      }
+      for (i = 0; i < 8; i++) state[i] = (state[i] + s[i]) >>> 0;
+    }
+    var out = '';
+    for (i = 0; i < 8; i++) {
+      var v = state[i];
+      out += ('0000000' + (v >>> 0).toString(16)).slice(-8);
+    }
+    return out.toUpperCase();
+  }
+
+  var CS64_COEFF = [
+    [0x1CF2B3EB, 0xEF0569FB], [0x2A2DFFCF, 0xC31713DB], [0x3C3B8F49, 0x8F26A98F],
+    [0x4B4FE0A5, 0x2D9F4B7D], [0x5A4BFA2F, 0x9B0E1FDB], [0x6B7B8F91, 0x4C4B2F0F],
+    [0x7A9CE0A5, 0x1B1B6E1B], [0x8B6FFA2F, 0x7C7A9E4F], [0x9A9CE0A5, 0x3D2C6E1B],
+    [0xAB6FFA2F, 0x5E9B4FDB], [0xBA9CE0A5, 0x9F1B6E1B], [0xCB6FFA2F, 0x2E4C4B7D],
+    [0xDA9CE0A5, 0x6B7B8F91], [0xEB6FFA2F, 0x1CF2B3EB], [0xFA9CE0A5, 0xEF0569FB]
+  ];
+  var CS64_FACTOR = 0x2F0BE28F, CS64_ADJ0 = 0x2F0BE28F, CS64_ADJ1 = 0x76F50F34;
+
+  function cs64Digest(ascii, digestHex) {
+    var raw = [0];
+    for (var i = 0; i < ascii.length; i++) raw.push(ascii.charCodeAt(i) & 0xff);
+    while (raw.length % 4) raw.push(0);
+    var words = [];
+    for (i = 0; i < raw.length; i += 4) {
+      words.push((((raw[i + 3] << 24) | (raw[i + 2] << 16) | (raw[i + 1] << 8) | raw[i]) >>> 0));
+    }
+    if (words.length % 2) words.push(0);
+
+    var dig = [];
+    for (i = 0; i < 32; i += 2) dig.push(parseInt(digestHex.substr(i, 2), 16));
+    var keyA = (((dig[3] << 24) | (dig[2] << 16) | (dig[1] << 8) | dig[0])) >>> 0;
+    var keyB = (((dig[7] << 24) | (dig[6] << 16) | (dig[5] << 8) | dig[4])) >>> 0;
+    keyA = (keyA | 1) >>> 0; keyB = (keyB | 1) >>> 0;
+    var fA = m32(keyA, CS64_FACTOR), fB = m32(keyB, CS64_FACTOR);
+
+    var terms = [], offsets = [];
+    for (i = 0; i < CS64_COEFF.length; i++) {
+      terms.push(m32(CS64_COEFF[i][0], (i % 2 === 0) ? fA : fB));
+      offsets.push(CS64_COEFF[i][1]);
+    }
+    for (i = 0; i < words.length; i++) {
+      var w = words[i], even = (i % 2 === 0);
+      var term = m32(w, even ? keyA : keyB);
+      var off = m32(rol16(w), even ? 0xEF0569FB : 0xC31713DB);
+      if (i === 0) {
+        term = (term + m32(CS64_ADJ0, fA)) >>> 0;
+        off = (off + CS64_ADJ1) >>> 0;
+      }
+      terms.push(term); offsets.push(off);
+    }
+
+    var swapAcc = 0, swapLast = 0, state = 0, acc = 0;
+    for (i = 0; i < terms.length; i += 2) {
+      var x = terms[i], y = terms[i + 1];
+      var t = rol16((offsets[i] + x) >>> 0);
+      var q = m32(t, 0x76F50F34);
+      swapAcc = (swapAcc + ((m32(rol16(q), 0xC3EFEA97) + q) >>> 0)) >>> 0;
+      swapLast = ((m32(rol16(q), 0x35BD1EC9) + q) >>> 0);
+      swapAcc = (swapAcc + swapLast) >>> 0;
+
+      state = m32((state + x) >>> 0, keyA);
+      state = m32(rol16(state), 0xCF98B111);
+      state = m32(rol16(state), 0x87085B9F);
+      state = m32(rol16(state), 0x12CEB96D);
+      state = m32(rol16(state), 0x257E1D83);
+      acc = (acc + state) >>> 0;
+
+      var tt = m32((state + y) >>> 0, keyB);
+      tt = m32(rol16(tt), 0xA27416F5);
+      tt = m32(rol16(tt), 0xD38396FF);
+      state = m32(rol16(m32(rol16(tt), 0x7C932B89)), 0xBFA49F69);
+      acc = (acc + state) >>> 0;
+    }
+    return [(swapLast ^ state) >>> 0, (swapAcc ^ acc) >>> 0];
+  }
+
+  function secMsGec() {
+    var ticks = Math.floor(Date.now() / 1000) + 11644473600;
+    ticks -= ticks % 300;
+    ticks = ticks * 1e7;
+    var stamp = String(Math.round(ticks));
+    var d = sha256DigestObf(stamp + EDGE_TOKEN);
+    var cs = cs64Digest(stamp + EDGE_TOKEN, d);
+    return ('0000000' + cs[0].toString(16)).slice(-8).toUpperCase() + '-' +
+           ('0000000' + cs[1].toString(16)).slice(-8).toUpperCase() + '-' +
+           d;
+  }
+
+  function uuidV4() {
+    var b = '';
+    for (var i = 0; i < 16; i++) b += ('0' + Math.floor(Math.random() * 256).toString(16)).slice(-2);
+    return (b.slice(0, 8) + '-' + b.slice(8, 12) + '-4' + b.slice(13, 16) + '-a' + b.slice(17, 20) + '-' + b.slice(20)).toUpperCase();
+  }
+
+  function escXml(t) {
+    return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function escHtml(t) {
+    return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  var cache = {}, cacheKeys = [];
+
+  function edgeTTS(text, ssmlRate, timeoutMs) {
+    return new Promise(function (resolve, reject) {
+      if (typeof WebSocket === 'undefined') { reject('no-ws'); return; }
+      var ws, settled = false, chunks = [], marks = [], firstBin = true;
+      function finish(val, err) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        try { if (ws) ws.close(); } catch (e) {}
+        if (err) reject(err); else resolve(val);
+      }
+      var timer = setTimeout(function () { finish(null, 'timeout'); }, timeoutMs || 6000);
+
+      var url = 'wss://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1' +
+        '?TrustedClientToken=' + EDGE_TOKEN +
+        '&Sec-MS-GEC=' + secMsGec() + '&Sec-MS-GEC-Version=' + EDGE_SEC_VER +
+        '&ConnectionId=' + uuidV4();
+      try { ws = new WebSocket(url); } catch (e) { finish(null, e); return; }
+      ws.binaryType = 'arraybuffer';
+
+      ws.onopen = function () {
+        ws.send('Content-Type:application/json; charset=utf-8\r\nPath:speech.config\r\n\r\n' +
+          '{"context":{"synthesis":{"audio":{"metadataoptions":{"sentenceBoundaryEnabled":"false","wordBoundaryEnabled":"true"},"outputFormat":"audio-24khz-96kbitrate-mono-mp3"}}}}');
+        var ssml = '<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">' +
+          '<voice name="' + EDGE_VOICE + '"><prosody rate="' + ssmlRate + '" pitch="+0Hz">' + escXml(text) + '</prosody></voice></speak>';
+        ws.send('Path:ssml\r\nX-RequestId:' + uuidV4() + '\r\nX-Timestamp:' + new Date().toISOString() +
+          '\r\nContent-Type:application/ssml+xml\r\n\r\n' + ssml);
+      };
+
+      ws.onmessage = function (ev) {
+        if (typeof ev.data === 'string') {
+          var i = ev.data.indexOf('\r\n\r\n');
+          var head = i > -1 ? ev.data.slice(0, i) : ev.data;
+          var body = i > -1 ? ev.data.slice(i + 4) : '';
+          if (head.indexOf('Path:audio.metadata') > -1) {
+            try {
+              var meta = JSON.parse(body).Metadata || [];
+              meta.forEach(function (m) {
+                if (m.Type === 'WordBoundary' && m.Data && m.Data.text) {
+                  marks.push({ t: (m.Data.offset || 0) / 1e7, pos: m.Data.text.CharacterIndex || 0 });
+                }
+              });
+            } catch (e) {}
+          } else if (head.indexOf('Path:turn.end') > -1) {
+            if (!chunks.length) { finish(null, 'empty'); return; }
+            marks.sort(function (x, y) { return x.t - y.t; });
+            finish({ url: URL.createObjectURL(new Blob(chunks, { type: 'audio/mpeg' })), marks: marks });
+          }
+        } else if (ev.data && ev.data.byteLength) {
+          var u8 = new Uint8Array(ev.data), start = 0;
+          if (firstBin) {
+            firstBin = false;
+            for (var k = 0; k < u8.length - 3; k++) {
+              if (u8[k] === 13 && u8[k + 1] === 10 && u8[k + 2] === 13 && u8[k + 3] === 10) { start = k + 4; break; }
+            }
+          }
+          if (start < u8.length) chunks.push(u8.subarray(start));
+        }
+      };
+      ws.onerror = function () { finish(null, 'ws-error'); };
+      ws.onclose = function () { finish(null, 'closed'); };
+    });
+  }
+
+  /* ============ 5. 汉字 ↔ 拼音音节对齐 ============ */
+  var HANZI_RE = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/;
+  var TONE_RE = /[\u0101\u00e1\u01ce\u00e0\u0113\u00e9\u011b\u00e8\u012b\u00ed\u01d0\u00ec\u014d\u00f3\u01d2\u00f2\u016b\u00fa\u01d4\u00f9\u01d6\u01d8\u01da\u01dc\u00fc]/i;
+  var PUNC = ',.;:!?…。，、？！；：“”‘’（）()《》—－-';
+
+  function isSyllableTok(tok) {
+    var core = tok.split('').filter(function (c) { return PUNC.indexOf(c) === -1; }).join('');
+    if (!core) return false;
+    if (TONE_RE.test(core)) return true;
+    if (!/^[A-Za-z]+$/.test(core)) return false;
+    if ((core.match(/[A-Z]/g) || []).length >= 2) return false;
+    return /[aeiouüy]/i.test(core);
+  }
+
+  function tokenize(zh, pinyin) {
+    var chars = String(zh || '').split('');
+    var zToks = [], prefixHan = [0], hanCount = 0, buf = '', i;
+    function flush() { if (buf) { zToks.push({ t: 'o', x: buf }); buf = ''; } }
+    for (i = 0; i < chars.length; i++) {
+      var c = chars[i];
+      if (HANZI_RE.test(c)) { flush(); zToks.push({ t: 'h', x: c, i: hanCount++ }); }
+      else if (/[A-Za-z0-9'’.\-]/.test(c)) { buf += c; }
+      else { flush(); zToks.push({ t: 'o', x: c }); }
+      prefixHan.push(hanCount);
+    }
+    flush();
+
+    var pToks = [], sylCount = 0;
+    String(pinyin || '').split(/\s+/).forEach(function (w) {
+      if (!w) return;
+      var mm = w.match(/^([\s\S]*?)([,.;:!?…。，、？！；：“”‘’（）()]*)$/);
+      var core = mm ? mm[1] : w, trail = mm ? mm[2] : '';
+      if (core) {
+        if (isSyllableTok(core)) pToks.push({ t: 's', x: core, i: sylCount++ });
+        else pToks.push({ t: 'o', x: core });
+      }
+      if (trail) pToks.push({ t: 'o', x: trail });
+    });
+
+    var nS = sylCount, nH = hanCount;
+    function mapSyl(k) {
+      if (nH <= 0) return 0;
+      if (nS === nH) return k;
+      if (nS <= 1 || nH <= 1) return Math.min(k, nH - 1);
+      return Math.round(k * (nH - 1) / (nS - 1));
+    }
+    pToks.forEach(function (t) { if (t.t === 's') t.h = Math.max(0, Math.min(nH - 1, mapSyl(t.i))); });
+
+    var pyHtml = '', hzHtml = '', hzGroups = [];
+    pToks.forEach(function (t, k) {
+      var isPunc = t.t === 'o' && PUNC.indexOf(t.x.charAt(0)) > -1;
+      if (k > 0 && !isPunc) pyHtml += ' ';
+      pyHtml += t.t === 's'
+        ? '<span class="tk py-tk" data-h="' + t.h + '">' + escHtml(t.x) + '</span>'
+        : '<span class="tk-dim">' + escHtml(t.x) + '</span>';
+    });
+    zToks.forEach(function (t) {
+      if (t.t === 'h') { hzGroups.push({ h: t.i, x: t.x, tail: '' }); }
+      else if (hzGroups.length && PUNC.indexOf(t.x.charAt(0)) > -1) { hzGroups[hzGroups.length - 1].tail += t.x; }
+      else { hzGroups.push({ raw: t.x }); }
+    });
+    hzGroups.forEach(function (g) {
+      hzHtml += g.raw != null
+        ? '<span class="tk tk-dim">' + escHtml(g.raw) + '</span>'
+        : '<span class="hz-nowrap"><span class="tk hz-tk" data-h="' + g.h + '">' + escHtml(g.x) + '</span>' +
+          (g.tail ? '<span class="tk tk-dim">' + escHtml(g.tail) + '</span>' : '') + '</span>';
+    });
+
+    return {
+      pyHtml: pyHtml, hzHtml: hzHtml, nH: nH,
+      mapPos: function (p) {
+        var k = Math.max(0, Math.min(p | 0, prefixHan.length - 1));
+        return prefixHan[k];
+      }
+    };
+  }
+
+  /* ============ 6. 高亮 ============ */
+  var curAudio = null, hlRaf = 0, hlLast = -1, hlOn = false;
+
+  function clearHL() {
+    ['pinyin', 'hanzi'].forEach(function (id) {
+      var box = $(id); if (!box) return;
+      var on = box.querySelectorAll('.on');
+      for (var i = 0; i < on.length; i++) on[i].classList.remove('on');
+    });
+    hlLast = -1;
+  }
+
+  function hlAt(h) {
+    if (h == null || h < 0 || h === hlLast) return;
+    hlLast = h;
+    ['pinyin', 'hanzi'].forEach(function (id) {
+      var box = $(id); if (!box) return;
+      var on = box.querySelectorAll('.on');
+      for (var i = 0; i < on.length; i++) on[i].classList.remove('on');
+      var tgt = box.querySelector('.tk[data-h="' + h + '"]');
+      if (tgt) tgt.classList.add('on');
+    });
+  }
+
+  function setPlayingUI(on) {
+    var c = $('card');
+    if (c) c.classList.toggle('playing', !!on);
+    ['spNormal', 'spSlow'].forEach(function (id) {
+      var b = $(id); if (b) b.classList.toggle('playing', !!on);
+    });
+  }
+
+  function dur(nH, speed) { return Math.max(900, nH * (speed === 'slow' ? 470 : 300) + 420); }
+
+  function estimate(nH, ms) {
+    var t0 = Date.now(); hlOn = true;
+    function step() {
+      if (!hlOn || !playing) { clearHL(); return; }
+      var p = (Date.now() - t0) / ms;
+      if (p >= 1) { hlOn = false; clearHL(); return; }
+      hlAt(Math.min(nH - 1, Math.floor(p * nH)));
+      hlRaf = requestAnimationFrame(step);
+    }
+    hlRaf = requestAnimationFrame(step);
+  }
+
+  /* ============ 7. 播放调度：本地语音优先（保证出声）+ Edge TTS 增强 ============ */
+  var unlockUrl = null, unlocked = false, ttsWarned = false;
+  /* edgeState: unknown=未探测 / ok=可用 / dead=不可用（浏览器直连通常被 403） */
+  var edgeState = 'unknown', edgeProbeSeq = 0;
+
+  /* iOS / Android 要求 audio.play() 与 speechSynthesis.speak() 发生在真实用户手势内，
+     否则静默失败。首次手势时静音预热这两条通道。 */
+  function primeAudio(opts) {
+    if (unlocked) return;
+    unlocked = true;
+    var skipSpeech = opts && opts.skipSpeech;
+    try {
+      if (!unlockUrl) {
+        var sr = 8000, len = 8, buf = new ArrayBuffer(44 + len * 2), dv = new DataView(buf);
+        function w(o, str) { for (var i = 0; i < str.length; i++) dv.setUint8(o + i, str.charCodeAt(i)); }
+        w(0, 'RIFF'); dv.setUint32(4, 36 + len * 2, true); w(8, 'WAVE'); w(12, 'fmt ');
+        dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+        dv.setUint32(24, sr, true); dv.setUint32(28, sr * 2, true); dv.setUint16(32, 2, true);
+        dv.setUint16(34, 16, true); w(36, 'data'); dv.setUint32(40, len * 2, true);
+        unlockUrl = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+      }
+      var a0 = new Audio(unlockUrl); a0.volume = 0;
+      var q0 = a0.play(); if (q0 && q0.catch) q0.catch(function () {});
+    } catch (e) {}
+    try {
+      /* 点播放按钮时不做语音预热：speech 本身已在手势内，预热只会排队、拖慢首句 */
+      if (!skipSpeech && synth && typeof SpeechSynthesisUtterance !== 'undefined') {
+        var u0 = new SpeechSynthesisUtterance('\u3002');
+        u0.lang = 'zh-CN'; u0.volume = 0; u0.rate = 1;
+        if (zhVoice) u0.voice = zhVoice;
+        /* 不要延时 cancel —— 那会把紧接着排队的用户句子一起打断 */
+        synth.speak(u0);
+      }
+    } catch (e) {}
+  }
+  ['pointerdown', 'touchstart', 'keydown'].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      var t = e.target;
+      var onPlayBtn = !!(t && t.closest && t.closest('#spNormal, #spSlow'));
+      primeAudio({ skipSpeech: onPlayBtn });
+    }, { passive: true });
+  });
+
+  /* 会话级探测：只在确认 Edge 可用后才走 Edge，避免点击后长时间无声音 */
+  function probeEdge() {
+    if (edgeState !== 'unknown') return;
+    var myProbe = ++edgeProbeSeq;
+    edgeTTS('\u597d', '+0%', 3000).then(function (res) {
+      if (myProbe !== edgeProbeSeq) return;
+      try { URL.revokeObjectURL(res.url); } catch (e) {}
+      edgeState = 'ok';
+    })['catch'](function () { if (myProbe === edgeProbeSeq) edgeState = 'dead'; });
+  }
+  setTimeout(probeEdge, 800);
+
+  function ttsHint(msg) {
+    try {
+      var el = document.createElement('div');
+      el.textContent = '\uD83D\uDD07 ' + msg;
+      el.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:99;'
+        + 'max-width:min(92vw,460px);padding:12px 16px;border-radius:12px;font-size:13px;line-height:1.5;'
+        + 'background:rgba(28,25,23,.94);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25);';
+      document.body.appendChild(el);
+      setTimeout(function () { el.style.transition = 'opacity .4s'; el.style.opacity = '0'; }, 5200);
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 5800);
+    } catch (e) {}
+  }
+
+  function stopPlayback() {
+    playing = false;
+    if (curAudio) { try { curAudio.pause(); curAudio.currentTime = 0; } catch (e) {} curAudio = null; }
+    if (synth) { try { synth.cancel(); } catch (e) {} }
+    if (hlRaf) { cancelAnimationFrame(hlRaf); hlRaf = 0; }
+    hlOn = false;
+    clearHL();
+    setPlayingUI(false);
+  }
+
+  /* ---------- 预生成的 Edge TTS 音频（晓晓 Xiaoxiao） ----------
+     音色统一、离线可用，且带 WordBoundary 时间轴，高亮精确到毫秒 */
+  var AUDIO_DIR = 'audio/daily/';
+  var audioEls = {}, audioOrder = [], audioMiss = {}, audioFails = 0, audioOk = true;
+
+  function audioUrl(key, sp) { return AUDIO_DIR + key + (sp === 'slow' ? '_slow.mp3' : '.mp3'); }
+
+  function getAudio(key, sp) {
+    var k = key + '|' + sp;
+    if (!audioEls[k]) {
+      var a = new Audio(audioUrl(key, sp));
+      a.preload = 'auto';
+      audioEls[k] = a; audioOrder.push(k);
+      if (audioOrder.length > 80) delete audioEls[audioOrder.shift()];
+    }
+    return audioEls[k];
+  }
+
+  function marksFor(key, sp) {
+    var tl = EC_TIMELINE[key];
+    if (!tl) return null;
+    return sp === 'slow' ? (tl.s || null) : (tl.n || null);
+  }
+
+  function preloadCard(s) {
+    if (!s || !s.key || !audioOk) return;
+    getAudio(s.key, 'normal'); getAudio(s.key, 'slow');
+  }
+
+  function playFile(s, sp, my) {
+    var a = getAudio(s.key, sp);
+    var marks = marksFor(s.key, sp);
+    var nH = tokens ? tokens.nH : 1;
+    var state = 0;
+    curAudio = a;
+
+    var to = setTimeout(function () { if (state === 0 && my === seq) fail(); }, 4500);
+
+    function fail() {
+      clearTimeout(to);
+      if (my !== seq) return;
+      state = 2;
+      curAudio = null;
+      audioMiss[s.key + '|' + sp] = 1;
+      if (++audioFails >= 3) audioOk = false;
+      if (hlRaf) { cancelAnimationFrame(hlRaf); hlRaf = 0; }
+      try { a.pause(); } catch (e) {}
+      speakNow(s, sp, my);
+    }
+
+    a.onended = function () {
+      clearTimeout(to);
+      if (my !== seq) return;
+      if (hlRaf) { cancelAnimationFrame(hlRaf); hlRaf = 0; }
+      stopPlayback();
+    };
+    a.onerror = function () { if (state !== 1) fail(); };
+    a.onplaying = function () { state = 1; clearTimeout(to); };
+
+    try { a.currentTime = 0; } catch (e) {}
+    var pr = a.play();
+    if (pr && pr['catch']) pr['catch'](function () { if (state !== 1) fail(); });
+
+    if (marks && marks.length) {
+      (function step() {
+        if (my !== seq || !playing) return;
+        var t = a.currentTime * 1000, h = -1;
+        for (var i = 0; i < marks.length; i++) { if (marks[i] <= t) h = i; else break; }
+        if (h >= 0) hlAt(Math.min(h, nH - 1));
+        hlRaf = requestAnimationFrame(step);
+      })();
+    } else {
+      setTimeout(function () {
+        if (my === seq && playing && state === 1) estimate(nH, dur(nH, sp));
+      }, 120);
+    }
+  }
+
+  /* 本地语音：同步进入用户手势，点击即出声 */
+  function speakNow(s, speed, my) {
+    if (my !== seq) return;
+    if (!synth || typeof SpeechSynthesisUtterance === 'undefined') { setPlayingUI(false); playing = false; return; }
+    var u = new SpeechSynthesisUtterance(s.zh);
+    u.lang = 'zh-CN';
+    u.rate = SPEEDS[speed].rate;
+    u.pitch = 1;
+    u.volume = 1;
+    if (zhVoice) u.voice = zhVoice;
+    var gotB = false, started = false;
+    u.onstart = function () { started = true; };
+    u.onboundary = function (e) {
+      if (e.charIndex == null) return;
+      gotB = true;
+      if (hlRaf) { cancelAnimationFrame(hlRaf); hlRaf = 0; }
+      hlOn = false;
+      hlAt(tokens ? tokens.mapPos(e.charIndex) : 0);
+    };
+    u.onend = u.onerror = function () { if (my === seq) stopPlayback(); };
+
+    var doSpeak = function () {
+      try { synth.cancel(); } catch (e) {}
+      try { synth.speak(u); } catch (e) { playing = false; setPlayingUI(false); }
+    };
+    /* Chrome 在 cancel() 后立即 speak 偶发静默，队列非空时让出一帧 */
+    if (synth.speaking || synth.pending) setTimeout(doSpeak, 80);
+    else doSpeak();
+
+    var nH = tokens ? tokens.nH : 1;
+    setTimeout(function () {
+      if (!gotB && my === seq && playing) estimate(nH, dur(nH, speed));
+    }, 200);
+    /* 1.5s 还没开口 = 这台设备没有可用的中文语音 */
+    setTimeout(function () {
+      if (started || my !== seq || ttsWarned) return;
+      ttsWarned = true;
+      ttsHint(zhVoice ? 'No audio output - check your device volume.' : 'No Chinese voice found. Install a zh-CN voice (or open in Edge) for audio.');
+    }, 1500);
+  }
+
+  function play(speed) {
+    var s = list[idx];
+    if (!s) return;
+    if (speed && SPEEDS[speed]) { curSpeed = speed; setSpeedUI(); }
+    var my = ++seq;
+    stopPlayback();
+    playing = true;
+    hlLast = -1;
+    setPlayingUI(true);
+
+    /* 预生成音频最优先：音色统一 + 离线 + 时间轴高亮
+       （文件播放本身就在用户手势内，无需再静音预热） */
+    if (audioOk && s.key && marksFor(s.key, curSpeed) && !audioMiss[s.key + '|' + curSpeed]) {
+      playFile(s, curSpeed, my);
+      return;
+    }
+    primeAudio();
+
+    /* Edge 未确认可用时用本地语音立刻出声，后台再探测一次 */
+    if (edgeState !== 'ok') { speakNow(s, curSpeed, my); probeEdge(); return; }
+
+    var key = s.zh + '|' + curSpeed;
+    var hit = cache[key];
+    if (hit) { go(hit); return; }
+    edgeTTS(s.zh, SPEEDS[curSpeed].ssml).then(function (res) {
+      if (my !== seq) return;
+      cache[key] = res; cacheKeys.push(key);
+      if (cacheKeys.length > 60) {
+        var old = cacheKeys.shift();
+        if (cache[old] && cache[old].url) { try { URL.revokeObjectURL(cache[old].url); } catch (e) {} }
+        delete cache[old];
+      }
+      go(res);
+    })['catch'](function () { edgeState = 'dead'; speakNow(s, curSpeed, my); });
+
+    function go(res) {
+      if (my !== seq) return;
+      primeAudio();
+      var a = new Audio(res.url);
+      curAudio = a;
+      a.volume = 1;
+      a.onended = function () { stopPlayback(); };
+      a.onerror = function () { stopPlayback(); edgeState = 'dead'; speakNow(s, curSpeed, my); };
+      var pr = a.play();
+      if (pr && pr.catch) pr.catch(function () { stopPlayback(); speakNow(s, curSpeed, my); });
+
+      var marks = (res.marks || []).map(function (m) {
+        return { t: m.t, h: tokens ? tokens.mapPos(m.pos) : 0 };
+      }).sort(function (x, y) { return x.t - y.t; });
+
+      if (marks.length) {
+        hlOn = true;
+        (function step() {
+          if (!hlOn || !curAudio) return;
+          var t = curAudio.currentTime, j = -1;
+          for (var i = 0; i < marks.length; i++) { if (marks[i].t <= t + 0.03) j = i; else break; }
+          if (j >= 0) hlAt(marks[j].h);
+          hlRaf = requestAnimationFrame(step);
+        })();
+      } else {
+        estimate(tokens ? tokens.nH : 1, dur(tokens ? tokens.nH : 1, curSpeed));
+      }
+    }
+  }
+
+  function setSpeedUI() {
+    ['spNormal', 'spSlow'].forEach(function (id) {
+      var b = $(id), on = b.getAttribute('data-speed') === curSpeed;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  /* ============ 8. 渲染 ============ */
+  function pad2(n) { n = String(n); return n.length < 2 ? '0' + n : n; }
+
+  function renderCard() {
+    var s = list[idx];
+    if (!s) {
+      $('badge').textContent = '—';
+      $('counter').textContent = '0 / 0';
+      $('pinyin').innerHTML = '';
+      $('hanzi').innerHTML = '';
+      $('english').textContent = '这个篇目还没有句子。';
+      $('usage').textContent = '';
+      tokens = null;
+      return;
+    }
+    tokens = tokenize(s.zh, s.pinyin);
+    $('badge').textContent = groupLabel(s.group);
+    $('counter').textContent = pad2(idx + 1) + ' / ' + pad2(list.length);
+    $('pinyin').innerHTML = tokens.pyHtml;
+    $('hanzi').innerHTML = tokens.hzHtml;
+    $('english').textContent = s.en || '';
+    preloadCard(s);
+    $('usage').textContent = s.usage || '';
+  }
+
+  function groupLabel(gid) {
+    for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].id === gid) return GROUPS[i].label;
+    return 'Everyday';
+  }
+
+  function renderChips() {
+    var html = '';
+    GROUPS.forEach(function (g) {
+      var n = g.id === 'all' ? ITEMS.length : ITEMS.filter(function (x) { return x.group === g.id; }).length;
+      if (!n) return;
+      html += '<button class="chip" type="button" data-group="' + g.id + '" aria-selected="' + (g.id === curGroup) + '">' +
+        g.icon + ' ' + g.label + '<span class="n">' + n + '</span></button>';
+    });
+    $('chips').innerHTML = html;
+  }
+
+  function applyGroup(gid) {
+    if (gid === curGroup) return;
+    curGroup = gid;
+    stopPlayback();
+    list = gid === 'all' ? ITEMS.slice() : ITEMS.filter(function (x) { return x.group === gid; });
+    idx = 0;
+    renderChips();
+    renderCard();
+  }
+
+  function step(d) {
+    if (!list.length) return;
+    stopPlayback();
+    idx = (idx + d + list.length) % list.length;
+    renderCard();
+  }
+
+  /* ============ 9. 事件 ============ */
+  $('chips').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.chip') : null;
+    if (!b) return;
+    applyGroup(b.getAttribute('data-group'));
+  });
+  $('spNormal').addEventListener('click', function () { play('normal'); });
+  $('spSlow').addEventListener('click', function () { play('slow'); });
+  $('prev').addEventListener('click', function () { step(-1); });
+  $('next').addEventListener('click', function () { step(1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+    if (e.key === ' ') { e.preventDefault(); play(curSpeed); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    else if (e.key === 's' || e.key === 'S') { e.preventDefault(); play('slow'); }
+    else if (e.key === 'n' || e.key === 'N') { e.preventDefault(); play('normal'); }
+  });
+
+  /* ============ 10. 启动 ============ */
+  renderChips();
+  list = ITEMS.slice();
+  renderCard();
+  setSpeedUI();
+})();
+</script>
+</body>
+</html>
