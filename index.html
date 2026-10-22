@@ -670,8 +670,8 @@ main::-webkit-scrollbar { display: none; }
         <div class="actions">
           <button class="btn ghost" id="prev" type="button">← Prev</button>
           <div class="speed-group" id="listen" role="group" aria-label="Playback speed">
-            <button class="sp-btn" id="spNormal" type="button" data-speed="normal" aria-pressed="true"><span class="sp-ico">🔊</span><span>常速</span></button>
-            <button class="sp-btn" id="spSlow" type="button" data-speed="slow" aria-pressed="false"><span class="sp-ico">🐢</span><span>慢速</span></button>
+            <button class="sp-btn" id="spNormal" type="button" data-speed="normal" aria-pressed="true"><span class="sp-ico">🔊</span><span>Normal</span></button>
+            <button class="sp-btn" id="spSlow" type="button" data-speed="slow" aria-pressed="false"><span class="sp-ico">🐢</span><span>Slow</span></button>
           </div>
           <button class="btn primary" id="next" type="button">Next →</button>
         </div>
@@ -2142,8 +2142,8 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     return (cat === 'business') ? 'zh-CN-YunjianNeural' : 'zh-CN-XiaoxiaoNeural';
   }
   var SPEEDS = {
-    normal: { ssml: '+0%', rate: 1, label: '常速' },
-    slow:   { ssml: '-45%', rate: 0.55, label: '慢速' }
+    normal: { ssml: '+0%', rate: 1, label: 'Normal' },
+    slow:   { ssml: '-45%', rate: 0.55, label: 'Slow' }
   };
   var curSpeed = 'normal';
   var synth = window.speechSynthesis, zhVoice = null;
@@ -2950,9 +2950,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
-      $('storyTitle').textContent = s.displayTitle;
+      $('storyTitle').textContent = (STORY_INTROS[s.book] && STORY_INTROS[s.book].title ? STORY_INTROS[s.book].title : s.book) + ' · ' + (s.chapter_title || '');
       var sceneDisplay = s.step;
-      $('storyScene').textContent = '第 ' + sceneDisplay + ' 句';
+      $('storyScene').textContent = 'Sentence ' + sceneDisplay;
 
       if (s.step === 1) {
 
