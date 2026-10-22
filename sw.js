@@ -9,8 +9,8 @@
      3. 其他资源：Stale-While-Revalidate。
   ============================================================ */
 
-const CACHE_VERSION = 'hanlingo-v13';   /* v13：全站 UI/排版优化 + classics「篇目」目录 */
-const AUDIO_CACHE = 'hanlingo-audio-v5';   /* 音频缓存不升版，保留用户已听过的句子 */
+const CACHE_VERSION = 'hanlingo-v14';   /* v14：全站 UI/排版优化 + classics「篇目」/简介 + 新 LOGO（logo.svg） */
+const AUDIO_CACHE = 'hanlingo-audio-v6';   /* v6：清除旧音频缓存，让新上传的 classics 音频（liaozhai/journey/suntzu）生效 */
 
 /* 首次安装时预缓存的核心资源 */
 const PRECACHE_URLS = [
