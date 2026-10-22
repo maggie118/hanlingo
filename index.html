@@ -2879,7 +2879,8 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       var subHtml = '<button class="sub-chip" data-book="all" aria-selected="' + (curBook === 'all') + '">All <span style="opacity:.55">' + allN + '</span></button>';
       classicBooks.forEach(function(bk) {
         var n = dataset.classics ? dataset.classics.filter(function(it) { return it.book === bk; }).length : 0;
-        subHtml += '<button class="sub-chip" data-book="' + bk + '" aria-selected="' + (curBook === bk) + '">' + bk + ' <span style="opacity:.55">' + n + '</span></button>';
+        var bkName = ({ '聊斋志异': 'Strange Tales', '孙子兵法': 'The Art of War' })[bk] || bk;
+        subHtml += '<button class="sub-chip" data-book="' + bk + '" aria-selected="' + (curBook === bk) + '">' + bkName + ' <span style="opacity:.55">' + n + '</span></button>';
       });
       subChipsEl.innerHTML = subHtml;
     } else {
