@@ -139,7 +139,7 @@ main::-webkit-scrollbar { display: none; }
 .story-intro-list { list-style: none; padding: 0; margin: 0; }
 .story-intro-list li { position: relative; padding-left: 24px; font-size: 13.5px; color: var(--text); margin-bottom: 8px; }
 .story-intro-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--text); font-weight: 700; }
-.book-cover { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #f3f3f3; border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; }
+.book-cover { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #F4F3EF; border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; }
 .book-cover-left { min-width: 0; }
 .book-cover-badge { display: inline-block; font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 4px 10px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
 .book-cover-en { font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: 0.02em; line-height: 1.15; }
@@ -1715,9 +1715,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   /* 【更新】STORY_INTROS 增加孙子兵法 */
   var STORY_INTROS = {
     'Journey to the West': { level: 'Beginner', title: 'Journey to the West', subtitle: 'The Monkey King\'s Adventure', desc: 'Follow the Monkey King\'s epic adventure while learning Chinese sentence by sentence.' },
-    '聊斋志异': { level: 'Intermediate', title: '聊斋志异', subtitle: 'Strange Tales from a Chinese Studio', desc: 'Uncover the mystery and magic of these classic supernatural tales, sentence by sentence.' },
-    '孙子兵法': { level: 'Advanced', title: '孙子兵法', subtitle: 'The Art of War · 15 Applied Sentences', desc: 'Ancient strategy for modern life — study each classic line through a real-world example sentence.' },
-    'The Art of War': { level: 'Advanced', title: '孙子兵法', subtitle: 'The Art of War · 15 Applied Sentences', desc: 'Ancient strategy for modern life — study each classic line through a real-world example sentence.' }
+    '聊斋志异': { level: 'Intermediate', title: 'Strange Tales', subtitle: 'Strange Tales from a Chinese Studio', desc: 'Uncover the mystery and magic of these classic supernatural tales, sentence by sentence.' },
+    '孙子兵法': { level: 'Advanced', title: 'The Art of War', subtitle: '15 Applied Sentences', desc: 'Ancient strategy for modern life — study each classic line through a real-world example sentence.' },
+    'The Art of War': { level: 'Advanced', title: 'The Art of War', subtitle: '15 Applied Sentences', desc: 'Ancient strategy for modern life — study each classic line through a real-world example sentence.' }
   };
 
   /* 每篇故事的开头简介（书 + 本篇） */
@@ -2971,7 +2971,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         var cv = COVER[s.book];
         var cvEl = $('bookCover');
         $('bookCoverBadge').textContent = 'STORY MODE · ' + introData.level.toUpperCase();
-        $('bookCoverEn').textContent = introData.title;
+        $('bookCoverEn').textContent = cv ? cv.en : introData.title;
         $('bookCoverSub').textContent = introData.subtitle;
         $('bookCoverDesc').textContent = (cv && cv.desc) ? cv.desc : introData.desc;
         if (cv) {
