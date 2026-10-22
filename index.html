@@ -2950,7 +2950,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
     if (s.category === 'classics' && s.book) {
       $('storyHeader').hidden = false;
-      $('storyTitle').textContent = (STORY_INTROS[s.book] && STORY_INTROS[s.book].title ? STORY_INTROS[s.book].title : s.book) + ' · ' + (s.chapter_title || '');
+      $('storyTitle').textContent = (STORY_INTROS[s.book] && STORY_INTROS[s.book].title ? STORY_INTROS[s.book].title : s.book);
       var sceneDisplay = s.step;
       $('storyScene').textContent = 'Sentence ' + sceneDisplay;
 
