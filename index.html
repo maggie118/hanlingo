@@ -1389,6 +1389,11 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     lifetime: { name: 'Lifetime', priceId: 'price_lifetime_14900', mode: 'payment', amount: '$149.00 one-time' }
   };
 
+  /* Lifetime 使用 Stripe Payment Link（无需后端）：支付成功回跳 ?paid=lifetime 后自动解锁 */
+  var LIFETIME_PAYMENT_LINK = 'https://buy.stripe.com/14A14p2Mmelz1ta10sb7y0a';
+  var ANNUAL_PAYMENT_LINK = 'https://buy.stripe.com/3cI7sNev40uJ3BidNeb7y0b';
+  var MONTHLY_PAYMENT_LINK = 'https://buy.stripe.com/fZu5kF5Yydhvb3K8sUb7y0c';
+
   var paywallModal = document.getElementById('paywallModal');
   var allCardBtns = Array.prototype.slice.call(document.querySelectorAll('#paywallModal .pw-card-cta'));
 
@@ -1471,6 +1476,24 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   });
 
   async function startCheckout(plan, btnEl) {
+    if (plan === 'lifetime') {
+      // 终身买断走 Payment Link（前端直跳，支付成功回跳 ?paid=lifetime 自动解锁）
+      setCheckoutLoading(btnEl, true);
+      window.location.href = LIFETIME_PAYMENT_LINK;
+      return;
+    }
+    if (plan === 'annual') {
+      // 年度订阅走 Payment Link（前端直跳，支付成功回跳 ?paid=annual 自动解锁）
+      setCheckoutLoading(btnEl, true);
+      window.location.href = ANNUAL_PAYMENT_LINK;
+      return;
+    }
+    if (plan === 'monthly') {
+      // 月度订阅走 Payment Link（前端直跳，支付成功回跳 ?paid=monthly 自动解锁）
+      setCheckoutLoading(btnEl, true);
+      window.location.href = MONTHLY_PAYMENT_LINK;
+      return;
+    }
     if (!API_BASE_URL) {
       showToast('Secure checkout is not connected yet. Add your Stripe endpoint to enable payments.', { icon: '⚠️', duration: 6000 });
       return;
@@ -1701,8 +1724,23 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var success = params.get('success');
     var sessionId = params.get('session_id');
     var canceled = params.get('canceled') || params.get('cancel');
+    var paidPlan = params.get('paid');
 
-    if (success || sessionId || canceled) window.history.replaceState({}, document.title, window.location.pathname);
+    if (success || sessionId || canceled || paidPlan === 'lifetime' || paidPlan === 'annual' || paidPlan === 'monthly') {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // Payment Link 支付成功回跳 → 直接解锁（lifetime 终身 / annual / monthly 订阅）
+    if (paidPlan === 'lifetime' || paidPlan === 'annual' || paidPlan === 'monthly') {
+      setPro(true);
+      if (paidPlan === 'lifetime') localStorage.setItem('hanlingo_lifetime', '1');
+      else localStorage.setItem('hanlingo_plan', paidPlan);
+      unlockProUI(getSyncedEmail() || 'you@example.com');
+      showProWelcome(getSyncedEmail() || 'you@example.com');
+      preloadProAssets();
+      runStreakBreakCheck();
+      return;
+    }
 
     if (canceled) {
       showToast('Need more time? You can still enjoy your Daily 10 for free! 🌟', { icon: '🌟', duration: 5500 });
