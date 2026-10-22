@@ -9,7 +9,7 @@
      3. 其他资源：Stale-While-Revalidate。
   ============================================================ */
 
-const CACHE_VERSION = 'hanlingo-v14';   /* v14：全站 UI/排版优化 + classics「篇目」/简介 + 新 LOGO（logo.svg） */
+const CACHE_VERSION = 'hanlingo-v15';   /* v15：导航改为 Network-First，让手机联网即取最新 index.html，不再被离线缓存卡住 */
 const AUDIO_CACHE = 'hanlingo-audio-v6';   /* v6：清除旧音频缓存，让新上传的 classics 音频（liaozhai/journey/suntzu）生效 */
 
 /* 首次安装时预缓存的核心资源 */
@@ -86,10 +86,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. 核心 UI 资源拦截 (Cache-First)
-  // 页面导航请求（如加载 index.html）
+  // 2. 页面导航请求（如加载 index.html）→ Network-First
+  // 先联网取最新，失败（离线）才用缓存兜底，保证线上更新后手机能拉到新版
   if (req.mode === 'navigate') {
-    event.respondWith(cacheFirst(req, CACHE_VERSION, './index.html'));
+    event.respondWith(networkFirst(req, CACHE_VERSION, './index.html'));
     return;
   }
 
@@ -133,6 +133,24 @@ async function cacheFirst(req, cacheName, fallbackUrl) {
     }
     return new Response('Offline and no cache available.', { status: 503 });
   }
+}
+
+/**
+ * Network-First (网络优先)
+ * 适用于核心 HTML/导航，在线时始终取服务器最新，离线时用缓存兜底。
+ */
+async function networkFirst(req, cacheName, fallbackUrl) {
+  const cache = await caches.open(cacheName);
+  try {
+    const networkRes = await fetch(req, { cache: 'no-cache' });
+    if (networkRes && networkRes.ok) {
+      cache.put(req, networkRes.clone());
+      return networkRes;
+    }
+  } catch (e) { /* 离线或网络错误，走缓存兜底 */ }
+  const cached = await cache.match(req) || (fallbackUrl ? await cache.match(fallbackUrl) : null);
+  if (cached) return cached;
+  return new Response('Offline and no cache available.', { status: 503 });
 }
 
 /**
