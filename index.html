@@ -2046,6 +2046,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     return out;
   }
   var currentList = [];
+  var batchAll = [], batchStart = 0;   /* Business / Everyday Chinese 按顺序每次 10 句分批 */
   var rIdx = 0;
   var isShuffleMode = false;
 
@@ -3106,7 +3107,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('usageBox').hidden = (s.book === 'Journey to the West' || s.book === '聊斋志异') || !usage;
 
     btnNext.disabled = false;
-    btnNext.textContent = (rIdx >= totalToday - 1) ? 'Finish ✓' : 'Next →';
+    var lastInBatch = (rIdx >= totalToday - 1);
+    var hasNextBatch = (cur === 'survival' || cur === 'business') && !isShuffleMode && (batchStart + 10 < batchAll.length);
+    btnNext.textContent = (lastInBatch && hasNextBatch) ? 'Next 10 →' : (lastInBatch ? 'Finish ✓' : 'Next →');
     $('fill').style.width = ((rIdx + 1) / totalToday * 100) + '%';
 
     /* Everyday Chinese / Chinese for Work 都是完整篇目，文案不能沿用「今日 10 句」 */
@@ -3192,12 +3195,23 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }, 50);
   }
 
-  function loadNewBatch() {
-    currentList = getTodaySentences(cur, curBook, isShuffleMode);
+  function applyBatch() {
+    /* Business / Everyday Chinese：按顺序每次 10 句一批（付费解锁后同样分批） */
+    if ((cur === 'survival' || cur === 'business') && !isShuffleMode) {
+      currentList = batchAll.slice(batchStart, batchStart + 10);
+    } else {
+      currentList = batchAll;
+    }
     rIdx = 0;
     done.hidden = true;
     card.hidden = false;
     renderCard();
+  }
+
+  function loadNewBatch() {
+    batchAll = getTodaySentences(cur, curBook, isShuffleMode);
+    batchStart = 0;
+    applyBatch();
   }
 
   function showDone() {
@@ -3267,7 +3281,16 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
   function handleNext() {
     if (synth) synth.cancel();
-    if (rIdx >= currentList.length - 1) { showDone(); return; }
+    if (rIdx >= currentList.length - 1) {
+      /* Business / Everyday Chinese：学完本批 10 句，进入下一批；全部学完才完成 */
+      if ((cur === 'survival' || cur === 'business') && !isShuffleMode && (batchStart + 10 < batchAll.length)) {
+        batchStart += 10;
+        applyBatch();
+      } else {
+        showDone();
+      }
+      return;
+    }
     rIdx++;
     renderCard();
     playAudio();
