@@ -17,15 +17,15 @@
 <!-- Social -->
 <meta property="og:title" content="HanLingo — Real Chinese for Real Life">
 <meta property="og:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
-<meta property="og:url" content="https://hanlingo.app/">
+<meta property="og:url" content="https://www.hanlingo.app/">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://hanlingo.app/icons/icon-512.png">
+<meta property="og:image" content="https://www.hanlingo.app/icons/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HanLingo — Real Chinese for Real Life">
 <meta name="twitter:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
-<meta name="twitter:image" content="https://hanlingo.app/icons/icon-512.png">
+<meta name="twitter:image" content="https://www.hanlingo.app/icons/icon-512.png">
 
 <link rel="manifest" href="/manifest.json">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -707,8 +707,8 @@ main::-webkit-scrollbar { display: none; }
   </main>
 </div>
 
-<!-- Offline Mode badge -->
-<button class="offline-badge" id="btnOffline" type="button" aria-label="Offline Mode" title="Download sentences and use HanLingo offline">
+<!-- Download / Install PWA badge -->
+<button class="offline-badge" id="btnOffline" type="button" aria-label="Install HanLingo app" title="Download HanLingo as an app — installs and works offline">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m8 11 4 4 4-4"></path><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
   <span id="offlineLabel">Offline Mode</span>
 </button>
@@ -907,7 +907,7 @@ main::-webkit-scrollbar { display: none; }
   <div class="share-en" id="shareEnglish"></div>
   <div class="share-footer">
     <span>🔥 <span id="shareStreak">0</span> Day Streak</span>
-    <span>hanlingo.app</span>
+    <span>www.hanlingo.app</span>
   </div>
 </div>
 
@@ -3204,29 +3204,48 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     loadNewBatch();
   });
 
-  /* ================= 16. 离线缓存与历史复习 ================= */
-  $('btnOffline').addEventListener('click', function() {
-    if (!isPro()) { triggerPaywall(); return; }
-    var btn = this;
-    var origText = btn.textContent;
-    btn.textContent = 'Downloading...';
-    btn.disabled = true;
+  /* ================= 16. PWA 安装 / 下载 App（离线可用） ================= */
+  var deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    var lbl = document.getElementById('offlineLabel');
+    if (lbl) lbl.textContent = 'Install App';
+    var b = document.getElementById('btnOffline');
+    if (b) { b.disabled = false; }
+  });
+  window.addEventListener('appinstalled', function() {
+    deferredPrompt = null;
+    var lbl = document.getElementById('offlineLabel');
+    if (lbl) lbl.textContent = '✓ Installed';
+    var b = document.getElementById('btnOffline');
+    if (b) b.disabled = true;
+  });
 
-    if ('caches' in window) {
-      caches.open('hanlingo-offline-v1').then(function(cache) {
-        return cache.addAll(PRELOAD_ASSETS);
-      }).then(function() {
-        btn.textContent = '✅ Saved for Offline';
-        setTimeout(function() { btn.textContent = origText; btn.disabled = false; }, 3000);
-      }).catch(function() {
-        btn.textContent = '❌ Failed';
-        setTimeout(function() { btn.textContent = origText; btn.disabled = false; }, 2000);
-      });
-    } else {
-      alert('Offline mode is not supported in this browser.');
-      btn.textContent = origText;
-      btn.disabled = false;
+  $('btnOffline').addEventListener('click', function() {
+    var btn = this, lbl = document.getElementById('offlineLabel');
+    // 已作为 PWA 运行 / 已安装
+    if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+      if (lbl) lbl.textContent = '✓ Installed'; btn.disabled = true; return;
     }
+    // 浏览器支持安装：触发系统安装弹窗
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(choiceResult) {
+        if (choiceResult.outcome === 'accepted') { if (lbl) lbl.textContent = '✓ Installed'; btn.disabled = true; }
+        else if (lbl) lbl.textContent = 'Install App';
+        deferredPrompt = null;
+      });
+      return;
+    }
+    // iOS Safari：无安装事件，降级为“添加到主屏幕”
+    var ua = navigator.userAgent || '';
+    if ((/iphone|ipad|ipod/i.test(ua)) && !window.navigator.standalone) {
+      alert('Download HanLingo:\n\nIn Safari, tap the Share button (box with an up arrow) at the bottom, then choose “Add to Home Screen”. The HanLingo icon will appear on your home screen and works offline.');
+      return;
+    }
+    // 其它（file:// 本地、非 https、浏览器不支持等）
+    alert('To download the HanLingo app, open https://www.hanlingo.app in Chrome, Edge, or Safari and tap this button again.');
   });
 
   $('btnReviewHistory').addEventListener('click', function() {
@@ -3313,7 +3332,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
       " of HanLingo!\n" +
       "Learning real Chinese through sentences and stories.\n" +
-      "Join me at https://hanlingo.app";
+      "Join me at https://www.hanlingo.app";
     navigator.clipboard.writeText(shareText).then(function() {
       var btn = $('shareTextBtn');
       var orig = btn.textContent;
