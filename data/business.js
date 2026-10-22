@@ -12,11 +12,11 @@
    ============================================================ */
 
 window.BUSINESS_GROUPS = [
-  { id: "banquet", icon: "🍽️", label: "商务宴请 · 餐桌" },
-  { id: "meeting", icon: "🗣️", label: "会议沟通 · 潜台词" },
-  { id: "mail", icon: "✉️", label: "邮件 · 电话" },
-  { id: "deal", icon: "🤝", label: "谈判 · 合作" },
-  { id: "polite", icon: "🙏", label: "职场礼貌 · 万能句" }
+  { id: "banquet", icon: "🍽️", label: "Business Meals" },
+  { id: "meeting", icon: "🗣️", label: "Reading the Room" },
+  { id: "mail", icon: "✉️", label: "Emails & Calls" },
+  { id: "deal", icon: "🤝", label: "Closing Deals" },
+  { id: "polite", icon: "🙏", label: "Office Manners" }
 ];
 
 window.BUSINESS_DATA = [

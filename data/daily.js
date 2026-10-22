@@ -8,12 +8,12 @@
    ============================================================ */
 
 window.DAILY_GROUPS = [
-  { id: "cafe", icon: "☕", label: "咖啡 · 餐饮" },
-  { id: "transit", icon: "🚕", label: "打车 · 出行" },
-  { id: "payment", icon: "📱", label: "电子支付" },
-  { id: "social", icon: "💬", label: "社交破冰" },
-  { id: "essential", icon: "🆘", label: "保命句" },
-  { id: "scene", icon: "🏠", label: "生活情景" }
+  { id: "cafe", icon: "☕", label: "Coffee & Eats" },
+  { id: "transit", icon: "🚕", label: "Getting Around" },
+  { id: "payment", icon: "📱", label: "Paying by Phone" },
+  { id: "social", icon: "💬", label: "Small Talk" },
+  { id: "essential", icon: "🆘", label: "Survival Phrases" },
+  { id: "scene", icon: "🏠", label: "Everyday Life" }
 ];
 
 window.DAILY_DATA = [
