@@ -32,17 +32,21 @@
 
 <style>
 :root {
-  --bg: #F4F3EF; --card: #FFFFFF; --text: #2C302E; --muted: #7B7F7A;
-  --border: #E2E0D8; --accent: #C0584B; --accent-press: #A94A3E; --accent-soft: rgba(192,88,75,.10);
-  --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  --bg: #F4F3EF; --card: #FFFFFF; --text: #242826; --muted: #777B75;
+  --border: #E4E2DA; --border-strong: #D7D4CA;
+  --accent: #C0584B; --accent-press: #A94A3E; --accent-soft: rgba(192,88,75,.10); --accent-soft-2: rgba(192,88,75,.055);
   --gold: #F5A623;
+  --radius-xl: 22px; --radius-lg: 16px; --radius-md: 12px; --radius-pill: 999px;
+  --shadow-card: 0 1px 1px rgba(44,48,46,.03), 0 18px 40px -24px rgba(44,48,46,.18);
+  --font-cjk: "Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, var(--font-cjk);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { overscroll-behavior: none; user-select: none; -webkit-user-select: none; }
 [hidden] { display: none !important; }
 
-body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow: hidden; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow: hidden; }
 
 .app {
   max-width: 520px; height: 100dvh; margin: 0 auto;
@@ -58,12 +62,13 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 }
 
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-.brand { font-size: 20px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+.brand { font-size: 20px; font-weight: 800; letter-spacing: -.02em; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.brand::before { content: "汉"; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0; }
 .meta-right { display: flex; align-items: center; gap: 8px; }
 .time-badge { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
-.streak { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: var(--text); }
+.streak { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 5px 11px; font-variant-numeric: tabular-nums; }
 .streak b { color: var(--accent); font-size: 18px; font-variant-numeric: tabular-nums; }
-.review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 4px 6px; border-radius: 6px; }
+.review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 5px 8px; border-radius: 8px; }
 .review-btn:hover { color: var(--accent); background: var(--accent-soft); }
 
 .sync-badge {
@@ -82,22 +87,24 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .chips-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; position: relative; flex: none; }
 .chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 20px 6px 2px; scrollbar-width: none; }
 .chips::-webkit-scrollbar { display: none; }
-.chip { flex: none; font: 600 13px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 99px; padding: 10px 16px; cursor: pointer; transition: .15s; }
-.chip:hover { border-color: var(--accent); }
-.chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip { flex: none; font: 600 13px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 10px 16px; cursor: pointer; transition: all .18s ease; }
+.chip:hover { border-color: rgba(192,88,75,.45); color: var(--accent); }
+.chip:focus-visible { outline: 2px solid rgba(192,88,75,.4); outline-offset: 2px; }
+.chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 6px 16px -8px rgba(192,88,75,.55); }
 .chip .lock-icon { font-size: 10px; margin-left: 4px; opacity: 0.8; }
 
 .sub-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 20px 4px 2px; scrollbar-width: none; animation: slideDown 0.3s ease; }
 .sub-chips::-webkit-scrollbar { display: none; }
-.sub-chip { flex: none; font: 500 12px/1 var(--sans); color: var(--muted); background: transparent; border: 1px solid transparent; border-radius: 99px; padding: 6px 12px; cursor: pointer; transition: .15s; white-space: nowrap; }
-.sub-chip:hover { color: var(--accent); background: var(--accent-soft); }
-.sub-chip[aria-selected="true"] { color: var(--accent); border-color: var(--accent); font-weight: 600; background: var(--accent-soft); }
+.sub-chip { flex: none; font: 500 12px/1 var(--sans); color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 6px 12px; cursor: pointer; transition: all .16s ease; white-space: nowrap; }
+.sub-chip:hover { color: var(--accent); border-color: rgba(192,88,75,.38); background: var(--accent-soft-2); }
+.sub-chip:focus-visible { outline: 2px solid rgba(192,88,75,.4); outline-offset: 1px; }
+.sub-chip[aria-selected="true"] { color: var(--accent); border-color: var(--accent); font-weight: 700; background: var(--accent-soft); box-shadow: inset 0 0 0 1px rgba(192,88,75,.15); }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
 main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; position: relative; }
 main::-webkit-scrollbar { display: none; }
 .card-wrapper { perspective: 1000px; touch-action: pan-y; margin: auto 0; padding: 10px 0; }
-.card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 24px 20px 28px; text-align: center; box-shadow: 0 24px 48px -24px rgba(44,48,46,.12); position: relative; transition: transform .1s ease-out, opacity .3s ease; will-change: transform, opacity; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 26px 22px 28px; text-align: center; box-shadow: var(--shadow-card); position: relative; transition: transform .1s ease-out, opacity .3s ease; will-change: transform, opacity; }
 
 .meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .num { font-size: 11px; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
@@ -127,6 +134,8 @@ main::-webkit-scrollbar { display: none; }
 .story-intro-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
 .story-intro-subtitle { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
 .story-intro-desc { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+.story-intro-story { font-size: 13.5px; color: var(--text); background: var(--accent-soft-2); border-left: 2px solid var(--accent); border-radius: 8px; padding: 10px 12px; margin-bottom: 16px; line-height: 1.5; }
+.story-intro-story b { color: var(--accent); font-weight: 700; }
 .story-intro-list { list-style: none; padding: 0; margin: 0; }
 .story-intro-list li { position: relative; padding-left: 24px; font-size: 13.5px; color: var(--text); margin-bottom: 8px; }
 .story-intro-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--text); font-weight: 700; }
@@ -156,10 +165,10 @@ main::-webkit-scrollbar { display: none; }
 .paywall-inner .btn.later:hover { color: var(--text); }
 
 .actions { display: flex; gap: 8px; margin-top: 24px; position: relative; z-index: 10; }
-.btn { flex: 1; appearance: none; cursor: pointer; font: 600 15px/1.2 var(--sans); border: 1.5px solid var(--accent); border-radius: 14px; padding: 14px 8px; transition: .2s; white-space: nowrap; }
+.btn { flex: 1; appearance: none; cursor: pointer; font: 600 15px/1.2 var(--sans); border: 1.5px solid var(--accent); border-radius: var(--radius-md); padding: 14px 8px; transition: .2s; white-space: nowrap; }
 .btn:active { transform: scale(.97); }
-.btn.primary { background: var(--accent); color: #fff; }
-.btn.primary:hover { background: var(--accent-press); }
+.btn.primary { background: var(--accent); color: #fff; box-shadow: 0 10px 22px -12px rgba(192,88,75,.7); }
+.btn.primary:hover { background: var(--accent-press); box-shadow: 0 12px 24px -12px rgba(192,88,75,.8); }
 .btn.ghost { background: transparent; color: var(--accent); }
 .btn.ghost:hover { background: var(--accent-soft); }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
@@ -194,7 +203,8 @@ main::-webkit-scrollbar { display: none; }
 
 /* ---- 篇目筛选 chips ---- */
 .group-chips { padding-top: 2px; }
-.group-chips .sub-chip { font-size: 12.5px; padding: 7px 13px; }
+.group-chips .sub-chip { font-size: 12.5px; padding: 7px 13px; font-weight: 600; }
+.group-label { flex: none; align-self: center; font: 700 10.5px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 0 5px 0 0; opacity: .8; }
 
 .repeat-hint { margin-top: 14px; font-size: 12px; color: var(--muted); text-align: center; letter-spacing: 0.02em; }
 
@@ -467,8 +477,8 @@ main::-webkit-scrollbar { display: none; }
 @media (min-width: 1024px) {
   body { overflow-y: auto; background: #F4F3EF; }
   .app { max-width: 1280px; height: auto; min-height: 100dvh; flex-direction: row; align-items: center; justify-content: center; padding: 60px 48px; gap: 80px; }
-  header { flex: 1; max-width: 480px; display: flex; flex-direction: column; justify-content: center; }
-  .top { margin-bottom: 24px; }
+  header { flex: 1; max-width: 480px; display: flex; flex-direction: column; justify-content: flex-start; }
+  .top { margin-bottom: 22px; }
   header::before {
     content: "Real Chinese\Afor Real Life.";
     white-space: pre-wrap;
@@ -477,15 +487,15 @@ main::-webkit-scrollbar { display: none; }
     font-weight: 800;
     color: var(--text);
     letter-spacing: -0.02em;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     display: block;
   }
   header::after {
     content: "Learn Chinese through real sentences and engaging stories — one short session at a time.";
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.6;
     color: var(--muted);
-    margin-bottom: 40px;
+    margin-bottom: 28px;
     display: block;
   }
   .chips-container { margin-bottom: 0; gap: 12px; }
@@ -577,8 +587,8 @@ main::-webkit-scrollbar { display: none; }
 
     <div class="chips-container">
       <nav class="chips" id="chips"></nav>
-      <nav class="sub-chips group-chips" id="groupChips" hidden></nav>
       <nav class="sub-chips" id="subChips" hidden></nav>
+      <nav class="sub-chips group-chips" id="groupChips" hidden></nav>
     </div>
   </header>
 
@@ -597,6 +607,7 @@ main::-webkit-scrollbar { display: none; }
           <div class="story-intro-title" id="storyIntroTitle">Journey to the West</div>
           <div class="story-intro-subtitle" id="storyIntroSubtitle">The Monkey King's First Adventure</div>
           <div class="story-intro-desc" id="storyIntroDesc">Follow the adventure while learning Chinese sentence by sentence.</div>
+          <div class="story-intro-story" id="storyIntroStory" hidden></div>
           <ul class="story-intro-list">
             <li>Listen to each sentence</li>
             <li>Understand the Chinese</li>
@@ -905,6 +916,10 @@ main::-webkit-scrollbar { display: none; }
 <script src="stories-data.js"></script>
 <script src="journey-west-hsk12.js"></script>
 <script src="data/daily_audio.js"></script>
+<script src="data/business_audio.js"></script>
+<script src="data/classics_lz_audio.js"></script>
+<script src="data/classics_jttw_audio.js"></script>
+<script src="data/classics_suntzu_audio.js"></script>
 
 <!-- ================= 内联兜底数据 ================= -->
 <script>
@@ -1412,7 +1427,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   document.getElementById('toastClose').addEventListener('click', hideToast);
 
   /* ================= 4. Pro 解锁 ================= */
-  var PRELOAD_ASSETS = ['./', './index.html', './data/daily.js', './data/business.js', './data/classics.js', './data/trends.js', './stories-data.js', './journey-west-hsk12.js'];
+  var PRELOAD_ASSETS = ['./', './index.html', './data/daily.js', './data/business.js', './data/classics.js', './data/trends.js', './stories-data.js', './journey-west-hsk12.js', './data/daily_audio.js', './data/business_audio.js', './data/classics_lz_audio.js', './data/classics_jttw_audio.js', './data/classics_suntzu_audio.js'];
 
   function preloadProAssets() {
     if (!('caches' in window)) return;
@@ -1622,7 +1637,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   var FREE_SENTENCES_NON_CLASSICS = 2;
 
   var dataset = { survival: [], business: [], classics: [], trends: [] };
-  var ecSeq = 0;
+  var ecSeq = 0, bizSeq = 0, lzSeq = 0, jwSeq = 0, szSeq = 0;
   var classicBooks = [];
   var historyList = [];
   var HISTORY_KEY = 'hanlingo_history';
@@ -1681,6 +1696,47 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     'The Art of War': { level: 'Advanced', title: '孙子兵法', subtitle: 'The Art of War · 15 Applied Sentences', desc: 'Ancient strategy for modern life — study each classic line through a real-world example sentence.' }
   };
 
+  /* 每篇故事的开头简介（书 + 本篇） */
+  var STORY_BLURBS = {
+    '聊斋志异::崂山道士': 'A scholar climbs Mount Lao to learn magic, but learns the hard way that there are no shortcuts to skill.',
+    '聊斋志异::种梨': 'A greedy pear-seller refuses a humble Taoist — and watches his own fruit vanish before his eyes.',
+    '聊斋志异::画皮': 'A scholar takes in a beautiful woman, only to discover that her beauty is just a painted demon\u2019s skin.',
+    '聊斋志异::聂小倩': 'An upright scholar braves an evil yaksha to free a gentle ghost-girl from a haunted temple.',
+    '聊斋志异::婴宁': 'A girl who answers everything with a laugh turns out to be the daughter of a fox spirit.',
+    '聊斋志异::狼三则': 'A quick-witted butcher outwits two cunning wolves who plan a sneak attack.',
+    '聊斋志异::促织': 'One champion cricket rescues an honest family from ruin and wins them imperial favor.',
+    '聊斋志异::骂鸭': 'A man who steals a duck grows feathers all over — and can only shed them by being scolded.',
+    '聊斋志异::偷桃': 'A street magician climbs a rope into the clouds to steal a fairy peach from Heaven.',
+    '聊斋志异::瞳人语': 'A lecherous scholar loses his sight, then slowly earns it back through acts of kindness.',
+    '聊斋志异::娇娜': 'A dying scholar is saved by a fox-fairy doctor who becomes his truest friend in the end.',
+    '聊斋志异::贾儿': 'A brave ten-year-old boy outwits a fox demon and frees his mother from its spell.',
+    'Journey to the West::猴王出世': 'A stone monkey is born on the Mountain of Flowers and Fruit and becomes king.',
+    'Journey to the West::拜师学艺': 'The Monkey King studies under a great master and learns the 72 transformations.',
+    'Journey to the West::龙宫借宝': 'Sun Wukong borrows the mighty Golden Cudgel from the Dragon King of the Eastern Sea.',
+    'Journey to the West::大闹地府': 'He crashes into the underworld and strikes his own name from the Book of Life and Death.',
+    'Journey to the West::齐天大圣': 'Fed up with a lowly stable job, he declares himself the Great Sage Equal to Heaven.',
+    'Journey to the West::大闹天宫': 'He storms Heaven over the immortal peaches and wreaks havoc among the gods.',
+    'Journey to the West::五行山下': 'Defeated by the Buddha, he is trapped under Five Elements Mountain for five hundred years.',
+    'Journey to the West::唐僧收徒': 'Tang Sanzang sets him free, and the Monkey King vows to protect him on the journey west.',
+    'Journey to the West::三打白骨精': 'A demon disguises herself three times, and Sun Wukong must defeat her against his master\u2019s doubts.',
+    'Journey to the West::真假美猴王': 'An impostor mimics the Monkey King — only the Bodhisattva can tell the real one apart.',
+    'Journey to the West::三借芭蕉扇': 'Sun Wukong borrows Princess Iron Fan\u2019s plantain fan to cross the blazing Flame Mountain.',
+    'Journey to the West::取得真经': 'After the long journey, they reach Lingshan and receive the true scriptures at last.',
+    '孙子兵法::始计篇': 'Weigh the whole situation carefully before making any major decision.',
+    '孙子兵法::作战篇': 'Speed wins the war — the longer you drag things out, the weaker you get.',
+    '孙子兵法::谋攻篇': 'Know yourself and know your rival, and you can win without ever fighting.',
+    '孙子兵法::军形篇': 'First make yourself unbeatable; only then wait for the enemy\u2019s mistake.',
+    '孙子兵法::兵势篇': 'Build unstoppable momentum, like a boulder rolling down a thousand-foot mountain.',
+    '孙子兵法::虚实篇': 'Attack where the enemy is weak, not where they are strong.',
+    '孙子兵法::军争篇': 'Sometimes the roundabout path is the fastest way to win.',
+    '孙子兵法::九变篇': 'A wise leader weighs both the benefit and the risk of every move.',
+    '孙子兵法::行军篇': 'Lead with both care and discipline — kindness and order together.',
+    '孙子兵法::地形篇': 'Know the terrain and you can stand firm; misread it and you invite defeat.',
+    '孙子兵法::九地篇': 'Put your team where retreat is impossible, and they will fight with everything they have.',
+    '孙子兵法::火攻篇': 'Never launch a campaign out of anger — big decisions need a cool head.',
+    '孙子兵法::用间篇': 'Good information wins before the fighting even begins.'
+  };
+
   function normalizeBookName(rawBook, story) {
     var name = rawBook || '';
     if (!name && story) {
@@ -1714,6 +1770,10 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       /* Everyday Chinese 的句子按顺序映射到预生成的 Edge TTS 音频 d001…d130 */
       var akey = '';
       if (forcedCat === 'survival') { ecSeq++; akey = 'd' + ('00' + ecSeq).slice(-3); }
+      else if (forcedCat === 'business') { bizSeq++; akey = 'b' + ('00' + bizSeq).slice(-3); }
+      else if (forcedCat === 'classics' && finalBook === '聊斋志异') { lzSeq++; akey = 'lz' + ('00' + lzSeq).slice(-3); }
+      else if (forcedCat === 'classics' && finalBook === 'Journey to the West') { jwSeq++; akey = 'jw' + ('00' + jwSeq).slice(-3); }
+      else if (forcedCat === 'classics' && finalBook === '孙子兵法') { szSeq++; akey = 'sz' + ('00' + szSeq).slice(-3); }
       dataset[forcedCat].push({ zh: zh, pinyin: pinyin, en: en, category: forcedCat, book: finalBook, step: step || 1, displayTitle: displayTitle, chapter_title: c.chapter_title || '', usage: usage, group: grp, audioKey: akey });
     }
 
@@ -1738,6 +1798,14 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     { id: 'social', icon: '💬', label: '社交破冰' },
     { id: 'essential', icon: '🆘', label: '保命句' },
     { id: 'scene', icon: '🏠', label: '生活情景' }
+  ];
+
+  var BUSINESS_GROUPS = window.BUSINESS_GROUPS || [
+    { id: 'banquet', icon: '🍽️', label: '商务宴请 · 餐桌' },
+    { id: 'meeting', icon: '🗣️', label: '会议沟通 · 潜台词' },
+    { id: 'mail',    icon: '✉️', label: '邮件 · 电话' },
+    { id: 'deal',    icon: '🤝', label: '谈判 · 合作' },
+    { id: 'polite',  icon: '🙏', label: '职场礼貌 · 万能句' }
   ];
 
   extractData(window.DAILY_DATA, 'survival');
@@ -1856,6 +1924,24 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   var cur = 'mix';
   var curBook = 'all';
   var curGroup = 'all';
+
+  /* 名著的「故事标题」chips：取该书内 chapter_title 去重后的列表，保持剧情顺序 */
+  function classicChapters(book) {
+    var seen = {}, out = [];
+    (dataset.classics || []).forEach(function(it) {
+      if (it.book !== book) return;
+      var ch = it.chapter_title || '';
+      if (!ch || seen[ch]) return;
+      seen[ch] = 1;
+      out.push({ id: ch, label: ch, n: 0 });
+    });
+    out.forEach(function(c) {
+      c.n = dataset.classics.filter(function(it) {
+        return it.book === book && (it.chapter_title || '') === c.id;
+      }).length;
+    });
+    return out;
+  }
   var currentList = [];
   var rIdx = 0;
   var isShuffleMode = false;
@@ -1980,16 +2066,28 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         });
       }
 
+      /* 选了某个故事标题就只出该篇（仍是剧情顺序） */
+      if (curGroup !== 'all') {
+        filtered = filtered.filter(function(item) { return (item.chapter_title || '') === curGroup; });
+      }
+
       return filtered.map(function(item, idx) {
         var clone = Object.assign({}, item);
         clone._globalIndex = idx + 1;
         return clone;
       });
+    } else if (category === 'survival' || category === 'business') {
+      /* 篇目式教材（Everyday Chinese / Chinese for Work）不参与「每日 10 句」随机抽样：
+         选「全部」= 全部句子按原顺序完整呈现，选某篇 = 该篇全部句子。
+         句子顺序与预生成音频 d001…d130 / b001…b056 一一对应，默认不打乱。 */
+      var ecPool = (category === 'survival' ? dataset.survival : dataset.business).slice();
+      if (curGroup !== 'all') {
+        ecPool = ecPool.filter(function(it) { return it.group === curGroup; });
+      }
+      if (isShuffle) return shuffle(ecPool, rand);
+      return ecPool;
     } else {
       var pool = dataset[category] || [];
-      if (category === 'survival' && curGroup !== 'all') {
-        pool = pool.filter(function(it) { return it.group === curGroup; });
-      }
       return shuffle(pool, rand).slice(0, 10);
     }
   }
@@ -2505,17 +2603,33 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     })['catch'](function() { edgeState = 'dead'; speakNow(s, speed, my); });
   }
 
-  /* ---------- 预生成的 Edge TTS 音频（Everyday Chinese 板块） ----------
+  /* ---------- 预生成的 Edge TTS 音频（Everyday Chinese / Chinese for Work） ----------
      音色统一、离线可用，且带 WordBoundary 时间轴，高亮精确到毫秒 */
-  var AUDIO_DIR = 'audio/daily/';
+  var AUDIO_DIRS = { survival: 'audio/daily/', business: 'audio/business/' };
+  /* 名著各成一套：独立音频目录 + 独立时间轴表（均为晓晓女声） */
+  var CLASSIC_AUDIO = {
+    '聊斋志异': { dir: 'audio/liaozhai/', table: 'LIAOZHAI_AUDIO' },
+    'Journey to the West': { dir: 'audio/journey/', table: 'JOURNEY_AUDIO' },
+    '孙子兵法': { dir: 'audio/suntzu/', table: 'SUNTZU_AUDIO' }
+  };
   var audioEls = {}, audioOrder = [], audioMiss = {};
 
-  function audioUrl(key, speed) { return AUDIO_DIR + key + (speed === 'slow' ? '_slow.mp3' : '.mp3'); }
+  function audioUrl(key, speed, cat, book) {
+    var base;
+    if (cat === 'classics') {
+      var c = CLASSIC_AUDIO[book];
+      if (!c) return '';
+      base = c.dir;
+    } else {
+      base = AUDIO_DIRS[cat] || AUDIO_DIRS.survival;
+    }
+    return base + key + (speed === 'slow' ? '_slow.mp3' : '.mp3');
+  }
 
-  function getAudio(key, speed) {
+  function getAudio(key, speed, cat, book) {
     var k = key + '|' + speed;
     if (!audioEls[k]) {
-      var a = new Audio(audioUrl(key, speed));
+      var a = new Audio(audioUrl(key, speed, cat, book));
       a.preload = 'auto';
       audioEls[k] = a;
       audioOrder.push(k);
@@ -2524,21 +2638,30 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     return audioEls[k];
   }
 
-  function marksFor(key, speed) {
-    var tl = window.DAILY_AUDIO && window.DAILY_AUDIO[key];
+  /* 时间轴按板块分表：商务 = BUSINESS_AUDIO（云健男声），
+     日常 / 聊斋 / 西游 = DAILY_AUDIO / LIAOZHAI_AUDIO / JOURNEY_AUDIO（均为晓晓女声） */
+  function marksFor(key, speed, cat, book) {
+    var table;
+    if (cat === 'classics') {
+      var c = CLASSIC_AUDIO[book];
+      table = c ? window[c.table] : null;
+    } else {
+      table = cat === 'business' ? window.BUSINESS_AUDIO : window.DAILY_AUDIO;
+    }
+    var tl = table && table[key];
     if (!tl) return null;
     return speed === 'slow' ? (tl.s || null) : (tl.n || null);
   }
 
   function preloadCard(s) {
     if (!s || !s.audioKey) return;
-    getAudio(s.audioKey, 'normal');
-    getAudio(s.audioKey, 'slow');
+    getAudio(s.audioKey, 'normal', s.category, s.book);
+    getAudio(s.audioKey, 'slow', s.category, s.book);
   }
 
   function playFile(s, speed, my) {
-    var a = getAudio(s.audioKey, speed);
-    var marks = marksFor(s.audioKey, speed);
+    var a = getAudio(s.audioKey, speed, s.category, s.book);
+    var marks = marksFor(s.audioKey, speed, s.category, s.book);
     var nH = curTokens ? curTokens.nH : 1;
     var state = 0;   /* 0 未定 / 1 已出声 / 2 失败 */
     curAudio = a;
@@ -2631,9 +2754,21 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }, 1500);
   }
 
+  /* 当前卡片是否处于付费墙锁定态（播放入口统一走这里判断） */
+  function isCardLocked(s, idx) {
+    if (!s || cur === 'mix' || isPro()) return false;
+    if (s.category === 'classics') return s.step > FREE_STEPS_CLASSICS;
+    if (cur === 'survival' || cur === 'business' || cur === 'trends') {
+      return idx >= FREE_SENTENCES_NON_CLASSICS;
+    }
+    return false;
+  }
+
   function playAudio(speed) {
     var s = currentList[rIdx];
     if (!s) return;
+    /* 锁定的句子不允许出声：翻页自动播放 / 按钮 / 键盘都要拦住 */
+    if (isCardLocked(s, rIdx)) { stopPlayback(); return; }
     if (speed && SPEEDS[speed]) { curSpeed = speed; setSpeedUI(curSpeed); }
     var my = ++playSeq;
     stopPlayback();
@@ -2642,7 +2777,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     setSpeakingUI(true);
     /* 预生成音频最优先：音色统一 + 离线 + 时间轴高亮
        （文件播放本身就在用户手势内，无需再静音预热） */
-    if (s.audioKey && marksFor(s.audioKey, curSpeed) && !audioMiss[s.audioKey + '|' + curSpeed]) {
+    if (s.audioKey && marksFor(s.audioKey, curSpeed, s.category, s.book) && !audioMiss[s.audioKey + '|' + curSpeed]) {
       playFile(s, curSpeed, my);
       return;
     }
@@ -2670,18 +2805,37 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('chips').innerHTML = html;
 
     var groupEl = $('groupChips');
-    if (cur === 'survival') {
-      groupEl.hidden = false;
-      var gHtml = '<button class="sub-chip" type="button" data-group="all" aria-selected="' + (curGroup === 'all') + '">全部</button>';
-      DAILY_GROUPS.forEach(function(g) {
-        var n = dataset.survival.filter(function(it) { return it.group === g.id; }).length;
+    var gHtml = '<button class="sub-chip" type="button" data-group="all" aria-selected="' + (curGroup === 'all') + '">全部</button>';
+    if (cur === 'survival' || cur === 'business') {
+      var gList = cur === 'survival' ? DAILY_GROUPS : BUSINESS_GROUPS;
+      var gPool = cur === 'survival' ? dataset.survival : dataset.business;
+      gList.forEach(function(g) {
+        var n = gPool.filter(function(it) { return it.group === g.id; }).length;
         if (!n) return;
         gHtml += '<button class="sub-chip" type="button" data-group="' + g.id + '" aria-selected="' + (curGroup === g.id) + '">' +
           g.icon + ' ' + g.label + ' <span style="opacity:.55">' + n + '</span></button>';
       });
+      groupEl.hidden = false;
       groupEl.innerHTML = gHtml;
+    } else if (cur === 'classics' && curBook !== 'all') {
+      /* 名著：第二层 chips 是「故事标题」（聊斋 12 篇 / 西游 12 回），按剧情顺序排列 */
+      gHtml = '<span class="group-label">篇目</span>' + gHtml;
+      var chs = classicChapters(curBook);
+      if (chs.length > 1) {
+        chs.forEach(function(c) {
+          gHtml += '<button class="sub-chip" type="button" data-group="' + c.id + '" aria-selected="' + (curGroup === c.id) + '">' +
+            c.label + ' <span style="opacity:.55">' + c.n + '</span></button>';
+        });
+        groupEl.hidden = false;
+        groupEl.innerHTML = gHtml;
+      } else {
+        groupEl.hidden = true;
+        groupEl.innerHTML = '';
+        curGroup = 'all';
+      }
     } else {
       groupEl.hidden = true;
+      groupEl.innerHTML = '';
       curGroup = 'all';
     }
 
@@ -2707,6 +2861,12 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }
   }
 
+  function groupLabelOf(cat, gid) {
+    var src = (cat === 'business') ? BUSINESS_GROUPS : DAILY_GROUPS;
+    for (var i = 0; i < src.length; i++) { if (src[i].id === gid) return src[i].label; }
+    return '';
+  }
+
   function renderCard() {
     var totalToday = currentList.length;
 
@@ -2729,7 +2889,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
     var s = currentList[rIdx];
 
-    $('cat').textContent = (CAT_LABEL[s.category] || s.category).toUpperCase();
+    var catText = (CAT_LABEL[s.category] || s.category).toUpperCase();
+    var gLabel = (s.category === 'survival' || s.category === 'business') ? groupLabelOf(s.category, s.group) : '';
+    $('cat').textContent = catText + (gLabel ? ' · ' + gLabel : '');
     $('num').textContent = String(rIdx + 1).padStart(2, '0') + ' / ' + String(totalToday).padStart(2, '0');
     $('slangBadge').hidden = (s.category !== 'trends');
 
@@ -2751,6 +2913,13 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         $('storyIntroTitle').textContent = introData.title;
         $('storyIntroSubtitle').textContent = introData.subtitle;
         $('storyIntroDesc').textContent = introData.desc;
+        /* 每篇故事的开头再加一句「本篇」简介 */
+        var storyBlurb = STORY_BLURBS[s.book + '::' + s.chapter_title];
+        var storyEl = $('storyIntroStory');
+        if (storyBlurb) {
+          storyEl.innerHTML = '<b>' + s.chapter_title + '</b> · ' + storyBlurb;
+          storyEl.hidden = false;
+        } else { storyEl.hidden = true; }
       } else { $('storyIntro').hidden = true; }
     } else {
       $('storyHeader').hidden = true;
@@ -2762,7 +2931,6 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('pinyin').innerHTML = curTokens.pyHtml;
     $('hanzi').innerHTML = curTokens.hzHtml;
     $('english').textContent = s.en;
-    preloadCard(s);
 
     var usage = s.usage || '';
     $('usage').textContent = usage;
@@ -2771,8 +2939,24 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     btnNext.disabled = false;
     btnNext.textContent = (rIdx >= totalToday - 1) ? 'Finish ✓' : 'Next →';
     $('fill').style.width = ((rIdx + 1) / totalToday * 100) + '%';
-    $('bottomProg').innerHTML = 'Today\'s Progress: ' + (rIdx + 1) + '/' + totalToday +
-      '<span class="hint" id="streakHint">Complete today\'s batch to keep streak.</span>';
+
+    /* Everyday Chinese / Chinese for Work 都是完整篇目，文案不能沿用「今日 10 句」 */
+    var ecFull = (cur === 'survival' || cur === 'business' || cur === 'classics');
+    var gName = '';
+    if (cur === 'classics' && curGroup !== 'all') {
+      gName = curGroup;      /* 名著第二层是故事标题，本身就是显示名 */
+    } else if (ecFull && curGroup !== 'all') {
+      var gSrc = cur === 'survival' ? DAILY_GROUPS : BUSINESS_GROUPS;
+      for (var gi = 0; gi < gSrc.length; gi++) {
+        if (gSrc[gi].id === curGroup) { gName = gSrc[gi].label; break; }
+      }
+    }
+    $('bottomProg').innerHTML = (ecFull ? 'Progress' : 'Today\'s Progress') + ': ' +
+      (rIdx + 1) + '/' + totalToday + (gName ? ' · ' + gName : '') +
+      '<span class="hint" id="streakHint">' +
+      (ecFull ? 'This is the full unit — go at your own pace.'
+              : 'Complete today\'s batch to keep streak.') +
+      '</span>';
 
     var btnPrev = document.getElementById('prev');
     if (btnPrev) btnPrev.disabled = (rIdx === 0);
@@ -2790,33 +2974,29 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       }
     }
 
-    var isLocked = false;
-    var lockTitle = 'Continue the Story';
-    var lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
-
-    if (cur !== 'mix' && !isPro()) {
+    var isLocked = isCardLocked(s, rIdx);
+    var lockTitle = 'Unlock HanLingo Pro';
+    var lockDesc = 'Upgrade to unlock the full library and keep your momentum going.';
+    if (isLocked) {
       if (s.category === 'classics') {
-        if (s.step > FREE_STEPS_CLASSICS) {
-          isLocked = true;
-          lockTitle = 'Continue the Story';
-          lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
-        }
-      } else if (cur === 'survival' || cur === 'business' || cur === 'trends') {
-        if (rIdx >= FREE_SENTENCES_NON_CLASSICS) {
-          isLocked = true;
-          lockTitle = 'Unlock HanLingo Pro';
-          var catName = cur === 'survival' ? 'Everyday Chinese'
-                      : cur === 'business' ? 'Chinese for Work'
-                      : 'Trends & Slang';
-          lockDesc = 'You\'ve tried ' + FREE_SENTENCES_NON_CLASSICS + ' free ' + catName +
-            ' sentences today. Upgrade to unlock the full library and keep your momentum going.';
-        }
+        lockTitle = 'Continue the Story';
+        lockDesc = 'You\'ve followed the story this far. Unlock the next chapters and keep learning Chinese through the stories you enjoy.';
+      } else {
+        var catName = cur === 'survival' ? 'Everyday Chinese'
+                    : cur === 'business' ? 'Chinese for Work'
+                    : 'Trends & Slang';
+        lockDesc = 'You\'ve tried ' + FREE_SENTENCES_NON_CLASSICS + ' free ' + catName +
+          ' sentences today. Upgrade to unlock the full library and keep your momentum going.';
       }
     }
 
     $('cardContent').classList.toggle('is-locked', isLocked);
     $('paywallOverlay').hidden = !isLocked;
     setListenEnabled(!isLocked);
+    /* 锁定后禁止继续往后翻（后面每一句都是锁的），但仍可返回已解锁的句子 */
+    btnNext.disabled = isLocked;
+    /* 锁定的句子不预载音频：既不浪费流量，也不把付费内容提前拉到客户端 */
+    if (isLocked) { stopPlayback(); } else { preloadCard(s); }
 
     if (isLocked) {
       $('lockTitle').textContent = lockTitle;
@@ -2949,6 +3129,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var b = e.target.closest('.sub-chip');
     if (!b) return;
     curBook = b.getAttribute('data-book');
+    curGroup = 'all';          /* 换书就重置故事选择 */
     isShuffleMode = false;
     renderChips();
     loadNewBatch();

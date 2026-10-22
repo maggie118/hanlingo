@@ -1,16 +1,16 @@
 /* ============================================================
    HanLingo · Service Worker
-   ------------------------------------------------------------
-   版本：v4（2026-10）
-   策略：
+  ------------------------------------------------------------
+  版本：v6（2026-10） 预缓存新增 Chinese for Work 男声时间轴
+  策略：
      1. 核心 UI (HTML/JS/CSS)：Cache-First，保证离线秒开。
      2. 音频资源 (.mp3, .m4a, .wav 等)：Stale-While-Revalidate，
         优先本地播放，后台静默更新。
      3. 其他资源：Stale-While-Revalidate。
-   ============================================================ */
+  ============================================================ */
 
-const CACHE_VERSION = 'hanlingo-v4';
-const AUDIO_CACHE = 'hanlingo-audio-v4';
+const CACHE_VERSION = 'hanlingo-v13';   /* v13：全站 UI/排版优化 + classics「篇目」目录 */
+const AUDIO_CACHE = 'hanlingo-audio-v5';   /* 音频缓存不升版，保留用户已听过的句子 */
 
 /* 首次安装时预缓存的核心资源 */
 const PRECACHE_URLS = [
@@ -21,6 +21,11 @@ const PRECACHE_URLS = [
   './data/business.js',
   './data/classics.js',
   './data/trends.js',
+  './data/daily_audio.js',
+  './data/business_audio.js',
+  './data/classics_lz_audio.js',
+  './data/classics_jttw_audio.js',
+  './data/classics_suntzu_audio.js',
   './stories-data.js',
   './journey-west-hsk12.js',
   './art-of-war-hsk56.js',
