@@ -160,7 +160,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 6px 16px -8px rgba(192,88,75,.55); }
 .chip .lock-icon { font-size: 10px; margin-left: 4px; opacity: 0.8; }
 
-.sub-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 20px 4px 2px; scrollbar-width: none; animation: slideDown 0.3s ease; }
+.sub-chips { display: flex; flex-wrap: wrap; gap: 6px; overflow: visible; padding: 4px 20px 4px 2px; scrollbar-width: none; animation: slideDown 0.3s ease; }
 .sub-chips::-webkit-scrollbar { display: none; }
 .sub-chip { flex: none; font: 500 12px/1 var(--sans); color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 6px 12px; cursor: pointer; transition: all .16s ease; white-space: nowrap; }
 .sub-chip:hover { color: var(--accent); border-color: rgba(192,88,75,.38); background: var(--accent-soft-2); }
