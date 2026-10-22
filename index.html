@@ -2103,6 +2103,10 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
   /* ================= 12. TTS：Edge-TTS zh-CN-YunjianNeural + 逐字高亮 ================= */
   var EDGE_VOICE = 'zh-CN-YunjianNeural';
+  /* 兜底音色按板块区分：名著/日常=晓晓女声，商务=云健男声（与预生成音频一致） */
+  function voiceFor(cat) {
+    return (cat === 'business') ? 'zh-CN-YunjianNeural' : 'zh-CN-XiaoxiaoNeural';
+  }
   var SPEEDS = {
     normal: { ssml: '+0%', rate: 1, label: '常速' },
     slow:   { ssml: '-45%', rate: 0.55, label: '慢速' }
@@ -2297,11 +2301,12 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   /* ---------- 12.2 Edge TTS（微软在线神经语音，无需服务端） ---------- */
   var ttsCache = {}, ttsCacheKeys = [];
 
-  function edgeTTS(text, ssmlRate, timeoutMs) {
+  function edgeTTS(text, ssmlRate, timeoutMs, voice) {
     return new Promise(function(resolve, reject) {
       if (typeof WebSocket === 'undefined') { reject('no-ws'); return; }
       var ws, settled = false, chunks = [], marks = [], firstBin = true;
       var timer = setTimeout(function() { finish(null, 'timeout'); }, timeoutMs || 6000);
+      var useVoice = voice || EDGE_VOICE;
 
       function finish(val, err) {
         if (settled) return;
@@ -2321,7 +2326,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         ws.send('Content-Type:application/json; charset=utf-8\r\nPath:speech.config\r\n\r\n' +
           '{"context":{"synthesis":{"audio":{"metadataoptions":{"sentenceBoundaryEnabled":"false","wordBoundaryEnabled":"true"},"outputFormat":"audio-24khz-96kbitrate-mono-mp3"}}}}');
         var ssml = '<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">' +
-          '<voice name="' + EDGE_VOICE + '"><prosody rate="' + ssmlRate + '" pitch="+0Hz">' + escXml(text) + '</prosody></voice></speak>';
+          '<voice name="' + useVoice + '"><prosody rate="' + ssmlRate + '" pitch="+0Hz">' + escXml(text) + '</prosody></voice></speak>';
         ws.send('Path:ssml\r\nX-RequestId:' + uuidV4().toUpperCase() + '\r\nX-Timestamp:' + new Date().toISOString() +
           '\r\nContent-Type:application/ssml+xml\r\n\r\n' + ssml);
       };
@@ -2599,7 +2604,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
     var hit = ttsCache[key];
     if (hit) { go(hit); return; }
-    edgeTTS(s.zh, SPEEDS[speed].ssml).then(function(res) {
+    edgeTTS(s.zh, SPEEDS[speed].ssml, 6000, voiceFor(s.category)).then(function(res) {
       if (my !== playSeq) return;
       ttsCache[key] = res;
       ttsCacheKeys.push(key);
