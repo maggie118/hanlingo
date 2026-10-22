@@ -1803,20 +1803,20 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   }
 
   var DAILY_GROUPS = window.DAILY_GROUPS || [
-    { id: 'cafe', icon: '☕', label: '咖啡 · 餐饮' },
-    { id: 'transit', icon: '🚕', label: '打车 · 出行' },
-    { id: 'payment', icon: '📱', label: '电子支付' },
-    { id: 'social', icon: '💬', label: '社交破冰' },
-    { id: 'essential', icon: '🆘', label: '保命句' },
-    { id: 'scene', icon: '🏠', label: '生活情景' }
+    { id: 'cafe', icon: '☕', label: 'Coffee & Eats' },
+    { id: 'transit', icon: '🚕', label: 'Getting Around' },
+    { id: 'payment', icon: '📱', label: 'Paying by Phone' },
+    { id: 'social', icon: '💬', label: 'Small Talk' },
+    { id: 'essential', icon: '🆘', label: 'Survival Phrases' },
+    { id: 'scene', icon: '🏠', label: 'Everyday Life' }
   ];
 
   var BUSINESS_GROUPS = window.BUSINESS_GROUPS || [
-    { id: 'banquet', icon: '🍽️', label: '商务宴请 · 餐桌' },
-    { id: 'meeting', icon: '🗣️', label: '会议沟通 · 潜台词' },
-    { id: 'mail',    icon: '✉️', label: '邮件 · 电话' },
-    { id: 'deal',    icon: '🤝', label: '谈判 · 合作' },
-    { id: 'polite',  icon: '🙏', label: '职场礼貌 · 万能句' }
+    { id: 'banquet', icon: '🍽️', label: 'Business Meals' },
+    { id: 'meeting', icon: '🗣️', label: 'Reading the Room' },
+    { id: 'mail',    icon: '✉️', label: 'Emails & Calls' },
+    { id: 'deal',    icon: '🤝', label: 'Closing Deals' },
+    { id: 'polite',  icon: '🙏', label: 'Office Manners' }
   ];
 
   extractData(window.DAILY_DATA, 'survival');
@@ -1957,7 +1957,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   var rIdx = 0;
   var isShuffleMode = false;
 
-  var CAT_LABEL = { survival: 'Everyday Chinese', business: 'Chinese for Work', classics: 'Stories & Classics', mix: 'Daily 10', trends: 'Trends & Slang' };
+  var CAT_LABEL = { survival: '日常中文', business: '商务中文', classics: '故事与名著', mix: '每日 10 句', trends: '潮流俚语' };
 
   function getRng(seedStr) {
     if (!seedStr) return Math.random;
@@ -2838,7 +2838,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('chips').innerHTML = html;
 
     var groupEl = $('groupChips');
-    var gHtml = '<button class="sub-chip" type="button" data-group="all" aria-selected="' + (curGroup === 'all') + '">全部</button>';
+    var gHtml = '<button class="sub-chip" type="button" data-group="all" aria-selected="' + (curGroup === 'all') + '">All</button>';
     if (cur === 'survival' || cur === 'business') {
       var gList = cur === 'survival' ? DAILY_GROUPS : BUSINESS_GROUPS;
       var gPool = cur === 'survival' ? dataset.survival : dataset.business;
