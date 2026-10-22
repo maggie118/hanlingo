@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HanLingo — Learn Real Chinese Through Sentences & Stories</title>
+<title>Learn Chinese Through Stories & Sentences — HanLingo</title>
 <meta name="theme-color" content="#F4F3EF">
 <link rel="icon" type="image/svg+xml" href="/icons/logo.svg">
-<meta name="description" content="Learn practical Mandarin through real-life sentences, audio, and engaging Chinese stories. Start with a short daily learning session.">
+<meta name="description" content="Learn Mandarin Chinese through classic stories and real-life daily sentences — with pinyin, translations and normal/slow audio. Free daily practice for beginners who want to speak, listen and read Chinese.">
+<meta name="keywords" content="learn chinese, learn mandarin chinese, chinese stories, learn chinese through stories, chinese short stories for beginners, chinese sentences with pinyin, mandarin audio practice, chinese listening practice, hsk listening practice, learn chinese with journey to the west, chinese classics, spoken chinese for daily life, learn chinese app free, mandarin reading practice">
+<link rel="canonical" href="https://www.hanlingo.app/">
+<meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- iOS PWA -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,17 +18,74 @@
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
 <!-- Social -->
-<meta property="og:title" content="HanLingo — Real Chinese for Real Life">
-<meta property="og:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
+<meta property="og:site_name" content="HanLingo">
+<meta property="og:title" content="Learn Chinese Through Stories & Daily Sentences — HanLingo">
+<meta property="og:description" content="Learn Mandarin with classic Chinese stories and real-life sentences — pinyin, translations and normal/slow audio. Free daily practice for beginners.">
 <meta property="og:url" content="https://www.hanlingo.app/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.hanlingo.app/icons/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HanLingo — Real Chinese for Real Life">
-<meta name="twitter:description" content="Learn practical Mandarin through real-life sentences, audio, and engaging stories. One short session at a time.">
+<meta name="twitter:title" content="Learn Chinese Through Stories & Daily Sentences — HanLingo">
+<meta name="twitter:description" content="Learn Mandarin with classic Chinese stories and real-life sentences — pinyin, translations and normal/slow audio. Free daily practice for beginners.">
 <meta name="twitter:image" content="https://www.hanlingo.app/icons/icon-512.png">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "HanLingo",
+      "alternateName": "HanLingo — Learn Chinese Through Stories & Sentences",
+      "url": "https://www.hanlingo.app/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Learn Mandarin Chinese through classic stories (Journey to the West, Strange Tales, The Art of War) and real-life daily sentences, with pinyin, translations and normal/slow audio. Free daily practice for beginners."
+    },
+    {
+      "@type": "WebSite",
+      "name": "HanLingo",
+      "url": "https://www.hanlingo.app/",
+      "potentialAction": { "@type": "SearchAction", "target": "https://www.hanlingo.app/?q={search_term_string}", "query-input": "required name=search_term_string" }
+    },
+    {
+      "@type": "Organization",
+      "name": "HanLingo",
+      "url": "https://www.hanlingo.app/",
+      "logo": "https://www.hanlingo.app/icons/icon-512.png"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How can I learn Chinese by reading stories?",
+          "acceptedAnswer": { "@type": "Answer", "text": "HanLingo teaches Mandarin sentence by sentence through classic Chinese stories like Journey to the West and Strange Tales from a Chinese Studio, with pinyin, English translations and normal/slow audio so beginners can follow along." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is HanLingo free for learning Chinese?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The daily session is free forever — you get 10 real-life Chinese sentences a day with audio and pinyin. No sign-up required." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best way to practice Chinese listening and speaking?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Listen and repeat real-life Chinese sentences at normal or slow speed. HanLingo highlights each character as it is spoken and shows pinyin, so you can improve pronunciation, listening and speaking together." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I learn Chinese through Journey to the West?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. HanLingo offers classic Chinese literature including Journey to the West, Strange Tales from a Chinese Studio and The Art of War, broken into short sentences with pinyin, translation and audio — a fun way to learn Mandarin through stories." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 
 <link rel="manifest" href="/manifest.json">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -62,7 +122,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 }
 
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-.brand { font-size: 20px; font-weight: 800; letter-spacing: -.02em; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.brand { font-size: 20px; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; color: var(--text); display: flex; align-items: center; gap: 8px; }
 .brand-logo { width: 26px; height: 26px; border-radius: 7px; object-fit: cover; flex: none; }
 .meta-right { display: flex; align-items: center; gap: 8px; }
 .time-badge { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
@@ -594,7 +654,7 @@ main::-webkit-scrollbar { display: none; }
 <div class="app">
   <header>
     <div class="top">
-      <div class="brand"><img class="brand-logo" src="icons/logo.svg" alt="HanLingo" width="26" height="26">HanLingo</div>
+      <h1 class="brand"><img class="brand-logo" src="icons/logo.svg" alt="HanLingo — Learn Chinese Through Stories & Sentences" width="26" height="26">HanLingo</h1>
       <div class="meta-right">
         <button class="sync-badge" id="syncBadge" hidden title="Progress synced">☁️ Synced</button>
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
