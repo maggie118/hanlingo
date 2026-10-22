@@ -1724,7 +1724,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   var STORY_BLURBS = {
     '聊斋志异::崂山道士': 'A scholar climbs Mount Lao to learn magic, but learns the hard way that there are no shortcuts to skill.',
     '聊斋志异::种梨': 'A greedy pear-seller refuses a humble Taoist — and watches his own fruit vanish before his eyes.',
-    '聊斋志异::画皮': 'A scholar takes in a beautiful woman, only to discover that her beauty is just a painted demon\u2019s skin.',
+    '聊斋志异::画皮': '画皮 (huàpí / Painted Skin): The most famous horror story in the book. It tells the story of an evil ghost wearing a beautiful woman\'s skin.',
     '聊斋志异::聂小倩': 'An upright scholar braves an evil yaksha to free a gentle ghost-girl from a haunted temple.',
     '聊斋志异::婴宁': 'A girl who answers everything with a laugh turns out to be the daughter of a fox spirit.',
     '聊斋志异::狼三则': 'A quick-witted butcher outwits two cunning wolves who plan a sneak attack.',
@@ -2986,7 +2986,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         var storyBlurb = STORY_BLURBS[s.book + '::' + s.chapter_title];
         var storyEl = $('storyIntroStory');
         if (storyBlurb) {
-          storyEl.innerHTML = '<b>' + s.chapter_title + '</b> · ' + storyBlurb;
+          /* 若简介已以篇名开头（如画皮），不再重复加篇名前缀 */
+          if (storyBlurb.indexOf(s.chapter_title) === 0) { storyEl.innerHTML = storyBlurb; }
+          else { storyEl.innerHTML = '<b>' + s.chapter_title + '</b> · ' + storyBlurb; }
           storyEl.hidden = false;
         } else { storyEl.hidden = true; }
       } else { $('storyIntro').hidden = true; }
