@@ -133,6 +133,10 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .share-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 8px; }
 .share-btn:hover { color: var(--accent); background: var(--accent-soft); }
 .share-btn svg { width: 15px; height: 15px; flex: none; }
+.reminder-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 5px; border-radius: 8px; transition: .18s; }
+.reminder-btn svg { width: 16px; height: 16px; }
+.reminder-btn:hover { color: var(--accent); }
+.reminder-btn.on { color: var(--accent); }
 
 .sync-badge {
   display: flex; align-items: center; gap: 3px;
@@ -322,6 +326,7 @@ main::-webkit-scrollbar { display: none; }
 .quote { margin: 24px 20px; padding: 16px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); width: 100%; max-width: 320px; }
 .quote-zh { display: block; font-size: 16px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
 .quote-en { display: block; font-size: 14px; color: var(--text); opacity: 0.8; font-style: italic; }
+.quote-pinyin { display: block; font-size: 13px; color: var(--text); opacity: 0.6; margin-bottom: 4px; letter-spacing: .02em; }
 .done .actions { flex-direction: column; width: 100%; max-width: 280px; margin-top: 12px; gap: 8px; }
 
 .done-pro-cta {
@@ -500,6 +505,9 @@ main::-webkit-scrollbar { display: none; }
 #paywallModal .pw-pay-methods span { font-size: 9.5px; font-weight: 700; letter-spacing: .02em; color: #8A8E89; background: #F5F5F2; border: 1px solid var(--border); border-radius: 5px; padding: 3px 6px; }
 #paywallModal .pw-later { display: block; width: 100%; margin-top: 2px; padding: 9px; background: transparent; border: none; color: var(--muted); font: 500 13px/1 var(--sans); cursor: pointer; }
 #paywallModal .pw-later:hover { color: var(--text); }
+#paywallModal .pw-support { text-align: center; font-size: 10.5px; color: var(--muted); line-height: 1.5; margin: 8px 0 6px; }
+#paywallModal .pw-support a { color: var(--pw-accent); text-decoration: none; font-weight: 700; }
+#paywallModal .pw-support a:hover { text-decoration: underline; }
 @media (max-height: 720px) and (max-width: 759px) {
   #paywallModal .paywall-clean { padding: 18px 14px 12px; border-radius: 18px; }
   #paywallModal h2 { font-size: 19px; }
@@ -619,6 +627,7 @@ main::-webkit-scrollbar { display: none; }
   .quote { max-width: 400px; margin: 32px 0; }
   .quote-zh { font-size: 20px; }
   .quote-en { font-size: 16px; }
+  .quote-pinyin { font-size: 15px; }
   .done .actions { flex-direction: row; max-width: 100%; gap: 16px; margin-top: 24px; }
   .done .btn { flex: 1; padding: 18px; font-size: 16px; }
   .done-pro-cta { max-width: 420px; }
@@ -666,6 +675,9 @@ main::-webkit-scrollbar { display: none; }
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
         <button class="review-btn" id="btnSaved" hidden>❤️ Saved</button>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
+        <button class="reminder-btn" id="btnReminder" type="button" aria-label="Daily check-in reminder" title="Daily check-in reminder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </button>
         <button class="share-btn" id="btnShare" type="button" aria-label="Share HanLingo" title="Share HanLingo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></svg>
           <span>Share</span>
@@ -779,12 +791,13 @@ main::-webkit-scrollbar { display: none; }
 
       <div class="quote">
         <span class="quote-zh">不积跬步，无以至千里。</span>
+        <span class="quote-pinyin">Bù jī kuǐ bù, wú yǐ zhì qiān lǐ.</span>
         <span class="quote-en">Without accumulating small steps, one cannot reach a thousand miles.</span>
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="shareTextBtn" type="button">📋 Share Progress</button>
-        <button class="btn ghost" id="shareImgBtn" type="button">📸 Save Image</button>
+        <button class="btn primary" id="shareTextBtn" type="button">Share Progress</button>
+        <button class="btn ghost" id="shareImgBtn" type="button">Save Image</button>
         <button class="btn ghost" id="replay" type="button">Review Again</button>
       </div>
 
@@ -907,6 +920,7 @@ main::-webkit-scrollbar { display: none; }
     <div class="pw-pay-methods" aria-label="Accepted payment methods">
       <span>Apple&nbsp;Pay</span><span>Google&nbsp;Pay</span><span>VISA</span><span>Mastercard</span><span>Stripe</span>
     </div>
+    <div class="pw-support">Questions? Email <a href="mailto:support@hanlingo.app">support@hanlingo.app</a></div>
     <button class="pw-later" id="btnClosePro" type="button">Maybe later</button>
   </div>
 </div>
@@ -2061,6 +2075,58 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
   document.getElementById('streakDisplay').textContent = loadStreak().streak || 0;
 
+  /* ================= 10b. Daily Reminder (local notification) ================= */
+  var REMINDER_KEY = 'hanlingo_reminder';
+  var REMINDED_KEY = 'hanlingo_reminded';
+  function reminderOn() { return localStorage.getItem(REMINDER_KEY) === 'on'; }
+  function updateReminderBtn() {
+    var b = document.getElementById('btnReminder');
+    if (b) b.classList.toggle('on', reminderOn());
+  }
+  function toggleReminder() {
+    if (reminderOn()) {
+      localStorage.setItem(REMINDER_KEY, 'off');
+      updateReminderBtn();
+      showToast('Daily reminder off.', { icon: '🔕' });
+      return;
+    }
+    if (!('Notification' in window)) { showToast('Notifications not supported here.', { icon: '⚠️' }); return; }
+    if (Notification.permission === 'granted') { enableReminder(); return; }
+    if (Notification.permission === 'denied') { showToast('Notifications blocked in browser settings.', { icon: '⚠️' }); return; }
+    Notification.requestPermission().then(function(p) {
+      if (p === 'granted') enableReminder();
+      else showToast('Allow notifications to enable the reminder.', { icon: '⚠️' });
+    });
+  }
+  function enableReminder() {
+    localStorage.setItem(REMINDER_KEY, 'on');
+    updateReminderBtn();
+    showToast('Daily reminder on — we\'ll nudge you to check in.', { icon: '🔔' });
+  }
+  function initDailyReminder() {
+    if (!reminderOn() || !('Notification' in window) || Notification.permission !== 'granted') return;
+    var today = getLocalDateString();
+    if (localStorage.getItem(REMINDED_KEY) === today) return;
+    var s = loadStreak();
+    if (s && s.lastDate === today) return; /* already checked in today */
+    localStorage.setItem(REMINDED_KEY, today);
+    setTimeout(function() {
+      try {
+        var days = (s && s.streak) || 1;
+        var n = new Notification('HanLingo — Time to check in!', {
+          body: 'Keep your ' + days + '-day streak alive — complete today\'s batch.',
+          icon: 'icons/icon-192.png',
+          tag: 'hanlingo-checkin'
+        });
+        n.onclick = function() { window.focus(); this.close(); };
+      } catch(e) {}
+    }, 7000);
+  }
+  var reminderBtn = document.getElementById('btnReminder');
+  if (reminderBtn) reminderBtn.addEventListener('click', toggleReminder);
+  updateReminderBtn();
+  initDailyReminder();
+
   /* ================= 11. 抽句 ================= */
   var cur = 'mix';
   var curBook = 'all';
@@ -2977,7 +3043,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     CATS.forEach(function(c) {
       var isLocked = !isPro() && (c.id === 'business' || c.id === 'trends');
       var lockIcon = isLocked ? ' <span class="lock-icon">🔒</span>' : '';
-      html += '<button class="chip" type="button" data-cat="' + c.id + '" aria-selected="' + (c.id === cur) + '">' + c.icon + ' ' + c.label + lockIcon + '</button>';
+      html += '<button class="chip" type="button" data-cat="' + c.id + '" aria-selected="' + (c.id === cur) + '">' + c.label + lockIcon + '</button>';
     });
     $('chips').innerHTML = html;
 
@@ -2990,7 +3056,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         var n = gPool.filter(function(it) { return it.group === g.id; }).length;
         if (!n) return;
         gHtml += '<button class="sub-chip" type="button" data-group="' + g.id + '" aria-selected="' + (curGroup === g.id) + '">' +
-          g.icon + ' ' + g.label + ' <span style="opacity:.55">' + n + '</span></button>';
+          g.label + ' <span style="opacity:.55">' + n + '</span></button>';
       });
       groupEl.hidden = false;
       groupEl.innerHTML = gHtml;
