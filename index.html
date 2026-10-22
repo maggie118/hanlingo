@@ -1767,6 +1767,8 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       if (!zh || !en) return;
 
       var finalBook = (forcedCat === 'classics') ? normalizeBookName(rawBook, c) : '';
+      /* 清理：名著只保留三本书，跳过无法归入聊斋/西游/孙子兵法的旧无归属数据 */
+      if (forcedCat === 'classics' && finalBook !== '聊斋志异' && finalBook !== 'Journey to the West' && finalBook !== '孙子兵法') return;
       var displayTitle = finalBook;
       if (forcedCat === 'classics') {
         var chapter = c.chapter_title || c.story_title || (storyContext ? storyContext.title : '');
@@ -2097,6 +2099,23 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       return ecPool;
     } else {
       var pool = dataset[category] || [];
+      if (category === 'classics') {
+        /* 名著「全部」：按剧情顺序完整呈现（书序 + 篇目 + 句序），不打乱 */
+        var allList = pool.slice();
+        if (!isPro()) {
+          var seenAll = {};
+          allList = allList.filter(function(item) {
+            var k = item.book + '::' + (item.chapter_title || 'default');
+            seenAll[k] = (seenAll[k] || 0) + 1;
+            return seenAll[k] <= FREE_STEPS_CLASSICS;
+          });
+        }
+        return allList.map(function(item, idx) {
+          var cl = Object.assign({}, item);
+          cl._globalIndex = idx + 1;
+          return cl;
+        });
+      }
       return shuffle(pool, rand).slice(0, 10);
     }
   }
@@ -2856,9 +2875,11 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var subChipsEl = $('subChips');
     if (cur === 'classics' && classicBooks.length > 0) {
       subChipsEl.hidden = false;
-      var subHtml = '<button class="sub-chip" data-book="all" aria-selected="' + (curBook === 'all') + '">All</button>';
+      var allN = dataset.classics ? dataset.classics.length : 0;
+      var subHtml = '<button class="sub-chip" data-book="all" aria-selected="' + (curBook === 'all') + '">All <span style="opacity:.55">' + allN + '</span></button>';
       classicBooks.forEach(function(bk) {
-        subHtml += '<button class="sub-chip" data-book="' + bk + '" aria-selected="' + (curBook === bk) + '">' + bk + '</button>';
+        var n = dataset.classics ? dataset.classics.filter(function(it) { return it.book === bk; }).length : 0;
+        subHtml += '<button class="sub-chip" data-book="' + bk + '" aria-selected="' + (curBook === bk) + '">' + bk + ' <span style="opacity:.55">' + n + '</span></button>';
       });
       subChipsEl.innerHTML = subHtml;
     } else {
