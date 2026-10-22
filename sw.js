@@ -9,7 +9,7 @@
      3. 其他资源：Stale-While-Revalidate。
   ============================================================ */
 
-const CACHE_VERSION = 'hanlingo-v15';   /* v15：导航改为 Network-First，让手机联网即取最新 index.html，不再被离线缓存卡住 */
+const CACHE_VERSION = 'hanlingo-v16';   /* v16：data/trends.js 的 usage 全面英文化；更新 SW 缓存让已安装用户取到新版 */
 const AUDIO_CACHE = 'hanlingo-audio-v6';   /* v6：清除旧音频缓存，让新上传的 classics 音频（liaozhai/journey/suntzu）生效 */
 
 /* 首次安装时预缓存的核心资源 */
