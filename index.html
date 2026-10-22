@@ -3247,6 +3247,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   }
 
   function loadNewBatch() {
+    /* 名著（Stories & Classics）按剧情顺序学习，不提供随机 shuffle */
+    var sbEl = document.getElementById('btnShuffle');
+    if (sbEl) { sbEl.style.display = (cur === 'classics') ? 'none' : ''; }
     batchAll = getTodaySentences(cur, curBook, isShuffleMode);
     batchStart = 0;
     applyBatch();
@@ -3366,6 +3369,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   });
 
   $('btnShuffle').addEventListener('click', function() {
+    if (cur === 'classics') { showToast('Classics are best read in story order — shuffle is off', { icon: '📖', duration: 2500 }); return; }
     isShuffleMode = true;
     loadNewBatch();
   });
