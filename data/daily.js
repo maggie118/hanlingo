@@ -7,6 +7,15 @@
    本文件只服务 "Everyday Chinese"（survival）分类。
    ============================================================ */
 
+window.DAILY_GROUPS = [
+  { id: "cafe", icon: "☕", label: "咖啡 · 餐饮" },
+  { id: "transit", icon: "🚕", label: "打车 · 出行" },
+  { id: "payment", icon: "📱", label: "电子支付" },
+  { id: "social", icon: "💬", label: "社交破冰" },
+  { id: "essential", icon: "🆘", label: "保命句" },
+  { id: "scene", icon: "🏠", label: "生活情景" }
+];
+
 window.DAILY_DATA = [
 
   // ================= 咖啡 / 餐饮（16 句） =================
@@ -15,6 +24,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ hǎo, yì bēi bīng měi shì, dài zǒu.",
     en: "Hi, one iced Americano to go.",
     category: "survival",
+    group: "cafe",
     usage: "The exact sentence you'll say at any café — swap 冰美式 for any drink."
   },
   {
@@ -22,6 +32,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ yào yì bēi ná tiě, shǎo táng, xiè xie.",
     en: "I'd like a latte with less sugar, thanks.",
     category: "survival",
+    group: "cafe",
     usage: "少糖 / 少冰 / 少奶 are your three customization words."
   },
   {
@@ -29,6 +40,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ bù chī là, shǎo fàng yán, xiè xie.",
     en: "I don't eat spicy, less salt please.",
     category: "survival",
+    group: "cafe",
     usage: "Say this before ordering and you'll actually enjoy the meal."
   },
   {
@@ -36,6 +48,7 @@ window.DAILY_DATA = [
     pinyin: "Zhè ge cài bú yào xiāng cài.",
     en: "No cilantro in this dish.",
     category: "survival",
+    group: "cafe",
     usage: "Cilantro is the #1 thing foreigners forget to refuse."
   },
   {
@@ -43,6 +56,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ duì huā shēng guò mǐn.",
     en: "I'm allergic to peanuts.",
     category: "survival",
+    group: "cafe",
     usage: "Crucial if you have food allergies — say it clearly."
   },
   {
@@ -50,6 +64,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng gěi wǒ cài dān.",
     en: "Please give me the menu.",
     category: "survival",
+    group: "cafe",
     usage: "The first thing to say when you sit down."
   },
   {
@@ -57,6 +72,7 @@ window.DAILY_DATA = [
     pinyin: "Yǒu tuī jiàn de ma?",
     en: "Do you have any recommendations?",
     category: "survival",
+    group: "cafe",
     usage: "Ask the server — 推荐 = recommend."
   },
   {
@@ -64,6 +80,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ yào zhè ge.",
     en: "I'll have this one.",
     category: "survival",
+    group: "cafe",
     usage: "The most useful sentence when pointing at a menu."
   },
   {
@@ -71,6 +88,7 @@ window.DAILY_DATA = [
     pinyin: "Zhè ge hǎo chī ma?",
     en: "Is this delicious?",
     category: "survival",
+    group: "cafe",
     usage: "Ask the server or a friend before committing."
   },
   {
@@ -78,6 +96,7 @@ window.DAILY_DATA = [
     pinyin: "Hěn hǎo chī.",
     en: "It's delicious.",
     category: "survival",
+    group: "cafe",
     usage: "Compliment the food after the first bite."
   },
   {
@@ -85,6 +104,7 @@ window.DAILY_DATA = [
     pinyin: "Má fan bāng wǒ dǎ bāo.",
     en: "Could you pack this to go?",
     category: "survival",
+    group: "cafe",
     usage: "打包 (dǎ bāo) is the word for takeaway. 麻烦 makes it polite."
   },
   {
@@ -92,6 +112,7 @@ window.DAILY_DATA = [
     pinyin: "Zài lái yì wǎn mǐ fàn.",
     en: "One more bowl of rice.",
     category: "survival",
+    group: "cafe",
     usage: "Use it when you finish a bowl — 再来 = one more."
   },
   {
@@ -99,6 +120,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng gěi wǒ yì bēi shuǐ.",
     en: "Please give me a glass of water.",
     category: "survival",
+    group: "cafe",
     usage: "Restaurants often serve hot water by default."
   },
   {
@@ -106,6 +128,7 @@ window.DAILY_DATA = [
     pinyin: "Mǎi dān, xiè xie.",
     en: "Check, please.",
     category: "survival",
+    group: "cafe",
     usage: "Just call out 买单 (mǎi dān) after eating."
   },
   {
@@ -113,6 +136,7 @@ window.DAILY_DATA = [
     pinyin: "Kě yǐ fēn kāi fù ma?",
     en: "Can we pay separately?",
     category: "survival",
+    group: "cafe",
     usage: "Use it when splitting the bill with friends."
   },
   {
@@ -120,6 +144,7 @@ window.DAILY_DATA = [
     pinyin: "Yí gòng duō shao qián?",
     en: "How much in total?",
     category: "survival",
+    group: "cafe",
     usage: "一共 = in total. Very common at checkout."
   },
 
@@ -129,6 +154,7 @@ window.DAILY_DATA = [
     pinyin: "Shī fu, wǒ qù Zhāng yí jī chǎng, gǎn shí jiān.",
     en: "Driver, to Changi Airport — I'm in a hurry.",
     category: "survival",
+    group: "transit",
     usage: "师傅 (shī fu) is the polite way to address any driver. 赶时间 = in a hurry."
   },
   {
@@ -136,6 +162,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng dài wǒ qù zhè ge dì zhǐ.",
     en: "Please take me to this address.",
     category: "survival",
+    group: "transit",
     usage: "Show this on your phone to the taxi driver."
   },
   {
@@ -143,6 +170,7 @@ window.DAILY_DATA = [
     pinyin: "Má fan zài qián miàn lù kǒu tíng yí xià.",
     en: "Please stop at the intersection ahead.",
     category: "survival",
+    group: "transit",
     usage: "路口 = intersection. 停一下 = stop for a moment."
   },
   {
@@ -150,6 +178,7 @@ window.DAILY_DATA = [
     pinyin: "Dà gài yào duō jiǔ dào?",
     en: "About how long until we arrive?",
     category: "survival",
+    group: "transit",
     usage: "大概 = roughly. 多久 = how long. Works for taxis, trains, deliveries."
   },
   {
@@ -157,6 +186,7 @@ window.DAILY_DATA = [
     pinyin: "Kě yǐ bāng wǒ kāi yí xià kōng tiáo ma?",
     en: "Could you turn on the AC?",
     category: "survival",
+    group: "transit",
     usage: "空调 = air conditioning. 开一下 = turn on for a bit."
   },
   {
@@ -164,6 +194,7 @@ window.DAILY_DATA = [
     pinyin: "Dào le qǐng jiào wǒ yí xià.",
     en: "Please tell me when we arrive.",
     category: "survival",
+    group: "transit",
     usage: "Say this when you're afraid of missing your stop."
   },
   {
@@ -171,6 +202,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ dào le, zài mén kǒu děng nǐ.",
     en: "I've arrived — waiting at the entrance.",
     category: "survival",
+    group: "transit",
     usage: "The standard text you send to your driver, date, or friend."
   },
   {
@@ -178,6 +210,7 @@ window.DAILY_DATA = [
     pinyin: "Zhè tàng chē dào jī chǎng ma?",
     en: "Does this bus/train go to the airport?",
     category: "survival",
+    group: "transit",
     usage: "Ask the driver before boarding — 趟 = measure word for trips."
   },
   {
@@ -185,6 +218,7 @@ window.DAILY_DATA = [
     pinyin: "Zài nǎ lǐ mǎi piào?",
     en: "Where can I buy a ticket?",
     category: "survival",
+    group: "transit",
     usage: "Use it for subway, train, plane, or movies."
   },
   {
@@ -192,6 +226,7 @@ window.DAILY_DATA = [
     pinyin: "Yì zhāng piào, xiè xie.",
     en: "One ticket, please.",
     category: "survival",
+    group: "transit",
     usage: "张 is the measure word for tickets."
   },
   {
@@ -199,6 +234,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ mí lù le.",
     en: "I'm lost.",
     category: "survival",
+    group: "transit",
     usage: "Say this directly if you're lost — 迷路 = to get lost."
   },
   {
@@ -206,6 +242,7 @@ window.DAILY_DATA = [
     pinyin: "Lí zhè lǐ yuǎn ma?",
     en: "Is it far from here?",
     category: "survival",
+    group: "transit",
     usage: "Ask about distance before you start walking."
   },
   {
@@ -213,6 +250,7 @@ window.DAILY_DATA = [
     pinyin: "Zǒu lù shí fēn zhōng.",
     en: "Ten minutes on foot.",
     category: "survival",
+    group: "transit",
     usage: "Common answer when someone tells you a distance."
   },
   {
@@ -220,6 +258,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng wèn, dì tiě zhàn zài nǎ lǐ?",
     en: "Excuse me, where is the subway station?",
     category: "survival",
+    group: "transit",
     usage: "In China it's 地铁; in Singapore it's MRT."
   },
   {
@@ -227,6 +266,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng wèn, xǐ shǒu jiān zài nǎ lǐ?",
     en: "Excuse me, where is the restroom?",
     category: "survival",
+    group: "transit",
     usage: "Works for asking about toilets anywhere."
   },
   {
@@ -234,6 +274,7 @@ window.DAILY_DATA = [
     pinyin: "Yì zhí zǒu, rán hòu zuǒ zhuǎn.",
     en: "Go straight, then turn left.",
     category: "survival",
+    group: "transit",
     usage: "The most common direction pattern — 一直走 + 左/右转."
   },
 
@@ -243,6 +284,7 @@ window.DAILY_DATA = [
     pinyin: "Kě yǐ yòng Wēi xìn zhī fù ma?",
     en: "Can I use WeChat Pay?",
     category: "survival",
+    group: "payment",
     usage: "微信支付 is accepted almost everywhere in mainland China."
   },
   {
@@ -250,6 +292,7 @@ window.DAILY_DATA = [
     pinyin: "Zhī fù bǎo yě kě yǐ ba?",
     en: "Alipay works too, right?",
     category: "survival",
+    group: "payment",
     usage: "吧 makes it a soft confirmation — you already expect yes."
   },
   {
@@ -257,6 +300,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ sǎo nǐ hái shì nǐ sǎo wǒ?",
     en: "Do I scan you or do you scan me?",
     category: "survival",
+    group: "payment",
     usage: "The most useful payment sentence in China. 还是 = or (in questions)."
   },
   {
@@ -264,6 +308,7 @@ window.DAILY_DATA = [
     pinyin: "Sǎo zhè ge èr wéi mǎ fù kuǎn jiù xíng.",
     en: "Just scan this QR code to pay.",
     category: "survival",
+    group: "payment",
     usage: "二维码 = QR code. 就行 = that's all you need to do."
   },
   {
@@ -271,6 +316,7 @@ window.DAILY_DATA = [
     pinyin: "Fù kuǎn shī bài le, wǒ zài shì yí cì.",
     en: "Payment failed — let me try again.",
     category: "survival",
+    group: "payment",
     usage: "失败 = failed. 再试一次 = try one more time."
   },
   {
@@ -278,6 +324,7 @@ window.DAILY_DATA = [
     pinyin: "Líng qián bú gòu, wǒ huàn zhāng kǎ.",
     en: "Not enough balance — I'll switch cards.",
     category: "survival",
+    group: "payment",
     usage: "零钱 = balance / change. 换 = change / switch."
   },
   {
@@ -285,6 +332,7 @@ window.DAILY_DATA = [
     pinyin: "Shōu jù kě yǐ fā wǒ yóu xiāng ma?",
     en: "Can you email me the receipt?",
     category: "survival",
+    group: "payment",
     usage: "收据 = receipt. 邮箱 = email inbox. Essential for business trips."
   },
   {
@@ -292,6 +340,7 @@ window.DAILY_DATA = [
     pinyin: "Kě yǐ shuā kǎ ma?",
     en: "Can I pay by card?",
     category: "survival",
+    group: "payment",
     usage: "Many places in China now prefer mobile payment over cards."
   },
   {
@@ -299,6 +348,7 @@ window.DAILY_DATA = [
     pinyin: "Kě yǐ yòng xiàn jīn ma?",
     en: "Can I use cash?",
     category: "survival",
+    group: "payment",
     usage: "Cash is still legal tender, though less common."
   },
   {
@@ -306,6 +356,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ fù xiàn jīn.",
     en: "I'll pay in cash.",
     category: "survival",
+    group: "payment",
     usage: "Use it when the QR scanner is down."
   },
   {
@@ -313,6 +364,7 @@ window.DAILY_DATA = [
     pinyin: "PayNow kě yǐ ma?",
     en: "Can I use PayNow?",
     category: "survival",
+    group: "payment",
     usage: "Singapore's local transfer system — works at many hawker stalls."
   },
 
@@ -322,6 +374,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ hǎo, wǒ jiào…… nǐ jiào shén me?",
     en: "Hi, I'm… what's your name?",
     category: "survival",
+    group: "social",
     usage: "The simplest, most natural opener. 叫 = to be called."
   },
   {
@@ -329,6 +382,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ shì nǎ lǐ rén?",
     en: "Where are you from?",
     category: "survival",
+    group: "social",
     usage: "Literally 'you are where person?' — the standard small-talk question."
   },
   {
@@ -336,6 +390,7 @@ window.DAILY_DATA = [
     pinyin: "Jiā ge Wēi xìn ba?",
     en: "Let's add each other on WeChat?",
     category: "survival",
+    group: "social",
     usage: "In China, this is the real 'can I get your number?' moment."
   },
   {
@@ -343,6 +398,7 @@ window.DAILY_DATA = [
     pinyin: "Yǒu kòng yì qǐ chī fàn ba.",
     en: "Let's grab a meal when you're free.",
     category: "survival",
+    group: "social",
     usage: "有空 = when free. 一起 = together. The friendliest invitation."
   },
   {
@@ -350,6 +406,7 @@ window.DAILY_DATA = [
     pinyin: "Hěn gāo xìng rèn shi nǐ.",
     en: "Nice to meet you.",
     category: "survival",
+    group: "social",
     usage: "Works in every setting, from networking events to dinner parties."
   },
   {
@@ -357,6 +414,7 @@ window.DAILY_DATA = [
     pinyin: "Xià cì jiàn, bǎo chí lián xì.",
     en: "See you next time — keep in touch.",
     category: "survival",
+    group: "social",
     usage: "The perfect exit line. 保持联系 = keep in touch."
   },
   {
@@ -364,6 +422,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ zuò shén me gōng zuò?",
     en: "What do you do?",
     category: "survival",
+    group: "social",
     usage: "Very common in introductions — ask it back to keep the chat going."
   },
   {
@@ -371,6 +430,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ xué shén me?",
     en: "What do you study?",
     category: "survival",
+    group: "social",
     usage: "Short for 你学什么专业? — great for students."
   },
   {
@@ -378,6 +438,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ qǐng nǐ chī fàn.",
     en: "I'll treat you to a meal.",
     category: "survival",
+    group: "social",
     usage: "A common way to show friendship — 请 = to treat."
   },
   {
@@ -385,6 +446,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ men gǎi tiān ba.",
     en: "Let's do it another day.",
     category: "survival",
+    group: "social",
     usage: "A polite way to cancel without saying 'no.'"
   },
   {
@@ -392,6 +454,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ jīn tiān máng ma?",
     en: "Are you busy today?",
     category: "survival",
+    group: "social",
     usage: "Use it before asking for a favor or inviting someone out."
   },
   {
@@ -399,6 +462,7 @@ window.DAILY_DATA = [
     pinyin: "Nǐ shén me shí hou yǒu kòng?",
     en: "When are you free?",
     category: "survival",
+    group: "social",
     usage: "A very useful question when making plans."
   },
   {
@@ -406,6 +470,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ men jǐ diǎn jiàn miàn?",
     en: "What time shall we meet?",
     category: "survival",
+    group: "social",
     usage: "The standard question for setting a time."
   },
   {
@@ -413,6 +478,7 @@ window.DAILY_DATA = [
     pinyin: "Qī diǎn kě yǐ ma?",
     en: "Is seven okay?",
     category: "survival",
+    group: "social",
     usage: "Replace 七点 with any time — a flexible confirmation."
   },
   {
@@ -420,6 +486,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ mǎ shàng dào.",
     en: "I'll be right there.",
     category: "survival",
+    group: "social",
     usage: "Use this when you're almost at the meeting place."
   },
   {
@@ -427,6 +494,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ zài mén kǒu děng nǐ.",
     en: "I'm waiting for you at the entrance.",
     category: "survival",
+    group: "social",
     usage: "A very common sentence when meeting up."
   },
 
@@ -436,6 +504,7 @@ window.DAILY_DATA = [
     pinyin: "Xiè xie nǐ de bāng zhù.",
     en: "Thanks for your help.",
     category: "survival",
+    group: "essential",
     usage: "More specific than just 谢谢 — shows genuine gratitude."
   },
   {
@@ -443,6 +512,7 @@ window.DAILY_DATA = [
     pinyin: "Bú kè qi, yīng gāi de.",
     en: "You're welcome, it's what I should do.",
     category: "survival",
+    group: "essential",
     usage: "A very authentic Chinese reply to 谢谢."
   },
   {
@@ -450,6 +520,7 @@ window.DAILY_DATA = [
     pinyin: "Duì bu qǐ, wǒ chí dào le.",
     en: "Sorry, I'm late.",
     category: "survival",
+    group: "essential",
     usage: "First say 对不起, then give the reason."
   },
   {
@@ -457,6 +528,7 @@ window.DAILY_DATA = [
     pinyin: "Méi guān xi, wǒ yě gāng dào.",
     en: "It's okay, I just arrived too.",
     category: "survival",
+    group: "essential",
     usage: "The standard reply to an apology — very forgiving."
   },
   {
@@ -464,6 +536,7 @@ window.DAILY_DATA = [
     pinyin: "Bù hǎo yì si, dǎ rǎo yí xià.",
     en: "Excuse me, let me interrupt for a moment.",
     category: "survival",
+    group: "essential",
     usage: "Good for interrupting or jumping into a conversation."
   },
   {
@@ -471,6 +544,7 @@ window.DAILY_DATA = [
     pinyin: "Má fan nǐ le.",
     en: "Sorry to trouble you.",
     category: "survival",
+    group: "essential",
     usage: "Said before or after asking for help — extremely polite."
   },
   {
@@ -478,6 +552,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng shuō màn yì diǎn.",
     en: "Please speak more slowly.",
     category: "survival",
+    group: "essential",
     usage: "Use it when the other person speaks too fast."
   },
   {
@@ -485,6 +560,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ tīng bù dǒng.",
     en: "I don't understand.",
     category: "survival",
+    group: "essential",
     usage: "The most important sentence for beginners."
   },
   {
@@ -492,6 +568,7 @@ window.DAILY_DATA = [
     pinyin: "Zhè ge yòng Zhōng wén zěn me shuō?",
     en: "How do you say this in Chinese?",
     category: "survival",
+    group: "essential",
     usage: "One of the most useful sentences for learning."
   },
   {
@@ -499,6 +576,7 @@ window.DAILY_DATA = [
     pinyin: "Shén me yì si?",
     en: "What does it mean?",
     category: "survival",
+    group: "essential",
     usage: "Use it when you hear a word you don't know."
   },
   {
@@ -506,6 +584,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng zài shuō yí biàn.",
     en: "Please say it again.",
     category: "survival",
+    group: "essential",
     usage: "More polite than 什么? — use it when you didn't catch it."
   },
   {
@@ -513,6 +592,7 @@ window.DAILY_DATA = [
     pinyin: "Qǐng xiě xià lái.",
     en: "Please write it down.",
     category: "survival",
+    group: "essential",
     usage: "Ask them to write it out so you can translate."
   },
   {
@@ -520,6 +600,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ huì shuō yì diǎn Zhōng wén.",
     en: "I can speak a little Chinese.",
     category: "survival",
+    group: "essential",
     usage: "A great opening disclaimer — sets expectations."
   },
   {
@@ -527,6 +608,7 @@ window.DAILY_DATA = [
     pinyin: "Wǒ de Zhōng wén bù hǎo.",
     en: "My Chinese is not good.",
     category: "survival",
+    group: "essential",
     usage: "A humble sentence that often makes people speak slower."
   },
   {
@@ -534,6 +616,7 @@ window.DAILY_DATA = [
     pinyin: "Xiè xie nǐ de nài xīn.",
     en: "Thanks for your patience.",
     category: "survival",
+    group: "essential",
     usage: "Say this after someone explains slowly to you."
   }
 
