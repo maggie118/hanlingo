@@ -1722,7 +1722,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
   /* 每篇故事的开头简介（书 + 本篇） */
   var STORY_BLURBS = {
-    '聊斋志异::崂山道士': 'A scholar climbs Mount Lao to learn magic, but learns the hard way that there are no shortcuts to skill.',
+    '聊斋志异::崂山道士': '《崂山道士》（Láoshān Dàoshi）"The Taoist of Mount Lao" is about a man who learns to walk through walls. But he shows off, the magic fails, and he hits a wall. It teaches us to be humble.',
     '聊斋志异::种梨': 'A greedy pear-seller refuses a humble Taoist — and watches his own fruit vanish before his eyes.',
     '聊斋志异::画皮': '画皮 (huàpí / Painted Skin): The most famous horror story in the book. It tells the story of an evil ghost wearing a beautiful woman\'s skin.',
     '聊斋志异::聂小倩': 'An upright scholar braves an evil yaksha to free a gentle ghost-girl from a haunted temple.',
@@ -2986,9 +2986,15 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         var storyBlurb = STORY_BLURBS[s.book + '::' + s.chapter_title];
         var storyEl = $('storyIntroStory');
         if (storyBlurb) {
-          /* 若简介已以篇名开头（如画皮），不再重复加篇名前缀 */
-          if (storyBlurb.indexOf(s.chapter_title) === 0) { storyEl.innerHTML = storyBlurb; }
-          else { storyEl.innerHTML = '<b>' + s.chapter_title + '</b> · ' + storyBlurb; }
+          /* 若简介已以篇名开头（如画皮/《崂山道士》），不再重复加前缀，篇名保持红色加粗 */
+          if (storyBlurb.indexOf(s.chapter_title) === 0) {
+            storyEl.innerHTML = '<b>' + s.chapter_title + '</b>' + storyBlurb.slice(s.chapter_title.length);
+          } else if (storyBlurb.indexOf('《' + s.chapter_title + '》') === 0) {
+            var bk = '《' + s.chapter_title + '》';
+            storyEl.innerHTML = '<b>' + bk + '</b>' + storyBlurb.slice(bk.length);
+          } else {
+            storyEl.innerHTML = '<b>' + s.chapter_title + '</b> · ' + storyBlurb;
+          }
           storyEl.hidden = false;
         } else { storyEl.hidden = true; }
       } else { $('storyIntro').hidden = true; }
