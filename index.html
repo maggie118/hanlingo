@@ -192,9 +192,16 @@ main::-webkit-scrollbar { display: none; }
 .sp-btn[disabled] { opacity: .4; cursor: not-allowed; }
 .sp-btn.playing .sp-ico { animation: spPulse .9s ease-in-out infinite; }
 @media (max-width: 430px) {
-  .sp-btn { font-size: 13px; padding: 12px 2px; gap: 3px; letter-spacing: -0.01em; }
-  .sp-ico { font-size: 12px; }
-  .speed-group { flex: 1.5; }
+  .sp-btn { font-size: 12.5px; padding: 12px 2px; gap: 3px; letter-spacing: -0.01em; }
+  .sp-ico { font-size: 11px; }
+  .speed-group { flex: 1.8; }
+  .actions .btn { padding: 14px 5px; font-size: 14px; }
+}
+@media (max-width: 360px) {
+  .sp-btn { font-size: 12px; padding: 11px 1px; gap: 2px; }
+  .sp-ico { font-size: 10px; }
+  .speed-group { flex: 2; }
+  .actions .btn { padding: 13px 4px; font-size: 13px; }
 }
 @keyframes spPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.28); } }
 
