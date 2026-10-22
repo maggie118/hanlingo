@@ -25,7 +25,7 @@ window.DAILY_DATA = [
     en: "Hi, one iced Americano to go.",
     category: "survival",
     group: "cafe",
-    usage: "The exact sentence you'll say at any café — swap 冰美式 for any drink."
+    usage: "The exact sentence you'll say at any café — swap 冰美式 (bīng měi shì) for any drink."
   },
   {
     zh: "我要一杯拿铁，少糖，谢谢。",
@@ -33,7 +33,7 @@ window.DAILY_DATA = [
     en: "I'd like a latte with less sugar, thanks.",
     category: "survival",
     group: "cafe",
-    usage: "少糖 / 少冰 / 少奶 are your three customization words."
+    usage: "少糖 (shǎo táng) / 少冰 (shǎo bīng) / 少奶 (shǎo nǎi) are your three customization words."
   },
   {
     zh: "我不吃辣，少放盐，谢谢。",
@@ -73,7 +73,7 @@ window.DAILY_DATA = [
     en: "Do you have any recommendations?",
     category: "survival",
     group: "cafe",
-    usage: "Ask the server — 推荐 = recommend."
+    usage: "Ask the server — 推荐 (tuī jiàn) = recommend."
   },
   {
     zh: "我要这个。",
@@ -105,7 +105,7 @@ window.DAILY_DATA = [
     en: "Could you pack this to go?",
     category: "survival",
     group: "cafe",
-    usage: "打包 (dǎ bāo) is the word for takeaway. 麻烦 makes it polite."
+    usage: "打包 (dǎ bāo) is the word for takeaway. 麻烦 (má fan) makes it polite."
   },
   {
     zh: "再来一碗米饭。",
@@ -113,7 +113,7 @@ window.DAILY_DATA = [
     en: "One more bowl of rice.",
     category: "survival",
     group: "cafe",
-    usage: "Use it when you finish a bowl — 再来 = one more."
+    usage: "Use it when you finish a bowl — 再来 (zài lái) = one more."
   },
   {
     zh: "请给我一杯水。",
@@ -145,7 +145,7 @@ window.DAILY_DATA = [
     en: "How much in total?",
     category: "survival",
     group: "cafe",
-    usage: "一共 = in total. Very common at checkout."
+    usage: "一共 (yī gòng) = in total. Very common at checkout."
   },
 
   // ================= 打车 / 出行（16 句） =================
@@ -155,7 +155,7 @@ window.DAILY_DATA = [
     en: "Driver, to Changi Airport — I'm in a hurry.",
     category: "survival",
     group: "transit",
-    usage: "师傅 (shī fu) is the polite way to address any driver. 赶时间 = in a hurry."
+    usage: "师傅 (shī fu) is the polite way to address any driver. 赶时间 (gǎn shí jiān) = in a hurry."
   },
   {
     zh: "请带我去这个地址。",
@@ -171,7 +171,7 @@ window.DAILY_DATA = [
     en: "Please stop at the intersection ahead.",
     category: "survival",
     group: "transit",
-    usage: "路口 = intersection. 停一下 = stop for a moment."
+    usage: "路口 (lù kǒu) = intersection. 停一下 (tíng yī xià) = stop for a moment."
   },
   {
     zh: "大概要多久到？",
@@ -179,7 +179,7 @@ window.DAILY_DATA = [
     en: "About how long until we arrive?",
     category: "survival",
     group: "transit",
-    usage: "大概 = roughly. 多久 = how long. Works for taxis, trains, deliveries."
+    usage: "大概 (dà gài) = roughly. 多久 (duō jiǔ) = how long. Works for taxis, trains, deliveries."
   },
   {
     zh: "可以帮我开一下空调吗？",
@@ -187,7 +187,7 @@ window.DAILY_DATA = [
     en: "Could you turn on the AC?",
     category: "survival",
     group: "transit",
-    usage: "空调 = air conditioning. 开一下 = turn on for a bit."
+    usage: "空调 (kōng tiáo) = air conditioning. 开一下 (kāi yī xià) = turn on for a bit."
   },
   {
     zh: "到了请叫我一下。",
@@ -211,7 +211,7 @@ window.DAILY_DATA = [
     en: "Does this bus/train go to the airport?",
     category: "survival",
     group: "transit",
-    usage: "Ask the driver before boarding — 趟 = measure word for trips."
+    usage: "Ask the driver before boarding — 趟 (tàng) = measure word for trips."
   },
   {
     zh: "在哪里买票？",
@@ -227,7 +227,7 @@ window.DAILY_DATA = [
     en: "One ticket, please.",
     category: "survival",
     group: "transit",
-    usage: "张 is the measure word for tickets."
+    usage: "张 (zhāng) is the measure word for tickets."
   },
   {
     zh: "我迷路了。",
@@ -235,7 +235,7 @@ window.DAILY_DATA = [
     en: "I'm lost.",
     category: "survival",
     group: "transit",
-    usage: "Say this directly if you're lost — 迷路 = to get lost."
+    usage: "Say this directly if you're lost — 迷路 (mí lù) = to get lost."
   },
   {
     zh: "离这里远吗？",
@@ -259,7 +259,7 @@ window.DAILY_DATA = [
     en: "Excuse me, where is the subway station?",
     category: "survival",
     group: "transit",
-    usage: "In China it's 地铁; in Singapore it's MRT."
+    usage: "In China it's 地铁 (dì tiě); in Singapore it's MRT."
   },
   {
     zh: "请问，洗手间在哪里？",
@@ -275,7 +275,7 @@ window.DAILY_DATA = [
     en: "Go straight, then turn left.",
     category: "survival",
     group: "transit",
-    usage: "The most common direction pattern — 一直走 + 左/右转."
+    usage: "The most common direction pattern — 一直走 (yī zhí zǒu) + 左/右转 (zuǒ/yòu zhuǎn)."
   },
 
   // ================= 电子支付（11 句） =================
@@ -285,7 +285,7 @@ window.DAILY_DATA = [
     en: "Can I use WeChat Pay?",
     category: "survival",
     group: "payment",
-    usage: "微信支付 is accepted almost everywhere in mainland China."
+    usage: "微信支付 (wēi xìn zhī fù) is accepted almost everywhere in mainland China."
   },
   {
     zh: "支付宝也可以吧？",
@@ -293,7 +293,7 @@ window.DAILY_DATA = [
     en: "Alipay works too, right?",
     category: "survival",
     group: "payment",
-    usage: "吧 makes it a soft confirmation — you already expect yes."
+    usage: "吧 (ba) makes it a soft confirmation — you already expect yes."
   },
   {
     zh: "我扫你还是你扫我？",
@@ -301,7 +301,7 @@ window.DAILY_DATA = [
     en: "Do I scan you or do you scan me?",
     category: "survival",
     group: "payment",
-    usage: "The most useful payment sentence in China. 还是 = or (in questions)."
+    usage: "The most useful payment sentence in China. 还是 (hái shì) = or (in questions)."
   },
   {
     zh: "扫这个二维码付款就行。",
@@ -309,7 +309,7 @@ window.DAILY_DATA = [
     en: "Just scan this QR code to pay.",
     category: "survival",
     group: "payment",
-    usage: "二维码 = QR code. 就行 = that's all you need to do."
+    usage: "二维码 (èr wéi mǎ) = QR code. 就行 (jiù xíng) = that's all you need to do."
   },
   {
     zh: "付款失败了，我再试一次。",
@@ -317,7 +317,7 @@ window.DAILY_DATA = [
     en: "Payment failed — let me try again.",
     category: "survival",
     group: "payment",
-    usage: "失败 = failed. 再试一次 = try one more time."
+    usage: "失败 (shī bài) = failed. 再试一次 (zài shì yī cì) = try one more time."
   },
   {
     zh: "零钱不够，我换张卡。",
@@ -325,7 +325,7 @@ window.DAILY_DATA = [
     en: "Not enough balance — I'll switch cards.",
     category: "survival",
     group: "payment",
-    usage: "零钱 = balance / change. 换 = change / switch."
+    usage: "零钱 (líng qián) = balance / change. 换 (huàn) = change / switch."
   },
   {
     zh: "收据可以发我邮箱吗？",
@@ -333,7 +333,7 @@ window.DAILY_DATA = [
     en: "Can you email me the receipt?",
     category: "survival",
     group: "payment",
-    usage: "收据 = receipt. 邮箱 = email inbox. Essential for business trips."
+    usage: "收据 (shōu jù) = receipt. 邮箱 (yóu xiāng) = email inbox. Essential for business trips."
   },
   {
     zh: "可以刷卡吗？",
@@ -375,7 +375,7 @@ window.DAILY_DATA = [
     en: "Hi, I'm… what's your name?",
     category: "survival",
     group: "social",
-    usage: "The simplest, most natural opener. 叫 = to be called."
+    usage: "The simplest, most natural opener. 叫 (jiào) = to be called."
   },
   {
     zh: "你是哪里人？",
@@ -399,7 +399,7 @@ window.DAILY_DATA = [
     en: "Let's grab a meal when you're free.",
     category: "survival",
     group: "social",
-    usage: "有空 = when free. 一起 = together. The friendliest invitation."
+    usage: "有空 (yǒu kòng) = when free. 一起 (yī qǐ) = together. The friendliest invitation."
   },
   {
     zh: "很高兴认识你。",
@@ -415,7 +415,7 @@ window.DAILY_DATA = [
     en: "See you next time — keep in touch.",
     category: "survival",
     group: "social",
-    usage: "The perfect exit line. 保持联系 = keep in touch."
+    usage: "The perfect exit line. 保持联系 (bǎo chí lián xì) = keep in touch."
   },
   {
     zh: "你做什么工作？",
@@ -431,7 +431,7 @@ window.DAILY_DATA = [
     en: "What do you study?",
     category: "survival",
     group: "social",
-    usage: "Short for 你学什么专业? — great for students."
+    usage: "Short for 你学什么专业 (nǐ xué shén me zhuān yè)? — great for students."
   },
   {
     zh: "我请你吃饭。",
@@ -439,7 +439,7 @@ window.DAILY_DATA = [
     en: "I'll treat you to a meal.",
     category: "survival",
     group: "social",
-    usage: "A common way to show friendship — 请 = to treat."
+    usage: "A common way to show friendship — 请 (qǐng) = to treat."
   },
   {
     zh: "我们改天吧。",
@@ -479,7 +479,7 @@ window.DAILY_DATA = [
     en: "Is seven okay?",
     category: "survival",
     group: "social",
-    usage: "Replace 七点 with any time — a flexible confirmation."
+    usage: "Replace 七点 (qī diǎn) with any time — a flexible confirmation."
   },
   {
     zh: "我马上到。",
@@ -505,7 +505,7 @@ window.DAILY_DATA = [
     en: "Thanks for your help.",
     category: "survival",
     group: "essential",
-    usage: "More specific than just 谢谢 — shows genuine gratitude."
+    usage: "More specific than just 谢谢 (xiè xie) — shows genuine gratitude."
   },
   {
     zh: "不客气，应该的。",
@@ -513,7 +513,7 @@ window.DAILY_DATA = [
     en: "You're welcome, it's what I should do.",
     category: "survival",
     group: "essential",
-    usage: "A very authentic Chinese reply to 谢谢."
+    usage: "A very authentic Chinese reply to 谢谢 (xiè xie)."
   },
   {
     zh: "对不起，我迟到了。",
@@ -521,7 +521,7 @@ window.DAILY_DATA = [
     en: "Sorry, I'm late.",
     category: "survival",
     group: "essential",
-    usage: "First say 对不起, then give the reason."
+    usage: "First say 对不起 (duì bu qǐ), then give the reason."
   },
   {
     zh: "没关系，我也刚到。",
@@ -585,7 +585,7 @@ window.DAILY_DATA = [
     en: "Please say it again.",
     category: "survival",
     group: "essential",
-    usage: "More polite than 什么? — use it when you didn't catch it."
+    usage: "More polite than 什么 (shén me)? — use it when you didn't catch it."
   },
   {
     zh: "请写下来。",
