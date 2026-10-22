@@ -141,8 +141,11 @@ main::-webkit-scrollbar { display: none; }
 .story-intro-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--text); font-weight: 700; }
 .book-cover { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: #f3f3f3; border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; }
 .book-cover-left { min-width: 0; }
+.book-cover-badge { display: inline-block; font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); padding: 4px 10px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
 .book-cover-en { font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: 0.02em; line-height: 1.15; }
 .book-cover-meta { display: block; font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+.book-cover-sub { font-size: 15px; font-weight: 600; color: var(--accent); margin-top: 8px; }
+.book-cover-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-top: 4px; max-width: 440px; }
 .book-cover-seal { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 8px; border: 3px solid #b03a2e; border-radius: 10px; background: #fffdf8; }
 .book-cover-seal span { font-size: 20px; font-weight: 900; color: #b03a2e; line-height: 1.2; font-family: "Noto Serif SC","Songti SC","STSong","SimSun",serif; }
 
@@ -615,15 +618,14 @@ main::-webkit-scrollbar { display: none; }
         <div class="story-intro" id="storyIntro" hidden>
           <div class="book-cover" id="bookCover" hidden>
             <div class="book-cover-left">
+              <span class="book-cover-badge" id="bookCoverBadge">STORY MODE · BEGINNER</span>
               <div class="book-cover-en" id="bookCoverEn">Journey to the West</div>
               <small class="book-cover-meta" id="bookCoverMeta">Classic Chinese Literature</small>
+              <div class="book-cover-sub" id="bookCoverSub">The Monkey King's Adventure</div>
+              <div class="book-cover-desc" id="bookCoverDesc">Follow the Monkey King's epic adventure while learning Chinese sentence by sentence.</div>
             </div>
             <div class="book-cover-seal" id="bookCoverSeal"><span>西</span><span>游</span><span>记</span></div>
           </div>
-          <div class="story-intro-meta" id="storyIntroMeta">STORY MODE · BEGINNER</div>
-          <div class="story-intro-title" id="storyIntroTitle">Journey to the West</div>
-          <div class="story-intro-subtitle" id="storyIntroSubtitle">The Monkey King's First Adventure</div>
-          <div class="story-intro-desc" id="storyIntroDesc">Follow the adventure while learning Chinese sentence by sentence.</div>
           <div class="story-intro-story" id="storyIntroStory" hidden></div>
           <ul class="story-intro-list">
             <li>Listen to each sentence</li>
@@ -2960,24 +2962,26 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
           level: 'Beginner', title: s.book, subtitle: s.displayTitle,
           desc: 'Follow the adventure while learning Chinese sentence by sentence.'
         };
-        $('storyIntroMeta').textContent = 'STORY MODE · ' + introData.level.toUpperCase();
-        $('storyIntroTitle').textContent = introData.title;
-        $('storyIntroSubtitle').textContent = introData.subtitle;
-        $('storyIntroDesc').textContent = introData.desc;
-        /* 书名封面：左边横排英文书名，右边印章式竖排中文书名 */
+        /* 封面整合：徽章 + 英文书名 + 副标题 + 描述 + 印章（已移除旧独立文字区） */
         var COVER = {
-          'Journey to the West': { en: 'Journey to the West', zh: '西游记', tag: 'Classic Chinese Literature' },
-          '聊斋志异': { en: 'Strange Tales', zh: '聊斋志异', tag: 'Tales of the Weird' },
-          '孙子兵法': { en: 'The Art of War', zh: '孙子兵法', tag: 'Ancient Strategy' }
+          'Journey to the West': { en: 'Journey to the West', zh: '西游记', tag: 'Classic Chinese Literature', desc: '"Journey to the West" — Tang Monk and his three disciples journey West for Buddhist scriptures, defeating monsters along the way.' },
+          '聊斋志异': { en: 'Strange Tales', zh: '聊斋志异', tag: 'Tales of the Weird', desc: '"Strange Tales from a Chinese Studio" — a famous collection of ghost, fox-spirit and immortal tales that quietly critique real-world society.' },
+          '孙子兵法': { en: 'The Art of War', zh: '孙子兵法', tag: 'Ancient Strategy', desc: '"The Art of War" — the most famous ancient Chinese military treatise, studied worldwide as a masterpiece of strategy and wisdom.' }
         };
         var cv = COVER[s.book];
         var cvEl = $('bookCover');
+        $('bookCoverBadge').textContent = 'STORY MODE · ' + introData.level.toUpperCase();
+        $('bookCoverEn').textContent = introData.title;
+        $('bookCoverSub').textContent = introData.subtitle;
+        $('bookCoverDesc').textContent = (cv && cv.desc) ? cv.desc : introData.desc;
         if (cv) {
-          $('bookCoverEn').textContent = cv.en;
           $('bookCoverMeta').textContent = cv.tag;
           $('bookCoverSeal').innerHTML = cv.zh.split('').map(function(ch){ return '<span>' + ch + '</span>'; }).join('');
-          cvEl.hidden = false;
-        } else { cvEl.hidden = true; }
+        } else {
+          $('bookCoverMeta').textContent = '';
+          $('bookCoverSeal').innerHTML = '';
+        }
+        cvEl.hidden = false;
         /* 每篇故事的开头再加一句「本篇」简介 */
         var storyBlurb = STORY_BLURBS[s.book + '::' + s.chapter_title];
         var storyEl = $('storyIntroStory');
