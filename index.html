@@ -130,6 +130,9 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .streak b { color: var(--accent); font-size: 18px; font-variant-numeric: tabular-nums; }
 .review-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 5px 8px; border-radius: 8px; }
 .review-btn:hover { color: var(--accent); background: var(--accent-soft); }
+.share-btn { background: transparent; border: none; color: var(--text); cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 8px; }
+.share-btn:hover { color: var(--accent); background: var(--accent-soft); }
+.share-btn svg { width: 15px; height: 15px; flex: none; }
 
 .sync-badge {
   display: flex; align-items: center; gap: 3px;
@@ -663,6 +666,10 @@ main::-webkit-scrollbar { display: none; }
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
         <button class="review-btn" id="btnSaved" hidden>❤️ Saved</button>
         <span class="streak">🔥 <b id="streakDisplay">0</b> Day Streak</span>
+        <button class="share-btn" id="btnShare" type="button" aria-label="Share HanLingo" title="Share HanLingo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></svg>
+          <span>Share</span>
+        </button>
       </div>
     </div>
 
@@ -795,7 +802,7 @@ main::-webkit-scrollbar { display: none; }
 <!-- Download / Install PWA badge -->
 <button class="offline-badge" id="btnOffline" type="button" aria-label="Install HanLingo app" title="Download HanLingo as an app — installs and works offline">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m8 11 4 4 4-4"></path><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
-  <span id="offlineLabel">Offline Mode</span>
+  <span id="offlineLabel">install hanlingo</span>
 </button>
 
 <!-- Sync Modal -->
@@ -2992,8 +2999,8 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var offlineBtn = document.getElementById('btnOffline');
     var offlineLabel = document.getElementById('offlineLabel');
     if (offlineBtn) {
-      if (offlineLabel) offlineLabel.textContent = isPro() ? 'Offline Mode' : 'Offline (Pro)';
-      else offlineBtn.textContent = isPro() ? 'Offline Mode' : 'Offline (Pro)';
+      if (offlineLabel) offlineLabel.textContent = 'install hanlingo';
+      else offlineBtn.textContent = 'install hanlingo';
     }
   }
 
@@ -3357,34 +3364,59 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
 
   /* ================= 16. PWA 安装 / 下载 App（离线可用） ================= */
   var deferredPrompt = null;
+  (function() {
+    if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+      var b = document.getElementById('btnOffline');
+      if (b) b.style.display = 'none';
+    }
+  })();
   window.addEventListener('beforeinstallprompt', function(e) {
     e.preventDefault();
     deferredPrompt = e;
     var lbl = document.getElementById('offlineLabel');
-    if (lbl) lbl.textContent = 'Install App';
+    if (lbl) lbl.textContent = 'install hanlingo';
     var b = document.getElementById('btnOffline');
     if (b) { b.disabled = false; }
   });
   window.addEventListener('appinstalled', function() {
     deferredPrompt = null;
-    var lbl = document.getElementById('offlineLabel');
-    if (lbl) lbl.textContent = '✓ Installed';
     var b = document.getElementById('btnOffline');
-    if (b) b.disabled = true;
+    if (b) b.style.display = 'none';
+  });
+
+  /* ================= 17. 分享 ================= */
+  var shareBtn = document.getElementById('btnShare');
+  if (shareBtn) shareBtn.addEventListener('click', function() {
+    var url = 'https://www.hanlingo.app/';
+    if (navigator.share) {
+      navigator.share({ title: 'HanLingo', text: 'Learn Chinese through stories & sentences — free and offline.', url: url }).catch(function() {});
+    } else {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, ta.value.length);
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Link copied — share HanLingo!');
+      } catch (e) {
+        window.prompt('Copy this link to share:', url);
+      }
+    }
   });
 
   $('btnOffline').addEventListener('click', function() {
     var btn = this, lbl = document.getElementById('offlineLabel');
     // 已作为 PWA 运行 / 已安装
     if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
-      if (lbl) lbl.textContent = '✓ Installed'; btn.disabled = true; return;
+      btn.style.display = 'none'; return;
     }
     // 浏览器支持安装：触发系统安装弹窗
     if (deferredPrompt) {
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then(function(choiceResult) {
-        if (choiceResult.outcome === 'accepted') { if (lbl) lbl.textContent = '✓ Installed'; btn.disabled = true; }
-        else if (lbl) lbl.textContent = 'Install App';
+        if (choiceResult.outcome === 'accepted') { btn.style.display = 'none'; }
+        else if (lbl) lbl.textContent = 'install hanlingo';
         deferredPrompt = null;
       });
       return;
