@@ -148,9 +148,9 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .45s cubic-bezier(.3,.7,.2,1); }
 
 .chips-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; position: relative; flex: none; }
-.chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 20px 6px 2px; scrollbar-width: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; overflow: visible; padding: 2px 0 6px; }
 .chips::-webkit-scrollbar { display: none; }
-.chip { flex: none; font: 600 13px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 10px 16px; cursor: pointer; transition: all .18s ease; }
+.chip { flex: none; font: 600 13px/1 var(--sans); color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 10px 16px; cursor: pointer; transition: all .18s ease; white-space: nowrap; }
 .chip:hover { border-color: rgba(192,88,75,.45); color: var(--accent); }
 .chip:focus-visible { outline: 2px solid rgba(192,88,75,.4); outline-offset: 2px; }
 .chip[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 6px 16px -8px rgba(192,88,75,.55); }
