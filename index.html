@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Learn Mandarin Through Stories & Real-Life Sentences | HanLingo</title>
+<title>Learn Mandarin from Zero to Fluent | Stories & Business Chinese | HanLingo</title>
 <meta name="theme-color" content="#F4F3EF">
 <link rel="icon" type="image/svg+xml" href="/icons/logo.svg">
-<meta name="description" content="Learn Mandarin through classic Chinese stories and practical daily sentences, with pinyin, English translations, and normal or slow audio. Start free.">
+<meta name="description" content="Learn conversational Mandarin Chinese and business Chinese through classic stories (Journey to the West, Art of War) and real-life daily sentences with slow audio. Free 7-day trial — no charge today.">
 <link rel="canonical" href="https://www.hanlingo.app/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
@@ -18,16 +18,17 @@
 
 <!-- Social -->
 <meta property="og:site_name" content="HanLingo">
-<meta property="og:title" content="Learn Mandarin Through Stories & Real-Life Sentences | HanLingo">
-<meta property="og:description" content="Learn Mandarin through classic stories and practical sentences, with pinyin, English translations, and normal or slow audio. Start free.">
+<meta property="og:title" content="Learn Mandarin from Zero to Fluent | Stories & Business Chinese | HanLingo">
+<meta property="og:description" content="Conversational and business Mandarin through classic stories (Journey to the West, Art of War) and real-life sentences with slow audio. Free 7-day trial — no charge today.">
+<meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://www.hanlingo.app/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.hanlingo.app/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Learn Mandarin Through Stories & Real-Life Sentences | HanLingo">
-<meta name="twitter:description" content="Learn Mandarin through classic stories and practical sentences, with pinyin, English translations, and normal or slow audio. Start free.">
+<meta name="twitter:title" content="Learn Mandarin from Zero to Fluent | Stories & Business Chinese | HanLingo">
+<meta name="twitter:description" content="Conversational and business Mandarin through classic stories and real-life sentences with slow audio. Free 7-day trial — no charge today.">
 <meta name="twitter:image" content="https://www.hanlingo.app/og-image.png">
 
 <!-- Structured data -->
@@ -43,7 +44,9 @@
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Any",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "description": "Learn Mandarin Chinese through classic stories (Journey to the West, Strange Tales, The Art of War) and real-life daily sentences, with pinyin, translations and normal/slow audio. Free daily practice for beginners."
+      "description": "Learn conversational Mandarin Chinese and business Chinese through classic stories (Journey to the West, Strange Tales, The Art of War) and real-life daily sentences, with pinyin, translations and normal/slow audio. Built for expats and professionals going from zero to fluent.",
+      "audience": { "@type": "Audience", "audienceType": "Expats, professionals and adult learners of Mandarin Chinese" },
+      "inLanguage": "en"
     },
     {
       "@type": "WebSite",
@@ -62,6 +65,7 @@
 
 <link rel="manifest" href="/manifest.json">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
 
 <style>
 :root {
@@ -301,6 +305,7 @@ main::-webkit-scrollbar { display: none; }
 .quote-en { display: block; font-size: 14px; color: var(--text); opacity: 0.8; font-style: italic; }
 .quote-pinyin { display: block; font-size: 13px; color: var(--text); opacity: 0.6; margin-bottom: 4px; letter-spacing: .02em; }
 .done .actions { flex-direction: column; width: 100%; max-width: 280px; margin-top: 12px; gap: 8px; }
+.done-share-reward { width: 100%; max-width: 320px; margin-top: 12px; padding: 9px 12px; border-radius: 10px; background: #EAF7EF; border: 1px solid #BFE6CE; color: #1B6B45; font-size: 12px; font-weight: 700; line-height: 1.4; }
 
 .done-pro-cta {
   width: 100%;
@@ -348,13 +353,17 @@ main::-webkit-scrollbar { display: none; }
 .review-item-en { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
 .review-item-meta { font-size: 10px; color: var(--accent); text-transform: uppercase; font-weight: 700; }
 
-#share-card { position: absolute; left: -9999px; top: 0; width: 375px; height: 667px; background: var(--bg); padding: 40px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; text-align: center; font-family: var(--sans); }
-.share-logo { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 40px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.share-logo-img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; flex: none; }
-.share-pinyin { font-size: 20px; color: var(--accent); font-weight: 600; line-height: 1.4; word-wrap: break-word; }
-.share-hanzi { font-size: 38px; font-weight: 600; color: var(--text); margin: 20px 0; line-height: 1.3; word-wrap: break-word; }
-.share-en { font-size: 16px; color: var(--muted); margin-bottom: 40px; line-height: 1.5; word-wrap: break-word; }
-.share-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; }
+#share-card { position: absolute; left: -9999px; top: 0; width: 375px; height: 667px; background: var(--bg); padding: 32px; display: flex; flex-direction: column; justify-content: flex-start; box-sizing: border-box; text-align: center; font-family: var(--sans); }
+.share-logo { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 26px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.share-logo-img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; flex: none; }
+.share-pinyin { font-size: 19px; color: var(--accent); font-weight: 600; line-height: 1.4; word-wrap: break-word; }
+.share-hanzi { font-size: 36px; font-weight: 600; color: var(--text); margin: 16px 0; line-height: 1.3; word-wrap: break-word; }
+.share-en { font-size: 15px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; word-wrap: break-word; }
+.share-invite { margin-top: auto; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: #fff; border: 1px solid var(--border); text-align: left; }
+.share-qr { width: 64px; height: 64px; flex: none; border-radius: 8px; background: #fff; }
+.share-invite-text b { display: block; font-size: 12.5px; color: var(--text); }
+.share-invite-text span { display: block; font-size: 11.5px; color: var(--accent); font-weight: 700; margin-top: 3px; word-break: break-all; }
+.share-footer { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted); display: flex; justify-content: space-between; }
 
 #celebrationModal { z-index: 200; background: rgba(44,48,46,.85); backdrop-filter: blur(4px); }
 .celebration-card { background: var(--card); border-radius: 24px; padding: 40px 24px; text-align: center; max-width: 320px; width: 100%; box-shadow: 0 24px 64px -12px rgba(0,0,0,.4); border: 1px solid var(--border); position: relative; overflow: hidden; }
@@ -429,6 +438,10 @@ main::-webkit-scrollbar { display: none; }
 #paywallModal h2 { font-size: 22px; line-height: 1.25; margin-bottom: 6px; letter-spacing: -.01em; }
 #paywallModal .pw-subtitle { font-size: 13px; margin-bottom: 8px; line-height: 1.45; }
 #paywallModal .pw-trustline { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 11px; color: var(--muted); font-weight: 600; }
+#paywallModal .pw-trustline strong { color: var(--pw-green); font-weight: 800; }
+#paywallModal .pw-trustline--2 { margin-top: 3px; color: #5F635E; }
+#paywallModal .pw-anchor { font-size: 13px; font-weight: 600; color: #A9ADA8; text-decoration: line-through; }
+#paywallModal .pw-nocharge { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 8px 0 1px; padding: 7px 9px; border-radius: 9px; background: #EAF7EF; border: 1px solid #BFE6CE; color: #1B6B45; font-size: 12.5px; font-weight: 800; letter-spacing: .01em; }
 #paywallModal .pw-intent-banner { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 14px; padding: 10px 12px; border-radius: 12px; background: #FFF7E6; border: 1px solid #FFE0A3; font-size: 12px; line-height: 1.45; color: #7A5100; animation: fadeIn .25s ease both; }
 #paywallModal .pw-intent-banner .ic { flex: none; font-size: 14px; }
 #paywallModal .pw-intent-banner strong { font-weight: 800; }
@@ -541,28 +554,18 @@ main::-webkit-scrollbar { display: none; }
 .pro-welcome-card .btn { width: 100%; flex: none; }
 .pro-welcome-card .btn + .btn { margin-top: 8px; }
 
-.desktop-intro { display: none; }
+.home-hero { margin: 0 0 10px; }
+.home-hero h1 { font-size: 15px; font-weight: 800; line-height: 1.3; letter-spacing: -.01em; color: var(--text); }
+.home-hero p { font-size: 11px; line-height: 1.35; color: var(--muted); margin-top: 3px; }
 
 @media (min-width: 1024px) {
   body { overflow-y: auto; background: #F4F3EF; }
   .app { max-width: 1280px; height: auto; min-height: 100dvh; flex-direction: row; align-items: center; justify-content: center; padding: 60px 48px; gap: 80px; }
   header { flex: 1; max-width: 480px; display: flex; flex-direction: column; justify-content: flex-start; }
   .top { margin-bottom: 22px; }
-  .desktop-intro {
-    display: block;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--muted);
-    margin: 0 0 28px;
-  }
-  .desktop-intro h2 {
-    font-size: 48px;
-    line-height: 1.15;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.02em;
-    margin: 0 0 16px;
-  }
+  .home-hero { margin: 0 0 28px; }
+  .home-hero h1 { font-size: 46px; line-height: 1.12; letter-spacing: -0.02em; }
+  .home-hero p { font-size: 17px; line-height: 1.55; margin-top: 14px; }
   .chips-container { margin-bottom: 0; gap: 12px; }
   .chips { flex-wrap: wrap; overflow: visible; padding: 0; gap: 10px; }
   .chip { font-size: 14px; padding: 12px 20px; }
@@ -654,7 +657,7 @@ main::-webkit-scrollbar { display: none; }
 <div class="app">
   <header>
     <div class="top">
-      <h1 class="brand"><img class="brand-logo" src="icons/logo.svg" alt="HanLingo — Learn Chinese Through Stories & Sentences" width="26" height="26">HanLingo</h1>
+      <div class="brand"><img class="brand-logo" src="icons/logo.svg" alt="HanLingo — Learn Mandarin from Zero to Fluent" width="26" height="26">HanLingo</div>
       <div class="meta-right">
         <button class="sync-badge" id="syncBadge" hidden title="Progress synced">☁️ Synced</button>
         <button class="review-btn" id="btnReviewHistory" hidden>🔄 Review</button>
@@ -670,9 +673,9 @@ main::-webkit-scrollbar { display: none; }
       </div>
     </div>
 
-    <div class="desktop-intro">
-      <h2>Real Chinese<br>for Real Life.</h2>
-      <p>Learn Mandarin through practical sentences and classic stories, with pinyin, English translations, and normal or slow audio.</p>
+    <div class="home-hero">
+      <h1>Learn Mandarin from Zero to Fluent.</h1>
+      <p>Business &amp; cultural Mandarin through classic stories and real-life daily sentences — with pinyin, translations and slow audio.</p>
     </div>
 
     <div class="progress-bar" id="bar"><i id="fill"></i></div>
@@ -790,6 +793,9 @@ main::-webkit-scrollbar { display: none; }
         <button class="btn ghost" id="shareImgBtn" type="button">Save Image</button>
         <button class="btn ghost" id="replay" type="button">Review Again</button>
       </div>
+      <div class="done-share-reward" id="doneShareReward" hidden>
+        🔥 7-day streak? Share it to unlock <b>1 full classic story chapter</b> — free.
+      </div>
 
       <div class="done-pro-cta" id="doneProCta" hidden>
         <div class="done-pro-divider">Want more?</div>
@@ -843,7 +849,8 @@ main::-webkit-scrollbar { display: none; }
       <span class="pw-eyebrow">HANLINGO PRO</span>
       <h2 id="pwTitle">Unlock the Full Chinese World</h2>
       <p class="pw-subtitle">Keep the stories going, master real-life slang, and never forget a word.</p>
-      <div class="pw-trustline">🔒 7-Day Money-Back Guarantee · Secure Payment via Stripe</div>
+      <div class="pw-trustline"><strong>🔒 Secure 256-bit SSL checkout via Stripe</strong></div>
+      <div class="pw-trustline pw-trustline--2">🌍 Trusted by learners in 30+ countries · 7-day money-back guarantee</div>
     </div>
     <div class="pw-intent-banner" id="pwIntentBanner" hidden>
       <span class="ic">🔥</span>
@@ -853,7 +860,7 @@ main::-webkit-scrollbar { display: none; }
       <div class="pw-card" data-plan="monthly">
         <div class="pw-card-name">Monthly</div>
         <div class="pw-card-price"><b>$12.99</b><span>/ month</span></div>
-        <div class="pw-card-sub">Billed monthly, cancel anytime</div>
+        <div class="pw-card-sub">Billed monthly · $155.88 a year if you stay</div>
         <ul class="pw-card-notes">
           <li class="no"><span class="ic">✕</span><span>No free trial</span></li>
           <li class="no"><span class="ic">✕</span><span>Long-term commitment</span></li>
@@ -866,23 +873,24 @@ main::-webkit-scrollbar { display: none; }
       <div class="pw-card pw-card--featured active" data-plan="annual">
         <span class="pw-card-badge">⭐ BEST VALUE</span>
         <div class="pw-card-name">Annual</div>
-        <div class="pw-card-price"><b>$59.99</b><span>/ year</span></div>
-        <div class="pw-card-sub">Just $4.99/mo · Save 60%</div>
+        <div class="pw-card-price"><span class="pw-anchor">$155.88</span><b>$59.99</b><span>/ year</span></div>
+        <div class="pw-card-sub">Just $4.99/mo · save $95.89 a year vs monthly</div>
         <ul class="pw-card-notes">
           <li class="ok"><span class="ic">✓</span><span>🔥 7-day free trial</span></li>
           <li class="ok"><span class="ic">✓</span><span>Cancel before day 7 — pay nothing</span></li>
         </ul>
+        <div class="pw-nocharge">✓ No charge today</div>
         <button class="pw-card-cta" data-plan="annual" type="button">
-          <span class="pw-btn-label">Try Free for 7 Days</span>
+          <span class="pw-btn-label">Start Free — No Charge Today</span>
           <span class="pw-btn-loading"><span class="pw-spinner"></span><span>Preparing…</span></span>
         </button>
-        <p class="pw-card-fine">No charge today · We'll email you 2 days before your trial ends</p>
+        <p class="pw-card-fine">We'll email you 2 days before your trial ends — cancel in one click</p>
       </div>
       <div class="pw-card" data-plan="lifetime">
         <span class="pw-card-badge pw-card-badge--crown">👑 ULTIMATE PASS</span>
         <div class="pw-card-name">Founding Lifetime</div>
         <div class="pw-card-price"><b>$149</b><span>one-time</span></div>
-        <div class="pw-card-sub">One-time payment · limited to 500 founding members</div>
+        <div class="pw-card-sub">Less than a year of monthly ($155.88) · only 500 founding spots</div>
         <ul class="pw-card-notes">
           <li class="ok"><span class="ic">✓</span><span>No more subscriptions, ever</span></li>
           <li class="ok"><span class="ic">✓</span><span>All future packs included</span></li>
@@ -1001,6 +1009,13 @@ main::-webkit-scrollbar { display: none; }
   <div class="share-pinyin" id="sharePinyin"></div>
   <div class="share-hanzi" id="shareHanzi"></div>
   <div class="share-en" id="shareEnglish"></div>
+  <div class="share-invite">
+    <img class="share-qr" id="shareQr" alt="Scan to join HanLingo" hidden>
+    <div class="share-invite-text">
+      <b>Learn Chinese with me — free</b>
+      <span id="shareInviteLink">hanlingo.app</span>
+    </div>
+  </div>
   <div class="share-footer">
     <span>🔥 <span id="shareStreak">0</span> Day Streak</span>
     <span>www.hanlingo.app</span>
@@ -1483,19 +1498,19 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     if (plan === 'lifetime') {
       // 终身买断走 Payment Link（前端直跳，支付成功回跳 ?paid=lifetime 自动解锁）
       setCheckoutLoading(btnEl, true);
-      window.location.href = LIFETIME_PAYMENT_LINK;
+      window.location.href = withReferral(LIFETIME_PAYMENT_LINK);
       return;
     }
     if (plan === 'annual') {
       // 年度订阅走 Payment Link（前端直跳，支付成功回跳 ?paid=annual 自动解锁）
       setCheckoutLoading(btnEl, true);
-      window.location.href = ANNUAL_PAYMENT_LINK;
+      window.location.href = withReferral(ANNUAL_PAYMENT_LINK);
       return;
     }
     if (plan === 'monthly') {
       // 月度订阅走 Payment Link（前端直跳，支付成功回跳 ?paid=monthly 自动解锁）
       setCheckoutLoading(btnEl, true);
-      window.location.href = MONTHLY_PAYMENT_LINK;
+      window.location.href = withReferral(MONTHLY_PAYMENT_LINK);
       return;
     }
     if (!API_BASE_URL) {
@@ -2194,7 +2209,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var bPool = shuffle(dataset.business, rand);
     var tPool = shuffle(dataset.trends, rand);
     var cPool = shuffle(dataset.classics.filter(function(it) {
-      return isPro() || it.step <= FREE_STEPS_CLASSICS;
+      return isPro() || hasBonusAccess(it) || it.step <= FREE_STEPS_CLASSICS;
     }), rand);
 
     var used = {};
@@ -2258,6 +2273,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       } else {
         var seenCount = {};
         filtered = bookList.filter(function(item) {
+          if (hasBonusAccess(item)) return true;
           var key = item.chapter_title || 'default';
           seenCount[key] = (seenCount[key] || 0) + 1;
           return seenCount[key] <= FREE_STEPS_CLASSICS;
@@ -2292,6 +2308,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         if (!isPro()) {
           var seenAll = {};
           allList = allList.filter(function(item) {
+            if (hasBonusAccess(item)) return true;
             var k = item.book + '::' + (item.chapter_title || 'default');
             seenAll[k] = (seenAll[k] || 0) + 1;
             return seenAll[k] <= FREE_STEPS_CLASSICS;
@@ -2990,7 +3007,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   /* 当前卡片是否处于付费墙锁定态（播放入口统一走这里判断） */
   function isCardLocked(s, idx) {
     if (!s || cur === 'mix' || isPro()) return false;
-    if (s.category === 'classics') return s.step > FREE_STEPS_CLASSICS;
+    if (s.category === 'classics') return s.step > FREE_STEPS_CLASSICS && !hasBonusAccess(s);
     if (cur === 'survival' || cur === 'business' || cur === 'trends') {
       return idx >= FREE_SENTENCES_NON_CLASSICS;
     }
@@ -3332,6 +3349,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var doneProCta = document.getElementById('doneProCta');
     if (doneProCta) doneProCta.hidden = !(cur === 'mix' && !isPro());
 
+    var doneReward = document.getElementById('doneShareReward');
+    if (doneReward) doneReward.hidden = isPro() || !!getBonusChapter() || (loadStreak().streak || 0) < 7;
+
     if (!isPro() && !isSynced() && !localStorage.getItem('hanlingo_sync_prompt_shown')) {
       localStorage.setItem('hanlingo_sync_prompt_shown', 'true');
       if (willCelebrate) {
@@ -3505,12 +3525,86 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     if (b) b.style.display = 'none';
   });
 
+  /* ================= 16.5 分享裂变：邀请短链 / 二维码 / 7 天奖励 ================= */
+  var REF_CODE_KEY = 'hanlingo_ref_code';
+  var REF_FROM_KEY = 'hanlingo_ref_from';
+  var BONUS_CHAPTER_KEY = 'hanlingo_bonus_chapter';
+
+  function getRefCode() {
+    try {
+      var code = localStorage.getItem(REF_CODE_KEY);
+      if (!code) {
+        code = (Math.random().toString(36).slice(2, 8) + '000000').slice(0, 6).toUpperCase();
+        localStorage.setItem(REF_CODE_KEY, code);
+      }
+      return code;
+    } catch (e) { return 'HANLINGO'; }
+  }
+
+  function getShareUrl() { return 'https://www.hanlingo.app/?ref=' + getRefCode(); }
+  function getShortShareUrl() { return 'hanlingo.app/?ref=' + getRefCode(); }
+
+  (function captureReferral() {
+    try {
+      var from = new URLSearchParams(window.location.search).get('ref');
+      if (from) localStorage.setItem(REF_FROM_KEY, from.slice(0, 24));
+    } catch (e) {}
+  })();
+
+  /* 支付链接带上邀请人，方便在 Stripe 后台按 ref 归因 */
+  function withReferral(url) {
+    try {
+      var ref = localStorage.getItem(REF_FROM_KEY) || getRefCode();
+      var u = new URL(url);
+      u.searchParams.set('client_reference_id', 'ref-' + ref);
+      return u.toString();
+    } catch (e) { return url; }
+  }
+
+  function chapterKey(s) { return s.book + '::' + (s.chapter_title || 'default'); }
+  function getBonusChapter() { try { return localStorage.getItem(BONUS_CHAPTER_KEY) || ''; } catch (e) { return ''; } }
+  function hasBonusAccess(s) { return !!s && chapterKey(s) === getBonusChapter(); }
+
+  /* 连续 7 天打卡后分享 → 免费解锁一整章名著 */
+  function grantStreakShareReward() {
+    try {
+      if (isPro() || getBonusChapter()) return false;
+      if ((loadStreak().streak || 0) < 7) return false;
+      var seen = {}, pick = '';
+      for (var i = 0; i < dataset.classics.length; i++) {
+        var k = chapterKey(dataset.classics[i]);
+        seen[k] = (seen[k] || 0) + 1;
+        if (seen[k] > FREE_STEPS_CLASSICS) { pick = k; break; }
+      }
+      if (!pick) return false;
+      localStorage.setItem(BONUS_CHAPTER_KEY, pick);
+      showToast('🎁 7-day streak reward unlocked — one full classic story chapter is now free!', { icon: '🎁', duration: 7000 });
+      renderChips();
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function renderShareInvite() {
+    var linkEl = document.getElementById('shareInviteLink');
+    if (linkEl) linkEl.textContent = getShortShareUrl();
+    var qrEl = document.getElementById('shareQr');
+    if (!qrEl) return;
+    try {
+      if (typeof qrcode !== 'function') { qrEl.hidden = true; return; }
+      var qr = qrcode(0, 'M');
+      qr.addData(getShareUrl());
+      qr.make();
+      qrEl.src = qr.createDataURL(4, 0);
+      qrEl.hidden = false;
+    } catch (e) { qrEl.hidden = true; }
+  }
+
   /* ================= 17. 分享 ================= */
   var shareBtn = document.getElementById('btnShare');
   if (shareBtn) shareBtn.addEventListener('click', function() {
-    var url = 'https://www.hanlingo.app/';
+    var url = getShareUrl();
     if (navigator.share) {
-      navigator.share({ title: 'HanLingo', text: 'Learn Chinese through stories & sentences — free and offline.', url: url }).catch(function() {});
+      navigator.share({ title: 'HanLingo', text: 'Learn Mandarin from zero to fluent — free, offline, 10 sentences a day.', url: url }).catch(function() {});
     } else {
       try {
         var ta = document.createElement('textarea');
@@ -3519,7 +3613,7 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
         document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, ta.value.length);
         document.execCommand('copy');
         document.body.removeChild(ta);
-        showToast('Link copied — share HanLingo!');
+        showToast('Invite link copied — share HanLingo!');
       } catch (e) {
         window.prompt('Copy this link to share:', url);
       }
@@ -3633,10 +3727,10 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     var streak = loadStreak().streak || 0;
     var shareText =
       "🔥 I just completed Day " + streak +
-
       " of HanLingo!\n" +
-      "Learning real Chinese through sentences and stories.\n" +
-      "Join me at https://www.hanlingo.app";
+      "Learning real Mandarin through stories and daily sentences.\n" +
+      "Join me free: " + getShareUrl();
+    grantStreakShareReward();
     navigator.clipboard.writeText(shareText).then(function() {
       var btn = $('shareTextBtn');
       var orig = btn.textContent;
@@ -3653,6 +3747,8 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     $('shareHanzi').textContent = s.zh;
     $('shareEnglish').textContent = s.en;
     $('shareStreak').textContent = loadStreak().streak || 0;
+    renderShareInvite();
+    grantStreakShareReward();
 
     var btn = this;
     var origText = btn.textContent;
@@ -3660,8 +3756,13 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     btn.disabled = true;
 
     var fontPromise = ('fonts' in document) ? document.fonts.ready : Promise.resolve();
+    var qrEl = document.getElementById('shareQr');
+    var qrReady = (qrEl && !qrEl.hidden && !qrEl.complete) ? new Promise(function(res) {
+      qrEl.onload = res;
+      qrEl.onerror = res;
+    }) : Promise.resolve();
 
-    fontPromise.then(function() {
+    Promise.all([fontPromise, qrReady]).then(function() {
       setTimeout(function() {
         html2canvas($('share-card'), {
           scale: 2, backgroundColor: '#F4F3EF', useCORS: true, allowTaint: false
