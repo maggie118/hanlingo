@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Learn Chinese Through Stories & Sentences — HanLingo</title>
+<title>Learn Mandarin Through Stories & Real-Life Sentences | HanLingo</title>
 <meta name="theme-color" content="#F4F3EF">
 <link rel="icon" type="image/svg+xml" href="/icons/logo.svg">
-<meta name="description" content="Learn Mandarin Chinese through classic stories and real-life daily sentences — with pinyin, translations and normal/slow audio. Free daily practice for beginners who want to speak, listen and read Chinese.">
-<meta name="keywords" content="learn chinese, learn mandarin chinese, chinese stories, learn chinese through stories, chinese short stories for beginners, chinese sentences with pinyin, mandarin audio practice, chinese listening practice, hsk listening practice, learn chinese with journey to the west, chinese classics, spoken chinese for daily life, learn chinese app free, mandarin reading practice">
+<meta name="description" content="Learn Mandarin through classic Chinese stories and practical daily sentences, with pinyin, English translations, and normal or slow audio. Start free.">
 <link rel="canonical" href="https://www.hanlingo.app/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
@@ -19,17 +18,17 @@
 
 <!-- Social -->
 <meta property="og:site_name" content="HanLingo">
-<meta property="og:title" content="Learn Chinese Through Stories & Daily Sentences — HanLingo">
-<meta property="og:description" content="Learn Mandarin with classic Chinese stories and real-life sentences — pinyin, translations and normal/slow audio. Free daily practice for beginners.">
+<meta property="og:title" content="Learn Mandarin Through Stories & Real-Life Sentences | HanLingo">
+<meta property="og:description" content="Learn Mandarin through classic stories and practical sentences, with pinyin, English translations, and normal or slow audio. Start free.">
 <meta property="og:url" content="https://www.hanlingo.app/">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://www.hanlingo.app/icons/icon-512.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
+<meta property="og:image" content="https://www.hanlingo.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Learn Chinese Through Stories & Daily Sentences — HanLingo">
-<meta name="twitter:description" content="Learn Mandarin with classic Chinese stories and real-life sentences — pinyin, translations and normal/slow audio. Free daily practice for beginners.">
-<meta name="twitter:image" content="https://www.hanlingo.app/icons/icon-512.png">
+<meta name="twitter:title" content="Learn Mandarin Through Stories & Real-Life Sentences | HanLingo">
+<meta name="twitter:description" content="Learn Mandarin through classic stories and practical sentences, with pinyin, English translations, and normal or slow audio. Start free.">
+<meta name="twitter:image" content="https://www.hanlingo.app/og-image.png">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -49,46 +48,20 @@
     {
       "@type": "WebSite",
       "name": "HanLingo",
-      "url": "https://www.hanlingo.app/",
-      "potentialAction": { "@type": "SearchAction", "target": "https://www.hanlingo.app/?q={search_term_string}", "query-input": "required name=search_term_string" }
+      "url": "https://www.hanlingo.app/"
     },
     {
       "@type": "Organization",
       "name": "HanLingo",
       "url": "https://www.hanlingo.app/",
       "logo": "https://www.hanlingo.app/icons/icon-512.png"
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How can I learn Chinese by reading stories?",
-          "acceptedAnswer": { "@type": "Answer", "text": "HanLingo teaches Mandarin sentence by sentence through classic Chinese stories like Journey to the West and Strange Tales from a Chinese Studio, with pinyin, English translations and normal/slow audio so beginners can follow along." }
-        },
-        {
-          "@type": "Question",
-          "name": "Is HanLingo free for learning Chinese?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The daily session is free forever — you get 10 real-life Chinese sentences a day with audio and pinyin. No sign-up required." }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the best way to practice Chinese listening and speaking?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Listen and repeat real-life Chinese sentences at normal or slow speed. HanLingo highlights each character as it is spoken and shows pinyin, so you can improve pronunciation, listening and speaking together." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I learn Chinese through Journey to the West?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. HanLingo offers classic Chinese literature including Journey to the West, Strange Tales from a Chinese Studio and The Art of War, broken into short sentences with pinyin, translation and audio — a fun way to learn Mandarin through stories." }
-        }
-      ]
     }
   ]
 }
 </script>
 
 <link rel="manifest" href="/manifest.json">
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
 
 <style>
 :root {
@@ -103,7 +76,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { overscroll-behavior: none; user-select: none; -webkit-user-select: none; }
+html, body { overscroll-behavior: none; }
 [hidden] { display: none !important; }
 
 body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow: hidden; }
@@ -568,29 +541,27 @@ main::-webkit-scrollbar { display: none; }
 .pro-welcome-card .btn { width: 100%; flex: none; }
 .pro-welcome-card .btn + .btn { margin-top: 8px; }
 
+.desktop-intro { display: none; }
+
 @media (min-width: 1024px) {
   body { overflow-y: auto; background: #F4F3EF; }
   .app { max-width: 1280px; height: auto; min-height: 100dvh; flex-direction: row; align-items: center; justify-content: center; padding: 60px 48px; gap: 80px; }
   header { flex: 1; max-width: 480px; display: flex; flex-direction: column; justify-content: flex-start; }
   .top { margin-bottom: 22px; }
-  header::before {
-    content: "Real Chinese\Afor Real Life.";
-    white-space: pre-wrap;
+  .desktop-intro {
+    display: block;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+  .desktop-intro h2 {
     font-size: 48px;
     line-height: 1.15;
     font-weight: 800;
     color: var(--text);
     letter-spacing: -0.02em;
-    margin-bottom: 16px;
-    display: block;
-  }
-  header::after {
-    content: "Learn Chinese through real sentences and engaging stories — one short session at a time.";
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--muted);
-    margin-bottom: 28px;
-    display: block;
+    margin: 0 0 16px;
   }
   .chips-container { margin-bottom: 0; gap: 12px; }
   .chips { flex-wrap: wrap; overflow: visible; padding: 0; gap: 10px; }
@@ -663,6 +634,20 @@ main::-webkit-scrollbar { display: none; }
   .pro-welcome-perks li { font-size: 15px; }
   .pro-welcome-card .btn { padding: 18px; font-size: 18px; }
 }
+
+@media (max-height: 760px) and (max-width: 1023px) {
+  .app { padding-top: max(10px, env(safe-area-inset-top)); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+  .top { margin-bottom: 8px; }
+  .chips-container { gap: 5px; margin-bottom: 6px; }
+  .chip { padding: 8px 12px; }
+  .card { padding-top: 18px; padding-bottom: 18px; }
+  .meta { margin-bottom: 10px; }
+  .actions { margin-top: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
 </style>
 </head>
 <body>
@@ -683,6 +668,11 @@ main::-webkit-scrollbar { display: none; }
           <span>Share</span>
         </button>
       </div>
+    </div>
+
+    <div class="desktop-intro">
+      <h2>Real Chinese<br>for Real Life.</h2>
+      <p>Learn Mandarin through practical sentences and classic stories, with pinyin, English translations, and normal or slow audio.</p>
     </div>
 
     <div class="progress-bar" id="bar"><i id="fill"></i></div>
