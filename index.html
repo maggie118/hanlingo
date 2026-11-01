@@ -551,6 +551,9 @@ main::-webkit-scrollbar { display: none; }
 .pro-welcome-perks { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 8px; margin: 0 0 22px; }
 .pro-welcome-perks li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
 .pro-welcome-perks li::before { content: "✓"; flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 900; color: #2E8B57; background: rgba(46, 139, 87, .12); }
+.pro-welcome-help { font-size: 12px; color: var(--muted); margin: -8px 0 18px; }
+.pro-welcome-help a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.pro-welcome-help a:hover { text-decoration: underline; }
 .pro-welcome-card .btn { width: 100%; flex: none; }
 .pro-welcome-card .btn + .btn { margin-top: 8px; }
 
@@ -937,6 +940,7 @@ main::-webkit-scrollbar { display: none; }
       <li>Offline audio, cached in the background</li>
       <li>Unlimited review of every sentence</li>
     </ul>
+    <p class="pro-welcome-help">Need help or a refund? Email <a href="mailto:support@hanlingo.app">support@hanlingo.app</a></p>
     <button class="btn primary" id="btnStartJourney" type="button">Start Reading “Journey to the West” 📖</button>
     <button class="btn ghost" id="btnExploreAfterPro" type="button">Explore HanLingo</button>
   </div>
@@ -1738,6 +1742,58 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
   }
 
   /* ================= 8. Stripe 回跳 ================= */
+  /* 支付回跳统一走服务端校验（api/verify-session.js），防止伪造 ?paid=annual 白嫖。
+     注意：REQUIRE_PAYMENT_VERIFICATION 需要先把 3 个 Payment Link 的“付款后跳转地址”改成
+     https://www.hanlingo.app/?paid=annual&session_id={CHECKOUT_SESSION_ID}（monthly/lifetime 同理），
+     确认能正常解锁后再改为 true。 */
+  var PAY_VERIFY_ENDPOINT = '/api/verify-session';
+  var REQUIRE_PAYMENT_VERIFICATION = false;
+
+  function unlockProAfterPayment(plan, email) {
+    setPro(true);
+    if (plan === 'lifetime') localStorage.setItem('hanlingo_lifetime', '1');
+    else if (plan) localStorage.setItem('hanlingo_plan', plan);
+    var who = email || getSyncedEmail() || 'you@example.com';
+    unlockProUI(who);
+    showProWelcome(who);
+    preloadProAssets();
+  }
+
+  function verifyCheckoutSession(sessionId) {
+    return fetch(PAY_VERIFY_ENDPOINT + '?session_id=' + encodeURIComponent(sessionId), {
+      headers: { Accept: 'application/json' }
+    }).then(function(res) {
+      return res.ok ? res.json() : null;
+    }).catch(function() {
+      return null;
+    });
+  }
+
+  function finishPaymentReturn(paidPlan, sessionId) {
+    if (sessionId) {
+      verifyCheckoutSession(sessionId).then(function(data) {
+        if (data && data.paid) {
+          unlockProAfterPayment(data.plan || paidPlan, data.email);
+        } else {
+          console.warn('Payment verification failed:', data);
+          showToast('Payment received but not verified yet. If you were charged, contact support@hanlingo.app and we will unlock you within 24 hours.', { icon: '⚠️', duration: 9000 });
+        }
+        runStreakBreakCheck();
+      });
+      return;
+    }
+
+    if (REQUIRE_PAYMENT_VERIFICATION) {
+      console.warn('Ignored unverified ?paid= return. Add &session_id={CHECKOUT_SESSION_ID} to the Payment Link success URL.');
+      showToast('Open the confirmation link in your Stripe receipt to finish unlocking Pro.', { icon: '🔒', duration: 9000 });
+      runStreakBreakCheck();
+      return;
+    }
+
+    unlockProAfterPayment(paidPlan, null);
+    runStreakBreakCheck();
+  }
+
   function handleCheckoutReturn() {
     var params = new URLSearchParams(window.location.search);
     var success = params.get('success');
@@ -1749,15 +1805,9 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // Payment Link 支付成功回跳 → 直接解锁（lifetime 终身 / annual / monthly 订阅）
+    // Payment Link 支付成功回跳 → 服务端校验后解锁（lifetime 终身 / annual / monthly 订阅）
     if (paidPlan === 'lifetime' || paidPlan === 'annual' || paidPlan === 'monthly') {
-      setPro(true);
-      if (paidPlan === 'lifetime') localStorage.setItem('hanlingo_lifetime', '1');
-      else localStorage.setItem('hanlingo_plan', paidPlan);
-      unlockProUI(getSyncedEmail() || 'you@example.com');
-      showProWelcome(getSyncedEmail() || 'you@example.com');
-      preloadProAssets();
-      runStreakBreakCheck();
+      finishPaymentReturn(paidPlan, sessionId);
       return;
     }
 
@@ -1768,26 +1818,16 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     }
     if (success !== 'true' || !sessionId) { runStreakBreakCheck(); return; }
 
-    if (!API_BASE_URL) {
-      console.warn('API_BASE_URL not configured — unlocking Pro locally.');
-      unlockProUI(getSyncedEmail() || 'you@example.com');
-      showProWelcome(getSyncedEmail() || 'you@example.com');
-      preloadProAssets();
+    // 旧版 Checkout Session 回跳：同样必须服务端校验，不再本地放行
+    verifyCheckoutSession(sessionId).then(function(data) {
+      if (data && data.paid) {
+        unlockProAfterPayment(data.plan || null, data.email);
+      } else {
+        console.warn('Payment verification failed:', data);
+        showToast('We couldn’t verify the payment yet. If you were charged, contact support@hanlingo.app.', { icon: '⚠️', duration: 7000 });
+      }
       runStreakBreakCheck();
-      return;
-    }
-
-    fetch(API_BASE_URL + '/api/verify-session?session_id=' + encodeURIComponent(sessionId) + '&userId=' + encodeURIComponent(USER_ID))
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data && data.paid) { unlockProUI(data.email || ''); showProWelcome(data.email || ''); preloadProAssets(); }
-        else showToast('Payment is still pending. We’ll unlock Pro as soon as it clears.', { icon: '⏳', duration: 6000 });
-      })
-      .catch(function(err) {
-        console.error('Verification error:', err);
-        showToast('We couldn’t verify the payment. Please contact support.', { icon: '⚠️', duration: 6000 });
-      })
-      .then(function() { runStreakBreakCheck(); });
+    });
   }
 
   /* ================= 9. 数据清洗 ================= */
