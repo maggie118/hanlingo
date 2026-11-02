@@ -75,6 +75,9 @@ self.addEventListener('fetch', (event) => {
   // 只处理 http/https 请求
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
+  // API 请求（如 /api/verify-session）不缓存，始终走网络，避免支付校验结果被缓存
+  if (url.pathname.startsWith('/api/')) return;
+
   // 1. 音频资源拦截 (Stale-While-Revalidate)
   // 拦截真实的音频后缀，或者浏览器标识为 audio 的请求
   const isAudio = 

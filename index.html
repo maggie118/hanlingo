@@ -1763,9 +1763,13 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
     return fetch(PAY_VERIFY_ENDPOINT + '?session_id=' + encodeURIComponent(sessionId), {
       headers: { Accept: 'application/json' }
     }).then(function(res) {
-      return res.ok ? res.json() : null;
+      // 404 / 5xx 说明校验接口还没部署或暂时不可用，交给调用方降级；
+      // 400 等则是明确的“无效 session”，不解锁。
+      if (res.status === 404 || res.status >= 500) return { unavailable: true };
+      if (!res.ok) return null;
+      return res.json();
     }).catch(function() {
-      return null;
+      return { unavailable: true };
     });
   }
 
@@ -1774,6 +1778,10 @@ window.TRENDS_DATA = window.TRENDS_DATA || [
       verifyCheckoutSession(sessionId).then(function(data) {
         if (data && data.paid) {
           unlockProAfterPayment(data.plan || paidPlan, data.email);
+        } else if (data && data.unavailable && !REQUIRE_PAYMENT_VERIFICATION) {
+          // 校验接口未上线时保持旧的解锁行为，避免真实买家被卡住；接口上线后再把开关置 true
+          console.warn('Verify endpoint unavailable — falling back to legacy unlock.');
+          unlockProAfterPayment(paidPlan, null);
         } else {
           console.warn('Payment verification failed:', data);
           showToast('Payment received but not verified yet. If you were charged, contact support@hanlingo.app and we will unlock you within 24 hours.', { icon: '⚠️', duration: 9000 });
