@@ -9,7 +9,7 @@
      3. 其他资源：Stale-While-Revalidate。
   ============================================================ */
 
-const CACHE_VERSION = 'hanlingo-v17';   /* v17：上线营销文案（SEO/价格锚点/No charge today/分享二维码）更新，强制已安装用户取到新 index.html */
+const CACHE_VERSION = 'hanlingo-v18';   /* v18：更换品牌图标（icons/*、logo.svg）并在 index.html 内嵌 SVG 页头 Logo，强制已安装用户刷新缓存 */
 const AUDIO_CACHE = 'hanlingo-audio-v6';   /* v6：清除旧音频缓存，让新上传的 classics 音频（liaozhai/journey/suntzu）生效 */
 
 /* 首次安装时预缓存的核心资源 */
