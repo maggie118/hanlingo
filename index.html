@@ -111,6 +111,8 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .share-btn:hover { color: var(--accent); background: var(--accent-soft); }
 .share-btn svg { width: 15px; height: 15px; flex: none; }
 .reminder-btn { background: transparent; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; padding: 5px; border-radius: 8px; transition: .18s; }
+.reminder-btn, .share-btn { min-height: 40px; }
+.reminder-btn { min-width: 40px; justify-content: center; }
 .reminder-btn svg { width: 16px; height: 16px; }
 .reminder-btn:hover { color: var(--accent); }
 .reminder-btn.on { color: var(--accent); }
@@ -124,6 +126,9 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
   transition: .15s;
 }
 .sync-badge:hover { color: var(--accent); background: var(--accent-soft); }
+.meta-right > button:focus-visible, .tool-btn:focus-visible, .heart-btn:focus-visible, .btn:focus-visible, .sp-btn:focus-visible {
+  outline: 2px solid rgba(192,88,75,.55); outline-offset: 3px;
+}
 
 .progress-bar { height: 4px; margin: 0 0 12px; background: var(--border); border-radius: 4px; overflow: hidden; flex: none; }
 .progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .45s cubic-bezier(.3,.7,.2,1); }
@@ -145,7 +150,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); line
 .sub-chip[aria-selected="true"] { color: var(--accent); border-color: var(--accent); font-weight: 700; background: var(--accent-soft); box-shadow: inset 0 0 0 1px rgba(192,88,75,.15); }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; position: relative; }
+main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; position: relative; }
 main::-webkit-scrollbar { display: none; }
 .card-wrapper { perspective: 1000px; touch-action: pan-y; margin: auto 0; padding: 10px 0; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 26px 22px 28px; text-align: center; box-shadow: var(--shadow-card); position: relative; transition: transform .1s ease-out, opacity .3s ease; will-change: transform, opacity; }
@@ -684,9 +689,9 @@ main::-webkit-scrollbar { display: none; }
     <div class="progress-bar" id="bar"><i id="fill"></i></div>
 
     <div class="chips-container">
-      <nav class="chips" id="chips"></nav>
-      <nav class="sub-chips" id="subChips" hidden></nav>
-      <nav class="sub-chips group-chips" id="groupChips" hidden></nav>
+      <nav class="chips" id="chips" aria-label="Learning categories"></nav>
+      <nav class="sub-chips" id="subChips" aria-label="Books" hidden></nav>
+      <nav class="sub-chips group-chips" id="groupChips" aria-label="Stories and chapters" hidden></nav>
     </div>
   </header>
 
